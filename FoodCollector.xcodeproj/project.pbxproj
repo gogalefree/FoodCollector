@@ -27,6 +27,7 @@
 		E4737DAD1A10CD5800A4AB81 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAC1A10CD5800A4AB81 /* MapKit.framework */; };
 		E4737DAF1A10CD6200A4AB81 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */; };
 		E4737DB11A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */; };
+		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
 		E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF0F1A0A980D004A369E /* AppDelegate.swift */; };
 		E494DF151A0A980D004A369E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494DF131A0A980D004A369E /* Main.storyboard */; };
 		E494DF171A0A980D004A369E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494DF161A0A980D004A369E /* Images.xcassets */; };
@@ -65,6 +66,7 @@
 		E4737DAC1A10CD5800A4AB81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCFoodCollectorWebServer.swift; sourceTree = "<group>"; };
+		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
 		E494DF0A1A0A980D004A369E /* FoodCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494DF0E1A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E494DF0F1A0A980D004A369E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,8 +103,9 @@
 			children = (
 				E4737D6B1A10C01300A4AB81 /* FCModel.swift */,
 				E4737D721A10C01300A4AB81 /* FCPublication.swift */,
-				E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */,
 				E4737D7D1A10C01300A4AB81 /* FCServerProtocol.swift */,
+				E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */,
+				E47F9C501A120C0B00079164 /* FCMockServer.swift */,
 				E4737D831A10C01300A4AB81 /* FCUserNotificationHandler.swift */,
 				E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */,
 			);
@@ -338,6 +341,7 @@
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */,
 				E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */,
+				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
 				E4737D891A10C01300A4AB81 /* FCCollectorRootVC.swift in Sources */,
