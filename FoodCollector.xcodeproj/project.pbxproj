@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E463A3AF1A121A5D001D8E3B /* PublicationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */; };
 		E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
 		E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */; };
 		E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */; };
@@ -28,6 +29,7 @@
 		E4737DAF1A10CD6200A4AB81 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */; };
 		E4737DB11A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */; };
 		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
+		E47F9C531A12184200079164 /* ModelInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C521A12184200079164 /* ModelInitTests.swift */; };
 		E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF0F1A0A980D004A369E /* AppDelegate.swift */; };
 		E494DF151A0A980D004A369E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494DF131A0A980D004A369E /* Main.storyboard */; };
 		E494DF171A0A980D004A369E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494DF161A0A980D004A369E /* Images.xcassets */; };
@@ -46,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationInitTests.swift; sourceTree = "<group>"; };
 		E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAlertsHandler.swift; sourceTree = "<group>"; };
 		E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAppDataStoreManager.swift; sourceTree = "<group>"; };
 		E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCArrivedToSpotView.swift; sourceTree = "<group>"; };
@@ -67,6 +70,7 @@
 		E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCFoodCollectorWebServer.swift; sourceTree = "<group>"; };
 		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
+		E47F9C521A12184200079164 /* ModelInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInitTests.swift; sourceTree = "<group>"; };
 		E494DF0A1A0A980D004A369E /* FoodCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494DF0E1A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E494DF0F1A0A980D004A369E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +221,8 @@
 			isa = PBXGroup;
 			children = (
 				E494DF251A0A980D004A369E /* FoodCollectorTests.swift */,
+				E47F9C521A12184200079164 /* ModelInitTests.swift */,
+				E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */,
 				E494DF231A0A980D004A369E /* Supporting Files */,
 			);
 			path = FoodCollectorTests;
@@ -358,6 +364,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E494DF261A0A980D004A369E /* FoodCollectorTests.swift in Sources */,
+				E463A3AF1A121A5D001D8E3B /* PublicationInitTests.swift in Sources */,
+				E47F9C531A12184200079164 /* ModelInitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
