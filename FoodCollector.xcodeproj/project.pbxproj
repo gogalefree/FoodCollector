@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				E4737D6B1A10C01300A4AB81 /* FCModel.swift */,
-				E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */,
 				E4737D721A10C01300A4AB81 /* FCPublication.swift */,
+				E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */,
 				E4737D7D1A10C01300A4AB81 /* FCServerProtocol.swift */,
 				E4737D831A10C01300A4AB81 /* FCUserNotificationHandler.swift */,
 				E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */,
