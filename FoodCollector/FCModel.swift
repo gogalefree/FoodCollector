@@ -33,7 +33,6 @@ public class FCModel : NSObject {
             { (thePublications: [FCPublication]) -> Void in
                 self.publications = thePublications
                 self.savePublications()
-                let i = "1"
         }
     }
     
