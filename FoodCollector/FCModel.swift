@@ -33,6 +33,9 @@ public class FCModel : NSObject {
             { (thePublications: [FCPublication]) -> Void in
                 self.publications = thePublications
                 self.savePublications()
+                
+                self.userCreatedPublications = thePublications
+                self.saveUserCreatedPublications()
         }
     }
     
