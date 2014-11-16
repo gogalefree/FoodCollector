@@ -22,6 +22,7 @@ class FCPublishRootVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+        
     }
    
     
