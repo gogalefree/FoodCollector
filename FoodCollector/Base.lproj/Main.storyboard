@@ -84,7 +84,7 @@
                     <navigationItem key="navigationItem" id="bjZ-lv-Ao0">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aGi-dR-bYS">
                             <connections>
-                                <segue destination="mvG-Ly-gH3" kind="show" id="o0R-Pf-5ey"/>
+                                <segue destination="mvG-Ly-gH3" kind="show" identifier="showPublicationEditorTVC" id="o0R-Pf-5ey"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
