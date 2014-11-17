@@ -10,6 +10,8 @@
 import CoreLocation
 import Foundation
 
+let kRecievedNewDataNotification = "RecievedNewDataNotification"
+
 public class FCModel : NSObject {
     
     var locationManager = CLLocationManager()
@@ -22,6 +24,15 @@ public class FCModel : NSObject {
     var userLocation = CLLocation()
     let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
     let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("userCreatedPublications")
+    var uiReadyForNewData: Bool = false {
+
+        didSet {
+            if (uiReadyForNewData){
+                println("ready for new data")
+                self.downloadData()
+            }
+        }
+    }
     
     ///
     ///loads publications from disk and fetches data from server
@@ -29,13 +40,18 @@ public class FCModel : NSObject {
     
     public func setUp () {
         
+        //we start with loading the current data
+        self.loadPublications()
+        self.loadUserCreatedPublicationsPublications()
+    }
+    
+    func downloadData() {
         self.foodCollectorWebServer.downloadAllPublicationsWithCompletion
             { (thePublications: [FCPublication]) -> Void in
+         
                 self.publications = thePublications
-                self.savePublications()
-                
-                self.userCreatedPublications = thePublications
-                self.saveUserCreatedPublications()
+                self.postFetchedDataReadyNotification()
+            //    self.savePublications()
         }
     }
     
@@ -44,8 +60,7 @@ public class FCModel : NSObject {
     ///
     
     func postFetchedDataReadyNotification () {
-        
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewDataNotification, object: self)
     }
     
     /// removes a Publication to Publications array
@@ -78,28 +93,35 @@ public class FCModel : NSObject {
 public extension FCModel {
     
     func savePublications() {
-        
-        let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
+        }
     }
     
     func loadPublications() {
         
-        let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.publicationsFilePath) as [FCPublication]
-        self.publications = array
+        if NSFileManager.defaultManager().fileExistsAtPath(self.publicationsFilePath){
+            let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.publicationsFilePath) as [FCPublication]
+            self.publications = array
+        }
     }
     
     func saveUserCreatedPublications() {
-        
-        let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.userCreatedPublicationsFilePath)
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.userCreatedPublicationsFilePath)
+        }
     }
     
     func loadUserCreatedPublicationsPublications() {
         
-        let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as [FCPublication]
-        self.userCreatedPublications = array
+        if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath){
+            
+            let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as [FCPublication]
+            self.userCreatedPublications = array
+        }
     }
-
-    
 }
 
 // MARK - singleTone

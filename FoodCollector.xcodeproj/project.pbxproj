@@ -30,6 +30,7 @@
 		E4737DB11A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */; };
 		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
 		E47F9C531A12184200079164 /* ModelInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C521A12184200079164 /* ModelInitTests.swift */; };
+		E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E488473F1A19E055000E98DA /* FCFetchedDataSorter.swift */; };
 		E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF0F1A0A980D004A369E /* AppDelegate.swift */; };
 		E494DF151A0A980D004A369E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494DF131A0A980D004A369E /* Main.storyboard */; };
 		E494DF171A0A980D004A369E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494DF161A0A980D004A369E /* Images.xcassets */; };
@@ -71,6 +72,7 @@
 		E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCFoodCollectorWebServer.swift; sourceTree = "<group>"; };
 		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
 		E47F9C521A12184200079164 /* ModelInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInitTests.swift; sourceTree = "<group>"; };
+		E488473F1A19E055000E98DA /* FCFetchedDataSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCFetchedDataSorter.swift; sourceTree = "<group>"; };
 		E494DF0A1A0A980D004A369E /* FoodCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494DF0E1A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E494DF0F1A0A980D004A369E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				E4737D6B1A10C01300A4AB81 /* FCModel.swift */,
+				E488473F1A19E055000E98DA /* FCFetchedDataSorter.swift */,
 				E4737D721A10C01300A4AB81 /* FCPublication.swift */,
 				E4737D7D1A10C01300A4AB81 /* FCServerProtocol.swift */,
 				E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */,
@@ -346,6 +349,7 @@
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */,
+				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,

@@ -21,6 +21,20 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     var onSpotPublicationReport:FCOnSpotPublicationReport?
     var publications = [FCPublication]()
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData:", name: kRecievedNewDataNotification, object: nil)
+        self.publications = FCModel.sharedInstance.publications
+        FCModel.sharedInstance.uiReadyForNewData = true
+    }
+    
+    func didRecieveNewData(notification: NSNotification) {
+
+        var publicationToDelete = FCFetchedDataSorter.publicationsToDelete(self.publications)
+        var publicationsToAdd = FCFetchedDataSorter.publicationToAddAndUpdate(self.publications)
+        
+    }
     
     
     // MARK: - PublicationDetailsViewDelegate protocol

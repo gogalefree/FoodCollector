@@ -12,6 +12,7 @@ import CoreLocation
 import MapKit
 
 let kPublicationUniqueIdKey = "publication_unique_id"
+let kPublicationVersionKey = "publication_version"
 let kPublicationTitleKey = "publication_title"
 let kPublicationSubTitleKey = "publication_subtitle"
 let kPublicationAddressKey = "publication_address"
@@ -30,7 +31,8 @@ let kPublicationPhotoUrl = "publication_photo_url"
 
 public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
-    public var uniqueId:Int
+    public var uniqueId: Int
+    public var version: Int
     public var title:String
     public var subtitle:String?
     public var address:String
@@ -50,9 +52,10 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         theTitle: String, endingDate: NSDate,
         typeOfCollecting: FCTypeOfCollecting, startingDate: NSDate,
         uniqueId: Int, address: String, photoUrl: String?,
-        contactInfo: String?, subTitle: String?) {
+        contactInfo: String?, subTitle: String?, version: Int) {
         
             self.uniqueId = uniqueId
+            self.version = version
             self.title = theTitle
             self.subtitle = subTitle
             self.address = address
@@ -71,6 +74,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     public func encodeWithCoder(aCoder: NSCoder){
         aCoder.encodeInteger(self.uniqueId, forKey: kPublicationUniqueIdKey)
+        aCoder.encodeInteger(self.version, forKey: kPublicationVersionKey)
         aCoder.encodeObject(self.title, forKey: kPublicationTitleKey)
         aCoder.encodeObject(self.subtitle, forKey: kPublicationSubTitleKey)
         aCoder.encodeObject(self.address, forKey: kPublicationAddressKey)
@@ -86,6 +90,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public required init(coder aDecoder: NSCoder) {
         
         self.uniqueId = aDecoder.decodeIntegerForKey(kPublicationUniqueIdKey)
+        self.version = aDecoder.decodeIntegerForKey(kPublicationVersionKey)
         self.title = aDecoder.decodeObjectForKey(kPublicationTitleKey) as String
         self.subtitle = aDecoder.decodeObjectForKey(kPublicationSubTitleKey) as? String
         self.address = aDecoder.decodeObjectForKey(kPublicationAddressKey) as String
@@ -127,8 +132,9 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aEndingDate = dict.objectForKey(kPublicationEndingDateKey) as NSDate
         let aContactInfo = dict.objectForKey(kPublicationContactInfoKey) as String
         let aPhotoUrl = dict.objectForKey(kPublicationPhotoUrl) as String
+        let aVersion = (dict.objectForKey(kPublicationVersionKey) as NSNumber).integerValue
         
-        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress, photoUrl: aPhotoUrl, contactInfo: aContactInfo, subTitle: aSubTitle)
+        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress, photoUrl: aPhotoUrl, contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
         return publication
     }
     

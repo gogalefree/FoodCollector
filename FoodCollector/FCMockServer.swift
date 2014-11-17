@@ -106,9 +106,10 @@ public extension FCMockServer {
         var endingDate = NSDate(timeIntervalSinceNow: 36000)
         var contactInfo = "call: 0522222222"
         var photoUrl = "www.url.com"
+        var version = 1
         
-        let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: contactInfo, subTitle: subtitle)
-        publicaions.append(pub1)
+        let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: contactInfo, subTitle: subtitle, version: version)
+   //     publicaions.append(pub1)
         
         uniqueId = 1111111
        title = "guy's house"
@@ -119,12 +120,13 @@ public extension FCMockServer {
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 360000)
         photoUrl = "www.guy.com"
+        version = 002
         
-        let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
-        publicaions.append(pub2)
+        let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
+        publicaions.append(pub2 )
         
         
-        uniqueId = 3333333
+        uniqueId = 444444
         title = "denis's house"
         subtitle = "where is it"
         address = "Tel Aviv"
@@ -133,9 +135,24 @@ public extension FCMockServer {
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
+        version = 001
         
-        let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
         publicaions.append(pub3)
+        
+        uniqueId = 555555
+        title = "maayan house"
+        subtitle = "nowhere"
+        address = "givataim"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.9, longitude: 32.9)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.maayan.com"
+        version = 001
+        
+        let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
+        publicaions.append(pub4)
 
         return publicaions
     }
