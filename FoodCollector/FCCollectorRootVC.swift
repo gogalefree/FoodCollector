@@ -20,6 +20,7 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     @IBOutlet var mapView:MKMapView!
     var onSpotPublicationReport:FCOnSpotPublicationReport?
     var publications = [FCPublication]()
+    var isPresentingPublicationDetailsView = true
     
     override func viewDidLoad() {
         
@@ -30,10 +31,34 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     }
     
     func didRecieveNewData(notification: NSNotification) {
-
-        var publicationToDelete = FCFetchedDataSorter.publicationsToDelete(self.publications)
-        var publicationsToAdd = FCFetchedDataSorter.publicationToAddAndUpdate(self.publications)
         
+        var publicationToDelete = FCFetchedDataSorter.publicationsToDelete(self.publications)
+        var publicationsToAdd = FCFetchedDataSorter.publicationToAdd(self.publications)
+    
+        //update publicationDetailsView
+        if isPresentingPublicationDetailsView {
+            self.updatePublicationDetailsViewWithNewData(publicationsToAdd)
+        }
+        
+        //add new data to array
+        
+        //add new data to map
+        
+        //remove publicationsToDelete from map
+        
+        //remove publicationsToDelete from array
+        
+    }
+    
+    func updatePublicationDetailsViewWithNewData(publicationsToAdd: [FCPublication]) {
+        //change this to the presented publication
+        var presentedPublication = self.publications[1]
+        
+        if let updatedPresentingPublication = FCFetchedDataSorter.findPublicationToUpdate(publicationsToAdd, presentedPublication: presentedPublication){
+            //update the view
+            //detailsView.publication = updatedPresentingPublication
+            //detailsView.reloadSubViews
+        }
     }
     
     
