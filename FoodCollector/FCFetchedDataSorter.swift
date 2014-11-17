@@ -14,11 +14,8 @@ public class FCFetchedDataSorter : NSObject {
         
         var publicationsToDelete = [FCPublication]()
         let theNewPublications = FCModel.sharedInstance.publications
-        
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            
-            for publication in currentPublications {
+
+        for publication in currentPublications {
                 
                 var shouldRemove = true
                 for newPublication in theNewPublications {
@@ -31,7 +28,7 @@ public class FCFetchedDataSorter : NSObject {
                     publicationsToDelete.append(publication)
                 }
             }
-        }
+
         return publicationsToDelete
     }
     
@@ -40,9 +37,6 @@ public class FCFetchedDataSorter : NSObject {
         var toAdd = [FCPublication]()
         let theNewPublications = FCModel.sharedInstance.publications
         
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            
             for aNewPublication in theNewPublications {
                 
                 var shouldAdd = true
@@ -58,26 +52,22 @@ public class FCFetchedDataSorter : NSObject {
                     toAdd.append(aNewPublication)
                 }
             }
-        }
+
         return toAdd
     }
     
     public class func findPublicationToUpdate(publiationsToAdd: [FCPublication], presentedPublication: FCPublication) -> FCPublication? {
         
         var publicationToUpdate: FCPublication? = nil
-        
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            
-            for aNewPublication in publiationsToAdd {
+
+        for aNewPublication in publiationsToAdd {
                 
                 if aNewPublication.uniqueId == presentedPublication.uniqueId && aNewPublication.version > presentedPublication.version {
                     publicationToUpdate = aNewPublication
                     break
                 }
             }
-        }
+        
         return publicationToUpdate
-    }
-    
+    }    
 }

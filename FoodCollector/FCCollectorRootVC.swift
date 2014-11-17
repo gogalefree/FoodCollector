@@ -30,36 +30,6 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
         FCModel.sharedInstance.uiReadyForNewData = true
     }
     
-    func didRecieveNewData(notification: NSNotification) {
-        
-        var publicationToDelete = FCFetchedDataSorter.publicationsToDelete(self.publications)
-        var publicationsToAdd = FCFetchedDataSorter.publicationToAdd(self.publications)
-    
-        //update publicationDetailsView
-        if isPresentingPublicationDetailsView {
-            self.updatePublicationDetailsViewWithNewData(publicationsToAdd)
-        }
-        
-        //add new data to array
-        
-        //add new data to map
-        
-        //remove publicationsToDelete from map
-        
-        //remove publicationsToDelete from array
-        
-    }
-    
-    func updatePublicationDetailsViewWithNewData(publicationsToAdd: [FCPublication]) {
-        //change this to the presented publication
-        var presentedPublication = self.publications[1]
-        
-        if let updatedPresentingPublication = FCFetchedDataSorter.findPublicationToUpdate(publicationsToAdd, presentedPublication: presentedPublication){
-            //update the view
-            //detailsView.publication = updatedPresentingPublication
-            //detailsView.reloadSubViews
-        }
-    }
     
     
     // MARK: - PublicationDetailsViewDelegate protocol
@@ -89,6 +59,67 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     func didChosePublication(publication:FCPublication) {
         
     }
+    
+}
+
+// MARK - new data sorter logic
+
+extension FCCollectorRootVC {
+    
+    func didRecieveNewData(notification: NSNotification) {
+        
+        var publicationsToAdd = [FCPublication]()
+        var publicationsToDelete = [FCPublication]()
+        
+        let toDeleteOperation = NSBlockOperation { () -> Void in
+            publicationsToDelete = FCFetchedDataSorter.publicationsToDelete(self.publications)
+        }
+        
+        let toAddQperation = NSBlockOperation { () -> Void in
+            publicationsToAdd = FCFetchedDataSorter.publicationToAdd(self.publications)
+        }
+        
+        toAddQperation.addDependency(toDeleteOperation)
+        toAddQperation.completionBlock = {
+            
+            //update publicationDetailsView
+            
+            println("to add: \(publicationsToAdd.count)")
+            println("to delete: \(publicationsToDelete.count)")
+            
+            if self.isPresentingPublicationDetailsView {
+                self.updatePublicationDetailsViewWithNewData(publicationsToAdd)
+            }
+            
+            //add new data to array
+            
+            //add new data to map
+            
+            //remove publicationsToDelete from map
+            
+            //remove publicationsToDelete from array
+            
+        }
+        
+        let sortQue = NSOperationQueue.mainQueue()
+        sortQue.qualityOfService = .Background
+        sortQue.addOperations([toDeleteOperation, toAddQperation], waitUntilFinished: false)
+    }
+    
+    func updatePublicationDetailsViewWithNewData(publicationsToAdd: [FCPublication]) {
+        
+        //change this to the presented publication
+        var presentedPublication = self.publications[1]
+        
+        if let updatedPresentingPublication = FCFetchedDataSorter.findPublicationToUpdate(publicationsToAdd, presentedPublication: presentedPublication){
+            
+            println("publication to update: \(updatedPresentingPublication.title)")
+            //update the view
+            //detailsView.publication = updatedPresentingPublication
+            //detailsView.reloadSubViews
+        }
+    }
+
     
 }
 
