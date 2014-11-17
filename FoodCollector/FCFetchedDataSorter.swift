@@ -11,24 +11,27 @@ import Foundation
 public class FCFetchedDataSorter : NSObject {
     
     public class func publicationsToDelete(currentPublications: [FCPublication]) -> [FCPublication] {
-
+        
         var publicationsToDelete = [FCPublication]()
         let theNewPublications = FCModel.sharedInstance.publications
         
-        for publication in currentPublications {
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
-            var shouldRemove = true
-            for newPublication in theNewPublications {
-                if publication.uniqueId == newPublication.uniqueId && publication.version == newPublication.version {
-                    shouldRemove = false
-                    break
+            for publication in currentPublications {
+                
+                var shouldRemove = true
+                for newPublication in theNewPublications {
+                    if publication.uniqueId == newPublication.uniqueId && publication.version == newPublication.version {
+                        shouldRemove = false
+                        break
+                    }
+                }
+                if shouldRemove {
+                    publicationsToDelete.append(publication)
                 }
             }
-            if shouldRemove {
-                publicationsToDelete.append(publication)
-            }
         }
-        
         return publicationsToDelete
     }
     
@@ -37,22 +40,25 @@ public class FCFetchedDataSorter : NSObject {
         var toAdd = [FCPublication]()
         let theNewPublications = FCModel.sharedInstance.publications
         
-        for aNewPublication in theNewPublications {
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
-            var shouldAdd = true
-            
-            for currentPublication in currentPublications {
-                if currentPublication.uniqueId == aNewPublication.uniqueId && currentPublication.version == aNewPublication.version {
-                    shouldAdd = false
-                    break
+            for aNewPublication in theNewPublications {
+                
+                var shouldAdd = true
+                
+                for currentPublication in currentPublications {
+                    if currentPublication.uniqueId == aNewPublication.uniqueId && currentPublication.version == aNewPublication.version {
+                        shouldAdd = false
+                        break
+                    }
+                }
+                
+                if shouldAdd {
+                    toAdd.append(aNewPublication)
                 }
             }
-            
-            if shouldAdd {
-                toAdd.append(aNewPublication)
-            }
         }
-        
         return toAdd
     }
     
@@ -60,14 +66,17 @@ public class FCFetchedDataSorter : NSObject {
         
         var publicationToUpdate: FCPublication? = nil
         
-        for aNewPublication in publiationsToAdd {
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
-            if aNewPublication.uniqueId == presentedPublication.uniqueId && aNewPublication.version > presentedPublication.version {
-                publicationToUpdate = aNewPublication
-                break
+            for aNewPublication in publiationsToAdd {
+                
+                if aNewPublication.uniqueId == presentedPublication.uniqueId && aNewPublication.version > presentedPublication.version {
+                    publicationToUpdate = aNewPublication
+                    break
+                }
             }
         }
-        
         return publicationToUpdate
     }
     
