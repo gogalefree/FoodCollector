@@ -8,6 +8,8 @@
 
 import UIKit
 
+let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,12 +17,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()
+        
+        let userNotificationHandler = FCUserNotificationHandler.sharedInstance
+        userNotificationHandler.setup()
+        
+        if let option = launchOptions{
+            
+            if option[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
+               let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as NSDictionary
+                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
+            }
+            
+            if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
+                let not = option[UIApplicationLaunchOptionsRemoteNotificationKey] as UILocalNotification
+                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
+            }
+        }
         return true
     }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+       
+        var token = deviceToken.description as NSString
+        token = token.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
+        token = token.stringByReplacingOccurrencesOfString(" ", withString: "")
+        FCUserNotificationHandler.sharedInstance.registerForPushNotificationWithToken(token)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        
+        //show UIAlert informing users to enable push from settings
+        println("failed to recieve token: \(error)")
+    }
+    
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        //called when a remote push arrives while in backround and the user tapped a button
+        //if the action uses forground - the app is invoked
+        //if the action uses backRound - the app calls this method in the backround
+        if let id = identifier {
+            if id == kUserNotificationShowActionId {
+                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+            }
+        }
+       
+        completionHandler()
+    }
+    
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        if let id = identifier {
+            if id == kUserNotificationShowActionId {
+                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(notification)
+            }
+        }
+    }
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+        //called when the app recieves push while in foreground or backround
+        //use UIApplication.sharedApplication().applicationState
+        //to find out whether the app was susspended or not
+        FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+        completionHandler(UIBackgroundFetchResult.NewData)
+    }
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(notification)
+    }
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
