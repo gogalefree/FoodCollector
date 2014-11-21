@@ -96,9 +96,9 @@ public extension FCMockServer {
     public func makePublication () -> [FCPublication] {
 
         var publicaions = [FCPublication]()
-        var uniqueId = 333333
-        var title = "boris's house"
-        var subtitle = "never there"
+        var uniqueId = 111111
+        var title = "Green Apples"
+        var subtitle = "Fresh small green apples"
         var address = "hod hasharon"
         var typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         var coordinate = CLLocationCoordinate2D(latitude: 32, longitude: 32)
@@ -110,9 +110,9 @@ public extension FCMockServer {
         let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: contactInfo, subTitle: subtitle)
         publicaions.append(pub1)
         
-        uniqueId = 1111111
-       title = "guy's house"
-        subtitle = "always there"
+        uniqueId = 2222222
+       title = "50 k\"g of sweet BBQ chicken wings"
+        subtitle = "Chicken wings are not frozen!!!! please be quick about it!"
         address = "beit halevi"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.5, longitude: 32.5)
@@ -125,8 +125,8 @@ public extension FCMockServer {
         
         
         uniqueId = 3333333
-        title = "denis's house"
-        subtitle = "where is it"
+        title = "35 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
         address = "Tel Aviv"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
@@ -136,7 +136,98 @@ public extension FCMockServer {
         
         let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
         publicaions.append(pub3)
-
+        
+        uniqueId = 444444
+        title = "45 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
+        address = "Tel Aviv"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.denis.com"
+        
+        let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        publicaions.append(pub4)
+        
+        uniqueId = 555555
+        title = "55 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
+        address = "Tel Aviv"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.denis.com"
+        
+        let pub5 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        publicaions.append(pub5)
+        
+        uniqueId = 666666
+        title = "65 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
+        address = "Tel Aviv"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.denis.com"
+        
+        let pub6 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        publicaions.append(pub6)
+        
+        uniqueId = 777777
+        title = "75 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
+        address = "Tel Aviv"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.denis.com"
+        
+        let pub7 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        publicaions.append(pub7)
+        
+        uniqueId = 888888
+        title = "85 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
+        address = "Tel Aviv"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.denis.com"
+        
+        let pub8 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        publicaions.append(pub8)
+        
+        uniqueId = 999999
+        title = "95 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
+        address = "Tel Aviv"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.denis.com"
+        
+        let pub9 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        publicaions.append(pub9)
+        
+        uniqueId = 101010
+        title = "105 assorted dishes"
+        subtitle = "first and main courses in plastick boxes"
+        address = "Tel Aviv"
+        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        startingDate = NSDate()
+        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        photoUrl = "www.denis.com"
+        
+        let pub10 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
+        publicaions.append(pub10)
+       
         return publicaions
     }
     
