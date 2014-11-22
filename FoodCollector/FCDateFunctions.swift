@@ -16,6 +16,7 @@ import Foundation
 
 class FCDateFunctions : NSObject {
     
+    let dateFormatter = NSDateFormatter()
     
      
 }

@@ -23,8 +23,16 @@ public class FCMockServer: NSObject , FCServerProtocol {
     /// old token can be nil (for the first report).
     ///
     public func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String, oldtoken:String?) {
-        
+        println("new token \(newtoken)")
+        if let currentToken = oldtoken {
+            println("old token \(currentToken)")
+        }
     }
+    
+    public func reportDeviceUUID(uuid: String) {
+        println("device uuid: \(uuid)")
+    }
+
     
     ///
     /// downloads an Image for Publication. must be implemented async.
@@ -109,7 +117,7 @@ public extension FCMockServer {
         var version = 1
         
         let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: contactInfo, subTitle: subtitle, version: version)
-   //     publicaions.append(pub1)
+  //      publicaions.append(pub1)
         
         uniqueId = 1111111
        title = "guy's house"
@@ -139,7 +147,7 @@ public extension FCMockServer {
         
         let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
         publicaions.append(pub3)
-        
+    
         uniqueId = 555555
         title = "maayan house"
         subtitle = "nowhere"

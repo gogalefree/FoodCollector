@@ -11,18 +11,18 @@ import Foundation
 import CoreLocation
 import MapKit
 
-let kPublicationUniqueIdKey = "publication_unique_id"
-let kPublicationVersionKey = "publication_version"
-let kPublicationTitleKey = "publication_title"
-let kPublicationSubTitleKey = "publication_subtitle"
-let kPublicationAddressKey = "publication_address"
-let kPublicationTypeOfCollectingKey = "publication_type_of_collecting"
-let kPublicationlatitudeKey = "publication_latitude"
-let kPublicationLongtitudeKey = "publication_longtitude"
-let kPublicationStartingDtae = "publication_starting_date"
-let kPublicationEndingDateKey = "publication_ending_date"
-let kPublicationContactInfoKey = "publication_contact_info"
-let kPublicationPhotoUrl = "publication_photo_url"
+let kPublicationUniqueIdKey = "unique_id"
+let kPublicationVersionKey = "version"
+let kPublicationTitleKey = "title"
+let kPublicationSubTitleKey = "subtitle"
+let kPublicationAddressKey = "address"
+let kPublicationTypeOfCollectingKey = "type_of_collecting"
+let kPublicationlatitudeKey = "latitude"
+let kPublicationLongtitudeKey = "longitude"
+let kPublicationStartingDateKey = "starting_date"
+let kPublicationEndingDateKey = "ending_date"
+let kPublicationContactInfoKey = "contact_info"
+let kPublicationPhotoUrl = "photo_url"
 
 ///
 /// Base Entity.
@@ -81,7 +81,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeInteger(self.typeOfCollecting.rawValue, forKey: kPublicationTypeOfCollectingKey)
         aCoder.encodeDouble(self.coordinate.latitude, forKey: kPublicationlatitudeKey)
         aCoder.encodeDouble(self.coordinate.longitude, forKey: kPublicationLongtitudeKey)
-        aCoder.encodeObject(self.startingDate, forKey: kPublicationStartingDtae)
+        aCoder.encodeObject(self.startingDate, forKey: kPublicationStartingDateKey)
         aCoder.encodeObject(self.endingDate, forKey: kPublicationEndingDateKey)
         aCoder.encodeObject(self.contactInfo, forKey: kPublicationContactInfoKey)
         aCoder.encodeObject(self.photoUrl, forKey: kPublicationPhotoUrl)
@@ -100,7 +100,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let longtitude = aDecoder.decodeDoubleForKey(kPublicationLongtitudeKey)
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
         
-        self.startingDate = aDecoder.decodeObjectForKey(kPublicationStartingDtae) as NSDate
+        self.startingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
         self.endingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
         self.contactInfo = aDecoder.decodeObjectForKey(kPublicationContactInfoKey) as? String
         self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as? String
@@ -117,24 +117,23 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     ///
     /// creates a Publication instance from Params dictionary
     ///
-    public class func publicationWithParams(params: [String:AnyObject]) -> FCPublication {
+    public class func publicationWithParams(params: [String:String]) -> FCPublication {
         
-        let dict = params as NSDictionary
-        let aUniquId = (dict.objectForKey(kPublicationUniqueIdKey) as NSNumber).integerValue
-        var aTitle = dict.objectForKey(kPublicationTitleKey) as NSString
-        let aSubTitle  = dict.objectForKey(kPublicationSubTitleKey) as String
-        let anAddress = dict.objectForKey(kPublicationAddressKey) as String
-        let aTypeOfCollecting = FCTypeOfCollecting(rawValue: (dict.objectForKey(kPublicationTypeOfCollectingKey) as NSNumber).integerValue)
-        let aLatitude = (dict.objectForKey(kPublicationLongtitudeKey) as NSNumber).doubleValue
-        let aLongtitude = (dict.objectForKey(kPublicationLongtitudeKey) as NSNumber).doubleValue
+   //     let dict = params as NSDictionary
+        let aUniquId = params[kPublicationUniqueIdKey]!.toInt()
+        let aTitle = params[kPublicationTitleKey] ?? ""
+        let aSubTitle  = params[kPublicationSubTitleKey]
+        let anAddress = params[kPublicationAddressKey] ?? ""
+        let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey]!.toInt()!)
+        let aLatitude = (params[kPublicationLongtitudeKey]! as NSString).doubleValue
+        let aLongtitude = (params[kPublicationLongtitudeKey]! as NSString).doubleValue
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
-        let aStartingDate = dict.objectForKey(kPublicationStartingDtae) as NSDate
-        let aEndingDate = dict.objectForKey(kPublicationEndingDateKey) as NSDate
-        let aContactInfo = dict.objectForKey(kPublicationContactInfoKey) as String
-        let aPhotoUrl = dict.objectForKey(kPublicationPhotoUrl) as String
-        let aVersion = (dict.objectForKey(kPublicationVersionKey) as NSNumber).integerValue
-        
-        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress, photoUrl: aPhotoUrl, contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
+        let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval((params[kPublicationStartingDateKey]! as NSString).doubleValue))
+        let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval((params[kPublicationEndingDateKey]! as NSString).doubleValue))
+        let aContactInfo = params[kPublicationContactInfoKey]
+        let aPhotoUrl = params[kPublicationPhotoUrl]
+        let aVersion = params[kPublicationVersionKey]!.toInt()
+        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId!, address: anAddress, photoUrl: aPhotoUrl, contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion!)
         return publication
     }
     

@@ -11,6 +11,8 @@ import CoreLocation
 import Foundation
 
 let kRecievedNewDataNotification = "RecievedNewDataNotification"
+let kRecievedNewPublicationNotification = "RecievedNewPublicationNotification"
+let kDeviceUUIDKey = "seviceUUIDString"
 
 public class FCModel : NSObject {
     
@@ -34,15 +36,24 @@ public class FCModel : NSObject {
         }
     }
     
-    ///
-    ///loads publications from disk and fetches data from server
-    // 
+    var deviceUUID: String? = {
+       var uuid = NSUserDefaults.standardUserDefaults().objectForKey(kDeviceUUIDKey) as? String
+        println("has uuid already: \(uuid)")
+        return uuid
+    }()
     
     public func setUp () {
         
         //we start with loading the current data
+       
         self.loadPublications()
         self.loadUserCreatedPublicationsPublications()
+        self.deviceUUID ?? {
+            var uuid = NSUUID().UUIDString
+            NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
+            self.foodCollectorWebServer.reportDeviceUUID(uuid)
+            return uuid
+        }()
     }
     
     func downloadData() {
@@ -52,6 +63,7 @@ public class FCModel : NSObject {
                 self.publications = thePublications
                 self.postFetchedDataReadyNotification()
             //    self.savePublications()
+              
         }
     }
     
@@ -74,7 +86,23 @@ public class FCModel : NSObject {
     /// add a Publication to Publications array
     ///
     
-    func addPublication(arg1:AnyObject) {
+    func addPublication(recievedPublication: FCPublication) {
+        //remove older versions
+        if recievedPublication.version > 1 {
+            for (index, publication) in enumerate(self.publications) {
+                if publication.uniqueId == recievedPublication.uniqueId &&
+                    publication.version < recievedPublication.version {
+                        self.publications.removeAtIndex(index)
+                        break
+                }
+            }
+        }
+        //append the new publication
+        self.publications.append(recievedPublication)
+        self.postRecievedNewPublicationNotification()
+
+        //save the new data
+        //self.savePublications()
         
     }
     
@@ -82,8 +110,8 @@ public class FCModel : NSObject {
     /// called after init when all data was successfully fetched from the server
     
     
-    func postApplicationDataDidChangeNotification() {
-        
+    func postRecievedNewPublicationNotification() {
+        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewPublicationNotification, object: self)
     }
     
 }

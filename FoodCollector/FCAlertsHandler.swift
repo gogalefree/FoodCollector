@@ -15,8 +15,17 @@ import UIKit
 /// responsible of UIAlerts allocations
 
 
-class FCAlertsHandler : NSObject {
+public class FCAlertsHandler : NSObject {
     
+    public func alertWithDissmissButton(aTitle: String, aMessage: String) -> UIAlertController {
+       
+        let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: .Alert)
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("Dissmiss", "alert dissmiss button title"), style: .Cancel) { (action) in
+            alertController.dismissViewControllerAnimated(true , completion: nil)
+        }
+        alertController.addAction(dissmissAction)
+        return alertController
+    }
 }
 
 
@@ -27,7 +36,7 @@ class FCAlertsHandler : NSObject {
 extension FCAlertsHandler {
     
     //SingleTone Shared Instance
-    class var sharedInstance : FCAlertsHandler {
+    public class var sharedInstance : FCAlertsHandler {
         
         struct Static {
             static var onceToken : dispatch_once_t = 0

@@ -19,10 +19,10 @@ class FCPublishRootVC : UIViewController {
     @IBOutlet var collectionView:UICollectionView!
     var userCreatedPublications = [FCPublication]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-    
     }
    
     
@@ -33,6 +33,7 @@ class FCPublishRootVC : UIViewController {
     func newPublication() {
         
     }
+    
     
 }
 

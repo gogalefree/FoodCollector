@@ -11,22 +11,28 @@ import Foundation
 import UIKit
 
 let kUserNotificationShowActionId = "SHOW_IDENTIFIER"
-
+let kRemoteNotificationType = "type"
+let kRemoteNotificationTypeNewPublication = "new_publication"
+let kRemoteNotificationTypeDeletedPublication = "deleted_publication"
+let kRemoteNotificationTypePublicationReport = "publication_report"
+let kRemoteNotificationTypeUserRegisteredForPublication = "user_registered_for_publication"
+let kRemoteNotificationDataKey = "data"
 ///
 /// Handles user notifications logic. location and remote notifications.
 ///
 class FCUserNotificationHandler : NSObject {
     
-    var registeredForNotifications: Bool  = {
+    
+    var registeredForNotifications: Bool = {
         return UIApplication.sharedApplication().currentUserNotificationSettings().types != nil
         }()
     
     var oldToken: String? = {
-        return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as NSString
+        return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? NSString
         }()
     
     var registeredPublicationsForLocationNotification = [FCPublication]()
-    
+    var recievedPublications = [FCPublication]()
     
     
     func didRecieveLocalNotification(notification: UILocalNotification) {
@@ -35,6 +41,38 @@ class FCUserNotificationHandler : NSObject {
     
     func didRecieveRemoteNotification(userInfo: [NSObject : AnyObject]) {
         
+        if let notificationType = userInfo[kRemoteNotificationType] as? String {
+        
+            switch notificationType {
+                
+            case kRemoteNotificationTypeNewPublication:
+                
+                let newPublication = FCPublication.publicationWithParams(userInfo[kRemoteNotificationDataKey] as [String : String])
+                if !self.publicationExists(newPublication) {
+                    self.recievedPublications.append(newPublication)
+                    FCModel.sharedInstance.addPublication(newPublication)
+                }
+                
+                
+                
+            case kRemoteNotificationTypeDeletedPublication:
+                
+                println("delete publication notification")
+                
+            case kRemoteNotificationTypePublicationReport:
+                
+                println("publication report notification")
+                
+            case kRemoteNotificationTypeUserRegisteredForPublication:
+                
+                println("user registered for publication notification")
+
+            default:
+                    break
+                
+            }
+            
+        }
     }
     
     ///
@@ -99,6 +137,19 @@ class FCUserNotificationHandler : NSObject {
     ///
     func registerForLocationNotifications(publications:[FCPublication]) {
         
+    }
+    
+    func publicationExists(incomingPublication: FCPublication) -> Bool {
+
+        var exists = false
+        for publication in self.recievedPublications {
+                if publication.uniqueId == incomingPublication.uniqueId &&
+                    publication.version == incomingPublication.version {
+                        exists = true
+                        break
+            }
+        }
+     return exists
     }
     
 }

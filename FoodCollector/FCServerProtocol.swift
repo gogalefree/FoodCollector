@@ -25,6 +25,8 @@ protocol FCServerProtocol {
     ///
     func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String, oldtoken:String?)
     
+    func reportDeviceUUID(uuid: String)
+    
     ///
     /// downloads an Image for Publication. must be implemented async.
     ///

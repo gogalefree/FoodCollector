@@ -11,6 +11,7 @@ import Foundation
 import MapKit
 import CoreLocation
 
+let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
 
 ///
 /// collector user story main VC.
@@ -22,10 +23,17 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = true
     
+    var didFailToRegisterPushNotifications = {
+        NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
+        }()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData:", name: kRecievedNewDataNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
+        
         self.publications = FCModel.sharedInstance.publications
         FCModel.sharedInstance.uiReadyForNewData = true
     }
@@ -60,6 +68,19 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.didFailToRegisterPushNotifications &&
+        !NSUserDefaults.standardUserDefaults().boolForKey(kDidShowFailedToRegisterForPushAlertKey){
+            
+            let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: do to settings -> notifications -> food collector and enable push notifications")
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            //uncomment to show this message only once
+            //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
+        }
+    }
 }
 
 // MARK - new data sorter logic
@@ -117,6 +138,37 @@ extension FCCollectorRootVC {
             //update the view
             //detailsView.publication = updatedPresentingPublication
             //detailsView.reloadSubViews
+        }
+    }
+    
+    func didRecieveNewPublication(notification: NSNotification) {
+        
+        let recivedPublication = FCModel.sharedInstance.publications.last!
+        
+        //change this to the presented publication
+        var presentedPublication = self.publications[1]
+        
+        if self.isPresentingPublicationDetailsView {
+            if presentedPublication.uniqueId == recivedPublication.uniqueId &&
+                presentedPublication.version < recivedPublication.version {
+                    println("updating view with new publication")
+                    //update the view
+                    //detailsView.publication = updatedPresentingPublication
+                    //detailsView.reloadSubViews
+            }
+        }
+        
+        self.deleteOldVersionsOf(recivedPublication)
+    }
+    
+    func deleteOldVersionsOf(recievedPublication: FCPublication) {
+        if recievedPublication.version > 1 {
+            for (index, publication) in enumerate(self.publications) {
+                if publication.uniqueId == recievedPublication.uniqueId &&
+                    publication.version < recievedPublication.version {
+                        self.publications.removeAtIndex(index)
+                }
+            }
         }
     }
 

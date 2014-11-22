@@ -69,5 +69,7 @@ public class FCFetchedDataSorter : NSObject {
             }
         
         return publicationToUpdate
-    }    
+    }
+    
+    
 }

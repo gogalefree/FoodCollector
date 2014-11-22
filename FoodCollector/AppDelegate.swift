@@ -9,6 +9,7 @@
 import UIKit
 
 let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
+let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,25 +47,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         token = token.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
         token = token.stringByReplacingOccurrencesOfString(" ", withString: "")
         FCUserNotificationHandler.sharedInstance.registerForPushNotificationWithToken(token)
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         
         //show UIAlert informing users to enable push from settings
-        println("failed to recieve token: \(error)")
+        //the alert is presented in collector root vc
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
         //called when a remote push arrives while in backround and the user tapped a button
         //if the action uses forground - the app is invoked
         //if the action uses backRound - the app calls this method in the backround
+        
+        FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+        
         if let id = identifier {
             if id == kUserNotificationShowActionId {
-                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+                //Show ui for new notification
             }
         }
-       
-        completionHandler()
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
