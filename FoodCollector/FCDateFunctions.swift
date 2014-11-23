@@ -16,8 +16,17 @@ import Foundation
 
 class FCDateFunctions : NSObject {
     
-    
-     
+    class func PublicationDidExpired(endingDate: NSDate) -> Bool {
+        // If timeIntervalSinceDate is bigger than 0, it means that the
+        // event is active and the result of PublicationDidExpired needs
+        // to be false.
+        if endingDate.timeIntervalSinceNow > 0 {
+            return false
+        }
+        else {
+            return true
+        }
+    }
 }
 
 

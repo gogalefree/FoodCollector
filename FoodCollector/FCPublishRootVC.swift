@@ -36,15 +36,26 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
         
         let reusableId = "FCPublishCollectionViewCell"
+        var status = ""
+        var statusImg : UIImage
         
         let publication = userCreatedPublications[indexPath.item]
         let pubTitle = publication.title
-        let locDateString = NSDateFormatter.localizedStringFromDate(publication.startingDate, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+        let locDateString = NSDateFormatter.localizedStringFromDate(publication.endingDate, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
         
+        if FCDateFunctions.PublicationDidExpired(publication.endingDate){
+            status = "Not Active"
+            statusImg = UIImage(named: "Red-dot")!
+        }
+        else {
+            status = "Active (until: \(locDateString))"
+            statusImg = UIImage(named: "Green-dot")!
+        }
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as FCPublishRootVCCustomCollectionViewCell
         
         cell.FCPublisherEventTitle.text = pubTitle
-        cell.FCPublisherEventStatus.text = locDateString
+        cell.FCPublisherEventStatus.text = status
+        cell.FCPublisherEventStatusIcon.image = statusImg
         return cell
         
     }

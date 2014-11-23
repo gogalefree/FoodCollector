@@ -103,7 +103,7 @@ public extension FCMockServer {
         var typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         var coordinate = CLLocationCoordinate2D(latitude: 32, longitude: 32)
         var startingDate = NSDate()
-        var endingDate = NSDate(timeIntervalSinceNow: 36000)
+        var endingDate = NSDate(timeIntervalSinceNow: 129600)
         var contactInfo = "call: 0522222222"
         var photoUrl = "www.url.com"
         
@@ -117,7 +117,7 @@ public extension FCMockServer {
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.5, longitude: 32.5)
         startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 360000)
+        endingDate = NSDate(timeIntervalSinceNow: -360000)
         photoUrl = "www.guy.com"
         
         let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
@@ -131,7 +131,7 @@ public extension FCMockServer {
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
         startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        endingDate = NSDate(timeIntervalSinceNow: -345600)
         photoUrl = "www.denis.com"
         
         let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
@@ -170,7 +170,7 @@ public extension FCMockServer {
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
         startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        endingDate = NSDate(timeIntervalSinceNow: -266000)
         photoUrl = "www.denis.com"
         
         let pub6 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle)
