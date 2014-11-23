@@ -24,10 +24,12 @@ let kPublicationEndingDateKey = "ending_date"
 let kPublicationContactInfoKey = "contact_info"
 let kPublicationPhotoUrl = "photo_url"
 
-///
-/// Base Entity.
-/// represents an event in which food is being shared.
-///
+
+struct PublicationIdentifier {
+    
+    let uniqueId: Int
+    let version: Int
+}
 
 public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
@@ -46,6 +48,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             return location.distanceFromLocation(FCModel.sharedInstance.userLocation)
     }
+    public var reportsForPublication = [FCOnSpotPublicationReport]()
 
     
     public init(coordinates: CLLocationCoordinate2D,
@@ -68,7 +71,9 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             super.init()
     }
     
-    
+    deinit {
+        println("DEINIT publication id: \(self.uniqueId) version: \(self.version)")
+    }
     // MARK: - NSSecureCoding protocol
     
     

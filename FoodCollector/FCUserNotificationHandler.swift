@@ -15,11 +15,11 @@ let kRemoteNotificationType = "type"
 let kRemoteNotificationTypeNewPublication = "new_publication"
 let kRemoteNotificationTypeDeletedPublication = "deleted_publication"
 let kRemoteNotificationTypePublicationReport = "publication_report"
+let kRemoteNotificationPublicationReportMessageKey = "report_message"
+let kRemoteNotificationPublicationReportDateKey = "date"
 let kRemoteNotificationTypeUserRegisteredForPublication = "user_registered_for_publication"
 let kRemoteNotificationDataKey = "data"
-///
-/// Handles user notifications logic. location and remote notifications.
-///
+
 class FCUserNotificationHandler : NSObject {
     
     
@@ -33,7 +33,8 @@ class FCUserNotificationHandler : NSObject {
     
     var registeredPublicationsForLocationNotification = [FCPublication]()
     var recievedPublications = [FCPublication]()
-    
+    var recivedtoDelete = [PublicationIdentifier]()
+    var recivedReports = [(PublicationIdentifier, FCOnSpotPublicationReport)]()
     
     func didRecieveLocalNotification(notification: UILocalNotification) {
         
@@ -42,13 +43,14 @@ class FCUserNotificationHandler : NSObject {
     func didRecieveRemoteNotification(userInfo: [NSObject : AnyObject]) {
         
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
-        
+            
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
                 
                 let newPublication = FCPublication.publicationWithParams(userInfo[kRemoteNotificationDataKey] as [String : String])
-                if !self.publicationExists(newPublication) {
+                if !self.didHandleNewPublicationNotification(newPublication) {
+                    self.recievedPublications.removeAll(keepCapacity: true)
                     self.recievedPublications.append(newPublication)
                     FCModel.sharedInstance.addPublication(newPublication)
                 }
@@ -57,18 +59,41 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeDeletedPublication:
                 
-                println("delete publication notification")
+                let data = userInfo[kRemoteNotificationDataKey]! as [String : String]
+                let uniqueId = data[kPublicationUniqueIdKey]!.toInt()!
+                let version = data[kPublicationVersionKey]!.toInt()!
+                let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
+                if !self.didHandlePublicationToDelete(publicationIdentifier){
+                    self.recivedtoDelete.removeAll(keepCapacity: true)
+                    self.recivedtoDelete.append(publicationIdentifier)
+                    FCModel.sharedInstance.deletePublication(publicationIdentifier)
+                }
                 
             case kRemoteNotificationTypePublicationReport:
                 
                 println("publication report notification")
+                let data = userInfo[kRemoteNotificationDataKey] as [String : AnyObject]
+                let uniqueId = (data[kPublicationUniqueIdKey] as String!).toInt()!
+                let version = (data[kPublicationVersionKey] as String!).toInt()!
+                let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
+                let reportMessage = (data[kRemoteNotificationPublicationReportMessageKey]as String!).toInt()!
+                let reportdateInt =  data[kRemoteNotificationPublicationReportDateKey]! as Int
+                let reportDate = NSDate(timeIntervalSince1970: NSTimeInterval(reportdateInt))
+                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
+                
+                if !self.didHandlePublicationReport(report, publicationIdentifier: publicationIdentifier) {
+                    self.recivedReports.removeAll(keepCapacity: true)
+                    self.recivedReports.append((publicationIdentifier, report))
+                    FCModel.sharedInstance.addPublicationReport(report, identifier: publicationIdentifier)
+                }
+                
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
                 println("user registered for publication notification")
-
+                
             default:
-                    break
+                break
                 
             }
             
@@ -139,19 +164,43 @@ class FCUserNotificationHandler : NSObject {
         
     }
     
-    func publicationExists(incomingPublication: FCPublication) -> Bool {
-
+    func didHandleNewPublicationNotification(incomingPublication: FCPublication) -> Bool {
+        
         var exists = false
         for publication in self.recievedPublications {
-                if publication.uniqueId == incomingPublication.uniqueId &&
-                    publication.version == incomingPublication.version {
-                        exists = true
-                        break
+            if publication.uniqueId == incomingPublication.uniqueId &&
+                publication.version == incomingPublication.version {
+                    exists = true
+                    break
             }
         }
-     return exists
+        return exists
     }
     
+    func didHandlePublicationToDelete(publicationIdentifier: PublicationIdentifier) -> Bool {
+        var exist = false
+        for toDelete in self.recivedtoDelete {
+            if publicationIdentifier.uniqueId == toDelete.uniqueId &&
+                publicationIdentifier.version == toDelete.version{
+                    exist = true
+                    break
+            }
+        }
+     return exist
+    }
+    
+    func didHandlePublicationReport(report: FCOnSpotPublicationReport, publicationIdentifier: PublicationIdentifier) -> Bool {
+        var exist = false
+        for (identifier, currentReport) in self.recivedReports {
+            if identifier.uniqueId == publicationIdentifier.uniqueId &&
+                identifier.version == publicationIdentifier.version &&
+                currentReport.date == report.date {
+                    exist = true
+                    break
+            }
+        }
+        return exist
+    }
 }
 
 

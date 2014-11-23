@@ -12,6 +12,8 @@ import Foundation
 
 let kRecievedNewDataNotification = "RecievedNewDataNotification"
 let kRecievedNewPublicationNotification = "RecievedNewPublicationNotification"
+let kDeletedPublicationNotification = "DeletedPublicationNotification"
+let kRecivedPublicationReportNotification = "RecivedPublicationReportNotification"
 let kDeviceUUIDKey = "seviceUUIDString"
 
 public class FCModel : NSObject {
@@ -67,19 +69,21 @@ public class FCModel : NSObject {
         }
     }
     
-    ///
-    ///posts NSNotification when the downloaded data is ready
-    ///
     
-    func postFetchedDataReadyNotification () {
-        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewDataNotification, object: self)
-    }
-    
-    /// removes a Publication to Publications array
+    /// deletes a Publication to Publications array
     ///
     
-    func removePublication(arg1:AnyObject) {
-        
+    func deletePublication(publicationIdentifier: PublicationIdentifier) {
+        for (index , publication) in enumerate(self.publications) {
+            if publication.uniqueId == publicationIdentifier.uniqueId &&
+                publication.version == publicationIdentifier.version{
+                    self.publications.removeAtIndex(index)
+                    self.postDeletedPublicationNotification(publicationIdentifier)
+                    //save data
+                    //self.savePublications()
+                    break
+            }
+        }
     }
     
     ///
@@ -103,17 +107,40 @@ public class FCModel : NSObject {
 
         //save the new data
         //self.savePublications()
-        
     }
     
-    ///
-    /// called after init when all data was successfully fetched from the server
+    func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {
+        for publication in self.publications {
+            if publication.uniqueId == identifier.uniqueId &&
+                publication.version == identifier.version {
+                    publication.reportsForPublication.append(report)
+                    self.postRecivedPublicationReportNotification()
+                    break
+            }
+        }
+    }
     
     
+    ///posts NSNotification when the downloaded data is ready
+    
+    
+    func postFetchedDataReadyNotification () {
+        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewDataNotification, object: self)
+    }
+    
+    //posts after the new publication recived from push was added to the model
     func postRecievedNewPublicationNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewPublicationNotification, object: self)
     }
     
+    //posts after the deleted publication from push was removed from the model
+    func postDeletedPublicationNotification(publicationIdentifier: PublicationIdentifier) {
+        NSNotificationCenter.defaultCenter().postNotificationName(kDeletedPublicationNotification, object: self)
+    }
+    
+    func postRecivedPublicationReportNotification() {
+        NSNotificationCenter.defaultCenter().postNotificationName(kRecivedPublicationReportNotification, object: self)
+    }
 }
 
 // MARK - store

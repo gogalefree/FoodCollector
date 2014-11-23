@@ -34,6 +34,10 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationReport:", name: kRecivedPublicationReportNotification, object: nil)
+        
         self.publications = FCModel.sharedInstance.publications
         FCModel.sharedInstance.uiReadyForNewData = true
     }
@@ -81,9 +85,13 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
             //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
         }
     }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }
 
-// MARK - new data sorter logic
+// MARK - new data from server logic
 
 extension FCCollectorRootVC {
     
@@ -112,12 +120,16 @@ extension FCCollectorRootVC {
                 self.updatePublicationDetailsViewWithNewData(publicationsToAdd)
             }
             
-            //add new data to array
             
             //add new data to map
             
             //remove publicationsToDelete from map
             
+            //TODO: this might vreak the map view.
+            //if so, we add and delete the new data menualy
+            self.publications = FCModel.sharedInstance.publications
+            
+            //add new data to array
             //remove publicationsToDelete from array
             
         }
@@ -141,6 +153,9 @@ extension FCCollectorRootVC {
         }
     }
     
+//MARK - new data from push notification.
+//these notifications are posted ny FCModel after handling remote notification events
+
     func didRecieveNewPublication(notification: NSNotification) {
         
         let recivedPublication = FCModel.sharedInstance.publications.last!
@@ -158,9 +173,16 @@ extension FCCollectorRootVC {
             }
         }
         
-        self.deleteOldVersionsOf(recivedPublication)
+        //take the new data from the model
+        //TODO: check if this breaks the mapView so we need to delete it from the array menualy
+        self.publications = FCModel.sharedInstance.publications
+        
+        //if not, we need to add it to publications array
+        //delete the old versions
+        //self.publications.append(recivedPublication)
+        //self.deleteOldVersionsOf(recivedPublication)
     }
-    
+    /*
     func deleteOldVersionsOf(recievedPublication: FCPublication) {
         if recievedPublication.version > 1 {
             for (index, publication) in enumerate(self.publications) {
@@ -171,7 +193,45 @@ extension FCCollectorRootVC {
             }
         }
     }
-
+    */
     
+    func didDeletePublication(notification: NSNotification) {
+        let toDelete = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last!
+       
+        
+            //change this to the presented publication
+            var presentedPublication = self.publications[1]
+            //check if it's being displayed
+            if self.isPresentingPublicationDetailsView &&
+                presentedPublication.uniqueId == toDelete.uniqueId &&
+                presentedPublication.version == toDelete.version {
+                    //show Publication deleted view
+            }
+            
+            //remove from map
+            
+            //remove from user registered events
+            
+            //take the new data
+            //TODO: check if this breaks the mapView so we need to delete it from the array menualy
+            self.publications = FCModel.sharedInstance.publications
+        
+    }
+    
+    func didRecievePublicationReport(notification: NSNotification) {
+        var (identifier, report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
+        
+        //we need to check if the report belings to the presented publication to refresh it
+        //change this to the presented publication
+        var presentedPublication = self.publications[1]
+        
+        if self.isPresentingPublicationDetailsView &&
+            presentedPublication.uniqueId == identifier.uniqueId &&
+            presentedPublication.version == identifier.version {
+            
+                //self.publicationDetailsView.reloadReports
+        }
+        
+    }
 }
 

@@ -18,6 +18,13 @@ class FCDateFunctions : NSObject {
     
     let dateFormatter = NSDateFormatter()
     
+    func dateFromString (dateString: String) -> NSDate {
+        
+        let date = self.dateFormatter.dateFromString(dateString)
+        
+        return date!
+    }
+    
      
 }
 
