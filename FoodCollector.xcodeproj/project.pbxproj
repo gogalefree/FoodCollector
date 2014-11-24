@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
+		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		E463A3AF1A121A5D001D8E3B /* PublicationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */; };
 		E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
 		E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationInitTests.swift; sourceTree = "<group>"; };
 		E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAlertsHandler.swift; sourceTree = "<group>"; };
 		E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAppDataStoreManager.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				E4737D7E1A10C01300A4AB81 /* FCStringFunctions.swift */,
 				E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */,
 				E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */,
+				A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */,
 			);
 			name = Functions;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */,
+				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
 				E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,

@@ -19,9 +19,17 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     @IBOutlet var collectionView:UICollectionView!
     var userCreatedPublications = [FCPublication]()
     
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
+        collectionView.collectionViewLayout = layout
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -41,14 +49,14 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         let publication = userCreatedPublications[indexPath.item]
         let pubTitle = publication.title
-        let locDateString = NSDateFormatter.localizedStringFromDate(publication.endingDate, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+        let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
         
         if FCDateFunctions.PublicationDidExpired(publication.endingDate){
-            status = "Not Active"
+            status = "Not Active" // Localizable string
             statusImg = UIImage(named: "Red-dot")!
         }
         else {
-            status = "Active (until: \(locDateString))"
+            status = "Active (until: \(locDateString))" // Localizable string
             statusImg = UIImage(named: "Green-dot")!
         }
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as FCPublishRootVCCustomCollectionViewCell
@@ -68,6 +76,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     func newPublication() {
         
+    }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        layout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
+        collectionView.collectionViewLayout.invalidateLayout()
     }
     
 }
