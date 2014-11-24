@@ -38,6 +38,8 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationReport:", name: kRecivedPublicationReportNotification, object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+        
         self.publications = FCModel.sharedInstance.publications
         FCModel.sharedInstance.uiReadyForNewData = true
     }
@@ -54,8 +56,8 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
         
     }
     
-    func didOrderCollectionForPublication(order:FCOrderCollectionForPublication) {
-        
+    func didOrderCollectionForPublication(publication: FCPublication) {
+    
     }
     
     // MARK: - ArrivedToSpotViewDelegate protocol
@@ -221,15 +223,33 @@ extension FCCollectorRootVC {
     func didRecievePublicationReport(notification: NSNotification) {
         var (identifier, report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
         
-        //we need to check if the report belings to the presented publication to refresh it
+        //we need to check if the report belongs to the presented publication to refresh it
         //change this to the presented publication
-        var presentedPublication = self.publications[1]
+        var presentedPublication = self.publications[0]
         
         if self.isPresentingPublicationDetailsView &&
             presentedPublication.uniqueId == identifier.uniqueId &&
             presentedPublication.version == identifier.version {
             
                 //self.publicationDetailsView.reloadReports
+        }
+        
+    }
+    
+    func didRecievePublicationRegistration(notification: NSNotification) {
+        
+        var registration = FCUserNotificationHandler.sharedInstance.recievedRegistrations.last!
+        
+        //the registration was added to the publication
+        //we need to check if the registration belongs to the presented detailsView
+        
+        //change this to the presented publication
+        var presentedPublication = self.publications[0]
+        
+        if presentedPublication.uniqueId == registration.identifier.uniqueId &&
+            presentedPublication.version == registration.identifier.version {
+                //self.publicationDetailsView.reloadRegistrations
+                println("updated pubication registration \(presentedPublication.registrationsForPublication.count)")
         }
         
     }

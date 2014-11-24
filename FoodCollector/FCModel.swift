@@ -14,18 +14,18 @@ let kRecievedNewDataNotification = "RecievedNewDataNotification"
 let kRecievedNewPublicationNotification = "RecievedNewPublicationNotification"
 let kDeletedPublicationNotification = "DeletedPublicationNotification"
 let kRecivedPublicationReportNotification = "RecivedPublicationReportNotification"
+let kRecievedPublicationRegistrationNotification = "kRecievedPublicationRegistrationNotification"
 let kDeviceUUIDKey = "seviceUUIDString"
 
-public class FCModel : NSObject {
+public class FCModel : NSObject, CLLocationManagerDelegate {
     
-    var locationManager = CLLocationManager()
     var appDataStoreManager = FCAppDataStoreManager()
     var readyToLaunchUI:Bool = false
     var foodCollectorWebServer:FCServerProtocol!
     public var publications = [FCPublication]()
-    var pushNotificationHandler = FCUserNotificationHandler()
     var userCreatedPublications = [FCPublication]()
     var userLocation = CLLocation()
+    let locationManager = CLLocationManager()
     let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
     let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("userCreatedPublications")
     var uiReadyForNewData: Bool = false {
@@ -56,6 +56,8 @@ public class FCModel : NSObject {
             self.foodCollectorWebServer.reportDeviceUUID(uuid)
             return uuid
         }()
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
     }
     
     func downloadData() {
@@ -78,6 +80,7 @@ public class FCModel : NSObject {
             if publication.uniqueId == publicationIdentifier.uniqueId &&
                 publication.version == publicationIdentifier.version{
                     self.publications.removeAtIndex(index)
+                    FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
                     self.postDeletedPublicationNotification(publicationIdentifier)
                     //save data
                     //self.savePublications()
@@ -97,12 +100,14 @@ public class FCModel : NSObject {
                 if publication.uniqueId == recievedPublication.uniqueId &&
                     publication.version < recievedPublication.version {
                         self.publications.removeAtIndex(index)
+                        FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
                         break
                 }
             }
         }
         //append the new publication
         self.publications.append(recievedPublication)
+        FCUserNotificationHandler.sharedInstance.registerLocalNotification(recievedPublication)
         self.postRecievedNewPublicationNotification()
 
         //save the new data
@@ -110,17 +115,47 @@ public class FCModel : NSObject {
     }
     
     func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {
-        for publication in self.publications {
-            if publication.uniqueId == identifier.uniqueId &&
-                publication.version == identifier.version {
-                    publication.reportsForPublication.append(report)
-                    self.postRecivedPublicationReportNotification()
-                    break
-            }
+        
+        var possiblePublication = self.publicationWithIdentifier(identifier)
+        if let publication = possiblePublication {
+            
+            publication.reportsForPublication.append(report)
+            self.postRecivedPublicationReportNotification()
         }
     }
     
+    func didRecievePublicationRegistration(registration: FCRegistrationForPublication) {
+       
+        var possiblePublication: FCPublication? = self.publicationWithIdentifier(registration.identifier)
+        
+        if possiblePublication != nil {
+        
+            switch registration.registrationMessage {
+                case .register:
+                    possiblePublication!.registrationsForPublication.append(registration)
+                case .unRegister:
+                    for (index, aRegistration) in enumerate(possiblePublication!.registrationsForPublication){
+                        if aRegistration.dateOfOrder == registration.dateOfOrder {
+                            possiblePublication!.registrationsForPublication.removeAtIndex(index)
+                        }
+                    }
+                default:
+                    break
+            }
+            self.postRecivedPublicationRegistrationNotification()
+        }
+    }
     
+    func publicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
+        var requestedPublication: FCPublication?
+        for publication in self.publications {
+            if publication.uniqueId == identifier.uniqueId &&
+                publication.version == identifier.version{
+                requestedPublication = publication
+            }
+        }
+        return requestedPublication
+    }
     ///posts NSNotification when the downloaded data is ready
     
     
@@ -140,6 +175,10 @@ public class FCModel : NSObject {
     
     func postRecivedPublicationReportNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(kRecivedPublicationReportNotification, object: self)
+    }
+    
+    func postRecivedPublicationRegistrationNotification() {
+        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self)
     }
 }
 

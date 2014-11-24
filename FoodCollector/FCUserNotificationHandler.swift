@@ -9,6 +9,8 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+
 
 let kUserNotificationShowActionId = "SHOW_IDENTIFIER"
 let kRemoteNotificationType = "type"
@@ -17,7 +19,8 @@ let kRemoteNotificationTypeDeletedPublication = "deleted_publication"
 let kRemoteNotificationTypePublicationReport = "publication_report"
 let kRemoteNotificationPublicationReportMessageKey = "report_message"
 let kRemoteNotificationPublicationReportDateKey = "date"
-let kRemoteNotificationTypeUserRegisteredForPublication = "user_registered_for_publication"
+let kRemoteNotificationTypeUserRegisteredForPublication = "registeration_for_publication"
+let kRemoteNotificationRegistrationMessageForPublicationKey = "registration_message"
 let kRemoteNotificationDataKey = "data"
 
 class FCUserNotificationHandler : NSObject {
@@ -31,10 +34,11 @@ class FCUserNotificationHandler : NSObject {
         return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? NSString
         }()
     
-    var registeredPublicationsForLocationNotification = [FCPublication]()
+    var registeredLocationNotification = [(UILocalNotification, FCPublication)]()
     var recievedPublications = [FCPublication]()
     var recivedtoDelete = [PublicationIdentifier]()
     var recivedReports = [(PublicationIdentifier, FCOnSpotPublicationReport)]()
+    var recievedRegistrations = [FCRegistrationForPublication]()
     
     func didRecieveLocalNotification(notification: UILocalNotification) {
         
@@ -71,14 +75,10 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypePublicationReport:
                 
-                println("publication report notification")
                 let data = userInfo[kRemoteNotificationDataKey] as [String : AnyObject]
-                let uniqueId = (data[kPublicationUniqueIdKey] as String!).toInt()!
-                let version = (data[kPublicationVersionKey] as String!).toInt()!
-                let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
+                let publicationIdentifier = self.identifierForInfo(data)
+                let reportDate = self.dateWithInfo(data)
                 let reportMessage = (data[kRemoteNotificationPublicationReportMessageKey]as String!).toInt()!
-                let reportdateInt =  data[kRemoteNotificationPublicationReportDateKey]! as Int
-                let reportDate = NSDate(timeIntervalSince1970: NSTimeInterval(reportdateInt))
                 let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
                 
                 if !self.didHandlePublicationReport(report, publicationIdentifier: publicationIdentifier) {
@@ -90,7 +90,20 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
-                println("user registered for publication notification")
+                let data = userInfo[kRemoteNotificationDataKey] as [String : AnyObject]
+                let publicationIdentifier = self.identifierForInfo(data)
+                let registrationDate = self.dateWithInfo(data)
+                
+                let registrationMessage = data[kRemoteNotificationRegistrationMessageForPublicationKey]! as Int
+                
+                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, registrationMessage: FCRegistrationForPublication.RegistrationMessage(rawValue: registrationMessage)!)
+                
+                if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
+                    self.recievedRegistrations.removeAll(keepCapacity: true)
+                    self.recievedRegistrations.append(registration)
+                    FCModel.sharedInstance.didRecievePublicationRegistration(registration)
+                }
+                
                 
             default:
                 break
@@ -121,8 +134,16 @@ class FCUserNotificationHandler : NSObject {
     /// unregisters a location notification for all current Publications.
     /// must be called before deInit of a Publication
     ///
-    func removeLocationNotifications(publications:[FCPublication]) {
+    func removeLocationNotification(publication: FCPublication) {
         
+        for (index, (notification , registeredPublication)) in enumerate(self.registeredLocationNotification) {
+            if registeredPublication.uniqueId == publication.uniqueId &&
+                registeredPublication.version == publication.version {
+                    UIApplication.sharedApplication().cancelLocalNotification(notification)
+                    self.registeredLocationNotification.removeAtIndex(index)
+                    break
+            }
+        }
     }
     
     ///
@@ -159,9 +180,23 @@ class FCUserNotificationHandler : NSObject {
     
     ///
     /// registers a location notification for all current Publications.
-    ///
-    func registerForLocationNotifications(publications:[FCPublication]) {
-        
+    /// this method is invoked by DidRecieveNewData Notification after fetching
+    func registerForLocationNotifications(notification: NSNotification) {
+        println("register for local notification")
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        self.registeredLocationNotification.removeAll(keepCapacity: false)
+        for publication in FCModel.sharedInstance.publications {
+            self.registerLocalNotification(publication)
+        }
+    }
+    
+    func registerLocalNotification(publication: FCPublication) {
+        let localNotification = UILocalNotification()
+        localNotification.alertBody = String.localizedStringWithFormat("You've arrived", "location notification body")
+        localNotification.regionTriggersOnce = false
+        localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(20), identifier: publication.title)
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        self.registeredLocationNotification.append((localNotification, publication))
     }
     
     func didHandleNewPublicationNotification(incomingPublication: FCPublication) -> Bool {
@@ -186,7 +221,7 @@ class FCUserNotificationHandler : NSObject {
                     break
             }
         }
-     return exist
+        return exist
     }
     
     func didHandlePublicationReport(report: FCOnSpotPublicationReport, publicationIdentifier: PublicationIdentifier) -> Bool {
@@ -201,6 +236,32 @@ class FCUserNotificationHandler : NSObject {
         }
         return exist
     }
+    
+    func didHandlePublicationRegistration(publicationRegistration: FCRegistrationForPublication, publicationIdentifier: PublicationIdentifier) -> Bool {
+        var exist = false
+        for registration in self.recievedRegistrations {
+            if  registration.identifier.uniqueId == publicationIdentifier.uniqueId &&
+                registration.identifier.version == publicationIdentifier.version &&
+                registration.dateOfOrder == publicationRegistration.dateOfOrder &&
+                registration.registrationMessage == publicationRegistration.registrationMessage {
+                    exist = true
+            }
+        }
+        return exist
+    }
+    
+    func identifierForInfo(data: [String: AnyObject?]) -> PublicationIdentifier {
+        let uniqueId = (data[kPublicationUniqueIdKey] as String!).toInt()!
+        let version = (data[kPublicationVersionKey] as String!).toInt()!
+        let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
+        return publicationIdentifier
+    }
+    
+    func dateWithInfo(data: [String: AnyObject?]) -> NSDate {
+        let timeInt = data[kRemoteNotificationPublicationReportDateKey]! as Int
+        let date = NSDate(timeIntervalSince1970: NSTimeInterval(timeInt))
+        return date
+    }
 }
 
 
@@ -208,6 +269,8 @@ class FCUserNotificationHandler : NSObject {
 
 extension FCUserNotificationHandler {
     func setup(){
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "registerForLocationNotifications:", name: kRecievedNewDataNotification, object: nil)
         
         let showAction = UIMutableUserNotificationAction()
         showAction.identifier = "SHOW_IDENTIFIER"

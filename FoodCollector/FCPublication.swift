@@ -31,6 +31,20 @@ struct PublicationIdentifier {
     let version: Int
 }
 
+struct FCRegistrationForPublication {
+    
+    enum RegistrationMessage: Int {
+        case register = 1
+        case unRegister = 2
+    }
+    
+    var identifier: PublicationIdentifier
+    var dateOfOrder: NSDate
+    var registrationMessage: RegistrationMessage
+}
+
+
+
 public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     public var uniqueId: Int
@@ -48,8 +62,8 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             return location.distanceFromLocation(FCModel.sharedInstance.userLocation)
     }
-    public var reportsForPublication = [FCOnSpotPublicationReport]()
-
+    var reportsForPublication = [FCOnSpotPublicationReport]()
+    var registrationsForPublication = [FCRegistrationForPublication]()
     
     public init(coordinates: CLLocationCoordinate2D,
         theTitle: String, endingDate: NSDate,

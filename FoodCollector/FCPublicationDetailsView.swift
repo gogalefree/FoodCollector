@@ -10,11 +10,6 @@ import UIKit
 import Foundation
 
 
-struct FCOrderCollectionForPublication {
-    
-    var publication:FCPublication
-    var dateOfOrder:NSDate
-}
 
 protocol FCPublicationDetailsViewDelegate {
     
@@ -32,7 +27,7 @@ protocol FCPublicationDetailsViewDelegate {
     
     /// the user intends to go and pick up from this publication.
     
-    func didOrderCollectionForPublication(order:FCOrderCollectionForPublication)
+    func didOrderCollectionForPublication(publication: FCPublication)
     
 }
 
