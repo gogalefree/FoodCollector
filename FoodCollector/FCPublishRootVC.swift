@@ -19,19 +19,25 @@ import QuartzCore
 class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet var collectionView:UICollectionView!
+    
     var userCreatedPublications = [FCPublication]()
-    
-    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    
+    let fLowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        layout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
-        collectionView.collectionViewLayout = layout
+        if userCreatedPublications.count == 0 {
+            collectionView.alpha = 0.0
+            displayNoPublicatiosMessage()
+        }
+        else {
+            fLowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            fLowLayout.minimumInteritemSpacing = 0
+            fLowLayout.minimumLineSpacing = 0
+            fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
+            collectionView.collectionViewLayout = fLowLayout
+        }
+        
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -48,31 +54,25 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         let reusableId = "FCPublishCollectionViewCell"
         var status = ""
         var statusImg : UIImage
-        
         let publication = userCreatedPublications[indexPath.item]
         let pubTitle = publication.title
         let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
         
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as FCPublishRootVCCustomCollectionViewCell
-        
         if FCDateFunctions.PublicationDidExpired(publication.endingDate){
             status = "Not Active" // Localizable string
             statusImg = UIImage(named: "Red-dot")!
-            //cell.backgroundColor = UIColor(red: 1.00, green: 0.81, blue: 0.82, alpha: 1.00)
         }
         else {
             status = "Active (until: \(locDateString))" // Localizable string
             statusImg = UIImage(named: "Green-dot")!
-            //cell.backgroundColor = UIColor(red: 0.86, green: 1.00, blue: 0.80, alpha: 1.00)
-
         }
         
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as FCPublishRootVCCustomCollectionViewCell
         
         cell.FCPublisherEventTitle.text = pubTitle
         cell.FCPublisherEventStatus.text = status
         cell.FCPublisherEventStatusIcon.image = statusImg
-        //cell.layer.borderWidth = 1.0
-        //cell.layer.borderColor = UIColor.grayColor().CGColor
+        
         return cell
         
     }
@@ -88,8 +88,28 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        layout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
+        fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    func displayNoPublicatiosMessage(){
+        let recWidth = FCDeviceData.screenWidth()/1.4
+        let recHight = FCDeviceData.screenHight()/1.4
+        let recCenterX = FCDeviceData.screenWidth()/2
+        let recCenterY = FCDeviceData.screenHight()/2
+        let fontSize = FCDeviceData.screenWidth()/10 - 9
+        
+        var label = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
+        label.center = CGPointMake(recCenterX, recCenterY)
+        
+        label.textAlignment = NSTextAlignment.Center
+        label.numberOfLines = 0 //removes any maximum limit, and uses as many lines as needed
+        //label.shadowColor = UIColor.lightGrayColor()
+        //label.shadowOffset = CGSize(width: 1,height: 2)
+        label.font = UIFont.systemFontOfSize(fontSize)
+        // Localizable string
+        label.text = "You have not created a publication yet.\n\nClick the + button to create a new publication."
+        self.view.addSubview(label)
     }
     
 }
