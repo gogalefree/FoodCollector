@@ -133,7 +133,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     
     
-    public class func publicationWithParams(params: [String: AnyObject]) -> FCPublication {
+    public class func publicationWithParams(params: [NSObject: AnyObject]) -> FCPublication {
         
         let aUniquId = params[kPublicationUniqueIdKey]! as Int
         let aTitle = params[kPublicationTitleKey]! as String

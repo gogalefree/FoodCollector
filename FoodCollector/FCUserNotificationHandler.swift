@@ -77,7 +77,12 @@ class FCUserNotificationHandler : NSObject {
 //MARK - Location Local Notifications
     
     func didRecieveLocalNotification(notification: UILocalNotification) {
-        println("recived local notification: ")
+
+        let userInfo = notification.userInfo
+        if userInfo != nil {
+            let publicationIdentifier = self.identifierForInfo(userInfo!)
+            
+        }
     }
     
     /// called when a user arrives to a publication spot.
@@ -99,7 +104,7 @@ class FCUserNotificationHandler : NSObject {
     
     func registerLocalNotification(publication: FCPublication) {
         println("registered \(publication.title)")
-        let userInfo = ["uniqueId" : publication.uniqueId , "version" : publication.version]
+        let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
         let localNotification = UILocalNotification()
         localNotification.userInfo = userInfo
         localNotification.alertBody = String.localizedStringWithFormat("You've arrived \(publication.title)",
@@ -133,11 +138,13 @@ class FCUserNotificationHandler : NSObject {
         
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
             
+            let data = userInfo[kRemoteNotificationDataKey]! as [NSObject : AnyObject]
+
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
                 
-                let newPublication = FCPublication.publicationWithParams(userInfo[kRemoteNotificationDataKey]! as [String : AnyObject])
+                let newPublication = FCPublication.publicationWithParams(data)
                 if !self.didHandleNewPublicationNotification(newPublication) {
                     self.recievedPublications.removeAll(keepCapacity: true)
                     self.recievedPublications.append(newPublication)
@@ -148,7 +155,6 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeDeletedPublication:
                 
-                let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
                 let publicationIdentifier = self.identifierForInfo(data)
                 if !self.didHandlePublicationToDelete(publicationIdentifier){
                     self.recivedtoDelete.removeAll(keepCapacity: true)
@@ -158,7 +164,6 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypePublicationReport:
                 
-                let data = userInfo[kRemoteNotificationDataKey] as [String : AnyObject]
                 let publicationIdentifier = self.identifierForInfo(data)
                 let reportDate = self.dateWithInfo(data)
                 let reportMessage = data[kRemoteNotificationPublicationReportMessageKey]! as Int
@@ -173,7 +178,6 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
-                let data = userInfo[kRemoteNotificationDataKey] as [String : AnyObject]
                 let publicationIdentifier = self.identifierForInfo(data)
                 let registrationDate = self.dateWithInfo(data)
                 
@@ -244,14 +248,14 @@ class FCUserNotificationHandler : NSObject {
         return exist
     }
     
-    func identifierForInfo(data: [String: AnyObject?]) -> PublicationIdentifier {
+    func identifierForInfo(data: [ NSObject: AnyObject?]) -> PublicationIdentifier {
         let uniqueId = data[kPublicationUniqueIdKey]! as Int
         let version = data[kPublicationVersionKey]! as Int
         let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
         return publicationIdentifier
     }
     
-    func dateWithInfo(data: [String: AnyObject?]) -> NSDate {
+    func dateWithInfo(data: [NSObject: AnyObject?]) -> NSDate {
         let timeInt = data[kRemoteNotificationPublicationReportDateKey]! as Int
         let date = NSDate(timeIntervalSince1970: NSTimeInterval(timeInt))
         return date
