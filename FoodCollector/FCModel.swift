@@ -16,6 +16,7 @@ let kDeletedPublicationNotification = "DeletedPublicationNotification"
 let kRecivedPublicationReportNotification = "RecivedPublicationReportNotification"
 let kRecievedPublicationRegistrationNotification = "kRecievedPublicationRegistrationNotification"
 let kDeviceUUIDKey = "seviceUUIDString"
+let kDistanceFilter = 1.0
 
 public class FCModel : NSObject, CLLocationManagerDelegate {
     
@@ -47,7 +48,12 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     public func setUp () {
         
         //we start with loading the current data
-       
+        self.locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        self.locationManager.distanceFilter = kDistanceFilter
+        self.locationManager.startUpdatingLocation()
+
         self.loadPublications()
         self.loadUserCreatedPublicationsPublications()
         self.deviceUUID ?? {
@@ -56,8 +62,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             self.foodCollectorWebServer.reportDeviceUUID(uuid)
             return uuid
         }()
-        self.locationManager.delegate = self
-        self.locationManager.requestWhenInUseAuthorization()
     }
     
     func downloadData() {
@@ -71,9 +75,30 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
-    
+    public func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch status {
+        case .Authorized:
+            println("always")
+        case .AuthorizedWhenInUse:
+            println("in use")
+        case .NotDetermined:
+            println("not determind")
+        case .Denied:
+            println("denied")
+        case .Restricted:
+            println("restrivted")
+
+
+        }
+        println("Did change authorization \(status)")
+    }
     /// deletes a Publication to Publications array
     ///
+    
+    public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!){
+        self.userLocation = locations.first as CLLocation
+    }
+
     
     func deletePublication(publicationIdentifier: PublicationIdentifier) {
         for (index , publication) in enumerate(self.publications) {
@@ -89,9 +114,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
-    ///
     /// add a Publication to Publications array
-    ///
     
     func addPublication(recievedPublication: FCPublication) {
         //remove older versions
@@ -117,9 +140,9 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {
         
         var possiblePublication = self.publicationWithIdentifier(identifier)
-        if let publication = possiblePublication {
+        if possiblePublication != nil {
             
-            publication.reportsForPublication.append(report)
+            possiblePublication!.reportsForPublication.append(report)
             self.postRecivedPublicationReportNotification()
         }
     }

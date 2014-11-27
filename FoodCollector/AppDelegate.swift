@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let option = launchOptions{
             
             if option[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
-               let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as NSDictionary
+                let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as [String : AnyObject]
                 FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
             }
             
             if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
-                let not = option[UIApplicationLaunchOptionsRemoteNotificationKey] as UILocalNotification
+                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
             }
         }
@@ -89,6 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        
         FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(notification)
     }
 

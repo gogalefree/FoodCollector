@@ -109,26 +109,26 @@ public extension FCMockServer {
         var subtitle = "never there"
         var address = "hod hasharon"
         var typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        var coordinate = CLLocationCoordinate2D(latitude: 32, longitude: 32)
+        var coordinate = CLLocationCoordinate2D(latitude: 32.361233, longitude: 34.867452)
         var startingDate = NSDate()
         var endingDate = NSDate(timeIntervalSinceNow: 36000)
         var contactInfo = "call: 0522222222"
         var photoUrl = "www.url.com"
-        var version = 1
+        var version = 2
         
         let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: contactInfo, subTitle: subtitle, version: version)
-  //      publicaions.append(pub1)
+        publicaions.append(pub1)
         
         uniqueId = 1111111
        title = "guy's house"
         subtitle = "always there"
         address = "beit halevi"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.5, longitude: 32.5)
+        coordinate = CLLocationCoordinate2D(latitude: 32.357868, longitude: 34.934164)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 360000)
         photoUrl = "www.guy.com"
-        version = 002
+        version = 2
         
         let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
         publicaions.append(pub2 )
@@ -139,11 +139,11 @@ public extension FCMockServer {
         subtitle = "where is it"
         address = "Tel Aviv"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
+        coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
-        version = 001
+        version = 1
         
         let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
         publicaions.append(pub3)
@@ -153,11 +153,11 @@ public extension FCMockServer {
         subtitle = "nowhere"
         address = "givataim"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.9, longitude: 32.9)
+        coordinate = CLLocationCoordinate2D(latitude: 32.357870, longitude: 34.934170)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.maayan.com"
-        version = 001
+        version = 1
         
         let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
         publicaions.append(pub4)

@@ -43,8 +43,8 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
         self.publications = FCModel.sharedInstance.publications
         FCModel.sharedInstance.uiReadyForNewData = true
     }
-    
-    
+   
+ 
     
     // MARK: - PublicationDetailsViewDelegate protocol
     

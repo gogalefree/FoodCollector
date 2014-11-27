@@ -22,6 +22,7 @@ let kRemoteNotificationPublicationReportDateKey = "date"
 let kRemoteNotificationTypeUserRegisteredForPublication = "registeration_for_publication"
 let kRemoteNotificationRegistrationMessageForPublicationKey = "registration_message"
 let kRemoteNotificationDataKey = "data"
+let kRegionRadiusForLocationNotification = 5
 
 class FCUserNotificationHandler : NSObject {
     
@@ -40,9 +41,93 @@ class FCUserNotificationHandler : NSObject {
     var recivedReports = [(PublicationIdentifier, FCOnSpotPublicationReport)]()
     var recievedRegistrations = [FCRegistrationForPublication]()
     
-    func didRecieveLocalNotification(notification: UILocalNotification) {
+    
+    /// this method receives the new token and calls the server’s
+    /// reportNewToken:oldToken:
+    
+    func registerForPushNotificationWithToken(newToken:String) {
+        
+        if let currentToken = self.oldToken {
+            if currentToken == newToken {return}
+        }
+        
+        FCModel.sharedInstance.foodCollectorWebServer.reportDeviceTokenForPushWithDeviceNewToken(newToken, oldtoken: self.oldToken)
+        
+        NSUserDefaults.standardUserDefaults().setObject(newToken, forKey: kRemoteNotificationTokenKey)
+    }
+    
+    
+    /// show action called by the show button on a notification view while the
+    ///  app in background mode. app launches UI
+    
+    func pushShowActionForNotification(notification:[NSObject: AnyObject]) {
         
     }
+    
+    /// cancel action called by the show button on a notification view while the
+    ///  app in background mode. app stays in backround
+    
+    func pushCancelActionForNotification(publication:[NSObject : AnyObject]) {
+        
+    }
+
+    
+    
+    
+//MARK - Location Local Notifications
+    
+    func didRecieveLocalNotification(notification: UILocalNotification) {
+        println("recived local notification: ")
+    }
+    
+    /// called when a user arrives to a publication spot.
+    /// called by the app as a result of user location notification
+    func didArriveToPublicationSpot(publication:FCPublication) {
+        
+    }
+    
+    /// registers a location notification for all current Publications.
+    /// this method is invoked by DidRecieveNewData Notification after fetching
+    func registerForLocationNotifications(notification: NSNotification) {
+        println("register for local notification")
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        self.registeredLocationNotification.removeAll(keepCapacity: false)
+        for publication in FCModel.sharedInstance.publications {
+            self.registerLocalNotification(publication)
+        }
+    }
+    
+    func registerLocalNotification(publication: FCPublication) {
+        println("registered \(publication.title)")
+        let userInfo = ["uniqueId" : publication.uniqueId , "version" : publication.version]
+        let localNotification = UILocalNotification()
+        localNotification.userInfo = userInfo
+        localNotification.alertBody = String.localizedStringWithFormat("You've arrived \(publication.title)",
+            "location notification body")
+        localNotification.soundName = UILocalNotificationDefaultSoundName
+        localNotification.regionTriggersOnce = false
+        localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(kRegionRadiusForLocationNotification), identifier: publication.title)
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        self.registeredLocationNotification.append((localNotification, publication))
+    }
+    
+    ///
+    /// unregisters a location notification for a Publication.
+    
+    func removeLocationNotification(publication: FCPublication) {
+        
+        for (index, (notification , registeredPublication)) in enumerate(self.registeredLocationNotification) {
+            if registeredPublication.uniqueId == publication.uniqueId &&
+                registeredPublication.version == publication.version {
+                    UIApplication.sharedApplication().cancelLocalNotification(notification)
+                    self.registeredLocationNotification.removeAtIndex(index)
+                    println("UNregister for local notification: \(registeredPublication.title)")
+                    break
+            }
+        }
+    }
+    
+//MARK - Remote Notifications
     
     func didRecieveRemoteNotification(userInfo: [NSObject : AnyObject]) {
         
@@ -52,7 +137,7 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeNewPublication:
                 
-                let newPublication = FCPublication.publicationWithParams(userInfo[kRemoteNotificationDataKey] as [String : String])
+                let newPublication = FCPublication.publicationWithParams(userInfo[kRemoteNotificationDataKey]! as [String : AnyObject])
                 if !self.didHandleNewPublicationNotification(newPublication) {
                     self.recievedPublications.removeAll(keepCapacity: true)
                     self.recievedPublications.append(newPublication)
@@ -63,10 +148,8 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeDeletedPublication:
                 
-                let data = userInfo[kRemoteNotificationDataKey]! as [String : String]
-                let uniqueId = data[kPublicationUniqueIdKey]!.toInt()!
-                let version = data[kPublicationVersionKey]!.toInt()!
-                let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
+                let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
+                let publicationIdentifier = self.identifierForInfo(data)
                 if !self.didHandlePublicationToDelete(publicationIdentifier){
                     self.recivedtoDelete.removeAll(keepCapacity: true)
                     self.recivedtoDelete.append(publicationIdentifier)
@@ -78,7 +161,7 @@ class FCUserNotificationHandler : NSObject {
                 let data = userInfo[kRemoteNotificationDataKey] as [String : AnyObject]
                 let publicationIdentifier = self.identifierForInfo(data)
                 let reportDate = self.dateWithInfo(data)
-                let reportMessage = (data[kRemoteNotificationPublicationReportMessageKey]as String!).toInt()!
+                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey]! as Int
                 let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
                 
                 if !self.didHandlePublicationReport(report, publicationIdentifier: publicationIdentifier) {
@@ -104,99 +187,10 @@ class FCUserNotificationHandler : NSObject {
                     FCModel.sharedInstance.didRecievePublicationRegistration(registration)
                 }
                 
-                
             default:
                 break
-                
-            }
-            
-        }
-    }
-    
-    ///
-    /// cancel action called by the show button on a notification view while the
-    ///  app in background mode.
-    /// app stays in backround
-    ///
-    func pushCancelActionForNotification(publication:[NSObject : AnyObject]) {
-        
-    }
-    
-    ///
-    /// called when a new Publication push notification arrives.
-    /// can be called several times for the same notification.
-    ///
-    func didReciveNewPublicationNotification(notification:[NSObject : AnyObject]) {
-        
-    }
-    
-    ///
-    /// unregisters a location notification for all current Publications.
-    /// must be called before deInit of a Publication
-    ///
-    func removeLocationNotification(publication: FCPublication) {
-        
-        for (index, (notification , registeredPublication)) in enumerate(self.registeredLocationNotification) {
-            if registeredPublication.uniqueId == publication.uniqueId &&
-                registeredPublication.version == publication.version {
-                    UIApplication.sharedApplication().cancelLocalNotification(notification)
-                    self.registeredLocationNotification.removeAtIndex(index)
-                    break
             }
         }
-    }
-    
-    ///
-    /// this method receives the new token and calls the server’s reportNewTok
-    /// en:oldToken:
-    ///
-    func registerForPushNotificationWithToken(newToken:String) {
-        
-        if let currentToken = self.oldToken {
-            if currentToken == newToken {return}
-        }
-        
-        FCModel.sharedInstance.foodCollectorWebServer.reportDeviceTokenForPushWithDeviceNewToken(newToken, oldtoken: self.oldToken)
-        
-        NSUserDefaults.standardUserDefaults().setObject(newToken, forKey: kRemoteNotificationTokenKey)
-    }
-    
-    ///
-    /// called when a user arrives to a publication spot.
-    /// called by the app as a result of user location notification
-    ///
-    func didArriveToPublicationSpot(publication:FCPublication) {
-        
-    }
-    
-    ///
-    /// show action called by the show button on a notification view while the
-    ///  app in background mode.
-    /// app launches UI
-    ///
-    func pushShowActionForNotification(notification:[NSObject: AnyObject]) {
-        
-    }
-    
-    ///
-    /// registers a location notification for all current Publications.
-    /// this method is invoked by DidRecieveNewData Notification after fetching
-    func registerForLocationNotifications(notification: NSNotification) {
-        println("register for local notification")
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
-        self.registeredLocationNotification.removeAll(keepCapacity: false)
-        for publication in FCModel.sharedInstance.publications {
-            self.registerLocalNotification(publication)
-        }
-    }
-    
-    func registerLocalNotification(publication: FCPublication) {
-        let localNotification = UILocalNotification()
-        localNotification.alertBody = String.localizedStringWithFormat("You've arrived", "location notification body")
-        localNotification.regionTriggersOnce = false
-        localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(20), identifier: publication.title)
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-        self.registeredLocationNotification.append((localNotification, publication))
     }
     
     func didHandleNewPublicationNotification(incomingPublication: FCPublication) -> Bool {
@@ -251,8 +245,8 @@ class FCUserNotificationHandler : NSObject {
     }
     
     func identifierForInfo(data: [String: AnyObject?]) -> PublicationIdentifier {
-        let uniqueId = (data[kPublicationUniqueIdKey] as String!).toInt()!
-        let version = (data[kPublicationVersionKey] as String!).toInt()!
+        let uniqueId = data[kPublicationUniqueIdKey]! as Int
+        let version = data[kPublicationVersionKey]! as Int
         let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
         return publicationIdentifier
     }

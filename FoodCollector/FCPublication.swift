@@ -59,8 +59,8 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var contactInfo:String?
     public var photoUrl:String?
     public var distanceFromUserLocation:Double {
-            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            return location.distanceFromLocation(FCModel.sharedInstance.userLocation)
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        return location.distanceFromLocation(FCModel.sharedInstance.userLocation)
     }
     var reportsForPublication = [FCOnSpotPublicationReport]()
     var registrationsForPublication = [FCRegistrationForPublication]()
@@ -70,7 +70,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         typeOfCollecting: FCTypeOfCollecting, startingDate: NSDate,
         uniqueId: Int, address: String, photoUrl: String?,
         contactInfo: String?, subTitle: String?, version: Int) {
-        
+            
             self.uniqueId = uniqueId
             self.version = version
             self.title = theTitle
@@ -105,7 +105,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeObject(self.contactInfo, forKey: kPublicationContactInfoKey)
         aCoder.encodeObject(self.photoUrl, forKey: kPublicationPhotoUrl)
     }
-   
+    
     public required init(coder aDecoder: NSCoder) {
         
         self.uniqueId = aDecoder.decodeIntegerForKey(kPublicationUniqueIdKey)
@@ -133,26 +133,22 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     
     
-    ///
-    /// creates a Publication instance from Params dictionary
-    ///
-    public class func publicationWithParams(params: [String:String]) -> FCPublication {
+    public class func publicationWithParams(params: [String: AnyObject]) -> FCPublication {
         
-   //     let dict = params as NSDictionary
-        let aUniquId = params[kPublicationUniqueIdKey]!.toInt()
-        let aTitle = params[kPublicationTitleKey] ?? ""
-        let aSubTitle  = params[kPublicationSubTitleKey]
-        let anAddress = params[kPublicationAddressKey] ?? ""
-        let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey]!.toInt()!)
-        let aLatitude = (params[kPublicationLongtitudeKey]! as NSString).doubleValue
-        let aLongtitude = (params[kPublicationLongtitudeKey]! as NSString).doubleValue
+        let aUniquId = params[kPublicationUniqueIdKey]! as Int
+        let aTitle = params[kPublicationTitleKey]! as String
+        let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
+        let anAddress = params[kPublicationAddressKey] as? String ?? ""
+        let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey]! as Int)
+        let aLatitude = params[kPublicationLongtitudeKey]! as Double
+        let aLongtitude = params[kPublicationLongtitudeKey]! as Double
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
-        let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval((params[kPublicationStartingDateKey]! as NSString).doubleValue))
-        let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval((params[kPublicationEndingDateKey]! as NSString).doubleValue))
-        let aContactInfo = params[kPublicationContactInfoKey]
-        let aPhotoUrl = params[kPublicationPhotoUrl]
-        let aVersion = params[kPublicationVersionKey]!.toInt()
-        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId!, address: anAddress, photoUrl: aPhotoUrl, contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion!)
+        let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(params[kPublicationStartingDateKey]! as Int))
+        let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(params[kPublicationEndingDateKey]! as Int))
+        let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
+        let aPhotoUrl = params[kPublicationPhotoUrl] as? String ?? ""
+        let aVersion = params[kPublicationVersionKey]! as Int
+        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress, photoUrl: aPhotoUrl, contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
         return publication
     }
     
