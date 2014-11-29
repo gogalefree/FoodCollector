@@ -16,18 +16,23 @@ import Foundation
 
 class FCDateFunctions : NSObject {
     
-    let dateFormatter = NSDateFormatter()
-    
-    func dateFromString (dateString: String) -> NSDate {
-        
-        let date = self.dateFormatter.dateFromString(dateString)
-        
-        return date!
+    class func PublicationDidExpired(endingDate: NSDate) -> Bool {
+        // If timeIntervalSinceDate is bigger than 0, it means that the
+        // event is active and the result of PublicationDidExpired needs
+        // to be false.
+        if endingDate.timeIntervalSinceNow > 0 {
+            return false
+        }
+        else {
+            return true
+        }
     }
     
     class func localizedDateStringShortStyle(date: NSDate) -> String {
         return NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
     }
+    
+     
 }
 
 

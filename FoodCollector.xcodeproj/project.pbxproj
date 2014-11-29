@@ -355,6 +355,7 @@
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */,
+				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
