@@ -69,8 +69,18 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             { (thePublications: [FCPublication]) -> Void in
          
                 self.publications = thePublications
-                self.postFetchedDataReadyNotification()
+                //uncomment AFTER first build
+               // self.postFetchedDataReadyNotification()
                 self.savePublications()
+           
+                /*
+                // uncomment FOR first build only
+                self.userCreatedPublications.removeAll(keepCapacity: false)
+                self.userCreatedPublications.append(thePublications[0])
+                self.userCreatedPublications.append(thePublications[1])
+                self.userCreatedPublications.append(thePublications[2])
+                self.saveUserCreatedPublications()
+                */
               
         }
     }
@@ -227,7 +237,7 @@ public extension FCModel {
     func saveUserCreatedPublications() {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.userCreatedPublicationsFilePath)
+            let success = NSKeyedArchiver.archiveRootObject(self.userCreatedPublications, toFile: self.userCreatedPublicationsFilePath)
         }
     }
     
