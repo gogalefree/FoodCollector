@@ -70,7 +70,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
          
                 self.publications = thePublications
                 self.postFetchedDataReadyNotification()
-            //    self.savePublications()
+                self.savePublications()
               
         }
     }

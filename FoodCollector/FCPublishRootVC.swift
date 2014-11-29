@@ -23,10 +23,29 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     var userCreatedPublications = [FCPublication]()
     let fLowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+        if userCreatedPublications.count == 0 {
+            collectionView.alpha = 0.0
+            displayNoPublicatiosMessage()
+        }
+        else {
+            fLowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            fLowLayout.minimumInteritemSpacing = 0
+            fLowLayout.minimumLineSpacing = 0
+            fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
+            collectionView.collectionViewLayout = fLowLayout
+        }
+        
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userCreatedPublications.count
     }
     
     
@@ -57,8 +76,8 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         return cell
         
     }
-
-   
+    
+    
     
     func editUserCreatedPublication() {
         
@@ -68,6 +87,29 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
     }
     
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    func displayNoPublicatiosMessage(){
+        let recWidth = FCDeviceData.screenWidth()/1.4
+        let recHight = FCDeviceData.screenHight()/1.4
+        let recCenterX = FCDeviceData.screenWidth()/2
+        let recCenterY = FCDeviceData.screenHight()/2
+        let fontSize = FCDeviceData.screenWidth()/10 - 9
+        
+        var label = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
+        label.center = CGPointMake(recCenterX, recCenterY)
+        
+        label.textAlignment = NSTextAlignment.Center
+        label.numberOfLines = 0 //removes any maximum limit, and uses as many lines as needed
+        //label.shadowColor = UIColor.lightGrayColor()
+        //label.shadowOffset = CGSize(width: 1,height: 2)
+        label.font = UIFont.systemFontOfSize(fontSize)
+        // Localizable string
+        label.text = "You have not created a publication yet.\n\nClick the + button to create a new publication."
+        self.view.addSubview(label)
+    }
     
 }
-
