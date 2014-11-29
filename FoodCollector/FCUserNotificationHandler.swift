@@ -81,6 +81,7 @@ class FCUserNotificationHandler : NSObject {
         let userInfo = notification.userInfo
         if userInfo != nil {
             let publicationIdentifier = self.identifierForInfo(userInfo!)
+            //handle the notification
             
         }
     }
