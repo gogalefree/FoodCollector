@@ -25,7 +25,9 @@ class FCDateFunctions : NSObject {
         return date!
     }
     
-     
+    class func localizedDateStringShortStyle(date: NSDate) -> String {
+        return NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+    }
 }
 
 

@@ -104,14 +104,14 @@ public extension FCMockServer {
     public func makePublication () -> [FCPublication] {
 
         var publicaions = [FCPublication]()
-        var uniqueId = 333333
-        var title = "boris's house"
-        var subtitle = "never there"
+        var uniqueId = 111111
+        var title = "Green Apples"
+        var subtitle = "Fresh small green apples"
         var address = "hod hasharon"
         var typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         var coordinate = CLLocationCoordinate2D(latitude: 32.361233, longitude: 34.867452)
         var startingDate = NSDate()
-        var endingDate = NSDate(timeIntervalSinceNow: 36000)
+        var endingDate = NSDate(timeIntervalSinceNow: 129600)
         var contactInfo = "call: 0522222222"
         var photoUrl = "www.url.com"
         var version = 2
@@ -119,14 +119,14 @@ public extension FCMockServer {
         let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: contactInfo, subTitle: subtitle, version: version)
         publicaions.append(pub1)
         
-        uniqueId = 1111111
-       title = "guy's house"
-        subtitle = "always there"
+        uniqueId = 2222222
+       title = "50 k\"g of sweet BBQ chicken wings"
+        subtitle = "Chicken wings are not frozen!!!! please be quick about it!"
         address = "beit halevi"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.357868, longitude: 34.934164)
         startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 360000)
+        endingDate = NSDate(timeIntervalSinceNow: -360000)
         photoUrl = "www.guy.com"
         version = 2
         
@@ -141,7 +141,7 @@ public extension FCMockServer {
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
         startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
+        endingDate = NSDate(timeIntervalSinceNow: -345600)
         photoUrl = "www.denis.com"
         version = 1
         
