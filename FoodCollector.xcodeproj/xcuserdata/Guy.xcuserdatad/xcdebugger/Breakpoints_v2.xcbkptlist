@@ -57,22 +57,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FoodCollector/FCDateFunctions.swift"
-            timestampString = "438473186.304485"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "PublicationDidExpired(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCModel.swift"
             timestampString = "438958701.483474"
             startingColumnNumber = "9223372036854775807"
@@ -161,66 +145,6 @@
             endingLineNumber = "152"
             landmarkName = "publicationWithParams(_:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodCollector/FCModel.swift"
-            timestampString = "438958693.161654"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "setUp()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FoodCollector.FCModel.setUp (FoodCollector.FCModel)() -&gt; ()"
-                  moduleName = "FoodCollector"
-                  urlString = "file:///Users/Guy/ios%20projects/FoodCollector/FoodCollector/FCModel.swift"
-                  timestampString = "438958701.979376"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "762">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FoodCollector.FCModel.(setUp (FoodCollector.FCModel) -&gt; () -&gt; ()).(implicit closure #1)"
-                  moduleName = "FoodCollector"
-                  urlString = "file:///Users/Guy/ios%20projects/FoodCollector/FoodCollector/FCModel.swift"
-                  timestampString = "438958701.979543"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "12">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FoodCollector.FCModel.(setUp (FoodCollector.FCModel) -&gt; () -&gt; ()).(implicit closure #1).(closure #1)"
-                  moduleName = "FoodCollector"
-                  urlString = "file:///Users/Guy/ios%20projects/FoodCollector/FoodCollector/FCModel.swift"
-                  timestampString = "438958701.979699"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "15">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

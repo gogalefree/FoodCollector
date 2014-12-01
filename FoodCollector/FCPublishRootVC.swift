@@ -16,27 +16,28 @@ import QuartzCore
 /// contains a button for creating a new Publication.
 /// clicking an item starts’ editing mode of that item.
 ///
-class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     
     @IBOutlet var collectionView:UICollectionView!
     
     var userCreatedPublications = [FCPublication]()
-    let fLowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+  //  let fLowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+        collectionView.delegate = self
         if userCreatedPublications.count == 0 {
             collectionView.alpha = 0.0
             displayNoPublicatiosMessage()
         }
-        else {
-            fLowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            fLowLayout.minimumInteritemSpacing = 0
-            fLowLayout.minimumLineSpacing = 0
-            fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
-            collectionView.collectionViewLayout = fLowLayout
-        }
+//        else {
+//            fLowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//            fLowLayout.minimumInteritemSpacing = 0
+//            fLowLayout.minimumLineSpacing = 0
+//            fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
+//            collectionView.collectionViewLayout = fLowLayout
+//        }
         
     }
     
@@ -87,10 +88,26 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
-        collectionView.collectionViewLayout.invalidateLayout()
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animateAlongsideTransition({ (context: UIViewControllerTransitionCoordinatorContext!) -> Void in
+            self.collectionView.performBatchUpdates(nil, completion: nil)
+            }, completion: { (context: UIViewControllerTransitionCoordinatorContext!) -> Void in})
+        
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
+  
+
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let size = CGSizeMake(self.view.bounds.size.width - 16 , 90)
+        return size
+    }
+    
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+//        
+//        return UIEdgeInsetsMake(0, 8, 0, 8)
+//    }
+    
     
     func displayNoPublicatiosMessage(){
         let recWidth = FCDeviceData.screenWidth()/1.4
