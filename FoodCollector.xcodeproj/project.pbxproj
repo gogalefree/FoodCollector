@@ -10,6 +10,7 @@
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		E463A3AF1A121A5D001D8E3B /* PublicationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */; };
+		E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
 		E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
 		E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */; };
 		E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */; };
@@ -54,6 +55,7 @@
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationInitTests.swift; sourceTree = "<group>"; };
+		E469C6F01A2D15E80036038E /* FirstBuildInstructions */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FirstBuildInstructions; sourceTree = "<group>"; };
 		E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAlertsHandler.swift; sourceTree = "<group>"; };
 		E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAppDataStoreManager.swift; sourceTree = "<group>"; };
 		E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCArrivedToSpotView.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		E494DF0C1A0A980D004A369E /* FoodCollector */ = {
 			isa = PBXGroup;
 			children = (
+				E469C6F01A2D15E80036038E /* FirstBuildInstructions */,
 				E494DF0F1A0A980D004A369E /* AppDelegate.swift */,
 				E4737DA71A10C1DD00A4AB81 /* UI */,
 				E4737DA61A10C1C600A4AB81 /* Model */,
@@ -328,6 +331,7 @@
 				E494DF151A0A980D004A369E /* Main.storyboard in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
+				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

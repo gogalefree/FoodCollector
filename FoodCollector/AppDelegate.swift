@@ -67,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let id = identifier {
             if id == kUserNotificationShowActionId {
                 //Show ui for new notification
+            
             }
         }
     }

@@ -21,7 +21,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     @IBOutlet var collectionView:UICollectionView!
     
     var userCreatedPublications = [FCPublication]()
-  //  let fLowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +30,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             collectionView.alpha = 0.0
             displayNoPublicatiosMessage()
         }
-//        else {
-//            fLowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//            fLowLayout.minimumInteritemSpacing = 0
-//            fLowLayout.minimumLineSpacing = 0
-//            fLowLayout.itemSize = CGSize(width: FCDeviceData.screenWidth(), height: 90)
-//            collectionView.collectionViewLayout = fLowLayout
-//        }
-        
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -60,11 +51,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
         
         if FCDateFunctions.PublicationDidExpired(publication.endingDate){
-            status = "Not Active" // Localizable string
+            status = String.localizedStringWithFormat("Not Active" , "the puclication is off the air")
             statusImg = UIImage(named: "Red-dot")!
         }
         else {
-            status = "Active (until: \(locDateString))" // Localizable string
+            status = String.localizedStringWithFormat("Active until: \(locDateString))" , "the publication is active untill this date")
             statusImg = UIImage(named: "Green-dot")!
         }
         
@@ -75,40 +66,30 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         cell.FCPublisherEventStatusIcon.image = statusImg
         
         return cell
-        
     }
     
     
     
-    func editUserCreatedPublication() {
+    func editUserCreatedPublicationAction() {
         
     }
     
-    func newPublication() {
+    func newPublicationAction() {
         
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animateAlongsideTransition({ (context: UIViewControllerTransitionCoordinatorContext!) -> Void in
-            self.collectionView.performBatchUpdates(nil, completion: nil)
-            }, completion: { (context: UIViewControllerTransitionCoordinatorContext!) -> Void in})
         
+        self.collectionView.collectionViewLayout.invalidateLayout()
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
-  
-
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let size = CGSizeMake(self.view.bounds.size.width - 16 , 90)
+
+        let size = CGSizeMake(self.collectionView.bounds.size.width , 90)
         return size
     }
-    
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-//        
-//        return UIEdgeInsetsMake(0, 8, 0, 8)
-//    }
-    
-    
+ 
     func displayNoPublicatiosMessage(){
         let recWidth = FCDeviceData.screenWidth()/1.4
         let recHight = FCDeviceData.screenHight()/1.4
@@ -120,12 +101,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         label.center = CGPointMake(recCenterX, recCenterY)
         
         label.textAlignment = NSTextAlignment.Center
-        label.numberOfLines = 0 //removes any maximum limit, and uses as many lines as needed
-        //label.shadowColor = UIColor.lightGrayColor()
-        //label.shadowOffset = CGSize(width: 1,height: 2)
+        label.numberOfLines = 0
         label.font = UIFont.systemFontOfSize(fontSize)
-        // Localizable string
-        label.text = "You have not created a publication yet.\n\nClick the + button to create a new publication."
+        label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "no user created publications message")
         self.view.addSubview(label)
     }
     

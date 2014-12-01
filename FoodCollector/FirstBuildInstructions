@@ -1,0 +1,12 @@
+
+1. go to FCModel class
+2. find downLoadData() function
+3. find the "uncomment FOR first build only" message and uncomment the whole block of code (lines 76 to 83)
+4. run the project
+5. recomment that block of code
+6. you're good to go
+
+if you want to simulate new data fetched from the server:
+
+1. in the same place, find the "uncomment After first build" message
+2. uncomment the following line (nuber 73)

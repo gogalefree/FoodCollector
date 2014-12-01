@@ -134,14 +134,6 @@
                                                         <constraint firstAttribute="height" constant="7" id="wqL-M4-UUI"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="TEMPFoodIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
-                                                    <rect key="frame" x="248" y="13" width="64" height="64"/>
-                                                    <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" priority="100" constant="90" id="hc7-yt-SgB"/>
-                                                        <constraint firstAttribute="width" priority="100" constant="90" id="sPW-tx-YaC"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OjG-g6-qJx" userLabel="Gray Line">
                                                     <rect key="frame" x="0.0" y="89" width="312" height="1"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -150,6 +142,14 @@
                                                         <constraint firstAttribute="width" priority="999" constant="320" id="r2F-cv-J6S"/>
                                                     </constraints>
                                                 </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="TEMPFoodIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
+                                                    <rect key="frame" x="248" y="13" width="64" height="64"/>
+                                                    <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="100" constant="90" id="hc7-yt-SgB"/>
+                                                        <constraint firstAttribute="width" priority="100" constant="90" id="sPW-tx-YaC"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>

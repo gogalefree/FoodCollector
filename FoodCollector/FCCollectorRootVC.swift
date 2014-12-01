@@ -84,7 +84,7 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
             self.presentViewController(alertController, animated: true, completion: nil)
             
             //uncomment to show this message only once
-            //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
         }
     }
     
