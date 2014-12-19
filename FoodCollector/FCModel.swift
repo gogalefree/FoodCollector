@@ -70,7 +70,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
          
                 self.publications = thePublications
                 //uncomment AFTER first build
-               // self.postFetchedDataReadyNotification()
+                //self.postFetchedDataReadyNotification()
                 self.savePublications()
            
                 /*
@@ -79,6 +79,12 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 self.userCreatedPublications.append(thePublications[0])
                 self.userCreatedPublications.append(thePublications[1])
                 self.userCreatedPublications.append(thePublications[2])
+                self.userCreatedPublications.append(thePublications[3])
+                self.userCreatedPublications.append(thePublications[4])
+                self.userCreatedPublications.append(thePublications[5])
+                self.userCreatedPublications.append(thePublications[6])
+                self.userCreatedPublications.append(thePublications[7])
+                self.userCreatedPublications.append(thePublications[8])
                 self.saveUserCreatedPublications()
                 */
               
@@ -96,7 +102,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         case .Denied:
             println("denied")
         case .Restricted:
-            println("restrivted")
+            println("restricted")
 
 
         }

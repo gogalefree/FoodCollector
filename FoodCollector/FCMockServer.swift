@@ -112,7 +112,7 @@ public extension FCMockServer {
         var coordinate = CLLocationCoordinate2D(latitude: 32.361233, longitude: 34.867452)
         var startingDate = NSDate()
         var endingDate = NSDate(timeIntervalSinceNow: 129600)
-        var contactInfo = "call: 0522222222"
+        var contactInfo = "0522222222"
         var photoUrl = "www.url.com"
         var version = 2
         

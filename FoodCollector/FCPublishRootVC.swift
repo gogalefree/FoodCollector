@@ -65,6 +65,10 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         cell.FCPublisherEventStatus.text = status
         cell.FCPublisherEventStatusIcon.image = statusImg
         
+        // The tag property will be used later in the segue to identify
+        // the publication item clicked by the user for editing.
+        cell.tag = indexPath.item
+        
         return cell
     }
     
@@ -89,6 +93,24 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         let size = CGSizeMake(self.collectionView.bounds.size.width , 90)
         return size
     }
+    
+    // Check which segue was used to go to the FCPublicationEditorTVC view.
+    //
+    // If the segue identifier is "showNewPublicationEditorTVC" - do nothing. In the
+    // FCPublicationEditorTVC class we will check to see if var publication is empty or nil
+    // and if it is, we will disply a new publication table.
+    //
+    // If the segue identifier is "showEditPublicationEditorTVC" we will pass on the
+    // publication object that corresponds to the clicked cell in the collection view
+    // and display the publication's content in the FCPublicationEditorTVC class.
+    
+    override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
+        if (segue.identifier == "showEditPublicationEditorTVC") {
+            let pubEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
+            pubEditorTVC.publication = userCreatedPublications[sender.tag]
+        }
+    }
+
  
     func displayNoPublicatiosMessage(){
         let recWidth = FCDeviceData.screenWidth()/1.4
@@ -103,7 +125,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         label.textAlignment = NSTextAlignment.Center
         label.numberOfLines = 0
         label.font = UIFont.systemFontOfSize(fontSize)
-        label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "no user created publications message")
+        label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "No user created publications message")
         self.view.addSubview(label)
     }
     
