@@ -260,7 +260,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="oab-y0-LFY" kind="show" identifier="showPublicationTitleEditor" id="38C-1p-npk"/>
+                                    <segue destination="oab-y0-LFY" kind="show" identifier="showPublicationTitleEditor" id="64t-0v-GwS"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -329,25 +329,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIP-NL-IBt">
-                                <rect key="frame" x="252" y="198" width="96" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c62-5O-ucG">
+                                <rect key="frame" x="270" y="231" width="61" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="96" id="4gh-z7-9RJ"/>
+                                    <constraint firstAttribute="width" constant="61" id="pXO-i2-mkB"/>
                                 </constraints>
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pubSaveBtn:" destination="oab-y0-LFY" eventType="touchUpInside" id="fTt-gG-3l1"/>
-                                    <segue destination="mvG-Ly-gH3" kind="show" id="NDU-fk-55L"/>
+                                    <segue destination="aN2-tR-dA3" kind="unwind" unwindAction="unwindToPublisherTVC:" id="2nr-pF-s0W"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gIP-NL-IBt" firstAttribute="top" secondItem="zZj-M1-w8b" secondAttribute="bottom" constant="40" id="9HB-Jn-2Q9"/>
+                            <constraint firstAttribute="centerX" secondItem="c62-5O-ucG" secondAttribute="centerX" id="59k-CL-EZW"/>
                             <constraint firstItem="zZj-M1-w8b" firstAttribute="leading" secondItem="XXa-l4-Ceq" secondAttribute="leadingMargin" id="E9J-Bq-ZcX"/>
-                            <constraint firstAttribute="centerX" secondItem="gIP-NL-IBt" secondAttribute="centerX" id="KTf-11-LcG"/>
+                            <constraint firstItem="c62-5O-ucG" firstAttribute="top" secondItem="zZj-M1-w8b" secondAttribute="bottom" constant="73" id="POD-F5-mmr"/>
                             <constraint firstItem="zZj-M1-w8b" firstAttribute="top" secondItem="VWY-s5-usM" secondAttribute="bottom" constant="64" id="gtO-RU-lUC"/>
                             <constraint firstAttribute="centerX" secondItem="zZj-M1-w8b" secondAttribute="centerX" id="xr3-l9-PPX"/>
                         </constraints>
@@ -357,6 +356,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="edS-Na-q4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="aN2-tR-dA3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2058" y="1784"/>
         </scene>
@@ -384,6 +384,6 @@
         <image name="TEMPFoodIcon" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NDU-fk-55L"/>
+        <segue reference="o0R-Pf-5ey"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -15,8 +15,6 @@ class FCPublishTitleEditorVC: UIViewController {
     var selectedTagNumber = 0
 
     @IBOutlet weak var pubTitleText: UITextField!
-    @IBAction func pubSaveBtn(sender: AnyObject) {
-    }
     
     
     override func viewDidLoad() {
@@ -50,19 +48,22 @@ class FCPublishTitleEditorVC: UIViewController {
     }
     
     private func updateDataSource(){
+        println("updateDataSource")
         updateData()
         dataSource[selectedTagNumber] = selectedDataObj!
         println(dataSource[selectedTagNumber].userData)
     }
-
+    
+    
+    /*
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         //if (segue.identifier == "showPublicationTitleEditor") {
-            let pubEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
+            //let pubEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
             updateDataSource()
-            pubEditorTVC.dataSource = dataSource
-            pubEditorTVC.isDataSourceEdited = true
+            //pubEditorTVC.dataSource = dataSource
+            //pubEditorTVC.isDataSourceEdited = true
             
         //}
-    }
+    }*/
 
 }

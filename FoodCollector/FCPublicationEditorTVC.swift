@@ -23,6 +23,7 @@ struct FCNewPublicationTVCCellData {
     var userData:AnyObject
     var isSeperator:Bool
     var identityTag:Int
+    //var dataType:String
     // var newPublicationTVC:FCPublicationEditorTVC
     
 }
@@ -63,30 +64,32 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
     let kPublishContactPhoneNumber = String.localizedStringWithFormat("Add phone number", "Add phone number for a new event")
     let kPublishContactPhoneNumberPrefix = String.localizedStringWithFormat("Phone number: ", "Phone number label for displaying an exciting phone number")
     let kPublishImage = String.localizedStringWithFormat("Add image", "Add image for a new event")
+    
+    let kCellHeight = CGFloat(50.0)
+    let kSeperatorHeight = CGFloat(30.0)
+    
+    @IBAction func unwindToPublisherTVC(segue: UIStoryboardSegue) {
+        println("unwindToPublisherTVC")
+    
+        let sourceVC = segue.sourceViewController as FCPublishTitleEditorVC
+        updateDataSource(sourceVC.pubTitleText.text, selectedTagNumber: sourceVC.selectedTagNumber)
+        
+        tableView.reloadData()
+    }
         
     var publication:FCPublication?
     var dataSource = [FCNewPublicationTVCCellData]()
     var identityTagCounter = 0
-    var isDataSourceEdited = false
+    //var isDataSourceEdited = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if isDataSourceEdited {
-            println("isDataSourceEdited = true")
-            println(dataSource[0].userData)
-            isDataSourceEdited = false
-            println("Start: tableView.reloadData()")
-            tableView.reloadData()
-            println("End: tableView.reloadData()")
+        if publication != nil {
+            self.createCellDataForExistingPublication(publication!)
         }
         else {
-            if publication != nil {
-                self.createCellDataForExistingPublication(publication!)
-            }
-            else {
-                self.createCellDataForNewPublication()
-            }
+            self.createCellDataForNewPublication()
         }
         
         // To hide the empty cells set a zero size table footer view.
@@ -96,9 +99,27 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
 
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        //if isDataSourceEdited {
+            println("=-=-=-=-=-=-=-=-=-=-=-viewWillAppear")
+            println(dataSource[0].userData)
+            //tableView.reloadData()
+        //}
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //println("Start: tableView: numberOfRowsInSection")
         //println("End: tableView: numberOfRowsInSection")
+        for ddd in dataSource {
+            println("=== === === === === === === === ===")
+            println("\(ddd.identityTag): \(ddd.initialTitle)")
+            println("=== === === === === === === === ===")
+        }
         return dataSource.count
     }
     
@@ -133,9 +154,29 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
           cell.textLabel!.text = dataSource[indexPath.item].initialTitle
         }
         
+        //println("=============================")
+        //println("\(dataSource[indexPath.item].identityTag): \(dataSource[indexPath.item].initialTitle)")
+        //println("=============================")
         cell.tag = dataSource[indexPath.item].identityTag
         //println("End: tableView: cellForRowAtIndexPath")
         return cell
+    }
+    
+    /*private func updateData(selectedDataObj:FCNewPublicationTVCCellData, newValue:AnyObject){
+        selectedDataObj.userData = newValue
+        selectedDataObj.containsUserData = true
+        selectedDataObj.isObligatory = true
+        //selectedDataObj.containsUserData = true
+        //selectedDataObj.isObligatory = true
+    }*/
+    
+    private func updateDataSource(newValue:AnyObject, selectedTagNumber:Int){
+        println("updateDataSource")
+        dataSource[selectedTagNumber].userData = newValue
+        dataSource[selectedTagNumber].initialTitle = newValue as String
+        dataSource[selectedTagNumber].containsUserData = true
+        dataSource[selectedTagNumber].isObligatory = true
+        println(dataSource[selectedTagNumber].userData)
     }
 
     // MARK: - PublicationDataInputDelegate protocol
@@ -205,80 +246,101 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
     //===========================================================================
     
     func createCellDataForExistingPublication(publication:FCPublication) {
-        println("=== Edit Publication ===")
+        // For each publication we display the follwoing in the table:
+        // 1.  Title
+        // 2.  Subtitle
+        // 3.  Address
+        // 4.  Seperator
+        // 5.  Start date
+        // 6.  End date
+        // 7.  Type of collection
+        // 8.  Seperator
+        // 9.  Contact info (phone number)
+        // 10. Seperator
+        // 11. Photo
+        // 12. Seperator
+        // xx. Publish button (not part of the data source!!!)
+        // so a total of 12 members for in datasource.
+        
+        //let numOfMembers = 12
+        
         var cellData : FCNewPublicationTVCCellData
         var  locDateString : String
         
+        //for index in 1...numOfMembers {}
+        
+        
+        
         // For Title
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: publication.title, isObligatory: false, userData: publication.title, isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: publication.title, isObligatory: false, userData: publication.title, isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Subtitle
         if let sTitle = publication.subtitle {
-            cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: sTitle, isObligatory: false, userData: sTitle, isSeperator: false, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: sTitle, isObligatory: false, userData: sTitle, isSeperator: false, identityTag: getCount())
             
         }
         else {
-            cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: false, initialTitle: kPublishSubtitle, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, initialTitle: kPublishSubtitle, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
         }
         dataSource.append(cellData)
         
         // For Address
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: publication.address, isObligatory: false, userData: publication.address, isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: publication.address, isObligatory: false, userData: publication.address, isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: 30.0, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Start Date
         locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.startingDate)
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: (kPublishStartDatePrefix + locDateString), isObligatory: false, userData: publication.startingDate, isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: (kPublishStartDatePrefix + locDateString), isObligatory: false, userData: publication.startingDate, isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For End Date
         locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: (kPublishEndDatePrefix + locDateString), isObligatory: false, userData: publication.endingDate, isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: (kPublishEndDatePrefix + locDateString), isObligatory: false, userData: publication.endingDate, isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Type Of Collection
         var collectionType = publication.typeOfCollecting
         if collectionType == FCTypeOfCollecting.FreePickUp {
-            cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishTypeOfCollectionFreePickUp, isObligatory: false, userData: 1, isSeperator: false, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishTypeOfCollectionFreePickUp, isObligatory: false, userData: 1, isSeperator: false, identityTag: getCount())
         }
         else if collectionType == FCTypeOfCollecting.ContactPublisher {
-            cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishTypeOfCollectionContactPublisher, isObligatory: false, userData: 2, isSeperator: false, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishTypeOfCollectionContactPublisher, isObligatory: false, userData: 2, isSeperator: false, identityTag: getCount())
         }
         else {
-            cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishTypeOfCollection, isObligatory: false, userData: Int(), isSeperator: false, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishTypeOfCollection, isObligatory: false, userData: Int(), isSeperator: false, identityTag: getCount())
         }
         dataSource.append(cellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: 30.0, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Contact Info
         if collectionType == FCTypeOfCollecting.ContactPublisher {
             if let cInfo = publication.contactInfo {
-                cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: (kPublishContactPhoneNumberPrefix + cInfo), isObligatory: false, userData: cInfo, isSeperator: false, identityTag: getCount())
+                cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: (kPublishContactPhoneNumberPrefix + cInfo), isObligatory: false, userData: cInfo, isSeperator: false, identityTag: getCount())
             }
             else {
-                cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: false, initialTitle: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+                cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, initialTitle: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
             }
             dataSource.append(cellData)
             
             // For a Seperator
-            cellData = FCNewPublicationTVCCellData(height: 30.0, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
             dataSource.append(cellData)
         }
         
         // For Photo
         if let imgURL = publication.photoUrl {
-            cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: String(), isObligatory: false, userData: imgURL, isSeperator: false, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: String(), isObligatory: false, userData: imgURL, isSeperator: false, identityTag: getCount())
         }
         else {
-            cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: false, initialTitle: kPublishImage, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, initialTitle: kPublishImage, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
         }
         dataSource.append(cellData)
         
@@ -291,47 +353,47 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         var cellData : FCNewPublicationTVCCellData
         
         // For Title
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishTitle, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishTitle, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Subtitle
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: false, initialTitle: kPublishSubtitle, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, initialTitle: kPublishSubtitle, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Address
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishAddress, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishAddress, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: 30.0, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Start Date
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishStartDate, isObligatory: false, userData: NSDate(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishStartDate, isObligatory: false, userData: NSDate(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For End Date
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishEndDate, isObligatory: false, userData: NSDate(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishEndDate, isObligatory: false, userData: NSDate(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Type Of Collection
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, initialTitle: kPublishTypeOfCollection, isObligatory: false, userData: Int(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, initialTitle: kPublishTypeOfCollection, isObligatory: false, userData: Int(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: 30.0, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Contact Info
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: false, initialTitle: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, initialTitle: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: 30.0, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, initialTitle: "", isObligatory: false, userData: "", isSeperator: true, identityTag: getCount())
         dataSource.append(cellData)
         
         // For Photo
-        cellData = FCNewPublicationTVCCellData(height: 50.0, containsUserData: false, initialTitle: kPublishImage, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
+        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, initialTitle: kPublishImage, isObligatory: false, userData: String(), isSeperator: false, identityTag: getCount())
         dataSource.append(cellData)
         
         println("Number of cells in table: \(dataSource.count)")
