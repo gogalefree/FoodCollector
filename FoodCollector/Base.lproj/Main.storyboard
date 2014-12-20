@@ -48,7 +48,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gA4-bv-1lN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792" y="293"/>
+            <point key="canvasLocation" x="2832" y="293"/>
         </scene>
         <!--Collect-->
         <scene sceneID="VED-7b-aGp">
@@ -259,9 +259,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="oab-y0-LFY" kind="show" identifier="showPublicationTitleEditor" id="64t-0v-GwS"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -269,10 +266,71 @@
                             <outlet property="delegate" destination="mvG-Ly-gH3" id="CIP-Qf-Fmh"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="oab-y0-LFY" kind="show" identifier="showPublicationStringFieldsEditor" id="GlQ-ix-0oI"/>
+                        <segue destination="knb-ML-FSu" kind="show" identifier="showPublicationAdressEditor" id="ikc-XD-Qxf"/>
+                        <segue destination="12l-Js-Ntn" kind="show" identifier="showPublicationDateEditor" id="K89-za-pEY"/>
+                        <segue destination="Ifz-hX-XYs" kind="show" identifier="showPublicationTypeOfCollectionEditor" id="Xao-hF-xRc"/>
+                        <segue destination="qPx-5M-4aq" kind="show" identifier="showPublicationImageEditor" id="aOg-hR-prX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DIz-T7-3la" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792" y="1038"/>
+            <point key="canvasLocation" x="2832" y="1036"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="Ilb-mZ-qtL">
+            <objects>
+                <viewController title="Image" id="qPx-5M-4aq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qex-Lc-h80"/>
+                        <viewControllerLayoutGuide type="bottom" id="5Bv-yx-M7x"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2lx-tB-Arv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="45W-MY-xwO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4434" y="1784"/>
+        </scene>
+        <!--Date Picker-->
+        <scene sceneID="0pI-PE-6Gi">
+            <objects>
+                <viewController title="Date Picker" id="12l-Js-Ntn" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x1f-Zm-Poy"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pxn-Kl-Uga"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="peq-fn-fkD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ap-2t-w5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2832" y="1784"/>
+        </scene>
+        <!--Type Of Collection-->
+        <scene sceneID="sl8-Sp-U4O">
+            <objects>
+                <viewController title="Type Of Collection" id="Ifz-hX-XYs" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d8p-8b-zcy"/>
+                        <viewControllerLayoutGuide type="bottom" id="HrY-n9-SM6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O5N-ES-VTp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H1N-wj-9Bc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3634" y="1784"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aDR-lo-JJT">
@@ -312,10 +370,10 @@
             </objects>
             <point key="canvasLocation" x="1241" y="1036"/>
         </scene>
-        <!--Title-->
+        <!--String Fields-->
         <scene sceneID="45u-pw-aH5">
             <objects>
-                <viewController title="Title" id="oab-y0-LFY" customClass="FCPublishTitleEditorVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="String Fields" id="oab-y0-LFY" customClass="FCPublishStringFieldsEditorVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VWY-s5-usM"/>
                         <viewControllerLayoutGuide type="bottom" id="q9J-Sy-SZD"/>
@@ -329,6 +387,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8VF-yB-tsl">
+                                <rect key="frame" x="16" y="128" width="568" height="72"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c62-5O-ucG">
                                 <rect key="frame" x="270" y="231" width="61" height="30"/>
                                 <constraints>
@@ -338,32 +403,37 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="aN2-tR-dA3" kind="unwind" unwindAction="unwindToPublisherTVC:" id="2nr-pF-s0W"/>
+                                    <segue destination="aN2-tR-dA3" kind="unwind" unwindAction="unwindFromStringFieldsEditorTVC:" id="gIe-wB-9GP"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="c62-5O-ucG" secondAttribute="centerX" id="59k-CL-EZW"/>
+                            <constraint firstItem="8VF-yB-tsl" firstAttribute="top" secondItem="zZj-M1-w8b" secondAttribute="top" id="C0u-RK-ND4"/>
                             <constraint firstItem="zZj-M1-w8b" firstAttribute="leading" secondItem="XXa-l4-Ceq" secondAttribute="leadingMargin" id="E9J-Bq-ZcX"/>
                             <constraint firstItem="c62-5O-ucG" firstAttribute="top" secondItem="zZj-M1-w8b" secondAttribute="bottom" constant="73" id="POD-F5-mmr"/>
+                            <constraint firstAttribute="centerX" secondItem="8VF-yB-tsl" secondAttribute="centerX" id="fOx-80-2wG"/>
+                            <constraint firstItem="8VF-yB-tsl" firstAttribute="leading" secondItem="zZj-M1-w8b" secondAttribute="leading" id="gTb-jW-sjO"/>
                             <constraint firstItem="zZj-M1-w8b" firstAttribute="top" secondItem="VWY-s5-usM" secondAttribute="bottom" constant="64" id="gtO-RU-lUC"/>
+                            <constraint firstItem="c62-5O-ucG" firstAttribute="top" secondItem="8VF-yB-tsl" secondAttribute="bottom" constant="31" id="h2O-tT-Ogj"/>
                             <constraint firstAttribute="centerX" secondItem="zZj-M1-w8b" secondAttribute="centerX" id="xr3-l9-PPX"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="pubTitleText" destination="zZj-M1-w8b" id="lRu-Ef-3Nw"/>
+                        <outlet property="pubSubTitleText" destination="8VF-yB-tsl" id="0ah-pD-wJN"/>
+                        <outlet property="pubTitleText" destination="zZj-M1-w8b" id="OZE-IN-hdx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="edS-Na-q4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aN2-tR-dA3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2058" y="1784"/>
+            <point key="canvasLocation" x="1230" y="1784"/>
         </scene>
-        <!--View Controller-->
+        <!--Adress Selector-->
         <scene sceneID="REB-Z3-hnr">
             <objects>
-                <viewController id="knb-ML-FSu" sceneMemberID="viewController">
+                <viewController title="Adress Selector" id="knb-ML-FSu" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tuI-w1-NC6"/>
                         <viewControllerLayoutGuide type="bottom" id="JnO-dG-nBf"/>
@@ -376,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEV-YR-JYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792" y="1784"/>
+            <point key="canvasLocation" x="2058" y="1784"/>
         </scene>
     </scenes>
     <resources>

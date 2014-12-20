@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A113631A1A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11363191A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		A1F54A341A42BCDB00A6EEF8 /* FCPublishTitleEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54A331A42BCDB00A6EEF8 /* FCPublishTitleEditorVC.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A11363191A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishStringFieldsEditorVC.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		A1F54A331A42BCDB00A6EEF8 /* FCPublishTitleEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishTitleEditorVC.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				A1F54A331A42BCDB00A6EEF8 /* FCPublishTitleEditorVC.swift */,
+				A11363191A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift */,
 			);
 			name = Editor;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4737D991A10C01300A4AB81 /* FCPublicationEditorTVC.swift in Sources */,
+				A113631A1A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift in Sources */,
 				A1F54A341A42BCDB00A6EEF8 /* FCPublishTitleEditorVC.swift in Sources */,
 				E4737D961A10C01300A4AB81 /* FCPublicationDataInputVC.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
