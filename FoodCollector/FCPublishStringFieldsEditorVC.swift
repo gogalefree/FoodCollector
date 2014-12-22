@@ -52,31 +52,7 @@ class FCPublishStringFieldsEditorVC: UIViewController {
     
     private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
         return dataSource[selectedTagNumber]
-        
-        /*for dataObj in dataSource {
-            if dataObj.identityTag == selectedTagNumber {
-                return dataObj
-            }
-        }
-        
-        return FCNewPublicationTVCCellData(height: 50.0, containsUserData: true, cellText: "", isObligatory: false, userData: String(), isSeperator: false, identityTag: selectedTagNumber)*/
     }
-    
-    
-    
-    private func updateData(){
-        selectedDataObj!.userData = pubTitleText.text
-        selectedDataObj!.containsUserData = true
-        selectedDataObj!.isObligatory = true
-    }
-    
-    private func updateDataSource(){
-        println("updateDataSource")
-        updateData()
-        dataSource[selectedTagNumber] = selectedDataObj!
-        println(dataSource[selectedTagNumber].userData)
-    }
-    
     
     /*
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {

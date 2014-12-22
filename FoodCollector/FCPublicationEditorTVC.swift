@@ -237,18 +237,24 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
     }
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
+        println("SENDER TAG: \(sender)")
         if (segue.identifier == "showPublicationStringFieldsEditor") {
-            println("SENDER TAG: \(sender)")
             let pubEditorVC = segue!.destinationViewController as FCPublishStringFieldsEditorVC
-            
             if sender as Int != 1 {
                 pubEditorVC.showTextField = true
             }
             pubEditorVC.dataSource = dataSource
             pubEditorVC.selectedTagNumber = sender as Int
-            
-            
         }
+        
+        if (segue.identifier == "showPublicationDateEditor") {
+            let pubEditorVC = segue!.destinationViewController as FCPublishDateEditorVC
+            
+            pubEditorVC.dataSource = dataSource
+            pubEditorVC.selectedTagNumber = sender as Int
+        }
+        
+        
     }
     
         
