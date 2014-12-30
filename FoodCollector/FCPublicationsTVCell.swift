@@ -22,7 +22,6 @@ class FCPublicationsTVCell: UITableViewCell {
                 setUp(thePublication)
             }
         }
-        
     }
     
     func setUp(publication: FCPublication) {
@@ -34,11 +33,30 @@ class FCPublicationsTVCell: UITableViewCell {
     
     func downloadImage() {
         if self.publication?.photoData.photo != nil {showImage()}
+            
         else if (publication?.photoData.didTryToDonwloadImage == false) {
             
             println("download image for publication: \(self.publication?.photoUrl)")
+            let photoFetcher = FCPhotoFetcher()
+            photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
+                
+                if let photo = image {
+                    
+                    self.publication?.photoData.photo = photo
+                    self.publication?.photoData.didTryToDonwloadImage = true
+                    self.showImage()
+                }
+            })
+        }
             
+        else {
             
+            let localFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(self.publication?.photoUrl)")
+            let image = UIImage(contentsOfFile: localFilePath.path!)
+            if let photo = image {
+                self.publication?.photoData.photo = image
+                showImage()
+            }
         }
     }
     
@@ -53,7 +71,7 @@ class FCPublicationsTVCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.translatesAutoresizingMaskIntoConstraints()
+ //       self.translatesAutoresizingMaskIntoConstraints()
         // Initialization code
     }
     

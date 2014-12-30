@@ -45,6 +45,7 @@
 		E4C1C16B1A52AC8E00A37E00 /* easter_rabbit-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C1681A52AC8E00A37E00 /* easter_rabbit-26.png */; };
 		E4C1C16C1A52AC8E00A37E00 /* easter_cake-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */; };
 		E4C1C16D1A52AC8E00A37E00 /* bell-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C16A1A52AC8E00A37E00 /* bell-26.png */; };
+		E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		E4C1C1681A52AC8E00A37E00 /* easter_rabbit-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "easter_rabbit-26.png"; sourceTree = "<group>"; };
 		E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "easter_cake-26.png"; sourceTree = "<group>"; };
 		E4C1C16A1A52AC8E00A37E00 /* bell-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-26.png"; sourceTree = "<group>"; };
+		E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoFetcher.swift; sourceTree = "<group>"; };
 		F1B2D1FD30AE3BB39FBEABBA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 				E47F9C501A120C0B00079164 /* FCMockServer.swift */,
 				E4737D831A10C01300A4AB81 /* FCUserNotificationHandler.swift */,
 				E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */,
+				E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				E4737DB11A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift in Sources */,
 				A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */,
 				E4737D8C1A10C01300A4AB81 /* FCModel.swift in Sources */,
+				E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */,
 				E4737D9F1A10C01300A4AB81 /* FCStringFunctions.swift in Sources */,
 				E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */,
 			);
