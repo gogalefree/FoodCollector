@@ -392,7 +392,8 @@ NSString *const AWSKinesisRecorderCacheName = @"com.amazonaws.AWSKinesisRecorder
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:self.databasePath
                                                                                 error:&error];
     if (attributes) {
-        return [attributes fileSize];
+        unsigned long long size = [attributes fileSize];
+        return (NSUInteger)size;
     } else {
         AWSLogError(@"Error [%@]", error);
         return 0;

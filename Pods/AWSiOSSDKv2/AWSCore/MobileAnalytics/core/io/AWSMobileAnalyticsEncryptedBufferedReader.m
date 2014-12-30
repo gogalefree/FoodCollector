@@ -172,7 +172,7 @@
 
             // Decompressing data
             NSData *originalData = [decryptedData gunzippedData];
-            AWSLogVerbose(@"Decompressed data from %lu bytes to %lu bytes successfully", [decryptedData length], [originalData length]);
+            AWSLogVerbose(@"Decompressed data from %lu bytes to %lu bytes successfully", (unsigned long)[decryptedData length], (unsigned long)[originalData length]);
 
             // Getting checksum from deobfuscated data and checking to see it matches
             unsigned char realDigest[CC_SHA1_DIGEST_LENGTH];

@@ -39,44 +39,54 @@ class FCPublicationsTVCell: UITableViewCell {
     }
     
     func downloadImage() {
-        if self.publication?.photoData.photo != nil {showImage()}
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
             
-        else if (publication?.photoData.didTryToDonwloadImage == false) {
-            
-            let photoFetcher = FCPhotoFetcher()
-            photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
+            if self.publication?.photoData.photo != nil {self.showImage()}
                 
-                if let photo = image {
+            else if (self.publication?.photoData.didTryToDonwloadImage == false) {
+                
+                self.publication?.photoData.didTryToDonwloadImage = true
+                let photoFetcher = FCPhotoFetcher()
+                photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
                     
-                    self.publication?.photoData.photo = photo
-                    self.publication?.photoData.didTryToDonwloadImage = true
-                    self.showImage()
-                }
-            })
-        }
-            
-        else {
-            
-            let localFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(self.publication?.photoUrl)")
-            let image = UIImage(contentsOfFile: localFilePath.path!)
-            if let photo = image {
-                self.publication?.photoData.photo = image
-                showImage()
+                    if let photo = image {
+                        
+                        self.publication?.photoData.photo = photo
+                        self.showImage()
+                    }
+                })
             }
-        }
+        })
+        
+//        else {
+//            
+//            self.publication?.photoData.didTryToDonwloadImage = true
+//            let localFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(self.publication?.photoUrl)")
+//            let image = UIImage(contentsOfFile: localFilePath.path!)
+//            if let photo = image {
+//                self.publication?.photoData.photo = image
+//                showImage()
+//            }
+//        }
     }
     
     func showImage() {
         
-        UIView.animateWithDuration(0.4, animations: { () -> Void in
-            self.photoImageView.alpha = 0
-            self.photoImageView.image = self.publication?.photoData.photo
-            self.photoImageView.alpha = 1
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
+                self.photoImageView.alpha = 0
+                self.photoImageView.image = self.publication?.photoData.photo
+                self.photoImageView.alpha = 1
+            })
+
         })
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
  //       self.translatesAutoresizingMaskIntoConstraints()
         // Initialization code
     }

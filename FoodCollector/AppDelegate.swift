@@ -133,6 +133,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        //delete all photos
+        let fm = NSFileManager.defaultManager()
+        var photoPath = FCModel.sharedInstance.photosDirectoryUrl.path!
+        let files = fm.contentsOfDirectoryAtPath(photoPath, error: nil) as [String]
+        var error: NSError?
+        for file in files {
+            
+            if !fm.removeItemAtPath(photoPath.stringByAppendingPathComponent("/\(file)"), error: &error) {
+                println("Error deleting file: \(error)")
+            }
+        }
     }
 
 
