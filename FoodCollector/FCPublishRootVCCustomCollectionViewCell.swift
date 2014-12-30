@@ -17,6 +17,6 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var FCPublisherEventTitle: UILabel!
     @IBOutlet weak var FCPublisherEventStatus: UILabel!
-    
+    //new
 
 }
