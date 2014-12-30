@@ -25,10 +25,17 @@ class FCPublicationsTVCell: UITableViewCell {
     }
     
     func setUp(publication: FCPublication) {
-        self.photoImageView.image = nil //change to default image
+        self.photoImageView.image = UIImage(named: "upp90.jpg") //change to default image
         self.titleLabel.text = publication.title
-        self.distanceLabel.text = FCStringFunctions.formmatedDistanceString(publication.distanceFromUserLocation)
+        configureDistanceLabel(publication)
+        iconForPublication(publication)
         downloadImage()
+    }
+    
+    func configureDistanceLabel(publication: FCPublication) {
+        let distanceText = String.localizedStringWithFormat("km away", "describes the number of km from the user's location")
+        let distanceNumbers = FCStringFunctions.formmatedDistanceString(publication.distanceFromUserLocation)
+        self.distanceLabel.text = NSString(format: "%@ %@", distanceText, distanceNumbers)
     }
     
     func downloadImage() {
@@ -36,7 +43,6 @@ class FCPublicationsTVCell: UITableViewCell {
             
         else if (publication?.photoData.didTryToDonwloadImage == false) {
             
-            println("download image for publication: \(self.publication?.photoUrl)")
             let photoFetcher = FCPhotoFetcher()
             photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
                 
@@ -81,4 +87,57 @@ class FCPublicationsTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+extension FCPublicationsTVCell {
+ 
+    // MARK: - Cell Icon Picker
+    
+    func iconForPublication(publication: FCPublication){
+        
+        switch publication.countOfRegisteredUsers {
+            
+        case 0...1:
+            greenImage(publication.typeOfCollecting)
+            
+        case 2...4:
+            orangeImage(publication.typeOfCollecting)
+            
+        default:
+            redImage(publication.typeOfCollecting)
+        }
+    }
+    
+    func greenImage(typeOfCollecting: FCTypeOfCollecting) {
+        
+        switch typeOfCollecting {
+            
+        case .ContactPublisher:
+            self.iconImageView.image = UIImage(named: "PinGreenCall")
+        default:
+            self.iconImageView.image = UIImage(named: "PinGreen")
+        }
+    }
+    
+    func orangeImage(typeOfCollecting: FCTypeOfCollecting) {
+        
+        switch typeOfCollecting {
+            
+        case .ContactPublisher:
+            self.iconImageView.image = UIImage(named: "PinYellowCall")
+        default:
+            self.iconImageView.image = UIImage(named: "PinYellow")
+        }
+    }
+    
+    func redImage(typeOfCollecting: FCTypeOfCollecting) {
+        
+        switch typeOfCollecting {
+            
+        case .ContactPublisher:
+            self.iconImageView.image = UIImage(named: "PinRedCall")
+        default:
+            self.iconImageView.image = UIImage(named: "PinRed")
+        }
+    }
 }

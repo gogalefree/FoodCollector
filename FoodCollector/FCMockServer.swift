@@ -140,7 +140,7 @@ public extension FCMockServer {
         title = "35 assorted dishes"
         subtitle = "first and main courses in plastick boxes"
         address = "Tel Aviv"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: -345600)
@@ -170,7 +170,7 @@ public extension FCMockServer {
         title = "55 humus plates"
         subtitle = "first and main courses in plastick boxes"
         address = "Tel Aviv"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         coordinate = CLLocationCoordinate2D(latitude: 32.357870, longitude: 35.034170)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
@@ -200,7 +200,7 @@ public extension FCMockServer {
         title = "75 soup dishes"
         subtitle = "first and main courses in plastick boxes"
         address = "Tel Aviv"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         coordinate = CLLocationCoordinate2D(latitude: 32.268120, longitude: 34.867516)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
@@ -230,14 +230,14 @@ public extension FCMockServer {
         title = "95 assorted dishes"
         subtitle = "first and main courses in plastick boxes"
         address = "Tel Aviv"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         coordinate = CLLocationCoordinate2D(latitude: 32.296855, longitude: 34.914207)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
         
         let pub9 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
-        pub9.countOfRegisteredUsers = 3
+        pub9.countOfRegisteredUsers = 0
         publicaions.append(pub9)
         
         uniqueId = 101010
@@ -251,7 +251,7 @@ public extension FCMockServer {
         photoUrl = "www.denis.com"
         
         let pub10 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
-        pub10.countOfRegisteredUsers = 7
+        pub10.countOfRegisteredUsers = 1
         publicaions.append(pub10)
         
         return publicaions

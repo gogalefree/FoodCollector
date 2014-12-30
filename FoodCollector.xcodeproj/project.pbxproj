@@ -17,6 +17,7 @@
 		E4642C931A52F23300F5C43B /* PinYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = E4642C8D1A52F23300F5C43B /* PinYellow.png */; };
 		E4642C941A52F23300F5C43B /* PinRedCall.png in Resources */ = {isa = PBXBuildFile; fileRef = E4642C8E1A52F23300F5C43B /* PinRedCall.png */; };
 		E4642C951A52F23300F5C43B /* PinRed.png in Resources */ = {isa = PBXBuildFile; fileRef = E4642C8F1A52F23300F5C43B /* PinRed.png */; };
+		E4642C971A53034D00F5C43B /* upp90.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4642C961A53034D00F5C43B /* upp90.jpg */; };
 		E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
 		E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
 		E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */; };
@@ -76,6 +77,7 @@
 		E4642C8D1A52F23300F5C43B /* PinYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinYellow.png; sourceTree = "<group>"; };
 		E4642C8E1A52F23300F5C43B /* PinRedCall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinRedCall.png; sourceTree = "<group>"; };
 		E4642C8F1A52F23300F5C43B /* PinRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinRed.png; sourceTree = "<group>"; };
+		E4642C961A53034D00F5C43B /* upp90.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upp90.jpg; sourceTree = "<group>"; };
 		E469C6F01A2D15E80036038E /* FirstBuildInstructions */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FirstBuildInstructions; sourceTree = "<group>"; };
 		E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAlertsHandler.swift; sourceTree = "<group>"; };
 		E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAppDataStoreManager.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */,
 				E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */,
 				A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */,
+				E4642C961A53034D00F5C43B /* upp90.jpg */,
 				E4642C8A1A52F23300F5C43B /* PinGreenCall.png */,
 				E4642C8B1A52F23300F5C43B /* PinYellowCall.png */,
 				E4642C8C1A52F23300F5C43B /* PinGreen.png */,
@@ -402,6 +405,7 @@
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
 				E4C1C16C1A52AC8E00A37E00 /* easter_cake-26.png in Resources */,
 				E4642C951A52F23300F5C43B /* PinRed.png in Resources */,
+				E4642C971A53034D00F5C43B /* upp90.jpg in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
 				E4C1C16D1A52AC8E00A37E00 /* bell-26.png in Resources */,
 				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
