@@ -97,6 +97,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="distanceLabel" destination="5OQ-bl-l9O" id="wcL-uD-FlD"/>
+                                    <outlet property="iconImageView" destination="UUi-bh-y4c" id="9NE-R3-aJh"/>
                                     <outlet property="photoImageView" destination="Oir-l9-AxA" id="gmH-tJ-7Uh"/>
                                     <outlet property="titleLabel" destination="6h8-2b-WKd" id="0tf-pa-A9f"/>
                                 </connections>
