@@ -10,6 +10,7 @@
 import UIKit
 import Foundation
 
+
 protocol FCPublicationsTVCDelegate {
     func didChosePublication(publication:FCPublication)
 }
@@ -19,15 +20,37 @@ protocol FCPublicationsTVCDelegate {
 /// must be sorted by distance from user location. nearest is first.
 
 
-class FCPublicationsTableViewController : UITableViewController {
+class FCPublicationsTableViewController : UITableViewController, UITableViewDataSource, UITableViewDelegate {
     
     var publications = [FCPublication]()
-    var delegate:FCPublicationsTVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.publications = FCModel.sharedInstance.publications
+        
+        self.publications = self.publications.sorted({ (a1, a2) -> Bool in
+            let one : FCPublication = a1
+            let two : FCPublication = a2
+            return one.distanceFromUserLocation < two.distanceFromUserLocation
+            
+            
+        })
+        
+        
     }
     
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.publications.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell") as FCPublicationsTVCell
+        let publication = self.publications[indexPath.row] as FCPublication
+        cell.publication = publication
+        return cell
+        
+    }
     
 }
 

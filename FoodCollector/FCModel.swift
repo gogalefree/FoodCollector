@@ -16,7 +16,7 @@ let kDeletedPublicationNotification = "DeletedPublicationNotification"
 let kRecivedPublicationReportNotification = "RecivedPublicationReportNotification"
 let kRecievedPublicationRegistrationNotification = "kRecievedPublicationRegistrationNotification"
 let kDeviceUUIDKey = "seviceUUIDString"
-let kDistanceFilter = 1.0
+let kDistanceFilter = 5.0
 
 public class FCModel : NSObject, CLLocationManagerDelegate {
     
@@ -29,8 +29,9 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
     let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("userCreatedPublications")
+    var photosDirectoryUrl : NSURL = FCModel.preparePhotosDirectory()
     var uiReadyForNewData: Bool = false {
-
+        
         didSet {
             if (uiReadyForNewData){
                 println("ready for new data")
@@ -40,39 +41,40 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     }
     
     var deviceUUID: String? = {
-       var uuid = NSUserDefaults.standardUserDefaults().objectForKey(kDeviceUUIDKey) as? String
+        var uuid = NSUserDefaults.standardUserDefaults().objectForKey(kDeviceUUIDKey) as? String
         println("has uuid already: \(uuid)")
         return uuid
-    }()
+        }()
     
     public func setUp () {
         
         //we start with loading the current data
         self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.distanceFilter = kDistanceFilter
         self.locationManager.startUpdatingLocation()
-
-        self.loadPublications()
-        self.loadUserCreatedPublicationsPublications()
+        
+        
+        loadPublications()
+        loadUserCreatedPublicationsPublications()
         self.deviceUUID ?? {
             var uuid = NSUUID().UUIDString
             NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
             self.foodCollectorWebServer.reportDeviceUUID(uuid)
             return uuid
-        }()
+            }()
     }
     
     func downloadData() {
         self.foodCollectorWebServer.downloadAllPublicationsWithCompletion
             { (thePublications: [FCPublication]) -> Void in
-         
+                
                 self.publications = thePublications
                 //uncomment AFTER first build
-               // self.postFetchedDataReadyNotification()
-                self.savePublications()
-           
+                self.postFetchedDataReadyNotification()
+                //self.savePublications()
+                
                 /*
                 // uncomment FOR first build only
                 self.userCreatedPublications.removeAll(keepCapacity: false)
@@ -81,12 +83,14 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 self.userCreatedPublications.append(thePublications[2])
                 self.saveUserCreatedPublications()
                 */
-              
+                
         }
     }
     
     public func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        
         switch status {
+            
         case .Authorized:
             println("always")
         case .AuthorizedWhenInUse:
@@ -97,8 +101,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             println("denied")
         case .Restricted:
             println("restrivted")
-
-
         }
         println("Did change authorization \(status)")
     }
@@ -108,7 +110,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!){
         self.userLocation = locations.first as CLLocation
     }
-
+    
     
     func deletePublication(publicationIdentifier: PublicationIdentifier) {
         for (index , publication) in enumerate(self.publications) {
@@ -142,7 +144,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         self.publications.append(recievedPublication)
         FCUserNotificationHandler.sharedInstance.registerLocalNotification(recievedPublication)
         self.postRecievedNewPublicationNotification()
-
+        
         //save the new data
         //self.savePublications()
     }
@@ -158,23 +160,26 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     }
     
     func didRecievePublicationRegistration(registration: FCRegistrationForPublication) {
-       
+        
         var possiblePublication: FCPublication? = self.publicationWithIdentifier(registration.identifier)
         
         if possiblePublication != nil {
-        
+            
             switch registration.registrationMessage {
-                case .register:
-                    possiblePublication!.registrationsForPublication.append(registration)
-                case .unRegister:
-                    for (index, aRegistration) in enumerate(possiblePublication!.registrationsForPublication){
-                        if aRegistration.dateOfOrder == registration.dateOfOrder {
-                            possiblePublication!.registrationsForPublication.removeAtIndex(index)
-                        }
+            case .register:
+                possiblePublication?.registrationsForPublication.append(registration)
+                possiblePublication?.countOfRegisteredUsers += 1
+            case .unRegister:
+                for (index, aRegistration) in enumerate(possiblePublication!.registrationsForPublication){
+                    if aRegistration.dateOfOrder == registration.dateOfOrder {
+                        possiblePublication?.registrationsForPublication.removeAtIndex(index)
+                        possiblePublication?.countOfRegisteredUsers -= 1
                     }
-                default:
-                    break
+                }
+            default:
+                break
             }
+            //publication's registrations array holds only instances with a register message.
             self.postRecivedPublicationRegistrationNotification()
         }
     }
@@ -184,14 +189,13 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         for publication in self.publications {
             if publication.uniqueId == identifier.uniqueId &&
                 publication.version == identifier.version{
-                requestedPublication = publication
+                    requestedPublication = publication
             }
         }
         return requestedPublication
     }
+    
     ///posts NSNotification when the downloaded data is ready
-    
-    
     func postFetchedDataReadyNotification () {
         NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewDataNotification, object: self)
     }
@@ -254,21 +258,21 @@ public extension FCModel {
 // MARK - singleTone
 
 public extension FCModel {
-
-        //SingleTone Shared Instance
-        public class var sharedInstance : FCModel {
-            
-            struct Static {
-                static var onceToken : dispatch_once_t = 0
-                static var instance : FCModel? = nil
-            }
-            
-            dispatch_once(&Static.onceToken) {
-                Static.instance = FCModel()
-            }
-            
-            return Static.instance!
+    
+    //SingleTone Shared Instance
+    public class var sharedInstance : FCModel {
+        
+        struct Static {
+            static var onceToken : dispatch_once_t = 0
+            static var instance : FCModel? = nil
         }
+        
+        dispatch_once(&Static.onceToken) {
+            Static.instance = FCModel()
+        }
+        
+        return Static.instance!
+    }
 }
 
 // MARK - documents directory
@@ -283,5 +287,21 @@ public extension FCModel {
             doucuments = dirs![0]
         }
         return doucuments
+    }
+    
+    public class func preparePhotosDirectory() -> NSURL {
+        
+        let fm = NSFileManager.defaultManager()
+        let appSupportDirs = fm.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)
+        let photosDirectoryUrl = appSupportDirs[0].URLByAppendingPathComponent("Images")
+        
+        if !photosDirectoryUrl.checkResourceIsReachableAndReturnError(nil) {
+            var error: NSError?
+            if !fm.createDirectoryAtURL(photosDirectoryUrl, withIntermediateDirectories: true, attributes: nil, error: &error) {
+                println(error)
+            }
+        }
+        println(photosDirectoryUrl.path)
+        return photosDirectoryUrl
     }
 }

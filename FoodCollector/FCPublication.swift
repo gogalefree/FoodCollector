@@ -43,7 +43,10 @@ struct FCRegistrationForPublication {
     var registrationMessage: RegistrationMessage
 }
 
-
+struct PhotoData {
+    var photo: UIImage? = nil
+    var didTryToDonwloadImage = false
+}
 
 public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
@@ -57,18 +60,30 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var startingDate:NSDate
     public var endingDate:NSDate
     public var contactInfo:String?
-    public var photoUrl:String?
+    public var photoUrl:String
+    var photoData = PhotoData()
     public var distanceFromUserLocation:Double {
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         return location.distanceFromLocation(FCModel.sharedInstance.userLocation)
     }
     var reportsForPublication = [FCOnSpotPublicationReport]()
+    
+    //publication's registrations array holds only instances with a register message.
+    //when an unrigister push notification arrives or when a user unregisters, the unregistered publication is taken out
+    
     var registrationsForPublication = [FCRegistrationForPublication]()
+    
+    //the count of registered devices. is set in initial data download.
+    var countOfRegisteredUsers = 0
+    
+    
+    
+    
     
     public init(coordinates: CLLocationCoordinate2D,
         theTitle: String, endingDate: NSDate,
         typeOfCollecting: FCTypeOfCollecting, startingDate: NSDate,
-        uniqueId: Int, address: String, photoUrl: String?,
+        uniqueId: Int, address: String,
         contactInfo: String?, subTitle: String?, version: Int) {
             
             self.uniqueId = uniqueId
@@ -81,7 +96,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             self.startingDate = startingDate
             self.endingDate = endingDate
             self.contactInfo = contactInfo
-            self.photoUrl = photoUrl
+            self.photoUrl = "\(uniqueId).\(version).jpg"
             super.init()
     }
     
@@ -122,7 +137,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.startingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
         self.endingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
         self.contactInfo = aDecoder.decodeObjectForKey(kPublicationContactInfoKey) as? String
-        self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as? String
+        self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as String
         
         super.init()
     }
@@ -140,7 +155,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
         let anAddress = params[kPublicationAddressKey] as? String ?? ""
         let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey]! as Int)
-        let aLatitude = params[kPublicationLongtitudeKey]! as Double
+        let aLatitude = params[kPublicationlatitudeKey]! as Double
         let aLongtitude = params[kPublicationLongtitudeKey]! as Double
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
         let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(params[kPublicationStartingDateKey]! as Int))
@@ -148,7 +163,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
         let aPhotoUrl = params[kPublicationPhotoUrl] as? String ?? ""
         let aVersion = params[kPublicationVersionKey]! as Int
-        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress, photoUrl: aPhotoUrl, contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
+        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
         return publication
     }
     

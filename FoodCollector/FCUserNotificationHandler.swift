@@ -70,14 +70,14 @@ class FCUserNotificationHandler : NSObject {
     func pushCancelActionForNotification(publication:[NSObject : AnyObject]) {
         
     }
-
     
     
     
-//MARK - Location Local Notifications
+    
+    //MARK - Location Local Notifications
     
     func didRecieveLocalNotification(notification: UILocalNotification) {
-
+        
         let userInfo = notification.userInfo
         if userInfo != nil {
             let publicationIdentifier = self.identifierForInfo(userInfo!)
@@ -133,14 +133,14 @@ class FCUserNotificationHandler : NSObject {
         }
     }
     
-//MARK - Remote Notifications
+    //MARK - Remote Notifications
     
     func didRecieveRemoteNotification(userInfo: [NSObject : AnyObject]) {
         
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
             
             let data = userInfo[kRemoteNotificationDataKey]! as [NSObject : AnyObject]
-
+            
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
@@ -179,8 +179,8 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
-                let publicationIdentifier = self.identifierForInfo(data)
-                let registrationDate = self.dateWithInfo(data)
+                let publicationIdentifier = identifierForInfo(data)
+                let registrationDate = dateWithInfo(data)
                 
                 let registrationMessage = data[kRemoteNotificationRegistrationMessageForPublicationKey]! as Int
                 
@@ -269,7 +269,9 @@ class FCUserNotificationHandler : NSObject {
 extension FCUserNotificationHandler {
     func setup(){
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "registerForLocationNotifications:", name: kRecievedNewDataNotification, object: nil)
+        //we dont need this since we only register location notifications when a user
+        //registers to come pick up a pubication
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "registerForLocationNotifications:", name: kRecievedNewDataNotification, object: nil)
         
         let showAction = UIMutableUserNotificationAction()
         showAction.identifier = "SHOW_IDENTIFIER"

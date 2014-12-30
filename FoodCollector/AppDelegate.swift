@@ -38,7 +38,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
             }
         }
+        
+        registerAWSS3()
         return true
+    }
+    
+    func registerAWSS3() {
+        
+        let credentialsProvider = AWSCognitoCredentialsProvider.credentialsWithRegionType(
+            AWSRegionType.USEast1,
+            accountId: "458352772906",
+            identityPoolId: "us-east-1:ec4b269f-88a9-471d-b548-7886e1f9f2d7",
+            unauthRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolUnauth_DefaultRole",
+            authRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolAuth_DefaultRole"
+        )
+        
+        let defaultServiceConfiguration = AWSServiceConfiguration(
+            region: AWSRegionType.USEast1,
+            credentialsProvider: credentialsProvider)
+        AWSServiceManager.defaultServiceManager().setDefaultServiceConfiguration(defaultServiceConfiguration)
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {

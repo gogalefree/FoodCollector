@@ -15,6 +15,15 @@ import Foundation
 ///
 class FCStringFunctions : NSObject {
     
+    class func formmatedDistanceString (distance: Double) -> String{
+        
+        var km = distance / 1000
+        let numberFormatter = NSNumberFormatter()
+        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        numberFormatter.maximumFractionDigits = 2
+        let distanceString = numberFormatter.stringFromNumber(NSNumber(double: km))
+        return distanceString!
+    }
     
 }
 
@@ -22,7 +31,7 @@ class FCStringFunctions : NSObject {
 
 extension FCStringFunctions {
     
-
+    
     //SingleTone Shared Instance
     class var sharedInstance : FCStringFunctions {
         
