@@ -163,7 +163,7 @@ public extension FCMockServer {
         version = 1
         
         let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
-        pub4.countOfRegisteredUsers = 1
+        pub4.countOfRegisteredUsers = 4
         publicaions.append(pub4)
         
         uniqueId = 555555
@@ -178,6 +178,7 @@ public extension FCMockServer {
         version = 1
         
         let pub5 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
+        pub4.countOfRegisteredUsers = 4
         publicaions.append(pub5)
         
         uniqueId = 666666
@@ -192,7 +193,7 @@ public extension FCMockServer {
         version = 1
         
         let pub6 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
-        pub6.countOfRegisteredUsers = 1
+        pub6.countOfRegisteredUsers = 6
         publicaions.append(pub6)
         
         uniqueId = 777777

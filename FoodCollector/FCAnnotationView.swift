@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class FCAnnotationView: MKPinAnnotationView {
+class FCAnnotationView: MKAnnotationView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,20 +21,51 @@ class FCAnnotationView: MKPinAnnotationView {
     
     func imageForPublication(publication: FCPublication){
         
-        var image: UIImage
-        
         switch publication.countOfRegisteredUsers {
-        case 0...1:
-            image = UIImage(named: "easter_cake-26.png")!
-        case 2...4:
-            image = UIImage(named: "easter_rabbit-26.png")!
-        default:
-            image = UIImage(named: "bell-26.png")!
-        }
         
-        self.image = image
+        case 0...1:
+            greenImage(publication.typeOfCollecting)
+        
+        case 2...4:
+            orangeImage(publication.typeOfCollecting)
+        
+        default:
+            redImage(publication.typeOfCollecting)
+        }
     }
     
+    func greenImage(typeOfCollecting: FCTypeOfCollecting) {
+        
+        switch typeOfCollecting {
+     
+            case .ContactPublisher:
+                self.image = UIImage(named: "PinGreenCall")
+            default:
+                self.image = UIImage(named: "PinGreen")
+        }
+    }
+    
+    func orangeImage(typeOfCollecting: FCTypeOfCollecting) {
+
+        switch typeOfCollecting {
+            
+        case .ContactPublisher:
+            self.image = UIImage(named: "PinYellowCall")
+        default:
+            self.image = UIImage(named: "PinYellow")
+        }
+    }
+    
+    func redImage(typeOfCollecting: FCTypeOfCollecting) {
+        
+        switch typeOfCollecting {
+            
+        case .ContactPublisher:
+            self.image = UIImage(named: "PinRedCall")
+        default:
+            self.image = UIImage(named: "PinRed")
+        }        
+    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
