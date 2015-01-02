@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		A113631A1A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11363191A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift */; };
 		A113631C1A45F6CF00EA5F6F /* FCPublishDateEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A113631B1A45F6CF00EA5F6F /* FCPublishDateEditorVC.swift */; };
+		A16E438D1A55399D008A10FB /* FCPublishAddressEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16E438C1A55399D008A10FB /* FCPublishAddressEditorVC.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
+		A1899AE71A500265003D503B /* FCPublicationTypeOfPublicationEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1899AE61A500265003D503B /* FCPublicationTypeOfPublicationEditorVC.swift */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		E463A3AF1A121A5D001D8E3B /* PublicationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */; };
 		E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
@@ -56,7 +58,9 @@
 /* Begin PBXFileReference section */
 		A11363191A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishStringFieldsEditorVC.swift; sourceTree = "<group>"; };
 		A113631B1A45F6CF00EA5F6F /* FCPublishDateEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishDateEditorVC.swift; sourceTree = "<group>"; };
+		A16E438C1A55399D008A10FB /* FCPublishAddressEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorVC.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1899AE61A500265003D503B /* FCPublicationTypeOfPublicationEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationTypeOfPublicationEditorVC.swift; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationInitTests.swift; sourceTree = "<group>"; };
 		E469C6F01A2D15E80036038E /* FirstBuildInstructions */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FirstBuildInstructions; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			children = (
 				A11363191A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift */,
 				A113631B1A45F6CF00EA5F6F /* FCPublishDateEditorVC.swift */,
+				A1899AE61A500265003D503B /* FCPublicationTypeOfPublicationEditorVC.swift */,
+				A16E438C1A55399D008A10FB /* FCPublishAddressEditorVC.swift */,
 			);
 			name = Editor;
 			sourceTree = "<group>";
@@ -364,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4737D991A10C01300A4AB81 /* FCPublicationEditorTVC.swift in Sources */,
+				A16E438D1A55399D008A10FB /* FCPublishAddressEditorVC.swift in Sources */,
 				A113631A1A45C56700EA5F6F /* FCPublishStringFieldsEditorVC.swift in Sources */,
 				E4737D961A10C01300A4AB81 /* FCPublicationDataInputVC.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
@@ -388,6 +395,7 @@
 				E4737D8C1A10C01300A4AB81 /* FCModel.swift in Sources */,
 				E4737D9F1A10C01300A4AB81 /* FCStringFunctions.swift in Sources */,
 				E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */,
+				A1899AE71A500265003D503B /* FCPublicationTypeOfPublicationEditorVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

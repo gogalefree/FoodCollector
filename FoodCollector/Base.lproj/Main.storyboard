@@ -322,6 +322,9 @@
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Cei-cg-j4D" kind="unwind" unwindAction="unwindFromDateEditorVC:" id="yvv-jb-aE0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -338,13 +341,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ap-2t-w5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Cei-cg-j4D" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2832" y="1784"/>
         </scene>
         <!--Type Of Collection-->
         <scene sceneID="sl8-Sp-U4O">
             <objects>
-                <viewController title="Type Of Collection" id="Ifz-hX-XYs" sceneMemberID="viewController">
+                <viewController title="Type Of Collection" id="Ifz-hX-XYs" customClass="FCPublicationTypeOfPublicationEditorVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d8p-8b-zcy"/>
                         <viewControllerLayoutGuide type="bottom" id="HrY-n9-SM6"/>
@@ -352,10 +356,42 @@
                     <view key="view" contentMode="scaleToFill" id="O5N-ES-VTp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIP-fF-zyu">
+                                <rect key="frame" x="0.0" y="101" width="600" height="162"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Ifz-hX-XYs" id="DTk-S9-rV5"/>
+                                    <outlet property="delegate" destination="Ifz-hX-XYs" id="Qnw-Ab-Gjv"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5N-16-tNF">
+                                <rect key="frame" x="270" y="316" width="61" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="61" id="xMG-MV-tNs"/>
+                                </constraints>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="GbM-F7-Ewd" kind="unwind" unwindAction="unwindFromTypeOfCollectionEditorVC:" id="ZNv-lr-7a8"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cIP-fF-zyu" firstAttribute="top" secondItem="d8p-8b-zcy" secondAttribute="bottom" constant="37" id="2rF-ZK-bC8"/>
+                            <constraint firstAttribute="centerX" secondItem="cIP-fF-zyu" secondAttribute="centerX" id="58x-aM-4RW"/>
+                            <constraint firstAttribute="centerX" secondItem="n5N-16-tNF" secondAttribute="centerX" id="Dd1-xo-pY1"/>
+                            <constraint firstItem="cIP-fF-zyu" firstAttribute="leading" secondItem="O5N-ES-VTp" secondAttribute="leading" id="Wga-K9-Zpp"/>
+                            <constraint firstItem="n5N-16-tNF" firstAttribute="top" secondItem="cIP-fF-zyu" secondAttribute="bottom" constant="53" id="qZf-9V-8iz"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionTypePicker" destination="cIP-fF-zyu" id="wtf-zV-4Wf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1N-wj-9Bc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GbM-F7-Ewd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3634" y="1784"/>
         </scene>
@@ -430,7 +466,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="aN2-tR-dA3" kind="unwind" unwindAction="unwindFromStringFieldsEditorTVC:" id="gIe-wB-9GP"/>
+                                    <segue destination="aN2-tR-dA3" kind="unwind" unwindAction="unwindFromStringFieldsEditorVC:" id="VNN-Gh-FTE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -460,7 +496,7 @@
         <!--Adress Selector-->
         <scene sceneID="REB-Z3-hnr">
             <objects>
-                <viewController title="Adress Selector" id="knb-ML-FSu" sceneMemberID="viewController">
+                <viewController title="Adress Selector" id="knb-ML-FSu" customClass="FCPublishAddressEditorVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tuI-w1-NC6"/>
                         <viewControllerLayoutGuide type="bottom" id="JnO-dG-nBf"/>
@@ -468,8 +504,37 @@
                     <view key="view" contentMode="scaleToFill" id="b3h-2F-mmh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hp6-WS-luf">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="knb-ML-FSu" id="b9r-j2-kwl"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7ds-RQ-2pe">
+                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="x67-aD-bnn">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x67-aD-bnn" id="lgL-YF-afv">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="knb-ML-FSu" id="GRE-pI-6bk"/>
+                                    <outlet property="delegate" destination="knb-ML-FSu" id="R12-hB-P9c"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="hp6-WS-luf" id="YXv-sn-kkz"/>
+                        <outlet property="tableView" destination="7ds-RQ-2pe" id="Rj9-lc-Slv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEV-YR-JYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -113,7 +113,7 @@ public extension FCMockServer {
         var startingDate = NSDate()
         var endingDate = NSDate(timeIntervalSinceNow: 129600)
         var contactInfo = "0522222222"
-        var photoUrl = "www.url.com"
+        var photoUrl = "http://www.morningadvertiser.co.uk/var/plain_site/storage/images/publications/hospitality/morningadvertiser.co.uk/pub-food/good-food-guide-editor-calls-for-more-veggie-options-on-pub-menus/8422626-1-eng-GB/Good-Food-Guide-editor-calls-for-more-veggie-options-on-pub-menus.jpg"
         var version = 2
         
         let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: contactInfo, subTitle: subtitle, version: version)
@@ -127,7 +127,7 @@ public extension FCMockServer {
         coordinate = CLLocationCoordinate2D(latitude: 32.357868, longitude: 34.934164)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: -360000)
-        photoUrl = "www.guy.com"
+        photoUrl = "http://images6.fanpop.com/image/photos/33400000/YUMMY-FAST-FOOD-fast-food-33414485-5000-3036.jpg"
         version = 1
         
         let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
@@ -142,7 +142,7 @@ public extension FCMockServer {
         coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: -345600)
-        photoUrl = "www.denis.com"
+        photoUrl = "http://www.healthyfoodhouse.com/wp-content/uploads/2012/10/fat-burning-foods.jpg"
         version = 1
         
         let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
@@ -156,7 +156,7 @@ public extension FCMockServer {
         coordinate = CLLocationCoordinate2D(latitude: 32.8, longitude: 32.8)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
-        photoUrl = "www.denis.com"
+        photoUrl = ""
         version = 1
         
         let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, photoUrl: photoUrl, contactInfo: nil, subTitle: subtitle, version: version)
