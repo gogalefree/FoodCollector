@@ -10,6 +10,9 @@
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
+		E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */; };
+		E42C9E211A556C3E000E0FB1 /* FCPublicationsDetailsTVTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E201A556C3E000E0FB1 /* FCPublicationsDetailsTVTitleCell.swift */; };
+		E42C9E231A55D311000E0FB1 /* FCIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */; };
 		E463A3AF1A121A5D001D8E3B /* PublicationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */; };
 		E4642C901A52F23300F5C43B /* PinGreenCall.png in Resources */ = {isa = PBXBuildFile; fileRef = E4642C8A1A52F23300F5C43B /* PinGreenCall.png */; };
 		E4642C911A52F23300F5C43B /* PinYellowCall.png in Resources */ = {isa = PBXBuildFile; fileRef = E4642C8B1A52F23300F5C43B /* PinYellowCall.png */; };
@@ -70,6 +73,9 @@
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsTVC.swift; sourceTree = "<group>"; };
+		E42C9E201A556C3E000E0FB1 /* FCPublicationsDetailsTVTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsDetailsTVTitleCell.swift; sourceTree = "<group>"; };
+		E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCIconFactory.swift; sourceTree = "<group>"; };
 		E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationInitTests.swift; sourceTree = "<group>"; };
 		E4642C8A1A52F23300F5C43B /* PinGreenCall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinGreenCall.png; sourceTree = "<group>"; };
 		E4642C8B1A52F23300F5C43B /* PinYellowCall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinYellowCall.png; sourceTree = "<group>"; };
@@ -161,6 +167,7 @@
 				E47F9C501A120C0B00079164 /* FCMockServer.swift */,
 				E4737D831A10C01300A4AB81 /* FCUserNotificationHandler.swift */,
 				E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */,
+				E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */,
 				E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */,
 			);
 			name = Model;
@@ -207,6 +214,8 @@
 				E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */,
 				E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */,
 				E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */,
+				E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */,
+				E42C9E201A556C3E000E0FB1 /* FCPublicationsDetailsTVTitleCell.swift */,
 			);
 			name = Collector;
 			sourceTree = "<group>";
@@ -459,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E42C9E231A55D311000E0FB1 /* FCIconFactory.swift in Sources */,
 				E4C1C1651A52AB3500A37E00 /* FCAnnotationView.swift in Sources */,
 				E4737D991A10C01300A4AB81 /* FCPublicationEditorTVC.swift in Sources */,
 				E4737D961A10C01300A4AB81 /* FCPublicationDataInputVC.swift in Sources */,
@@ -466,7 +476,9 @@
 				E4737D9E1A10C01300A4AB81 /* FCServerProtocol.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
+				E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */,
 				E4737D9D1A10C01300A4AB81 /* FCPublishRootVC.swift in Sources */,
+				E42C9E211A556C3E000E0FB1 /* FCPublicationsDetailsTVTitleCell.swift in Sources */,
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */,

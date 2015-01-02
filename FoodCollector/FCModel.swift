@@ -57,7 +57,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         
         
         loadPublications()
-        loadUserCreatedPublicationsPublications()
+        loadUserCreatedPublications()
         self.deviceUUID ?? {
             var uuid = NSUUID().UUIDString
             NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
@@ -219,7 +219,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     }
 }
 
-// MARK - store
+// MARK: - store
 
 public extension FCModel {
     
@@ -245,7 +245,7 @@ public extension FCModel {
         }
     }
     
-    func loadUserCreatedPublicationsPublications() {
+    func loadUserCreatedPublications() {
         
         if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath){
             

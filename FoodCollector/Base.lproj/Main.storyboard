@@ -2,9 +2,165 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Publication DetailsTVC-->
+        <scene sceneID="5TR-Nj-Kev">
+            <objects>
+                <tableViewController storyboardIdentifier="FCPublicationDetailsTVC" id="D9e-pN-89Q" customClass="FCPublicationDetailsTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="W65-he-Gdg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationsDetailsTVTitleCell" rowHeight="151" id="esh-rZ-Vej" customClass="FCPublicationsDetailsTVTitleCell" customModule="FoodCollector" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalCompressionResistancePriority="1000" tableViewCell="esh-rZ-Vej" id="TKS-NU-R5K">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <userGuides>
+                                        <userLayoutGuide location="592" affinity="minX"/>
+                                        <userLayoutGuide location="85" affinity="minY"/>
+                                        <userLayoutGuide location="50" affinity="minY"/>
+                                        <userLayoutGuide location="85" affinity="minX"/>
+                                    </userGuides>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-HE-hwb">
+                                            <rect key="frame" x="114" y="10" width="478" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="W0D-wn-cZD"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="uEW-w5-kYh"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6q-dG-ddg">
+                                            <rect key="frame" x="114" y="91" width="478" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="tKx-XF-TTr"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIo-Lt-Vbb">
+                                            <rect key="frame" x="15" y="18" width="70" height="67"/>
+                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="70" id="5xm-Dv-IZe"/>
+                                                <constraint firstAttribute="width" constant="70" id="9ez-mj-Ahy"/>
+                                                <constraint firstAttribute="width" secondItem="AIo-Lt-Vbb" secondAttribute="height" multiplier="70:69" constant="1.1304347826086882" id="SeS-gV-bqa"/>
+                                                <constraint firstAttribute="width" constant="70" id="T2n-S9-XcP"/>
+                                                <constraint firstAttribute="height" constant="67" id="aHW-jU-j2l"/>
+                                                <constraint firstAttribute="height" constant="69" id="bU5-ea-mqH"/>
+                                            </constraints>
+                                            <state key="normal" title="Button">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="5xm-Dv-IZe"/>
+                                                    <exclude reference="9ez-mj-Ahy"/>
+                                                    <exclude reference="SeS-gV-bqa"/>
+                                                    <exclude reference="bU5-ea-mqH"/>
+                                                </mask>
+                                            </variation>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsA-2t-Wet">
+                                            <rect key="frame" x="114" y="55" width="478" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="1DK-Rr-oKa"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="61" id="2B5-XA-zYe"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="J6q-dG-ddg" secondAttribute="bottom" constant="30" id="2Pr-mU-bov"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="61" id="6jM-cR-gYe"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="29" id="9sd-oC-BSG"/>
+                                        <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="J6q-dG-ddg" secondAttribute="leading" id="FNd-i4-oj7"/>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="61" id="GOU-Ce-F5I"/>
+                                        <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="B1j-HE-hwb" secondAttribute="leading" id="IhE-O5-HLU"/>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="JQP-yB-Xuf"/>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="width" secondItem="J6q-dG-ddg" secondAttribute="width" id="MAB-ms-QKN"/>
+                                        <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="29" id="N3i-qt-p0F"/>
+                                        <constraint firstItem="AIo-Lt-Vbb" firstAttribute="top" secondItem="TKS-NU-R5K" secondAttribute="topMargin" constant="7" id="Ncl-Pt-yNL"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="top" secondItem="NsA-2t-Wet" secondAttribute="bottom" constant="7" id="Qjw-GK-d0O"/>
+                                        <constraint firstItem="AIo-Lt-Vbb" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="7" id="TmY-If-W5r"/>
+                                        <constraint firstItem="NsA-2t-Wet" firstAttribute="top" relation="greaterThanOrEqual" secondItem="B1j-HE-hwb" secondAttribute="bottom" constant="8" symbolic="YES" id="UhI-cN-d2K"/>
+                                        <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="VTT-sy-3m0"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="d0k-Pv-U6t"/>
+                                        <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="efa-5C-xiN"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="trailing" secondItem="NsA-2t-Wet" secondAttribute="trailing" id="fNm-fO-P1T"/>
+                                        <constraint firstItem="AIo-Lt-Vbb" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="7" id="fwJ-Yn-vzg"/>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="29" id="lZv-Mb-usO"/>
+                                        <constraint firstItem="AIo-Lt-Vbb" firstAttribute="top" secondItem="TKS-NU-R5K" secondAttribute="topMargin" constant="10" id="new-eu-7t4"/>
+                                        <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="61" id="rrG-jw-S1r"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="B1j-HE-hwb" secondAttribute="trailing" constant="22" id="tXc-4H-yof"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="AIo-Lt-Vbb" secondAttribute="bottom" constant="57" id="vus-jO-xmo"/>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="trailing" secondItem="NsA-2t-Wet" secondAttribute="trailing" id="w5J-ZK-HAe"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="trailing" secondItem="TKS-NU-R5K" secondAttribute="trailingMargin" id="wSG-IP-Uh4"/>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="top" secondItem="TKS-NU-R5K" secondAttribute="topMargin" constant="2" id="xS7-2b-EWs"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Ncl-Pt-yNL"/>
+                                            <exclude reference="fwJ-Yn-vzg"/>
+                                            <exclude reference="vus-jO-xmo"/>
+                                            <exclude reference="2B5-XA-zYe"/>
+                                            <exclude reference="GOU-Ce-F5I"/>
+                                            <exclude reference="JQP-yB-Xuf"/>
+                                            <exclude reference="MAB-ms-QKN"/>
+                                            <exclude reference="tXc-4H-yof"/>
+                                            <exclude reference="VTT-sy-3m0"/>
+                                            <exclude reference="efa-5C-xiN"/>
+                                            <exclude reference="rrG-jw-S1r"/>
+                                            <exclude reference="6jM-cR-gYe"/>
+                                            <exclude reference="d0k-Pv-U6t"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addressLabel" destination="J6q-dG-ddg" id="SFS-2K-GPe"/>
+                                    <outlet property="registerButton" destination="AIo-Lt-Vbb" id="RmV-bO-WUR"/>
+                                    <outlet property="subtitleLabel" destination="NsA-2t-Wet" id="GfV-0n-pum"/>
+                                    <outlet property="titleLabel" destination="B1j-HE-hwb" id="BA3-dR-pCP"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="FCPublicationsDetailsTVReportsCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationsDetailsTVReportsCell" id="a52-V6-pQP">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a52-V6-pQP" id="ogf-TB-H5B">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="FCPublicationsDetailsTVTitleCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationsDetailsTVPhotoCell" id="aGN-Uz-n91">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aGN-Uz-n91" id="MeU-0E-Rd7">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationsDetailsTVDatesCell" id="hMR-BY-qG1">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hMR-BY-qG1" id="TGC-Xm-Guh">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D9e-pN-89Q" id="BHm-eW-zaA"/>
+                            <outlet property="delegate" destination="D9e-pN-89Q" id="Klr-KB-z5D"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="APr-P7-Jqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2160" y="-413"/>
+        </scene>
         <!--Collect-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -142,7 +298,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gA4-bv-1lN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2791.5" y="327"/>
+            <point key="canvasLocation" x="2803" y="293"/>
         </scene>
         <!--Collect-->
         <scene sceneID="VED-7b-aGp">

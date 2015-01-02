@@ -45,7 +45,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell") as FCPublicationsTVCell
+        let cell =  tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell", forIndexPath: indexPath) as FCPublicationsTVCell
         let publication = self.publications[indexPath.row] as FCPublication
         cell.publication = publication
         return cell

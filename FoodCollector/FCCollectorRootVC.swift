@@ -22,6 +22,7 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     var onSpotPublicationReport:FCOnSpotPublicationReport?
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
+    var publicationDetailsTVC: FCPublicationDetailsTVC?
     
     var didFailToRegisterPushNotifications = {
         NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
@@ -69,7 +70,11 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         
         let publication = view.annotation as FCPublication
-        println(publication.title)
+
+        self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        
+        self.publicationDetailsTVC?.publication = publication
+        self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
     }
     
     func mapView(mapView: MKMapView!, regionWillChangeAnimated animated: Bool) {
