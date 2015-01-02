@@ -18,7 +18,7 @@ class FCPublicationDetailsTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.estimatedRowHeight = 100
+        self.tableView.estimatedRowHeight = 150
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         
@@ -54,6 +54,11 @@ class FCPublicationDetailsTVC: UITableViewController {
         return cell
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        self.tableView.reloadData()
+    }
+
 
     /*
     // Override to support conditional editing of the table view.

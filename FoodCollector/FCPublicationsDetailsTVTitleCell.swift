@@ -45,15 +45,20 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-//        self.titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-//        self.subtitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-//        self.addressLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        self.titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+
+        self.subtitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+
+        self.addressLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
         
         self.titleLabel.numberOfLines = 0
         self.subtitleLabel.numberOfLines = 0
         self.addressLabel.numberOfLines = 0
         
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 100))
+        
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 100))
+        
+        self.registerButton.layer.cornerRadius = self.registerButton.bounds.size.width / 2
         
     }
 
