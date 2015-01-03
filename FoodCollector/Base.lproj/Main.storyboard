@@ -125,7 +125,7 @@
                                         <constraint firstItem="AIo-Lt-Vbb" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="7" id="TmY-If-W5r"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="top" relation="greaterThanOrEqual" secondItem="B1j-HE-hwb" secondAttribute="bottom" constant="7" id="UhI-cN-d2K"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="VTT-sy-3m0"/>
-                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NsA-2t-Wet" secondAttribute="bottom" constant="8" id="ayE-Fl-paZ"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="top" secondItem="NsA-2t-Wet" secondAttribute="bottom" constant="8" id="ayE-Fl-paZ"/>
                                         <constraint firstItem="J6q-dG-ddg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="d0k-Pv-U6t"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="efa-5C-xiN"/>
                                         <constraint firstItem="J6q-dG-ddg" firstAttribute="trailing" secondItem="NsA-2t-Wet" secondAttribute="trailing" id="fNm-fO-P1T"/>

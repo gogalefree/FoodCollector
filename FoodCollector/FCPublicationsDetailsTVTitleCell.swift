@@ -23,7 +23,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
             if let publication = self.publication?{
                 self.titleLabel.text = publication.title
                 self.subtitleLabel.text = publication.subtitle
-                self.addressLabel.text = "text text text"//self.makeDistanceText(publication)
+                self.addressLabel.text = self.makeDistanceText(publication)
                 
                 println(self.titleLabel.text)
                 println(self.subtitleLabel.text)
@@ -35,12 +35,10 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     }
 
     func makeDistanceText(publication: FCPublication) -> String {
-        var distanceString = ""
-        
-        
-        return distanceString
-        
+
+        return FCStringFunctions.longDistanceString(publication)
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -56,7 +54,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         self.addressLabel.numberOfLines = 0
         
         
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 100))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 116))
         
         self.registerButton.layer.cornerRadius = self.registerButton.bounds.size.width / 2
         

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A79AD51D4741469990562782"
+               BlueprintIdentifier = "92B12725E0FB8A5CF8F1DA05"
                BuildableName = "libPods-GZIP.a"
                BlueprintName = "Pods-GZIP"
                ReferencedContainer = "container:Pods.xcodeproj">
