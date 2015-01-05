@@ -35,7 +35,13 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var num = self.publication?.reportsForPublication.count
-        return  max(1, num!)
+        if num < 3 {
+            //if there are no reports - return 1
+            //if reports.count > 3 return 3
+            //else return reports.count
+            return  max(1, num!)
+        }
+        return 3
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -84,6 +90,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         super.awakeFromNib()
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.userInteractionEnabled = false
     }
 
         override func setSelected(selected: Bool, animated: Bool) {
