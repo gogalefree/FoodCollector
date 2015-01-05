@@ -13,15 +13,8 @@ public struct FCOnSpotPublicationReport {
     
     var onSpotPublicationReportMessage:FCOnSpotPublicationReportMessage
     var date:NSDate
-    
 }
 
-///
-/// the report object can be:
-/// 1. nothing left
-/// 2. picked and some left
-/// 3. picked and nothing left
-///
 enum FCOnSpotPublicationReportMessage: Int {
     
     case NothingThere = 5

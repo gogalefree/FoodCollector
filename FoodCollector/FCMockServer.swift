@@ -118,6 +118,13 @@ public extension FCMockServer {
         
         let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
         pub1.countOfRegisteredUsers = 2
+        var report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage.HasMore, date: startingDate)
+        pub1.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+        pub1.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+        pub1.reportsForPublication.append(report)
+
         publicaions.append(pub1)
         
         uniqueId = 2222222
@@ -133,6 +140,14 @@ public extension FCMockServer {
         
         let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,contactInfo: nil, subTitle: subtitle, version: version)
         pub2.countOfRegisteredUsers = 4
+        
+        report.date = endingDate
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub2.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub2.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub2.reportsForPublication.append(report)
         publicaions.append(pub2 )
         
         
@@ -149,6 +164,14 @@ public extension FCMockServer {
         
         let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
         pub3.countOfRegisteredUsers = 6
+        report.date = endingDate
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub3.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub3.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+        pub3.reportsForPublication.append(report)
+
         publicaions.append(pub3)
         
         uniqueId = 444444
@@ -164,6 +187,11 @@ public extension FCMockServer {
         
         let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
         pub4.countOfRegisteredUsers = 4
+        report.date = endingDate
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub4.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub4.reportsForPublication.append(report)
         publicaions.append(pub4)
         
         uniqueId = 555555
@@ -179,6 +207,14 @@ public extension FCMockServer {
         
         let pub5 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
         pub4.countOfRegisteredUsers = 4
+        report.date = startingDate
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub5.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+        pub5.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+        pub5.reportsForPublication.append(report)
+
         publicaions.append(pub5)
         
         uniqueId = 666666
@@ -194,6 +230,12 @@ public extension FCMockServer {
         
         let pub6 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
         pub6.countOfRegisteredUsers = 6
+        report.date = startingDate
+        
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+        pub6.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+        pub6.reportsForPublication.append(report)
         publicaions.append(pub6)
         
         uniqueId = 777777
@@ -209,6 +251,14 @@ public extension FCMockServer {
         
         let pub7 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
         pub7.countOfRegisteredUsers = 10
+        
+        report.date = startingDate
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub7.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub7.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+        pub7.reportsForPublication.append(report)
         publicaions.append(pub7)
         
         uniqueId = 888888
@@ -224,6 +274,13 @@ public extension FCMockServer {
         
         let pub8 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
         pub8.countOfRegisteredUsers = 3
+        report.date = startingDate
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub8.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+        pub8.reportsForPublication.append(report)
+        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+        pub8.reportsForPublication.append(report)
         publicaions.append(pub8)
         
         uniqueId = 999999
