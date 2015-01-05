@@ -29,6 +29,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-HE-hwb">
                                             <rect key="frame" x="534" y="18" width="58" height="29"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="8r9-j6-JXy"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="58" id="Uzp-Ro-ihN"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="W0D-wn-cZD"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="uEW-w5-kYh"/>
@@ -45,10 +46,11 @@
                                             </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsA-2t-Wet">
-                                            <rect key="frame" x="543" y="55" width="49" height="24"/>
+                                            <rect key="frame" x="543" y="55" width="49" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="1DK-Rr-oKa"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="49" id="e56-ZI-hPG"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="nGm-Jy-F2G"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -63,6 +65,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6q-dG-ddg">
                                             <rect key="frame" x="550" y="87" width="42" height="21"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="TqY-HI-z82"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="qY6-qH-pwl"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="tKx-XF-TTr"/>
                                             </constraints>
@@ -125,7 +128,7 @@
                                         <constraint firstItem="AIo-Lt-Vbb" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="7" id="TmY-If-W5r"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="top" relation="greaterThanOrEqual" secondItem="B1j-HE-hwb" secondAttribute="bottom" constant="7" id="UhI-cN-d2K"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="VTT-sy-3m0"/>
-                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="top" secondItem="NsA-2t-Wet" secondAttribute="bottom" constant="8" id="ayE-Fl-paZ"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="top" secondItem="NsA-2t-Wet" secondAttribute="bottom" constant="10" id="ayE-Fl-paZ"/>
                                         <constraint firstItem="J6q-dG-ddg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="d0k-Pv-U6t"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="efa-5C-xiN"/>
                                         <constraint firstItem="J6q-dG-ddg" firstAttribute="trailing" secondItem="NsA-2t-Wet" secondAttribute="trailing" id="fNm-fO-P1T"/>
