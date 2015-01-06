@@ -24,10 +24,6 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
                 self.titleLabel.text = publication.title
                 self.subtitleLabel.text = publication.subtitle
                 self.addressLabel.text = self.makeDistanceText(publication)
-                
-                println(self.titleLabel.text)
-                println(self.subtitleLabel.text)
-                println(self.addressLabel.text)
             }
             
         }
@@ -53,7 +49,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         self.addressLabel.numberOfLines = 0
         
         
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 100))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 44))
         
         self.registerButton.layer.cornerRadius = self.registerButton.bounds.size.width / 2
         

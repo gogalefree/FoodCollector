@@ -25,7 +25,10 @@ class FCPublicationDetailsTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,7 +54,7 @@ class FCPublicationDetailsTVC: UITableViewController {
         if indexPath.row == 0 {
             
                 var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath) as FCPublicationsDetailsTVTitleCell
-                cell.publication = self.publication?
+                    cell.publication = self.publication?
             return cell
         }
         else if indexPath.row == 1 {
@@ -68,8 +71,8 @@ class FCPublicationDetailsTVC: UITableViewController {
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
-        self.tableView.reloadData()
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        //self.tableView.reloadData()
     }
     
     //MARK: - fetch data for publication
