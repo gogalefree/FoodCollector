@@ -28,7 +28,6 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
                 println(self.titleLabel.text)
                 println(self.subtitleLabel.text)
                 println(self.addressLabel.text)
-                self.layoutIfNeeded()
             }
             
         }
@@ -54,7 +53,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         self.addressLabel.numberOfLines = 0
         
         
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 154))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 100))
         
         self.registerButton.layer.cornerRadius = self.registerButton.bounds.size.width / 2
         
