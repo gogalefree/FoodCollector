@@ -22,12 +22,15 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     
     func setup(publication: FCPublication) {
         
+        self.noReports = true
+        
         if publication.reportsForPublication.count != 0 {
                 self.noReports = false
-                return
         }
         
-        self.noReports = true
+        
+        let size = self.sizeThatFits(CGSizeMake(self.bounds.width, 0))
+        self.addHeightConstarint(size.height)
     }
  
     
@@ -64,12 +67,12 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     override func sizeThatFits(size: CGSize) -> CGSize {
     
         if self.noReports {
-            let cellSize = CGSizeMake(size.width, 54)
+            let cellSize = CGSizeMake(size.width, 52)
             return cellSize
         }
         
         var itemsCounter = self.publication?.reportsForPublication.count
-        var assumedHeight =  itemsCounter! * 44 + 10
+        var assumedHeight =  itemsCounter! * 52 + 10
         var height = CGFloat(assumedHeight)
         return CGSizeMake(size.width, height)
     }
@@ -86,17 +89,17 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         return subtitle
     }
     
+    func addHeightConstarint (height: CGFloat) {
+          self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: height))
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.userInteractionEnabled = false
+      //  self.tableView.userInteractionEnabled = false
+        self.tableView.estimatedRowHeight = 44
+        self.tableView.rowHeight = UITableViewAutomaticDimension
     }
 
-        override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    
 }

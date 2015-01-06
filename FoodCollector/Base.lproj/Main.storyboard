@@ -187,10 +187,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="BEw-Yc-zY6">
-                                            <rect key="frame" x="0.0" y="8" width="600" height="150"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="83"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="150" id="1Ay-o8-1Xq"/>
+                                                <constraint firstAttribute="height" constant="83" id="1Ay-o8-1Xq"/>
                                             </constraints>
                                             <prototypes>
                                                 <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="singleReportCell" rowHeight="44" id="fCl-Bd-i1Z" customClass="FCPublicationSingleReportCell" customModule="FoodCollector" customModuleProvider="target">
@@ -199,13 +199,13 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kk7-De-Qo2">
-                                                                <rect key="frame" x="392" y="14" width="200" height="21"/>
+                                                                <rect key="frame" x="69" y="14" width="507" height="21"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="21" id="1cU-hE-lpw"/>
                                                                     <constraint firstAttribute="height" constant="21" id="9b9-ca-MEx"/>
                                                                     <constraint firstAttribute="width" constant="200" id="Z4e-2v-edK"/>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="c0N-N2-NU6"/>
-                                                                    <constraint firstAttribute="height" constant="21" id="ozi-cx-DUT"/>
+                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ozi-cx-DUT"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="8"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -214,6 +214,7 @@
                                                                     <mask key="constraints">
                                                                         <exclude reference="1cU-hE-lpw"/>
                                                                         <exclude reference="9b9-ca-MEx"/>
+                                                                        <exclude reference="Z4e-2v-edK"/>
                                                                         <exclude reference="c0N-N2-NU6"/>
                                                                     </mask>
                                                                 </variation>
@@ -232,9 +233,9 @@
                                                                 </variation>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeS-S7-D5z">
-                                                                <rect key="frame" x="392" y="0.0" width="200" height="21"/>
+                                                                <rect key="frame" x="69" y="0.0" width="507" height="21"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="21" id="9bC-V4-xEA"/>
+                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="9bC-V4-xEA"/>
                                                                     <constraint firstAttribute="height" constant="21" id="L56-9T-5db"/>
                                                                     <constraint firstAttribute="width" constant="200" id="fKU-Jl-Uj2"/>
                                                                 </constraints>
@@ -244,15 +245,18 @@
                                                                 <variation key="default">
                                                                     <mask key="constraints">
                                                                         <exclude reference="L56-9T-5db"/>
+                                                                        <exclude reference="fKU-Jl-Uj2"/>
                                                                     </mask>
                                                                 </variation>
                                                             </label>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="Kk7-De-Qo2" firstAttribute="trailing" secondItem="12z-8H-cDY" secondAttribute="trailingMargin" id="3Cs-Gr-b8K"/>
+                                                            <constraint firstAttribute="bottomMargin" secondItem="Kk7-De-Qo2" secondAttribute="bottom" constant="1" id="9uw-5E-cCi"/>
                                                             <constraint firstAttribute="bottomMargin" secondItem="oeS-S7-D5z" secondAttribute="bottom" constant="15" id="AAl-Td-82F"/>
                                                             <constraint firstItem="Kk7-De-Qo2" firstAttribute="top" secondItem="oeS-S7-D5z" secondAttribute="bottom" constant="-7" id="GOO-tM-i0f"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="topMargin" constant="-6" id="HZH-Rr-VJB"/>
+                                                            <constraint firstItem="oeS-S7-D5z" firstAttribute="leading" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="10" id="I84-ab-6Hk"/>
                                                             <constraint firstAttribute="trailingMargin" secondItem="Kk7-De-Qo2" secondAttribute="trailing" id="JVL-8G-tzo"/>
                                                             <constraint firstItem="OW5-c0-a8V" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="topMargin" constant="-4" id="K05-Xy-bgl"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="topMargin" id="KRU-ow-tJs"/>
@@ -262,6 +266,7 @@
                                                             <constraint firstItem="Kk7-De-Qo2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="10" id="Uf2-JU-LMH"/>
                                                             <constraint firstItem="OW5-c0-a8V" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="topMargin" constant="-4" id="VGP-FE-Uaa"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="top" id="Zs3-Vo-u2i"/>
+                                                            <constraint firstItem="Kk7-De-Qo2" firstAttribute="leading" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="10" id="kbn-Vb-CIp"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="leading" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="491" id="u4o-Qb-YXw"/>
                                                             <constraint firstAttribute="bottomMargin" secondItem="OW5-c0-a8V" secondAttribute="bottom" constant="2" id="vMt-sg-S4b"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="trailing" secondItem="12z-8H-cDY" secondAttribute="trailingMargin" constant="10" id="zdy-Am-SjC"/>
@@ -289,6 +294,11 @@
                                                 </tableViewCell>
                                             </prototypes>
                                             <sections/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="1Ay-o8-1Xq"/>
+                                                </mask>
+                                            </variation>
                                             <connections>
                                                 <outlet property="dataSource" destination="D9e-pN-89Q" id="QK9-rh-TTu"/>
                                                 <outlet property="delegate" destination="D9e-pN-89Q" id="DFo-qr-c70"/>
@@ -296,9 +306,9 @@
                                         </tableView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="BEw-Yc-zY6" secondAttribute="bottom" constant="-67" id="3pp-aF-sRb"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="BEw-Yc-zY6" secondAttribute="trailing" constant="-8" id="5oU-Lj-CXG"/>
-                                        <constraint firstItem="BEw-Yc-zY6" firstAttribute="leading" secondItem="ogf-TB-H5B" secondAttribute="leadingMargin" constant="-8" id="FEr-rr-eyy"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="BEw-Yc-zY6" secondAttribute="bottom" id="3pp-aF-sRb"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="BEw-Yc-zY6" secondAttribute="trailing" id="5oU-Lj-CXG"/>
+                                        <constraint firstItem="BEw-Yc-zY6" firstAttribute="leading" secondItem="ogf-TB-H5B" secondAttribute="leadingMargin" id="FEr-rr-eyy"/>
                                         <constraint firstItem="BEw-Yc-zY6" firstAttribute="top" secondItem="ogf-TB-H5B" secondAttribute="topMargin" id="T0l-e7-8Tg"/>
                                     </constraints>
                                 </tableViewCellContentView>

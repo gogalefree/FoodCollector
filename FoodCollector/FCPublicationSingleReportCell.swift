@@ -40,7 +40,7 @@ class FCPublicationSingleReportCell: UITableViewCell {
         self.reportLabel.text = String.localizedStringWithFormat("No reports", "the title in the table view cell displayed when a publication has no reports")
         self.reportDate.text = ""
         self.reportIcon.image = FCIconFactory.greenImage(FCTypeOfCollecting.FreePickUp)
-        self.layoutIfNeeded()
+//        self.layoutIfNeeded()
     }
     
     func titleForReport(report:FCOnSpotPublicationReport) -> String {
@@ -83,13 +83,13 @@ class FCPublicationSingleReportCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 44))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 52))
             self.noReports()
         }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
-        return CGSizeMake(size.width, 44)
-    }
+//    override func sizeThatFits(size: CGSize) -> CGSize {
+//        return CGSizeMake(size.width, 44)
+//    }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
