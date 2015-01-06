@@ -77,17 +77,6 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         return CGSizeMake(size.width, height)
     }
 
-    //MARK: - cell strings
-    
-    func makeReportTitle (report: FCOnSpotPublicationReport) -> String {
-        var title = "user reportes title"
-        return title
-    }
-    
-    func makeReportSubTitle (report: FCOnSpotPublicationReport) -> String {
-        var subtitle = "here come the date"
-        return subtitle
-    }
     
     func addHeightConstarint (height: CGFloat) {
           self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: height))
@@ -96,7 +85,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         super.awakeFromNib()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-      //  self.tableView.userInteractionEnabled = false
+        self.tableView.userInteractionEnabled = false
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }

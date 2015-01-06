@@ -20,7 +20,7 @@ class FCPublicationDetailsTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 116
         self.tableView.rowHeight = UITableViewAutomaticDimension
         fetchPublicationReports()
-        
+//        fetchPublicationPhoto()
     
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -45,7 +45,7 @@ class FCPublicationDetailsTVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 2
+        return 3
     }
 
     
@@ -59,14 +59,21 @@ class FCPublicationDetailsTVC: UITableViewController {
         }
         else if indexPath.row == 1 {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell") as FCPublicationDetailsTVReportsCell
+            var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell", forIndexPath: indexPath) as FCPublicationDetailsTVReportsCell
             cell.publication = self.publication?
             return cell
             
         }
-        else {
-            var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "stamCell")
+        else if indexPath.row == 2 {
+            
+            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsPhotoCell", forIndexPath: indexPath) as FCPublicationDetailsPhotoCell
+            cell.publication = self.publication?
             return cell
+        }
+        else {
+            var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "stamCell") as UITableViewCell
+            return cell
+
         }
     }
     

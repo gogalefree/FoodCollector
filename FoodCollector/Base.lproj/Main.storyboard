@@ -316,11 +316,46 @@
                                     <outlet property="tableView" destination="BEw-Yc-zY6" id="Mio-JH-9Pa"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationsDetailsTVPhotoCell" id="aGN-Uz-n91">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationDetailsPhotoCell" rowHeight="300" id="aGN-Uz-n91" customClass="FCPublicationDetailsPhotoCell" customModule="FoodCollector" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aGN-Uz-n91" id="MeU-0E-Rd7">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-P3-Mfa">
+                                            <rect key="frame" x="158" y="8" width="284" height="284"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Mzw-P3-Mfa" secondAttribute="height" multiplier="1:1" id="cKf-Zd-trv"/>
+                                                <constraint firstAttribute="height" constant="284" id="sXQ-fX-XR1"/>
+                                                <constraint firstAttribute="width" constant="284" id="zAX-b4-I4y"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="cKf-Zd-trv"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="Mzw-P3-Mfa" secondAttribute="centerY" constant="-0.5" id="26h-iI-4QZ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Mzw-P3-Mfa" secondAttribute="bottom" constant="-1" id="5qa-0D-bKG"/>
+                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="leading" secondItem="MeU-0E-Rd7" secondAttribute="leadingMargin" constant="150" id="H5u-oe-fn7"/>
+                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="top" secondItem="MeU-0E-Rd7" secondAttribute="topMargin" id="VuS-og-fgC"/>
+                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="top" secondItem="MeU-0E-Rd7" secondAttribute="topMargin" id="fcL-sP-sgM"/>
+                                        <constraint firstAttribute="centerX" secondItem="Mzw-P3-Mfa" secondAttribute="centerX" id="lRJ-Ae-WQS"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Mzw-P3-Mfa" secondAttribute="trailing" constant="150" id="m4L-Za-das"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="5qa-0D-bKG"/>
+                                            <exclude reference="H5u-oe-fn7"/>
+                                            <exclude reference="fcL-sP-sgM"/>
+                                            <exclude reference="m4L-Za-das"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="photoImageView" destination="Mzw-P3-Mfa" id="fW5-wS-XcO"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationsDetailsTVDatesCell" id="hMR-BY-qG1">
                                 <autoresizingMask key="autoresizingMask"/>
