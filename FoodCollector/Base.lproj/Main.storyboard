@@ -324,32 +324,67 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-P3-Mfa">
                                             <rect key="frame" x="158" y="8" width="284" height="284"/>
                                             <constraints>
+                                                <constraint firstAttribute="width" constant="284" id="0KO-Xh-ikx"/>
+                                                <constraint firstAttribute="height" constant="284" id="M9Q-1p-LWg"/>
                                                 <constraint firstAttribute="width" secondItem="Mzw-P3-Mfa" secondAttribute="height" multiplier="1:1" id="cKf-Zd-trv"/>
+                                                <constraint firstAttribute="width" secondItem="Mzw-P3-Mfa" secondAttribute="height" multiplier="1:1" id="kOk-AE-sqD"/>
                                                 <constraint firstAttribute="height" constant="284" id="sXQ-fX-XR1"/>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="284" id="ttH-xI-d12"/>
                                                 <constraint firstAttribute="width" constant="284" id="zAX-b4-I4y"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="M9Q-1p-LWg"/>
                                                     <exclude reference="cKf-Zd-trv"/>
+                                                    <exclude reference="kOk-AE-sqD"/>
+                                                    <exclude reference="sXQ-fX-XR1"/>
+                                                    <exclude reference="zAX-b4-I4y"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=compact-widthClass=regular">
+                                                <mask key="constraints">
+                                                    <exclude reference="M9Q-1p-LWg"/>
                                                 </mask>
                                             </variation>
                                         </imageView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="centerX" secondItem="Mzw-P3-Mfa" secondAttribute="centerX" id="0lz-ub-5n8"/>
                                         <constraint firstAttribute="centerY" secondItem="Mzw-P3-Mfa" secondAttribute="centerY" constant="-0.5" id="26h-iI-4QZ"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Mzw-P3-Mfa" secondAttribute="bottom" constant="-1" id="5qa-0D-bKG"/>
+                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="top" secondItem="MeU-0E-Rd7" secondAttribute="topMargin" id="6Bi-Bf-Lww"/>
+                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="top" secondItem="MeU-0E-Rd7" secondAttribute="topMargin" id="7Nk-Ln-9Ff"/>
                                         <constraint firstItem="Mzw-P3-Mfa" firstAttribute="leading" secondItem="MeU-0E-Rd7" secondAttribute="leadingMargin" constant="150" id="H5u-oe-fn7"/>
-                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="top" secondItem="MeU-0E-Rd7" secondAttribute="topMargin" id="VuS-og-fgC"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Mzw-P3-Mfa" secondAttribute="bottom" constant="-1" id="Mwb-jX-9nN"/>
+                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="leading" secondItem="MeU-0E-Rd7" secondAttribute="leadingMargin" constant="150" id="Nb0-69-PBU"/>
+                                        <constraint firstItem="Mzw-P3-Mfa" firstAttribute="leading" relation="lessThanOrEqual" secondItem="MeU-0E-Rd7" secondAttribute="leadingMargin" constant="150" id="cOP-lQ-9tR">
+                                            <variation key="widthClass=regular" constant="250"/>
+                                            <variation key="heightClass=compact-widthClass=regular" constant="250"/>
+                                        </constraint>
                                         <constraint firstItem="Mzw-P3-Mfa" firstAttribute="top" secondItem="MeU-0E-Rd7" secondAttribute="topMargin" id="fcL-sP-sgM"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Mzw-P3-Mfa" secondAttribute="trailing" constant="150" id="jmQ-mq-foh"/>
                                         <constraint firstAttribute="centerX" secondItem="Mzw-P3-Mfa" secondAttribute="centerX" id="lRJ-Ae-WQS"/>
+                                        <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="Mzw-P3-Mfa" secondAttribute="trailing" constant="150" id="lgc-8W-bdi">
+                                            <variation key="widthClass=regular" constant="250"/>
+                                            <variation key="heightClass=compact-widthClass=regular" constant="250"/>
+                                        </constraint>
                                         <constraint firstAttribute="trailingMargin" secondItem="Mzw-P3-Mfa" secondAttribute="trailing" constant="150" id="m4L-Za-das"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Mzw-P3-Mfa" secondAttribute="bottom" constant="-1" id="pdV-Qr-xsg"/>
+                                        <constraint firstAttribute="centerY" secondItem="Mzw-P3-Mfa" secondAttribute="centerY" constant="-0.5" id="u04-MG-xZy"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="26h-iI-4QZ"/>
                                             <exclude reference="5qa-0D-bKG"/>
+                                            <exclude reference="6Bi-Bf-Lww"/>
                                             <exclude reference="H5u-oe-fn7"/>
+                                            <exclude reference="Nb0-69-PBU"/>
                                             <exclude reference="fcL-sP-sgM"/>
+                                            <exclude reference="jmQ-mq-foh"/>
+                                            <exclude reference="lRJ-Ae-WQS"/>
                                             <exclude reference="m4L-Za-das"/>
+                                            <exclude reference="pdV-Qr-xsg"/>
+                                            <exclude reference="u04-MG-xZy"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
