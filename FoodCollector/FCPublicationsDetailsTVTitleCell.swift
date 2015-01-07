@@ -30,8 +30,11 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     }
 
     func makeDistanceText(publication: FCPublication) -> String {
-
-        return FCStringFunctions.longDistanceString(publication)
+        
+        let addressString = publication.address
+        let distanceString = FCStringFunctions.longDistanceString(publication)
+        let displayedString = addressString + "\n" + distanceString
+        return displayedString
     }
     
     override func awakeFromNib() {

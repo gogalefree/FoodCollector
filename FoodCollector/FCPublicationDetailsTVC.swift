@@ -20,7 +20,7 @@ class FCPublicationDetailsTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 116
         self.tableView.rowHeight = UITableViewAutomaticDimension
         fetchPublicationReports()
-//        fetchPublicationPhoto()
+        fetchPublicationPhoto()
     
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -45,7 +45,7 @@ class FCPublicationDetailsTVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 3
+        return 4
     }
 
     
@@ -65,6 +65,11 @@ class FCPublicationDetailsTVC: UITableViewController {
             
         }
         else if indexPath.row == 2 {
+            var cell = self.tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as FCPublicationDetailsDatesCell
+            cell.publication = self.publication
+            return cell
+        }
+        else if indexPath.row == 3 {
             
             var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsPhotoCell", forIndexPath: indexPath) as FCPublicationDetailsPhotoCell
             cell.publication = self.publication?
@@ -74,6 +79,26 @@ class FCPublicationDetailsTVC: UITableViewController {
             var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "stamCell") as UITableViewCell
             return cell
 
+        }
+    }
+    
+    func fetchPublicationPhoto() {
+        if let publication = self.publication? {
+            if publication.photoData.photo == nil && !publication.photoData.didTryToDonwloadImage {
+               
+            
+                let fetcher = FCPhotoFetcher()
+                fetcher.fetchPhotoForPublication(publication, completion: { (image: UIImage?) -> Void in
+                    if let photo = image {
+                        self.publication?.photoData.photo = photo
+                        self.publication?.photoData.didTryToDonwloadImage = true
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: 3, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                        })
+                    }
+                })
+            
+            }
         }
     }
     

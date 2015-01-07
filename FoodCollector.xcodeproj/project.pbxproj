@@ -52,6 +52,7 @@
 		E494DF171A0A980D004A369E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494DF161A0A980D004A369E /* Images.xcassets */; };
 		E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E494DF181A0A980D004A369E /* LaunchScreen.xib */; };
 		E494DF261A0A980D004A369E /* FoodCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF251A0A980D004A369E /* FoodCollectorTests.swift */; };
+		E49B93281A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */; };
 		E4A4096D1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */; };
 		E4C1C1651A52AB3500A37E00 /* FCAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */; };
 		E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */; };
@@ -122,6 +123,7 @@
 		E494DF1F1A0A980D004A369E /* FoodCollectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodCollectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494DF241A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E494DF251A0A980D004A369E /* FoodCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectorTests.swift; sourceTree = "<group>"; };
+		E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsDatesCell.swift; sourceTree = "<group>"; };
 		E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsPhotoCell.swift; sourceTree = "<group>"; };
 		E4C1C1601A52A3ED00A37E00 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAnnotationView.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				E40BD4FA1A5819D900BB2F98 /* FCPublicationDetailsTVReportsCell.swift */,
 				E426AD321A5A682B006F609C /* FCPublicationSingleReportCell.swift */,
 				E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */,
+				E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */,
 			);
 			name = Collector;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
+				E49B93281A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift in Sources */,
 				E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
