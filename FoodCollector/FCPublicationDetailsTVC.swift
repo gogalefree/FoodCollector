@@ -8,10 +8,10 @@
 
 import UIKit
 
-class FCPublicationDetailsTVC: UITableViewController {
+class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleCellDelegate {
 
     var publication: FCPublication?
-    var didFetchPublicationReports = false
+   // var didFetchPublicationReports = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +19,8 @@ class FCPublicationDetailsTVC: UITableViewController {
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 116
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        fetchPublicationReports()
-        fetchPublicationPhoto()
+     //   fetchPublicationReports()
+     //   fetchPublicationPhoto()
     
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -43,8 +43,7 @@ class FCPublicationDetailsTVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
+        
         return 4
     }
 
@@ -54,6 +53,7 @@ class FCPublicationDetailsTVC: UITableViewController {
         if indexPath.row == 0 {
             
                 var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath) as FCPublicationsDetailsTVTitleCell
+                    cell.delegate = self
                     cell.publication = self.publication?
             return cell
         }
@@ -102,6 +102,34 @@ class FCPublicationDetailsTVC: UITableViewController {
         }
     }
     
+    //MARK: - Title cell delegate
+    
+    func didRegisterForPublication(publication: FCPublication) {
+        
+        //show alert controller
+        if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
+            
+            let title = String.localizedStringWithFormat("Please Contact the Publisher", "an alert title requesting to contact the publisher")
+            let subtitle = String.localizedStringWithFormat("Call: \(publication.contactInfo!)", "the word call before presenting the phone number")
+            let alert = FCAlertsHandler.sharedInstance.alertWithCallDissmissButton(title, aMessage: subtitle, phoneNumber: publication.contactInfo!)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func didRequestNavigationForPublication(publication: FCPublication) {
+        
+        
+            if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
+                let title = String.localizedStringWithFormat("Navigate With:", "an action sheet title meening chose app to navigate with")
+                let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
+                self.presentViewController(actionSheet, animated: true, completion: nil)
+            }
+            else {
+                //navigateWithWaze
+                FCNavigationHandler.sharedInstance.wazeNavigation(publication)
+            }
+    }
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
@@ -109,10 +137,18 @@ class FCPublicationDetailsTVC: UITableViewController {
     //MARK: - fetch data for publication
     func fetchPublicationReports() {
     
-        //fetch the reports 
-        
-        //self.didFetchPublicationReports = true
-        //reload the reports cell
+        if let publication = self.publication {
+            FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, completion: { (success: Bool, reports: [FCOnSpotPublicationReport]?) -> () in
+                
+                if let incomingReports = reports {
+                    publication.reportsForPublication = incomingReports
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        let reportsCellIp = NSIndexPath(forRow: 1, inSection: 0)
+                        self.tableView.reloadRowsAtIndexPaths([reportsCellIp], withRowAnimation: .Automatic)
+                    })
+                }
+            })
+        }
     }
     
     // MARK: - Navigation

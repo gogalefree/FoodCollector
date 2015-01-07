@@ -81,7 +81,6 @@
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIo-Lt-Vbb">
                                             <rect key="frame" x="15" y="24" width="70" height="67"/>
-                                            <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="70" id="5xm-Dv-IZe"/>
                                                 <constraint firstAttribute="width" constant="70" id="9ez-mj-Ahy"/>
@@ -103,6 +102,9 @@
                                                     <exclude reference="bU5-ea-mqH"/>
                                                 </mask>
                                             </variation>
+                                            <connections>
+                                                <action selector="registerButtonAction:" destination="esh-rZ-Vej" eventType="touchUpInside" id="4XB-UX-rj7"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

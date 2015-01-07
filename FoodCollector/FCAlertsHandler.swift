@@ -26,6 +26,51 @@ public class FCAlertsHandler : NSObject {
         alertController.addAction(dissmissAction)
         return alertController
     }
+    
+    public func alertWithCallDissmissButton(aTitle: String, aMessage: String, phoneNumber: String) -> UIAlertController {
+        
+        let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("Dissmiss", "alert dissmiss button title"), style: .Cancel) { (action) in
+            alertController.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        let callAction = UIAlertAction(title:String.localizedStringWithFormat("Call Publisher", "alert call to publisher button title"), style: UIAlertActionStyle.Default) { (action) in
+            
+            var url:NSURL = NSURL(string: "tel://\(phoneNumber)")!
+            UIApplication.sharedApplication().openURL(url)
+
+            alertController.dismissViewControllerAnimated(true , completion: nil)
+        }
+        alertController.addAction(callAction)
+        alertController.addAction(dissmissAction)
+        return alertController
+    }
+    
+    public func navigationActionSheet(aTitle: String, publication: FCPublication) -> UIAlertController {
+        
+        let alertController = UIAlertController(title: aTitle, message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("Dissmiss", "alert dissmiss button title"), style: .Cancel) { (action) in
+            alertController.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        let wazeAction = UIAlertAction(title:String.localizedStringWithFormat("Waze", "navigation button in action sheet meening waze navigation"), style: UIAlertActionStyle.Default) { (action) in
+            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
+            alertController.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        let mapsAction = UIAlertAction(title:String.localizedStringWithFormat("Apple Maps", "navigation button in action sheet meening apple maps navigation"), style: UIAlertActionStyle.Default) { (action) in
+            FCNavigationHandler.sharedInstance.appleMapsNavigation(publication)
+            alertController.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        alertController.addAction(wazeAction)
+        alertController.addAction(mapsAction)
+        alertController.addAction(dissmissAction)
+        return alertController
+    }
+
+
 }
 
 

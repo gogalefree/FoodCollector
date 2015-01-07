@@ -63,7 +63,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
     ///
     /// fetch all reports to a certain Publication
     ///
-    public func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport])->()) {
+    public func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport]?)->()) {
+        //download
+        //parse
+        //pass to the completion handler
+    }
+    
+    func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage) {
         
     }
     
@@ -112,7 +118,7 @@ public extension FCMockServer {
         var coordinate = CLLocationCoordinate2D(latitude: 32.361233, longitude: 34.867452)
         var startingDate = NSDate()
         var endingDate = NSDate(timeIntervalSinceNow: 129600)
-        var contactInfo = "call: 0522222222"
+        var contactInfo = "0544448246"
         var photoUrl = "www.url.com"
         var version = 2
         
@@ -138,7 +144,7 @@ public extension FCMockServer {
         photoUrl = "www.guy.com"
         version = 1
         
-        let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,contactInfo: nil, subTitle: subtitle, version: version)
+        let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,contactInfo: contactInfo, subTitle: subtitle, version: version)
         pub2.countOfRegisteredUsers = 4
         
         report.date = endingDate
@@ -159,10 +165,11 @@ public extension FCMockServer {
         coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: -345600)
+        contactInfo = "0544448246"
         photoUrl = "www.denis.com"
         version = 1
         
-        let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
+        let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
         pub3.countOfRegisteredUsers = 6
         report.date = endingDate
         report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
@@ -183,7 +190,7 @@ public extension FCMockServer {
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
-        version = 1
+                version = 1
         
         let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
         pub4.countOfRegisteredUsers = 4
@@ -205,7 +212,7 @@ public extension FCMockServer {
         photoUrl = "www.maayan.com"
         version = 1
         
-        let pub5 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
+        let pub5 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: contactInfo, subTitle: subtitle, version: version)
         pub4.countOfRegisteredUsers = 4
         report.date = startingDate
         report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
@@ -249,7 +256,7 @@ public extension FCMockServer {
         photoUrl = "www.denis.com"
         version = 1
         
-        let pub7 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
+        let pub7 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: contactInfo, subTitle: subtitle, version: version)
         pub7.countOfRegisteredUsers = 10
         
         report.date = startingDate
@@ -293,7 +300,7 @@ public extension FCMockServer {
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
         
-        let pub9 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
+        let pub9 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
         pub9.countOfRegisteredUsers = 0
         publicaions.append(pub9)
         

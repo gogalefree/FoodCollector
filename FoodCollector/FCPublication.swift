@@ -23,7 +23,7 @@ let kPublicationStartingDateKey = "starting_date"
 let kPublicationEndingDateKey = "ending_date"
 let kPublicationContactInfoKey = "contact_info"
 let kPublicationPhotoUrl = "photo_url"
-
+let kDidRegisterForCurrentPublicationKey = "did_Register_for_current_publication"
 
 struct PublicationIdentifier {
     
@@ -68,8 +68,11 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     }
     var reportsForPublication = [FCOnSpotPublicationReport]()
     
+    // True if the current user registered for this publication
+    var didRegisterForCurrentPublication = false
+    
     //publication's registrations array holds only instances with a register message.
-    //when an unrigister push notification arrives or when a user unregisters, the unregistered publication is taken out
+    //when an unrigister push notification arrives the unregistered publication is taken out
     
     var registrationsForPublication = [FCRegistrationForPublication]()
     
@@ -119,6 +122,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeObject(self.endingDate, forKey: kPublicationEndingDateKey)
         aCoder.encodeObject(self.contactInfo, forKey: kPublicationContactInfoKey)
         aCoder.encodeObject(self.photoUrl, forKey: kPublicationPhotoUrl)
+        aCoder.encodeBool(self.didRegisterForCurrentPublication, forKey: kDidRegisterForCurrentPublicationKey)
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -138,7 +142,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.endingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
         self.contactInfo = aDecoder.decodeObjectForKey(kPublicationContactInfoKey) as? String
         self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as String
-        
+        self.didRegisterForCurrentPublication = aDecoder.decodeBoolForKey(kDidRegisterForCurrentPublicationKey) as Bool
         super.init()
     }
     

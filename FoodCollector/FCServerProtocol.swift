@@ -47,7 +47,7 @@ protocol FCServerProtocol {
     ///
     /// fetch all reports to a certain Publication
     ///
-    func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport])->())
+    func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport]?)->())
     
     ///
     /// reports a Report of a Publication by a user that arrived at a publication
@@ -69,6 +69,10 @@ protocol FCServerProtocol {
     /// search for address with google location autocomplete api
     ///
     func googleLocationAddressesWithKeyWord(searchString:String, completion:(success: Bool, results: [String])->())
+    
+    ///
+    /// register or unregister the current user to a publication
+    func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage)
     
 }
 
