@@ -25,7 +25,7 @@ let kPublishEndDatePrefix = String.localizedStringWithFormat("End:\t", "End date
 let kPublishContactPhoneNumber = String.localizedStringWithFormat("Add phone number", "Add phone number for a new event")
 let kPublishContactPhoneNumberPrefix = String.localizedStringWithFormat("Phone number: ", "Phone number label for displaying an exciting phone number")
 let kPublishImage = String.localizedStringWithFormat("Add image", "Add image for a new event")
-let kPublishTakeOfAirButtonLabel = String.localizedStringWithFormat("Take Off Air", "Take Off Air button to immediately stop publication of an exciting active event")
+let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("Take Off Air", "Take Off Air button to immediately stop publication of an exciting active event")
 let kPublishPublishButtonLabel = String.localizedStringWithFormat("Publish", "Publish button to publish a new event")
 
 let kCellHeight = CGFloat(50.0)
@@ -45,20 +45,19 @@ struct FCNewPublicationTVCCellData {
     // For address userData -> need to be tuple (address:String, coordinate:CLLocationCoordinate2D)
     //var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0.0, 0.0)
     var isSeperator:Bool = false
-    var isTakeOfAirBuuton:Bool = false
+    var isTakeOffAirBuuton:Bool = false
     var isPublishButton:Bool = false
     var isImgCell:Bool = false
     var identityTag:Int = 0
-    //var dataType:String
-    // var newPublicationTVC:FCPublicationEditorTVC
+
     
 }
 /*
 enum FCPublicationEditorTVCState {
-    
-    case EditPublication
-    case CreateNewPublication
-    
+
+case EditPublication
+case CreateNewPublication
+
 }
 */
 
@@ -76,17 +75,18 @@ public enum FCTypeOfCollecting: Int {
 /// handles the creation of a new publication or the editing of an existing
 ///  one.
 ///
-class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDelegate {
+class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     var publication:FCPublication?
     var dataSource = [FCNewPublicationTVCCellData]()
     var identityTagCounter = 0
     var imgURL = ""
-    var isReadyForTakeOfAir = false
+    var isReadyForTakeOffAir = false
     var isReadyForPublish = false
     var isImageInPublication = false
-    
+    var numberOfCells = 0
+    lazy var imagePicker: UIImagePickerController = UIImagePickerController()
 
     
     @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
@@ -97,13 +97,15 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         else {
             updateDataSource(sourceVC.pubSubTitleText.text, selectedTagNumber: sourceVC.selectedTagNumber)
         }
-        tableView.reloadData()
+        //tableView.reloadData()
+        reloadTableWithNewData()
     }
     
     @IBAction func unwindFromDateEditorVC(segue: UIStoryboardSegue) {
         let sourceVC = segue.sourceViewController as FCPublishDateEditorVC
         updateDataSource(sourceVC.datePicker.date, selectedTagNumber: sourceVC.selectedTagNumber)
-        tableView.reloadData()
+        //tableView.reloadData()
+        reloadTableWithNewData()
     }
     
     @IBAction func unwindFromTypeOfCollectionEditorVC(segue: UIStoryboardSegue) {
@@ -113,20 +115,27 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
             // delete seperator and phone number from datasource (and therefore from table)
             removeFromDataSource(sourceVC.selectedTagNumber+1)
             removeFromDataSource(sourceVC.selectedTagNumber+1)
-            
-            // self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
         else {
             var cellData : FCNewPublicationTVCCellData
             // For a Seperator
-            cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: sourceVC.selectedTagNumber+1)
+            cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOffAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: sourceVC.selectedTagNumber+1)
             insertIntoDataSource(cellData, index: sourceVC.selectedTagNumber+1)
             
             // For Contact Info
-            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false,  identityTag: sourceVC.selectedTagNumber+2)
+            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, isTakeOffAirBuuton: false, isPublishButton: false, isImgCell: false,  identityTag: sourceVC.selectedTagNumber+2)
             insertIntoDataSource(cellData, index: sourceVC.selectedTagNumber+2)
         }
-        tableView.reloadData()
+        numberOfCells = dataSource.count
+        reloadTableWithNewData()
+    }
+    
+    @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
+        let sourceVC = segue.sourceViewController as FCPublishAddressEditorVC
+        //let aaddressInfo = (address:sourceVC.selectedAddress, coordinate:sourceVC.selectedCoordinate)
+        let aaddressInfo:[String:AnyObject] = ["adress": sourceVC.selectedAddress as String, "lat": sourceVC.selectedLatitude as Double, "lon":sourceVC.selectedLongtitude as Double]
+        updateDataSource(aaddressInfo as Dictionary, selectedTagNumber: sourceVC.selectedTagNumber)
+        reloadTableWithNewData()
     }
     
     override func viewDidLoad() {
@@ -134,6 +143,7 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         
         if publication != nil {
             self.createCellDataForExistingPublication(publication!)
+            //setIsReadyForTakeOffAir()
         }
         else {
             self.createCellDataForNewPublication()
@@ -143,7 +153,6 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         // Because the table thinks there is a footer to show, it doesn't display any
         // cells beyond those you explicitly asked for.
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
-
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -155,16 +164,17 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        //println("Start: tableView: heightForRowAtIndexPath")
-        //println("End: tableView: heightForRowAtIndexPath")
-        if dataSource[indexPath.item].isSeperator {
-            return dataSource[indexPath.item].height
+        if indexPath.row == 0 {
+            return kCellHeight
         }
-        if dataSource[indexPath.item].isImgCell {
-            return dataSource[indexPath.item].height
+        if dataSource[indexPath.row].isSeperator {
+            return dataSource[indexPath.row].height
+        }
+        if dataSource[indexPath.row].isImgCell {
+            return dataSource[indexPath.row].height
         }
         
-        return dataSource[indexPath.item].height
+        return dataSource[indexPath.row].height
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: (NSIndexPath!)) -> UITableViewCell {
@@ -172,81 +182,93 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         
         let cellIdentifier = "publicationEditorTVCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
-        if dataSource[indexPath.item].isSeperator {
-            cell.textLabel!.text = ""
+        // Reset cell attributes
+        cell.alpha = CGFloat(0.0)
+        cell.textLabel!.text = "" + " I=\(indexPath.row)"
+        cell.userInteractionEnabled = true
+        if dataSource[indexPath.row].isSeperator {
+            cell.textLabel!.text = "" + " I=\(indexPath.row)"
             cell.userInteractionEnabled = false
             cell.backgroundColor = UIColor(red: 0.92, green: 0.92, blue: 0.95, alpha: 1.00)
         }
-        else if dataSource[indexPath.item].isImgCell {
+        else if dataSource[indexPath.row].isImgCell {
             if isImageInPublication {
-                cell.textLabel!.text = "Image Goes Here"
-                //cell.addSubview(getImage(indexPath.item, cellWidth: Double(cell.frame.width), cellHeight: Double(cell.frame.height)))
+                cell.textLabel!.text = "Image Goes Here" + " I=\(indexPath.row)"
+                //cell.addSubview(getImage(indexPath.row, cellWidth: Double(cell.frame.width), cellHeight: Double(cell.frame.height)))
             }
             else {
                 
-                cell.textLabel!.text = dataSource[indexPath.item].cellText
+                cell.textLabel!.text = dataSource[indexPath.row].cellText + " I=\(indexPath.row)"
             }
         }
-        else if dataSource[indexPath.item].isTakeOfAirBuuton {
-            cell.textLabel!.text = kPublishTakeOfAirButtonLabel
+        else if dataSource[indexPath.row].isTakeOffAirBuuton {
+            cell.textLabel!.text = kPublishTakeOffAirButtonLabel + " I=\(indexPath.row)"
             cell.textLabel!.textAlignment = NSTextAlignment.Center
-            cell.textLabel!.textColor = UIColor.redColor()
-            if !isReadyForTakeOfAir {
-                cell.textLabel!.textColor = UIColor.lightGrayColor()
-                cell.userInteractionEnabled = false
+            cell.textLabel!.textColor = UIColor.lightGrayColor()
+            cell.userInteractionEnabled = false
+            if isReadyForTakeOffAir {
+                cell.textLabel!.textColor = UIColor.redColor()
+                cell.userInteractionEnabled = true
             }
         }
-        else if dataSource[indexPath.item].isPublishButton {
-            cell.textLabel!.text = kPublishPublishButtonLabel
+        else if dataSource[indexPath.row].isPublishButton {
+            cell.textLabel!.text = kPublishPublishButtonLabel + " I=\(indexPath.row)"
             cell.textLabel!.textAlignment = NSTextAlignment.Center
-            cell.textLabel!.textColor = UIColor(red: 0.00, green: 0.36, blue: 0.99, alpha: 1.00)
-            if !isReadyForPublish {
-                cell.textLabel!.textColor = UIColor.lightGrayColor()
-                cell.userInteractionEnabled = false
+            cell.textLabel!.textColor = UIColor.lightGrayColor()
+            cell.userInteractionEnabled = false
+            if isReadyForPublish {
+                cell.textLabel!.textColor = UIColor(red: 0.00, green: 0.36, blue: 0.99, alpha: 1.00)
+                cell.userInteractionEnabled = true
             }
         }
         else {
-          cell.textLabel!.text = dataSource[indexPath.item].cellText
+            cell.textLabel!.text = dataSource[indexPath.row].cellText + " I=\(indexPath.row)"
         }
         
-        cell.tag = dataSource[indexPath.item].identityTag
+        cell.tag = dataSource[indexPath.row].identityTag
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        var segueIdentifier = ""
-        
-        switch indexPath.item {
+        println("Case No.: \(indexPath.row)")
+        switch indexPath.row {
         case 0, 1, 8:
-            segueIdentifier = "showPublicationStringFieldsEditor"
+            self.performSegueWithIdentifier("showPublicationStringFieldsEditor", sender: indexPath.row)
         case 2:
-            segueIdentifier = "showPublicationAdressEditor"
+            self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
         case 4, 5:
-            segueIdentifier = "showPublicationDateEditor"
+            self.performSegueWithIdentifier("showPublicationDateEditor", sender: indexPath.row)
         case 6:
-            segueIdentifier = "showPublicationTypeOfCollectionEditor"
+            self.performSegueWithIdentifier("showPublicationTypeOfCollectionEditor", sender: indexPath.row)
         case 10:
-            segueIdentifier = "showPublicationImageEditor"
+            self.presentImagePickerController()
         case 11:
-            takeOfAir()
+            println("Case 11: \(indexPath.row)")
+            takeOffAir()
         default:
             break
         }
-        self.performSegueWithIdentifier(segueIdentifier, sender: indexPath.item)
     }
     
     private func updateDataSource(newValue:AnyObject, selectedTagNumber:Int){
-        dataSource[selectedTagNumber].userData = newValue
+        //dataSource[selectedTagNumber].userData = newValue
         switch selectedTagNumber {
+        case 3:
+            println("Case 3:")
+            println(newValue)
+            //dataSource[selectedTagNumber].userData = newValue as Dictionary
+            //dataSource[selectedTagNumber].cellText = newValue as String
         case 4:
             let locDateString = FCDateFunctions.localizedDateAndTimeStringShortStyle(newValue as NSDate)
+            dataSource[selectedTagNumber].userData = newValue as NSDate
             dataSource[selectedTagNumber].cellText = kPublishStartDatePrefix + locDateString
         case 5:
             let locDateString = FCDateFunctions.localizedDateAndTimeStringShortStyle(newValue as NSDate)
+            dataSource[selectedTagNumber].userData = newValue as NSDate
             dataSource[selectedTagNumber].cellText = kPublishEndDatePrefix + locDateString
         case 6:
             println("newValue: \(newValue)")
+            dataSource[selectedTagNumber].userData = newValue as Int
             if newValue as Int == 1{
                 dataSource[selectedTagNumber].cellText = kPublishTypeOfCollectionFreePickUp
             }
@@ -254,8 +276,10 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
                 dataSource[selectedTagNumber].cellText = kPublishTypeOfCollectionContactPublisher
             }
         case 8:
+            dataSource[selectedTagNumber].userData = newValue as String
             dataSource[selectedTagNumber].cellText = (kPublishContactPhoneNumberPrefix + (newValue as String))
         default:
+            dataSource[selectedTagNumber].userData = newValue as String
             dataSource[selectedTagNumber].cellText = newValue as String
         }
         
@@ -288,12 +312,82 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         return imageView
     }
     
-    private func takeOfAir(){
+    private func takeOffAir(){
+        println("Old end date: \(dataSource[5].userData)")
         dataSource[5].userData = NSDate()
-        tableView.reloadData()
+        println("New end date: \(dataSource[5].userData)")
+        isReadyForTakeOffAir = false
+        //tableView.reloadData()
+        println("Table was reloaded!!!!")
+        reloadTableWithNewData()
         
     }
-
+    
+    private func setIsReadyForTakeOffAir(){
+        if let startDate = dataSource[4].userData as? NSDate {
+            println("Start date is not nil")
+            if let endDate = dataSource[5].userData as? NSDate {
+                println("End date is not nil")
+                if startDate.compare(endDate) == NSComparisonResult.OrderedAscending {
+                   // If true: the startDate is earlier in time than endDate
+                    isReadyForTakeOffAir = true
+                }
+                else {
+                    isReadyForTakeOffAir = false
+                }
+            }
+            else {
+                println("End date is nil")
+                isReadyForTakeOffAir = false
+            }
+        }
+        else {
+            println("Start date is nil")
+            isReadyForTakeOffAir = false
+        }
+        
+        //isReadyForTakeOffAir = true
+    }
+    
+    private func checkIfReadyForPublish(){
+        //Check if all cell objects in dataSource are ready for publish
+        for cellObj in dataSource {
+            //println("Pub test (\(cellObj.isObligatory)) (\(cellObj.identityTag)): \(cellObj.cellText)")
+            if cellObj.isObligatory {
+                isReadyForPublish = true
+                //println("Set isReadyForPublish as true")
+            }
+            else {
+                isReadyForPublish = false
+                break
+            }
+            
+        }
+        println("isReadyForPublish = \(isReadyForPublish)")
+    }
+    
+    private func reloadTableWithNewData(){
+        setIsReadyForTakeOffAir()
+        checkIfReadyForPublish()
+        tableView.reloadData()
+    }
+    
+    private func getImageObjectIndexFromDataSource() -> Int {
+        var index = 0
+        for var i = 0; i < dataSource.count; ++i {
+            if dataSource[i].isImgCell {index = i}
+        }
+        return index
+    }
+    
+    private func getCorrectIdentityTag(tag:Int) -> Int {
+        if dataSource.count < 12 {
+            if tag > 6 {return tag+2}
+        }
+        
+        return tag
+    }
+    
     // MARK: - PublicationDataInputDelegate protocol
     
     
@@ -370,11 +464,18 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
             pubEditorVC.selectedTagNumber = sender as Int
         }
         
+        if (segue.identifier == "showPublicationAdressEditor") {
+            let pubEditorVC = segue!.destinationViewController as FCPublishAddressEditorVC
+            
+            pubEditorVC.dataSource = dataSource
+            pubEditorVC.selectedTagNumber = sender as Int
+        }
+        
         
         
     }
     
-        
+    
     //===========================================================================
     // Boris: Need to add functions to make this code more flexible and smarter
     //===========================================================================
@@ -396,8 +497,13 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         // 12. Publish button (not part of the data source!!!)
         // so a total of 13 members for in datasource.
         
-        var cellData = FCNewPublicationTVCCellData()
         var  locDateString : String
+        
+        // define basic seperator object
+        var cellDataSeperator = FCNewPublicationTVCCellData()
+        cellDataSeperator.height = kSeperatorHeight
+        cellDataSeperator.isSeperator = true
+        cellDataSeperator.isObligatory = true
         
         // Check for image in publication
         if let photoURLPath = publication.photoUrl {
@@ -408,155 +514,267 @@ class FCPublicationEditorTVC : UITableViewController,FCPublicationDataInputDeleg
         }
         
         // For Title
-        cellData.containsUserData = true
-        cellData.cellText = publication.title
-        cellData.userData = publication.title
-        cellData.identityTag = getCount()
-        dataSource.append(cellData)
+        //----------------------
+        var cellData0 = FCNewPublicationTVCCellData()
+        cellData0.containsUserData = true
+        cellData0.cellText = publication.title
+        cellData0.userData = publication.title
+        cellData0.isObligatory = true
+        cellData0.identityTag = getCount()
+        dataSource.append(cellData0)
         
         // For Subtitle
+        //----------------------
+        var cellData1 = FCNewPublicationTVCCellData()
         if let sTitle = publication.subtitle {
-            cellData.containsUserData = true
-            cellData.cellText = sTitle
-            cellData.userData = sTitle
+            cellData1.containsUserData = true
+            cellData1.cellText = sTitle
+            cellData1.userData = sTitle
         }
         else {
-            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishSubtitle, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
+            cellData1.cellText = kPublishSubtitle
+            cellData1.userData = ""
         }
-        cellData.identityTag = getCount()
-        dataSource.append(cellData)
+        cellData1.isObligatory = true
+        cellData1.identityTag = getCount()
+        dataSource.append(cellData1)
         
         // For Address
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: publication.address, isObligatory: false, userData: publication.address, isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        var cellData2 = FCNewPublicationTVCCellData()
+        cellData2.containsUserData = true
+        cellData2.cellText = publication.address
+        cellData2.userData = publication.address
+        cellData2.isObligatory = true
+        cellData2.identityTag = getCount()
+        dataSource.append(cellData2)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        cellDataSeperator.identityTag = getCount()
+        dataSource.append(cellDataSeperator)
         
         // For Start Date
+        //----------------------
         locDateString = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.startingDate)
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: (kPublishStartDatePrefix + locDateString), isObligatory: false, userData: publication.startingDate, isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        var cellData4 = FCNewPublicationTVCCellData()
+        cellData4.containsUserData = true
+        cellData4.cellText = kPublishStartDatePrefix + locDateString
+        cellData4.userData = publication.startingDate
+        cellData4.isObligatory = true
+        cellData4.identityTag = getCount()
+        dataSource.append(cellData4)
         
         // For End Date
+        //----------------------
         locDateString = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.endingDate)
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: (kPublishEndDatePrefix + locDateString), isObligatory: false, userData: publication.endingDate, isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        var cellData5 = FCNewPublicationTVCCellData()
+        cellData5.containsUserData = true
+        cellData5.cellText = kPublishEndDatePrefix + locDateString
+        cellData5.userData = publication.endingDate
+        cellData5.isObligatory = true
+        cellData5.identityTag = getCount()
+        dataSource.append(cellData5)
         
         // For Type Of Collection
+        //----------------------
+        // default value for type of collection: Free Pickup
         var collectionType = publication.typeOfCollecting
-        if collectionType == FCTypeOfCollecting.FreePickUp {
-            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishTypeOfCollectionFreePickUp, isObligatory: false, userData: 1, isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        }
-        else if collectionType == FCTypeOfCollecting.ContactPublisher {
-            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishTypeOfCollectionContactPublisher, isObligatory: false, userData: 2, isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
+        var cellData6 = FCNewPublicationTVCCellData()
+        if collectionType == FCTypeOfCollecting.ContactPublisher {
+            cellData6.cellText = kPublishTypeOfCollectionContactPublisher
+            cellData6.userData = 2
         }
         else {
-            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishTypeOfCollection, isObligatory: false, userData: Int(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
+            cellData6.cellText = kPublishTypeOfCollectionFreePickUp
+            cellData6.userData = 1
         }
-        dataSource.append(cellData)
+        cellData6.containsUserData = true
+        cellData6.isObligatory = true
+        cellData6.identityTag = getCount()
+        dataSource.append(cellData6)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        cellDataSeperator.identityTag = getCount()
+        dataSource.append(cellDataSeperator)
         
         // For Contact Info
+        //----------------------
+        var cellData8 = FCNewPublicationTVCCellData()
         if collectionType == FCTypeOfCollecting.ContactPublisher {
             if let cInfo = publication.contactInfo {
-                cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: (kPublishContactPhoneNumberPrefix + cInfo), isObligatory: false, userData: cInfo, isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
+                cellData8.containsUserData = true
+                cellData8.cellText = kPublishContactPhoneNumberPrefix + cInfo
+                cellData8.userData = cInfo
+                cellData8.isObligatory = true
             }
             else {
-                cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
+                cellData8.containsUserData = false
+                cellData8.cellText = kPublishContactPhoneNumber
             }
-            dataSource.append(cellData)
+            cellData8.identityTag = getCount()
+            dataSource.append(cellData8)
             
             // For a Seperator
-            cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-            dataSource.append(cellData)
+            //----------------------
+            cellDataSeperator.identityTag = getCount()
+            dataSource.append(cellDataSeperator)
         }
         
         // For Photo
+        //----------------------
+        var cellData10 = FCNewPublicationTVCCellData()
         if isImageInPublication {
-            cellData = FCNewPublicationTVCCellData(height: kImageCellHeight, containsUserData: true, cellText: "", isObligatory: false, userData: imgURL, isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: true, identityTag: getCount())
+            cellData10.height = kImageCellHeight
+            cellData10.containsUserData = true
+            cellData10.isImgCell = true
+            cellData10.isObligatory = true
         }
         else {
-            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishImage, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: true, identityTag: getCount())
+            cellData10.cellText = kPublishImage
         }
-        dataSource.append(cellData)
+        cellData10.identityTag = getCount()
+        dataSource.append(cellData10)
         
         // For Take of air button
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: false, isTakeOfAirBuuton: true, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        var cellData11 = FCNewPublicationTVCCellData()
+        cellData11.isTakeOffAirBuuton = true
+        cellData11.isObligatory = true
+        cellData11.identityTag = getCount()
+        dataSource.append(cellData11)
         
         // For Publish button
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: true, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        var cellData12 = FCNewPublicationTVCCellData()
+        cellData12.isPublishButton = true
+        cellData12.isObligatory = true
+        cellData12.identityTag = getCount()
+        dataSource.append(cellData12)
         
-        println("Number of cells in table: \(dataSource.count)")
+        numberOfCells = dataSource.count
         
     }
     
     func createCellDataForNewPublication() {
         println("=== New Publication ===")
-        var cellData : FCNewPublicationTVCCellData
+        var emptyCellData = FCNewPublicationTVCCellData()
+        
+        // define basic seperator object
+        var cellDataSeperator = FCNewPublicationTVCCellData()
+        cellDataSeperator.height = kSeperatorHeight
+        cellDataSeperator.isSeperator = true
         
         // For Title
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishTitle, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.cellText = kPublishTitle
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For Subtitle
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishSubtitle, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.cellText = kPublishSubtitle
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For Address
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishAddress, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.cellText = kPublishAddress
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        cellDataSeperator.identityTag = getCount()
+        dataSource.append(cellDataSeperator)
         
         // For Start Date
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishStartDate, isObligatory: false, userData: NSDate(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.cellText = kPublishStartDate
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For End Date
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishEndDate, isObligatory: false, userData: NSDate(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.cellText = kPublishEndDate
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For Type Of Collection
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: true, cellText: kPublishTypeOfCollection, isObligatory: false, userData: Int(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        emptyCellData.cellText = kPublishTypeOfCollection
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        cellDataSeperator.identityTag = getCount()
+        dataSource.append(cellDataSeperator)
         
         // For Contact Info
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.cellText = kPublishContactPhoneNumber
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For a Seperator
-        cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        cellDataSeperator.identityTag = getCount()
+        dataSource.append(cellDataSeperator)
         
         // For Photo
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishImage, isObligatory: false, userData: String(), isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: false, isImgCell: true, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.cellText = kPublishImage
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For Take of air button
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: false, isTakeOfAirBuuton: true, isPublishButton: false, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.isTakeOffAirBuuton = true
+        emptyCellData.isPublishButton = false
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
         // For Publish button
-        cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: false, isTakeOfAirBuuton: false, isPublishButton: true, isImgCell: false, identityTag: getCount())
-        dataSource.append(cellData)
+        //----------------------
+        emptyCellData.isTakeOffAirBuuton = false
+        emptyCellData.isPublishButton = true
+        emptyCellData.identityTag = getCount()
+        dataSource.append(emptyCellData)
         
-        println("Number of cells in table: \(dataSource.count)")
+        numberOfCells = dataSource.count
         
         
     }
+    
+}
 
+extension FCPublicationEditorTVC {
+    
+    func presentImagePickerController () {
+        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        self.presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        var myInfo = info
+        if info[UIImagePickerControllerOriginalImage] != nil {
+            let image = info[UIImagePickerControllerOriginalImage] as UIImage
+            self.updateCellDataWithImage(image)
+        }
+        
+    }
+
+    func updateCellDataWithImage(anImage: UIImage) {
+        //update data source
+        //self.dataSource[getImageObjectIndexFromDataSource()].userData = anImage
+        self.dataSource[getImageObjectIndexFromDataSource()].isObligatory = true
+       
+        
+    }
 }
 

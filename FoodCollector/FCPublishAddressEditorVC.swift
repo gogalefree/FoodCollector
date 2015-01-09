@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     var dataSource = [FCNewPublicationTVCCellData]()
@@ -14,6 +15,10 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     var selectedTagNumber = 0
     var didSerchAndFindResults = false
     var initialData = [String]()
+    var selectedAddress = ""
+    var selectedLatitude = 0.0
+    var selectedLongtitude = 0.0
+    var selectedCoordinate:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0.0,0.0)
     
 //    let pre1 = "רחוב "
 //    let pre2 = "רח "
@@ -33,20 +38,28 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         // Do any additional setup after loading the view.
         selectedDataObj = getSelectedDataObject(selectedTagNumber)
         //prefixes = [pre1, pre2, pre3, pre4]
+        
+        // To hide the empty cells set a zero size table footer view.
+        // Because the table thinks there is a footer to show, it doesn't display any
+        // cells beyond those you explicitly asked for.
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
     }
     
 
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if !self.didSerchAndFindResults {return 0}
-        return self.initialData.count
+        if !didSerchAndFindResults {return 0}
+        println("return initialData.count: \(initialData.count)")
+        return initialData.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+        println("start cell defenition")
+
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
         cell.textLabel?.text = self.initialData[indexPath.row] as String
+        println("cell text has been set")
         return cell
     }
     
@@ -58,6 +71,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         if cell.textLabel?.text != nil {
             var address = cell.textLabel?.text!
             self.googleReverseGeoCodeForAddress(address!)
+            searchBar.text = address
+            selectedAddress = address!
+            selectedCoordinate = CLLocationCoordinate2DMake(selectedLatitude, selectedLongtitude)
         }
     }
     
@@ -66,6 +82,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         var newText = searchText as NSString
         
         if newText.length < 6 {
+            println("if newText.length < 6 \(newText.length)")
             self.didSerchAndFindResults = false
             self.initialData.removeAll(keepCapacity: false)
             self.tableView.reloadData()
@@ -73,14 +90,14 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         }
             
         else {
-            
+            println("else \(newText.length)")
             if !self.didSerchAndFindResults {
-                
+                println("self.googleLocationSearch(\(searchText))")
                 self.googleLocationSearch(searchText)
                 
             }
             else {
-                
+                println("self.refineSearchResults(\(searchText))")
                 self.refineSearchResults(searchText)
                 // Currently not implemented
                 
@@ -102,11 +119,11 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             
             
             if (error == nil) {
-                //println("response: \(response)")
+                println("response: \(response)")
                 
                 var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
                 
-                //println("result: \(jsonResult) " )
+                println("result: \(jsonResult) " )
                 
                 
                 var arrayOfPredications = jsonResult["predictions"] as NSArray
@@ -118,7 +135,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     for object in arrayOfPredications {
                         var dict = object as NSDictionary
                         var desc = dict["description"] as String
-                        //println(desc)
+                        println(desc)
                         self.initialData.append(desc)
                     }
                     
@@ -160,8 +177,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 let aResultDict = results.lastObject as NSDictionary
                 let geo = aResultDict["geometry"] as NSDictionary
                 let locationDict = geo["location"] as NSDictionary
-                let latitude = locationDict["lat"] as Double
-                let longtitude = locationDict["lng"] as Double
+                self.selectedLatitude = locationDict["lat"] as Double
+                self.selectedLongtitude = locationDict["lng"] as Double
                 //println("dict is \(latitude) and \(longtitude)")
                 
             }else {
