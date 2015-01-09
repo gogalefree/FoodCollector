@@ -14,7 +14,7 @@ import CoreLocation
 let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
 
 
-class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCArrivedToSpotViewDelegate,FCPublicationsTVCDelegate, MKMapViewDelegate {
+class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
@@ -23,7 +23,12 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
     var publicationDetailsTVC: FCPublicationDetailsTVC?
-    
+    var isPresentingActivityCenter = false
+    var activityCenterTVC: FCActivityCenterTVC?
+    var activityCenterHiddenCenter = CGPointMake(0, 0) //is set in viewDidLayoutSubviews
+    var activityCenterVisibleCenter = CGPointMake(0, 0)//is set in viewDidLayoutSubviews
+    var mapViewHiddenCenter = CGPointMake(0, 0) //is set in viewDidLayoutSubviews
+    var mapViewVisibleCenter = CGPointMake(0, 0)//is set in viewDidLayoutSubviews
     var didFailToRegisterPushNotifications = {
         NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
         }()
@@ -39,6 +44,15 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
         registerForNSNotifications()
         configureMapView()
         FCModel.sharedInstance.uiReadyForNewData = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
+        activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
+        
+        mapViewVisibleCenter = self.view.center
+        mapViewHiddenCenter = CGPointMake(self.view.center.x + 0.9*self.view.center.x, self.view.center.y)
     }
     
     //MARK: - Map View Delegate
@@ -69,13 +83,45 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         
+        let annotation = view.annotation as MKAnnotation
+        if annotation .isKindOfClass(MKUserLocation){
+            return
+        }
+        
         let publication = view.annotation as FCPublication
+      //  didRecieveOnspotNotification(publication)
 
         self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         
         self.publicationDetailsTVC?.publication = publication
         self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
+     //   makeNotification(publication)
     }
+    
+    //remove this method
+    func makeNotification(publication: FCPublication) {
+        let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
+        let localNotification = UILocalNotification()
+        localNotification.userInfo = userInfo
+        localNotification.alertBody = String.localizedStringWithFormat("You've arrived \(publication.title)",
+            "location notification body")
+        let fireTime = NSDate(timeIntervalSinceNow: 3)
+        localNotification.fireDate = fireTime
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+    }
+    func didRecieveOnspotNotification(publication: FCPublication) {
+        
+            let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as FCArrivedToPublicationSpotVC
+        
+            arrivedToSpotReportVC.publication = publication
+        
+            let navController = UINavigationController(rootViewController: arrivedToSpotReportVC)
+        
+        
+            self.tabBarController?.presentViewController(navController, animated: true, completion: nil)
+        
+    }
+    //up to here
     
     func mapView(mapView: MKMapView!, regionWillChangeAnimated animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -92,33 +138,11 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     }
     
     
-    // MARK: - PublicationDetailsViewDelegate protocol
-    
-    func publicationDetailsViewDidCancel() {
-        
-    }
-    
-    func didRequestNavigationForPublication(publication:FCPublication) {
-        
-    }
-    
-    func didOrderCollectionForPublication(publication: FCPublication) {
-        
-    }
-    
     // MARK: - ArrivedToSpotViewDelegate protocol
-    
-    func didReport(report:FCOnSpotPublicationReport,forPublication publication:FCPublication) {
-        
-    }
+   
     
     
     
-    // MARK: - PublicationsTVCDelegate protocol
-    
-    func didChosePublication(publication:FCPublication) {
-        
-    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -136,6 +160,63 @@ class FCCollectorRootVC : UIViewController,FCPublicationDetailsViewDelegate,FCAr
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+}
+
+// Mark: - ActivityCenterLogic
+
+extension FCCollectorRootVC {
+    
+    @IBAction func ShowActivityCenter(sender: AnyObject) {
+        
+        
+        if !isPresentingActivityCenter {
+            
+            isPresentingActivityCenter = true
+            
+            self.activityCenterTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCActivityCenterTVC") as FCActivityCenterTVC!
+        
+            self.addChildViewController(self.activityCenterTVC!)
+            self.activityCenterTVC!.view.frame = self.view.frame
+            activityCenterTVC!.view.center = self.activityCenterHiddenCenter
+            self.activityCenterTVC!.didMoveToParentViewController(self)
+            self.mapView.addSubview(self.activityCenterTVC!.view)
+            animateToActivityCenter()
+        }
+        else {
+            //hide activity center
+            
+            isPresentingActivityCenter = false
+            animateBcakFromActivityCenter()
+        }
+    }
+    
+    func animateToActivityCenter() {
+        
+        if let activityCenter = self.activityCenterTVC {
+            UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                
+                activityCenter.view.center = self.activityCenterVisibleCenter
+                self.mapView.center = self.mapViewHiddenCenter
+            }, completion: nil)
+        }
+    }
+    
+    func animateBcakFromActivityCenter() {
+        
+        if let activityCenter = self.activityCenterTVC {
+            
+            UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                
+                activityCenter.view.center = self.activityCenterHiddenCenter
+                self.mapView.center = self.mapViewVisibleCenter
+                }, completion: { (finished) -> Void in
+                    
+                    activityCenter.view.removeFromSuperview()
+                    activityCenter.removeFromParentViewController()
+                    self.activityCenterTVC = nil
+            })
+        }
     }
 }
 

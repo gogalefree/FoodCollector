@@ -26,7 +26,6 @@
 		E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
 		E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
 		E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */; };
-		E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */; };
 		E4737D891A10C01300A4AB81 /* FCCollectorRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D681A10C01300A4AB81 /* FCCollectorRootVC.swift */; };
 		E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */; };
 		E4737D8C1A10C01300A4AB81 /* FCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D6B1A10C01300A4AB81 /* FCModel.swift */; };
@@ -34,7 +33,6 @@
 		E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D721A10C01300A4AB81 /* FCPublication.swift */; };
 		E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D731A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift */; };
 		E4737D961A10C01300A4AB81 /* FCPublicationDataInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D751A10C01300A4AB81 /* FCPublicationDataInputVC.swift */; };
-		E4737D971A10C01300A4AB81 /* FCPublicationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D761A10C01300A4AB81 /* FCPublicationDetailsView.swift */; };
 		E4737D991A10C01300A4AB81 /* FCPublicationEditorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D781A10C01300A4AB81 /* FCPublicationEditorTVC.swift */; };
 		E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D7A1A10C01300A4AB81 /* FCPublicationsTableViewController.swift */; };
 		E4737D9D1A10C01300A4AB81 /* FCPublishRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D7C1A10C01300A4AB81 /* FCPublishRootVC.swift */; };
@@ -53,6 +51,8 @@
 		E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E494DF181A0A980D004A369E /* LaunchScreen.xib */; };
 		E494DF261A0A980D004A369E /* FoodCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF251A0A980D004A369E /* FoodCollectorTests.swift */; };
 		E49B93281A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */; };
+		E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */; };
+		E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */; };
 		E4A4096D1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */; };
 		E4C1C1651A52AB3500A37E00 /* FCAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */; };
 		E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */; };
@@ -60,6 +60,8 @@
 		E4C1C16C1A52AC8E00A37E00 /* easter_cake-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */; };
 		E4C1C16D1A52AC8E00A37E00 /* bell-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C16A1A52AC8E00A37E00 /* bell-26.png */; };
 		E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */; };
+		E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */; };
+		E4FEFC201A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +95,6 @@
 		E469C6F01A2D15E80036038E /* FirstBuildInstructions */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FirstBuildInstructions; sourceTree = "<group>"; };
 		E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAlertsHandler.swift; sourceTree = "<group>"; };
 		E4737D651A10C01300A4AB81 /* FCAppDataStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAppDataStoreManager.swift; sourceTree = "<group>"; };
-		E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCArrivedToSpotView.swift; sourceTree = "<group>"; };
 		E4737D681A10C01300A4AB81 /* FCCollectorRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorRootVC.swift; sourceTree = "<group>"; };
 		E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDateFunctions.swift; sourceTree = "<group>"; };
 		E4737D6B1A10C01300A4AB81 /* FCModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCModel.swift; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		E4737D721A10C01300A4AB81 /* FCPublication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublication.swift; sourceTree = "<group>"; };
 		E4737D731A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationAddressPickerVC.swift; sourceTree = "<group>"; };
 		E4737D751A10C01300A4AB81 /* FCPublicationDataInputVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDataInputVC.swift; sourceTree = "<group>"; };
-		E4737D761A10C01300A4AB81 /* FCPublicationDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsView.swift; sourceTree = "<group>"; };
 		E4737D781A10C01300A4AB81 /* FCPublicationEditorTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationEditorTVC.swift; sourceTree = "<group>"; };
 		E4737D7A1A10C01300A4AB81 /* FCPublicationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsTableViewController.swift; sourceTree = "<group>"; };
 		E4737D7C1A10C01300A4AB81 /* FCPublishRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVC.swift; sourceTree = "<group>"; };
@@ -124,6 +124,8 @@
 		E494DF241A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E494DF251A0A980D004A369E /* FoodCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectorTests.swift; sourceTree = "<group>"; };
 		E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsDatesCell.swift; sourceTree = "<group>"; };
+		E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCArrivedToPublicationSpotVC.swift; sourceTree = "<group>"; };
+		E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMainTabBarController.swift; sourceTree = "<group>"; };
 		E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsPhotoCell.swift; sourceTree = "<group>"; };
 		E4C1C1601A52A3ED00A37E00 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAnnotationView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,8 @@
 		E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "easter_cake-26.png"; sourceTree = "<group>"; };
 		E4C1C16A1A52AC8E00A37E00 /* bell-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-26.png"; sourceTree = "<group>"; };
 		E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoFetcher.swift; sourceTree = "<group>"; };
+		E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVC.swift; sourceTree = "<group>"; };
+		E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCell.swift; sourceTree = "<group>"; };
 		F1B2D1FD30AE3BB39FBEABBA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,10 +220,9 @@
 		E4737DA91A10C21C00A4AB81 /* Collector */ = {
 			isa = PBXGroup;
 			children = (
-				E4737D761A10C01300A4AB81 /* FCPublicationDetailsView.swift */,
 				E4737D7A1A10C01300A4AB81 /* FCPublicationsTableViewController.swift */,
 				E4737D681A10C01300A4AB81 /* FCCollectorRootVC.swift */,
-				E4737D661A10C01300A4AB81 /* FCArrivedToSpotView.swift */,
+				E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */,
 				E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */,
 				E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */,
 				E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */,
@@ -228,6 +231,8 @@
 				E426AD321A5A682B006F609C /* FCPublicationSingleReportCell.swift */,
 				E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */,
 				E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */,
+				E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */,
+				E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */,
 			);
 			name = Collector;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 			children = (
 				E494DF131A0A980D004A369E /* Main.storyboard */,
 				E494DF181A0A980D004A369E /* LaunchScreen.xib */,
+				E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -485,6 +491,7 @@
 				E4737D991A10C01300A4AB81 /* FCPublicationEditorTVC.swift in Sources */,
 				E4737D961A10C01300A4AB81 /* FCPublicationDataInputVC.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
+				E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */,
 				E4737D9E1A10C01300A4AB81 /* FCServerProtocol.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
@@ -495,17 +502,18 @@
 				E42C9E211A556C3E000E0FB1 /* FCPublicationsDetailsTVTitleCell.swift in Sources */,
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
-				E4737D871A10C01300A4AB81 /* FCArrivedToSpotView.swift in Sources */,
 				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
+				E4FEFC201A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift in Sources */,
 				E4737D861A10C01300A4AB81 /* FCAppDataStoreManager.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
 				E49B93281A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift in Sources */,
 				E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */,
+				E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
+				E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */,
 				E4737D891A10C01300A4AB81 /* FCCollectorRootVC.swift in Sources */,
-				E4737D971A10C01300A4AB81 /* FCPublicationDetailsView.swift in Sources */,
 				E4A4096D1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift in Sources */,
 				E4737DB11A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift in Sources */,
 				A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */,

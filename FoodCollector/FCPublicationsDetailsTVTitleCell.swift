@@ -10,6 +10,7 @@ import UIKit
 
 protocol FCPublicationDetailsTitleCellDelegate {
     func didRegisterForPublication(publication: FCPublication)
+    func didUnRegisterForPublication(publication: FCPublication)
     func didRequestNavigationForPublication(publication: FCPublication)
 }
 
@@ -34,7 +35,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     @IBOutlet weak var registeredUsersLabel: UILabel!
     var navigationButton: UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
     
-    var delegate: FCPublicationDetailsTitleCellDelegate?
+    var delegate: FCPublicationDetailsTitleCellDelegate? //publicationDetailsTVC
     
     var publication: FCPublication? {
         
@@ -70,21 +71,19 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     }
     
     func registerForPublication(publication: FCPublication) {
-        publication.didRegisterForCurrentPublication = true
-        publication.countOfRegisteredUsers += 1
+       
         self.configureRegisterButtonForState(RegisterButtonState.Registered)
         if let delegate = self.delegate {
             delegate.didRegisterForPublication(publication)
         }
-        
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
     }
     
     func unRegisterForPublication(publication: FCPublication) {
-        publication.didRegisterForCurrentPublication = false
-        publication.countOfRegisteredUsers -= 1
+       
         self.configureRegisterButtonForState(RegisterButtonState.Unregistered)
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
+        if let delegate = self.delegate {
+            delegate.didUnRegisterForPublication(publication)
+        }
     }
     
     func configureRegisterButtonForState(state: RegisterButtonState) {
@@ -111,7 +110,6 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
             self.navigationButton.alpha = 1
             self.navigationButton.center = CGPointMake(currentCenterX, currentCenterY + 60)
         }, completion: nil)
-        
     }
     
     func hideNavigationButton() {

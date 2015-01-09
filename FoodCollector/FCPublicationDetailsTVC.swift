@@ -19,16 +19,26 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 116
         self.tableView.rowHeight = UITableViewAutomaticDimension
-     //   fetchPublicationReports()
-     //   fetchPublicationPhoto()
-    
+        fetchPublicationReports()
+        fetchPublicationPhoto()
+       // makeButton()
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        self.tableView.reloadData()
-//    }
+    func makeButton() {
+        var height = self.tabBarController?.view.frame.size.height
+        var myview = UIView(frame: CGRectMake(0, height! - 50, self.view.frame.width, 50))
+        myview.backgroundColor = UIColor.whiteColor()
+        var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        button.frame = CGRectMake(0, 0, 50, 50)
+      //  button.center = myview.center
+        button.setTitle("coming ", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        myview.addSubview(button)
+        self.tabBarController?.view.addSubview(myview)
+        println("height: \(self.tabBarController?.view.frame.size.height)")
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -97,7 +107,6 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
                         })
                     }
                 })
-            
             }
         }
     }
@@ -105,6 +114,11 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     //MARK: - Title cell delegate
     
     func didRegisterForPublication(publication: FCPublication) {
+        
+        publication.didRegisterForCurrentPublication = true
+        publication.countOfRegisteredUsers += 1
+        FCUserNotificationHandler.sharedInstance.registerLocalNotification(publication)
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
         
         //show alert controller
         if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
@@ -114,6 +128,14 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
             let alert = FCAlertsHandler.sharedInstance.alertWithCallDissmissButton(title, aMessage: subtitle, phoneNumber: publication.contactInfo!)
             self.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+    func didUnRegisterForPublication(publication: FCPublication) {
+        publication.didRegisterForCurrentPublication = false
+        publication.countOfRegisteredUsers -= 1
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
+        FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
+        
     }
     
     func didRequestNavigationForPublication(publication: FCPublication) {

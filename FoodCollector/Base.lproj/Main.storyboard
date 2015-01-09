@@ -481,7 +481,64 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="APr-P7-Jqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2161" y="-414"/>
+            <point key="canvasLocation" x="2811" y="-440"/>
+        </scene>
+        <!--Activity CenterTVC-->
+        <scene sceneID="z6c-7A-Y3g">
+            <objects>
+                <tableViewController storyboardIdentifier="FCActivityCenterTVC" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="fCA-8J-hlL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="70" maxY="0.0"/>
+                        <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="FCActivityCenterTVCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCActivityCenterTVCell" id="c5z-vm-whl" customClass="FCActivityCenterTVCell" customModule="FoodCollector" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c5z-vm-whl" id="gHd-qA-QwO">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3lK-nq-ZwC">
+                                            <rect key="frame" x="532" y="2" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="UiD-UR-s1y"/>
+                                                <constraint firstAttribute="width" constant="50" id="wQL-Ni-9QY"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-vw-aeu">
+                                            <rect key="frame" x="8" y="22" width="516" height="19"/>
+                                            <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="3lK-nq-ZwC" secondAttribute="centerY" id="IdM-N5-AWX"/>
+                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="leading" secondItem="fgF-vw-aeu" secondAttribute="trailing" constant="8" id="Q8b-nG-CHs"/>
+                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="VFm-Ha-E8Z"/>
+                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="trailing" secondItem="gHd-qA-QwO" secondAttribute="trailingMargin" constant="-10" id="YCF-nb-NFi"/>
+                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="14" id="p0p-77-1rw"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="iconImageView" destination="3lK-nq-ZwC" id="ZCv-YO-fFh"/>
+                                    <outlet property="titleLabel" destination="fgF-vw-aeu" id="aNF-oH-hbG"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="IOL-GY-9os" id="rUV-I2-BbB"/>
+                            <outlet property="delegate" destination="IOL-GY-9os" id="Rd7-0A-I9Q"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dyn-7Y-fr6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1715" y="-669.5"/>
         </scene>
         <!--Collect-->
         <scene sceneID="ufC-wZ-h7g">
@@ -505,6 +562,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="kY9-ko-GZu">
+                        <barButtonItem key="leftBarButtonItem" systemItem="compose" id="hT8-MR-50Q">
+                            <connections>
+                                <action selector="ShowActivityCenter:" destination="vXZ-lx-hvc" id="ump-Gi-dD8"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Table" id="Rj4-yt-P4Y">
                             <connections>
                                 <segue destination="f4d-b5-Oid" kind="show" identifier="pushPublicationsTVC" id="aZ2-oz-GvC"/>
@@ -519,6 +581,105 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2058" y="293"/>
+        </scene>
+        <!--Arrived To Publication SpotVC-->
+        <scene sceneID="Uot-iA-8bD">
+            <objects>
+                <viewController storyboardIdentifier="FCArrivedToPublicationSpotVC" id="F2c-2D-8p8" customClass="FCArrivedToPublicationSpotVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iRR-xz-gyk"/>
+                        <viewControllerLayoutGuide type="bottom" id="qLv-Kp-Zeo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Uao-qf-QO7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
+                                <rect key="frame" x="175" y="100" width="250" height="246"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="246" id="fqa-zv-v0g"/>
+                                    <constraint firstAttribute="width" constant="250" id="ih7-tk-Try"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ze6-Vf-li4">
+                                <rect key="frame" x="63" y="51" width="475" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XJ-iz-WDg">
+                                <rect key="frame" x="175" y="371" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="8YO-HS-5iK"/>
+                                    <constraint firstAttribute="height" constant="30" id="LUe-N2-Rgs"/>
+                                </constraints>
+                                <state key="normal" title="אספתי הכל">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tookAllAction:" destination="F2c-2D-8p8" eventType="touchUpInside" id="hgB-Sz-KjF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Fd-cF-kDE">
+                                <rect key="frame" x="175" y="409" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="HZV-6e-a0M"/>
+                                    <constraint firstAttribute="height" constant="30" id="ukO-7a-8Gc"/>
+                                </constraints>
+                                <state key="normal" title="אספתי חלק">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tookSomeAction:" destination="F2c-2D-8p8" eventType="touchUpInside" id="3JJ-nt-dye"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNA-Lc-Zrd">
+                                <rect key="frame" x="175" y="447" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5hu-cd-rAu"/>
+                                    <constraint firstAttribute="width" constant="250" id="UrC-h0-NaM"/>
+                                </constraints>
+                                <state key="normal" title="לא מצאתי כלום">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nothingThereAction:" destination="F2c-2D-8p8" eventType="touchUpInside" id="Cj5-Hz-9Oh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="6XJ-iz-WDg" secondAttribute="centerX" id="7yI-lh-PDs"/>
+                            <constraint firstItem="4Fd-cF-kDE" firstAttribute="top" secondItem="6XJ-iz-WDg" secondAttribute="bottom" constant="8" id="BFH-11-gXo"/>
+                            <constraint firstItem="ze6-Vf-li4" firstAttribute="top" secondItem="iRR-xz-gyk" secondAttribute="bottom" constant="31" id="MVy-YE-BlX"/>
+                            <constraint firstItem="ze6-Vf-li4" firstAttribute="leading" secondItem="Uao-qf-QO7" secondAttribute="leadingMargin" constant="47" id="NbO-oh-6dF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ze6-Vf-li4" secondAttribute="trailing" constant="46" id="acJ-am-edz"/>
+                            <constraint firstAttribute="centerX" secondItem="4Fd-cF-kDE" secondAttribute="centerX" id="idj-ze-GSz"/>
+                            <constraint firstItem="XNA-Lc-Zrd" firstAttribute="top" secondItem="4Fd-cF-kDE" secondAttribute="bottom" constant="8" id="ijh-jl-kni"/>
+                            <constraint firstAttribute="centerX" secondItem="QW7-ZZ-j5x" secondAttribute="centerX" id="kdI-JI-Yzh"/>
+                            <constraint firstItem="6XJ-iz-WDg" firstAttribute="top" secondItem="QW7-ZZ-j5x" secondAttribute="bottom" constant="25" id="rmH-5F-w52"/>
+                            <constraint firstItem="QW7-ZZ-j5x" firstAttribute="top" secondItem="ze6-Vf-li4" secondAttribute="bottom" constant="28" id="ybI-9a-Lkm"/>
+                            <constraint firstAttribute="centerX" secondItem="XNA-Lc-Zrd" secondAttribute="centerX" id="ymg-bn-gcT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bny-KH-62t">
+                        <barButtonItem key="rightBarButtonItem" title="לא עכשיו" id="t1S-mK-RBz">
+                            <connections>
+                                <action selector="dissmissAction:" destination="F2c-2D-8p8" id="cvT-Nw-aLd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="QW7-ZZ-j5x" id="Kje-1a-E3F"/>
+                        <outlet property="nothingThereButton" destination="XNA-Lc-Zrd" id="TYf-JU-o00"/>
+                        <outlet property="publicationTitleLable" destination="ze6-Vf-li4" id="OJy-rN-Eom"/>
+                        <outlet property="tookAllButton" destination="6XJ-iz-WDg" id="EDI-sF-91K"/>
+                        <outlet property="tookSomeButton" destination="4Fd-cF-kDE" id="yNn-ux-qFH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ip9-4x-6n4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3559" y="-302"/>
         </scene>
         <!--Publications Table View Controller-->
         <scene sceneID="gIv-We-tlG">
@@ -833,10 +994,10 @@
             </objects>
             <point key="canvasLocation" x="2792" y="1038"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="aDR-lo-JJT">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Kp9-FN-pCP" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Kp9-FN-pCP" customClass="FCMainTabBarController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Lyk-ih-j4b">

@@ -75,6 +75,10 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 self.postFetchedDataReadyNotification()
                 //self.savePublications()
                 
+                self.userCreatedPublications.append(thePublications[0])
+                self.userCreatedPublications.append(thePublications[1])
+                self.userCreatedPublications.append(thePublications[2])
+                
                 /*
                 // uncomment FOR first build only
                 self.userCreatedPublications.removeAll(keepCapacity: false)
@@ -216,6 +220,19 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func postRecivedPublicationRegistrationNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self)
+    }
+    
+    //MARK: - User registered publications
+    func userRegisteredPublications() -> [FCPublication] {
+        
+        var userRegisteredPublications = [FCPublication]()
+        
+        for publication in self.publications {
+            if publication.didRegisterForCurrentPublication {
+                userRegisteredPublications.append(publication)
+            }
+        }
+        return userRegisteredPublications
     }
 }
 

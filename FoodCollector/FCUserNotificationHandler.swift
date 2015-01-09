@@ -24,6 +24,8 @@ let kRemoteNotificationRegistrationMessageForPublicationKey = "registration_mess
 let kRemoteNotificationDataKey = "data"
 let kRegionRadiusForLocationNotification = 5
 
+let kDidArriveOnSpotNotification = "didArriveOnSpot"
+
 class FCUserNotificationHandler : NSObject {
     
     
@@ -80,9 +82,8 @@ class FCUserNotificationHandler : NSObject {
         
         let userInfo = notification.userInfo
         if userInfo != nil {
-            let publicationIdentifier = self.identifierForInfo(userInfo!)
-            //handle the notification
-            
+            //handle the notification on FCMainTabBarController
+            NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
         }
     }
     
@@ -104,6 +105,7 @@ class FCUserNotificationHandler : NSObject {
     }
     
     func registerLocalNotification(publication: FCPublication) {
+        //check if we handeled
         println("registered \(publication.title)")
         let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
         let localNotification = UILocalNotification()

@@ -78,7 +78,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
     ///  spot
     ///
     public func reportArrivedPublication(publication: FCPublication,withReport report:FCOnSpotPublicationReport) {
-        
+        println("report to server: \(report.onSpotPublicationReportMessage) for publication title: \(publication.title)")
     }
     
     ///
@@ -111,9 +111,9 @@ public extension FCMockServer {
         
         var publicaions = [FCPublication]()
         var uniqueId = 111111
-        var title = "Green Apples"
-        var subtitle = "Fresh small green apples"
-        var address = "hod hasharon"
+        var title = "תפוחים ירוקים מהעץ"
+        var subtitle = "השארתי על הגדר מחוץ לבית"
+        var address = "רחוב שדרות בנימין 16, הוד השרון"
         var typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         var coordinate = CLLocationCoordinate2D(latitude: 32.361233, longitude: 34.867452)
         var startingDate = NSDate()
@@ -134,9 +134,9 @@ public extension FCMockServer {
         publicaions.append(pub1)
         
         uniqueId = 2222222
-        title = "50 k\"g of sweet BBQ chicken wings"
-        subtitle = "Chicken wings are not frozen!!!! please be quick about it!"
-        address = "beit halevi"
+        title = "50 קג עוף צלוי"
+        subtitle = "כנפי עוף שהופשרו אתמול. נא להזדרז!"
+        address = "מושב בית הלוי"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.357868, longitude: 34.934164)
         startingDate = NSDate()
@@ -158,9 +158,9 @@ public extension FCMockServer {
         
         
         uniqueId = 3333333
-        title = "35 assorted dishes"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "35 מנות מוכנות"
+        subtitle = "מנות ראשונות ומנות עיקריות בקופסאות פלסטיק"
+        address = "רופין 19 תל אביב"
         typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
         startingDate = NSDate()
@@ -182,11 +182,11 @@ public extension FCMockServer {
         publicaions.append(pub3)
         
         uniqueId = 444444
-        title = "45 assorted dishes"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "צלי בקר ממסיבת חתונה"
+        subtitle = "5 ק״ג אנטריקוט"
+        address = "טשרנחובסקי 5 רעננה"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.232116, longitude: 34.869232)
+        coordinate = CLLocationCoordinate2D(latitude: 32.357622, longitude: 34.908564)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
@@ -202,11 +202,11 @@ public extension FCMockServer {
         publicaions.append(pub4)
         
         uniqueId = 555555
-        title = "55 humus plates"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "55 מנות חומוס"
+        subtitle = "חומוס עוזי המקורי!"
+        address = "רחוב שער העמק 17 נתניה"
         typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        coordinate = CLLocationCoordinate2D(latitude: 32.357870, longitude: 35.034170)
+        coordinate = CLLocationCoordinate2D(latitude: 32.350807, longitude: 34.908221)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.maayan.com"
@@ -225,9 +225,9 @@ public extension FCMockServer {
         publicaions.append(pub5)
         
         uniqueId = 666666
-        title = "65 avucado sandwiches"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "סנדביץ׳ אבוקדו"
+        subtitle = "נשאר בקפיטריה של אוניברסיטת תל אביב"
+        address = "רחוב איינשטיין תל אביב"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.140298, longitude: 34.848289)
         startingDate = NSDate()
@@ -246,11 +246,11 @@ public extension FCMockServer {
         publicaions.append(pub6)
         
         uniqueId = 777777
-        title = "75 soup dishes"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "מרק חם"
+        subtitle = "75 מנות מרק עוף טרי"
+        address = "כיכר העצמאות נתניה"
         typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        coordinate = CLLocationCoordinate2D(latitude: 32.268120, longitude: 34.867516)
+        coordinate = CLLocationCoordinate2D(latitude: 32.349792, longitude: 34.880111)
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
@@ -269,9 +269,9 @@ public extension FCMockServer {
         publicaions.append(pub7)
         
         uniqueId = 888888
-        title = "85 assorted dishes"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "10 מנות פלאפל"
+        subtitle = "פלאפל התחנה"
+        address = "מחלף נתניה"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.277409, longitude: 34.883995)
         startingDate = NSDate()
@@ -291,9 +291,9 @@ public extension FCMockServer {
         publicaions.append(pub8)
         
         uniqueId = 999999
-        title = "95 assorted dishes"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "חמוצים בייתיים"
+        subtitle = "ךימון כבוש, זייתים ירוקים"
+        address = "רחוב המעלות 2 כפר יונה"
         typeOfCollecting = FCTypeOfCollecting.ContactPublisher
         coordinate = CLLocationCoordinate2D(latitude: 32.296855, longitude: 34.914207)
         startingDate = NSDate()
@@ -305,9 +305,9 @@ public extension FCMockServer {
         publicaions.append(pub9)
         
         uniqueId = 101010
-        title = "105 assorted dishes"
-        subtitle = "first and main courses in plastick boxes"
-        address = "Tel Aviv"
+        title = "מוקפץ תאילנדי"
+        subtitle = "2 ק״ג מוקפץ חם וטרי"
+        address = "קניון השרון נתניה, קומה א׳"
         typeOfCollecting = FCTypeOfCollecting.FreePickUp
         coordinate = CLLocationCoordinate2D(latitude: 32.318038, longitude: 34.857559)
         startingDate = NSDate()
