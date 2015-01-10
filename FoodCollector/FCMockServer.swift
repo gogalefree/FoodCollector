@@ -240,8 +240,11 @@ public extension FCMockServer {
         report.date = startingDate
         
         report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+        report.date = endingDate
         pub6.reportsForPublication.append(report)
+        
         report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+        report.date = startingDate
         pub6.reportsForPublication.append(report)
         publicaions.append(pub6)
         

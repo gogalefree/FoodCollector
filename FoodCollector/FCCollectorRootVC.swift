@@ -36,12 +36,14 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.title = String.localizedStringWithFormat("Collect", "the collector main screen title")
+        self.title = String.localizedStringWithFormat("אוסף", "collector map title")
+
         
         self.publications = FCModel.sharedInstance.publications
         registerForNSNotifications()
         configureMapView()
         FCModel.sharedInstance.uiReadyForNewData = true
+        
     }
     
     override func viewDidLayoutSubviews() {

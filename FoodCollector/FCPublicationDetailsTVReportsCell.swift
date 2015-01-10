@@ -26,6 +26,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         
         if publication.reportsForPublication.count != 0 {
                 self.noReports = false
+                FCDateFunctions.sortPublicationReportsByDate(publication)
         }
         
         

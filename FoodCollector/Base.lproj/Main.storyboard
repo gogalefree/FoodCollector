@@ -115,7 +115,7 @@
                                         <constraint firstAttribute="centerX" secondItem="AIo-Lt-Vbb" secondAttribute="centerX" constant="250" id="Dob-jq-twZ"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="J6q-dG-ddg" secondAttribute="leading" id="FNd-i4-oj7"/>
                                         <constraint firstItem="B1j-HE-hwb" firstAttribute="leading" secondItem="AIo-Lt-Vbb" secondAttribute="trailing" constant="61" id="GOU-Ce-F5I"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="J6q-dG-ddg" secondAttribute="bottom" constant="-1" id="ITS-2e-zek"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="J6q-dG-ddg" secondAttribute="bottom" constant="-1" id="ITS-2e-zek"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="B1j-HE-hwb" secondAttribute="leading" id="IhE-O5-HLU"/>
                                         <constraint firstItem="B1j-HE-hwb" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="JQP-yB-Xuf"/>
                                         <constraint firstItem="B1j-HE-hwb" firstAttribute="width" secondItem="J6q-dG-ddg" secondAttribute="width" id="MAB-ms-QKN"/>
@@ -210,7 +210,7 @@
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="c0N-N2-NU6"/>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ozi-cx-DUT"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="8"/>
+                                                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="12"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <variation key="default">
@@ -242,7 +242,7 @@
                                                                     <constraint firstAttribute="height" constant="21" id="L56-9T-5db"/>
                                                                     <constraint firstAttribute="width" constant="200" id="fKU-Jl-Uj2"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="14"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <variation key="default">
@@ -407,7 +407,7 @@
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="Wsz-yb-i8F"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="fVB-yE-6f5"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="default">
@@ -421,7 +421,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="xva-kS-Swk"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -430,7 +430,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="aYu-cg-pb7"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -439,7 +439,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="Kbb-U8-Hcf"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -606,7 +606,11 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ze6-Vf-li4">
                                 <rect key="frame" x="63" y="51" width="475" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="6bP-6h-Ssm"/>
+                                    <constraint firstAttribute="width" constant="475" id="RUO-lg-UkO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

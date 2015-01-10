@@ -35,6 +35,10 @@ class FCDateFunctions : NSObject {
     class func localizedDateAndTimeStringShortStyle(date: NSDate) -> String {
         return NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
     }
+    
+    class func sortPublicationReportsByDate(publication: FCPublication) {
+        publication.reportsForPublication.sort({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+    }
      
 }
 
