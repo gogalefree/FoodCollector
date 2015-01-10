@@ -84,39 +84,14 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         }
         
         let publication = view.annotation as FCPublication
-      //  didRecieveOnspotNotification(publication)
 
         self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         
         self.publicationDetailsTVC?.publication = publication
         self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
-     //   makeNotification(publication)
     }
     
-    //remove this method
-    func makeNotification(publication: FCPublication) {
-        let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
-        let localNotification = UILocalNotification()
-        localNotification.userInfo = userInfo
-        localNotification.alertBody = String.localizedStringWithFormat("You've arrived \(publication.title)",
-            "location notification body")
-        let fireTime = NSDate(timeIntervalSinceNow: 3)
-        localNotification.fireDate = fireTime
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-    }
-    func didRecieveOnspotNotification(publication: FCPublication) {
-        
-            let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as FCArrivedToPublicationSpotVC
-        
-            arrivedToSpotReportVC.publication = publication
-        
-            let navController = UINavigationController(rootViewController: arrivedToSpotReportVC)
-        
-        
-            self.tabBarController?.presentViewController(navController, animated: true, completion: nil)
-        
-    }
-    //up to here
+  
     
     func mapView(mapView: MKMapView!, regionWillChangeAnimated animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -193,6 +168,8 @@ extension FCCollectorRootVC {
                 
                 activityCenter.view.center = self.activityCenterVisibleCenter
                 self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+                self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+                self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.whiteColor()]
              
                 }, completion: nil)
         }
@@ -206,7 +183,10 @@ extension FCCollectorRootVC {
                 
                 activityCenter.view.center = self.activityCenterHiddenCenter
                 self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-             
+                self.navigationController?.navigationBar.tintColor = UIColor.blueColor()
+                self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.blackColor()]
+                
+
                 }, completion: { (finished) -> Void in
                     
                     activityCenter.view.removeFromSuperview()

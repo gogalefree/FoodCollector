@@ -524,6 +524,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="iconImageView" destination="3lK-nq-ZwC" id="ZCv-YO-fFh"/>
                                     <outlet property="titleLabel" destination="fgF-vw-aeu" id="aNF-oH-hbG"/>

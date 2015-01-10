@@ -33,6 +33,8 @@ class FCActivityCenterTVCell: UITableViewCell {
         super.prepareForReuse()
         self.titleLabel.text = ""
         self.iconImageView.image = nil
+        self.userInteractionEnabled = false
+
     }
 
 }

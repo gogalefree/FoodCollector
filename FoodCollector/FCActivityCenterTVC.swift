@@ -55,11 +55,17 @@ class FCActivityCenterTVC: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCellWithIdentifier("FCActivityCenterTVCell", forIndexPath: indexPath) as FCActivityCenterTVCell
+        
+        let colorView = UIView()
+        colorView.backgroundColor = UIColor.blackColor()
+        cell.selectedBackgroundView = colorView
+
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
                 cell.titleLabel.text = self.collectorTitle
                 cell.iconImageView.image = self.collectorIcon
+                cell.userInteractionEnabled = false
             }
             else {
                 let publication = self.userRegisteredPublications[indexPath.row - 1]
@@ -70,6 +76,8 @@ class FCActivityCenterTVC: UITableViewController {
             if indexPath.row == 0 {
                 cell.titleLabel.text = self.publisherTitle
                 cell.iconImageView.image = self.publisherIcon
+                cell.userInteractionEnabled = false
+
             }
             else {
                 let publication = self.userCreatedPublications[indexPath.row - 1]
@@ -85,10 +93,11 @@ class FCActivityCenterTVC: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-      
+        if indexPath.row == 0 {return}
         var publication = self.publicationForIndexPath(indexPath)
+        let title = titleForIndexPath(indexPath)
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-        
+        publicationDetailsTVC?.title = title
         publicationDetailsTVC?.publication = publication
         
         publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
@@ -99,6 +108,11 @@ class FCActivityCenterTVC: UITableViewController {
     
     func dismissDetailVC() {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func titleForIndexPath(indexPath:NSIndexPath) -> String{
+        if indexPath.section == 0 {return collectorTitle}
+        else {return publisherTitle}
     }
 
     func publicationForIndexPath(indexPath: NSIndexPath)-> FCPublication {
