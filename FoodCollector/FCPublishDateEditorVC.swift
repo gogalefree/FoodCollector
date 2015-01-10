@@ -29,6 +29,10 @@ class FCPublishDateEditorVC: UIViewController {
     }
     
     private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
+        if let date = dataSource[selectedTagNumber].userData as? NSDate {
+            return dataSource[selectedTagNumber]
+        }
+        dataSource[selectedTagNumber].userData = NSDate()
         return dataSource[selectedTagNumber]
     }
 

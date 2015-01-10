@@ -42,6 +42,8 @@ struct FCNewPublicationTVCCellData {
     var cellText:String = ""
     var isObligatory:Bool = false // Check if we can publish (All data is entered by user)
     var userData:AnyObject = ""
+    var addressLatitude = 0.0
+    var addressLongtitude = 0.0
     // For address userData -> need to be tuple (address:String, coordinate:CLLocationCoordinate2D)
     //var location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0.0, 0.0)
     var isSeperator:Bool = false
@@ -81,6 +83,7 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
     var publication:FCPublication?
     var dataSource = [FCNewPublicationTVCCellData]()
     var identityTagCounter = 0
+    var isNewPublication = true
     var imgURL = ""
     var isReadyForTakeOffAir = false
     var isReadyForPublish = false
@@ -117,14 +120,23 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
             removeFromDataSource(sourceVC.selectedTagNumber+1)
         }
         else {
-            var cellData : FCNewPublicationTVCCellData
+            var cellData = FCNewPublicationTVCCellData()
             // For a Seperator
-            cellData = FCNewPublicationTVCCellData(height: kSeperatorHeight, containsUserData: false, cellText: "", isObligatory: false, userData: "", isSeperator: true, isTakeOffAirBuuton: false, isPublishButton: false, isImgCell: false, identityTag: sourceVC.selectedTagNumber+1)
+            
+            cellData.height = kSeperatorHeight
+            cellData.isSeperator = true
+            cellData.isObligatory = true
+            cellData.identityTag = sourceVC.selectedTagNumber+1
             insertIntoDataSource(cellData, index: sourceVC.selectedTagNumber+1)
             
             // For Contact Info
-            cellData = FCNewPublicationTVCCellData(height: kCellHeight, containsUserData: false, cellText: kPublishContactPhoneNumber, isObligatory: false, userData: String(), isSeperator: false, isTakeOffAirBuuton: false, isPublishButton: false, isImgCell: false,  identityTag: sourceVC.selectedTagNumber+2)
+            cellData.height = kCellHeight
+            cellData.isSeperator = false
+            cellData.isObligatory = false
+            cellData.cellText = kPublishContactPhoneNumber
+            cellData.identityTag = sourceVC.selectedTagNumber+2
             insertIntoDataSource(cellData, index: sourceVC.selectedTagNumber+2)
+            
         }
         numberOfCells = dataSource.count
         reloadTableWithNewData()
@@ -133,8 +145,8 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
     @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
         let sourceVC = segue.sourceViewController as FCPublishAddressEditorVC
         //let aaddressInfo = (address:sourceVC.selectedAddress, coordinate:sourceVC.selectedCoordinate)
-        let aaddressInfo:[String:AnyObject] = ["adress": sourceVC.selectedAddress as String, "lat": sourceVC.selectedLatitude as Double, "lon":sourceVC.selectedLongtitude as Double]
-        updateDataSource(aaddressInfo as Dictionary, selectedTagNumber: sourceVC.selectedTagNumber)
+        let aaddressInfo:[String:AnyObject] = ["address": sourceVC.selectedAddress as String, "lat": sourceVC.selectedLatitude as Double, "lon":sourceVC.selectedLongtitude as Double]
+        updateDataSource(aaddressInfo as NSDictionary, selectedTagNumber: sourceVC.selectedTagNumber)
         reloadTableWithNewData()
     }
     
@@ -179,9 +191,57 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: (NSIndexPath!)) -> UITableViewCell {
         //println("Start: tableView: cellForRowAtIndexPath")
-        
         let cellIdentifier = "publicationEditorTVCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
+        var adjustedIndex = getAdjustedIndexPath(indexPath.row)
+        
+        // Reset cell attributes
+        cell.alpha = CGFloat(0.0)
+        cell.backgroundColor = UIColor.whiteColor()
+        cell.textLabel!.textColor = UIColor.blackColor()
+        cell.textLabel!.textAlignment = NSTextAlignment.Left
+        cell.textLabel!.text = "" + "RESET I=\(indexPath.row) (\(adjustedIndex))"
+        cell.userInteractionEnabled = true
+        
+        switch adjustedIndex {
+        case 3,7,9: // Seperator
+            cell.textLabel!.text = "" + " I=\(indexPath.row) (\(adjustedIndex))"
+            cell.userInteractionEnabled = false
+            cell.backgroundColor = UIColor(red: 0.92, green: 0.92, blue: 0.95, alpha: 1.00)
+        case 10: // Image cell
+            if isImageInPublication {
+                cell.textLabel!.text = "Image Goes Here" + " I=\(indexPath.row) (\(adjustedIndex))"
+                //cell.addSubview(getImage(indexPath.row, cellWidth: Double(cell.frame.width), cellHeight: Double(cell.frame.height)))
+            }
+            else {
+                
+                cell.textLabel!.text = dataSource[indexPath.row].cellText + " I=\(indexPath.row) (\(adjustedIndex))"
+            }
+        case 11: // Take off-air cell
+            cell.textLabel!.text = kPublishTakeOffAirButtonLabel + " I=\(indexPath.row) (\(adjustedIndex))"
+            cell.textLabel!.textAlignment = NSTextAlignment.Center
+            cell.textLabel!.textColor = UIColor.lightGrayColor()
+            cell.userInteractionEnabled = false
+            if isReadyForTakeOffAir {
+                cell.textLabel!.textColor = UIColor.redColor()
+                cell.userInteractionEnabled = true
+            }
+        case 12: // Publish cell
+            cell.textLabel!.text = kPublishPublishButtonLabel + " I=\(indexPath.row) (\(adjustedIndex))"
+            cell.textLabel!.textAlignment = NSTextAlignment.Center
+            cell.textLabel!.textColor = UIColor.lightGrayColor()
+            cell.userInteractionEnabled = false
+            if isReadyForPublish {
+                cell.textLabel!.textColor = UIColor(red: 0.00, green: 0.36, blue: 0.99, alpha: 1.00)
+                cell.userInteractionEnabled = true
+            }
+        default:
+            cell.textLabel!.text = dataSource[indexPath.row].cellText + " I=\(indexPath.row) (\(adjustedIndex))"
+        }
+        
+        
+        
+        /*
         // Reset cell attributes
         cell.alpha = CGFloat(0.0)
         cell.textLabel!.text = "" + " I=\(indexPath.row)"
@@ -224,6 +284,7 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
         else {
             cell.textLabel!.text = dataSource[indexPath.row].cellText + " I=\(indexPath.row)"
         }
+        */
         
         cell.tag = dataSource[indexPath.row].identityTag
         return cell
@@ -231,33 +292,40 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("Case No.: \(indexPath.row)")
-        switch indexPath.row {
-        case 0, 1, 8:
+        var adjustedIndex = getAdjustedIndexPath(indexPath.row)
+        
+        switch adjustedIndex {
+        case 0, 1, 8: // Title, Subtutle & Phone number
             self.performSegueWithIdentifier("showPublicationStringFieldsEditor", sender: indexPath.row)
-        case 2:
+        case 2: // Address
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
-        case 4, 5:
+        case 4, 5: // Start & End date
             self.performSegueWithIdentifier("showPublicationDateEditor", sender: indexPath.row)
-        case 6:
+        case 6: // Type of collection
             self.performSegueWithIdentifier("showPublicationTypeOfCollectionEditor", sender: indexPath.row)
-        case 10:
+        case 10: // Image picker
             self.presentImagePickerController()
-        case 11:
+        case 11: // Take off-air
             println("Case 11: \(indexPath.row)")
             takeOffAir()
+        case 12: // Publish
+            publish()
         default:
             break
         }
     }
     
     private func updateDataSource(newValue:AnyObject, selectedTagNumber:Int){
-        //dataSource[selectedTagNumber].userData = newValue
         switch selectedTagNumber {
-        case 3:
-            println("Case 3:")
+        case 2:
+            println("Case 2:")
             println(newValue)
-            //dataSource[selectedTagNumber].userData = newValue as Dictionary
-            //dataSource[selectedTagNumber].cellText = newValue as String
+            if let dic = newValue as? NSDictionary {
+                dataSource[selectedTagNumber].userData = dic.valueForKey("address") as String
+                dataSource[selectedTagNumber].cellText = dic.valueForKey("address") as String
+                dataSource[selectedTagNumber].addressLatitude = dic.valueForKey("lat") as Double
+                dataSource[selectedTagNumber].addressLongtitude = dic.valueForKey("lon") as Double
+            }
         case 4:
             let locDateString = FCDateFunctions.localizedDateAndTimeStringShortStyle(newValue as NSDate)
             dataSource[selectedTagNumber].userData = newValue as NSDate
@@ -346,7 +414,9 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
             isReadyForTakeOffAir = false
         }
         
-        //isReadyForTakeOffAir = true
+        if isNewPublication {
+            isReadyForTakeOffAir = false
+        }
     }
     
     private func checkIfReadyForPublish(){
@@ -380,12 +450,12 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
         return index
     }
     
-    private func getCorrectIdentityTag(tag:Int) -> Int {
+    private func getAdjustedIndexPath(index:Int) -> Int {
         if dataSource.count < 12 {
-            if tag > 6 {return tag+2}
+            if index > 6 {return index+2}
         }
         
-        return tag
+        return index
     }
     
     // MARK: - PublicationDataInputDelegate protocol
@@ -398,7 +468,7 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
     ///  a different version number.
     ///
     func publish() {
-        
+        println("PUBLISHED!!!!!!!!!!")
     }
     
     ///
@@ -497,6 +567,7 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
         // 12. Publish button (not part of the data source!!!)
         // so a total of 13 members for in datasource.
         
+        isNewPublication = false
         var  locDateString : String
         
         // define basic seperator object
