@@ -21,6 +21,8 @@ class FCActivityCenterTVC: UITableViewController {
     let collectorIcon = UIImage(named: "PinGreen.png")
     
     let publisherIcon = UIImage(named: "PinGreen.png")
+    
+    var selectedIndexPath: NSIndexPath!
 
 
     override func viewDidLoad() {
@@ -29,6 +31,8 @@ class FCActivityCenterTVC: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
     
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
     }
 
     
@@ -79,7 +83,39 @@ class FCActivityCenterTVC: UITableViewController {
         return cell
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
+      
+        var publication = self.publicationForIndexPath(indexPath)
+        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        
+        publicationDetailsTVC?.publication = publication
+        
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+        
+        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    func dismissDetailVC() {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func publicationForIndexPath(indexPath: NSIndexPath)-> FCPublication {
+        
+        var publication: FCPublication!
+        switch indexPath.section {
+        case 0:
+            publication = self.userRegisteredPublications[indexPath.row - 1] as FCPublication
+        case 1:
+            publication = self.userCreatedPublications[indexPath.row - 1] as FCPublication
+        default:
+            publication = nil
+        }
+        
+        return publication
+        
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -124,6 +160,7 @@ class FCActivityCenterTVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

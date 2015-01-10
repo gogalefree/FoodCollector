@@ -24,11 +24,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     var isPresentingPublicationDetailsView = false
     var publicationDetailsTVC: FCPublicationDetailsTVC?
     var isPresentingActivityCenter = false
-    var activityCenterTVC: FCActivityCenterTVC?
+    var activityCenterTVC: UINavigationController?
     var activityCenterHiddenCenter = CGPointMake(0, 0) //is set in viewDidLayoutSubviews
     var activityCenterVisibleCenter = CGPointMake(0, 0)//is set in viewDidLayoutSubviews
-    var mapViewHiddenCenter = CGPointMake(0, 0) //is set in viewDidLayoutSubviews
-    var mapViewVisibleCenter = CGPointMake(0, 0)//is set in viewDidLayoutSubviews
     var didFailToRegisterPushNotifications = {
         NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
         }()
@@ -51,10 +49,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
         activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
         
-        mapViewVisibleCenter = self.view.center
-        mapViewHiddenCenter = CGPointMake(self.view.center.x + 0.9*self.view.center.x, self.view.center.y)
     }
-    
     //MARK: - Map View Delegate
     
     func configureMapView() {
@@ -174,7 +169,7 @@ extension FCCollectorRootVC {
             
             isPresentingActivityCenter = true
             
-            self.activityCenterTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCActivityCenterTVC") as FCActivityCenterTVC!
+            self.activityCenterTVC = self.storyboard?.instantiateViewControllerWithIdentifier("activityCenterNav") as? UINavigationController//"FCActivityCenterTVC") as FCActivityCenterTVC!
         
             self.addChildViewController(self.activityCenterTVC!)
             self.activityCenterTVC!.view.frame = self.view.frame
@@ -197,8 +192,9 @@ extension FCCollectorRootVC {
             UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
                 
                 activityCenter.view.center = self.activityCenterVisibleCenter
-                self.mapView.center = self.mapViewHiddenCenter
-            }, completion: nil)
+                self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+             
+                }, completion: nil)
         }
     }
     
@@ -209,7 +205,8 @@ extension FCCollectorRootVC {
             UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
                 
                 activityCenter.view.center = self.activityCenterHiddenCenter
-                self.mapView.center = self.mapViewVisibleCenter
+                self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
+             
                 }, completion: { (finished) -> Void in
                     
                     activityCenter.view.removeFromSuperview()

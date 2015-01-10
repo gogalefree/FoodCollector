@@ -481,7 +481,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="APr-P7-Jqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2811" y="-440"/>
+            <point key="canvasLocation" x="3623" y="-440"/>
         </scene>
         <!--Activity CenterTVC-->
         <scene sceneID="z6c-7A-Y3g">
@@ -535,10 +535,11 @@
                             <outlet property="delegate" destination="IOL-GY-9os" id="Rd7-0A-I9Q"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="tFN-0g-Una"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dyn-7Y-fr6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1715" y="-669.5"/>
+            <point key="canvasLocation" x="2527" y="-670"/>
         </scene>
         <!--Collect-->
         <scene sceneID="ufC-wZ-h7g">
@@ -679,7 +680,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ip9-4x-6n4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3559" y="-302"/>
+            <point key="canvasLocation" x="4371" y="-302"/>
         </scene>
         <!--Publications Table View Controller-->
         <scene sceneID="gIv-We-tlG">
@@ -1031,6 +1032,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GIu-zq-Ae2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1241" y="1036"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8cG-dO-0Za">
+            <objects>
+                <navigationController storyboardIdentifier="activityCenterNav" automaticallyAdjustsScrollViewInsets="NO" id="gy5-Dc-Ie6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gHT-E6-Rbg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="IOL-GY-9os" kind="relationship" relationship="rootViewController" id="3Sa-Wq-Yhw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="11X-2l-UDf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1715" y="-670"/>
         </scene>
     </scenes>
     <resources>
