@@ -90,7 +90,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         switch state {
             
         case .Registered:
-            self.registerButton.backgroundColor = UIColor.greenColor()
+           // self.registerButton.backgroundColor = UIColor.greenColor()
             self.registerButton.setTitle(registerButtonTitleForRegisteredState, forState: UIControlState.Normal)
             showNavigationButton()
         case .Unregistered:
@@ -125,14 +125,14 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     func configureNavigationButtonInitialState() {
         
         self.navigationButton.frame = self.registerButton.frame
-        self.navigationButton.frame.size.height = 40
-        self.navigationButton.layer.cornerRadius = 5
-        self.navigationButton.layer.borderColor = UIColor.blackColor().CGColor
+        self.navigationButton.frame.size.height = 50
+        self.navigationButton.layer.cornerRadius = self.navigationButton.bounds.width / 2
+        self.navigationButton.layer.borderColor = UIColor.blueColor().CGColor
         self.navigationButton.layer.borderWidth = 1
-        self.navigationButton.backgroundColor = UIColor.greenColor()
+      //  self.navigationButton.backgroundColor = UIColor.greenColor()
         self.contentView.addSubview(navigationButton)
         self.navigationButton.setTitle(navigationButtonTitle, forState: .Normal)
-        self.navigationButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.navigationButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
         self.navigationButton.tintColor = UIColor.blueColor()
         navigationButton.addTarget(self, action: "navigate:", forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationButton.alpha = 0
@@ -164,7 +164,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 200))
         
         self.registerButton.layer.cornerRadius = self.registerButton.bounds.size.width / 2
-        self.registerButton.layer.borderColor = UIColor.blackColor().CGColor
+        self.registerButton.layer.borderColor = UIColor.blueColor().CGColor
         self.registerButton.layer.borderWidth = 1
         
         configureNavigationButtonInitialState()
