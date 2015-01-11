@@ -52,6 +52,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
         
     }
+    
     //MARK: - Map View Delegate
     
     func configureMapView() {
@@ -59,6 +60,10 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         self.mapView.delegate = self
         self.mapView.addAnnotations(self.publications)
         mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let coordinates = FCModel.sharedInstance.userLocation.coordinate
+        let region = MKCoordinateRegion(center: coordinates, span: span)
+        self.mapView.setRegion(region, animated: true)
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -96,6 +101,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
   
     
     func mapView(mapView: MKMapView!, regionWillChangeAnimated animated: Bool) {
+        
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         println("will change region")
         //        if !self.eventDetailsViewHidden {
@@ -104,6 +110,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
+        
+        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         println("did change region")
         
@@ -118,11 +126,11 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+    
         if self.didFailToRegisterPushNotifications &&
             !NSUserDefaults.standardUserDefaults().boolForKey(kDidShowFailedToRegisterForPushAlertKey){
                 
-                let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: do to settings -> notifications -> food collector and enable push notifications")
+                let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
                 //uncomment to show this message only once

@@ -49,8 +49,26 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         let publication = self.publications[indexPath.row] as FCPublication
         cell.publication = publication
         return cell
-        
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let publication = self.publications[indexPath.row]
+        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        publicationDetailsTVC?.title = title
+        publicationDetailsTVC?.publication = publication
+        
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+        
+        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+
+    }
+    
+    func dismissDetailVC() {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+
     
 }
 

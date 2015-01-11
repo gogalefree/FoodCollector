@@ -18,7 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        //uncomment to check the device uuid report service
+        //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
 
+        //uncomment to check the device push notification token report service
+        //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+
+        
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()
@@ -65,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         token = token.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
         token = token.stringByReplacingOccurrencesOfString(" ", withString: "")
         FCUserNotificationHandler.sharedInstance.registerForPushNotificationWithToken(token)
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

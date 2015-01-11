@@ -23,7 +23,7 @@ protocol FCServerProtocol {
     /// reports device token to our server to use for APNS.
     /// old token can be nil (for the first report).
     ///
-    func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String, oldtoken:String?)
+    func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String)
     
     func reportDeviceUUID(uuid: String)
     

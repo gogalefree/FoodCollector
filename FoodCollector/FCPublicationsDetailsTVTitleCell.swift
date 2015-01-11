@@ -23,7 +23,7 @@ let registerButtonTitleForUnregisteredState = String.localizedStringWithFormat("
 
 let registerButtonTitleForRegisteredState = String.localizedStringWithFormat("הסר" , "regiterration button title meening unregister")
 
-let navigationButtonTitle = String.localizedStringWithFormat("קח אותי" , "navigation button title meening take me to the destination")
+let navigationButtonTitle = String.localizedStringWithFormat("נווט" , "navigation button title meening take me to the destination")
 
 
 class FCPublicationsDetailsTVTitleCell: UITableViewCell {
@@ -90,10 +90,11 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         switch state {
             
         case .Registered:
-           // self.registerButton.backgroundColor = UIColor.greenColor()
+           
             self.registerButton.setTitle(registerButtonTitleForRegisteredState, forState: UIControlState.Normal)
             showNavigationButton()
         case .Unregistered:
+            
             self.registerButton.backgroundColor = UIColor.clearColor()
             self.registerButton.setTitle(registerButtonTitleForUnregisteredState, forState: UIControlState.Normal)
             hideNavigationButton()
@@ -109,12 +110,21 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil , animations: { () -> Void in
             self.navigationButton.alpha = 1
             self.navigationButton.center = CGPointMake(currentCenterX, currentCenterY + 60)
+            self.registerButton.layer.borderColor = UIColor.greenColor().CGColor
+            self.navigationButton.layer.borderColor = UIColor.greenColor().CGColor
+
         }, completion: nil)
     }
     
     func hideNavigationButton() {
+        navigationButton.center = self.registerButton.center
+        let currentCenterY = self.navigationButton.center.y
+        let currentCenterX = self.navigationButton.center.x
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil , animations: { () -> Void in
+            self.navigationButton.center = CGPointMake(currentCenterX, currentCenterY)
             self.navigationButton.alpha = 0
+            self.registerButton.layer.borderColor = UIColor.blueColor().CGColor
+            self.navigationButton.layer.borderColor = UIColor.blueColor().CGColor
             }, completion: nil)
     }
     

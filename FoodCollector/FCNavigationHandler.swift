@@ -21,7 +21,7 @@ class FCNavigationHandler : NSObject {
         if UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!){
             
             let navString = "waze://?ll=\(publication.coordinate.latitude),\(publication.coordinate.longitude)&navigate=yes"
-            UIApplication.sharedApplication().openURL(NSURL(string:"waze://")!)
+            UIApplication.sharedApplication().openURL(NSURL(string:navString)!)
         }
     }
     
@@ -30,8 +30,8 @@ class FCNavigationHandler : NSObject {
         let destinationPM = MKPlacemark(coordinate: publication.coordinate, addressDictionary: nil)
         let destinationItem = MKMapItem(placemark: destinationPM)
         destinationItem.name = publication.title
-        
-        let currentPM = MKPlacemark(coordinate: FCModel.sharedInstance.userLocation.coordinate, addressDictionary: nil)
+        let userCoordinates = FCModel.sharedInstance.userLocation.coordinate
+        let currentPM = MKPlacemark(coordinate:userCoordinates , addressDictionary: nil)
         let currentItem = MKMapItem(placemark: currentPM)
         currentItem.name = "You're Here"
         

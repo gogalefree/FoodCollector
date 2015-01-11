@@ -53,11 +53,20 @@ class FCUserNotificationHandler : NSObject {
             if currentToken == newToken {return}
         }
         
-        FCModel.sharedInstance.foodCollectorWebServer.reportDeviceTokenForPushWithDeviceNewToken(newToken, oldtoken: self.oldToken)
+        FCModel.sharedInstance.foodCollectorWebServer.reportDeviceTokenForPushWithDeviceNewToken(newToken)
         
         NSUserDefaults.standardUserDefaults().setObject(newToken, forKey: kRemoteNotificationTokenKey)
     }
     
+    //this is trrigerd when we have a token but could not post it to the server
+    func resendPushNotificationToken() {
+        if let token = oldToken {
+            
+            if NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey) == true {
+                FCModel.sharedInstance.foodCollectorWebServer.reportDeviceTokenForPushWithDeviceNewToken(token)
+            }
+        }
+    }
     
     /// show action called by the show button on a notification view while the
     ///  app in background mode. app launches UI
@@ -270,6 +279,8 @@ class FCUserNotificationHandler : NSObject {
 
 extension FCUserNotificationHandler {
     func setup(){
+        
+        resendPushNotificationToken()
         
         //we dont need this since we only register location notifications when a user
         //registers to come pick up a pubication

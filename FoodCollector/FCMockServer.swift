@@ -8,6 +8,9 @@
 import CoreLocation
 import UIKit
 
+let reportActiveDeviceURL = "https://fd-server.herokuapp.com/active_devices.json"
+let registerForPushNotificationsURL = "https://fd-server.herokuapp.com/active_devices/dev_uuid.json"
+
 public class FCMockServer: NSObject , FCServerProtocol {
     
     ///
@@ -21,18 +24,85 @@ public class FCMockServer: NSObject , FCServerProtocol {
     ///
     /// reports device token to our server to use for APNS.
     /// old token can be nil (for the first report).
-    ///
-    public func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String, oldtoken:String?) {
-        println("new token \(newtoken)")
-        if let currentToken = oldtoken {
-            println("old token \(currentToken)")
-        }
+    ///we don't use the old token
+    public func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String) {
+        
+        var params = [String: AnyObject]()
+        params["is_ios"] = true
+        params["dev_uuid"] = FCModel.sharedInstance.deviceUUID
+        params["remote_notification_token"] = newtoken
+        
+        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+        println(params)
+        let devId = FCModel.sharedInstance.deviceUUID!
+        let url = NSURL(string: registerForPushNotificationsURL)
+        var request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "PUT"
+        request.HTTPBody = jsonData!
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            
+            let serverResponse = response as NSHTTPURLResponse
+            print("respons: \(serverResponse.description)")
+            println("status code: \(serverResponse.statusCode) ***************")
+            
+            if error != nil || serverResponse.statusCode != 200 {
+                //we delete the key from UD so the app tries again in next launch
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+                return
+            }
+            
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
+        })
+        
+        task.resume()
     }
     
     public func reportDeviceUUID(uuid: String) {
         println("device uuid: \(uuid)")
+        
+        let deviceId = uuid
+        var remoteNotificationToken = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? String
+        if remoteNotificationToken == nil {remoteNotificationToken = ""}
+        let isIos = true
+        let currentLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
+        let curruntLongitude = FCModel.sharedInstance.userLocation.coordinate.longitude
+        
+        var params = NSMutableDictionary()
+        
+            params["dev_uuid"] = deviceId
+            params["remote_notification_token"] = remoteNotificationToken
+            params["is_ios"] = isIos
+            params["last_location_latitude"] = currentLatitude
+            params["last_location_longitude"] = curruntLongitude
+        
+        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
+       // println(params)
+        let url = NSURL(string: reportActiveDeviceURL)
+        var request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            
+            let serverResponse = response as NSHTTPURLResponse
+            print("respons: \(serverResponse.description)")
+            
+            if error != nil || serverResponse.statusCode != 200 {
+                //we delete the key from UD so the app tries again in next launch
+                NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
+                return
+            }
+        })
+        
+        task.resume()
     }
-    
     
     ///
     /// downloads an Image for Publication. must be implemented async.
