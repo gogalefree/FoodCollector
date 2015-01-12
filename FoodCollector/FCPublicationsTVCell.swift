@@ -41,13 +41,10 @@ class FCPublicationsTVCell: UITableViewCell {
                 
             else if (self.publication?.photoData.didTryToDonwloadImage == false) {
                 
-                self.publication?.photoData.didTryToDonwloadImage = true
                 let photoFetcher = FCPhotoFetcher()
                 photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
                     
-                    if let photo = image {
-                        
-                        self.publication?.photoData.photo = photo
+                    if self.publication?.photoData.photo != nil {
                         self.showImage()
                     }
                 })

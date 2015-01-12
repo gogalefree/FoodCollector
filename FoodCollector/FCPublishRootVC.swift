@@ -24,7 +24,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+        
+        userCreatedPublications = FCDateFunctions.sortPublicationsByEndingDate(FCModel.sharedInstance.userCreatedPublications)
+
         collectionView.delegate = self
         if userCreatedPublications.count == 0 {
             collectionView.alpha = 0.0
@@ -44,38 +46,15 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
         
         let reusableId = "FCPublishCollectionViewCell"
-        var status = ""
-        var statusImg : UIImage
         let publication = userCreatedPublications[indexPath.item]
-        let pubTitle = publication.title
-        let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
-        
-        if FCDateFunctions.PublicationDidExpired(publication.endingDate){
-            status = String.localizedStringWithFormat("Not Active" , "the puclication is off the air")
-            statusImg = UIImage(named: "Red-dot")!
-        }
-        else {
-            status = String.localizedStringWithFormat("Active until: \(locDateString))" , "the publication is active untill this date")
-            statusImg = UIImage(named: "Green-dot")!
-        }
-        
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as FCPublishRootVCCustomCollectionViewCell
+        cell.publication = publication
         
-        cell.FCPublisherEventTitle.text = pubTitle
-        cell.FCPublisherEventStatus.text = status
-        cell.FCPublisherEventStatusIcon.image = statusImg
+        // The tag property will be used later in the segue to identify
+        // the publication item clicked by the user for editing.
+        cell.tag = indexPath.item
         
         return cell
-    }
-    
-    
-    
-    func editUserCreatedPublicationAction() {
-        
-    }
-    
-    func newPublicationAction() {
-        
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -85,11 +64,29 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-
+        
         let size = CGSizeMake(self.collectionView.bounds.size.width , 90)
         return size
     }
- 
+    
+    // Check which segue was used to go to the FCPublicationEditorTVC view.
+    //
+    // If the segue identifier is "showNewPublicationEditorTVC" - do nothing. In the
+    // FCPublicationEditorTVC class we will check to see if var publication is empty or nil
+    // and if it is, we will disply a new publication table.
+    //
+    // If the segue identifier is "showEditPublicationEditorTVC" we will pass on the
+    // publication object that corresponds to the clicked cell in the collection view
+    // and display the publication's content in the FCPublicationEditorTVC class.
+    
+    override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
+        if (segue.identifier == "showEditPublicationEditorTVC") {
+            let pubEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
+            pubEditorTVC.publication = userCreatedPublications[sender.tag]
+        }
+    }
+    
+    
     func displayNoPublicatiosMessage(){
         let recWidth = FCDeviceData.screenWidth()/1.4
         let recHight = FCDeviceData.screenHight()/1.4
@@ -103,7 +100,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         label.textAlignment = NSTextAlignment.Center
         label.numberOfLines = 0
         label.font = UIFont.systemFontOfSize(fontSize)
-        label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "no user created publications message")
+        label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "No user created publications message")
         self.view.addSubview(label)
     }
     

@@ -48,11 +48,10 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         else if !aPublication.photoData.didTryToDonwloadImage {
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(aPublication, completion: { (image) -> Void in
-                aPublication.photoData.photo = image
-                aPublication.photoData.didTryToDonwloadImage = true
-                if let theImage = image {
+               
+                if aPublication.photoData.photo != nil {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.imageView.image = image
+                        self.imageView.image = aPublication.photoData.photo
                         self.view.reloadInputViews()
                         self.view.setNeedsDisplay()
                     })

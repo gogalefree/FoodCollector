@@ -29,13 +29,9 @@ class FCPublicationDetailsPhotoCell: UITableViewCell {
                 if let photo = publication.photoData.photo {
                     
                     //has image
+                    self.photoImageView.alpha = 1
                     self.photoImageView.image = photo
                     self.updateHeight(kPublicationPhotoCellHeightHasImage)
-                    self.photoImageView.alpha = 1
-                    //self.noPhotoLabel.alpha = 0
-                    
-                    
-        
                 }
                 else {
                     self.updateHeight(kPublicationPhotoCellHeightNoImage)

@@ -99,9 +99,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
             
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image: UIImage?) -> Void in
-                    if let photo = image {
-                        self.publication?.photoData.photo = photo
-                        self.publication?.photoData.didTryToDonwloadImage = true
+                    if publication.photoData.photo != nil {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: 3, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
                         })

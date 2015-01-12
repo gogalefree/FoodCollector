@@ -130,7 +130,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let pubs = self.makePublication()
         completion(thePublications: pubs)
-        
+        /*
         var publications = [FCPublication]()
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getAllPublicationsURL)
@@ -154,6 +154,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
             })
         })
         task.resume()
+*/
     }
     
     ///

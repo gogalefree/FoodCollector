@@ -19,4 +19,54 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var FCPublisherEventStatus: UILabel!
     
 
+    var publication: FCPublication? {
+        didSet {
+            
+            if let publication = self.publication {
+                
+                var status = ""
+                var statusImg : UIImage
+                let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
+                
+                if FCDateFunctions.PublicationDidExpired(publication.endingDate){
+                    status = String.localizedStringWithFormat("הסתיים" , "the puclication is off the air")
+                    statusImg = UIImage(named: "Red-dot")!
+                }
+                else {
+                    status = String.localizedStringWithFormat("פעיל \(locDateString)" , "the publication is active untill this date")
+                    statusImg = UIImage(named: "Green-dot")!
+                }
+                
+                self.FCPublisherEventTitle.text = publication.title
+                self.FCPublisherEventStatus.text = status
+                self.FCPublisherEventStatusIcon.image = statusImg
+                
+                if publication.photoData.photo != nil {
+                    self.FCPublisherEventImage.image = publication.photoData.photo!
+                }
+                else if !publication.photoData.didTryToDonwloadImage {
+                    
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+                        
+                        let fetcher = FCPhotoFetcher()
+                        fetcher.fetchPhotoForPublication(publication,
+                            completion: { (image) -> Void in
+                                
+                                if publication.photoData.photo != nil {
+        
+                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                        
+                                        UIView.animateWithDuration(0.4, animations: { () -> Void in
+                                            self.FCPublisherEventImage.alpha = 0
+                                            self.FCPublisherEventImage.image = publication.photoData.photo
+                                            self.FCPublisherEventImage.alpha = 1
+                                        })
+                                    })
+                                }
+                        })
+                    })
+                }
+            }
+        }
+    }
 }

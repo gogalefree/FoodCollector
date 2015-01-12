@@ -39,7 +39,14 @@ class FCDateFunctions : NSObject {
     class func sortPublicationReportsByDate(publication: FCPublication) {
         publication.reportsForPublication.sort({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
     }
-     
+    
+    class func sortPublicationsByEndingDate(publications: [FCPublication]) -> [FCPublication] {
+        var publicationsToSort = publications
+        publicationsToSort.sort({ $0.endingDate.compare($1.endingDate) == NSComparisonResult.OrderedDescending })
+        return publicationsToSort
+    }
+
+    
 }
 
 

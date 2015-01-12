@@ -79,6 +79,9 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 self.userCreatedPublications.append(thePublications[0])
                 self.userCreatedPublications.append(thePublications[1])
                 self.userCreatedPublications.append(thePublications[2])
+                self.userCreatedPublications.append(thePublications[3])
+                self.userCreatedPublications.append(thePublications[4])
+                self.userCreatedPublications.append(thePublications[5])
                 
                 /*
                 // uncomment FOR first build only
