@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FCOnSpotPublicationReportDelegate {
+    func dismiss()
+}
+
 public struct FCOnSpotPublicationReport {
     
     var onSpotPublicationReportMessage:FCOnSpotPublicationReportMessage
@@ -30,10 +34,10 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     @IBOutlet weak var tookAllButton: UIButton!
     @IBOutlet weak var tookSomeButton: UIButton!
     @IBOutlet weak var nothingThereButton: UIButton!
-
+    
     var publication: FCPublication?
-       
-
+    var delegate: FCOnSpotPublicationReportDelegate!    //FCMainTabBar
+    
     func setup(aPublication: FCPublication) {
         
         self.publicationTitleLable.text = aPublication.title
@@ -58,7 +62,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     }
     
     @IBAction func tookAllAction(sender: AnyObject) {
-       self.postOnSpotReportWithMessage(.TookAll)
+        self.postOnSpotReportWithMessage(.TookAll)
     }
     
     @IBAction func tookSomeAction(sender: AnyObject) {
@@ -68,22 +72,17 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     @IBAction func nothingThereAction(sender: AnyObject) {
         self.postOnSpotReportWithMessage(.NothingThere)
     }
-
-    @IBAction func dissmissAction(sender: AnyObject) {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
     
     func postOnSpotReportWithMessage(message: FCOnSpotPublicationReportMessage) {
         
         let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: message, date: NSDate())
-    
-        FCModel.sharedInstance.foodCollectorWebServer.reportArrivedPublication(self.publication!, withReport: report)
         
-        self.dissmissAction(self)
+        FCModel.sharedInstance.foodCollectorWebServer.reportArrivedPublication(self.publication!, withReport: report)
+        self.delegate.dismiss()
     }
     
     func cancelButtonAction(sender: AnyObject){
-        self.dissmissAction(self)
+        self.delegate.dismiss()
     }
     
     override func viewDidLoad() {
@@ -102,7 +101,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     }
     
     func configureButton(button: UIButton) {
-       
+        
         button.layer.borderColor = UIColor.blueColor().CGColor
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1

@@ -11,7 +11,7 @@ import Foundation
 import CoreLocation
 import MapKit
 
-let kPublicationUniqueIdKey = "unique_id"
+let kPublicationUniqueIdKey = "id"
 let kPublicationVersionKey = "version"
 let kPublicationTitleKey = "title"
 let kPublicationSubTitleKey = "subtitle"
@@ -152,21 +152,26 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     
     
-    public class func publicationWithParams(params: [NSObject: AnyObject]) -> FCPublication {
+    public class func publicationWithParams(params: [String: AnyObject]) -> FCPublication {
         
         let aUniquId = params[kPublicationUniqueIdKey]! as Int
         let aTitle = params[kPublicationTitleKey]! as String
         let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
         let anAddress = params[kPublicationAddressKey] as? String ?? ""
         let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey]! as Int)
-        let aLatitude = params[kPublicationlatitudeKey]! as Double
-        let aLongtitude = params[kPublicationLongtitudeKey]! as Double
+        let aLatitude =  (params[kPublicationlatitudeKey]! as NSString).doubleValue
+        let aLongtitude = (params[kPublicationLongtitudeKey]! as NSString).doubleValue
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
-        let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(params[kPublicationStartingDateKey]! as Int))
-        let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(params[kPublicationEndingDateKey]! as Int))
+        let startingDateDouble = (params[kPublicationStartingDateKey]! as NSString).doubleValue
+        let startingDateInt = Int(startingDateDouble)
+        let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(startingDateInt))
+        
+        let endingDateDouble = (params[kPublicationEndingDateKey]! as NSString).doubleValue
+        let endingDateInt = Int(endingDateDouble)
+        let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(endingDateDouble))
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
-        let aPhotoUrl = params[kPublicationPhotoUrl] as? String ?? ""
         let aVersion = params[kPublicationVersionKey]! as Int
+        let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
         let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
         return publication
     }

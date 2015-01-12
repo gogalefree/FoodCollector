@@ -150,7 +150,7 @@ class FCUserNotificationHandler : NSObject {
         
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
             
-            let data = userInfo[kRemoteNotificationDataKey]! as [NSObject : AnyObject]
+            let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
             
             switch notificationType {
                 
@@ -279,9 +279,7 @@ class FCUserNotificationHandler : NSObject {
 
 extension FCUserNotificationHandler {
     func setup(){
-        
-        resendPushNotificationToken()
-        
+                
         //we dont need this since we only register location notifications when a user
         //registers to come pick up a pubication
         //NSNotificationCenter.defaultCenter().addObserver(self, selector: "registerForLocationNotifications:", name: kRecievedNewDataNotification, object: nil)

@@ -19,7 +19,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
     
-    var onSpotPublicationReport:FCOnSpotPublicationReport?
+    //var onSpotPublicationReport:FCOnSpotPublicationReport?
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
     var publicationDetailsTVC: FCPublicationDetailsTVC?
@@ -60,10 +60,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         self.mapView.delegate = self
         self.mapView.addAnnotations(self.publications)
         mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let coordinates = FCModel.sharedInstance.userLocation.coordinate
-        let region = MKCoordinateRegion(center: coordinates, span: span)
-        self.mapView.setRegion(region, animated: true)
+      
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -102,8 +99,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     
     func mapView(mapView: MKMapView!, regionWillChangeAnimated animated: Bool) {
         
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        println("will change region")
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        println("will change region")
         //        if !self.eventDetailsViewHidden {
         //            self.hideEventDetailsView()
         //        }
@@ -112,8 +109,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
         
         
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        println("did change region")
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        println("did change region")
         
     }
     

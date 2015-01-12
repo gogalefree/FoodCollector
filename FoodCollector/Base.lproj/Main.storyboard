@@ -555,14 +555,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-ic-60V">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-ic-60V">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="OgJ-ic-60V" secondAttribute="height" multiplier="1:1" id="Grs-K2-HBY"/>
+                                    <constraint firstAttribute="width" constant="600" id="Nqh-dl-Tcz"/>
+                                    <constraint firstAttribute="height" constant="600" id="SkP-B5-Ev7"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Grs-K2-HBY"/>
+                                        <exclude reference="Nqh-dl-Tcz"/>
+                                        <exclude reference="SkP-B5-Ev7"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="2pt-Tq-754"/>
                                 </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OgJ-ic-60V" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="00U-NU-HST"/>
+                            <constraint firstItem="OgJ-ic-60V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="pZW-G8-9Lp"/>
+                            <constraint firstAttribute="trailing" secondItem="OgJ-ic-60V" secondAttribute="trailing" id="slm-x3-SgQ"/>
+                            <constraint firstAttribute="bottom" secondItem="OgJ-ic-60V" secondAttribute="bottom" id="wC4-M5-rdQ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kY9-ko-GZu">
                         <barButtonItem key="leftBarButtonItem" systemItem="compose" id="hT8-MR-50Q">

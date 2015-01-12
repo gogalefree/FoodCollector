@@ -36,6 +36,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             if (uiReadyForNewData){
                 println("ready for new data")
                 self.downloadData()
+                FCUserNotificationHandler.sharedInstance.resendPushNotificationToken()
             }
         }
     }
