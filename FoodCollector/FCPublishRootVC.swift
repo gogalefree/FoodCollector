@@ -81,11 +81,14 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         if (segue.identifier == "showEditPublicationEditorTVC") {
-            let pubEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
-            pubEditorTVC.publication = userCreatedPublications[sender.tag]
+            let publicationEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
+            publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
+        }
+        else if (segue.identifier == "showNewPublicationEditorTVC") {
+            let publicationEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
+            publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
         }
     }
-    
     
     func displayNoPublicatiosMessage(){
         let recWidth = FCDeviceData.screenWidth()/1.4

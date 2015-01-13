@@ -10,8 +10,8 @@ import UIKit
 import MapKit
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-    var dataSource = [FCNewPublicationTVCCellData]()
-    var selectedDataObj : FCNewPublicationTVCCellData?
+//    var dataSource = [FCNewPublicationTVCCellData]()
+//    var selectedDataObj : FCNewPublicationTVCCellData?
     var selectedTagNumber = 0
     var didSerchAndFindResults = false
     var initialData = [String]()
@@ -36,7 +36,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        selectedDataObj = getSelectedDataObject(selectedTagNumber)
+ //       selectedDataObj = getSelectedDataObject(selectedTagNumber)
         //prefixes = [pre1, pre2, pre3, pre4]
         
         // To hide the empty cells set a zero size table footer view.
@@ -205,10 +205,10 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
-        return dataSource[selectedTagNumber]
-    }
-
+//    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
+//        return dataSource[selectedTagNumber]
+//    }
+//
     /*
     // MARK: - Navigation
 

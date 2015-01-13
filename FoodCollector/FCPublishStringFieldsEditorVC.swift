@@ -11,8 +11,8 @@ import QuartzCore
 
 class FCPublishStringFieldsEditorVC: UIViewController {
 
-    var dataSource = [FCNewPublicationTVCCellData]()
-    var selectedDataObj : FCNewPublicationTVCCellData?
+//    var dataSource = [FCNewPublicationTVCCellData]()
+//    var selectedDataObj : FCNewPublicationTVCCellData?
     var selectedTagNumber = 0
     var showTextField = false
     
@@ -22,27 +22,27 @@ class FCPublishStringFieldsEditorVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectedDataObj = getSelectedDataObject(selectedTagNumber)
-        if showTextField {
-            pubSubTitleText.alpha = 0.0
-            if selectedTagNumber == 8 { // This is a phone number
-                pubTitleText.text = selectedDataObj?.userData as String
-                pubTitleText.keyboardType = UIKeyboardType.PhonePad
-            }
-            else {
-                pubTitleText.text = selectedDataObj?.cellText
-            }
-            
-            
-        }
-        else {
-            pubTitleText.alpha = 0.0
-            let frameColor = UIColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.00)
-            pubSubTitleText.layer.borderWidth = CGFloat(1.0)
-            pubSubTitleText.layer.borderColor = frameColor.CGColor
-            pubSubTitleText.layer.cornerRadius = CGFloat(5.0)
-            pubSubTitleText.text = selectedDataObj?.cellText
-        }
+//        selectedDataObj = getSelectedDataObject(selectedTagNumber)
+//        if showTextField {
+//            pubSubTitleText.alpha = 0.0
+//            if selectedTagNumber == 8 { // This is a phone number
+//                pubTitleText.text = selectedDataObj?.userData as String
+//                pubTitleText.keyboardType = UIKeyboardType.PhonePad
+//            }
+//            else {
+//                pubTitleText.text = selectedDataObj?.cellText
+//            }
+//            
+//            
+//        }
+//        else {
+//            pubTitleText.alpha = 0.0
+//            let frameColor = UIColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.00)
+//            pubSubTitleText.layer.borderWidth = CGFloat(1.0)
+//            pubSubTitleText.layer.borderColor = frameColor.CGColor
+//            pubSubTitleText.layer.cornerRadius = CGFloat(5.0)
+//            pubSubTitleText.text = selectedDataObj?.cellText
+//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,9 +50,9 @@ class FCPublishStringFieldsEditorVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
-        return dataSource[selectedTagNumber]
-    }
+//    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
+//        return dataSource[selectedTagNumber]
+//    }
     
     /*
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {

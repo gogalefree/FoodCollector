@@ -10,8 +10,8 @@ import UIKit
 
 class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var dataSource = [FCNewPublicationTVCCellData]()
-    var selectedDataObj : FCNewPublicationTVCCellData?
+//    var dataSource = [FCNewPublicationTVCCellData]()
+//    var selectedDataObj : FCNewPublicationTVCCellData?
     var selectedTagNumber = 0
     var selectedValueInt = 1
     
@@ -22,13 +22,13 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let value = dataSource[selectedTagNumber].userData as? Int
-        {
-            if value == 2 {selectedValueInt = 2}
-        }
-        
-        collectionTypePicker.selectRow(selectedValueInt-1, inComponent: 0, animated: true)
+//        
+//        if let value = dataSource[selectedTagNumber].userData as? Int
+//        {
+//            if value == 2 {selectedValueInt = 2}
+//        }
+//        
+//        collectionTypePicker.selectRow(selectedValueInt-1, inComponent: 0, animated: true)
 
         // Do any additional setup after loading the view.
     }

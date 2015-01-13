@@ -10,16 +10,16 @@ import UIKit
 
 class FCPublishDateEditorVC: UIViewController {
     
-    var dataSource = [FCNewPublicationTVCCellData]()
-    var selectedDataObj : FCNewPublicationTVCCellData?
+//    var dataSource = [FCNewPublicationTVCCellData]()
+//    var selectedDataObj : FCNewPublicationTVCCellData?
     var selectedTagNumber = 0
 
     @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        selectedDataObj = getSelectedDataObject(selectedTagNumber)
-        datePicker.setDate(selectedDataObj?.userData as NSDate, animated: true)
+//        selectedDataObj = getSelectedDataObject(selectedTagNumber)
+//        datePicker.setDate(selectedDataObj?.userData as NSDate, animated: true)
 
     }
 
@@ -28,13 +28,13 @@ class FCPublishDateEditorVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
-        if let date = dataSource[selectedTagNumber].userData as? NSDate {
-            return dataSource[selectedTagNumber]
-        }
-        dataSource[selectedTagNumber].userData = NSDate()
-        return dataSource[selectedTagNumber]
-    }
+//    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
+//        if let date = dataSource[selectedTagNumber].userData as? NSDate {
+//            return dataSource[selectedTagNumber]
+//        }
+//        dataSource[selectedTagNumber].userData = NSDate()
+//        return dataSource[selectedTagNumber]
+//    }
 
     /*
     // MARK: - Navigation

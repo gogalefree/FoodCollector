@@ -10,8 +10,8 @@ import UIKit
 
 class FCPublishPhotoEditorVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var dataSource = [FCNewPublicationTVCCellData]()
-    var selectedDataObj : FCNewPublicationTVCCellData?
+//    var dataSource = [FCNewPublicationTVCCellData]()
+//    var selectedDataObj : FCNewPublicationTVCCellData?
     var selectedTagNumber = 0
     var imagePicker: UIImagePickerController = UIImagePickerController()
     
