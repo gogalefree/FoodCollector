@@ -115,7 +115,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         
         publication.didRegisterForCurrentPublication = true
         publication.countOfRegisteredUsers += 1
-        FCUserNotificationHandler.sharedInstance.registerLocalNotification(publication)
+       // FCUserNotificationHandler.sharedInstance.registerLocalNotification(publication)
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
         
         //show alert controller
@@ -132,7 +132,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         publication.didRegisterForCurrentPublication = false
         publication.countOfRegisteredUsers -= 1
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
-        FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
+       // FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
         
     }
     

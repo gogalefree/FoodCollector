@@ -23,6 +23,7 @@ let kPublicationStartingDateKey = "starting_date"
 let kPublicationEndingDateKey = "ending_date"
 let kPublicationContactInfoKey = "contact_info"
 let kPublicationPhotoUrl = "photo_url"
+let kPublicationIsOnAirKey = "is_on_air"
 let kDidRegisterForCurrentPublicationKey = "did_Register_for_current_publication"
 
 struct PublicationIdentifier {
@@ -60,6 +61,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var startingDate:NSDate
     public var endingDate:NSDate
     public var contactInfo:String?
+    public var isOnAir: Bool
     public var photoUrl:String
     var photoData = PhotoData()
     public var distanceFromUserLocation:Double {
@@ -99,6 +101,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             self.startingDate = startingDate
             self.endingDate = endingDate
             self.contactInfo = contactInfo
+            self.isOnAir = true
             self.photoUrl = "\(uniqueId).\(version).jpg"
             super.init()
     }
@@ -122,6 +125,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeObject(self.endingDate, forKey: kPublicationEndingDateKey)
         aCoder.encodeObject(self.contactInfo, forKey: kPublicationContactInfoKey)
         aCoder.encodeObject(self.photoUrl, forKey: kPublicationPhotoUrl)
+        aCoder.encodeBool(self.isOnAir, forKey: kPublicationIsOnAirKey)
         aCoder.encodeBool(self.didRegisterForCurrentPublication, forKey: kDidRegisterForCurrentPublicationKey)
     }
     
@@ -142,6 +146,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.endingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
         self.contactInfo = aDecoder.decodeObjectForKey(kPublicationContactInfoKey) as? String
         self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as String
+        self.isOnAir = aDecoder.decodeBoolForKey(kPublicationIsOnAirKey) as Bool
         self.didRegisterForCurrentPublication = aDecoder.decodeBoolForKey(kDidRegisterForCurrentPublicationKey) as Bool
         super.init()
     }

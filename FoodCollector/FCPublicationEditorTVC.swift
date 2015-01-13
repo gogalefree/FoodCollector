@@ -143,6 +143,8 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
         reloadTableWithNewData()
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -362,13 +364,18 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
      
         
         let image = self.publication?.photoData.photo
-        let imageView = UIImageView(image: image!)
+        var imageView = UIImageView()
+        if image != nil {
+            imageView = UIImageView(image: image!)
         imageView.frame = CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight)
-        
+        }
         return imageView
     }
     
     private func takeOffAir(){
+        if let publication = self.publication {
+            publication.isOnAir = false
+        }
         println("Old end date: \(dataSource[5].userData)")
 //        dataSource[5].userData = NSDate()
         updateDataSource(NSDate() , selectedTagNumber: 5)
@@ -380,37 +387,45 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
     }
     
     private func setIsReadyForTakeOffAir(){
-        if let startDate = dataSource[4].userData as? NSDate {
-            println("Start date is not nil")
-            if let endDate = dataSource[5].userData as? NSDate {
-                println("End date is not nil")
-                if startDate.compare(endDate) == NSComparisonResult.OrderedAscending {
-                    // If true: the startDate is earlier in time than endDate
-                    isReadyForTakeOffAir = true
-                }
-                else {
-                    isReadyForTakeOffAir = false
-                }
-            }
-            else {
-                println("End date is nil")
-                isReadyForTakeOffAir = false
-            }
-        }
-        else {
-            println("Start date is nil")
-            isReadyForTakeOffAir = false
+       
+        if let publication = self.publication {
+            if publication.isOnAir {isReadyForTakeOffAir = true}
+            else {isReadyForTakeOffAir = false}
         }
         
-        if isNewPublication {
-            isReadyForTakeOffAir = false
-        }
+//        
+//        
+//        if let startDate = dataSource[4].userData as? NSDate {
+//            println("Start date is not nil")
+//            if let endDate = dataSource[5].userData as? NSDate {
+//                println("End date is not nil")
+//                if startDate.compare(endDate) == NSComparisonResult.OrderedAscending {
+//                    // If true: the startDate is earlier in time than endDate
+//                    isReadyForTakeOffAir = true
+//                }
+//                else {
+//                    isReadyForTakeOffAir = false
+//                }
+//            }
+//            else {
+//                println("End date is nil")
+//                isReadyForTakeOffAir = false
+//            }
+//        }
+//        else {
+//            println("Start date is nil")
+//            isReadyForTakeOffAir = false
+//        }
+//        
+//        if isNewPublication {
+//            isReadyForTakeOffAir = false
+//        }
     }
     
     private func checkIfReadyForPublish(){
         //Check if all cell objects in dataSource are ready for publish
         for cellObj in dataSource {
-            //println("Pub test (\(cellObj.isObligatory)) (\(cellObj.identityTag)): \(cellObj.cellText)")
+            println("Pub test (\(cellObj.isObligatory)) (\(cellObj.identityTag)): \(cellObj.cellText)")
             if cellObj.isObligatory {
                 isReadyForPublish = true
                 //println("Set isReadyForPublish as true")
@@ -456,7 +471,44 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
     ///  a different version number.
     ///
     func publish() {
-        println("PUBLISHED!!!!!!!!!!")
+        // For each publication we display the follwoing in the table:
+        // 0.  Title
+        // 1.  Subtitle
+        // 2.  Address + latitude + longitude
+        // 3.  Seperator
+        // 4.  Start date
+        // 5.  End date
+        // 6.  Type of collection
+        // 7.  Seperator
+        // 8.  Contact info (phone number)
+        // 9.  Seperator
+        // 10. Photo
+        // 11. Take of air button  (not part of the data source!!!)
+        // 12. Publish button (not part of the data source!!!)
+        // so a total of 13 members for in datasource.
+        
+        let title = self.dataSource[0].userData as String
+        let subtitle = self.dataSource[1].userData as String
+        let address = self.dataSource[2].userData as String
+        let latitude = self.dataSource[2].addressLatitude as Double
+        let longitude = self.dataSource[2].addressLongtitude as Double
+        let startingDate = self.dataSource[4].userData as NSDate
+        let endingDate = self.dataSource[5].userData as NSDate
+        let typeOfCollecting = self.dataSource[6].userData as Int
+        println("NEW PUBLICATION \(isNewPublication)")
+       
+        let image = self.dataSource[8].userData as UIImage
+        
+        
+        
+        
+
+    
+    
+    
+    
+    
+    
     }
     
     ///
@@ -542,7 +594,7 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
         // For each publication we display the follwoing in the table:
         // 0.  Title
         // 1.  Subtitle
-        // 2.  Address
+        // 2.  Address + latitude + longitude
         // 3.  Seperator
         // 4.  Start date
         // 5.  End date
@@ -602,6 +654,8 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
         cellData2.cellText = publication.address
         cellData2.userData = publication.address
         cellData2.isObligatory = true
+        cellData2.addressLatitude  = publication.coordinate.latitude
+        cellData2.addressLongtitude = publication.coordinate.longitude
         cellData2.identityTag = getCount()
         dataSource.append(cellData2)
         
@@ -682,6 +736,7 @@ class FCPublicationEditorTVC : UITableViewController, FCPublicationDataInputDele
         //----------------------
         var cellData10 = FCNewPublicationTVCCellData()
         if isImageInPublication {
+            cellData10.userData = self.publication?.photoData.photo as UIImage!
             cellData10.height = kImageCellHeight
             cellData10.containsUserData = true
             cellData10.isImgCell = true
@@ -827,10 +882,13 @@ extension FCPublicationEditorTVC {
     
     func updateCellDataWithImage(anImage: UIImage) {
         //update data source
-        //self.dataSource[getImageObjectIndexFromDataSource()].userData = anImage
-        self.dataSource[getImageObjectIndexFromDataSource()].isObligatory = true
-        
-        
+        self.dataSource[8].userData = anImage
+        self.dataSource[8].containsUserData = true
+        self.dataSource[8].isObligatory = true
+        self.isImageInPublication = true
+        println("THE GIVVEN NUMBER IS : \(getImageObjectIndexFromDataSource())")
+        reloadTableWithNewData()
+      //  self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 8, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
     }
 }
 

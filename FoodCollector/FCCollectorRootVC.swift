@@ -50,7 +50,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         super.viewDidLayoutSubviews()
         activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
         activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
-        
+      // postOnSpotReport()
+
     }
     
     //MARK: - Map View Delegate
@@ -133,6 +134,16 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
                 //uncomment to show this message only once
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
         }
+
+    }
+  
+    func postOnSpotReport() {
+
+        var userInfo = [NSObject : AnyObject]()
+        userInfo[kPublicationUniqueIdKey] = 2222222
+        userInfo[kPublicationVersionKey] = 1
+
+    NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
     }
     
     deinit {

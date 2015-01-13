@@ -36,7 +36,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     @IBOutlet weak var nothingThereButton: UIButton!
     
     var publication: FCPublication?
-    var delegate: FCOnSpotPublicationReportDelegate!    //FCMainTabBar
+    var delegate: FCOnSpotPublicationReportDelegate?    //FCMainTabBar
     
     func setup(aPublication: FCPublication) {
         
@@ -77,11 +77,11 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: message, date: NSDate())
         
         FCModel.sharedInstance.foodCollectorWebServer.reportArrivedPublication(self.publication!, withReport: report)
-        self.delegate.dismiss()
+        self.delegate?.dismiss()
     }
     
     func cancelButtonAction(sender: AnyObject){
-        self.delegate.dismiss()
+        self.delegate?.dismiss()
     }
     
     override func viewDidLoad() {

@@ -24,6 +24,7 @@ class FCDateFunctions : NSObject {
             return false
         }
         else {
+
             return true
         }
     }

@@ -13,6 +13,8 @@ let registerForPushNotificationsURL = "https://fd-server.herokuapp.com/active_de
 let getAllPublicationsURL = "https://fd-server.herokuapp.com/publications.json"
 
 let reportArrivedToPublicationURL = ""
+let reportsForPublicationBaseURL = "https://fd-server.herokuapp.com/publications/"
+//<id>/reports.json?publication_version=<version>
 
 public class FCMockServer: NSObject , FCServerProtocol {
     
@@ -76,14 +78,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         var params = NSMutableDictionary()
         
-            params["dev_uuid"] = deviceId
-            params["remote_notification_token"] = remoteNotificationToken
-            params["is_ios"] = isIos
-            params["last_location_latitude"] = currentLatitude
-            params["last_location_longitude"] = curruntLongitude
+        params["dev_uuid"] = deviceId
+        params["remote_notification_token"] = remoteNotificationToken
+        params["is_ios"] = isIos
+        params["last_location_latitude"] = currentLatitude
+        params["last_location_longitude"] = curruntLongitude
         
         let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-       // println(params)
+        // println(params)
         let url = NSURL(string: reportActiveDeviceURL)
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
@@ -135,32 +137,34 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getAllPublicationsURL)
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
-            
-            let serverResponse = response as NSHTTPURLResponse
-            print("response: \(serverResponse.description)")
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-                
-                let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
-                
-                for publicationDict in arrayOfPublicationDicts {
-                    println("PUBLICATION DICT: \(publicationDict)")
-                    let publication = FCPublication.publicationWithParams(publicationDict)
-                    publications.append(publication)
-                }
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(thePublications: pubs)
-                })
-            })
+        
+        let serverResponse = response as NSHTTPURLResponse
+        print("response: \(serverResponse.description)")
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+        
+        let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
+        
+        for publicationDict in arrayOfPublicationDicts {
+        println("PUBLICATION DICT: \(publicationDict)")
+        let publication = FCPublication.publicationWithParams(publicationDict)
+        publications.append(publication)
+        }
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        completion(thePublications: pubs)
+        })
+        })
         })
         task.resume()
-*/
+        */
     }
     
     ///
     /// fetch all reports to a certain Publication
     ///
     public func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport]?)->()) {
+
+        var urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)" + "/reports.json?publication_version=" + "\(publication.version)"
         //download
         //parse
         //pass to the completion handler
@@ -197,11 +201,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
-            let serverResponse = response as NSHTTPURLResponse
-            print("respons: \(serverResponse.description)")
-            
-            if error != nil || serverResponse.statusCode != 200 {
-                //we currently implement as best effort. nothing is done with an error
+            if var serverResponse = response as? NSHTTPURLResponse {
+                print("respons: \(serverResponse.description)")
+                
+                if error != nil || serverResponse.statusCode != 200 {
+                    //we currently implement as best effort. nothing is done with an error
+                }
             }
         })
         
@@ -257,7 +262,7 @@ public extension FCMockServer {
         pub1.reportsForPublication.append(report)
         report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
         pub1.reportsForPublication.append(report)
-
+        
         publicaions.append(pub1)
         
         uniqueId = 2222222
@@ -305,7 +310,7 @@ public extension FCMockServer {
         pub3.reportsForPublication.append(report)
         report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
         pub3.reportsForPublication.append(report)
-
+        
         publicaions.append(pub3)
         
         uniqueId = 444444
@@ -317,7 +322,7 @@ public extension FCMockServer {
         startingDate = NSDate()
         endingDate = NSDate(timeIntervalSinceNow: 266000)
         photoUrl = "www.denis.com"
-                version = 1
+        version = 1
         
         let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
         pub4.countOfRegisteredUsers = 4
@@ -348,7 +353,7 @@ public extension FCMockServer {
         pub5.reportsForPublication.append(report)
         report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
         pub5.reportsForPublication.append(report)
-
+        
         publicaions.append(pub5)
         
         uniqueId = 666666

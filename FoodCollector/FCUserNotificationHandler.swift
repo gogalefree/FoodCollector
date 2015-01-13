@@ -119,7 +119,7 @@ class FCUserNotificationHandler : NSObject {
         let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
         let localNotification = UILocalNotification()
         localNotification.userInfo = userInfo
-        localNotification.alertBody = String.localizedStringWithFormat("You've arrived \(publication.title)",
+        localNotification.alertBody = String.localizedStringWithFormat("הגעת ל: \(publication.title)",
             "location notification body")
         localNotification.soundName = UILocalNotificationDefaultSoundName
         localNotification.regionTriggersOnce = false
@@ -280,9 +280,9 @@ class FCUserNotificationHandler : NSObject {
 extension FCUserNotificationHandler {
     func setup(){
                 
-        //we dont need this since we only register location notifications when a user
+        //we might not need this since we only register location notifications when a user
         //registers to come pick up a pubication
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "registerForLocationNotifications:", name: kRecievedNewDataNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "registerForLocationNotifications:", name: kRecievedNewDataNotification, object: nil)
         
         let showAction = UIMutableUserNotificationAction()
         showAction.identifier = "SHOW_IDENTIFIER"

@@ -11,7 +11,7 @@ import UIKit
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate {
     
-    var isPresentingInSpotReportVC = false
+    var isPresentingOnSpotReportVC = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     func didRecieveOnspotNotification(notification: NSNotification) {
         
-        if isPresentingInSpotReportVC{
+        if isPresentingOnSpotReportVC{
             dismiss()
             didRecieveOnspotNotification(notification)
         }
@@ -42,14 +42,16 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
                 let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
                 
                 self.presentViewController(navController, animated: true, completion: nil)
-                isPresentingInSpotReportVC = true
+                isPresentingOnSpotReportVC = true
             }
         }
     }
     
     func dismiss() {
+        if self.presentedViewController != nil {
         self.dismissViewControllerAnimated(true, completion: nil)
-        isPresentingInSpotReportVC = false
+        isPresentingOnSpotReportVC = false
+        }
     }
     
     override func didReceiveMemoryWarning() {
