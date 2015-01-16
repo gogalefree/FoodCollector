@@ -21,21 +21,11 @@ let kPublishEndDate = String.localizedStringWithFormat("הוסף תאריך סי
 let kPublishImage = String.localizedStringWithFormat("הוסף תמונה", "Add image for a new event")
 let kPublishPublishButtonLabel = String.localizedStringWithFormat("פרסם", "Publish button to publish a new event")
 let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסר פרסום", "Take Off Air button to immediately stop publication of an exciting active event")
-
-
-
-let kPublishTypeOfCollectionFreePickUp = String.localizedStringWithFormat("Collection type: Free pickup", "Select Type Of Collection for a new event: Free pickup")
-let kPublishTypeOfCollectionContactPublisher = String.localizedStringWithFormat("Collection type: Contact publisher", "Type Of Collection for a new event: Contact publisher")
 let kPublishStartDatePrefix = String.localizedStringWithFormat("מתחיל:  ", "Start date label for displaying an exciting start date event")
 let kPublishEndDatePrefix = String.localizedStringWithFormat("מסתיים: ", "End date label for displaying an exciting end date event")
-let kPublishContactPhoneNumber = String.localizedStringWithFormat("Add phone number", "Add phone number for a new event")
-let kPublishContactPhoneNumberPrefix = String.localizedStringWithFormat("Phone number: ", "Phone number label for displaying an exciting phone number")
 
 let kSeperatHeaderHeight = CGFloat(30.0)
-let kImageCellHeight = CGFloat(140.0)
 
-
-/// represents the cell data of the editor.
 
 struct FCPublicationEditorTVCCellData {
     
@@ -87,7 +77,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         checkIfReadyForPublish()
     }
     
-    //Mark: - TableViewDataSource
+    //MARK: - TableViewDataSource
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
@@ -118,42 +108,6 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         
         return cell
     }
-    
-    
-    @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
-        
-        let sourceVC = segue.sourceViewController as FCPublishStringFieldsEditorVC
-        let cellData = sourceVC.celldata
-        let section = selectedIndexPath!.section
-        self.dataSource[section] = cellData
-        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
-    }
-    
-    
-    @IBAction func unwindFromDateEditorVC(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as FCPublishDateEditorVC
-        let cellData = sourceVC.cellData
-        let section = self.selectedIndexPath!.section
-        self.dataSource[section] = cellData
-        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
-    }
-    
-    @IBAction func unwindFromTypeOfCollectionEditorVC(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as FCPublicationTypeOfPublicationEditorVC
-        let cellData = sourceVC.cellData
-        let section = selectedIndexPath!.section
-        self.dataSource[section] = cellData
-        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
-    }
-    
-    @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as FCPublishAddressEditorVC
-        let cellData = sourceVC.cellData
-        let section = selectedIndexPath!.section
-        self.dataSource[section] = cellData
-        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
-    }
-    
     
     // Each section represents a cell
     // 0.  Title
@@ -191,6 +145,44 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         }
     }
     
+    //MARK: - unwind from editors
+
+    @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
+        
+        let sourceVC = segue.sourceViewController as FCPublishStringFieldsEditorVC
+        let cellData = sourceVC.celldata
+        let section = selectedIndexPath!.section
+        self.dataSource[section] = cellData
+        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+    }
+    
+    
+    @IBAction func unwindFromDateEditorVC(segue: UIStoryboardSegue) {
+        let sourceVC = segue.sourceViewController as FCPublishDateEditorVC
+        let cellData = sourceVC.cellData
+        let section = self.selectedIndexPath!.section
+        self.dataSource[section] = cellData
+        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+    }
+    
+    @IBAction func unwindFromTypeOfCollectionEditorVC(segue: UIStoryboardSegue) {
+        let sourceVC = segue.sourceViewController as FCPublicationTypeOfPublicationEditorVC
+        let cellData = sourceVC.cellData
+        let section = selectedIndexPath!.section
+        self.dataSource[section] = cellData
+        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+    }
+    
+    @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
+        let sourceVC = segue.sourceViewController as FCPublishAddressEditorVC
+        let cellData = sourceVC.cellData
+        let section = selectedIndexPath!.section
+        self.dataSource[section] = cellData
+        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+    }
+    
+    //MARK: - TakeOffAir and Publish buttons logic
+
     private func shouldEnableTakeOfAirButton() {
         
         switch self.state {
@@ -279,7 +271,8 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         
     }
     
-    
+    //MARK: - Navigation
+
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         
         let section = self.selectedIndexPath!.section
@@ -423,7 +416,6 @@ extension  FCPublicationEditorTVC {
         }
     }
 }
-
 
 extension FCPublicationEditorTVC {
     

@@ -35,8 +35,6 @@ class FCActivityCenterTVC: UITableViewController {
         
     }
 
-    
-
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

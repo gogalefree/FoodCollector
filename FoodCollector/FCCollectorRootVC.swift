@@ -52,7 +52,12 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         super.viewDidLayoutSubviews()
         activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
         activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
-      // postOnSpotReport()
+        tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
+        tabbarHiddenCenter = CGPointMake(self.tabBarController!.tabBar.center.x + CGRectGetWidth(self.view.frame), self.tabBarController!.tabBar.center.y)
+
+        
+        
+        // postOnSpotReport()
 
     }
     
@@ -192,7 +197,7 @@ extension FCCollectorRootVC {
                 self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
                 self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
                 self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.whiteColor()]
-                self.tabBarController?.tabBar.center = tabbarCenter!
+                self.tabBarController?.tabBar.center = self.tabbarHiddenCenter
              
                 }, completion: nil)
         }
@@ -208,8 +213,8 @@ extension FCCollectorRootVC {
                 self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
                 self.navigationController?.navigationBar.tintColor = UIColor.blueColor()
                 self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.blackColor()]
+                self.tabBarController?.tabBar.center = self.tabbarVisibleCenter
                 
-
                 }, completion: { (finished) -> Void in
                     
                     activityCenter.view.removeFromSuperview()
