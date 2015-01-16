@@ -324,8 +324,9 @@ extension  FCPublicationEditorTVC {
                         case .FreePickUp:
                             cellTitle = kTypeOfCollectingFreePickUpTitle
                         case .ContactPublisher:
-                            var callString = String.localizedStringWithFormat("התקשר: ", "means call to be added before a phone number")
-                            cellTitle = "\(callString) \(publication.contactInfo)"
+                            let callString = String.localizedStringWithFormat("התקשר: ", "means call to be added before a phone number")
+                            let contactInfo = publication.contactInfo ?? ""
+                            cellTitle = "\(callString) \(contactInfo)"
                         }
                         cellData.cellTitle = cellTitle
                     
