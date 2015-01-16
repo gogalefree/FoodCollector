@@ -10,34 +10,20 @@ import UIKit
 import MapKit
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-//    var dataSource = [FCNewPublicationTVCCellData]()
-//    var selectedDataObj : FCNewPublicationTVCCellData?
-    var selectedTagNumber = 0
+
+ 
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var cellData = FCPublicationEditorTVCCellData()
     var didSerchAndFindResults = false
     var initialData = [String]()
     var selectedAddress = ""
     var selectedLatitude = 0.0
     var selectedLongtitude = 0.0
-    var selectedCoordinate:CLLocationCoordinate2D = CLLocationCoordinate2DMake(0.0,0.0)
-    
-//    let pre1 = "רחוב "
-//    let pre2 = "רח "
-//    let pre3 = "רח׳ "
-//    let pre4 = "רחו"
-    
-    
-    //var prefixes = [String]()
-
-
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
- //       selectedDataObj = getSelectedDataObject(selectedTagNumber)
-        //prefixes = [pre1, pre2, pre3, pre4]
         
         // To hide the empty cells set a zero size table footer view.
         // Because the table thinks there is a footer to show, it doesn't display any
@@ -65,6 +51,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
         
@@ -73,7 +60,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             self.googleReverseGeoCodeForAddress(address!)
             searchBar.text = address
             selectedAddress = address!
-            selectedCoordinate = CLLocationCoordinate2DMake(selectedLatitude, selectedLongtitude)
         }
     }
     
@@ -195,6 +181,16 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         self.googleLocationSearch(searchBar.text)
         self.tableView.reloadData()
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        var addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
+        
+        cellData.userData = addressDict
+        cellData.containsUserData = true
+        cellData.cellTitle = self.selectedAddress
+    }
+
     
     func refineSearchResults(searchText: String) {
         
@@ -204,19 +200,5 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
-//        return dataSource[selectedTagNumber]
-//    }
-//
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

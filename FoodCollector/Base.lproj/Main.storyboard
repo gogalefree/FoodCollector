@@ -1238,13 +1238,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="MA1-GG-3fS">
-                                <rect key="frame" x="0.0" y="79" width="600" height="162"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="440793059.67927003">
                                     <!--2014-12-20 18:30:59 +0000-->
                                 </date>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lC-CS-FO7">
-                                <rect key="frame" x="241" y="316" width="118" height="30"/>
+                                <rect key="frame" x="241" y="271" width="118" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="118" id="SHf-xi-ql8"/>
                                 </constraints>
@@ -1258,10 +1258,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="MA1-GG-3fS" firstAttribute="top" secondItem="ikl-kc-t5e" secondAttribute="bottom" constant="15" id="3cI-Y8-ftx"/>
+                            <constraint firstItem="MA1-GG-3fS" firstAttribute="top" secondItem="ikl-kc-t5e" secondAttribute="bottom" constant="8" id="3cI-Y8-ftx"/>
                             <constraint firstItem="MA1-GG-3fS" firstAttribute="leading" secondItem="Jbm-Wd-MwB" secondAttribute="leading" id="Bbf-xl-I5c"/>
                             <constraint firstAttribute="centerX" secondItem="7lC-CS-FO7" secondAttribute="centerX" id="EkS-KZ-eZG"/>
-                            <constraint firstItem="7lC-CS-FO7" firstAttribute="top" secondItem="MA1-GG-3fS" secondAttribute="bottom" constant="75" id="LQu-Tb-xgr"/>
+                            <constraint firstItem="7lC-CS-FO7" firstAttribute="top" secondItem="MA1-GG-3fS" secondAttribute="bottom" constant="37" id="LQu-Tb-xgr"/>
                             <constraint firstAttribute="centerX" secondItem="MA1-GG-3fS" secondAttribute="centerX" id="kBf-Wa-6dw"/>
                         </constraints>
                     </view>

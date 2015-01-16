@@ -37,6 +37,13 @@ class FCDateFunctions : NSObject {
         return NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
     }
     
+    class func timeStringEuroStyle(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.locale = NSLocale.currentLocale()
+        return formatter.stringFromDate(date)
+    }
+    
     class func sortPublicationReportsByDate(publication: FCPublication) {
         publication.reportsForPublication.sort({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
     }

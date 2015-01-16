@@ -13,6 +13,9 @@ class FCPublicationEditorTVCell: UITableViewCell {
     var contentViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var  photoImageView: UIImageView!
     var indexPath: NSIndexPath?
+    var shouldEnableTakeOffAirButton = false
+    var shouldEnablePublishButton = false
+    
     var cellData: FCPublicationEditorTVCCellData? {
         didSet {
             
@@ -34,13 +37,25 @@ class FCPublicationEditorTVCell: UITableViewCell {
                         
                     case 7:
                         //take off air cell
+                        if !self.shouldEnableTakeOffAirButton {
                         configureTextLableWithColor(UIColor.lightGrayColor(), textAllignment: .Center)
                         self.userInteractionEnabled = false
+                        }
+                        else {
+                            configureTextLableWithColor(UIColor.redColor(), textAllignment: .Center)
+                            self.userInteractionEnabled = true
+                        }
                         
                     case 8:
                         //publish cell
-                        configureTextLableWithColor(UIColor.lightGrayColor(), textAllignment: .Center)
-                        self.userInteractionEnabled = false
+                        if !self.shouldEnablePublishButton {
+                            configureTextLableWithColor(UIColor.lightGrayColor(), textAllignment: .Center)
+                            self.userInteractionEnabled = false
+                        }
+                        else {
+                            configureTextLableWithColor(UIColor.blueColor(), textAllignment: .Center)
+                            self.userInteractionEnabled = true
+                        }
                         
                     default:
                         break
