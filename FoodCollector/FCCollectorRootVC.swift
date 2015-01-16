@@ -25,8 +25,10 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     var publicationDetailsTVC: FCPublicationDetailsTVC?
     var isPresentingActivityCenter = false
     var activityCenterTVC: UINavigationController?
-    var activityCenterHiddenCenter = CGPointMake(0, 0) //is set in viewDidLayoutSubviews
-    var activityCenterVisibleCenter = CGPointMake(0, 0)//is set in viewDidLayoutSubviews
+    var activityCenterHiddenCenter = CGPointZero //is set in viewDidLayoutSubviews
+    var activityCenterVisibleCenter = CGPointZero//is set in viewDidLayoutSubviews
+    var tabbarVisibleCenter = CGPointZero
+    var tabbarHiddenCenter = CGPointZero
     var didFailToRegisterPushNotifications = {
         NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
         }()
@@ -180,6 +182,8 @@ extension FCCollectorRootVC {
     }
     
     func animateToActivityCenter() {
+        var tabbarCenter = self.tabBarController?.tabBar.center
+        tabbarCenter?.x += self.view.bounds.width
         
         if let activityCenter = self.activityCenterTVC {
             UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
@@ -188,6 +192,7 @@ extension FCCollectorRootVC {
                 self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
                 self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
                 self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.whiteColor()]
+                self.tabBarController?.tabBar.center = tabbarCenter!
              
                 }, completion: nil)
         }

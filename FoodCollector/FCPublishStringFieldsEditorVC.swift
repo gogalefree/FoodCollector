@@ -9,60 +9,105 @@
 import UIKit
 import QuartzCore
 
-class FCPublishStringFieldsEditorVC: UIViewController {
+class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITextFieldDelegate{
 
-//    var dataSource = [FCNewPublicationTVCCellData]()
-//    var selectedDataObj : FCNewPublicationTVCCellData?
-    var selectedTagNumber = 0
-    var showTextField = false
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textView: UITextView!
     
-    @IBOutlet weak var pubTitleText: UITextField!
+    var celldata = FCPublicationEditorTVCCellData()
     
-    @IBOutlet weak var pubSubTitleText: UITextView!
+    enum DisplayState: Int {
+        case textField = 0
+        case textView = 1
+    }
+    
+    var state: DisplayState = .textField
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        selectedDataObj = getSelectedDataObject(selectedTagNumber)
-//        if showTextField {
-//            pubSubTitleText.alpha = 0.0
-//            if selectedTagNumber == 8 { // This is a phone number
-//                pubTitleText.text = selectedDataObj?.userData as String
-//                pubTitleText.keyboardType = UIKeyboardType.PhonePad
-//            }
-//            else {
-//                pubTitleText.text = selectedDataObj?.cellText
-//            }
-//            
-//            
-//        }
-//        else {
-//            pubTitleText.alpha = 0.0
-//            let frameColor = UIColor(red: 0.80, green: 0.80, blue: 0.80, alpha: 1.00)
-//            pubSubTitleText.layer.borderWidth = CGFloat(1.0)
-//            pubSubTitleText.layer.borderColor = frameColor.CGColor
-//            pubSubTitleText.layer.cornerRadius = CGFloat(5.0)
-//            pubSubTitleText.text = selectedDataObj?.cellText
-//        }
+        self.textField.delegate = self
+        self.textView.delegate = self
+        configureState()
+        configureInitialText()
     }
     
+    func configureInitialText() {
+        var initialText = ""
+        if self.celldata.containsUserData {
+            initialText = self.celldata.cellTitle
+        }
+        
+        switch self.state {
+        case .textField:
+            self.textField.text = initialText
+        
+        case .textView:
+            self.textView.text = initialText
+        }
+    }
+    
+    func configureState() {
+        self.textView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.textView.layer.borderWidth = 1
+        self.textView.layer.cornerRadius = 2
+        
+            switch self.state {
+                
+            case DisplayState.textField:
+                self.textField.alpha = 1
+                self.textField.becomeFirstResponder()
+                self.textView.alpha = 0
+                
+            case DisplayState.textField:
+                self.textField.alpha = 0
+                self.textView.alpha = 1
+                self.textView.becomeFirstResponder()
+            default:
+                break
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        self.dissmissKeyBoard()
+        switch self.state {
+        case .textField:
+            if !self.textField.text.isEmpty {
+                self.celldata.userData = self.textField.text
+                self.celldata.cellTitle = self.textField.text
+                self.celldata.containsUserData = true
+            }
+        
+        case .textView:
+            if !self.textView.text.isEmpty {
+                self.celldata.userData = self.textView.text
+                self.celldata.cellTitle = self.textView.text
+                self.celldata.containsUserData = true
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+        textView.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        self.dissmissKeyBoard()
+    }
+    
+    func dissmissKeyBoard() {
+        self.textField.resignFirstResponder()
+        self.textView.resignFirstResponder()
+    }
+    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+        }
     
-//    private func getSelectedDataObject(selectedTagNumber:Int) -> FCNewPublicationTVCCellData {
-//        return dataSource[selectedTagNumber]
-//    }
-    
-    /*
-    override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
-    //if (segue.identifier == "showPublicationTitleEditor") {
-    //let pubEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
-    updateDataSource()
-    //pubEditorTVC.dataSource = dataSource
-    //pubEditorTVC.isDataSourceEdited = true
-    
-    //}
-    }*/
-    
-}
+   }

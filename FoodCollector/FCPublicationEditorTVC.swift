@@ -120,8 +120,12 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
 
     
     @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as FCPublishStringFieldsEditorVC
        
+        let sourceVC = segue.sourceViewController as FCPublishStringFieldsEditorVC
+        let cellData = sourceVC.celldata
+        let section = selectedIndexPath!.section
+        self.dataSource[section] = cellData
+        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
     
    
@@ -132,8 +136,10 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     @IBAction func unwindFromTypeOfCollectionEditorVC(segue: UIStoryboardSegue) {
         let sourceVC = segue.sourceViewController as FCPublicationTypeOfPublicationEditorVC
-   
-        reloadTableWithNewData()
+        let cellData = sourceVC.cellData
+        let section = selectedIndexPath!.section
+        self.dataSource[section] = cellData
+        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
     
     @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
@@ -142,25 +148,30 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+    // Each section represents a cell
+    // 0.  Title
+    // 1.  Subtitle
+    // 2.  Address + latitude + longitude
+    // 3.  Start date
+    // 4.  End date
+    // 5.  Type of collection
+    // 6.  Photo
+    // 7.  Take off air button
+    // 8.  Publish button
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        self.selectedIndexPath = indexPath
+        
         switch indexPath.section {
-        case 0, 1, 8: // Title, Subtutle & Phone number
-            self.performSegueWithIdentifier("showPublicationStringFieldsEditor", sender: indexPath.row)
+        case 0, 1: // Title, Subtutle
+            self.performSegueWithIdentifier("showPublicationStringFieldsEditor", sender: nil)
         case 2: // Address
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
-        case 4, 5: // Start & End date
+        case 4: // Start & End date
             self.performSegueWithIdentifier("showPublicationDateEditor", sender: indexPath.row)
-        case 6: // Type of collection
-            self.performSegueWithIdentifier("showPublicationTypeOfCollectionEditor", sender: indexPath.row)
+        case 5: // Type of collection
+            self.performSegueWithIdentifier("showPublicationTypeOfCollectionEditor", sender: nil)
         case 10: // Image picker
             self.presentImagePickerController()
         case 11: // Take off-air
@@ -210,10 +221,14 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
-        println("SENDER TAG: \(sender)")
+        
+        let section = self.selectedIndexPath!.section
+        let cellData = self.dataSource[section]
+        
         if (segue.identifier == "showPublicationStringFieldsEditor") {
             let pubEditorVC = segue!.destinationViewController as FCPublishStringFieldsEditorVC
-            
+            pubEditorVC.celldata = cellData
+            pubEditorVC.state = FCPublishStringFieldsEditorVC.DisplayState(rawValue: section)!
         }
         
         if (segue.identifier == "showPublicationDateEditor") {
@@ -222,7 +237,8 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         }
         
         if (segue.identifier == "showPublicationTypeOfCollectionEditor") {
-        
+            let typeOfCollectingEditorVC = segue!.destinationViewController as FCPublicationTypeOfPublicationEditorVC
+            typeOfCollectingEditorVC.cellData = cellData
         }
         
         if (segue.identifier == "showPublicationAdressEditor") {
@@ -278,23 +294,40 @@ extension  FCPublicationEditorTVC {
                         cellData.containsUserData = true
                         cellData.cellTitle = publication.subtitle ?? kPublishSubtitle
                     
-                    case 3:
+                    case 2:
                         //publication address
                         var addressDict: [String: AnyObject] = ["adress":publication.address ,"Latitude":publication.coordinate.latitude, "longitude" : publication.coordinate.longitude]
                         cellData.userData = addressDict
                         cellData.containsUserData = true
                         cellData.cellTitle = publication.address
 
-                    case 4:
+                    case 3:
                         //publication starting date
                         cellData.userData = publication.startingDate
                         cellData.containsUserData = true
                         cellData.cellTitle = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.startingDate)
-                    case 5:
+                    case 4:
                         //publication ending date
                         cellData.userData = publication.endingDate
                         cellData.containsUserData = true
                         cellData.cellTitle = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.endingDate)
+                        
+                    case 5:
+                        //publication type of collecting
+                     
+                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : publication.typeOfCollecting.rawValue , kPublicationContactInfoKey : publication.contactInfo!]
+                        
+                        cellData.userData = typeOfCollectingDict
+                        cellData.containsUserData = true
+                        var cellTitle = ""
+                        switch publication.typeOfCollecting {
+                        case .FreePickUp:
+                            cellTitle = kTypeOfCollectingFreePickUpTitle
+                        case .ContactPublisher:
+                            var callString = String.localizedStringWithFormat("התקשר: ", "means call to be added before a phone number")
+                            cellTitle = "\(callString) \(publication.contactInfo)"
+                        }
+                        cellData.cellTitle = cellTitle
                     
                     case 6:
                         //publication photo
