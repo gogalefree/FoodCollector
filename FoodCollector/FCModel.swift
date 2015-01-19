@@ -15,6 +15,8 @@ let kRecievedNewPublicationNotification = "RecievedNewPublicationNotification"
 let kDeletedPublicationNotification = "DeletedPublicationNotification"
 let kRecivedPublicationReportNotification = "RecivedPublicationReportNotification"
 let kRecievedPublicationRegistrationNotification = "kRecievedPublicationRegistrationNotification"
+let kNewUserCreatedPublicationNotification = "newUserCreatedPublicationNotification"
+
 let kDeviceUUIDKey = "seviceUUIDString"
 let kDistanceFilter = 5.0
 
@@ -148,13 +150,47 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 }
             }
         }
-        //append the new publication
-        self.publications.append(recievedPublication)
-        FCUserNotificationHandler.sharedInstance.registerLocalNotification(recievedPublication)
-        self.postRecievedNewPublicationNotification()
         
-        //save the new data
-        //self.savePublications()
+        if !publicationExists(recievedPublication){
+            //append the new publication
+            self.publications.append(recievedPublication)
+            FCUserNotificationHandler.sharedInstance.registerLocalNotification(recievedPublication)
+            self.postRecievedNewPublicationNotification()
+        
+            //save the new data
+            //self.savePublications()
+        }
+    }
+    
+    func publicationExists(publication: FCPublication) -> Bool{
+        var exists = false
+        for existingPublication in self.publications {
+            if publication.uniqueId == existingPublication.uniqueId &&
+                publication.version == existingPublication.version {
+                    exists = true
+                    break
+            }
+        }
+        return exists
+    }
+    
+    func addUserCreatedPublication(publication: FCPublication) {
+        if !userCreatedPublicationExists(publication){
+            self.userCreatedPublications.append(publication)
+            self.postNewUserCreatedPublicationNotification()
+        }
+    }
+    
+    func userCreatedPublicationExists(publication: FCPublication) -> Bool {
+        var exists = false
+        for existingPublication in self.userCreatedPublications {
+            if existingPublication.version == publication.version &&
+                existingPublication.uniqueId == publication.uniqueId {
+                    exists = true
+                    break
+            }
+        }
+        return exists
     }
     
     func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {
@@ -224,6 +260,10 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func postRecivedPublicationRegistrationNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self)
+    }
+    
+    func postNewUserCreatedPublicationNotification() {
+        NSNotificationCenter.defaultCenter().postNotificationName(kNewUserCreatedPublicationNotification, object: self)
     }
     
     //MARK: - User registered publications

@@ -37,7 +37,7 @@ protocol FCServerProtocol {
     ///  to send push notification of a new Publication with defined radius.
     /// called at launch & before the app goes to background mode.
     ///
-    func reportUserLocation(location:CLLocation)
+    func reportUserLocation(location:CLLocationCoordinate2D)
     
     ///
     /// fetch all publications from server.
@@ -58,18 +58,18 @@ protocol FCServerProtocol {
     ///
     /// informs the server that a user deleted his publication
     ///
-    func deletePublication(publication:FCPublication)
+    func takePublicationOffAir(publication: FCPublication, completion: (success:Bool)->Void)
     
     ///
     /// post a new Publication to the server
     ///
-    func postPublication(publication:FCPublication, completion:(success: Bool, uniqueID: Int)->())
+    func postNewCreatedPublication(params:[String:AnyObject], completion:(success: Bool, uniqueID: Int, version: Int)->())
     
     ///
-    /// search for address with google location autocomplete api
+    /// post an edited Publication to the server. the publication must be expired or taken off air before
     ///
-    func googleLocationAddressesWithKeyWord(searchString:String, completion:(success: Bool, results: [String])->())
-    
+    func postEditedPublication(params:[String:AnyObject],publication: FCPublication, completion:(success: Bool,  version: Int)->())
+   
     ///
     /// register or unregister the current user to a publication
     func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage)

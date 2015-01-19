@@ -25,7 +25,7 @@ class FCPublicationsTVCell: UITableViewCell {
     }
     
     func setUp(publication: FCPublication) {
-        self.photoImageView.image = UIImage(named: "upp90.jpg") //change to default image
+        self.photoImageView.image = UIImage(named: "No-photo") //change to default image
         self.titleLabel.text = publication.title
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
         self.iconImageView.image = FCIconFactory.smallIconForPublication(publication)

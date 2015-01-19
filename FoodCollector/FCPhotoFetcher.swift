@@ -52,6 +52,42 @@ class FCPhotoFetcher: NSObject {
         })
     }
     
+    func uploadPhotoForPublication(publication : FCPublication) {
+        
+        
+        let imageToUpload = publication.photoData.photo!
+        let uploadFilePath = NSTemporaryDirectory().stringByAppendingPathComponent(publication.photoUrl)
+        let uploadFileURL = NSURL.fileURLWithPath(uploadFilePath)
+        
+        UIImageJPEGRepresentation(imageToUpload,0).writeToURL(uploadFileURL!, atomically: true)
+        
+        // return image as JPEG. May return nil if image has no CGImageRef or invalid bitmap format. compression is 0(most)..1(least)
+        // the more it's compressed the smaller the file is
+        
+        let uploadRequest = AWSS3TransferManagerUploadRequest()
+        uploadRequest.bucket = "foodcollector"
+        uploadRequest.key = publication.photoUrl;
+        uploadRequest.body = uploadFileURL
+        
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        transferManager.upload(uploadRequest).continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+            
+            if task.error != nil {
+                
+                println("task error: \(task.error)")
+            }
+            
+            if task.result != nil {
+                
+                println("success: \(task.result)")
+            }
+            
+            return nil
+        })
+        
+    }
+
+    
     deinit {
         println("DEINIT PHOTO FETCHER")
     }

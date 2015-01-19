@@ -12,7 +12,8 @@ import MapKit
 import CoreLocation
 
 let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
-
+let kActivityCenterTitle = String.localizedStringWithFormat("מרכז הפעילות","activity center navigation bar title")
+let kCollctorTitle = String.localizedStringWithFormat("אוסף","collector root vc navigation bar title")
 
 class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     
@@ -198,7 +199,7 @@ extension FCCollectorRootVC {
                 self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
                 self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.whiteColor()]
                 self.tabBarController?.tabBar.center = self.tabbarHiddenCenter
-             
+                self.title = kActivityCenterTitle
                 }, completion: nil)
         }
     }
@@ -214,6 +215,8 @@ extension FCCollectorRootVC {
                 self.navigationController?.navigationBar.tintColor = UIColor.blueColor()
                 self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.blackColor()]
                 self.tabBarController?.tabBar.center = self.tabbarVisibleCenter
+                self.title = kCollctorTitle
+
                 
                 }, completion: { (finished) -> Void in
                     

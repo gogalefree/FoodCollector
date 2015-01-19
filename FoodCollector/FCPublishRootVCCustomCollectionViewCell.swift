@@ -28,7 +28,7 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 var statusImg : UIImage
                 let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
                 
-                if FCDateFunctions.PublicationDidExpired(publication.endingDate){
+                if FCDateFunctions.PublicationDidExpired(publication.endingDate) || !publication.isOnAir{
                     status = String.localizedStringWithFormat("הסתיים" , "the puclication is off the air")
                     statusImg = UIImage(named: "Red-dot")!
                     publication.isOnAir = false

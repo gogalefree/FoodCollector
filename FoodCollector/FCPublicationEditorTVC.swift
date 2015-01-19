@@ -122,6 +122,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.selectedIndexPath = indexPath
         
         switch indexPath.section {
@@ -146,7 +147,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     //MARK: - unwind from editors
-
+    
     @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
         
         let sourceVC = segue.sourceViewController as FCPublishStringFieldsEditorVC
@@ -182,7 +183,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     //MARK: - TakeOffAir and Publish buttons logic
-
+    
     private func shouldEnableTakeOfAirButton() {
         
         switch self.state {
@@ -205,9 +206,26 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
             publication.isOnAir = false
             self.takeOffAirButtonEnabled = false
             self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: .Automatic)
+            
+            //inform server and model
+            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+               
+                if success{
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        self.navigationController?.popViewControllerAnimated(true)
+                        let publicationIdentifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId, version: self.publication!.version)
+                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+                        FCModel.sharedInstance.deletePublication(publicationIdentifier)
+                    })
+                }
+                else{
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not take your event off air", aMessage: "try again later")
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
         }
-        
-        //inform server and model
     }
     
     
@@ -230,13 +248,13 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
             //check dates
             var normalDates = true
             var expired = true
-
+            
             if self.dataSource[3].containsUserData && self.dataSource[4].containsUserData {
-
+                
                 let startindDate =  self.dataSource[3].userData as NSDate
                 let endingDate = self.dataSource[4].userData as NSDate
                 expired = FCDateFunctions.PublicationDidExpired(endingDate)
-
+                
                 //check if ending date is later than starting date
                 if startindDate.timeIntervalSince1970 >= endingDate.timeIntervalSince1970 {normalDates = false}
             }
@@ -257,22 +275,120 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     func publish() {
         
-        //        let title = self.dataSource[0].userData as String
-        //        let subtitle = self.dataSource[1].userData as String
-        //        let address = self.dataSource[2].userData as String
-        //        let latitude = self.dataSource[2].addressLatitude as Double
-        //        let longitude = self.dataSource[2].addressLongtitude as Double
-        //        let startingDate = self.dataSource[4].userData as NSDate
-        //        let endingDate = self.dataSource[5].userData as NSDate
-        //        let typeOfCollecting = self.dataSource[6].userData as Int
-        //        println("NEW PUBLICATION \(isNewPublication)")
-        //
-        //        let image = self.dataSource[8].userData as UIImage
+        switch self.state {
+        case .CreateNewPublication:
+            publishNewCreatedPublication()
+        case .EditPublication:
+            publishEdidtedPublication()
+        }
+    }
+    
+    func publishNewCreatedPublication() {
+        var params = self.prepareParamsDictToSend()
         
+        FCModel.sharedInstance.foodCollectorWebServer.postNewCreatedPublication(params, completion: {
+            (success: Bool, uniqueID: Int, version: Int) -> () in
+            if success {
+                params[kPublicationUniqueIdKey] = uniqueID
+                params[kPublicationVersionKey] = version
+                let publication = FCPublication.userCreatedPublicationWithParams(params)
+                publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    self.navigationController?.popViewControllerAnimated(true)
+                    
+                    
+                    //add the new publication
+                    FCModel.sharedInstance.addPublication(publication)
+                    
+                    //add user created publication
+                    FCModel.sharedInstance.addUserCreatedPublication(publication)
+                    
+                    //send the photo
+                    let uploader = FCPhotoFetcher()
+                    uploader.uploadPhotoForPublication(publication)
+                })
+            }
+                
+            else {
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
+                self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    
+    
+    func publishEdidtedPublication() {
+        
+        var params = self.prepareParamsDictToSend()
+        
+        FCModel.sharedInstance.foodCollectorWebServer.postEditedPublication(params, publication: self.publication!) { (success, version) -> () in
+            
+            if success {
+                
+                params[kPublicationUniqueIdKey] = self.publication!.uniqueId
+                params[kPublicationVersionKey] = version
+                let publication = FCPublication.userCreatedPublicationWithParams(params)
+                publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    self.navigationController?.popViewControllerAnimated(true)
+                    
+                    FCModel.sharedInstance.addPublication(publication)
+                    
+                    FCModel.sharedInstance.addUserCreatedPublication(publication)
+                    
+                    let uploader = FCPhotoFetcher()
+                    uploader.uploadPhotoForPublication(publication)
+                })
+            }
+                
+            else {
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event",aMessage: "try again later")
+                self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func prepareParamsDictToSend() -> [String: AnyObject]{
+        // 0.  Title
+        // 1.  Subtitle
+        // 2.  Address + latitude + longitude
+        // 3.  Start date
+        // 4.  End date
+        // 5.  Type of collection
+        // 6.  Photo
+        // 7.  Take off air button
+        // 8.  Publish button
+        var params = [String: AnyObject]()
+        params[kPublicationTitleKey] = self.dataSource[0].userData as String
+        params[kPublicationSubTitleKey] = self.dataSource[1].userData as String
+        let addressDict = self.dataSource[2].userData as [String: AnyObject]
+        params[kPublicationAddressKey] = addressDict["adress"] as String
+        params[kPublicationlatitudeKey] = addressDict["Latitude"] as Double
+        params[kPublicationLongtitudeKey] = addressDict["longitude"] as Double
+        
+        let strtingDate = self.dataSource[3].userData as NSDate
+        let startingDateInterval = strtingDate.timeIntervalSince1970
+        let startingDateInt: Int = Int(startingDateInterval)
+        params[kPublicationStartingDateKey] = startingDateInt as Int
+        
+        let endingDate = self.dataSource[4].userData as NSDate
+        let endingDateInterval = endingDate.timeIntervalSince1970
+        let endingDateInt: Int = Int(endingDateInterval)
+        params[kPublicationEndingDateKey] = endingDateInt as Int
+        
+        let typeOfCollectingDict = self.dataSource[5].userData as [String : AnyObject]
+        params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
+        params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as Int
+        return params
     }
     
     //MARK: - Navigation
-
+    
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         
         let section = self.selectedIndexPath!.section

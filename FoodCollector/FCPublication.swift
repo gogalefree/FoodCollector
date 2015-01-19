@@ -181,5 +181,27 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         return publication
     }
     
+    class func userCreatedPublicationWithParams(params: [String : AnyObject]) -> FCPublication {
+        let aUniquId = params[kPublicationUniqueIdKey]! as Int
+        let aTitle = params[kPublicationTitleKey]! as String
+        let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
+        let anAddress = params[kPublicationAddressKey] as? String ?? ""
+        let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey]! as Int)
+        let aLatitude =  params[kPublicationlatitudeKey]! as Double
+        let aLongtitude = params[kPublicationLongtitudeKey]! as Double
+        let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
+        let startingDateInt = params[kPublicationStartingDateKey] as Int
+        let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(startingDateInt))
+        
+        let endingDateInt = params[kPublicationEndingDateKey] as Int
+        let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(endingDateInt))
+        let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
+        let aVersion = params[kPublicationVersionKey]! as Int
+        let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
+        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
+        return publication
+
+    }
+    
 }
 

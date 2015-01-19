@@ -29,6 +29,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         super.viewDidLoad()
         self.textField.delegate = self
         self.textField.alpha = 0
+        self.textField.text = ""
         configureInitialState()
     }
     
@@ -54,7 +55,10 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         let unwindSegueId = "unwindFromTypeOfCollectionEditorVC"
         let userChosenTypeOfCollectin = self.collectionTypePicker.selectedRowInComponent(0) + 1
         let typeOfCollecting = FCTypeOfCollecting(rawValue: userChosenTypeOfCollectin)!
-        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : userChosenTypeOfCollectin , kPublicationContactInfoKey : self.textField.text]
+        var contactInfo = ""
+        if userChosenTypeOfCollectin == 1 {contactInfo = "no"}
+        else {contactInfo = self.textField.text}
+        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : userChosenTypeOfCollectin , kPublicationContactInfoKey : contactInfo]
         
         var cellTitle = ""
         

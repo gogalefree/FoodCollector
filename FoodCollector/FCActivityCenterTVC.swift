@@ -18,9 +18,9 @@ class FCActivityCenterTVC: UITableViewController {
     
     let publisherTitle = String.localizedStringWithFormat("תורם", "activity center table view publisher section title. means contributer")
     
-    let collectorIcon = UIImage(named: "PinGreen.png")
+    let collectorIcon = UIImage(named: "Collect.png")
     
-    let publisherIcon = UIImage(named: "PinGreen.png")
+    let publisherIcon = UIImage(named: "Donate.png")
     
     var selectedIndexPath: NSIndexPath!
 

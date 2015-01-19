@@ -32,6 +32,10 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             collectionView.alpha = 0.0
             displayNoPublicatiosMessage()
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "newUserCreatedPublication", name: kNewUserCreatedPublicationNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublicationNotification", name: kDeletedPublicationNotification, object: nil)
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -90,6 +94,22 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         }
     }
     
+    func newUserCreatedPublication() {
+        
+        println("New User Created Publication")
+        let publication = FCModel.sharedInstance.userCreatedPublications.last!
+        self.userCreatedPublications.insert(publication, atIndex: 0)
+        self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 0)])
+        //TODO: check if should insertat the begining
+        
+    }
+    
+    //this is triggered by a NSNotification.
+    //we reload the collection view since it might have been a user created publication taken off air
+    func didDeletePublicationNotification() {
+        self.collectionView.reloadData()
+    }
+    
     func displayNoPublicatiosMessage(){
         let recWidth = FCDeviceData.screenWidth()/1.4
         let recHight = FCDeviceData.screenHight()/1.4
@@ -105,6 +125,10 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         label.font = UIFont.systemFontOfSize(fontSize)
         label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "No user created publications message")
         self.view.addSubview(label)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
 }

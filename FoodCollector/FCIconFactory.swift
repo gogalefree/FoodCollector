@@ -36,9 +36,9 @@ class FCIconFactory: NSObject {
         switch typeOfCollecting {
             
         case .ContactPublisher:
-            icon = UIImage(named: "PinGreenCall")!
+            icon = UIImage(named: "Green-Call")!
         default:
-            icon = UIImage(named: "PinGreen")!
+            icon = UIImage(named: "Green")!
         }
         
         return icon
@@ -51,9 +51,9 @@ class FCIconFactory: NSObject {
         switch typeOfCollecting {
             
         case .ContactPublisher:
-            icon = UIImage(named: "PinYellowCall")!
+            icon = UIImage(named: "Yellow-Call")!
         default:
-            icon = UIImage(named: "PinYellow")!
+            icon = UIImage(named: "Yellow")!
         }
         
         return icon
@@ -66,9 +66,9 @@ class FCIconFactory: NSObject {
         switch typeOfCollecting {
             
         case .ContactPublisher:
-            icon = UIImage(named: "PinRedCall")!
+            icon = UIImage(named: "Gray-Call")!
         default:
-            icon = UIImage(named: "PinRed")!
+            icon = UIImage(named: "Gray")!
         }
         
         return icon

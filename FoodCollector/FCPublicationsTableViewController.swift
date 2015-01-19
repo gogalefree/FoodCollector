@@ -32,11 +32,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
             let one : FCPublication = a1
             let two : FCPublication = a2
             return one.distanceFromUserLocation < two.distanceFromUserLocation
-            
-            
         })
-        
-        
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

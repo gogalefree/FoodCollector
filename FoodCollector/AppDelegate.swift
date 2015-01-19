@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
@@ -45,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
             }
         }
+//        let location = CLLocationCoordinate2DMake(0, 0)
+//        FCModel.sharedInstance.foodCollectorWebServer.reportUserLocation(location)
         
         registerAWSS3()
         return true

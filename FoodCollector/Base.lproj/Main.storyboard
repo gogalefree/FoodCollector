@@ -324,7 +324,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aGN-Uz-n91" id="MeU-0E-Rd7">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-P3-Mfa">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-P3-Mfa">
                                             <rect key="frame" x="158" y="8" width="284" height="284"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="284" id="0KO-Xh-ikx"/>
@@ -484,10 +484,10 @@
             </objects>
             <point key="canvasLocation" x="3623" y="-440"/>
         </scene>
-        <!--Activity CenterTVC-->
+        <!--מרכז הפעילות-->
         <scene sceneID="z6c-7A-Y3g">
             <objects>
-                <tableViewController storyboardIdentifier="FCActivityCenterTVC" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FCActivityCenterTVC" title="מרכז הפעילות" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="fCA-8J-hlL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -537,7 +537,7 @@
                             <outlet property="delegate" destination="IOL-GY-9os" id="Rd7-0A-I9Q"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="tFN-0g-Una"/>
+                    <navigationItem key="navigationItem" title="מרכז הפעילות" id="tFN-0g-Una"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dyn-7Y-fr6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -583,12 +583,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kY9-ko-GZu">
-                        <barButtonItem key="leftBarButtonItem" systemItem="compose" id="hT8-MR-50Q">
+                        <barButtonItem key="leftBarButtonItem" image="Avtivity-center" id="hT8-MR-50Q">
                             <connections>
                                 <action selector="ShowActivityCenter:" destination="vXZ-lx-hvc" id="ump-Gi-dD8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Table" id="Rj4-yt-P4Y">
+                        <barButtonItem key="rightBarButtonItem" image="Table-view" id="Rj4-yt-P4Y">
                             <connections>
                                 <segue destination="f4d-b5-Oid" kind="show" identifier="pushPublicationsTVC" id="aZ2-oz-GvC"/>
                             </connections>
@@ -615,7 +615,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
                                 <rect key="frame" x="175" y="100" width="250" height="246"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="246" id="fqa-zv-v0g"/>
@@ -811,7 +811,7 @@
         <scene sceneID="VED-7b-aGp">
             <objects>
                 <navigationController title="Collect" automaticallyAdjustsScrollViewInsets="NO" id="V26-sE-fum" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Collect" id="h0a-Jz-DGL"/>
+                    <tabBarItem key="tabBarItem" title="" image="Collect-off" id="h0a-Jz-DGL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L1Q-lq-Uh3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -826,10 +826,10 @@
             </objects>
             <point key="canvasLocation" x="1246" y="293"/>
         </scene>
-        <!--All Publications-->
+        <!--הארועים שלי-->
         <scene sceneID="TRz-H0-Ogd">
             <objects>
-                <viewController title="All Publications" id="qaa-G1-Puy" customClass="FCPublishRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="הארועים שלי" id="qaa-G1-Puy" customClass="FCPublishRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wYH-Xz-JC6"/>
                         <viewControllerLayoutGuide type="bottom" id="cW1-74-r4k"/>
@@ -900,7 +900,7 @@
                                                         <constraint firstAttribute="width" priority="999" constant="320" id="r2F-cv-J6S"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="TEMPFoodIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
                                                     <rect key="frame" x="248" y="13" width="64" height="64"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="100" constant="90" id="hc7-yt-SgB"/>
@@ -980,7 +980,7 @@
                             <constraint firstAttribute="centerX" secondItem="F1S-aM-6hz" secondAttribute="centerX" id="jhE-Rg-21t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="My Publications" id="bjZ-lv-Ao0">
+                    <navigationItem key="navigationItem" title="הארועים שלי" id="bjZ-lv-Ao0">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aGi-dR-bYS">
                             <connections>
                                 <segue destination="OX1-Os-hYj" kind="show" identifier="showNewPublicationEditorTVC" id="7Uz-wH-dgX"/>
@@ -1014,11 +1014,11 @@
             </objects>
             <point key="canvasLocation" x="434" y="293"/>
         </scene>
-        <!--Publish-->
+        <!--תורם-->
         <scene sceneID="YRb-Ue-goy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="swm-m4-wSU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Publish" id="ho0-XI-XhJ"/>
+                    <tabBarItem key="tabBarItem" title="תורם" image="Donate-off" id="ho0-XI-XhJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MTn-JS-G1s">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1051,10 +1051,10 @@
             </objects>
             <point key="canvasLocation" x="1715" y="-670"/>
         </scene>
-        <!--Publication EditorTVC-->
+        <!--אירוע חדש-->
         <scene sceneID="NU4-FC-Iq9">
             <objects>
-                <tableViewController id="OX1-Os-hYj" customClass="FCPublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="אירוע חדש" id="OX1-Os-hYj" customClass="FCPublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="csm-Ou-Igg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1143,7 +1143,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXF-oP-PNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2802" y="1024"/>
+            <point key="canvasLocation" x="2845" y="1024"/>
         </scene>
         <!--Image-->
         <scene sceneID="K1Q-5c-8XF">
@@ -1418,8 +1418,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Avtivity-center" width="27" height="30"/>
+        <image name="Collect-off" width="49" height="49"/>
+        <image name="Donate-off" width="49" height="49"/>
         <image name="Green-dot" width="7" height="7"/>
-        <image name="TEMPFoodIcon" width="64" height="64"/>
+        <image name="No-photo" width="118" height="118"/>
+        <image name="Table-view" width="27" height="30"/>
         <image name="bell-26.png" width="26" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>

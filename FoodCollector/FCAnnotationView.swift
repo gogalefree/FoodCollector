@@ -39,9 +39,9 @@ class FCAnnotationView: MKAnnotationView {
         switch typeOfCollecting {
      
             case .ContactPublisher:
-                self.image = UIImage(named: "PinGreenCall")
+                self.image = UIImage(named: "Green-Call")
             default:
-                self.image = UIImage(named: "PinGreen")
+                self.image = UIImage(named: "Green")
         }
     }
     
@@ -50,9 +50,9 @@ class FCAnnotationView: MKAnnotationView {
         switch typeOfCollecting {
             
         case .ContactPublisher:
-            self.image = UIImage(named: "PinYellowCall")
+            self.image = UIImage(named: "Yellow-Call")
         default:
-            self.image = UIImage(named: "PinYellow")
+            self.image = UIImage(named: "Yellow")
         }
     }
     
@@ -61,9 +61,9 @@ class FCAnnotationView: MKAnnotationView {
         switch typeOfCollecting {
             
         case .ContactPublisher:
-            self.image = UIImage(named: "PinRedCall")
+            self.image = UIImage(named: "Gray-Call")
         default:
-            self.image = UIImage(named: "PinRed")
+            self.image = UIImage(named: "Gray")
         }        
     }
     

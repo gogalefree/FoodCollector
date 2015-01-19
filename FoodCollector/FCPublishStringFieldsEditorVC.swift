@@ -47,7 +47,7 @@ class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITex
     }
     
     func configureState() {
-        self.textView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.textView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor
         self.textView.layer.borderWidth = 1
         self.textView.layer.cornerRadius = 2
         
@@ -58,7 +58,7 @@ class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITex
                 self.textField.becomeFirstResponder()
                 self.textView.alpha = 0
                 
-            case DisplayState.textField:
+            case DisplayState.textView:
                 self.textField.alpha = 0
                 self.textView.alpha = 1
                 self.textView.becomeFirstResponder()

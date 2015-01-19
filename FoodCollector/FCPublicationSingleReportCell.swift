@@ -37,7 +37,7 @@ class FCPublicationSingleReportCell: UITableViewCell {
     }
     
     func noReports() {
-        self.reportLabel.text = String.localizedStringWithFormat("No reports", "the title in the table view cell displayed when a publication has no reports")
+        self.reportLabel.text = String.localizedStringWithFormat("אין דיווחים", "the title in the table view cell displayed when a publication has no reports")
         self.reportDate.text = ""
         self.reportIcon.image = FCIconFactory.greenImage(FCTypeOfCollecting.FreePickUp)
 //        self.layoutIfNeeded()
