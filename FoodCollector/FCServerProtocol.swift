@@ -14,10 +14,6 @@ import UIKit
 protocol FCServerProtocol {
     
     
-    ///
-    /// receives coordinate fro specified address
-    ///
-    func googleGeoCodeForAddress(address:String)->CLLocationCoordinate2D
     
     ///
     /// reports device token to our server to use for APNS.
@@ -27,17 +23,13 @@ protocol FCServerProtocol {
     
     func reportDeviceUUID(uuid: String)
     
-    ///
-    /// downloads an Image for Publication. must be implemented async.
-    ///
-    func imageForPublication(aPublication: FCPublication)->UIImage
     
     ///
     /// reports the user’s last known location. the server uses this information
     ///  to send push notification of a new Publication with defined radius.
     /// called at launch & before the app goes to background mode.
     ///
-    func reportUserLocation(location:CLLocationCoordinate2D)
+    func reportUserLocation()
     
     ///
     /// fetch all publications from server.

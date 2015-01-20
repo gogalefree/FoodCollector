@@ -17,20 +17,15 @@ let reportsForPublicationBaseURL = "https://fd-server.herokuapp.com/publications
 //<id>/reports.json?publication_version=<version>
 let reportUserLocationURL = "https://fd-server.herokuapp.com/active_devices/dev_uuid.json"
 
+//https://fd-server.herokuapp.com/publications/3/registered_user_for_publications.json
+
 public class FCMockServer: NSObject , FCServerProtocol {
     
-    ///
-    /// receives coordinate fro specified address
-    ///
-    public func googleGeoCodeForAddress(address:String)->CLLocationCoordinate2D {
-        
-        return CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    }
     
     ///
     /// reports device token to our server to use for APNS.
     /// old token can be nil (for the first report).
-    ///we don't use the old token
+    /// we don't use the old token
     public func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String) {
         
         var params = [String: AnyObject]()
@@ -38,10 +33,11 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["dev_uuid"] = FCModel.sharedInstance.deviceUUID
         params["remote_notification_token"] = newtoken
         
-        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        println(params)
+        var dictToSend = ["active_device" : params]
+        let jsonData = NSJSONSerialization.dataWithJSONObject(dictToSend, options: nil, error: nil)
         let devId = FCModel.sharedInstance.deviceUUID!
         let url = NSURL(string: registerForPushNotificationsURL)
+        
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
         request.HTTPBody = jsonData!
@@ -49,7 +45,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             let serverResponse = response as NSHTTPURLResponse
             print("respons: \(serverResponse.description)")
@@ -58,35 +55,35 @@ public class FCMockServer: NSObject , FCServerProtocol {
             if error != nil || serverResponse.statusCode != 200 {
                 //we delete the key from UD so the app tries again in next launch
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
-                return
             }
-            
-            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
+            else {
+                
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
+            }
         })
         
         task.resume()
     }
     
     public func reportDeviceUUID(uuid: String) {
-        println("device uuid: \(uuid)")
         
         let deviceId = uuid
         var remoteNotificationToken = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? String
-        if remoteNotificationToken == nil {remoteNotificationToken = ""}
+        if remoteNotificationToken == nil {remoteNotificationToken = "no"}
         let isIos = true
         let currentLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
         let curruntLongitude = FCModel.sharedInstance.userLocation.coordinate.longitude
         
-        var params = NSMutableDictionary()
-        
+        var params = [String:AnyObject]()
         params["dev_uuid"] = deviceId
         params["remote_notification_token"] = remoteNotificationToken
         params["is_ios"] = isIos
         params["last_location_latitude"] = currentLatitude
         params["last_location_longitude"] = curruntLongitude
         
-        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        // println(params)
+        var dictToSend = ["active_device" : params]
+        let jsonData = NSJSONSerialization.dataWithJSONObject(dictToSend, options: nil, error: nil)
+        
         let url = NSURL(string: reportActiveDeviceURL)
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
@@ -95,10 +92,10 @@ public class FCMockServer: NSObject , FCServerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             let serverResponse = response as NSHTTPURLResponse
-            print("respons: \(serverResponse.description)")
             
             if error != nil || serverResponse.statusCode != 200 {
                 //we delete the key from UD so the app tries again in next launch
@@ -110,27 +107,25 @@ public class FCMockServer: NSObject , FCServerProtocol {
         task.resume()
     }
     
-    ///
-    /// downloads an Image for Publication. must be implemented async.
-    ///
-    public func imageForPublication(aPublication: FCPublication)->UIImage {
-        return UIImage()
-    }
     
     ///
     /// reports the user’s last known location. the server uses this information
     ///  to send push notification of a new Publication with defined radius.
     /// called at launch & before the app goes to background mode.
     ///
-    public func reportUserLocation(location: CLLocationCoordinate2D) {
-      
-        var params = [String: AnyObject]()
-        params["location_longitude"] = 34.934164
-        params["location_latitude"] = 32.381214
-        params["dev_uuid"] = FCModel.sharedInstance.deviceUUID
-
-        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
     
+    public func reportUserLocation() {
+        
+        let location = FCModel.sharedInstance.userLocation.coordinate
+        var params = [String: AnyObject]()
+        params["last_location_longitude"] = location.longitude
+        params["last_location_latitude"] = location.latitude
+        params["dev_uuid"] = FCModel.sharedInstance.deviceUUID
+        
+        var dictToSend = ["active_device" : params]
+        let jsonData = NSJSONSerialization.dataWithJSONObject(dictToSend, options: nil, error: nil)
+        println(dictToSend)
+        
         let url = NSURL(string: reportUserLocationURL)
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
@@ -139,16 +134,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             let serverResponse = response as NSHTTPURLResponse
-            print("respons: \(serverResponse.description)")
-            println("status code: \(serverResponse.statusCode) ***************")
             
             if error != nil || serverResponse.statusCode == 200 {
-               println("success")
+                println("success")
             }
-            
         })
         
         task.resume()
@@ -159,68 +152,107 @@ public class FCMockServer: NSObject , FCServerProtocol {
     ///
     public func downloadAllPublicationsWithCompletion(completion:(thePublications: [FCPublication]) -> Void){
         
-        let pubs = self.makePublication()
-        completion(thePublications: pubs)
-        /*
+        //Uncomment to use local mock data
+        //let pubs = self.makePublication()
+        //completion(thePublications: pubs)
+        
         var publications = [FCPublication]()
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getAllPublicationsURL)
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
-        
-        let serverResponse = response as NSHTTPURLResponse
-        print("response: \(serverResponse.description)")
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-        
-        let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
-        
-        for publicationDict in arrayOfPublicationDicts {
-        println("PUBLICATION DICT: \(publicationDict)")
-        let publication = FCPublication.publicationWithParams(publicationDict)
-        publications.append(publication)
-        }
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        completion(thePublications: pubs)
-        })
-        })
+            
+            let serverResponse = response as NSHTTPURLResponse
+            print("response: \(serverResponse.description)")
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+                
+                let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
+                
+                for publicationDict in arrayOfPublicationDicts {
+                   
+                    let publication = FCPublication.publicationWithParams(publicationDict)
+                    publications.append(publication)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    completion(thePublications: publications)
+                })
+            })
         })
         task.resume()
-        */
     }
     
     ///
     /// fetch all reports to a certain Publication
     ///
-    public func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport]?)->()) {
-
-        var urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)" + "/reports.json?publication_version=" + "\(publication.version)"
-        //download
-        //parse
-        //pass to the completion handler
+    public func reportsForPublication(publication:FCPublication, completion:
+        (success: Bool, reports: [FCOnSpotPublicationReport]?)->()) {
+        
+        var urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)" + "/publication_reports.json?publication_version=" + "\(publication.version)"
+        
+        //uncomment to check the mock report on server
+        //var urlTempString = reportsForPublicationBaseURL + "3" + "/publication_reports.json?publication_version=1"
+        
+        var publicationReports = [FCOnSpotPublicationReport]()
+        let session = NSURLSession.sharedSession()
+        let url = NSURL(string: urlString)
+        
+        let task = session.dataTaskWithURL(url!, completionHandler: {
+            (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            
+            let serverResponse = response as NSHTTPURLResponse
+            
+            if error == nil && serverResponse.statusCode == 200 {
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+                    
+                    
+                    let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
+                    
+                    
+                    for publicationReportDict in arrayOfReports {
+                       
+                        let reportMessage = publicationReportDict["report"] as Int
+                        let reportDateString = publicationReportDict["date_of_report"] as NSString
+                        let reportDateInt = reportDateString.doubleValue
+                        let timeInterval = NSTimeInterval(reportDateInt)
+                        let reportDate = NSDate(timeIntervalSince1970: timeInterval)
+                        
+                        if reportMessage != 1 || reportMessage != 3 || reportMessage != 5 {continue}
+                        
+                        let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
+                        publicationReports.append(publicationReport)
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        completion(success: true, reports: publicationReports)
+                    })
+                })
+            }
+            else {
+                completion(success: false, reports: nil)
+            }
+        })
+        task.resume()
     }
     
     func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage) {
         
-    }
-    
-    ///
-    /// reports a Report of a Publication by a user that arrived at a publication
-    ///  spot
-    ///
-    public func reportArrivedPublication(publication: FCPublication,withReport report:FCOnSpotPublicationReport) {
-        println("report to server: \(report.onSpotPublicationReportMessage) for publication title: \(publication.title)")
+        //we are currently only registering the user. we shoukd think of how to delete a registration. shoukd ut be through a delete service or add the registration message to this payload.
         
-        var params = [String: AnyObject]()
+        let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)/registered_user_for_publications.json"
+        
+        var params = [String : AnyObject]()
         params["publication_id"] = publication.uniqueId
         params["publication_version"] = publication.version
+        params["date_of_registration"] = Int(NSDate().timeIntervalSince1970)
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
-        params["date_of_report"] = report.date.timeIntervalSince1970
-        params["report"] = report.onSpotPublicationReportMessage.rawValue
         
+        var dicToSend = ["registered_user_for_publication" : params]
         
-        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        println(params)
-        let url = NSURL(string: reportArrivedToPublicationURL) //TODO: insert the url string
+        let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
+        println(dicToSend)
+        let url = NSURL(string: urlString)
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = jsonData
@@ -240,19 +272,53 @@ public class FCMockServer: NSObject , FCServerProtocol {
         })
         
         task.resume()
-    }
-    
-    ///
-    /// informs the server that a user deleted his publication
-    ///
-    public func deletePublication(publication:FCPublication) {
         
     }
     
     ///
+    /// reports a Report of a Publication by a user that arrived at a publication
+    ///  spot
+    ///
+    public func reportArrivedPublication(publication: FCPublication,withReport report:FCOnSpotPublicationReport) {
+       
+        var params = [String: AnyObject]()
+        params["publication_id"] = publication.uniqueId
+        params["publication_version"] = publication.version
+        params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
+        params["date_of_report"] = report.date.timeIntervalSince1970
+        params["report"] = report.onSpotPublicationReportMessage.rawValue
+        
+        var dicToSend = ["publication_report" : params]
+        let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
+        let url = NSURL(string: reportArrivedToPublicationURL) //TODO: insert the url string
+        var request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request,
+            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            
+            if var serverResponse = response as? NSHTTPURLResponse {
+                
+                if error != nil || serverResponse.statusCode != 200 {
+                    //we currently implement as best effort. nothing is done with an error
+                }
+            }
+        })
+        
+        task.resume()
+    }
+    
+    
+    ///
     /// post a new Publication to the server
     ///
-    public func postNewCreatedPublication(params:[String:AnyObject], completion:(success: Bool, uniqueID: Int, version: Int)->()) {
+  
+    public func postNewCreatedPublication(params:[String:AnyObject],
+        completion:(success: Bool, uniqueID: Int, version: Int)->()) {
         
         var paramsToSend = params
         paramsToSend["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
@@ -260,7 +326,6 @@ public class FCMockServer: NSObject , FCServerProtocol {
         paramsToSend["photo_url"] = ""
         var pubDict = ["publication" : paramsToSend]
         let jsonData = NSJSONSerialization.dataWithJSONObject(pubDict, options: nil, error: nil)
-        println(pubDict)
         let url = NSURL(string: postNewPublicationURL)
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
@@ -269,16 +334,17 @@ public class FCMockServer: NSObject , FCServerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request,
+            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
                 print("respons: \(serverResponse.description)")
                 
                 
                 if error == nil && serverResponse.statusCode == 200 {
+                   
                     //we currently implement as best effort. nothing is done with an error
                     let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String : AnyObject]
-                    println(dict)
                     let uniqueId = dict[kPublicationUniqueIdKey] as Int
                     let version = dict[kPublicationVersionKey] as Int
                     completion(success: true, uniqueID: uniqueId, version: version)
@@ -292,7 +358,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
         task.resume()
     }
     
-    func postEditedPublication(params:[String:AnyObject],publication: FCPublication, completion:(success: Bool,  version: Int)->()) {
+    func postEditedPublication(params:[String:AnyObject],publication: FCPublication,
+        completion:(success: Bool,  version: Int)->()) {
         
         var paramsToSend = params
         paramsToSend["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
@@ -300,10 +367,9 @@ public class FCMockServer: NSObject , FCServerProtocol {
         paramsToSend["photo_url"] = ""
         var pubDict = ["publication" : paramsToSend]
         let jsonData = NSJSONSerialization.dataWithJSONObject(pubDict, options: nil, error: nil)
-       
         let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId).json"
         let url = NSURL(string: urlString)
-    
+        
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
         request.HTTPBody = jsonData
@@ -311,16 +377,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request,
+            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)")
-                
                 
                 if error == nil && serverResponse.statusCode == 200 {
-                   
+                    
                     let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String : AnyObject]
-                    println(dict)
                     let version = dict[kPublicationVersionKey] as Int
                     completion(success: true,  version: version)
                 }
@@ -349,7 +413,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request,
+            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
                 print("respons: \(serverResponse.description)")
@@ -367,7 +432,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         task.resume()
     }
-
+    
 }
 
 public extension FCMockServer {

@@ -9,9 +9,9 @@
 import UIKit
 
 class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleCellDelegate {
-
+    
     var publication: FCPublication?
-   // var didFetchPublicationReports = false
+    // var didFetchPublicationReports = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,50 +21,30 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         self.tableView.rowHeight = UITableViewAutomaticDimension
         fetchPublicationReports()
         fetchPublicationPhoto()
-       // makeButton()
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+     
     }
-
-    func makeButton() {
-        var height = self.tabBarController?.view.frame.size.height
-        var myview = UIView(frame: CGRectMake(0, height! - 50, self.view.frame.width, 50))
-        myview.backgroundColor = UIColor.whiteColor()
-        var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        button.frame = CGRectMake(0, 0, 50, 50)
-      //  button.center = myview.center
-        button.setTitle("coming ", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        myview.addSubview(button)
-        self.tabBarController?.view.addSubview(myview)
-        println("height: \(self.tabBarController?.view.frame.size.height)")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     // MARK: - Table view data source
     
-      override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 4
     }
-
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
             
-                var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath) as FCPublicationsDetailsTVTitleCell
-                    cell.delegate = self
-                    cell.publication = self.publication?
+            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath) as FCPublicationsDetailsTVTitleCell
+            cell.delegate = self
+            cell.publication = self.publication?
             return cell
         }
         else if indexPath.row == 1 {
@@ -88,15 +68,15 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         else {
             var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "stamCell") as UITableViewCell
             return cell
-
+            
         }
     }
     
     func fetchPublicationPhoto() {
         if let publication = self.publication? {
             if publication.photoData.photo == nil && !publication.photoData.didTryToDonwloadImage {
-               
-            
+                
+                
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image: UIImage?) -> Void in
                     if publication.photoData.photo != nil {
@@ -115,7 +95,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         
         publication.didRegisterForCurrentPublication = true
         publication.countOfRegisteredUsers += 1
-       // FCUserNotificationHandler.sharedInstance.registerLocalNotification(publication)
+        
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
         
         //show alert controller
@@ -132,22 +112,21 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         publication.didRegisterForCurrentPublication = false
         publication.countOfRegisteredUsers -= 1
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
-       // FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
         
     }
     
     func didRequestNavigationForPublication(publication: FCPublication) {
         
         
-            if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-                let title = String.localizedStringWithFormat("Navigate With:", "an action sheet title meening chose app to navigate with")
-                let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
-                self.presentViewController(actionSheet, animated: true, completion: nil)
-            }
-            else {
-                //navigateWithWaze
-                FCNavigationHandler.sharedInstance.wazeNavigation(publication)
-            }
+        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
+            let title = String.localizedStringWithFormat("Navigate With:", "an action sheet title meening chose app to navigate with")
+            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+        }
+        else {
+            //navigateWithWaze
+            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
+        }
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -156,27 +135,35 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     
     //MARK: - fetch data for publication
     func fetchPublicationReports() {
-    
+        
         if let publication = self.publication {
             FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, completion: { (success: Bool, reports: [FCOnSpotPublicationReport]?) -> () in
                 
-                if let incomingReports = reports {
-                    publication.reportsForPublication = incomingReports
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        let reportsCellIp = NSIndexPath(forRow: 1, inSection: 0)
-                        self.tableView.reloadRowsAtIndexPaths([reportsCellIp], withRowAnimation: .Automatic)
-                    })
+                if success {
+                    if let incomingReports = reports {
+                        publication.reportsForPublication = incomingReports
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            let reportsCellIp = NSIndexPath(forRow: 1, inSection: 0)
+                            self.tableView.reloadRowsAtIndexPaths([reportsCellIp], withRowAnimation: .Automatic)
+                        })
+                    }
                 }
             })
         }
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
 }

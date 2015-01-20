@@ -855,11 +855,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-vp-DHe" userLabel="Title">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-vp-DHe" userLabel="Title">
                                                     <rect key="frame" x="8" y="8" width="225" height="46"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="225" id="DYh-pJ-uQM"/>
-                                                        <constraint firstAttribute="width" constant="225" id="q55-4a-oUP"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="225" id="q55-4a-oUP"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -870,11 +870,11 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JS-sO-3EK" userLabel="Status">
-                                                    <rect key="frame" x="23" y="54" width="220" height="19"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JS-sO-3EK" userLabel="Status">
+                                                    <rect key="frame" x="23" y="54" width="210" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="197" id="PT3-Gs-OeQ"/>
-                                                        <constraint firstAttribute="width" constant="220" id="msc-2R-PjC"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="210" id="msc-2R-PjC"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -900,11 +900,12 @@
                                                         <constraint firstAttribute="width" priority="999" constant="320" id="r2F-cv-J6S"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
-                                                    <rect key="frame" x="248" y="13" width="64" height="64"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
+                                                    <rect key="frame" x="234" y="5" width="80" height="80"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" priority="100" constant="90" id="hc7-yt-SgB"/>
-                                                        <constraint firstAttribute="width" priority="100" constant="90" id="sPW-tx-YaC"/>
+                                                        <constraint firstAttribute="height" priority="750" constant="80" id="hc7-yt-SgB"/>
+                                                        <constraint firstAttribute="width" secondItem="PRi-xz-AS1" secondAttribute="height" multiplier="1:1" id="pg5-mT-GsO"/>
+                                                        <constraint firstAttribute="width" priority="750" constant="80" id="sPW-tx-YaC"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -920,10 +921,11 @@
                                             <constraint firstItem="7JS-sO-3EK" firstAttribute="top" secondItem="3Li-R0-6s0" secondAttribute="topMargin" constant="38" id="HlI-64-c24"/>
                                             <constraint firstAttribute="centerY" secondItem="PRi-xz-AS1" secondAttribute="centerY" id="KUB-hO-1YM"/>
                                             <constraint firstAttribute="centerX" secondItem="PRi-xz-AS1" secondAttribute="centerX" id="KjF-uV-Mfr"/>
-                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="trailing" secondItem="3Li-R0-6s0" secondAttribute="trailingMargin" id="MBW-0w-0PP"/>
+                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="trailing" secondItem="3Li-R0-6s0" secondAttribute="trailingMargin" constant="2" id="MBW-0w-0PP"/>
                                             <constraint firstItem="VJr-uC-AAG" firstAttribute="centerY" secondItem="7JS-sO-3EK" secondAttribute="centerY" id="Ma5-fo-h1S"/>
-                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="top" secondItem="3Li-R0-6s0" secondAttribute="topMargin" constant="5" id="O1L-4I-UjS"/>
-                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="leading" secondItem="0PR-vp-DHe" secondAttribute="trailing" constant="15" id="OYI-Lc-weI"/>
+                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="top" secondItem="3Li-R0-6s0" secondAttribute="topMargin" constant="-3" id="O1L-4I-UjS"/>
+                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0PR-vp-DHe" secondAttribute="trailing" priority="250" constant="-2" id="OYI-Lc-weI"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="PRi-xz-AS1" secondAttribute="bottom" constant="-3" id="OjW-1C-5PB"/>
                                             <constraint firstItem="7JS-sO-3EK" firstAttribute="leading" secondItem="VJr-uC-AAG" secondAttribute="trailing" constant="8" id="PKz-cy-0sg"/>
                                             <constraint firstItem="7JS-sO-3EK" firstAttribute="leading" secondItem="VJr-uC-AAG" secondAttribute="trailing" constant="8" id="Qnt-3k-uXN"/>
                                             <constraint firstItem="OjG-g6-qJx" firstAttribute="top" secondItem="PRi-xz-AS1" secondAttribute="bottom" id="X0K-AC-qz3"/>
@@ -935,6 +937,8 @@
                                             <constraint firstItem="PRi-xz-AS1" firstAttribute="leading" secondItem="7JS-sO-3EK" secondAttribute="trailing" constant="4" id="fkT-Qc-YW2"/>
                                             <constraint firstItem="OjG-g6-qJx" firstAttribute="top" secondItem="7JS-sO-3EK" secondAttribute="bottom" constant="16" id="lDT-Qa-Odz"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="OjG-g6-qJx" secondAttribute="bottom" constant="-8" id="npO-C6-eeh"/>
+                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="leading" secondItem="0PR-vp-DHe" secondAttribute="trailing" constant="1" id="rxV-Yy-qb9"/>
+                                            <constraint firstItem="PRi-xz-AS1" firstAttribute="leading" secondItem="7JS-sO-3EK" secondAttribute="trailing" constant="1" id="sTl-zQ-LwG"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="OjG-g6-qJx" secondAttribute="bottom" constant="-8" id="uBK-pA-NQF"/>
                                             <constraint firstItem="OjG-g6-qJx" firstAttribute="leading" secondItem="3Li-R0-6s0" secondAttribute="leadingMargin" constant="-8" id="wB4-O4-vCC"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="OjG-g6-qJx" secondAttribute="bottom" constant="-8" id="xdL-W5-tY4"/>
@@ -951,7 +955,9 @@
                                                 <exclude reference="X0K-AC-qz3"/>
                                                 <exclude reference="akb-40-pvq"/>
                                                 <exclude reference="wB4-O4-vCC"/>
+                                                <exclude reference="KUB-hO-1YM"/>
                                                 <exclude reference="KjF-uV-Mfr"/>
+                                                <exclude reference="OYI-Lc-weI"/>
                                                 <exclude reference="Z8d-vc-Jp6"/>
                                                 <exclude reference="fkT-Qc-YW2"/>
                                             </mask>

@@ -70,6 +70,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     }
     
     func downloadData() {
+        
         self.foodCollectorWebServer.downloadAllPublicationsWithCompletion
             { (thePublications: [FCPublication]) -> Void in
                 
