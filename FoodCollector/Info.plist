@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>notify always description</string>
+	<string>We use this to let you know when you arrive food sharing spot. </string>
 	<key>NSLocationUsageDescription</key>
 	<string>notify when you arrive to a publication spot</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

@@ -203,7 +203,11 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     private func takeOffAir(){
         
         if let publication = self.publication {
+            //update model
             publication.isOnAir = false
+            FCModel.sharedInstance.saveUserCreatedPublications()
+            
+            //update ui
             self.takeOffAirButtonEnabled = false
             self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: .Automatic)
             
@@ -304,6 +308,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                     
                     //add user created publication
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
+                
                     
                     //send the photo
                     let uploader = FCPhotoFetcher()

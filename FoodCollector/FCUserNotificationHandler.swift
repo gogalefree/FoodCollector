@@ -122,7 +122,7 @@ class FCUserNotificationHandler : NSObject {
         localNotification.alertBody = String.localizedStringWithFormat("הגעת ל: \(publication.title)",
             "location notification body")
         localNotification.soundName = UILocalNotificationDefaultSoundName
-        localNotification.regionTriggersOnce = false
+        localNotification.regionTriggersOnce = true
         localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(kRegionRadiusForLocationNotification), identifier: publication.title)
         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         self.registeredLocationNotification.append((localNotification, publication))

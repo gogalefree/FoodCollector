@@ -14,6 +14,8 @@ String.localizedStringWithFormat("איסוף חופשי", "the type of collectin
 let kTypeOfCollectingContactPublisherTitle =
 String.localizedStringWithFormat("צור קשר עם המפרסם", "the type of collecting method meaning call publisher")
 
+let typeOfCollectionEditorTitle = String.localizedStringWithFormat("צורת איסוף", "the editor title for enter type of collecting")
+
 class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var textField: UITextField!
@@ -30,6 +32,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         self.textField.delegate = self
         self.textField.alpha = 0
         self.textField.text = ""
+        self.title = typeOfCollectionEditorTitle
         configureInitialState()
     }
     

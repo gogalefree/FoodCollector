@@ -15,7 +15,7 @@ let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMes
 let kActivityCenterTitle = String.localizedStringWithFormat("מרכז הפעילות","activity center navigation bar title")
 let kCollctorTitle = String.localizedStringWithFormat("אוסף","collector root vc navigation bar title")
 
-class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
+class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecognizerDelegate{
     
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
@@ -30,6 +30,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     var activityCenterVisibleCenter = CGPointZero//is set in viewDidLayoutSubviews
     var tabbarVisibleCenter = CGPointZero
     var tabbarHiddenCenter = CGPointZero
+    var tabbarDragCenter = CGPointZero
+
+    var onceToken = 0
     var didFailToRegisterPushNotifications = {
         NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
         }()
@@ -45,21 +48,59 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         self.publications = FCModel.sharedInstance.publications
         registerForNSNotifications()
         configureMapView()
-        FCModel.sharedInstance.uiReadyForNewData = true
         
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: "didDragMap:")
+        panRecognizer.delegate = self
+        self.mapView.addGestureRecognizer(panRecognizer)
+        
+    }
+    
+    func didDragMap(gestureRecognizer: UIGestureRecognizer) {
+       
+        if (gestureRecognizer.state == UIGestureRecognizerState.Began){
+
+            if !isPresentingActivityCenter {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                self.hideTabbar()
+            }
+        }
+        else if (gestureRecognizer.state == UIGestureRecognizerState.Ended) {
+            
+            if !isPresentingActivityCenter {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.showTabbar()
+            }
+        }
+    }
+    
+   
+    func hideTabbar() {
+       
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+
+           self.tabBarController!.tabBar.center = self.tabbarDragCenter
+
+        }, completion: nil)
+    }
+    
+    func showTabbar() {
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            self.tabBarController!.tabBar.center = self.tabbarVisibleCenter
+            
+            }, completion: nil)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
         activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
-        tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
+       
         tabbarHiddenCenter = CGPointMake(self.tabBarController!.tabBar.center.x + CGRectGetWidth(self.view.frame), self.tabBarController!.tabBar.center.y)
-
-        
-        
-        // postOnSpotReport()
-
     }
     
     //MARK: - Map View Delegate
@@ -68,8 +109,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         
         self.mapView.delegate = self
         self.mapView.addAnnotations(self.publications)
-        mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
-      
+        self.mapView.showsUserLocation = true
+        self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -90,7 +131,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        
+        mapView.deselectAnnotation(view.annotation, animated: true)
         let annotation = view.annotation as MKAnnotation
         if annotation .isKindOfClass(MKUserLocation){
             return
@@ -102,34 +143,26 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
         
         self.publicationDetailsTVC?.publication = publication
         self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
+
+      //  self.reloadAnnotations()
+        
+        //        self.postOnSpotReport(publication)
     }
     
   
     
     func mapView(mapView: MKMapView!, regionWillChangeAnimated animated: Bool) {
         
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        println("will change region")
-        //        if !self.eventDetailsViewHidden {
-        //            self.hideEventDetailsView()
-        //        }
     }
     
     func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
         
-        
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        println("did change region")
         
     }
     
     
     // MARK: - ArrivedToSpotViewDelegate protocol
    
-    
-    
-    
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     
@@ -143,13 +176,21 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
         }
 
+        tabbarDragCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y + self.tabBarController!.tabBar.frame.size.height)
+        
+         tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
+
+        
+        dispatch_once(&onceToken, { () -> Void in
+            FCModel.sharedInstance.uiReadyForNewData = true
+            })
     }
   
-    func postOnSpotReport() {
+    func postOnSpotReport(publication: FCPublication) {
 
         var userInfo = [NSObject : AnyObject]()
-        userInfo[kPublicationUniqueIdKey] = 2222222
-        userInfo[kPublicationVersionKey] = 1
+        userInfo[kPublicationUniqueIdKey] = publication.uniqueId
+        userInfo[kPublicationVersionKey] = publication.version
 
     NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
     }
@@ -159,7 +200,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate {
     }
 }
 
-// Mark: - ActivityCenterLogic
+// MARK: - ActivityCenterLogic
 
 extension FCCollectorRootVC {
     
@@ -402,7 +443,19 @@ extension FCCollectorRootVC {
         return requestedPublication
     }
     
+    func reloadAnnotations() {
+    
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.mapView.removeAnnotations(self.publications)
+         //   self.publications = FCModel.sharedInstance.publications
+            self.mapView.addAnnotations(self.publications)
+        })
+    
+    }
+    
     func registerForNSNotifications() {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: "didFetchNewPublicationReportNotification", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData:", name: kRecievedNewDataNotification, object: nil)
         

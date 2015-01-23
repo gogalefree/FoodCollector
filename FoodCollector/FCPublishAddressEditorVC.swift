@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+let addressEditorTitle = String.localizedStringWithFormat( "כתובת", "the editor title for enter a publication address")
+
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
 
  
@@ -24,6 +26,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = addressEditorTitle
         
         // To hide the empty cells set a zero size table footer view.
         // Because the table thinks there is a footer to show, it doesn't display any

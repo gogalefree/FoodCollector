@@ -21,6 +21,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     @IBOutlet var collectionView:UICollectionView!
     
     var userCreatedPublications = [FCPublication]()
+    var collectionViewHidden = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,8 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
 
         collectionView.delegate = self
         if userCreatedPublications.count == 0 {
-            collectionView.alpha = 0.0
+            collectionView.alpha = 0
+            collectionViewHidden = true
             displayNoPublicatiosMessage()
         }
         
@@ -96,12 +98,18 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     func newUserCreatedPublication() {
         
-        println("New User Created Publication")
+        if collectionViewHidden {showCollectionView()}
         let publication = FCModel.sharedInstance.userCreatedPublications.last!
         self.userCreatedPublications.insert(publication, atIndex: 0)
         self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 0)])
         //TODO: check if should insertat the begining
         
+    }
+    
+    func showCollectionView() {
+        UIView.animateWithDuration(0.4, animations: { () -> Void in
+            self.collectionView.alpha = 1
+        })
     }
     
     //this is triggered by a NSNotification.

@@ -8,6 +8,8 @@
 
 import UIKit
 
+let startingDateEditorTitle = String.localizedStringWithFormat("תאריך התחלה", "the editor title for enter a starting date")
+let endingDateTitle = String.localizedStringWithFormat("תאריך סיום", "the editor title for enter a publication ending date")
 class FCPublishDateEditorVC: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -20,7 +22,17 @@ class FCPublishDateEditorVC: UIViewController {
         case EndnigDate = 4
     }
     
-    var state = PickerState.StartingDate
+    var state : PickerState = PickerState.StartingDate {
+        didSet {
+            switch state{
+            case .StartingDate:
+                self.title = startingDateEditorTitle
+            
+            case .EndnigDate:
+                self.title = endingDateTitle
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

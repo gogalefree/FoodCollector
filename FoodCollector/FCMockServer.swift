@@ -12,7 +12,7 @@ let reportActiveDeviceURL = "https://fd-server.herokuapp.com/active_devices.json
 let registerForPushNotificationsURL = "https://fd-server.herokuapp.com/active_devices/dev_uuid.json"
 let getAllPublicationsURL = "https://fd-server.herokuapp.com/publications.json"
 let postNewPublicationURL = "https://fd-server.herokuapp.com/publications.json"
-let reportArrivedToPublicationURL = ""
+let reportArrivedToPublicationURL = "https://fd-server.herokuapp.com/publications/"
 let reportsForPublicationBaseURL = "https://fd-server.herokuapp.com/publications/"
 //<id>/reports.json?publication_version=<version>
 let reportUserLocationURL = "https://fd-server.herokuapp.com/active_devices/dev_uuid.json"
@@ -161,7 +161,9 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let url = NSURL(string: getAllPublicationsURL)
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             
-            let serverResponse = response as NSHTTPURLResponse
+            if var serverResponse = response  {
+                serverResponse = serverResponse as NSHTTPURLResponse
+            
             print("response: \(serverResponse.description)")
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
@@ -178,6 +180,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                     completion(thePublications: publications)
                 })
             })
+            }
         })
         task.resume()
     }
@@ -208,8 +211,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                     
                     
                     let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
-                    
-                    
+                                        
                     for publicationReportDict in arrayOfReports {
                        
                         let reportMessage = publicationReportDict["report"] as Int
@@ -218,7 +220,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                         let timeInterval = NSTimeInterval(reportDateInt)
                         let reportDate = NSDate(timeIntervalSince1970: timeInterval)
                         
-                        if reportMessage != 1 || reportMessage != 3 || reportMessage != 5 {continue}
+                        if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
                         
                         let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
                         publicationReports.append(publicationReport)
@@ -281,6 +283,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
     ///
     public func reportArrivedPublication(publication: FCPublication,withReport report:FCOnSpotPublicationReport) {
        
+        let urlString = reportArrivedToPublicationURL + "\(publication.uniqueId)/publication_reports.json"
+
         var params = [String: AnyObject]()
         params["publication_id"] = publication.uniqueId
         params["publication_version"] = publication.version
@@ -290,19 +294,19 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         var dicToSend = ["publication_report" : params]
         let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
-        let url = NSURL(string: reportArrivedToPublicationURL) //TODO: insert the url string
+        let url = NSURL(string: urlString)
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
+        println("params: \(params)")
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request,
             completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
-                
+             println("response: \(serverResponse)")
                 if error != nil || serverResponse.statusCode != 200 {
                     //we currently implement as best effort. nothing is done with an error
                 }

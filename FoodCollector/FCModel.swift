@@ -53,7 +53,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         
         //we start with loading the current data
         self.locationManager.delegate = self
-        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.requestAlwaysAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.distanceFilter = kDistanceFilter
         self.locationManager.startUpdatingLocation()
@@ -76,16 +76,19 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 
                 self.publications = thePublications
                 //uncomment AFTER first build
+                self.savePublications()
+                self.downloadReportsForPublications()
                 self.postFetchedDataReadyNotification()
-                //self.savePublications()
                 
-                self.userCreatedPublications.append(thePublications[0])
+                //uncomment to simulate user created publication from mock data
+                
+               /* self.userCreatedPublications.append(thePublications[0])
                 self.userCreatedPublications.append(thePublications[1])
                 self.userCreatedPublications.append(thePublications[2])
                 self.userCreatedPublications.append(thePublications[3])
                 self.userCreatedPublications.append(thePublications[4])
                 self.userCreatedPublications.append(thePublications[5])
-                
+                */
                 /*
                 // uncomment FOR first build only
                 self.userCreatedPublications.removeAll(keepCapacity: false)
@@ -95,6 +98,23 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 self.saveUserCreatedPublications()
                 */
                 
+        }
+    }
+    
+    func downloadReportsForPublications() {
+        
+        let counter = self.publications.count - 1
+        
+        for (index ,publication) in enumerate(self.publications) {
+            self.foodCollectorWebServer.reportsForPublication(publication, completion: { (success: Bool, reports: [FCOnSpotPublicationReport]?) -> () in
+                if success {
+                    publication.reportsForPublication = reports!
+                    publication.countOfRegisteredUsers = reports!.count
+                }
+                if index == counter {
+                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchNewPublicationReportNotification", object: self)
+                }
+            })
         }
     }
     
@@ -131,7 +151,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                     FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
                     self.postDeletedPublicationNotification(publicationIdentifier)
                     //save data
-                    //self.savePublications()
+                    self.savePublications()
                     break
             }
         }
@@ -159,7 +179,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             self.postRecievedNewPublicationNotification()
         
             //save the new data
-            //self.savePublications()
+            self.savePublications()
         }
     }
     
@@ -179,6 +199,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         if !userCreatedPublicationExists(publication){
             self.userCreatedPublications.append(publication)
             self.postNewUserCreatedPublicationNotification()
+            self.saveUserCreatedPublications()
         }
     }
     
@@ -273,6 +294,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         var userRegisteredPublications = [FCPublication]()
         
         for publication in self.publications {
+            println("\(publication.title) is registered = \(publication.didRegisterForCurrentPublication)")
             if publication.didRegisterForCurrentPublication {
                 userRegisteredPublications.append(publication)
             }

@@ -103,6 +103,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             self.contactInfo = contactInfo
             self.isOnAir = true
             self.photoUrl = "\(uniqueId).\(version).jpg"
+            self.didRegisterForCurrentPublication = false
             super.init()
     }
     

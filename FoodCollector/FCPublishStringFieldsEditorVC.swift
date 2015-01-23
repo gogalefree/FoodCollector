@@ -9,6 +9,9 @@
 import UIKit
 import QuartzCore
 
+let titleEditorTitle = String.localizedStringWithFormat("הוסף שם", "the editor title for enter a publication name")
+let subTitleEditorTitle = String.localizedStringWithFormat("הוסף תיאור", "the editor title for enter a publication name")
+
 class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITextFieldDelegate{
 
     @IBOutlet weak var textField: UITextField!
@@ -57,11 +60,13 @@ class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITex
                 self.textField.alpha = 1
                 self.textField.becomeFirstResponder()
                 self.textView.alpha = 0
+                self.title = titleEditorTitle
                 
             case DisplayState.textView:
                 self.textField.alpha = 0
                 self.textView.alpha = 1
                 self.textView.becomeFirstResponder()
+                self.title = subTitleEditorTitle
             default:
                 break
         }

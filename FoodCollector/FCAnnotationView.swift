@@ -21,7 +21,7 @@ class FCAnnotationView: MKAnnotationView {
     
     func imageForPublication(publication: FCPublication){
         
-        switch publication.countOfRegisteredUsers {
+        switch publication.reportsForPublication.count {
         
         case 0...1:
             greenImage(publication.typeOfCollecting)

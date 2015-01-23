@@ -30,8 +30,10 @@ class FCActivityCenterTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 66
         self.tableView.rowHeight = UITableViewAutomaticDimension
     
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
+        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+
         
     }
 
