@@ -73,6 +73,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         }
         
         var itemsCounter = self.publication?.reportsForPublication.count
+        if itemsCounter! > 3 {itemsCounter = 3} //we show 3 reports at most
         var assumedHeight =  itemsCounter! * 52 + 10
         var height = CGFloat(assumedHeight)
         return CGSizeMake(size.width, height)

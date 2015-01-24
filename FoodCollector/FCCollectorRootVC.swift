@@ -55,6 +55,40 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.didFailToRegisterPushNotifications &&
+            !NSUserDefaults.standardUserDefaults().boolForKey(kDidShowFailedToRegisterForPushAlertKey){
+                
+                let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                //uncomment to show this message only once
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
+        }
+        
+        dispatch_once(&onceToken, { () -> Void in
+            FCModel.sharedInstance.uiReadyForNewData = true
+            self.defineBarsCenterPoints()
+        })
+    }
+    
+    //MARK: - UI configuration
+    
+    func defineBarsCenterPoints() {
+        
+        tabbarDragCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y + self.tabBarController!.tabBar.frame.size.height)
+        
+        tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
+        
+        activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
+        activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
+        
+        tabbarHiddenCenter = CGPointMake(self.tabBarController!.tabBar.center.x + CGRectGetWidth(self.view.frame), self.tabBarController!.tabBar.center.y)
+    }
+
+    
     func didDragMap(gestureRecognizer: UIGestureRecognizer) {
        
         if (gestureRecognizer.state == UIGestureRecognizerState.Began){
@@ -95,14 +129,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         return true
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
-        activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
-       
-        tabbarHiddenCenter = CGPointMake(self.tabBarController!.tabBar.center.x + CGRectGetWidth(self.view.frame), self.tabBarController!.tabBar.center.y)
-    }
-    
     //MARK: - Map View Delegate
     
     func configureMapView() {
@@ -111,6 +137,23 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         self.mapView.addAnnotations(self.publications)
         self.mapView.showsUserLocation = true
         self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
+    }
+    func mapViewDidFinishLoadingMap(mapView: MKMapView!) {
+        println("DID FINISH LOADING MAP")
+    }
+    
+    func mapViewDidStopLocatingUser(mapView: MKMapView!) {
+        println("DID STOP LOCATING USER")
+
+    }
+    
+    func mapViewWillStartLocatingUser(mapView: MKMapView!) {
+        println("WILL START LOCATING USER")
+    }
+    
+    func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
+        println("DID FINISH RENDERING MAP")
+
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -125,8 +168,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         if annotationView == nil {
             annotationView = FCAnnotationView(annotation: annotation, reuseIdentifier: reusableIdentifier)
         }
-        
-        annotationView!.imageForPublication(annotation as FCPublication)
+        annotationView!.image = FCIconFactory.smallIconForPublication(annotation as FCPublication)
+//        annotationView!.imageForPublication(annotation as FCPublication)
         return annotationView
     }
     
@@ -144,7 +187,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         self.publicationDetailsTVC?.publication = publication
         self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
 
-      //  self.reloadAnnotations()
+        self.reloadAnnotations()
         
         //        self.postOnSpotReport(publication)
     }
@@ -163,29 +206,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
     
     // MARK: - ArrivedToSpotViewDelegate protocol
    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    
-        if self.didFailToRegisterPushNotifications &&
-            !NSUserDefaults.standardUserDefaults().boolForKey(kDidShowFailedToRegisterForPushAlertKey){
-                
-                let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")
-                self.presentViewController(alertController, animated: true, completion: nil)
-                
-                //uncomment to show this message only once
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
-        }
-
-        tabbarDragCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y + self.tabBarController!.tabBar.frame.size.height)
-        
-         tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
-
-        
-        dispatch_once(&onceToken, { () -> Void in
-            FCModel.sharedInstance.uiReadyForNewData = true
-            })
-    }
-  
     func postOnSpotReport(publication: FCPublication) {
 
         var userInfo = [NSObject : AnyObject]()
@@ -269,10 +289,11 @@ extension FCCollectorRootVC {
     }
 }
 
-// MARK - new data from server logic
 
 extension FCCollectorRootVC {
     
+    // MARK: - new data from server logic
+
     func didRecieveNewData(notification: NSNotification) {
         
         var publicationsToAdd = [FCPublication]()
