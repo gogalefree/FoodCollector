@@ -20,7 +20,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
     
-    //var onSpotPublicationReport:FCOnSpotPublicationReport?
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
     var publicationDetailsTVC: FCPublicationDetailsTVC?
@@ -189,7 +188,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
 
         self.reloadAnnotations()
         
-        //        self.postOnSpotReport(publication)
+        self.postOnSpotReport(publication)
     }
     
   

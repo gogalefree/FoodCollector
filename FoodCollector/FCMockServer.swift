@@ -14,7 +14,6 @@ let getAllPublicationsURL = "https://fd-server.herokuapp.com/publications.json"
 let postNewPublicationURL = "https://fd-server.herokuapp.com/publications.json"
 let reportArrivedToPublicationURL = "https://fd-server.herokuapp.com/publications/"
 let reportsForPublicationBaseURL = "https://fd-server.herokuapp.com/publications/"
-//<id>/reports.json?publication_version=<version>
 let reportUserLocationURL = "https://fd-server.herokuapp.com/active_devices/dev_uuid.json"
 
 //https://fd-server.herokuapp.com/publications/3/registered_user_for_publications.json
@@ -48,18 +47,22 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let task = session.dataTaskWithRequest(request, completionHandler: {
             (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
-            let serverResponse = response as NSHTTPURLResponse
-            print("respons: \(serverResponse.description)")
-            println("status code: \(serverResponse.statusCode) ***************")
+            if let theResponse = response {
             
-            if error != nil || serverResponse.statusCode != 200 {
-                //we delete the key from UD so the app tries again in next launch
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
-            }
-            else {
+                let serverResponse = theResponse as NSHTTPURLResponse
+                print("respons: \(serverResponse.description)")
+                println("status code: \(serverResponse.statusCode) ***************")
                 
-                NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
+                if error != nil || serverResponse.statusCode != 200 {
+                    //we delete the key from UD so the app tries again in next launch
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+                }
+                else {
+                    
+                    NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
+                }
             }
+            
         })
         
         task.resume()
@@ -137,10 +140,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let task = session.dataTaskWithRequest(request, completionHandler: {
             (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
-            let serverResponse = response as NSHTTPURLResponse
-            
-            if error != nil || serverResponse.statusCode == 200 {
-                println("success")
+            if let theResponse = response {
+                
+                let serverResponse = theResponse as NSHTTPURLResponse
+                
+                if error != nil || serverResponse.statusCode == 200 {
+                    println("success")
+                }
             }
         })
         
@@ -203,37 +209,41 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let task = session.dataTaskWithURL(url!, completionHandler: {
             (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             
-            let serverResponse = response as NSHTTPURLResponse
-            
-            if error == nil && serverResponse.statusCode == 200 {
+            if let theResponse = response {
                 
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+               let serverResponse = theResponse as NSHTTPURLResponse
+                
+                if error == nil && serverResponse.statusCode == 200 {
                     
-                    
-                    let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
-                                        
-                    for publicationReportDict in arrayOfReports {
-                       
-                        let reportMessage = publicationReportDict["report"] as Int
-                        let reportDateString = publicationReportDict["date_of_report"] as NSString
-                        let reportDateInt = reportDateString.doubleValue
-                        let timeInterval = NSTimeInterval(reportDateInt)
-                        let reportDate = NSDate(timeIntervalSince1970: timeInterval)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                         
-                        if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
                         
-                        let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
-                        publicationReports.append(publicationReport)
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        completion(success: true, reports: publicationReports)
+                        let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
+                        
+                        for publicationReportDict in arrayOfReports {
+                            
+                            let reportMessage = publicationReportDict["report"] as Int
+                            let reportDateString = publicationReportDict["date_of_report"] as NSString
+                            let reportDateInt = reportDateString.doubleValue
+                            let timeInterval = NSTimeInterval(reportDateInt)
+                            let reportDate = NSDate(timeIntervalSince1970: timeInterval)
+                            
+                            if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
+                            
+                            let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
+                            publicationReports.append(publicationReport)
+                        }
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            completion(success: true, reports: publicationReports)
+                        })
                     })
-                })
+                }
+                else {
+                    completion(success: false, reports: nil)
+                }
             }
-            else {
-                completion(success: false, reports: nil)
-            }
+            
         })
         task.resume()
     }

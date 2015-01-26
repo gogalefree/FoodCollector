@@ -103,6 +103,6 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         
         button.layer.borderColor = UIColor.blueColor().CGColor
         button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 0.5
     }
 }

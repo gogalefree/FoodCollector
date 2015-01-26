@@ -16,7 +16,7 @@ String.localizedStringWithFormat("צור קשר עם המפרסם", "the type of
 
 let typeOfCollectionEditorTitle = String.localizedStringWithFormat("צורת איסוף", "the editor title for enter type of collecting")
 
-class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var collectionTypePicker: UIPickerView!
@@ -24,8 +24,9 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     var cellData = FCPublicationEditorTVCCellData()
     let digits = "0123456789"
     
-    
     let pickerData = [kTypeOfCollectingFreePickUpTitle , kTypeOfCollectingContactPublisherTitle]
+    
+    var didAnimateViewUp = false //used if the screen is 420 pxl
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         self.textField.text = ""
         self.title = typeOfCollectionEditorTitle
         configureInitialState()
+        addTapGestureToPicker()
     }
     
     func configureInitialState() {
@@ -138,10 +140,68 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         })
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        //if iPhone 3.5 inch - animate the view Up
+       
+        if self.view.frame.height == 480 {
+            animateViewUp()
+        }
+        
+        return true
+    }
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        if self.view.frame.height == 480 && self.didAnimateViewUp {
+            animateViewDown()
+        }
         self.textField.resignFirstResponder()
     }
+    
+    func addTapGestureToPicker(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: "pickerViewTapped")
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.delegate = self
+        self.collectionTypePicker.addGestureRecognizer(tapGesture)
+    }
+    
+    func pickerViewTapped() {
+        if self.view.frame.height == 480 && self.didAnimateViewUp {
+            animateViewDown()
+        }
+        self.textField.resignFirstResponder()
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
 
+    func animateViewUp() {
+        
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            var newCenter = self.view.center
+            newCenter.y -= 100
+            self.view.center = newCenter
+            
+        }) { (Bool) -> Void in
+            
+            self.didAnimateViewUp = true
+        }
+    }
+    
+    func animateViewDown() {
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            var newCenter = self.view.center
+            newCenter.y += 100
+            self.view.center = newCenter
+            
+            }) { (Bool) -> Void in
+                self.didAnimateViewUp = false
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
