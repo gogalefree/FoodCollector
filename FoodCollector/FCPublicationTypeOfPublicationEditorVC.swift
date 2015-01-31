@@ -182,7 +182,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
             
             var newCenter = self.view.center
-            newCenter.y -= 100
+            newCenter.y -= 120
             self.view.center = newCenter
             
         }) { (Bool) -> Void in
@@ -194,7 +194,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     func animateViewDown() {
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
             var newCenter = self.view.center
-            newCenter.y += 100
+            newCenter.y += 120
             self.view.center = newCenter
             
             }) { (Bool) -> Void in

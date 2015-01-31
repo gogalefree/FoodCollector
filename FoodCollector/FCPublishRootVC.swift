@@ -19,6 +19,7 @@ import QuartzCore
 class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     
     @IBOutlet var collectionView:UICollectionView!
+    var noUserCreatedPublicationMessageLabel: UILabel?
     
     var userCreatedPublications = [FCPublication]()
     var collectionViewHidden = false
@@ -107,8 +108,13 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     func showCollectionView() {
+        self.collectionViewHidden = false
         UIView.animateWithDuration(0.4, animations: { () -> Void in
             self.collectionView.alpha = 1
+            if let label = self.noUserCreatedPublicationMessageLabel {
+                label.alpha = 0
+                label.removeFromSuperview()
+            }
         })
     }
     
@@ -125,14 +131,17 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         let recCenterY = FCDeviceData.screenHight()/2
         let fontSize = FCDeviceData.screenWidth()/10 - 9
         
-        var label = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
-        label.center = CGPointMake(recCenterX, recCenterY)
+        self.noUserCreatedPublicationMessageLabel = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
         
+        if let label = self.noUserCreatedPublicationMessageLabel {
+        
+        label.center = CGPointMake(recCenterX, recCenterY)
         label.textAlignment = NSTextAlignment.Center
         label.numberOfLines = 0
         label.font = UIFont.systemFontOfSize(fontSize)
         label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "No user created publications message")
         self.view.addSubview(label)
+        }
     }
     
     deinit {

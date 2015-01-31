@@ -117,15 +117,14 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     }
     
     func hideNavigationButton() {
-        navigationButton.center = self.registerButton.center
-        let currentCenterY = self.navigationButton.center.y
-        let currentCenterX = self.navigationButton.center.x
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil , animations: { () -> Void in
-            self.navigationButton.center = CGPointMake(currentCenterX, currentCenterY)
-            self.navigationButton.alpha = 0
+
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            self.navigationButton.center = self.registerButton.center
             self.registerButton.layer.borderColor = UIColor.blueColor().CGColor
             self.navigationButton.layer.borderColor = UIColor.blueColor().CGColor
-            }, completion: nil)
+            self.navigationButton.alpha = 0
+            
+            }) { (completed) -> Void in}
     }
     
     func navigate(sender: UIButton) {
@@ -139,7 +138,6 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         self.navigationButton.layer.cornerRadius = self.navigationButton.bounds.width / 2
         self.navigationButton.layer.borderColor = UIColor.blueColor().CGColor
         self.navigationButton.layer.borderWidth = 1
-      //  self.navigationButton.backgroundColor = UIColor.greenColor()
         self.contentView.addSubview(navigationButton)
         self.navigationButton.setTitle(navigationButtonTitle, forState: .Normal)
         self.navigationButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
@@ -161,9 +159,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         // Initialization code
         
         self.titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-        
         self.subtitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
-        
         self.addressLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleFootnote)
         
         self.titleLabel.numberOfLines = 0
@@ -171,7 +167,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         self.addressLabel.numberOfLines = 0
         
         
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: 200))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1 , constant: 140))
         
         self.registerButton.layer.cornerRadius = self.registerButton.bounds.size.width / 2
         self.registerButton.layer.borderColor = UIColor.blueColor().CGColor

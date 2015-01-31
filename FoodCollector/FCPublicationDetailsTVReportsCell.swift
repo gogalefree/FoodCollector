@@ -12,6 +12,8 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
 
     @IBOutlet weak var tableView: UITableView!
     var noReports = false
+    var heightConstraint : NSLayoutConstraint!
+    
     var publication: FCPublication? {
         didSet{
             if let publication = self.publication? {
@@ -27,11 +29,14 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         if publication.reportsForPublication.count != 0 {
                 self.noReports = false
                 FCDateFunctions.sortPublicationReportsByDate(publication)
+                self.tableView.reloadData()
         }
         
+       
         
-        let size = self.sizeThatFits(CGSizeMake(self.bounds.width, 0))
-        self.addHeightConstarint(size.height)
+       // let size = self.sizeThatFits(CGSizeMake(self.bounds.width, 0))
+       // self.heightConstraint.constant = size.height
+       // self.addHeightConstarint(size.height)
     }
  
     
@@ -39,13 +44,17 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var num = self.publication?.reportsForPublication.count
-        if num < 3 {
-            //if there are no reports - return 1
-            //if reports.count > 3 return 3
-            //else return reports.count
-            return  max(1, num!)
+        if let num = num {
+            if num < 3 {
+                //if there are no reports - return 1
+                //if reports.count > 3 return 3
+                //else return reports.count
+                return  max(1, num)
+            }
+            return 3
         }
-        return 3
+        
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -65,31 +74,49 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         return cell
     }
     
-    override func sizeThatFits(size: CGSize) -> CGSize {
+//    override func sizeThatFits(size: CGSize) -> CGSize {
+//    
+//        if self.noReports {
+//            let cellSize = CGSizeMake(size.width, 44)
+//            return cellSize
+//        }
+//    
+//        var itemsCounter = self.publication?.reportsForPublication.count
+//        if itemsCounter! > 3 {itemsCounter = 3} //we show 3 reports at most
+//        let assumedHeight =  itemsCounter! * 44
+//        let heightInt = max(assumedHeight, 44)
+//        let height = CGFloat(heightInt)
+//        return CGSizeMake(size.width, height)
+//    }
     
-        if self.noReports {
-            let cellSize = CGSizeMake(size.width, 52)
-            return cellSize
-        }
+    class func heightForPublication(publication: FCPublication?) -> CGFloat {
         
-        var itemsCounter = self.publication?.reportsForPublication.count
-        if itemsCounter! > 3 {itemsCounter = 3} //we show 3 reports at most
-        var assumedHeight =  itemsCounter! * 52 + 10
-        var height = CGFloat(assumedHeight)
-        return CGSizeMake(size.width, height)
+        if let publication = publication {
+            
+            let oneOrReportsCount = max(publication.reportsForPublication.count, 1)
+            let threeOrReportsCount = min(oneOrReportsCount , 3)
+            if threeOrReportsCount != 1 {
+                let height = 61 + (threeOrReportsCount-1) * 46
+                return CGFloat(height)
+            }
+        }
+        return CGFloat(61)
     }
-
     
-    func addHeightConstarint (height: CGFloat) {
-          self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.5, constant: height))
-    }
+//    func addHeightConstarint (height: CGFloat) {
+//          self.heightConstraint = NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1 , constant: height)
+//        self.contentView.addConstraint(self.heightConstraint)
+//    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.userInteractionEnabled = false
-        self.tableView.estimatedRowHeight = 44
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+      //  self.tableView.estimatedRowHeight = 44
+        self.tableView.rowHeight = 44
+       // self.addHeightConstarint(44)
     }
 
     

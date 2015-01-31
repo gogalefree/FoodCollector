@@ -19,7 +19,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
     
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
-    
+    var showTableButtonCopy:UIBarButtonItem!
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
     var publicationDetailsTVC: FCPublicationDetailsTVC?
@@ -52,6 +52,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         panRecognizer.delegate = self
         self.mapView.addGestureRecognizer(panRecognizer)
         
+        self.showTableButtonCopy = self.showTableButton as UIBarButtonItem
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -188,7 +189,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
 
         self.reloadAnnotations()
         
-        self.postOnSpotReport(publication)
+      //  self.postOnSpotReport(publication)
     }
     
   
@@ -260,8 +261,18 @@ extension FCCollectorRootVC {
                 self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.whiteColor()]
                 self.tabBarController?.tabBar.center = self.tabbarHiddenCenter
                 self.title = kActivityCenterTitle
+                self.removeShowPublicationsTVCButton()
                 }, completion: nil)
         }
+    }
+    
+    func removeShowPublicationsTVCButton() {
+        self.navigationItem.setRightBarButtonItem(nil, animated: true)
+    }
+    
+    func addShowPublicationsTVCButton() {
+        self.showTableButton = self.showTableButtonCopy as UIBarButtonItem
+        self.navigationItem.setRightBarButtonItem(self.showTableButton, animated: true)
     }
     
     func animateBcakFromActivityCenter() {
@@ -276,6 +287,7 @@ extension FCCollectorRootVC {
                 self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.blackColor()]
                 self.tabBarController?.tabBar.center = self.tabbarVisibleCenter
                 self.title = kCollctorTitle
+                self.addShowPublicationsTVCButton()
 
                 
                 }, completion: { (finished) -> Void in

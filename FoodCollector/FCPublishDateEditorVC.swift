@@ -36,6 +36,8 @@ class FCPublishDateEditorVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.datePicker.minimumDate = NSDate()
+        self.datePicker.minuteInterval = 10
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

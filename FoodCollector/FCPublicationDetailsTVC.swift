@@ -17,14 +17,26 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.estimatedRowHeight = 116
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 140
+        //self.tableView.rowHeight = UITableViewAutomaticDimension
         fetchPublicationReports()
         fetchPublicationPhoto()
      
     }
     
     // MARK: - Table view data source
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+
+        switch indexPath.row {
+        case 0:
+            return UITableViewAutomaticDimension
+        case 1:
+            return FCPublicationDetailsTVReportsCell.heightForPublication(self.publication)
+        default:
+            return UITableViewAutomaticDimension
+        }
+    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
