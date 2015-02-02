@@ -119,7 +119,8 @@ class FCUserNotificationHandler : NSObject {
         let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
         let localNotification = UILocalNotification()
         localNotification.userInfo = userInfo
-        localNotification.alertBody = String.localizedStringWithFormat("הגעת ל: \(publication.title)",
+        localNotification.alertBody =
+            String.localizedStringWithFormat("הגעת ל: \(publication.title)",
             "location notification body")
         localNotification.soundName = UILocalNotificationDefaultSoundName
         localNotification.regionTriggersOnce = true
