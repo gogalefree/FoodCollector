@@ -56,7 +56,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var title:String
     public var subtitle:String?
     public var address:String
-    public var typeOfCollecting:FCTypeOfCollecting
+    public var typeOfCollecting: FCTypeOfCollecting
     public var coordinate:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     public var startingDate:NSDate
     public var endingDate:NSDate
