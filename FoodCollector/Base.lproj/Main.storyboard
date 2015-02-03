@@ -32,6 +32,7 @@
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="8r9-j6-JXy"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="58" id="Uzp-Ro-ihN"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="W0D-wn-cZD"/>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="29" id="ijU-oQ-sRN"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="29" id="uEW-w5-kYh"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -131,7 +132,7 @@
                                         <constraint firstItem="AIo-Lt-Vbb" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="7" id="TmY-If-W5r"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="top" relation="greaterThanOrEqual" secondItem="B1j-HE-hwb" secondAttribute="bottom" constant="7" id="UhI-cN-d2K"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="VTT-sy-3m0"/>
-                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="top" secondItem="NsA-2t-Wet" secondAttribute="bottom" constant="10" id="ayE-Fl-paZ"/>
+                                        <constraint firstItem="J6q-dG-ddg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NsA-2t-Wet" secondAttribute="bottom" constant="10" id="ayE-Fl-paZ"/>
                                         <constraint firstItem="J6q-dG-ddg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="d0k-Pv-U6t"/>
                                         <constraint firstItem="NsA-2t-Wet" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="leadingMargin" constant="138" id="efa-5C-xiN"/>
                                         <constraint firstItem="J6q-dG-ddg" firstAttribute="trailing" secondItem="NsA-2t-Wet" secondAttribute="trailing" id="fNm-fO-P1T"/>
@@ -146,7 +147,7 @@
                                         <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="AIo-Lt-Vbb" secondAttribute="bottom" constant="57" id="vus-jO-xmo"/>
                                         <constraint firstItem="B1j-HE-hwb" firstAttribute="trailing" secondItem="NsA-2t-Wet" secondAttribute="trailing" id="w5J-ZK-HAe"/>
                                         <constraint firstItem="J6q-dG-ddg" firstAttribute="trailing" secondItem="TKS-NU-R5K" secondAttribute="trailingMargin" id="wSG-IP-Uh4"/>
-                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TKS-NU-R5K" secondAttribute="topMargin" constant="10" id="xS7-2b-EWs"/>
+                                        <constraint firstItem="B1j-HE-hwb" firstAttribute="top" secondItem="TKS-NU-R5K" secondAttribute="topMargin" constant="10" id="xS7-2b-EWs"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -628,7 +629,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
-                                <rect key="frame" x="175" y="104" width="250" height="246"/>
+                                <rect key="frame" x="175" y="102" width="250" height="246"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="118" id="an0-f5-JCt">
                                         <variation key="heightClass=compact-widthClass=compact" constant="200"/>
@@ -661,7 +662,7 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ze6-Vf-li4">
-                                <rect key="frame" x="63" y="51" width="475" height="25"/>
+                                <rect key="frame" x="63" y="51" width="475" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="6bP-6h-Ssm"/>
                                     <constraint firstAttribute="width" constant="475" id="RUO-lg-UkO">
@@ -687,7 +688,7 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNA-Lc-Zrd">
-                                <rect key="frame" x="175" y="527" width="250" height="30"/>
+                                <rect key="frame" x="175" y="525" width="250" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5hu-cd-rAu"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="SUs-0Y-0NU"/>
@@ -728,7 +729,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6XJ-iz-WDg">
-                                <rect key="frame" x="175" y="399" width="250" height="30"/>
+                                <rect key="frame" x="175" y="397" width="250" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="0Ow-Kf-Bef"/>
                                     <constraint firstAttribute="width" constant="250" id="8YO-HS-5iK"/>
@@ -774,7 +775,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Fd-cF-kDE">
-                                <rect key="frame" x="175" y="463" width="250" height="30"/>
+                                <rect key="frame" x="175" y="461" width="250" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="HRM-fl-Dzf"/>
                                     <constraint firstAttribute="width" constant="250" id="HZV-6e-a0M"/>
