@@ -53,7 +53,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         
         //we start with loading the current data
         self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.distanceFilter = kDistanceFilter
         self.locationManager.startUpdatingLocation()

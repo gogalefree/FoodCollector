@@ -17,22 +17,19 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We use this to let you know when you arrive food sharing spot. </string>
 	<key>NSLocationUsageDescription</key>
 	<string>notify when you arrive to a publication spot</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>notify when you arrive to a publication spot</string>
+	<string>Notify when you arrive to a publication spot</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
