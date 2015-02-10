@@ -143,7 +143,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let longtitude = aDecoder.decodeDoubleForKey(kPublicationLongtitudeKey)
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longtitude)
         
-        self.startingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
+        self.startingDate = aDecoder.decodeObjectForKey(kPublicationStartingDateKey) as NSDate
         self.endingDate = aDecoder.decodeObjectForKey(kPublicationEndingDateKey) as NSDate
         self.contactInfo = aDecoder.decodeObjectForKey(kPublicationContactInfoKey) as? String
         self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as String
@@ -191,6 +191,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aLatitude =  params[kPublicationlatitudeKey]! as Double
         let aLongtitude = params[kPublicationLongtitudeKey]! as Double
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
+        
         let startingDateInt = params[kPublicationStartingDateKey] as Int
         let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(startingDateInt))
         

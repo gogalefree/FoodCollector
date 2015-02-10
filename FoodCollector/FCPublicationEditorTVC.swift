@@ -38,6 +38,7 @@ enum FCPublicationEditorTVCState {
     
     case EditPublication
     case CreateNewPublication
+    case ActivityCenter
     
 }
 
@@ -188,7 +189,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         
         switch self.state {
             
-        case .EditPublication:
+        case .EditPublication , .ActivityCenter:
             self.takeOffAirButtonEnabled = self.publication!.isOnAir
             
         default:
@@ -282,7 +283,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         switch self.state {
         case .CreateNewPublication:
             publishNewCreatedPublication()
-        case .EditPublication:
+        case .EditPublication , .ActivityCenter:
             publishEdidtedPublication()
         }
     }
@@ -328,7 +329,6 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     func publishEdidtedPublication() {
         
         var params = self.prepareParamsDictToSend()
-        
         FCModel.sharedInstance.foodCollectorWebServer.postEditedPublication(params, publication: self.publication!) { (success, version) -> () in
             
             if success {
@@ -340,7 +340,12 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
-                    self.navigationController?.popViewControllerAnimated(true)
+                    if self.state == .EditPublication{
+                        self.navigationController?.popViewControllerAnimated(true)
+                    }
+                    else if self.state == .ActivityCenter {
+                        self.navigationController?.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                    }
                     
                     FCModel.sharedInstance.addPublication(publication)
                     
@@ -451,10 +456,10 @@ extension  FCPublicationEditorTVC {
             var cellData = FCPublicationEditorTVCCellData()
             cellData.cellTitle = initialTitles[index]
             
-            if self.state == .EditPublication {
+            if self.state == .EditPublication || self.state == .ActivityCenter{
                 
                 if let publication = self.publication {
-                    
+                  
                     switch index {
                         
                     case 0:
@@ -491,6 +496,7 @@ extension  FCPublicationEditorTVC {
                         cellData.userData = publication.endingDate
                         cellData.containsUserData = true
                         let dateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
+
                         let timeString = FCDateFunctions.timeStringEuroStyle(publication.endingDate)
                         let prefix = kPublishEndDatePrefix
                         let cellTitle = "\(prefix) \(dateString)   \(timeString)"

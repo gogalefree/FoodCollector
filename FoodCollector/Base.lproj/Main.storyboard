@@ -929,6 +929,11 @@
                                 <exclude reference="3BE-rO-gCJ"/>
                                 <exclude reference="LDK-t0-aQx"/>
                                 <exclude reference="giL-5Y-Rvd"/>
+                                <exclude reference="3m5-f8-oc0"/>
+                                <exclude reference="Gz6-2R-E1g"/>
+                                <exclude reference="L9G-9z-804"/>
+                                <exclude reference="V1w-G2-1t9"/>
+                                <exclude reference="z7n-kt-drc"/>
                                 <exclude reference="1dz-mV-wu1"/>
                                 <exclude reference="FP4-ja-E37"/>
                                 <exclude reference="N5t-tA-7mA"/>
@@ -950,11 +955,6 @@
                                 <exclude reference="Pes-h6-117"/>
                                 <exclude reference="ULa-Z4-LG6"/>
                                 <exclude reference="wSV-8Z-j2i"/>
-                                <exclude reference="3m5-f8-oc0"/>
-                                <exclude reference="Gz6-2R-E1g"/>
-                                <exclude reference="L9G-9z-804"/>
-                                <exclude reference="V1w-G2-1t9"/>
-                                <exclude reference="z7n-kt-drc"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -976,6 +976,13 @@
                                 <exclude reference="NbO-oh-6dF"/>
                                 <exclude reference="acJ-am-edz"/>
                                 <exclude reference="giL-5Y-Rvd"/>
+                                <include reference="3m5-f8-oc0"/>
+                                <include reference="Gz6-2R-E1g"/>
+                                <include reference="L9G-9z-804"/>
+                                <include reference="V1w-G2-1t9"/>
+                                <exclude reference="kdI-JI-Yzh"/>
+                                <exclude reference="ybI-9a-Lkm"/>
+                                <include reference="z7n-kt-drc"/>
                                 <exclude reference="1dz-mV-wu1"/>
                                 <exclude reference="7yI-lh-PDs"/>
                                 <exclude reference="FP4-ja-E37"/>
@@ -997,13 +1004,6 @@
                                 <exclude reference="ijh-jl-kni"/>
                                 <include reference="wSV-8Z-j2i"/>
                                 <exclude reference="ymg-bn-gcT"/>
-                                <include reference="3m5-f8-oc0"/>
-                                <include reference="Gz6-2R-E1g"/>
-                                <include reference="L9G-9z-804"/>
-                                <include reference="V1w-G2-1t9"/>
-                                <exclude reference="kdI-JI-Yzh"/>
-                                <exclude reference="ybI-9a-Lkm"/>
-                                <include reference="z7n-kt-drc"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
@@ -1401,7 +1401,7 @@
         <!--אירוע חדש-->
         <scene sceneID="NU4-FC-Iq9">
             <objects>
-                <tableViewController title="אירוע חדש" id="OX1-Os-hYj" customClass="FCPublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FCPublicationEditorTVC" title="אירוע חדש" id="OX1-Os-hYj" customClass="FCPublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="csm-Ou-Igg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -376,6 +376,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         completion:(success: Bool,  version: Int)->()) {
         
         var paramsToSend = params
+
         paramsToSend["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
         paramsToSend["is_on_air"] = true
         paramsToSend["photo_url"] = ""

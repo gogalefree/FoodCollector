@@ -113,14 +113,30 @@ class FCActivityCenterTVC: UITableViewController {
         if indexPath.row == 0 {return}
         var publication = self.publicationForIndexPath(indexPath)
         let title = titleForIndexPath(indexPath)
-        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-        publicationDetailsTVC?.title = title
-        publicationDetailsTVC?.publication = publication
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
-        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+        switch indexPath.section {
+        case 0:
+            let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+            publicationDetailsTVC?.title = title
+            publicationDetailsTVC?.publication = publication
+            
+            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+            
+            self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+            
+        case 1:
         
-        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+            let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationEditorTVC") as? FCPublicationEditorTVC
+            publicationEditorTVC?.setupWithState(.ActivityCenter, publication: publication)
+            publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            publicationEditorTVC?.title = title
+            let nav = UINavigationController(rootViewController: publicationEditorTVC!)
+            self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+        
+        default: break
+        
+        }
     }
     
     func dismissDetailVC() {
