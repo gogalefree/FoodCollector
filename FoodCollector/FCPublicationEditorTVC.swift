@@ -64,6 +64,9 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.state = initialState
         self.publication = publication
         prepareDataSource()
+        if self.state != .CreateNewPublication {
+            self.fetchPhotoIfNeeded()
+        }
     }
     
     override func viewDidLoad() {
@@ -344,7 +347,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                         self.navigationController?.popViewControllerAnimated(true)
                     }
                     else if self.state == .ActivityCenter {
-                        self.navigationController?.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     }
                     
                     FCModel.sharedInstance.addPublication(publication)
@@ -395,6 +398,26 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
         params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as Int
         return params
+    }
+    
+    func fetchPhotoIfNeeded() {
+    
+        if let publication = self.publication {
+            if (publication.photoData.photo == nil) {
+                let photoFetcher = FCPhotoFetcher()
+                photoFetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
+                    var cellData = self.dataSource[6]
+                    if let photo = image {
+                        cellData.userData = photo
+                        cellData.containsUserData = true
+                        self.dataSource[6] = cellData
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: .Automatic)
+                        })
+                    }
+                })
+            }
+        }
     }
     
     //MARK: - Navigation
