@@ -33,8 +33,25 @@ class FCActivityCenterTVC: UITableViewController {
         
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
         self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-
+        self.removeExpiredUserCreatedPublications()
         
+    }
+    
+    func removeExpiredUserCreatedPublications() {
+        
+        var indexesToRemove = [Int]()
+        
+        for (index ,userCreatedPublication) in enumerate(self.userCreatedPublications){
+           
+            if !userCreatedPublication.isOnAir || FCDateFunctions.PublicationDidExpired(userCreatedPublication.endingDate){
+                    indexesToRemove.append(index)
+            }
+        }
+        
+        for (index, indexToRemove) in enumerate(indexesToRemove) {
+            let removalIndex = indexToRemove - index
+            self.userCreatedPublications.removeAtIndex(removalIndex)
+        }
     }
 
     // MARK: - Table view data source

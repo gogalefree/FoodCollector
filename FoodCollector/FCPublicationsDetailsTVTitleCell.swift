@@ -45,11 +45,18 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
                 self.titleLabel.text = publication.title
                 self.subtitleLabel.text = publication.subtitle
                 self.addressLabel.text = self.makeDistanceText(publication)
-                if publication.didRegisterForCurrentPublication {
-                    self.configureRegisterButtonForState(.Registered)
+                
+                if FCModel.sharedInstance.isUserCreaetedPublication(publication){
+                    self.registerButton.alpha = 0
                 }
                 else {
-                    self.configureRegisterButtonForState(.Unregistered)
+
+                    if publication.didRegisterForCurrentPublication {
+                        self.configureRegisterButtonForState(.Registered)
+                    }
+                    else {
+                        self.configureRegisterButtonForState(.Unregistered)
+                    }
                 }
             }
         }

@@ -215,6 +215,17 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         return exists
     }
     
+    func isUserCreaetedPublication(publication: FCPublication) -> Bool {
+        
+        for userCreatedPublication in self.userCreatedPublications {
+            if publication.uniqueId == userCreatedPublication.uniqueId &&
+                publication.version == userCreatedPublication.version{
+                    return true
+            }
+        }
+        return false
+    }
+    
     func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {
         
         var possiblePublication = self.publicationWithIdentifier(identifier)
