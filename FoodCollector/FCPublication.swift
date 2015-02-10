@@ -64,7 +64,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var isOnAir: Bool
     public var photoUrl:String
     var photoData = PhotoData()
-    public var distanceFromUserLocation:Double {
+    public var  distanceFromUserLocation:Double {
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         return location.distanceFromLocation(FCModel.sharedInstance.userLocation)
     }
