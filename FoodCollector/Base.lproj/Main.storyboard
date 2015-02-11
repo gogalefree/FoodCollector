@@ -586,10 +586,26 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="2pt-Tq-754"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="api-fK-1BX">
+                                <rect key="frame" x="21" y="452" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="oPF-dj-n8C"/>
+                                    <constraint firstAttribute="width" constant="50" id="vRh-cC-KYL"/>
+                                </constraints>
+                                <state key="normal" title="Track">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="trackUserAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="q63-7j-MMD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OgJ-ic-60V" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="00U-NU-HST"/>
+                            <constraint firstItem="OgJ-ic-60V" firstAttribute="leading" secondItem="api-fK-1BX" secondAttribute="trailing" constant="-71" id="1gH-s4-7Z3"/>
+                            <constraint firstItem="api-fK-1BX" firstAttribute="top" secondItem="OgJ-ic-60V" secondAttribute="bottom" constant="-148" id="Ith-6d-Tir"/>
                             <constraint firstItem="OgJ-ic-60V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="pZW-G8-9Lp"/>
                             <constraint firstAttribute="trailing" secondItem="OgJ-ic-60V" secondAttribute="trailing" id="slm-x3-SgQ"/>
                             <constraint firstAttribute="bottom" secondItem="OgJ-ic-60V" secondAttribute="bottom" id="wC4-M5-rdQ"/>
@@ -610,6 +626,7 @@
                     <connections>
                         <outlet property="mapView" destination="OgJ-ic-60V" id="ODB-kI-guV"/>
                         <outlet property="showTableButton" destination="Rj4-yt-P4Y" id="Tu0-gb-FwU"/>
+                        <outlet property="trackUserButton" destination="api-fK-1BX" id="nGG-fW-rrW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

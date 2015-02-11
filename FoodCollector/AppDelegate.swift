@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
             }
             
-            if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
+            if option[UIApplicationLaunchOptionsLocationKey] != nil {
                 let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
             }

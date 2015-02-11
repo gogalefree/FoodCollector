@@ -19,19 +19,27 @@ let kNewUserCreatedPublicationNotification = "newUserCreatedPublicationNotificat
 
 let kDeviceUUIDKey = "seviceUUIDString"
 let kDistanceFilter = 5.0
+let kModifyCoordsToPresentOnMapView = 0.0004
 
 public class FCModel : NSObject, CLLocationManagerDelegate {
     
     var appDataStoreManager = FCAppDataStoreManager()
     var readyToLaunchUI:Bool = false
     var foodCollectorWebServer:FCServerProtocol!
-    public var publications = [FCPublication]()
+    
+    var publications = [FCPublication]()
     var userCreatedPublications = [FCPublication]()
+    
+    var fetchedPublications = [FCPublication]()
+    var publicationsToDelete = [FCPublication]()
+    var publicationsToAdd = [FCPublication]()
+    
     var userLocation = CLLocation()
     let locationManager = CLLocationManager()
     let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
     let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("userCreatedPublications")
     var photosDirectoryUrl : NSURL = FCModel.preparePhotosDirectory()
+    var dataUpdater = DataUpdater()
     var uiReadyForNewData: Bool = false {
         
         didSet {
@@ -52,13 +60,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     public func setUp () {
         
         //we start with loading the current data
-        self.locationManager.delegate = self
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        self.locationManager.distanceFilter = kDistanceFilter
-        self.locationManager.startUpdatingLocation()
-        
-        
         loadPublications()
         loadUserCreatedPublications()
         self.deviceUUID ?? {
@@ -67,81 +68,16 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             self.foodCollectorWebServer.reportDeviceUUID(uuid)
             return uuid
             }()
-    }
-    
-    func downloadData() {
         
-        self.foodCollectorWebServer.downloadAllPublicationsWithCompletion
-            { (thePublications: [FCPublication]) -> Void in
-                
-                self.publications = thePublications
-                //uncomment AFTER first build
-                self.savePublications()
-                self.downloadReportsForPublications()
-                self.postFetchedDataReadyNotification()
-                
-                //uncomment to simulate user created publication from mock data
-                
-               /* self.userCreatedPublications.append(thePublications[0])
-                self.userCreatedPublications.append(thePublications[1])
-                self.userCreatedPublications.append(thePublications[2])
-                self.userCreatedPublications.append(thePublications[3])
-                self.userCreatedPublications.append(thePublications[4])
-                self.userCreatedPublications.append(thePublications[5])
-                */
-                /*
-                // uncomment FOR first build only
-                self.userCreatedPublications.removeAll(keepCapacity: false)
-                self.userCreatedPublications.append(thePublications[0])
-                self.userCreatedPublications.append(thePublications[1])
-                self.userCreatedPublications.append(thePublications[2])
-                self.saveUserCreatedPublications()
-                */
-                
+        self.dataUpdater.startUpdates()
+        
+        if CLLocationManager.locationServicesEnabled() {
+           self.setupLocationManager()
         }
     }
     
-    func downloadReportsForPublications() {
-        
-        let counter = self.publications.count - 1
-        
-        for (index ,publication) in enumerate(self.publications) {
-            self.foodCollectorWebServer.reportsForPublication(publication, completion: { (success: Bool, reports: [FCOnSpotPublicationReport]?) -> () in
-                if success {
-                    publication.reportsForPublication = reports!
-                    publication.countOfRegisteredUsers = reports!.count
-                }
-                if index == counter {
-                    NSNotificationCenter.defaultCenter().postNotificationName("didFetchNewPublicationReportNotification", object: self)
-                }
-            })
-        }
-    }
-    
-    public func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        
-        switch status {
-            
-        case .Authorized:
-            println("always")
-        case .AuthorizedWhenInUse:
-            println("in use")
-        case .NotDetermined:
-            println("not determind")
-        case .Denied:
-            println("denied")
-        case .Restricted:
-            println("restrivted")
-        }
-        println("Did change authorization \(status)")
-    }
-    /// deletes a Publication to Publications array
-    ///
-    
-    public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!){
-        self.userLocation = locations.first as CLLocation
-    }
-    
+           
+       
     
     func deletePublication(publicationIdentifier: PublicationIdentifier) {
         for (index , publication) in enumerate(self.publications) {
@@ -177,7 +113,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             self.publications.append(recievedPublication)
             FCUserNotificationHandler.sharedInstance.registerLocalNotification(recievedPublication)
             self.postRecievedNewPublicationNotification()
-        
+            
             //save the new data
             self.savePublications()
         }
@@ -272,40 +208,12 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         return requestedPublication
     }
     
-    ///posts NSNotification when the downloaded data is ready
-    func postFetchedDataReadyNotification () {
-        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewDataNotification, object: self)
-    }
-    
-    //posts after the new publication recived from push was added to the model
-    func postRecievedNewPublicationNotification() {
-        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedNewPublicationNotification, object: self)
-    }
-    
-    //posts after the deleted publication from push was removed from the model
-    func postDeletedPublicationNotification(publicationIdentifier: PublicationIdentifier) {
-        NSNotificationCenter.defaultCenter().postNotificationName(kDeletedPublicationNotification, object: self)
-    }
-    
-    func postRecivedPublicationReportNotification() {
-        NSNotificationCenter.defaultCenter().postNotificationName(kRecivedPublicationReportNotification, object: self)
-    }
-    
-    func postRecivedPublicationRegistrationNotification() {
-        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self)
-    }
-    
-    func postNewUserCreatedPublicationNotification() {
-        NSNotificationCenter.defaultCenter().postNotificationName(kNewUserCreatedPublicationNotification, object: self)
-    }
-    
-    //MARK: - User registered publications
+       //MARK: - User registered publications
     func userRegisteredPublications() -> [FCPublication] {
         
         var userRegisteredPublications = [FCPublication]()
         
         for publication in self.publications {
-            println("\(publication.title) is registered = \(publication.didRegisterForCurrentPublication)")
             if publication.didRegisterForCurrentPublication {
                 userRegisteredPublications.append(publication)
             }
@@ -314,41 +222,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     }
 }
 
-// MARK: - store
-
-public extension FCModel {
-    
-    func savePublications() {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
-        }
-    }
-    
-    func loadPublications() {
-        
-        if NSFileManager.defaultManager().fileExistsAtPath(self.publicationsFilePath){
-            let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.publicationsFilePath) as [FCPublication]
-            self.publications = array
-        }
-    }
-    
-    func saveUserCreatedPublications() {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let success = NSKeyedArchiver.archiveRootObject(self.userCreatedPublications, toFile: self.userCreatedPublicationsFilePath)
-        }
-    }
-    
-    func loadUserCreatedPublications() {
-        
-        if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath){
-            
-            let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as [FCPublication]
-            self.userCreatedPublications = array
-        }
-    }
-}
 
 // MARK - singleTone
 

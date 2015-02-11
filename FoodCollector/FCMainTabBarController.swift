@@ -13,6 +13,8 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     var isPresentingOnSpotReportVC = false
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

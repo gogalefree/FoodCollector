@@ -20,14 +20,32 @@ class FCNavigationHandler : NSObject {
         
         if UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!){
             
-            let navString = "waze://?ll=\(publication.coordinate.latitude),\(publication.coordinate.longitude)&navigate=yes"
+            var latitude = publication.coordinate.latitude
+            var longitude = publication.coordinate.longitude
+            
+            if publication.didModifyCoords {
+                latitude -= kModifyCoordsToPresentOnMapView
+                longitude -= kModifyCoordsToPresentOnMapView
+            }
+            
+            let navString = "waze://?ll=\(latitude),\(longitude)&navigate=yes"
             UIApplication.sharedApplication().openURL(NSURL(string:navString)!)
         }
     }
     
     func appleMapsNavigation(publication: FCPublication) {
         
-        let destinationPM = MKPlacemark(coordinate: publication.coordinate, addressDictionary: nil)
+        var latitude = publication.coordinate.latitude
+        var longitude = publication.coordinate.longitude
+        
+        if publication.didModifyCoords {
+            latitude -= kModifyCoordsToPresentOnMapView
+            longitude -= kModifyCoordsToPresentOnMapView
+        }
+        
+        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+        
+        let destinationPM = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
         let destinationItem = MKMapItem(placemark: destinationPM)
         destinationItem.name = publication.title
         let userCoordinates = FCModel.sharedInstance.userLocation.coordinate
@@ -40,10 +58,6 @@ class FCNavigationHandler : NSObject {
         
         MKMapItem.openMapsWithItems(navItems, launchOptions: launchOptions)
     }
-    
-
-    
-    
 }
 
 

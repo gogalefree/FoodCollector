@@ -25,6 +25,7 @@ let kPublicationContactInfoKey = "contact_info"
 let kPublicationPhotoUrl = "photo_url"
 let kPublicationIsOnAirKey = "is_on_air"
 let kDidRegisterForCurrentPublicationKey = "did_Register_for_current_publication"
+let kDidModifyCoordinatesKey = "did_modify_coords"
 
 struct PublicationIdentifier {
     
@@ -62,6 +63,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var endingDate:NSDate
     public var contactInfo:String?
     public var isOnAir: Bool
+    public var didModifyCoords : Bool
     public var photoUrl:String
     var photoData = PhotoData()
     public var  distanceFromUserLocation:Double {
@@ -104,6 +106,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             self.isOnAir = true
             self.photoUrl = "\(uniqueId).\(version).jpg"
             self.didRegisterForCurrentPublication = false
+            self.didModifyCoords = false
             super.init()
     }
     
@@ -128,6 +131,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeObject(self.photoUrl, forKey: kPublicationPhotoUrl)
         aCoder.encodeBool(self.isOnAir, forKey: kPublicationIsOnAirKey)
         aCoder.encodeBool(self.didRegisterForCurrentPublication, forKey: kDidRegisterForCurrentPublicationKey)
+        aCoder.encodeBool(self.didModifyCoords, forKey: kDidModifyCoordinatesKey)
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -149,6 +153,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as String
         self.isOnAir = aDecoder.decodeBoolForKey(kPublicationIsOnAirKey) as Bool
         self.didRegisterForCurrentPublication = aDecoder.decodeBoolForKey(kDidRegisterForCurrentPublicationKey) as Bool
+        self.didModifyCoords = aDecoder.decodeBoolForKey(kDidModifyCoordinatesKey) as Bool
         super.init()
     }
     

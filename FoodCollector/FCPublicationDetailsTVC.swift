@@ -11,14 +11,12 @@ import UIKit
 class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleCellDelegate {
     
     var publication: FCPublication?
-    // var didFetchPublicationReports = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 140
-        //self.tableView.rowHeight = UITableViewAutomaticDimension
         fetchPublicationReports()
         fetchPublicationPhoto()
      
@@ -110,6 +108,8 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
         
+        FCModel.sharedInstance.savePublications()
+        
         //show alert controller
         if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
             
@@ -121,10 +121,12 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     }
     
     func didUnRegisterForPublication(publication: FCPublication) {
+
         publication.didRegisterForCurrentPublication = false
         publication.countOfRegisteredUsers -= 1
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
         
+        FCModel.sharedInstance.savePublications()
     }
     
     func didRequestNavigationForPublication(publication: FCPublication) {

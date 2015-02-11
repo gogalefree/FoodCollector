@@ -15,10 +15,12 @@ let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMes
 let kActivityCenterTitle = String.localizedStringWithFormat("מרכז הפעילות","activity center navigation bar title")
 let kCollctorTitle = String.localizedStringWithFormat("אוסף","collector root vc navigation bar title")
 
-class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecognizerDelegate{
+class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate{
     
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
+    @IBOutlet weak var trackUserButton: UIButton!
+    
     var showTableButtonCopy:UIBarButtonItem!
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
@@ -30,14 +32,60 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
     var tabbarVisibleCenter = CGPointZero
     var tabbarHiddenCenter = CGPointZero
     var tabbarDragCenter = CGPointZero
-
     var onceToken = 0
+    var trackingUserLocation = false
+    var locationManager = CLLocationManager()
+    var didFinishInitialMapAnimation = false
     var didFailToRegisterPushNotifications = {
         NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
         }()
     
+    //MARK: - Location Manager setup
     
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        
+        switch status {
+            
+        case .Authorized , .AuthorizedWhenInUse :
+            self.setupLocationManager()
+        default :
+            break
+        }
+    }
+
+    func setupLocationManager() {
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        self.locationManager.distanceFilter = kDistanceFilter
+        self.locationManager.startUpdatingLocation()
+    }
     
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    
+        if trackingUserLocation{
+            
+            let span = self.mapView.region.span
+            let location = locations.first! as CLLocation
+            let region = MKCoordinateRegionMake(location.coordinate, span)
+            self.mapView.setRegion(region, animated: true)
+            
+            var newCamera = self.mapView.camera.copy() as MKMapCamera
+            newCamera.heading = 90.0
+            self.mapView.setCamera(newCamera, animated: true)
+        }
+    }
+    
+    @IBAction func trackUserAction(sender: AnyObject) {
+       
+        self.trackingUserLocation = true
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            self.trackUserButton.alpha = 0
+        }, completion: nil)
+        self.mapView.setCenterCoordinate(self.mapView.userLocation.coordinate, animated: true)
+    }
+    
+    //MARK: - Life cycle
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -53,6 +101,12 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         self.mapView.addGestureRecognizer(panRecognizer)
         
         self.showTableButtonCopy = self.showTableButton as UIBarButtonItem
+        
+        if CLLocationManager.locationServicesEnabled() {
+            self.setupLocationManager()
+        }
+        
+        self.trackUserButton.layer.cornerRadius = self.trackUserButton.frame.size.width / 2
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -103,6 +157,10 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
             if !isPresentingActivityCenter {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
                 self.showTabbar()
+                self.trackingUserLocation = false
+                UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                    self.trackUserButton.alpha = 1
+                    }, completion: nil)
             }
         }
     }
@@ -138,23 +196,29 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         self.mapView.showsUserLocation = true
         self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
     }
-    func mapViewDidFinishLoadingMap(mapView: MKMapView!) {
-        println("DID FINISH LOADING MAP")
-    }
     
-    func mapViewDidStopLocatingUser(mapView: MKMapView!) {
-        println("DID STOP LOCATING USER")
-
-    }
+//    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+//    
+//        println("TRYING TO SET REGION")
+//
+//        
+//        if mapView.userTrackingMode == MKUserTrackingMode.Follow{
+////            var span = self.mapView.region.span
+////            var region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+//            println("SETTING REGION")
+////            mapView.setCenterCoordinate(userLocation.coordinate, animated: true)
+//        }
+//    }
     
-    func mapViewWillStartLocatingUser(mapView: MKMapView!) {
-        println("WILL START LOCATING USER")
-    }
-    
-    func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
-        println("DID FINISH RENDERING MAP")
-
-    }
+//    func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
+//        println("DID FINISH RENDERING MAP")
+//
+//        dispatch_once(&self.didFinishMapAnimationTokenToken, { () -> Void in
+//            
+//            println("once to finish animation ***********************")
+//            self.didFinishInitialMapAnimation = true
+//        })
+//    }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
@@ -190,17 +254,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , UIGestureRecogni
         self.reloadAnnotations()
         
       //  self.postOnSpotReport(publication)
-    }
-    
-  
-    
-    func mapView(mapView: MKMapView!, regionWillChangeAnimated animated: Bool) {
-        
-    }
-    
-    func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
-        
-        
     }
     
     
@@ -307,37 +360,7 @@ extension FCCollectorRootVC {
 
     func didRecieveNewData(notification: NSNotification) {
         
-        var publicationsToAdd = [FCPublication]()
-        var publicationsToDelete = [FCPublication]()
-        
-        let toDeleteOperation = NSBlockOperation { () -> Void in
-            publicationsToDelete = FCFetchedDataSorter.publicationsToDelete(self.publications)
-        }
-        
-        let toAddQperation = NSBlockOperation { () -> Void in
-            publicationsToAdd = FCFetchedDataSorter.publicationToAdd(self.publications)
-        }
-        
-        toAddQperation.addDependency(toDeleteOperation)
-        toAddQperation.completionBlock = {
-            
-            println("to add: \(publicationsToAdd.count)")
-            println("to delete: \(publicationsToDelete.count)")
-            
-            self.publications = FCModel.sharedInstance.publications
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.mapView.removeAnnotations(publicationsToDelete)
-                self.mapView.addAnnotations(publicationsToAdd)
-                if self.isPresentingPublicationDetailsView {
-                    self.updatePublicationDetailsViewWithNewData(publicationsToAdd)
-                }
-            })
-        }
-        
-        let sortQue = NSOperationQueue.mainQueue()
-        sortQue.qualityOfService = .Background
-        sortQue.addOperations([toDeleteOperation, toAddQperation], waitUntilFinished: false)
+        self.reloadAnnotations()
     }
     
     func updatePublicationDetailsViewWithNewData(publicationsToAdd: [FCPublication]) {
@@ -479,10 +502,9 @@ extension FCCollectorRootVC {
     
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             self.mapView.removeAnnotations(self.publications)
-         //   self.publications = FCModel.sharedInstance.publications
+            self.publications = FCModel.sharedInstance.publications
             self.mapView.addAnnotations(self.publications)
         })
-    
     }
     
     func registerForNSNotifications() {
