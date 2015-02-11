@@ -21,6 +21,17 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        if NSUserDefaults.standardUserDefaults().boolForKey(kDidReciveLocationNotificationInBackground){
+            let userInfo = FCUserNotificationHandler.sharedInstance.recivedLocationNotification.last!
+            let notification = NSNotification(name: "auto", object: self, userInfo: userInfo)
+            self.didRecieveOnspotNotification(notification)
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReciveLocationNotificationInBackground)
+        }
+    }
+    
     func didRecieveOnspotNotification(notification: NSNotification) {
         
         if isPresentingOnSpotReportVC{

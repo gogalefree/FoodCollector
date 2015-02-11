@@ -59,20 +59,31 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.distanceFilter = kDistanceFilter
         self.locationManager.startUpdatingLocation()
+        
+        if CLLocationManager.headingAvailable() {
+            self.locationManager.headingFilter = 1
+            self.locationManager.startUpdatingHeading()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+        
+        if self.trackingUserLocation{
+
+            if newHeading.headingAccuracy < 0 {return}
+       
+                var theHeading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
+                var newCamera = self.mapView.camera.copy() as MKMapCamera
+                newCamera.heading = theHeading
+                self.mapView.setCamera(newCamera, animated: true)
+        }
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
     
         if trackingUserLocation{
             
-            let span = self.mapView.region.span
-            let location = locations.first! as CLLocation
-            let region = MKCoordinateRegionMake(location.coordinate, span)
-            self.mapView.setRegion(region, animated: true)
-            
-            var newCamera = self.mapView.camera.copy() as MKMapCamera
-            newCamera.heading = 90.0
-            self.mapView.setCamera(newCamera, animated: true)
+            self.mapView.setCenterCoordinate(self.mapView.userLocation.coordinate, animated: true)
         }
     }
     

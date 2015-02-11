@@ -11,6 +11,7 @@ import CoreLocation
 
 let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
+let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificationInBackground"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -42,6 +43,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             if option[UIApplicationLaunchOptionsLocationKey] != nil {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
+                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
+                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
+            }
+            
+            if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
                 let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
             }

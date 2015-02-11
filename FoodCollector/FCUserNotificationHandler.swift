@@ -42,7 +42,7 @@ class FCUserNotificationHandler : NSObject {
     var recivedtoDelete = [PublicationIdentifier]()
     var recivedReports = [(PublicationIdentifier, FCOnSpotPublicationReport)]()
     var recievedRegistrations = [FCRegistrationForPublication]()
-    
+    var recivedLocationNotification = [[NSObject : AnyObject]]()
     
     /// this method receives the new token and calls the server’s
     /// reportNewToken:oldToken:
@@ -92,6 +92,7 @@ class FCUserNotificationHandler : NSObject {
         let userInfo = notification.userInfo
         if userInfo != nil {
             //handle the notification on FCMainTabBarController
+            self.recivedLocationNotification.append(userInfo!)
             NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
         }
     }
