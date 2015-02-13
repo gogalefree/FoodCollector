@@ -1,0 +1,50 @@
+//
+//  FCPublicationsSorter.swift
+//  FoodCollector
+//
+//  Created by Guy Freedman on 2/13/15.
+//  Copyright (c) 2015 Guy Freeman. All rights reserved.
+//
+
+import Foundation
+
+class FCPublicationsSorter: NSObject {
+    
+    class func sortPublicationsByDistanceFromUser(publications: [FCPublication]) -> [FCPublication] {
+        
+        var sortedPublications = publications
+        sortedPublications.sort({ $0.distanceFromUserLocation < $1.distanceFromUserLocation })
+        return sortedPublications
+        
+        
+//        publications.sorted({ (a1, a2) -> Bool in
+//            let one : FCPublication = a1
+//            let two : FCPublication = a2
+//            return one.distanceFromUserLocation < two.distanceFromUserLocation
+//        })
+    }
+
+    class func sortPublicationReportsByDate(publication: FCPublication) {
+        publication.reportsForPublication.sort({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+    }
+    
+    class func sortPublicationsByEndingDate(publications: [FCPublication]) -> [FCPublication] {
+        var publicationsToSort = publications
+        publicationsToSort.sort({ $0.endingDate.compare($1.endingDate) == NSComparisonResult.OrderedDescending })
+        return publicationsToSort
+    }
+    
+    class func sortPublicationsByStartingDate(publications: [FCPublication]) -> [FCPublication] {
+        var publicationsToSort = publications
+        publicationsToSort.sort({ $0.startingDate.compare($1.startingDate) == NSComparisonResult.OrderedDescending })
+        return publicationsToSort
+    }
+    
+    class func sortPublicationsByCountOfRegisteredUsers(publications: [FCPublication]) -> [FCPublication] {
+        var publicationsToSort = publications
+        publicationsToSort.sort({ $0.countOfRegisteredUsers < $1.countOfRegisteredUsers })
+        return publicationsToSort
+    }
+    
+
+}

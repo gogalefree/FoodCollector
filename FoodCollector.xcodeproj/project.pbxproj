@@ -71,6 +71,8 @@
 		E4C1C16C1A52AC8E00A37E00 /* easter_cake-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */; };
 		E4C1C16D1A52AC8E00A37E00 /* bell-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C16A1A52AC8E00A37E00 /* bell-26.png */; };
 		E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */; };
+		E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */; };
+		E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */; };
 		E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */; };
 		E4FEFC201A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */; };
 /* End PBXBuildFile section */
@@ -156,6 +158,8 @@
 		E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "easter_cake-26.png"; sourceTree = "<group>"; };
 		E4C1C16A1A52AC8E00A37E00 /* bell-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-26.png"; sourceTree = "<group>"; };
 		E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoFetcher.swift; sourceTree = "<group>"; };
+		E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsSorter.swift; sourceTree = "<group>"; };
+		E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCTableViewAnimator.swift; sourceTree = "<group>"; };
 		E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVC.swift; sourceTree = "<group>"; };
 		E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCell.swift; sourceTree = "<group>"; };
 		F1B2D1FD30AE3BB39FBEABBA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 				E42ED57E1A8BD4C5008FB618 /* FCModel */,
 				E42ED5741A8B682C008FB618 /* DataUpdater.swift */,
 				E4737D7D1A10C01300A4AB81 /* FCServerProtocol.swift */,
+				E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */,
 				E47F9C501A120C0B00079164 /* FCMockServer.swift */,
 				E488473F1A19E055000E98DA /* FCFetchedDataSorter.swift */,
 				E4737D721A10C01300A4AB81 /* FCPublication.swift */,
@@ -251,6 +256,7 @@
 				E4737D6C1A10C01300A4AB81 /* FCNavigationHandler.swift */,
 				E4737D7E1A10C01300A4AB81 /* FCStringFunctions.swift */,
 				E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */,
+				E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */,
 				E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */,
 				A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */,
 				E4642C8A1A52F23300F5C43B /* PinGreenCall.png */,
@@ -546,6 +552,7 @@
 				E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
+				E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */,
 				E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */,
 				E4737D9D1A10C01300A4AB81 /* FCPublishRootVC.swift in Sources */,
 				E40BD4FB1A5819D900BB2F98 /* FCPublicationDetailsTVReportsCell.swift in Sources */,
@@ -577,6 +584,7 @@
 				E42ED5751A8B682C008FB618 /* DataUpdater.swift in Sources */,
 				E42ED57D1A8BD380008FB618 /* FCModel+PostNotifications.swift in Sources */,
 				A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */,
+				E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */,
 				E4737D8C1A10C01300A4AB81 /* FCModel.swift in Sources */,
 				E4214E701A63E1020070332D /* FCPublishStringFieldsEditorVC.swift in Sources */,
 				E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */,

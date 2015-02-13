@@ -27,7 +27,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userCreatedPublications = FCDateFunctions.sortPublicationsByEndingDate(FCModel.sharedInstance.userCreatedPublications)
+        userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(FCModel.sharedInstance.userCreatedPublications)
 
         collectionView.delegate = self
         if userCreatedPublications.count == 0 {

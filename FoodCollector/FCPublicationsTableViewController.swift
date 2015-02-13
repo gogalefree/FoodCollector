@@ -31,19 +31,53 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         
         super.viewDidLoad()
         self.publications = FCModel.sharedInstance.publications
-        sortPublicationsByDistanceFromUser(self.publications)
-        self.tableView.contentOffset.y = 30
+        self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
         addSearchBar()
+        self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)
+
+        
+//        let sortedByCount = FCPublicationsSorter.sortPublicationsByCountOfRegisteredUsers(self.publications)
+//        let  sortedByStartingDate = FCPublicationsSorter.sortPublicationsByStartingDate(self.publications)
+//        
+//        for publication in sortedByCount {
+//            println("\(publication.title) count \(publication.countOfRegisteredUsers)")
+//        }
+//        
+//        for publication in sortedByStartingDate {
+//            println("\(publication.title) count \(publication.startingDate)")
+//        }
+//        
     }
     
     func addSearchBar() {
     
-        let searchBar = UISearchBar(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 30))
+        let searchBar = UISearchBar(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44))
         self.searchBar = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "Search"
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Available"]
+        searchBar.showsScopeBar = true
+        searchBar.selectedScopeButtonIndex = 0
+        searchBar.sizeToFit()
+        
+        let white = UIColor.whiteColor()
+        searchBar.setScopeBarButtonBackgroundImage(imageWithColor(white), forState: .Normal)
+        
+        let color = UIColor(red: 245, green: 221, blue: 249, alpha: 0.5)
+        searchBar.setScopeBarButtonBackgroundImage(imageWithColor(color), forState: .Selected)
+        searchBar.scopeBarBackgroundImage = imageWithColor(white)
         self.tableView.tableHeaderView = searchBar
+    }
+    
+    func imageWithColor(color: UIColor) -> UIImage {
+        var rect = CGRectMake(0, 0, self.view.bounds.width, 40)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        var image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -80,6 +114,28 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
     }
     
+    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:
+            //sort by distance
+            self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
+            self.filteredPublicaitons = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
+        case 1:
+            //sort by StartingDate
+            self.publications = FCPublicationsSorter.sortPublicationsByStartingDate(self.publications)
+            self.filteredPublicaitons = FCPublicationsSorter.sortPublicationsByStartingDate(self.publications)
+            
+        case 2:
+            //sort by count of registered uaers
+            self.publications = FCPublicationsSorter.sortPublicationsByCountOfRegisteredUsers(self.publications)
+            self.filteredPublicaitons = FCPublicationsSorter.sortPublicationsByCountOfRegisteredUsers(self.publications)
+        default:
+            break
+        }
+        
+        self.tableView.reloadData()
+    }
+    
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
 
         self.searchBar.resignFirstResponder()
@@ -114,15 +170,6 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         return filtered
     }
     
-    func sortPublicationsByDistanceFromUser(publications: [FCPublication]) {
-        
-            publications.sorted({ (a1, a2) -> Bool in
-            let one : FCPublication = a1
-            let two : FCPublication = a2
-            return one.distanceFromUserLocation < two.distanceFromUserLocation
-        })
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.isFiltered {return self.filteredPublicaitons.count}
         return self.publications.count
@@ -141,6 +188,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
             publication = self.publications[indexPath.row] as FCPublication
         }
         cell.publication = publication
+        FCTableViewAnimator.animateCell(cell, sender: self)
         return cell
     }
     
