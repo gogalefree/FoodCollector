@@ -586,26 +586,36 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="2pt-Tq-754"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="api-fK-1BX">
-                                <rect key="frame" x="21" y="452" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0e-IL-u3L">
+                                <rect key="frame" x="38" y="453" width="50" height="50"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vFd-fs-WSC">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="api-fK-1BX">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Track">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="trackUserAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="q63-7j-MMD"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="oPF-dj-n8C"/>
-                                    <constraint firstAttribute="width" constant="50" id="vRh-cC-KYL"/>
+                                    <constraint firstAttribute="height" constant="50" id="kj0-Tb-9pZ"/>
+                                    <constraint firstAttribute="width" constant="50" id="q0t-5n-uyD"/>
                                 </constraints>
-                                <state key="normal" title="Track">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="trackUserAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="q63-7j-MMD"/>
-                                </connections>
-                            </button>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OgJ-ic-60V" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="00U-NU-HST"/>
-                            <constraint firstItem="OgJ-ic-60V" firstAttribute="leading" secondItem="api-fK-1BX" secondAttribute="trailing" constant="-71" id="1gH-s4-7Z3"/>
-                            <constraint firstItem="api-fK-1BX" firstAttribute="top" secondItem="OgJ-ic-60V" secondAttribute="bottom" constant="-148" id="Ith-6d-Tir"/>
+                            <constraint firstItem="OgJ-ic-60V" firstAttribute="leading" secondItem="n0e-IL-u3L" secondAttribute="trailing" constant="-88" id="AF5-G1-1QR"/>
+                            <constraint firstItem="n0e-IL-u3L" firstAttribute="top" secondItem="OgJ-ic-60V" secondAttribute="bottom" constant="-147" id="SzU-zc-1qY"/>
                             <constraint firstItem="OgJ-ic-60V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="pZW-G8-9Lp"/>
                             <constraint firstAttribute="trailing" secondItem="OgJ-ic-60V" secondAttribute="trailing" id="slm-x3-SgQ"/>
                             <constraint firstAttribute="bottom" secondItem="OgJ-ic-60V" secondAttribute="bottom" id="wC4-M5-rdQ"/>
@@ -624,6 +634,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="blureView" destination="n0e-IL-u3L" id="U4h-LG-sCY"/>
                         <outlet property="mapView" destination="OgJ-ic-60V" id="ODB-kI-guV"/>
                         <outlet property="showTableButton" destination="Rj4-yt-P4Y" id="Tu0-gb-FwU"/>
                         <outlet property="trackUserButton" destination="api-fK-1BX" id="nGG-fW-rrW"/>

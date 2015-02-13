@@ -21,6 +21,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     @IBOutlet weak var showTableButton: UIBarButtonItem!
     @IBOutlet weak var trackUserButton: UIButton!
     
+    @IBOutlet weak var blureView: UIView!
     var showTableButtonCopy:UIBarButtonItem!
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
@@ -57,11 +58,11 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        self.locationManager.distanceFilter = kDistanceFilter
+        self.locationManager.distanceFilter = 2.5
         self.locationManager.startUpdatingLocation()
         
         if CLLocationManager.headingAvailable() {
-            self.locationManager.headingFilter = 1
+            self.locationManager.headingFilter = 45
             self.locationManager.startUpdatingHeading()
         }
     }
@@ -70,12 +71,12 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         
         if self.trackingUserLocation{
 
-            if newHeading.headingAccuracy < 0 {return}
-       
-                var theHeading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
-                var newCamera = self.mapView.camera.copy() as MKMapCamera
-                newCamera.heading = theHeading
-                self.mapView.setCamera(newCamera, animated: true)
+//            if newHeading.headingAccuracy < 0 {return}
+//       
+//                var theHeading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
+//                var newCamera = self.mapView.camera.copy() as MKMapCamera
+//                newCamera.heading = theHeading
+//                self.mapView.setCamera(newCamera, animated: true)
         }
     }
     
@@ -84,15 +85,17 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         if trackingUserLocation{
             
             self.mapView.setCenterCoordinate(self.mapView.userLocation.coordinate, animated: true)
+            var newCamera = self.mapView.camera.copy() as MKMapCamera
+            newCamera.heading = self.mapView.userLocation.location.course
+            self.mapView.setCamera(newCamera, animated: true)
+            
         }
     }
     
     @IBAction func trackUserAction(sender: AnyObject) {
        
         self.trackingUserLocation = true
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
-            self.trackUserButton.alpha = 0
-        }, completion: nil)
+        self.blureView.animateToAlphaWithSpring(0.4, alpha: 0)
         self.mapView.setCenterCoordinate(self.mapView.userLocation.coordinate, animated: true)
     }
     
@@ -118,6 +121,10 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }
         
         self.trackUserButton.layer.cornerRadius = self.trackUserButton.frame.size.width / 2
+        self.blureView.layer.cornerRadius = self.blureView.frame.size.width / 2
+        self.blureView.layer.borderWidth = 1
+        self.blureView.layer.borderColor = UIColor.grayColor().CGColor
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -169,29 +176,20 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             self.navigationController?.setNavigationBarHidden(false, animated: true)
                 self.showTabbar()
                 self.trackingUserLocation = false
-                UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
-                    self.trackUserButton.alpha = 1
-                    }, completion: nil)
+                self.blureView.animateToAlphaWithSpring(0.4, alpha: 1)
             }
         }
     }
     
    
     func hideTabbar() {
-       
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
-
-           self.tabBarController!.tabBar.center = self.tabbarDragCenter
-
-        }, completion: nil)
+        
+        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarDragCenter)
     }
     
     func showTabbar() {
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
-            
-            self.tabBarController!.tabBar.center = self.tabbarVisibleCenter
-            
-            }, completion: nil)
+        
+        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarVisibleCenter)
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -208,29 +206,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
     }
     
-//    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
-//    
-//        println("TRYING TO SET REGION")
-//
-//        
-//        if mapView.userTrackingMode == MKUserTrackingMode.Follow{
-////            var span = self.mapView.region.span
-////            var region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
-//            println("SETTING REGION")
-////            mapView.setCenterCoordinate(userLocation.coordinate, animated: true)
-//        }
-//    }
-    
-//    func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
-//        println("DID FINISH RENDERING MAP")
-//
-//        dispatch_once(&self.didFinishMapAnimationTokenToken, { () -> Void in
-//            
-//            println("once to finish animation ***********************")
-//            self.didFinishInitialMapAnimation = true
-//        })
-//    }
-    
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
         if annotation.isKindOfClass(MKUserLocation) {
@@ -244,7 +219,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             annotationView = FCAnnotationView(annotation: annotation, reuseIdentifier: reusableIdentifier)
         }
         annotationView!.image = FCIconFactory.smallIconForPublication(annotation as FCPublication)
-//        annotationView!.imageForPublication(annotation as FCPublication)
         return annotationView
     }
     
@@ -317,6 +291,9 @@ extension FCCollectorRootVC {
         tabbarCenter?.x += self.view.bounds.width
         
         if let activityCenter = self.activityCenterTVC {
+            
+            self.blureView.animateToAlphaWithSpring(0.2, alpha: 0)
+            
             UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
                 
                 activityCenter.view.center = self.activityCenterVisibleCenter
@@ -342,7 +319,7 @@ extension FCCollectorRootVC {
     func animateBcakFromActivityCenter() {
         
         if let activityCenter = self.activityCenterTVC {
-            
+            self.blureView.animateToAlphaWithSpring(0.5, alpha: 1)
             UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
                 
                 activityCenter.view.center = self.activityCenterHiddenCenter
@@ -352,7 +329,6 @@ extension FCCollectorRootVC {
                 self.tabBarController?.tabBar.center = self.tabbarVisibleCenter
                 self.title = kCollctorTitle
                 self.addShowPublicationsTVCButton()
-
                 
                 }, completion: { (finished) -> Void in
                     

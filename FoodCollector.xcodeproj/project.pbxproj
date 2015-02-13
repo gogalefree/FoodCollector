@@ -51,6 +51,7 @@
 		E4737DAD1A10CD5800A4AB81 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAC1A10CD5800A4AB81 /* MapKit.framework */; };
 		E4737DAF1A10CD6200A4AB81 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */; };
 		E4737DB11A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */; };
+		E473A6291A8DEF4100CB8C44 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473A6281A8DEF4100CB8C44 /* UIView+Extensions.swift */; };
 		E476C2321A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E476C2311A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift */; };
 		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
 		E47F9C531A12184200079164 /* ModelInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C521A12184200079164 /* ModelInitTests.swift */; };
@@ -130,6 +131,7 @@
 		E4737DAC1A10CD5800A4AB81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E4737DB01A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCFoodCollectorWebServer.swift; sourceTree = "<group>"; };
+		E473A6281A8DEF4100CB8C44 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		E476C2311A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationEditorTVCell.swift; sourceTree = "<group>"; };
 		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
 		E47F9C521A12184200079164 /* ModelInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInitTests.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 		E4737DA81A10C1E700A4AB81 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				E473A6281A8DEF4100CB8C44 /* UIView+Extensions.swift */,
 				E4737D6C1A10C01300A4AB81 /* FCNavigationHandler.swift */,
 				E4737D7E1A10C01300A4AB81 /* FCStringFunctions.swift */,
 				E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */,
@@ -555,6 +558,7 @@
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
 				E4214E6C1A63E0860070332D /* FCPublishDateEditorVC.swift in Sources */,
+				E473A6291A8DEF4100CB8C44 /* UIView+Extensions.swift in Sources */,
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E476C2321A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift in Sources */,
 				E4FEFC201A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift in Sources */,
