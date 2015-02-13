@@ -42,7 +42,6 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         self.searchBar = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "Search"
-        searchBar.setShowsCancelButton(true, animated: true)
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
         self.tableView.tableHeaderView = searchBar
     }
@@ -62,13 +61,18 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         self.tableView.reloadData()
     }
     
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(true, animated: true)
+        return true
+    }
+    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
         self.searchBar.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        
+        searchBar.setShowsCancelButton(false, animated: true)
         self.isFiltered = false
         self.searchBar.resignFirstResponder()
         self.tableView.reloadData()
