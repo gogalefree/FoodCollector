@@ -13,7 +13,6 @@ let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
 let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificationInBackground"
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
