@@ -1,1 +1,0 @@
-../../../AWSCognitoSync/Cognito/AWSCognitoConflict.h

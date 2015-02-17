@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2014 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -241,16 +241,6 @@ static NSTimeInterval _clockskew = 0.0;
 @end
 
 @implementation NSString (AWS)
-
-+ (NSString *)aws_randomStringWithLength:(NSUInteger)length {
-    NSMutableString *randomString = [NSMutableString new];
-    for (int32_t i = 0; i < length; i++) {
-        @autoreleasepool {
-            [randomString appendString:[NSString stringWithFormat:@"%c", arc4random_uniform(26) + 'a']];
-        }
-    }
-    return randomString;
-}
 
 - (BOOL)aws_isBase64Data {
     if ([self length] % 4 == 0) {

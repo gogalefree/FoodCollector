@@ -1,1 +1,0 @@
-../../../AWSCognitoSync/Cognito/Internal/AWSCognitoRecord_Internal.h
