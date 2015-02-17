@@ -60,6 +60,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         // The tag property will be used later in the segue to identify
         // the publication item clicked by the user for editing.
         cell.tag = indexPath.item
+        FCTableViewAnimator.animateCollectionViewCell(cell, sender: self)
         
         return cell
     }

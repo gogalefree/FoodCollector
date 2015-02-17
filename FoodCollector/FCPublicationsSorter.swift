@@ -13,15 +13,11 @@ class FCPublicationsSorter: NSObject {
     class func sortPublicationsByDistanceFromUser(publications: [FCPublication]) -> [FCPublication] {
         
         var sortedPublications = publications
+
         sortedPublications.sort({ $0.distanceFromUserLocation < $1.distanceFromUserLocation })
+        
         return sortedPublications
         
-        
-//        publications.sorted({ (a1, a2) -> Bool in
-//            let one : FCPublication = a1
-//            let two : FCPublication = a2
-//            return one.distanceFromUserLocation < two.distanceFromUserLocation
-//        })
     }
 
     class func sortPublicationReportsByDate(publication: FCPublication) {

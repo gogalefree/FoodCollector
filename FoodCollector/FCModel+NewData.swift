@@ -32,9 +32,13 @@ extension FCModel {
                     
                     if fetchedPublication.uniqueId == publication.uniqueId &&
                         fetchedPublication.version == publication.version {
-                            
+                          
                             fetchedPublication.didRegisterForCurrentPublication = publication.didRegisterForCurrentPublication
                             fetchedPublication.reportsForPublication = publication.reportsForPublication
+                            fetchedPublication.photoData.photo = publication.photoData.photo
+                            fetchedPublication.photoData.didTryToDonwloadImage = publication.photoData.didTryToDonwloadImage
+                            
+                            
                             break
                     }
                 }

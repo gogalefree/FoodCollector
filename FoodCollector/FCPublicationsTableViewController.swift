@@ -33,22 +33,10 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         self.publications = FCModel.sharedInstance.publications
         self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
         addSearchBar()
-        self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)
-
-        
-//        let sortedByCount = FCPublicationsSorter.sortPublicationsByCountOfRegisteredUsers(self.publications)
-//        let  sortedByStartingDate = FCPublicationsSorter.sortPublicationsByStartingDate(self.publications)
-//        
-//        for publication in sortedByCount {
-//            println("\(publication.title) count \(publication.countOfRegisteredUsers)")
-//        }
-//        
-//        for publication in sortedByStartingDate {
-//            println("\(publication.title) count \(publication.startingDate)")
-//        }
-//        
+        self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)        
     }
     
+    //MARK: - UISearchBar
     func addSearchBar() {
     
         let searchBar = UISearchBar(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44))
@@ -62,22 +50,12 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         searchBar.sizeToFit()
         
         let white = UIColor.whiteColor()
-        searchBar.setScopeBarButtonBackgroundImage(imageWithColor(white), forState: .Normal)
+        searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(white, view: self.view), forState: .Normal)
         
         let color = UIColor(red: 245, green: 221, blue: 249, alpha: 0.5)
-        searchBar.setScopeBarButtonBackgroundImage(imageWithColor(color), forState: .Selected)
-        searchBar.scopeBarBackgroundImage = imageWithColor(white)
+        searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(color, view: self.view), forState: .Selected)
+        searchBar.scopeBarBackgroundImage = UIImage.imageWithColor(white, view: self.view)
         self.tableView.tableHeaderView = searchBar
-    }
-    
-    func imageWithColor(color: UIColor) -> UIImage {
-        var rect = CGRectMake(0, 0, self.view.bounds.width, 40)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
-        color.setFill()
-        UIRectFill(rect)
-        var image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -170,6 +148,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         return filtered
     }
     
+    //MARK: - Table view Delegate DataSource
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.isFiltered {return self.filteredPublicaitons.count}
         return self.publications.count
