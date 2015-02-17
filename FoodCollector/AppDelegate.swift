@@ -13,6 +13,8 @@ let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
 let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificationInBackground"
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -26,6 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //uncomment to check the device push notification token report service
         //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+        
+        if NSUserDefaults.standardUserDefaults().boolForKey("locationUpdateBackgroundcalled") {
+            println("locationUpdateBackgroundcalled")
+        }
+        if NSUserDefaults.standardUserDefaults().boolForKey("LOCALNOTICICATIONUpdateBackgroundcalled") {
+            println("LOCALNOTICICATIONUpdateBackgroundcalled")
+        }
 
         
         let model = FCModel.sharedInstance
@@ -46,12 +55,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
                 let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "locationUpdateBackgroundcalled")
             }
             
             if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
                 let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "LOCALNOTICICATIONUpdateBackgroundcalled")
+
             }
         }
 //        let location = CLLocationCoordinate2DMake(0, 0)

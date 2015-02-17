@@ -27,7 +27,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userCreatedPublications = FCDateFunctions.sortPublicationsByEndingDate(FCModel.sharedInstance.userCreatedPublications)
+        userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(FCModel.sharedInstance.userCreatedPublications)
 
         collectionView.delegate = self
         if userCreatedPublications.count == 0 {
@@ -60,6 +60,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         // The tag property will be used later in the segue to identify
         // the publication item clicked by the user for editing.
         cell.tag = indexPath.item
+        FCTableViewAnimator.animateCollectionViewCell(cell, sender: self)
         
         return cell
     }

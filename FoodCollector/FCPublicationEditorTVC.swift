@@ -59,6 +59,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     var selectedIndexPath: NSIndexPath?
     var takeOffAirButtonEnabled = false
     var publishButtonEnabled = false
+    lazy var activityIndicatorBlureView = UIVisualEffectView()
     
     func setupWithState(initialState: FCPublicationEditorTVCState, publication: FCPublication?) {
         self.state = initialState
@@ -283,12 +284,40 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     func publish() {
         
+        addActivityIndicator()
+
         switch self.state {
         case .CreateNewPublication:
             publishNewCreatedPublication()
         case .EditPublication , .ActivityCenter:
             publishEdidtedPublication()
         }
+    }
+    
+    func addActivityIndicator() {
+        self.activityIndicatorBlureView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+        let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150))
+        let blureView = self.activityIndicatorBlureView
+        var center = self.view.center
+        
+        blureView.frame = CGRectMake(0, 0, 150, 150)
+        center.y += 60
+        blureView.center = center
+        blureView.alpha = 0
+        blureView.contentView.addSubview(activityIndicator)
+        blureView.layer.cornerRadius = 20
+        blureView.clipsToBounds = true
+
+        
+        activityIndicator.activityIndicatorViewStyle = .WhiteLarge
+        activityIndicator.color = UIColor.darkGrayColor()
+        activityIndicator.startAnimating()
+        
+        self.view.addSubview(blureView)
+        self.view.bringSubviewToFront(blureView)
+        blureView.animateToAlphaWithSpring(0.6, alpha: 1)
+        self.tableView.userInteractionEnabled = false
+
     }
     
     func publishNewCreatedPublication() {
@@ -321,6 +350,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
             }
                 
             else {
+                self.removeActivityIndicator()
                 let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
@@ -360,10 +390,16 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
             }
                 
             else {
+                self.removeActivityIndicator()
                 let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event",aMessage: "try again later")
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    func removeActivityIndicator() {
+        self.activityIndicatorBlureView.removeFromSuperview()
+        self.tableView.userInteractionEnabled = true
     }
     
     func prepareParamsDictToSend() -> [String: AnyObject]{
