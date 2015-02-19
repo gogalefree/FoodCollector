@@ -66,8 +66,6 @@ plistDict = NSMutableDictionary(contentsOfFile: pathToInfoPlist)
 println(plistDict)
 
 // Change Info.plist dictionary values based on argument value
-//plistDict!.removeObjectForKey(kBundleIDKey)
-//plistDict!.removeObjectForKey(kBundleNameKey)
 switch argValue {
 case "prod": // Production URL
     plistDict!.setObject(kBundleIDProdVal,         forKey: kBundleIDKey)
