@@ -27,14 +27,14 @@ class FCTableViewAnimator: NSObject {
         }, completion: nil)
     }
     
-    class func animateCollectionViewCell(cell: UICollectionViewCell , sender: UIViewController) {
+    class func animateCollectionViewCell(cell: UICollectionViewCell , sender: UIView) {
         
-        let finalRect = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.bounds.width, cell.bounds.height);
+        let finalRect = cell.frame //CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.bounds.width, cell.bounds.height);
         
         cell.frame = CGRectMake(cell.frame.origin.x,
-            sender.view.bounds.size.height,
+            sender.bounds.size.height,
             cell.bounds.width, cell.bounds.height)
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
             cell.frame = finalRect            
             }, completion: nil)
     }

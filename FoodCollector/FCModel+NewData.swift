@@ -37,8 +37,6 @@ extension FCModel {
                             fetchedPublication.reportsForPublication = publication.reportsForPublication
                             fetchedPublication.photoData.photo = publication.photoData.photo
                             fetchedPublication.photoData.didTryToDonwloadImage = publication.photoData.didTryToDonwloadImage
-                            
-                            
                             break
                     }
                 }

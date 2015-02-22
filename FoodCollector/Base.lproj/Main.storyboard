@@ -1212,7 +1212,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="SWN-ck-gEi">
                                     <size key="itemSize" width="320" height="90"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="600" height="88"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
@@ -1340,6 +1340,25 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewHeader" id="eHM-LD-SKS" customClass="FCPublisherRootVCCollectionViewHeaderCollectionReusableView" customModule="FoodCollector" customModuleProvider="target">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="wWh-gh-B3M">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </searchBar>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="wWh-gh-B3M" firstAttribute="top" secondItem="eHM-LD-SKS" secondAttribute="topMargin" constant="-8" id="929-G2-4p0"/>
+                                        <constraint firstItem="wWh-gh-B3M" firstAttribute="leading" secondItem="eHM-LD-SKS" secondAttribute="leadingMargin" constant="-8" id="cE6-0G-vVo"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="wWh-gh-B3M" secondAttribute="bottom" constant="-8" id="eOV-Xf-2rM"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="wWh-gh-B3M" secondAttribute="trailing" constant="-8" id="npA-mr-mGq"/>
+                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="wWh-gh-B3M" secondAttribute="bottom" constant="-8" id="wcT-j9-SRB"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="searchBar" destination="wWh-gh-B3M" id="KgW-Pv-jje"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="qaa-G1-Puy" id="gA7-qx-sNf"/>
                                     <outlet property="delegate" destination="qaa-G1-Puy" id="gNm-aX-ZIH"/>

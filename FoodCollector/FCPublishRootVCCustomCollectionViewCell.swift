@@ -28,7 +28,7 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 var statusImg : UIImage
                 let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
                 
-                if FCDateFunctions.PublicationDidExpired(publication.endingDate) || !publication.isOnAir{
+                if FCDateFunctions.PublicationDidExpired(publication.endingDate){
                     status = String.localizedStringWithFormat("הסתיים" , "the puclication is off the air")
                     statusImg = UIImage(named: "Red-dot")!
                     publication.isOnAir = false
@@ -36,6 +36,12 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 else {
                     status = String.localizedStringWithFormat("פעיל \(locDateString)" , "the publication is active untill this date")
                     statusImg = UIImage(named: "Green-dot")!
+                    
+                    if  !publication.isOnAir {
+                        status = String.localizedStringWithFormat("לא פעיל" , "the publication is not active beacause it was taken off air")
+                        statusImg = UIImage(named: "Red-dot")!
+
+                    }
                 }
                 
                 self.FCPublisherEventTitle.text = publication.title
@@ -69,5 +75,9 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 }
             }
         }
+    }
+    
+    override func prepareForReuse() {
+        self.FCPublisherEventImage.image = UIImage(named: "No-photo")
     }
 }

@@ -23,19 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        
         //uncomment to check the device uuid report service
         //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
 
         //uncomment to check the device push notification token report service
         //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
         
-        if NSUserDefaults.standardUserDefaults().boolForKey("locationUpdateBackgroundcalled") {
-            println("locationUpdateBackgroundcalled")
-        }
-        if NSUserDefaults.standardUserDefaults().boolForKey("LOCALNOTICICATIONUpdateBackgroundcalled") {
-            println("LOCALNOTICICATIONUpdateBackgroundcalled")
-        }
-
+//        if NSUserDefaults.standardUserDefaults().boolForKey("locationUpdateBackgroundcalled") {
+//            println("locationUpdateBackgroundcalled")
+//        }
+//        if NSUserDefaults.standardUserDefaults().boolForKey("LOCALNOTICICATIONUpdateBackgroundcalled") {
+//            println("LOCALNOTICICATIONUpdateBackgroundcalled")
+//        }
+//
         
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
@@ -51,13 +53,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
             }
             
-            if option[UIApplicationLaunchOptionsLocationKey] != nil {
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
-                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
-                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "locationUpdateBackgroundcalled")
-            }
-            
+//            if option[UIApplicationLaunchOptionsLocationKey] != nil {
+//                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
+//                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
+//                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
+//                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "locationUpdateBackgroundcalled")
+//            }
+//            
             if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
                 let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
@@ -66,9 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             }
         }
-//        let location = CLLocationCoordinate2DMake(0, 0)
-//        FCModel.sharedInstance.foodCollectorWebServer.reportUserLocation(location)
-        
         registerAWSS3()
         return true
     }

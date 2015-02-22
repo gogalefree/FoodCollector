@@ -28,8 +28,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     var publicationDetailsTVC: FCPublicationDetailsTVC?
     var isPresentingActivityCenter = false
     var activityCenterTVC: UINavigationController?
-    var activityCenterHiddenCenter = CGPointZero //is set in viewDidLayoutSubviews
-    var activityCenterVisibleCenter = CGPointZero//is set in viewDidLayoutSubviews
+    var activityCenterHiddenCenter = CGPointZero
+    var activityCenterVisibleCenter = CGPointZero
     var tabbarVisibleCenter = CGPointZero
     var tabbarHiddenCenter = CGPointZero
     var tabbarDragCenter = CGPointZero
@@ -158,6 +158,27 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
         
         tabbarHiddenCenter = CGPointMake(self.tabBarController!.tabBar.center.x + CGRectGetWidth(self.view.frame), self.tabBarController!.tabBar.center.y)
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        self.AdjustBarsCenterPointsTosize(size)
+    }
+    
+    func AdjustBarsCenterPointsTosize(size: CGSize) {
+        
+        tabbarVisibleCenter = CGPointMake(size.width/2, size.height - self.tabBarController!.tabBar.bounds.size.height / 2)
+        tabbarHiddenCenter = CGPointMake(size.width * 2, tabbarVisibleCenter.y)
+        
+        if self.isPresentingActivityCenter {
+            self.tabBarController?.tabBar.center = self.tabbarHiddenCenter
+        }
+        
+        activityCenterVisibleCenter = CGPointMake(0.9 * size.width / 2, size.height/2)
+        activityCenterHiddenCenter = CGPointMake(-size.width, size.height/2)
+        
+        
     }
 
     

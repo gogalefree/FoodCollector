@@ -25,8 +25,13 @@ class FCPublicationsSorter: NSObject {
     }
     
     class func sortPublicationsByEndingDate(publications: [FCPublication]) -> [FCPublication] {
+        
         var publicationsToSort = publications
-        publicationsToSort.sort({ $0.endingDate.compare($1.endingDate) == NSComparisonResult.OrderedDescending })
+        publicationsToSort.sort({ $0.endingDate.compare($1.endingDate) == NSComparisonResult.OrderedAscending })
+        
+        for publication in publicationsToSort {
+            println("\(publication.endingDate)")
+        }
         return publicationsToSort
     }
     
@@ -42,5 +47,21 @@ class FCPublicationsSorter: NSObject {
         return publicationsToSort
     }
     
+    class func sortPublicationByIsOnAir(publications: [FCPublication]) -> [FCPublication] {
+       
+        var publicationsToSort = publications
+
+        publicationsToSort.sort({ $0.isOnAir != $1.isOnAir})
+        publicationsToSort.sort({ $0.isOnAir == $1.isOnAir && $0.endingDate.compare($1.endingDate) == NSComparisonResult.OrderedDescending })
+        return publicationsToSort
+    }
+    
+    class func sortPublicationsByIsOffAir(publications: [FCPublication]) -> [FCPublication] {
+        
+        var publicationsToSort = publications
+        publicationsToSort.sort({ $0.isOnAir != $1.isOnAir})
+        return publicationsToSort
+    }
+
 
 }

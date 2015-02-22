@@ -73,7 +73,17 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     var reportsForPublication = [FCOnSpotPublicationReport]()
     
     // True if the current user registered for this publication
-    var didRegisterForCurrentPublication = false
+    var didRegisterForCurrentPublication:Bool = false {
+        didSet{
+            if didRegisterForCurrentPublication {
+                FCUserNotificationHandler.sharedInstance.removeLocationNotification(self)
+                FCUserNotificationHandler.sharedInstance.registerLocalNotification(self)
+            }
+            else if !didRegisterForCurrentPublication{
+                FCUserNotificationHandler.sharedInstance.removeLocationNotification(self)
+            }
+        }
+    }
     
     //publication's registrations array holds only instances with a register message.
     //when an unrigister push notification arrives the unregistered publication is taken out
