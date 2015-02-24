@@ -67,18 +67,18 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
-        
-        if self.trackingUserLocation{
-
+//    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+//        
+//        if self.trackingUserLocation{
+//
 //            if newHeading.headingAccuracy < 0 {return}
 //       
 //                var theHeading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
 //                var newCamera = self.mapView.camera.copy() as MKMapCamera
 //                newCamera.heading = theHeading
 //                self.mapView.setCamera(newCamera, animated: true)
-        }
-    }
+//        }
+//    }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
     
@@ -177,8 +177,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         
         activityCenterVisibleCenter = CGPointMake(0.9 * size.width / 2, size.height/2)
         activityCenterHiddenCenter = CGPointMake(-size.width, size.height/2)
-        
-        
     }
 
     
