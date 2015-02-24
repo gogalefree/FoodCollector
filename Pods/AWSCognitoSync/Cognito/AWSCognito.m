@@ -224,7 +224,7 @@ static AWSCognitoSyncPlatform _pushPlatform;
             AWSCognitoSyncRegisterDeviceResponse* response = task.result;
             keychain[[AWSCognitoUtil deviceIdKey:_pushPlatform]] = response.deviceId;
             keychain[[AWSCognitoUtil deviceIdentityKey:_pushPlatform]] = self.cognitoCredentialsProvider.identityId;
-            [keychain synchronize];
+           // [keychain synchronize];
             [self setDeviceId:response.deviceId];
             return [BFTask taskWithResult:response.deviceId];
         }

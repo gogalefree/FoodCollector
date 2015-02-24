@@ -17,7 +17,7 @@ let kProdURLVal = "https://fd-server.herokuapp.com/"
 let kDevURLVal  = "https://dev.fd-server.herokuapp.com/"
 let kBetaURLVal = "https://beta.fd-server.herokuapp.com/"
 let kDictKey    = "Server URL"
-let pathToBaseURLPlist = "/Users/Boris/Developer/Projects/FoodCollector4/FoodCollector/FoodCollector/BaseURL.plist"
+let pathToBaseURLPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollector/BaseURL.plist"
 
 
 // Info.plist dictionary values, keys and path
@@ -31,7 +31,7 @@ let kBundleNameDevVal     = "dev.$(PRODUCT_NAME)"
 let kBundleNameBetaVal    = "beta.$(PRODUCT_NAME)"
 let kBundleDispNameKey    = "CFBundleDisplayName"
 let kBundleDispNameDevVal = "Foodonet Dev"
-let pathToInfoPlist = "/Users/Boris/Developer/Projects/FoodCollector4/FoodCollector/FoodCollector/Info.plist"
+let pathToInfoPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollectorTests/Info.plist"
 
 let args = Process.arguments
 var argValue = "dev"

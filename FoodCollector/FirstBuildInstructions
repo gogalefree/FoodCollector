@@ -2,12 +2,16 @@ Instructions for setting up the pre-build script
 ==========================================================
 
 1. In Xcode, in the Project Navigator goto “Supporting Files” -> “Scripts” and click the “PreBuildScript.swift” files once to select it.
-2. In the File Inspector pane (on the left side) select the Full Path and copy it.
+2. In the File Inspector pane (on the right side) select the Full Path and copy it.
 3. Back in the Project Navigator, select the name of the project “FoodCollector” and in the main Xcode window click “Build Phases”.
 4. Locate the section called “Run Script” and click the little arrow next to the name to expand and view its content.
 5. You will see a path similar to this:
     /Users/Boris/Developer/Projects/FoodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift
 6. Select this path, delete it and replace it with the path you’ve copied in step 2.
+7. Find the BaseUrl.plist file in the project, click on it and copy it's full path from the file inspector.
+8. go to PreBuildScript.swift, locate the pathToBaseURLPlist (line 20) and replace the string with the copied full path from phase 7.
+9. Find the info.plist file in the project, click on it and copy it's full path from the file inspector.
+10. go to PreBuildScript.swift, locate the pathToInfoPlist (line 34) and replace the string with the copied full path from phase 9.
 
 Instructions for changing the type of build
 ==========================================================
