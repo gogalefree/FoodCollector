@@ -23,6 +23,9 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     
     var cellData = FCPublicationEditorTVCCellData()
     let digits = "0123456789"
+    var onlyDigitsPhoneString = ""
+    var isPhoneNumberValid = false
+
     
     let pickerData = [kTypeOfCollectingFreePickUpTitle , kTypeOfCollectingContactPublisherTitle]
     
@@ -62,7 +65,12 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         let typeOfCollecting = FCTypeOfCollecting(rawValue: userChosenTypeOfCollectin)!
         var contactInfo = ""
         if userChosenTypeOfCollectin == 1 {contactInfo = "no"}
-        else {contactInfo = self.textField.text}
+        else {
+            validtePhoneNumber(self.textField.text)
+            if isPhoneNumberValid {
+                contactInfo = onlyDigitsPhoneString
+            }
+        }
         var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : userChosenTypeOfCollectin , kPublicationContactInfoKey : contactInfo]
         
         var cellTitle = ""
@@ -81,7 +89,13 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         self.cellData.cellTitle = cellTitle
 
         //here I can check if the number is valid
-        self.performSegueWithIdentifier(unwindSegueId, sender: self)
+        if isPhoneNumberValid {
+            self.performSegueWithIdentifier(unwindSegueId, sender: self)
+        }
+        else {
+            showPhoneNumberAllert()
+        }
+        
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -200,6 +214,78 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
             }) { (Bool) -> Void in
                 self.didAnimateViewUp = false
         }
+    }
+    
+    func validtePhoneNumber(phoneNumber:String) {
+        //println(">>> Start phone validation")
+        //println("Phone: \(phoneNumber)")
+        let legalCharsInPhone:Array<Character> = ["0", "1", "2", "3" ,"4", "5", "6", "7", "8", "9"]
+        let twoDigitAreaCodes = ["02", "03", "04", "08", "09"]
+        let threeDigitAreaCodes = ["072", "073", "074", "076", "077", "078", "050", "052", "053", "054", "055", "056", "058", "059"]
+        // The list above is based on "http://he.wikipedia.org/wiki/קידומת_טלפון_בישראל"
+        
+        var isPhoneLengthCorrect = false
+        var isAreaCodeCorrect = false
+        
+        // Remove all characters that are not numbers
+        onlyDigitsPhoneString = "" // Reset variable to empty string
+        for digitChar in phoneNumber {
+            if contains(legalCharsInPhone, digitChar) {
+                onlyDigitsPhoneString += String(digitChar)
+            }
+        }
+        
+        println("onlyDigitsPhoneString: \(onlyDigitsPhoneString)")
+        
+        // Check if phone lenght is 9 digits
+        if countElements(onlyDigitsPhoneString) == 9 {
+            isPhoneLengthCorrect = true
+            // Check if a two digit area code is legal
+            for areaCode in twoDigitAreaCodes {
+                if onlyDigitsPhoneString.hasPrefix(areaCode) {
+                    isAreaCodeCorrect = true
+                    break
+                }
+                else {
+                    isAreaCodeCorrect = false
+                }
+            }
+        }
+            // Check if phone lenght is 10 digits
+        else if countElements(onlyDigitsPhoneString) == 10 {
+            isPhoneLengthCorrect = true
+            // Check if a three digit area code is legal
+            for areaCode in threeDigitAreaCodes {
+                if onlyDigitsPhoneString.hasPrefix(areaCode) {
+                    isAreaCodeCorrect = true
+                    break
+                }
+                else {
+                    isAreaCodeCorrect = false
+                }
+            }
+        }
+        else {
+            isPhoneLengthCorrect = false
+        }
+        
+        // If phone lenght is OK and area code is OK return true
+        if isPhoneLengthCorrect && isAreaCodeCorrect {
+            isPhoneNumberValid = true
+        }
+        else {
+            isPhoneNumberValid = false
+        }
+    }
+    
+    func showPhoneNumberAllert() {
+        let alertTitle = String.localizedStringWithFormat("מספר טלפון לא תקין", "Alert title: Phone number is incorrect")
+        let alertMessage = String.localizedStringWithFormat("אנא בדוק שמספר הטלפון הינו בעל 9 או 10 ספרות ושהקידומת נכונה", "Alert message: Please check that the phone number has 9 or 10 digits and that the area code is correct")
+        let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

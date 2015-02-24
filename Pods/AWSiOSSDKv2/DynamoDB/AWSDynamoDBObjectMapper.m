@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2014 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,64 +16,178 @@
 #import "AWSDynamoDBObjectMapper.h"
 #import "AWSDynamoDB.h"
 #import "Bolts.h"
+#import "AWSLogging.h"
+
+typedef NS_ENUM(NSInteger, AWSDynamoDBObjectMapperVersion) {
+    AWSDynamoDBObjectMapperVersionUnknown,
+    AWSDynamoDBObjectMapperVersion1,
+    AWSDynamoDBObjectMapperVersion2,
+};
+
+@interface AWSDynamoDBModel ()
+
+- (NSDictionary *)itemForPutItemInputWithVersion:(AWSDynamoDBObjectMapperVersion) mapperVersion;
+
+- (NSDictionary *)itemForUpdateItemInput:(AWSDynamoDBObjectMapperSaveBehavior) behavior mapperVersion:(AWSDynamoDBObjectMapperVersion)mapperVersion;
+
+- (NSDictionary *)key;
+
+@end
 
 @interface AWSDynamoDBAttributeValue (AWSDynamoDBObjectMapper)
 
-- (void)aws_setAttributeValue:(id)attributeValue;
-- (id)aws_getAttributeValue;
+- (void)aws_setAttributeValue:(id)attributeValue
+                mapperVersion:(AWSDynamoDBObjectMapperVersion)mapperVersion;
+- (id)aws_getAttributeValueWithVersion:(AWSDynamoDBObjectMapperVersion)mapperVersion;
 
 @end
 
 @implementation AWSDynamoDBAttributeValue (AWSDynamoDBObjectMapper)
 
-- (void)aws_setAttributeValue:(id)attributeValue {
-    if ([attributeValue isKindOfClass:[NSString class]]) {
-        self.S = attributeValue;
-    } else if ([attributeValue isKindOfClass:[NSNumber class]]) {
-        self.N = [attributeValue stringValue];
-    } else if ([attributeValue isKindOfClass:[NSData class]]) {
-        self.B = attributeValue;
-    } else if ([attributeValue isKindOfClass:[NSArray class]]
-               && [(NSArray *)attributeValue count] > 0) {
-        id firstObject = [attributeValue firstObject];
-        if ([firstObject isKindOfClass:[NSString class]]) {
-            self.SS = attributeValue;
-        } else if ([firstObject isKindOfClass:[NSNumber class]]) {
-            NSMutableArray *NS = [NSMutableArray new];
-            [attributeValue enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [NS addObject:[obj stringValue]];
-            }];
-            self.NS = NS;
-        } else if ([firstObject isKindOfClass:[NSData class]]) {
-            self.BS = attributeValue;
+- (void)aws_setAttributeValue:(id)attributeValue
+                mapperVersion:(AWSDynamoDBObjectMapperVersion)mapperVersion {
+    if (mapperVersion == AWSDynamoDBObjectMapperVersion2) {
+        //doesn't support NULL type yet.
+        //must be ahead of [attributeValue isKindOfClass:[NSNumber class]]
+        if ([attributeValue isKindOfClass:[[NSNumber numberWithBool:YES] class]]) {
+            self.BOOLEAN = attributeValue;
+        } else if ([attributeValue isKindOfClass:[NSString class]]) {
+            self.S = attributeValue;
+        } else if ([attributeValue isKindOfClass:[NSNumber class]]) {
+            self.N = [attributeValue stringValue];
+        } else if ([attributeValue isKindOfClass:[NSData class]]) {
+            self.B = attributeValue;
+        } else if ([attributeValue isKindOfClass:[NSSet class]] && [(NSSet *)attributeValue count] > 0) {
+            id anyObject = [attributeValue anyObject];
+            if ([anyObject isKindOfClass:[NSString class]]) {
+                self.SS = [attributeValue allObjects];
+            } else if ([anyObject isKindOfClass:[NSNumber class]]) {
+                NSMutableArray *NS = [NSMutableArray new];
+                [attributeValue enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    [NS addObject:[obj stringValue]];
+                }];
+                self.NS = NS;
+            } else if ([anyObject isKindOfClass:[NSData class]]) {
+                self.BS = [attributeValue allObjects];
+            }
+        } else if ([attributeValue isKindOfClass:[NSArray class]] && [(NSArray *)attributeValue count] > 0) {
+            NSMutableArray *list = [NSMutableArray arrayWithCapacity:[(NSArray *)attributeValue count]];
+            for (id listItem in attributeValue) {
+                AWSDynamoDBAttributeValue *listItemAttributeValue = [AWSDynamoDBAttributeValue new];
+                [listItemAttributeValue aws_setAttributeValue:listItem mapperVersion:AWSDynamoDBObjectMapperVersion2];
+                [list addObject:listItemAttributeValue];
+            }
+            self.L = list;
+        } else if ([attributeValue isKindOfClass:[NSDictionary class]] && [(NSDictionary *)attributeValue count] > 0) {
+            NSMutableDictionary *map = [NSMutableDictionary dictionaryWithCapacity:[(NSDictionary *)attributeValue count]];
+            for (NSString *mapItemKey in attributeValue) {
+                id mapItemValue = attributeValue[mapItemKey];
+                AWSDynamoDBAttributeValue *mapItemAttributeValue = [AWSDynamoDBAttributeValue new];
+                [mapItemAttributeValue aws_setAttributeValue:mapItemValue mapperVersion:AWSDynamoDBObjectMapperVersion2];
+                [map setObject:mapItemAttributeValue forKey:mapItemKey];
+            }
+            self.M = map;
         }
+    } else if (mapperVersion == AWSDynamoDBObjectMapperVersion1) {
+        if ([attributeValue isKindOfClass:[NSString class]]) {
+            self.S = attributeValue;
+        } else if ([attributeValue isKindOfClass:[NSNumber class]]) {
+            self.N = [attributeValue stringValue];
+        } else if ([attributeValue isKindOfClass:[NSData class]]) {
+            self.B = attributeValue;
+        } else if ([attributeValue isKindOfClass:[NSArray class]]
+                   && [(NSArray *)attributeValue count] > 0) {
+            id firstObject = [attributeValue firstObject];
+            if ([firstObject isKindOfClass:[NSString class]]) {
+                self.SS = attributeValue;
+            } else if ([firstObject isKindOfClass:[NSNumber class]]) {
+                NSMutableArray *NS = [NSMutableArray new];
+                [attributeValue enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    [NS addObject:[obj stringValue]];
+                }];
+                self.NS = NS;
+            } else if ([firstObject isKindOfClass:[NSData class]]) {
+                self.BS = attributeValue;
+            }
+        }
+    } else {
+        AWSLogError(@"Fatal error. Invalid AWSDynamoDBObjectMapperVersion.");
     }
 }
 
-- (id)aws_getAttributeValue {
-    if (self.S) {
-        return self.S;
-    } else if (self.N) {
-        NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
-        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-        return [numberFormatter numberFromString:self.N];
-    } else if (self.B) {
-        return self.B;
-    } else if (self.SS) {
-        return self.SS;
-    } else if (self.NS) {
-        NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
-        numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+- (id)aws_getAttributeValueWithVersion:(AWSDynamoDBObjectMapperVersion) mapperVersion {
+    if (mapperVersion == AWSDynamoDBObjectMapperVersion2) {
+        //Does not support self.NIL yet.
+        if (self.BOOLEAN) {
+            return self.BOOLEAN;
+        } else if (self.S) {
+            return self.S;
+        } else if (self.N) {
+            NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+            return [numberFormatter numberFromString:self.N];
+        } else if (self.B) {
+            return self.B;
+        } else if (self.SS) {
+            return [NSSet setWithArray:self.SS];
+        } else if (self.NS) {
+            NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
 
-        NSMutableArray *mutableArray = [NSMutableArray new];
+            NSMutableSet *mutableSet = [NSMutableSet new];
 
-        [self.NS enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [mutableArray addObject:[numberFormatter numberFromString:obj]];
-        }];
+            [self.NS enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [mutableSet addObject:[numberFormatter numberFromString:obj]];
+            }];
 
-        return mutableArray;
-    } else if (self.BS) {
-        return self.BS;
+            return mutableSet;
+        } else if (self.BS) {
+            return [NSSet setWithArray:self.BS];
+        } else if (self.L) {
+            NSMutableArray *list = [NSMutableArray arrayWithCapacity:self.L.count];
+            for (id listItemAttributeValue in self.L) {
+                [list addObject: [listItemAttributeValue aws_getAttributeValueWithVersion:AWSDynamoDBObjectMapperVersion2]];
+            }
+            return list;
+
+        } else if (self.M) {
+            NSMutableDictionary *map = [NSMutableDictionary dictionaryWithCapacity:self.M.count];
+            for (NSString *entryAttributeKey in self.M) {
+                id entryAttributeValue = self.M[entryAttributeKey];
+                [map setObject:[entryAttributeValue aws_getAttributeValueWithVersion:AWSDynamoDBObjectMapperVersion2] forKey:entryAttributeKey];
+            }
+            return map;
+        }
+
+    } else if (mapperVersion == AWSDynamoDBObjectMapperVersion1) {
+
+        if (self.S) {
+            return self.S;
+        } else if (self.N) {
+            NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+            return [numberFormatter numberFromString:self.N];
+        } else if (self.B) {
+            return self.B;
+        } else if (self.SS) {
+            return self.SS;
+        } else if (self.NS) {
+            NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+            numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+
+            NSMutableArray *mutableArray = [NSMutableArray new];
+
+            [self.NS enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [mutableArray addObject:[numberFormatter numberFromString:obj]];
+            }];
+
+            return mutableArray;
+        } else if (self.BS) {
+            return self.BS;
+        }
+
+    } else {
+        AWSLogError(@"Fatal error. Invalid AWSDynamoDBObjectMapperVersion.");
     }
 
     return nil;
@@ -94,15 +208,22 @@
     if (![AWSServiceManager defaultServiceManager].defaultServiceConfiguration) {
         return nil;
     }
-    
+
     static AWSDynamoDBObjectMapper *_dynamoDBObjectMapper  = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _dynamoDBObjectMapper = [[AWSDynamoDBObjectMapper alloc] initWithConfiguration:[AWSServiceManager defaultServiceManager].defaultServiceConfiguration
                                                              objectMapperConfiguration:[AWSDynamoDBObjectMapperConfiguration new]];
     });
-    
+
     return _dynamoDBObjectMapper;
+}
+
+- (instancetype)init {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"`- init` is not a valid initializer. Use `+ defaultDynamoDBObjectMapper` or `- initWithConfiguration:objectMapperConfiguration:` instead."
+                                 userInfo:nil];
+    return nil;
 }
 
 - (instancetype)initWithConfiguration:(AWSServiceConfiguration *)configuration
@@ -115,6 +236,9 @@
     return self;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (BFTask *)save:(AWSDynamoDBModel *)model {
     return [self save:model
         configuration:self.configuration];
@@ -123,39 +247,38 @@
 - (BFTask *)save:(AWSDynamoDBModel *)model
    configuration:(AWSDynamoDBObjectMapperConfiguration *)configuration {
     switch (configuration.saveBehavior) {
-        case AWSDynamoDBObjectMapperSaveBehaviorUpdate: {
+        case AWSDynamoDBObjectMapperSaveBehaviorClobber: {
+
             AWSDynamoDBPutItemInput *putItemInput = [AWSDynamoDBPutItemInput new];
             putItemInput.tableName = [[model class] performSelector:@selector(dynamoDBTableName)];
-            putItemInput.item = [model itemForPutItemInput];
 
-            NSMutableDictionary *expected = [NSMutableDictionary new];
-            for (id key in [model dictionaryValue]) {
-                if ([key isEqual:[[model class] performSelector:@selector(hashKeyAttribute)]]
-                    || ([[model class] respondsToSelector:@selector(rangeKeyAttribute)]
-                        && [key isEqual:[[model class] performSelector:@selector(rangeKeyAttribute)]])) {
-                    AWSDynamoDBCondition *condition = [AWSDynamoDBCondition new];
-                    condition.comparisonOperator = AWSDynamoDBComparisonOperatorNull;
-
-                    expected[key] = condition;
-                }
+            if ([model isKindOfClass:[AWSDynamoDBObjectModel class]]) {
+                putItemInput.item = [(AWSDynamoDBModel *)model itemForPutItemInputWithVersion:AWSDynamoDBObjectMapperVersion2];
+            } else  {
+                putItemInput.item = [(AWSDynamoDBModel *)model itemForPutItemInputWithVersion:AWSDynamoDBObjectMapperVersion1];
             }
-            putItemInput.expected = expected;
 
-            return [[self.dynamoDB putItem:putItemInput] continueWithBlock:^id(BFTask *task) {
-                if ([task.error.domain isEqualToString:AWSDynamoDBErrorDomain]
-                    && task.error.code == AWSDynamoDBErrorConditionalCheckFailed) {
-                    AWSDynamoDBUpdateItemInput *updateItemInput = [AWSDynamoDBUpdateItemInput new];
-                    updateItemInput.tableName = [[model class] performSelector:@selector(dynamoDBTableName)];
-                    updateItemInput.attributeUpdates = [model itemForUpdateItemInput];
-                    updateItemInput.key = [model key];
-
-                    return [self.dynamoDB updateItem:updateItemInput];
-                }
-
-                return nil;
-            }];
-        }
+            return [self.dynamoDB putItem:putItemInput];
             break;
+        }
+        case AWSDynamoDBObjectMapperSaveBehaviorAppendSet:
+        case AWSDynamoDBObjectMapperSaveBehaviorUpdateSkipNullAttributes:
+        case AWSDynamoDBObjectMapperSaveBehaviorUpdate: {
+
+            AWSDynamoDBUpdateItemInput *updateItemInput = [AWSDynamoDBUpdateItemInput new];
+            updateItemInput.tableName = [[model class] performSelector:@selector(dynamoDBTableName)];
+
+            if ([model isKindOfClass:[AWSDynamoDBObjectModel class]]) {
+                updateItemInput.attributeUpdates = [(AWSDynamoDBModel *)model itemForUpdateItemInput:configuration.saveBehavior mapperVersion:AWSDynamoDBObjectMapperVersion2];
+                updateItemInput.key = [(AWSDynamoDBModel *)model key];
+            } else {
+                updateItemInput.attributeUpdates = [(AWSDynamoDBModel *)model itemForUpdateItemInput:configuration.saveBehavior mapperVersion:AWSDynamoDBObjectMapperVersion1];
+                updateItemInput.key = [(AWSDynamoDBModel *)model key];
+            }
+
+            return [self.dynamoDB updateItem:updateItemInput];
+            break;
+        }
 
         case AWSDynamoDBObjectMapperSaveBehaviorUnknown:
         default:
@@ -173,10 +296,17 @@
      configuration:(AWSDynamoDBObjectMapperConfiguration *)configuration {
     AWSDynamoDBDeleteItemInput *deleteItemInput = [AWSDynamoDBDeleteItemInput new];
     deleteItemInput.tableName = [[model class] performSelector:@selector(dynamoDBTableName)];
-    deleteItemInput.key = [model key];
+
+    if ([model isKindOfClass:[AWSDynamoDBObjectModel class]]) {
+        deleteItemInput.key = [(AWSDynamoDBModel *)model key];
+    } else {
+        deleteItemInput.key = [(AWSDynamoDBModel *)model key];
+    }
 
     return [self.dynamoDB deleteItem:deleteItemInput];
 }
+
+#pragma clang diagnostic pop
 
 - (BFTask *)load:(Class)resultClass
          hashKey:(id)hashKey
@@ -196,13 +326,14 @@
 
     NSMutableDictionary *key = [NSMutableDictionary new];
     AWSDynamoDBAttributeValue *hashAttributeValue = [AWSDynamoDBAttributeValue new];
-    [hashAttributeValue aws_setAttributeValue:hashKey];
+    [hashAttributeValue aws_setAttributeValue:hashKey
+                                mapperVersion:AWSDynamoDBObjectMapperVersion2]; //Either version 1 or version 2 should work for Key value.
     [key setObject:hashAttributeValue
             forKey:[resultClass performSelector:@selector(hashKeyAttribute)]];
 
     if ([resultClass respondsToSelector:@selector(rangeKeyAttribute)]) {
         AWSDynamoDBAttributeValue *rangeKeyAttributeValue = [AWSDynamoDBAttributeValue new];
-        [rangeKeyAttributeValue aws_setAttributeValue:rangeKey];
+        [rangeKeyAttributeValue aws_setAttributeValue:rangeKey mapperVersion:AWSDynamoDBObjectMapperVersion2]; //Either version 1 or version 2 should work for Key value.
         [key setObject:rangeKeyAttributeValue
                 forKey:[resultClass performSelector:@selector(rangeKeyAttribute)]];
     }
@@ -212,8 +343,15 @@
         AWSDynamoDBGetItemOutput *getItemOutput = task.result;
 
         NSError *error = nil;
+        NSDictionary *itemsDictionary = nil;
+        if ([resultClass isSubclassOfClass:[AWSDynamoDBObjectModel class]]) {
+            itemsDictionary = [self removeAttributes:getItemOutput.item mapperVersion:AWSDynamoDBObjectMapperVersion2];
+        } else {
+            itemsDictionary = [self removeAttributes:getItemOutput.item mapperVersion:AWSDynamoDBObjectMapperVersion1];
+        }
+
         id responseObject = [MTLJSONAdapter modelOfClass:resultClass
-                                      fromJSONDictionary:[self removeAttributes:getItemOutput.item]
+                                      fromJSONDictionary:itemsDictionary
                                                    error:&error];
         if (error) {
             return [BFTask taskWithError:error];
@@ -241,7 +379,8 @@
     queryInput.indexName = expression.indexName;
 
     AWSDynamoDBAttributeValue *hashAttributeValue = [AWSDynamoDBAttributeValue new];
-    [hashAttributeValue aws_setAttributeValue:expression.hashKeyValues];
+    [hashAttributeValue aws_setAttributeValue:expression.hashKeyValues
+                                mapperVersion:AWSDynamoDBObjectMapperVersion2]; //Either version 1 or version 2 should work for Key value.
 
     AWSDynamoDBCondition *hashCondition = [AWSDynamoDBCondition new];
     hashCondition.attributeValueList = @[hashAttributeValue];
@@ -259,8 +398,16 @@
         NSMutableArray *items = [NSMutableArray new];
         NSError *error = nil;
         for (id item in queryOutput.items) {
+
+            NSDictionary *itemsDictionary = nil;
+            if ([resultClass isSubclassOfClass:[AWSDynamoDBObjectModel class]]) {
+                itemsDictionary = [self removeAttributes:item mapperVersion:AWSDynamoDBObjectMapperVersion2];
+            } else {
+                itemsDictionary = [self removeAttributes:item mapperVersion:AWSDynamoDBObjectMapperVersion1];
+            }
+
             id responseObject = [MTLJSONAdapter modelOfClass:resultClass
-                                          fromJSONDictionary:[self removeAttributes:item]
+                                          fromJSONDictionary:itemsDictionary
                                                        error:&error];
             if (error) {
                 return [BFTask taskWithError:error];
@@ -297,8 +444,16 @@
         NSMutableArray *items = [NSMutableArray new];
         NSError *error = nil;
         for (id item in scanOutput.items) {
+
+            NSDictionary *itemsDictionary = nil;
+            if ([resultClass isSubclassOfClass:[AWSDynamoDBObjectModel class]]) {
+                itemsDictionary = [self removeAttributes:item mapperVersion:AWSDynamoDBObjectMapperVersion2];
+            } else {
+                itemsDictionary = [self removeAttributes:item mapperVersion:AWSDynamoDBObjectMapperVersion1];
+            }
+
             id responseObject = [MTLJSONAdapter modelOfClass:resultClass
-                                          fromJSONDictionary:[self removeAttributes:item]
+                                          fromJSONDictionary:itemsDictionary
                                                        error:&error];
             if (error) {
                 return [BFTask taskWithError:error];
@@ -315,11 +470,11 @@
 
 #pragma mark - Utility
 
-- (NSDictionary *)removeAttributes:(NSDictionary *)item {
+- (NSDictionary *)removeAttributes:(NSDictionary *)item mapperVersion:(AWSDynamoDBObjectMapperVersion)mapperVersion {
     NSMutableDictionary *mutableItem = [NSMutableDictionary new];
     [item enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if ([obj respondsToSelector:@selector(aws_getAttributeValue)]) {
-            [mutableItem setObject:[obj aws_getAttributeValue]
+        if ([obj respondsToSelector:@selector(aws_getAttributeValueWithVersion:)]) {
+            [mutableItem setObject:[obj aws_getAttributeValueWithVersion:mapperVersion]
                             forKey:key];
         }
     }];
@@ -329,17 +484,17 @@
 
 @end
 
+@implementation AWSDynamoDBObjectModel
+
+@end
+
 @implementation AWSDynamoDBModel
 
-- (instancetype)initWithItem:(NSDictionary *)item {
-    if (self = [super init]) {
-
-    }
-
-    return self;
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return nil;
 }
 
-- (NSDictionary *)itemForPutItemInput {
+- (NSDictionary *)itemForPutItemInputWithVersion:(AWSDynamoDBObjectMapperVersion) mapperVersion {
     NSMutableDictionary *item = [NSMutableDictionary new];
     NSMutableArray *keyArray = [NSMutableArray arrayWithObject:[[self class] performSelector:@selector(hashKeyAttribute)]];
     if ([self respondsToSelector:@selector(rangeKeyAttribute)]) {
@@ -351,20 +506,26 @@
         if ([keyArray containsObject:key]) {
             // For key attributes
             AWSDynamoDBAttributeValue *keyAttributeValue = [AWSDynamoDBAttributeValue new];
-            [keyAttributeValue aws_setAttributeValue:dictionaryValue[key]];
+            [keyAttributeValue aws_setAttributeValue:dictionaryValue[key]
+                                       mapperVersion:mapperVersion];
             item[key] = keyAttributeValue;
         } else if (dictionaryValue[key]) {
             // For other attributes
-            AWSDynamoDBAttributeValue *attributeValue = [AWSDynamoDBAttributeValue new];
-            [attributeValue aws_setAttributeValue:dictionaryValue[key]];
-            item[key] = attributeValue;
+            if (dictionaryValue[key] == [NSNull null]) {
+                //when doing a putItem, we can safely ignore the null-valvued attributes
+            } else {
+                AWSDynamoDBAttributeValue *attributeValue = [AWSDynamoDBAttributeValue new];
+                [attributeValue aws_setAttributeValue:dictionaryValue[key]
+                                        mapperVersion:mapperVersion];
+                item[key] = attributeValue;
+            }
         }
     }
 
     return item;
 }
 
-- (NSDictionary *)itemForUpdateItemInput {
+- (NSDictionary *)itemForUpdateItemInput:(AWSDynamoDBObjectMapperSaveBehavior) behavior mapperVersion:(AWSDynamoDBObjectMapperVersion)mapperVersion {
     NSMutableDictionary *item = [NSMutableDictionary new];
     NSArray *keyArray = [[self key] allKeys];
     NSDictionary *dictionaryValue = [MTLJSONAdapter JSONDictionaryFromModel:self];
@@ -372,13 +533,42 @@
     for (id key in dictionaryValue) {
         if (![keyArray containsObject:key]) {
             // For other attributes
-            AWSDynamoDBAttributeValueUpdate *attributeValueUpdate = [AWSDynamoDBAttributeValueUpdate new];
-            AWSDynamoDBAttributeValue *attributeValue = [AWSDynamoDBAttributeValue new];
-            [attributeValue aws_setAttributeValue:dictionaryValue[key]];
-            attributeValueUpdate.value = attributeValue;
-            attributeValueUpdate.action = AWSDynamoDBAttributeActionPut;
 
-            item[key] = attributeValueUpdate;
+            if (dictionaryValue[key] == [NSNull null]) {
+                //If attribute value is null
+                if (behavior == AWSDynamoDBObjectMapperSaveBehaviorUpdateSkipNullAttributes || behavior == AWSDynamoDBObjectMapperSaveBehaviorAppendSet) {
+                    /*
+                     * If UPDATE_SKIP_NULL_ATTRIBUTES or APPEND_SET is
+                     * configured, we don't delete null value attributes.
+                     */
+                } else {
+                    /* Delete attributes that are set as null in the object. */
+                    AWSDynamoDBAttributeValueUpdate *attributeValueUpdate = [AWSDynamoDBAttributeValueUpdate new];
+                    attributeValueUpdate.action = AWSDynamoDBAttributeActionDelete;
+
+                    item[key] = attributeValueUpdate;
+                }
+
+            } else {
+                //If attribute value is not null
+                AWSDynamoDBAttributeValueUpdate *attributeValueUpdate = [AWSDynamoDBAttributeValueUpdate new];
+                AWSDynamoDBAttributeValue *attributeValue = [AWSDynamoDBAttributeValue new];
+                [attributeValue aws_setAttributeValue:dictionaryValue[key] mapperVersion:mapperVersion];
+                attributeValueUpdate.value = attributeValue;
+                if (behavior == AWSDynamoDBObjectMapperSaveBehaviorAppendSet &&
+                    (attributeValue.BS != nil || attributeValue.NS != nil || attributeValue.SS != nil)) {
+
+                    /* If it's a set attribute and the mapper is configured with APPEND_SET,
+                     * we do an "ADD" update instead of the default "PUT".
+                     */
+                    attributeValueUpdate.action = AWSDynamoDBAttributeActionAdd;
+                } else {
+                    /* Otherwise, we do the default "PUT" update. */
+                    attributeValueUpdate.action = AWSDynamoDBAttributeActionPut;
+                }
+
+                item[key] = attributeValueUpdate;
+            }
         }
     }
 
@@ -396,7 +586,8 @@
     for (id key in keyArray) {
         // For key attributes
         AWSDynamoDBAttributeValue *keyAttributeValue = [AWSDynamoDBAttributeValue new];
-        [keyAttributeValue aws_setAttributeValue:dictionaryValue[key]];
+        [keyAttributeValue aws_setAttributeValue:dictionaryValue[key]
+                                   mapperVersion:AWSDynamoDBObjectMapperVersion2]; //Either version 1 or version 2 should work for Key value.
         keyDictionary[key] = keyAttributeValue;
     }
 
@@ -419,7 +610,7 @@
     AWSDynamoDBObjectMapperConfiguration *configuration = [[[self class] allocWithZone:zone] init];
     configuration.saveBehavior = self.saveBehavior;
     configuration.consistentRead = [self.consistentRead copy];
-
+    
     return configuration;
 }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
+		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
@@ -91,6 +93,8 @@
 
 /* Begin PBXFileReference section */
 		4C0F0BBFA42B094D8A074F35 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A108F5C41A94732A00816EFA /* BaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURL.plist; sourceTree = "<group>"; };
+		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +200,15 @@
 				4C0F0BBFA42B094D8A074F35 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A16619A41A94E53C009D9EEA /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */,
+			);
+			name = Scripts;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E4030A701A63DD7B005D224E /* Editor */ = {
@@ -367,8 +380,10 @@
 		E494DF0D1A0A980D004A369E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A16619A41A94E53C009D9EEA /* Scripts */,
 				E494DF161A0A980D004A369E /* Images.xcassets */,
 				E494DF0E1A0A980D004A369E /* Info.plist */,
+				A108F5C41A94732A00816EFA /* BaseURL.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -408,6 +423,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E494DF291A0A980D004A369E /* Build configuration list for PBXNativeTarget "FoodCollector" */;
 			buildPhases = (
+				A16619A71A94E616009D9EEA /* ShellScript */,
 				9363829374F2D3131D8E7396 /* Check Pods Manifest.lock */,
 				E494DF061A0A980D004A369E /* Sources */,
 				E494DF071A0A980D004A369E /* Frameworks */,
@@ -452,7 +468,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 58NS37C8VA;
+						DevelopmentTeam = Z43P8YG44T;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -493,6 +509,7 @@
 				E4C1C16B1A52AC8E00A37E00 /* easter_rabbit-26.png in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
 				E4C1C16C1A52AC8E00A37E00 /* easter_cake-26.png in Resources */,
+				A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */,
 				E4642C951A52F23300F5C43B /* PinRed.png in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
 				E4C1C16D1A52AC8E00A37E00 /* bell-26.png in Resources */,
@@ -540,6 +557,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		A16619A71A94E616009D9EEA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = /Users/Boris/Developer/Projects/FoodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -559,6 +589,7 @@
 				E4BF44F31A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
+				A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */,
 				E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */,
 				E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */,
 				E4737D9D1A10C01300A4AB81 /* FCPublishRootVC.swift in Sources */,
@@ -725,6 +756,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -741,6 +773,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

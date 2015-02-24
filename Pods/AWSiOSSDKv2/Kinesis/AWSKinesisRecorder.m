@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2014 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -55,6 +55,13 @@ NSString *const AWSKinesisRecorderCacheName = @"com.amazonaws.AWSKinesisRecorder
     });
 
     return _defaultKinesisRecorder;
+}
+
+- (instancetype)init {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:@"`- init` is not a valid initializer. Use `+ defaultKinesisRecorder` or `- initWithConfiguration:identifier:` instead."
+                                 userInfo:nil];
+    return nil;
 }
 
 - (instancetype)initWithConfiguration:(AWSServiceConfiguration *)configuration
@@ -392,8 +399,7 @@ NSString *const AWSKinesisRecorderCacheName = @"com.amazonaws.AWSKinesisRecorder
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:self.databasePath
                                                                                 error:&error];
     if (attributes) {
-        unsigned long long size = [attributes fileSize];
-        return (NSUInteger)size;
+        return (NSUInteger)[attributes fileSize];
     } else {
         AWSLogError(@"Error [%@]", error);
         return 0;
