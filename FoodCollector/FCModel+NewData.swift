@@ -16,6 +16,10 @@ extension FCModel {
             { (thePublications: [FCPublication]) -> Void in
                 
                 self.fetchedPublications = thePublications
+                println("COUNT OF FETCHED: \(self.fetchedPublications.count)")
+                for publication in self.fetchedPublications {
+                    println("name: \(publication.title)")
+                }
                 self.prepareNewData()
         }
     }
@@ -47,6 +51,8 @@ extension FCModel {
         //if the user registers and navigates - we change it back to the right coords
         let checkIfTwoPublicationsInTheSameCoordinatesOperation = NSBlockOperation { () -> Void in
             
+            if self.fetchedPublications.count >= 1 {
+            
             for index in 0..<(self.fetchedPublications.count - 1) {
                 
                 let publication = self.fetchedPublications[index]
@@ -62,6 +68,7 @@ extension FCModel {
                             publication.didModifyCoords = true
                     }
                 }
+            }
             }
         }
         

@@ -11,12 +11,10 @@ import UIKit
 class FCActivityCenterTVC: UITableViewController {
     
     var userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
-    
     var userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
     
-    let collectorTitle = String.localizedStringWithFormat("אוסף", "activity center table view collector section title. means collector")
-    
-    let publisherTitle = String.localizedStringWithFormat("תורם", "activity center table view publisher section title. means contributer")
+    let collectorTitle = String.localizedStringWithFormat("בדרך לקחת", "activity center table view collector section title. means collector")
+    let publisherTitle = String.localizedStringWithFormat("שיתופים פעילים", "activity center table view publisher section title. means contributer")
     
     let collectorIcon = UIImage(named: "Collect.png")
     
@@ -29,12 +27,14 @@ class FCActivityCenterTVC: UITableViewController {
         super.viewDidLoad()
         self.tableView.estimatedRowHeight = 66
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        reload()
+    }
     
-        
+    func reload() {
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
         self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
         self.removeExpiredUserCreatedPublications()
-        
+        self.tableView.reloadData()
     }
     
     func removeExpiredUserCreatedPublications() {

@@ -11,8 +11,8 @@ import UIKit
 import Foundation
 
 
-protocol FCPublicationsTVCDelegate {
-    func didChosePublication(publication:FCPublication)
+protocol FCPublicationsTVCDelegate: NSObjectProtocol{
+    func didRequestActivityCenter()
 }
 
 
@@ -22,6 +22,7 @@ protocol FCPublicationsTVCDelegate {
 
 class FCPublicationsTableViewController : UITableViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
+    weak var delegate: FCPublicationsTVCDelegate!
     var publications = [FCPublication]()
     var filteredPublicaitons = [FCPublication]()
     var searchBar: UISearchBar!
@@ -195,6 +196,13 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     
     func dismissDetailVC() {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func showActivityCenter(sender: UIButton) {
+    
+        if let delegate = self.delegate {
+            delegate.didRequestActivityCenter()
+        }
     }
 
     

@@ -8,15 +8,16 @@
 import CoreLocation
 import UIKit
 
-let reportActiveDeviceURL = "https://fd-server.herokuapp.com/active_devices.json"
-let registerForPushNotificationsURL = "https://fd-server.herokuapp.com/active_devices/dev_uuid.json"
-let getAllPublicationsURL = "https://fd-server.herokuapp.com/publications.json"
-let postNewPublicationURL = "https://fd-server.herokuapp.com/publications.json"
-let reportArrivedToPublicationURL = "https://fd-server.herokuapp.com/publications/"
-let reportsForPublicationBaseURL = "https://fd-server.herokuapp.com/publications/"
-let reportUserLocationURL = "https://fd-server.herokuapp.com/active_devices/dev_uuid.json"
+let baseUrlString = FCModel.sharedInstance.baseUrl
 
-//https://fd-server.herokuapp.com/publications/3/registered_user_for_publications.json
+let reportActiveDeviceURL           = baseUrlString + "active_devices.json"
+let registerForPushNotificationsURL = baseUrlString + "active_devices/dev_uuid.json"
+let getAllPublicationsURL           = baseUrlString + "publications.json"
+let postNewPublicationURL           = baseUrlString + "publications.json"
+let reportArrivedToPublicationURL   = baseUrlString + "publications/"
+let reportsForPublicationBaseURL    = baseUrlString + "publications/"
+let reportUserLocationURL           = baseUrlString + "active_devices/dev_uuid.json"
+
 
 public class FCMockServer: NSObject , FCServerProtocol {
     
@@ -162,6 +163,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         //let pubs = self.makePublication()
         //completion(thePublications: pubs)
         
+       
         var publications = [FCPublication]()
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getAllPublicationsURL)

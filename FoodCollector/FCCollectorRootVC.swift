@@ -15,13 +15,18 @@ let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMes
 let kActivityCenterTitle = String.localizedStringWithFormat("מרכז הפעילות","activity center navigation bar title")
 let kCollctorTitle = String.localizedStringWithFormat("אוסף","collector root vc navigation bar title")
 
-class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate{
+protocol CollectorVCSlideDelegate: NSObjectProtocol {
+    func collectorVCWillSlide()
+}
+
+class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate, FCPublicationsTVCDelegate{
     
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
     @IBOutlet weak var trackUserButton: UIButton!
     
     @IBOutlet weak var blureView: UIView!
+    weak var delegate: CollectorVCSlideDelegate!
     var showTableButtonCopy:UIBarButtonItem!
     var publications = [FCPublication]()
     var isPresentingPublicationDetailsView = false
@@ -215,6 +220,23 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         return true
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "presentPublicationsTVC" {
+            let navController = segue.destinationViewController as UINavigationController
+            let tableViewController = navController.viewControllers[0] as FCPublicationsTableViewController
+            tableViewController.delegate = self
+        }
+    }
+    
+    func didRequestActivityCenter() {
+        self.ShowActivityCenter(self)
+    }
+    
+    @IBAction func unwindFromTableView(segue: UIStoryboardSegue) {
+        
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     //MARK: - Map View Delegate
     
     func configureMapView() {
@@ -283,87 +305,16 @@ extension FCCollectorRootVC {
     
     @IBAction func ShowActivityCenter(sender: AnyObject) {
         
-        
-        if !isPresentingActivityCenter {
-            
-            isPresentingActivityCenter = true
-            
-            self.activityCenterTVC = self.storyboard?.instantiateViewControllerWithIdentifier("activityCenterNav") as? UINavigationController//"FCActivityCenterTVC") as FCActivityCenterTVC!
-        
-            self.addChildViewController(self.activityCenterTVC!)
-            self.activityCenterTVC!.view.frame = self.view.frame
-            activityCenterTVC!.view.center = self.activityCenterHiddenCenter
-            self.activityCenterTVC!.didMoveToParentViewController(self)
-            self.mapView.addSubview(self.activityCenterTVC!.view)
-            animateToActivityCenter()
-        }
-        else {
-            //hide activity center
-            
-            isPresentingActivityCenter = false
-            animateBcakFromActivityCenter()
-        }
-    }
-    
-    func animateToActivityCenter() {
-        var tabbarCenter = self.tabBarController?.tabBar.center
-        tabbarCenter?.x += self.view.bounds.width
-        
-        if let activityCenter = self.activityCenterTVC {
-            
-            self.blureView.animateToAlphaWithSpring(0.2, alpha: 0)
-            
-            UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
-                
-                activityCenter.view.center = self.activityCenterVisibleCenter
-                self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-                self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-                self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.whiteColor()]
-                self.tabBarController?.tabBar.center = self.tabbarHiddenCenter
-                self.title = kActivityCenterTitle
-                self.removeShowPublicationsTVCButton()
-                }, completion: nil)
-        }
-    }
-    
-    func removeShowPublicationsTVCButton() {
-        self.navigationItem.setRightBarButtonItem(nil, animated: true)
-    }
-    
-    func addShowPublicationsTVCButton() {
-        self.showTableButton = self.showTableButtonCopy as UIBarButtonItem
-        self.navigationItem.setRightBarButtonItem(self.showTableButton, animated: true)
-    }
-    
-    func animateBcakFromActivityCenter() {
-        
-        if let activityCenter = self.activityCenterTVC {
-            self.blureView.animateToAlphaWithSpring(0.5, alpha: 1)
-            UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
-                
-                activityCenter.view.center = self.activityCenterHiddenCenter
-                self.navigationController?.navigationBar.barStyle = UIBarStyle.Default
-                self.navigationController?.navigationBar.tintColor = UIColor.blueColor()
-                self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName :UIColor.blackColor()]
-                self.tabBarController?.tabBar.center = self.tabbarVisibleCenter
-                self.title = kCollctorTitle
-                self.addShowPublicationsTVCButton()
-                
-                }, completion: { (finished) -> Void in
-                    
-                    activityCenter.view.removeFromSuperview()
-                    activityCenter.removeFromParentViewController()
-                    self.activityCenterTVC = nil
-            })
+        if let delegate = self.delegate {
+            self.delegate.collectorVCWillSlide()
         }
     }
 }
 
+// MARK: - new data from server logic
 
 extension FCCollectorRootVC {
     
-    // MARK: - new data from server logic
-
     func didRecieveNewData(notification: NSNotification) {
         
         self.reloadAnnotations()

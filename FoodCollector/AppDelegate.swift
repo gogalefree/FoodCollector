@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
+        baseUrl()
         //uncomment to check the device uuid report service
         //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
 
@@ -177,6 +178,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    func baseUrl() {
+        
+        var baseUrlPlist: NSDictionary?
+        
+        if let path = NSBundle.mainBundle().pathForResource("BaseURL", ofType:"plist") {
+            
+            baseUrlPlist = NSDictionary(contentsOfFile: path)
+
+        }
+        
+        if let urlDict = baseUrlPlist {
+
+            let urlString = urlDict["Server URL"] as String
+            println("srver url **************: \n\(urlString)")
+            
+        }
+        else {
+            println("srver url **************: NOT FOUND")
+ 
+        }
+        
+        
+        
+    }
 
 }
 

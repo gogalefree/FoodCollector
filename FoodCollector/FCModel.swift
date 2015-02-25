@@ -57,6 +57,30 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         return uuid
         }()
     
+    var baseUrl: String = {
+     
+        var baseUrlPlist: NSDictionary?
+        var urlString: String
+        
+        if let path = NSBundle.mainBundle().pathForResource("BaseURL", ofType:"plist") {
+            
+            baseUrlPlist = NSDictionary(contentsOfFile: path)
+        }
+        
+        if let urlDict = baseUrlPlist {
+            
+            urlString = urlDict["Server URL"] as String
+            println("srver url **************: \n\(urlString)")
+            
+        }
+        else {
+            urlString = ""
+            println("srver url **************: NOT FOUND")
+            
+        }
+        return urlString
+    }()
+    
     public func setUp () {
         
         //we start with loading the current data

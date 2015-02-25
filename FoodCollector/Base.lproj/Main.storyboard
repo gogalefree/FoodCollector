@@ -629,7 +629,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Table-view" id="Rj4-yt-P4Y">
                             <connections>
-                                <segue destination="f4d-b5-Oid" kind="show" identifier="pushPublicationsTVC" id="aZ2-oz-GvC"/>
+                                <segue destination="xDT-kC-DAC" kind="show" identifier="presentPublicationsTVC" id="aZ2-oz-GvC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -642,7 +642,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2058" y="293"/>
+            <point key="canvasLocation" x="2622" y="293"/>
         </scene>
         <!--Arrived To Publication SpotVC-->
         <scene sceneID="Uot-iA-8bD">
@@ -1073,7 +1073,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ip9-4x-6n4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4338" y="-346.5"/>
+            <point key="canvasLocation" x="5150" y="-347"/>
         </scene>
         <!--Publications Table View Controller-->
         <scene sceneID="gIv-We-tlG">
@@ -1171,15 +1171,47 @@
                             <outlet property="delegate" destination="f4d-b5-Oid" id="A7T-cX-bAS"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="QUs-qb-U8y">
+                        <barButtonItem key="leftBarButtonItem" image="Avtivity-center" id="Xot-h9-cKw">
+                            <connections>
+                                <action selector="showActivityCenter:" destination="f4d-b5-Oid" id="fuK-gf-Iom"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Map-view" id="yCl-2U-JYg">
+                            <connections>
+                                <segue destination="etT-oa-SeJ" kind="unwind" unwindAction="unwindFromTableView:" id="noZ-Wt-xsx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gA4-bv-1lN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="etT-oa-SeJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2803" y="293"/>
+            <point key="canvasLocation" x="4179" y="293"/>
+        </scene>
+        <!--חפש-->
+        <scene sceneID="87N-7M-znR">
+            <objects>
+                <viewController id="akw-hV-T1a" customClass="FCCollectorContainerController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N59-ZF-xes"/>
+                        <viewControllerLayoutGuide type="bottom" id="r3R-ka-qWs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Lh-SD-S61">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="חפש" image="Collect-off" id="J8w-tF-wCB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="htA-Ht-Vb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1144" y="292"/>
         </scene>
         <!--Collect-->
         <scene sceneID="VED-7b-aGp">
             <objects>
-                <navigationController title="Collect" automaticallyAdjustsScrollViewInsets="NO" id="V26-sE-fum" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="collectorRootNavController" title="Collect" automaticallyAdjustsScrollViewInsets="NO" id="V26-sE-fum" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="Collect-off" id="h0a-Jz-DGL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L1Q-lq-Uh3">
@@ -1193,7 +1225,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbS-QR-Vjh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1246" y="293"/>
+            <point key="canvasLocation" x="1810" y="293"/>
         </scene>
         <!--הארועים שלי-->
         <scene sceneID="TRz-H0-Ogd">
@@ -1341,6 +1373,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewHeader" id="eHM-LD-SKS" customClass="FCPublisherRootVCCollectionViewHeaderCollectionReusableView" customModule="FoodCollector" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="64" width="600" height="88"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="wWh-gh-B3M">
@@ -1400,19 +1433,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="V26-sE-fum" kind="relationship" relationship="viewControllers" id="Zij-Fy-9AV"/>
-                        <segue destination="swm-m4-wSU" kind="relationship" relationship="viewControllers" id="Zad-qO-V7o"/>
+                        <segue destination="akw-hV-T1a" kind="relationship" relationship="viewControllers" id="yEb-7L-jvr"/>
+                        <segue destination="swm-m4-wSU" kind="relationship" relationship="viewControllers" id="Xh6-a6-sJp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdR-bd-eEU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="434" y="293"/>
         </scene>
-        <!--תורם-->
+        <!--שתף-->
         <scene sceneID="YRb-Ue-goy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="swm-m4-wSU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="תורם" image="Donate-off" id="ho0-XI-XhJ"/>
+                    <tabBarItem key="tabBarItem" title="שתף" image="Donate-off" id="ho0-XI-XhJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MTn-JS-G1s">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1430,11 +1463,12 @@
         <!--Navigation Controller-->
         <scene sceneID="8cG-dO-0Za">
             <objects>
-                <navigationController storyboardIdentifier="activityCenterNav" automaticallyAdjustsScrollViewInsets="NO" id="gy5-Dc-Ie6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="activityCenterNavController" automaticallyAdjustsScrollViewInsets="NO" id="gy5-Dc-Ie6" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gHT-E6-Rbg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="gHT-E6-Rbg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1830,12 +1864,31 @@
             </objects>
             <point key="canvasLocation" x="726" y="1872"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zE3-oX-fu8">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xDT-kC-DAC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3DD-Lk-Drc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="f4d-b5-Oid" kind="relationship" relationship="rootViewController" id="TaD-Fr-S7V"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Snh-OR-blD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3367" y="293"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Avtivity-center" width="27" height="30"/>
         <image name="Collect-off" width="49" height="49"/>
         <image name="Donate-off" width="49" height="49"/>
         <image name="Green-dot" width="7" height="7"/>
+        <image name="Map-view" width="27" height="30"/>
         <image name="No-photo" width="118" height="118"/>
         <image name="Table-view" width="27" height="30"/>
         <image name="bell-26.png" width="26" height="26"/>

@@ -13,9 +13,9 @@ import Foundation
 println(">>>> Start Script")
 
 // BaseURL.plist dictionary values, key and path
-let kProdURLVal = "https://fd-server.herokuapp.com/"
-let kDevURLVal  = "https://dev.fd-server.herokuapp.com/"
-let kBetaURLVal = "https://beta.fd-server.herokuapp.com/"
+let kProdURLVal = "https://prod-fd-server.herokuapp.com/"
+let kDevURLVal  = "https://fd-server.herokuapp.com/"
+let kBetaURLVal = "https://test-fd-server.herokuapp.com/"
 let kDictKey    = "Server URL"
 let pathToBaseURLPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollector/BaseURL.plist"
 
@@ -23,11 +23,11 @@ let pathToBaseURLPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/F
 // Info.plist dictionary values, keys and path
 let kBundleIDKey          = "CFBundleIdentifier"
 let kBundleIDProdVal      = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)"
-let kBundleIDDevVal       = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier).dev"
+let kBundleIDDevVal       = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)" //.dev
 let kBundleIDBetaVal      = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier).beta"
 let kBundleNameKey        = "CFBundleName"
 let kBundleNameProdVal    = "$(PRODUCT_NAME)"
-let kBundleNameDevVal     = "dev.$(PRODUCT_NAME)"
+let kBundleNameDevVal     = "$(PRODUCT_NAME)" //dev.
 let kBundleNameBetaVal    = "beta.$(PRODUCT_NAME)"
 let kBundleDispNameKey    = "CFBundleDisplayName"
 let kBundleDispNameDevVal = "Foodonet Dev"
