@@ -568,7 +568,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift";
+			shellScript = /Users/Boris/Developer/Projects/FoodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift;
 		};
 /* End PBXShellScriptBuildPhase section */
 
