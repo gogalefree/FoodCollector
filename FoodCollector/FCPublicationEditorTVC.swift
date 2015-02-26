@@ -26,6 +26,10 @@ let kPublishEndDatePrefix = String.localizedStringWithFormat("מסתיים: ", "
 
 let kSeperatHeaderHeight = CGFloat(30.0)
 
+let kAddDefaultHoursToStartDate:Double = 24 // Amount of hours to add to the start date so that we will have an End date for new publication only!
+let kTimeIntervalInSecondsToEndDate = kAddDefaultHoursToStartDate * 60.0 * 60.0 // Hours * 60 Minutes * 60 seconds
+
+
 
 struct FCPublicationEditorTVCCellData {
     
@@ -329,7 +333,9 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                 params[kPublicationUniqueIdKey] = uniqueID
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
-                publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                if publication.photoData.photo != nil {
+                    publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
@@ -597,6 +603,47 @@ extension  FCPublicationEditorTVC {
                     }
                     
                 }
+            }
+            else { // Create defaults for new empty publication
+                println(">>> Create defaults for new empty publication")
+                
+                switch index {
+                        
+                    case 3:
+                        //publication starting date
+                        cellData.userData = NSDate()
+                        cellData.containsUserData = true
+                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as NSDate)
+                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as NSDate)
+                        let prefix = kPublishStartDatePrefix
+                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+                        cellData.cellTitle = cellTitle
+                        
+                    case 4:
+                        //publication ending date
+                        cellData.userData = NSDate().dateByAddingTimeInterval(kTimeIntervalInSecondsToEndDate)
+                        cellData.containsUserData = true
+                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as NSDate)
+                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as NSDate)
+                        let prefix = kPublishEndDatePrefix
+                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+                        cellData.cellTitle = cellTitle
+                        
+                    case 5:
+                        //publication type of collecting
+                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 1 , kPublicationContactInfoKey : ""]
+                        
+                        cellData.userData = typeOfCollectingDict
+                        cellData.containsUserData = true
+                        cellData.cellTitle = kTypeOfCollectingFreePickUpTitle
+                    case 6:
+                    //publication photo
+                        cellData.userData = ""
+                        cellData.containsUserData = true
+
+                    default:
+                        break
+                    }
             }
             self.dataSource.append(cellData)
         }
