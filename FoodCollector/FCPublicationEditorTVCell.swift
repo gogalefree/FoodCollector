@@ -9,6 +9,7 @@
 import UIKit
 
 class FCPublicationEditorTVCell: UITableViewCell {
+    
     @IBOutlet weak var titleLabel: UILabel!
     var contentViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var  photoImageView: UIImageView!
@@ -17,6 +18,7 @@ class FCPublicationEditorTVCell: UITableViewCell {
     var shouldEnablePublishButton = false
     
     var cellData: FCPublicationEditorTVCCellData? {
+       
         didSet {
             
             if let cellData = self.cellData {

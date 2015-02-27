@@ -13,6 +13,15 @@ class FCActivityCenterTVCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     
+    var publication: FCPublication! {
+        didSet{
+            if let publication = self.publication {
+                self.titleLabel.text = publication.title
+                self.fetchPhotoIfNeeded()
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,6 +32,21 @@ class FCActivityCenterTVCell: UITableViewCell {
         
     }
 
+    func fetchPhotoIfNeeded() {
+    
+        self.iconImageView.alpha = 0
+        if self.publication.photoData.photo != nil {
+            self.iconImageView.image = self.publication.photoData.photo
+        }
+        else if !self.publication.photoData.didTryToDonwloadImage {
+            let fetcher = FCPhotoFetcher()
+            fetcher.fetchPhotoForPublication(self.publication, completion: { (image) -> Void in
+                self.iconImageView.image = self.publication.photoData.photo
+            })
+        }
+        self.iconImageView.animateToAlphaWithSpring(0.4, alpha: 1)
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

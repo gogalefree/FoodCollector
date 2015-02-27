@@ -20,8 +20,10 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     var collectorMapVisibleOrigin: CGPoint!
     var collectorMapHiddenOrigin: CGPoint!
     
+    var statusBarHidden: Bool = false
+    
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
         
         activityCenterNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("activityCenterNavController") as UINavigationController
@@ -43,37 +45,43 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         collectorRootVC.delegate = self
         
         self.definePointsWithRect(self.view.bounds)
-
+        
     }
     
     func collectorVCWillSlide() {
         if !activityCenterPresented { showActivityCenter() }
         else { hideActivityCenter() }
     }
-
-    func showActivityCenter() {
     
+    func showActivityCenter() {
+        
         activityCenterPresented = true
         let activityCenterVC = activityCenterNavigationController.viewControllers[0] as FCActivityCenterTVC
         activityCenterVC.reload()
+        
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             
             self.collectorRootNavigationController.view.frame.origin = self.collectorMapHiddenOrigin
             self.tabBarController?.tabBar.center = self.tabBarHiddenCenter
-        })
-}
-
-func hideActivityCenter() {
+            
+            }) { (completion) -> Void in
+                activityCenterVC.displaySections()
+                self.showStatusBar(false)
+        }
+    }
     
-    activityCenterPresented = false
-
-    
-    UIView.animateWithDuration(0.2, animations: { () -> Void in
+    func hideActivityCenter() {
         
-        self.collectorRootNavigationController.view.center = self.view.center
-        self.tabBarController?.tabBar.center = self.tabBarVisibleCenter
-    })
-}
+        activityCenterPresented = false
+        
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            
+            self.collectorRootNavigationController.view.center = self.view.center
+            self.tabBarController?.tabBar.center = self.tabBarVisibleCenter
+            }){ (completion) -> Void in
+                self.showStatusBar(true)
+        }
+    }
     
     func definePointsWithRect(containerBounds: CGRect) {
         
@@ -89,7 +97,7 @@ func hideActivityCenter() {
         tabBarHiddenCenter = CGPointMake(tabBarHiddenCenterX, tabBarHiddenCenterY)
         
     }
-
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -97,7 +105,7 @@ func hideActivityCenter() {
         self.definePointsWithRect(boundsRect)
         
         coordinator.animateAlongsideTransition({ (context) -> Void in
-         
+            
             self.activityCenterNavigationController.view.frame = CGRectMake(0, 0, size.width, size.height)
             self.activityCenterNavigationController.view.frame.size.width = self.kCollectorMapVCFraction * size.width
             
@@ -105,7 +113,19 @@ func hideActivityCenter() {
                 self.showActivityCenter()
             }
             
-        }, completion: { (context) -> Void in})
+            }, completion: { (context) -> Void in})
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return statusBarHidden
+    }
+    
+    func showStatusBar(show: Bool) {
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.statusBarHidden = !show
+            self.setNeedsStatusBarAppearanceUpdate()
+        })
     }
     
     override func didReceiveMemoryWarning() {

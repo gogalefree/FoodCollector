@@ -110,8 +110,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     // If the segue identifier is "showEditPublicationEditorTVC" we will pass on the
     // publication object that corresponds to the clicked cell in the collection view
     // and display the publication's content in the FCPublicationEditorTVC class.
-    
+
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
+      
         if (segue.identifier == "showEditPublicationEditorTVC") {
             let publicationEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
             publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])

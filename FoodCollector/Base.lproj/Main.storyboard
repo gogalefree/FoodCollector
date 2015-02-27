@@ -14,6 +14,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="eEO-fb-LN9" customClass="FCPublicationDetailsTVHeaderView" customModule="FoodCollector" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="lsf-Tz-2dX">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="lsf-Tz-2dX" secondAttribute="trailing" id="KO2-Oa-Q5c"/>
+                                <constraint firstItem="lsf-Tz-2dX" firstAttribute="leading" secondItem="eEO-fb-LN9" secondAttribute="leading" id="NuJ-NV-dRK"/>
+                                <constraint firstAttribute="bottom" secondItem="lsf-Tz-2dX" secondAttribute="bottom" id="h3O-bz-HYo"/>
+                                <constraint firstItem="lsf-Tz-2dX" firstAttribute="top" secondItem="eEO-fb-LN9" secondAttribute="top" id="khf-yV-pHa"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="imageView" destination="lsf-Tz-2dX" id="ZrV-w8-Mc0"/>
+                            </connections>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCPublicationsDetailsTVTitleCell" rowHeight="116" id="esh-rZ-Vej" customClass="FCPublicationsDetailsTVTitleCell" customModule="FoodCollector" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -501,12 +520,11 @@
         <scene sceneID="z6c-7A-Y3g">
             <objects>
                 <tableViewController storyboardIdentifier="FCActivityCenterTVC" title="מרכז הפעילות" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="fCA-8J-hlL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="55" sectionFooterHeight="22" id="fCA-8J-hlL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="70" maxY="0.0"/>
                         <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -515,26 +533,31 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c5z-vm-whl" id="gHd-qA-QwO">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3lK-nq-ZwC">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="3lK-nq-ZwC">
                                             <rect key="frame" x="532" y="2" width="50" height="50"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="UiD-UR-s1y"/>
-                                                <constraint firstAttribute="width" constant="50" id="wQL-Ni-9QY"/>
+                                                <constraint firstAttribute="width" constant="50" id="jmW-ki-F2J"/>
+                                                <constraint firstAttribute="height" constant="50" id="nRa-Gs-m4a"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-vw-aeu">
-                                            <rect key="frame" x="8" y="22" width="516" height="19"/>
+                                            <rect key="frame" x="8" y="17" width="516" height="19"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="516" id="747-RT-dRK"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="centerY" secondItem="3lK-nq-ZwC" secondAttribute="centerY" id="IdM-N5-AWX"/>
-                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="leading" secondItem="fgF-vw-aeu" secondAttribute="trailing" constant="8" id="Q8b-nG-CHs"/>
+                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="-6" id="7Tu-LJ-8fu"/>
+                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="leading" secondItem="fgF-vw-aeu" secondAttribute="trailing" constant="8" symbolic="YES" id="JmM-Kg-XOj"/>
                                         <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="VFm-Ha-E8Z"/>
-                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="trailing" secondItem="gHd-qA-QwO" secondAttribute="trailingMargin" constant="-10" id="YCF-nb-NFi"/>
-                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="14" id="p0p-77-1rw"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="3lK-nq-ZwC" secondAttribute="trailing" constant="10" id="bvJ-gg-SlK"/>
+                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="centerY" secondItem="gHd-qA-QwO" secondAttribute="centerY" id="irM-bJ-V8J"/>
+                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="-6" id="jeL-Ec-rQO"/>
+                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="9" id="p0p-77-1rw"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

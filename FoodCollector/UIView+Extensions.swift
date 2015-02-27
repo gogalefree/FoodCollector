@@ -24,7 +24,15 @@ extension UIView {
             self.center = center
             }, completion: nil)
     }
-    
+}
+
+extension UIView {
+    class func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> UIView? {
+        return UINib(
+            nibName: nibNamed,
+            bundle: bundle
+            ).instantiateWithOwner(nil, options: nil)[0] as? UIView
+    }
 }
 
 extension UITabBar{

@@ -8,18 +8,47 @@
 
 import UIKit
 
-class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleCellDelegate {
+class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleCellDelegate, UIScrollViewDelegate {
     
     var publication: FCPublication?
     
+    private let kTableViewHeaderHeight: CGFloat = 300.0
+    var headerView: FCPublicationDetailsTVHeaderView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        headerView = self.tableView.tableHeaderView as FCPublicationDetailsTVHeaderView
+        self.tableView.tableHeaderView = nil
+        tableView.addSubview(headerView)
+        headerView.publication = self.publication
+        
+        self.tableView.contentInset = UIEdgeInsets(top: kTableViewHeaderHeight, left: 0, bottom: 0, right: 0)
+        self.tableView.contentOffset = CGPointMake(0, -kTableViewHeaderHeight)
+        updateHeaderView()
+        
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 140
         fetchPublicationReports()
         fetchPublicationPhoto()
      
+    }
+    
+    func updateHeaderView() {
+    
+        var headerRect = CGRect(x: 0, y: -kTableViewHeaderHeight, width: self.tableView.bounds.width, height: kTableViewHeaderHeight)
+        if self.tableView.contentOffset.y < -kTableViewHeaderHeight {
+            headerRect.origin.y = tableView.contentOffset.y
+            headerRect.size.height = -tableView.contentOffset.y
+        }
+        self.headerView.frame = headerRect
+        
+        self.headerView.updateCutAway(headerRect)
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        updateHeaderView()
     }
     
     // MARK: - Table view data source
@@ -43,8 +72,8 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 4
+        //change to 4 if we want the photo cell down
+        return 3
     }
     
     
@@ -91,7 +120,8 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
                 fetcher.fetchPhotoForPublication(publication, completion: { (image: UIImage?) -> Void in
                     if publication.photoData.photo != nil {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: 3, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+//                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: 3, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                            self.headerView.updatePhoto()
                         })
                     }
                 })

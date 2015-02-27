@@ -8,26 +8,38 @@
 
 import UIKit
 
-class FCActivityCenterTVC: UITableViewController {
+let collectorTitle = String.localizedStringWithFormat("בדרך לקחת", "activity center table view collector section title. means collector")
+let publisherTitle = String.localizedStringWithFormat("שיתופים פעילים", "activity center table view publisher section title. means contributer")
+let collectorIcon = UIImage(named: "Collect.png")
+let publisherIcon = UIImage(named: "Donate.png")
+
+
+class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDelegate{
     
     var userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
     var userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
     
-    let collectorTitle = String.localizedStringWithFormat("בדרך לקחת", "activity center table view collector section title. means collector")
-    let publisherTitle = String.localizedStringWithFormat("שיתופים פעילים", "activity center table view publisher section title. means contributer")
-    
-    let collectorIcon = UIImage(named: "Collect.png")
-    
-    let publisherIcon = UIImage(named: "Donate.png")
+    var isPresenteingregisteredPublication  = false
+    var isPresentingUserCreatedPublications = false
     
     var selectedIndexPath: NSIndexPath!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.estimatedRowHeight = 66
+        self.tableView.estimatedRowHeight = 55
         self.tableView.rowHeight = UITableViewAutomaticDimension
         reload()
+    }
+    
+    func displaySections() {
+        
+        if !self.isPresenteingregisteredPublication{
+            self.headerTapped(0)
+        }
+        if !self.isPresentingUserCreatedPublications{
+            self.headerTapped(1)
+        }
     }
     
     func reload() {
@@ -61,56 +73,44 @@ class FCActivityCenterTVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
         switch section {
-        case 0: return self.userRegisteredPublications.count + 1
-        case 1: return self.userCreatedPublications.count + 1
+        case 0:
+            if !isPresenteingregisteredPublication { return 0 }
+            return self.userRegisteredPublications.count
+        case 1:
+            if !isPresentingUserCreatedPublications { return 0 }
+            return self.userCreatedPublications.count
         default: return 0
         }
     }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = FCActivityCenterTVCSectionHeader.loadFromNibNamed("FCActivityCenterTVSectionHeader") as FCActivityCenterTVCSectionHeader
+        headerView.section = section
+        headerView.delegate = self
+        return headerView
+    }
 
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 80
+    }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCellWithIdentifier("FCActivityCenterTVCell", forIndexPath: indexPath) as FCActivityCenterTVCell
         
-        let colorView = UIView()
-        colorView.backgroundColor = UIColor.blackColor()
-        cell.selectedBackgroundView = colorView
-
-        switch indexPath.section {
-        case 0:
-            if indexPath.row == 0 {
-                cell.titleLabel.text = self.collectorTitle
-                cell.iconImageView.image = self.collectorIcon
-                cell.userInteractionEnabled = false
-            }
-            else {
-                let publication = self.userRegisteredPublications[indexPath.row - 1]
-                cell.titleLabel.text = publication.title
-            }
-            
-        case 1:
-            if indexPath.row == 0 {
-                cell.titleLabel.text = self.publisherTitle
-                cell.iconImageView.image = self.publisherIcon
-                cell.userInteractionEnabled = false
-
-            }
-            else {
-                let publication = self.userCreatedPublications[indexPath.row - 1]
-                cell.titleLabel.text = publication.title
-            }
-            
-        default:
-            return cell
-        }
-
+//        let colorView = UIView()
+//        colorView.backgroundColor = UIColor.blackColor()
+//        cell.selectedBackgroundView = colorView
+        let publication = self.publicationForIndexPath(indexPath)
+        cell.publication = publication
         return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        if indexPath.row == 0 {return}
         var publication = self.publicationForIndexPath(indexPath)
         let title = titleForIndexPath(indexPath)
         
@@ -122,11 +122,9 @@ class FCActivityCenterTVC: UITableViewController {
             
             publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
             let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
-            
             self.navigationController?.presentViewController(nav, animated: true, completion: nil)
             
         case 1:
-        
             let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationEditorTVC") as? FCPublicationEditorTVC
             publicationEditorTVC?.setupWithState(.ActivityCenter, publication: publication)
             publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
@@ -153,61 +151,51 @@ class FCActivityCenterTVC: UITableViewController {
         var publication: FCPublication!
         switch indexPath.section {
         case 0:
-            publication = self.userRegisteredPublications[indexPath.row - 1] as FCPublication
+            publication = self.userRegisteredPublications[indexPath.row]
         case 1:
-            publication = self.userCreatedPublications[indexPath.row - 1] as FCPublication
+            publication = self.userCreatedPublications[indexPath.row]
         default:
             publication = nil
         }
         
         return publication
-        
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    //MARK: - header views delegate
+    
+    func headerTapped(section: Int) {
+        println("ACTIVITY CENTER HEADER \(section)")
+        
+        switch section {
+        case 0:
+            reloadUserRegisteredPublications()
+        case 1:
+            reloadUserCreayedPublications()
+        default:
+            break
+        }
+    }
+    
+    func reloadUserRegisteredPublications() {
+        
+        if !isPresenteingregisteredPublication {
+            isPresenteingregisteredPublication = true
+        }
+        else { isPresenteingregisteredPublication = false }
+        
+        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+    }
+    
+    func reloadUserCreayedPublications() {
+
+        if !isPresentingUserCreatedPublications {
+            isPresentingUserCreatedPublications = true
+        }
+        else { isPresentingUserCreatedPublications = false }
+        
+        self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

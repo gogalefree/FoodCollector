@@ -110,7 +110,6 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         cell.shouldEnablePublishButton = self.publishButtonEnabled
         cell.shouldEnableTakeOffAirButton = self.takeOffAirButtonEnabled
         cell.cellData = self.dataSource[indexPath.section]
-        
         return cell
     }
     
@@ -321,6 +320,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     func publishNewCreatedPublication() {
+       
         var params = self.prepareParamsDictToSend()
         
         FCModel.sharedInstance.foodCollectorWebServer.postNewCreatedPublication(params, completion: {
@@ -400,6 +400,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     func removeActivityIndicator() {
         self.activityIndicatorBlureView.removeFromSuperview()
         self.tableView.userInteractionEnabled = true
+        self.activityIndicatorBlureView.alpha = 0
     }
     
     func prepareParamsDictToSend() -> [String: AnyObject]{
