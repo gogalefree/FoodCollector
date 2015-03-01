@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>Server URL</key>
-	<string>https://fd-server.herokuapp.com/</string>
+	<string>https://dev.fd-server.herokuapp.com/</string>
 </dict>
 </plist>

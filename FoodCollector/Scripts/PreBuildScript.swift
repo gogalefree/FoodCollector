@@ -11,13 +11,18 @@
 import Foundation
 
 println(">>>> Start Script")
+
+let filemgr = NSFileManager.defaultManager()
+let projectPath = filemgr.currentDirectoryPath
+
+
 //println(${SRCROOT})
 // BaseURL.plist dictionary values, key and path
 let kProdURLVal = "https://fd-server.herokuapp.com/"
 let kDevURLVal  = "https://dev.fd-server.herokuapp.com/"
 let kBetaURLVal = "https://beta.fd-server.herokuapp.com/"
 let kDictKey    = "Server URL"
-let pathToBaseURLPlist = "/Users/Boris/Developer/Projects/foodCollector4/FoodCollector/FoodCollector/BaseURL.plist"
+let pathToBaseURLPlist = projectPath + "/FoodCollector/BaseURL.plist"
 
 
 // Info.plist dictionary values, keys and path
@@ -31,7 +36,7 @@ let kBundleNameDevVal     = "dev.$(PRODUCT_NAME)"
 let kBundleNameBetaVal    = "beta.$(PRODUCT_NAME)"
 let kBundleDispNameKey    = "CFBundleDisplayName"
 let kBundleDispNameDevVal = "Foodonet Dev"
-let pathToInfoPlist = "/Users/Boris/Developer/Projects/foodCollector4/FoodCollector/FoodCollectorTests/Info.plist"
+let pathToInfoPlist = projectPath + "/FoodCollector/Info.plist"
 
 let args = Process.arguments
 var argValue = "dev"
