@@ -11,7 +11,7 @@
 import Foundation
 
 println(">>>> Start Script")
-println(${SRCROOT})
+//println(${SRCROOT})
 // BaseURL.plist dictionary values, key and path
 let kProdURLVal = "https://fd-server.herokuapp.com/"
 let kDevURLVal  = "https://dev.fd-server.herokuapp.com/"

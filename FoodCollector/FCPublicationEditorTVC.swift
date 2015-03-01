@@ -72,6 +72,14 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         if self.state != .CreateNewPublication {
             self.fetchPhotoIfNeeded()
         }
+        
+        println(">>>> show self.dataSource")
+        for dataObj in self.dataSource {
+            println(dataObj.cellTitle)
+            println(dataObj.containsUserData)
+            println(dataObj.userData)
+            println("-------------------------")
+        }
     }
     
     override func viewDidLoad() {
@@ -135,7 +143,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.selectedIndexPath = indexPath
         
         switch indexPath.section {
-        case 0, 1: // Title, Subtutle
+        case 0, 1: // Title, Subtitle
             self.performSegueWithIdentifier("showPublicationStringFieldsEditor", sender: nil)
         case 2: // Address
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
@@ -155,7 +163,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         }
     }
     
-    //MARK: - unwind from editors
+    //MARK: - Unwind from editors
     
     @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
         
@@ -333,10 +341,14 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                 params[kPublicationUniqueIdKey] = uniqueID
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
+                publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                /*
                 if publication.photoData.photo != nil {
-                    publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                  //send the photo
+                  let uploader = FCPhotoFetcher()
+                  uploader.uploadPhotoForPublication(publication)
                 }
-                
+                */
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     self.navigationController?.popViewControllerAnimated(true)
@@ -347,14 +359,15 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                     
                     //add user created publication
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
-                
                     
-                    //send the photo
-                    let uploader = FCPhotoFetcher()
-                    uploader.uploadPhotoForPublication(publication)
+                    
+                    if publication.photoData.photo != nil {
+                        //send the photo
+                        let uploader = FCPhotoFetcher()
+                        uploader.uploadPhotoForPublication(publication)
+                    }
                 })
             }
-                
             else {
                 self.removeActivityIndicator()
                 let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
@@ -439,6 +452,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         let typeOfCollectingDict = self.dataSource[5].userData as [String : AnyObject]
         params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
         params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as Int
+
         return params
     }
     
@@ -631,14 +645,14 @@ extension  FCPublicationEditorTVC {
                         
                     case 5:
                         //publication type of collecting
-                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 1 , kPublicationContactInfoKey : ""]
+                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 1 , kPublicationContactInfoKey : "no"]
                         
                         cellData.userData = typeOfCollectingDict
                         cellData.containsUserData = true
                         cellData.cellTitle = kTypeOfCollectingFreePickUpTitle
                     case 6:
                     //publication photo
-                        cellData.userData = ""
+                        //cellData.userData = ""
                         cellData.containsUserData = true
 
                     default:
@@ -679,4 +693,3 @@ extension FCPublicationEditorTVC {
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
 }
-
