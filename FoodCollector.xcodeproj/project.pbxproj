@@ -31,6 +31,7 @@
 		E45DA7361A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45DA7351A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib */; };
 		E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */; };
 		E45DA73A1AA05B9200F45C70 /* FCPublicationDetailsTVHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7391AA05B9200F45C70 /* FCPublicationDetailsTVHeaderView.swift */; };
+		E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */; };
 		E463A3AF1A121A5D001D8E3B /* PublicationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */; };
 		E4642C901A52F23300F5C43B /* PinGreenCall.png in Resources */ = {isa = PBXBuildFile; fileRef = E4642C8A1A52F23300F5C43B /* PinGreenCall.png */; };
 		E4642C911A52F23300F5C43B /* PinYellowCall.png in Resources */ = {isa = PBXBuildFile; fileRef = E4642C8B1A52F23300F5C43B /* PinYellowCall.png */; };
@@ -78,6 +79,7 @@
 		E4C1C16C1A52AC8E00A37E00 /* easter_cake-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */; };
 		E4C1C16D1A52AC8E00A37E00 /* bell-26.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C1C16A1A52AC8E00A37E00 /* bell-26.png */; };
 		E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */; };
+		E4DB3A7D1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */; };
 		E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */; };
 		E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */; };
 		E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */; };
@@ -121,6 +123,7 @@
 		E45DA7351A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCActivityCenterTVSectionHeader.xib; sourceTree = "<group>"; };
 		E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCSectionHeader.swift; sourceTree = "<group>"; };
 		E45DA7391AA05B9200F45C70 /* FCPublicationDetailsTVHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsTVHeaderView.swift; sourceTree = "<group>"; };
+		E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCLaunchScreenView.swift; sourceTree = "<group>"; };
 		E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationInitTests.swift; sourceTree = "<group>"; };
 		E4642C8A1A52F23300F5C43B /* PinGreenCall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinGreenCall.png; sourceTree = "<group>"; };
 		E4642C8B1A52F23300F5C43B /* PinYellowCall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinYellowCall.png; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 		E4C1C1691A52AC8E00A37E00 /* easter_cake-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "easter_cake-26.png"; sourceTree = "<group>"; };
 		E4C1C16A1A52AC8E00A37E00 /* bell-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell-26.png"; sourceTree = "<group>"; };
 		E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoFetcher.swift; sourceTree = "<group>"; };
+		E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorNewDataMessageView.swift; sourceTree = "<group>"; };
 		E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsSorter.swift; sourceTree = "<group>"; };
 		E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCTableViewAnimator.swift; sourceTree = "<group>"; };
 		E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 			children = (
 				E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */,
 				E4737D681A10C01300A4AB81 /* FCCollectorRootVC.swift */,
+				E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */,
 				E4737D7A1A10C01300A4AB81 /* FCPublicationsTableViewController.swift */,
 				E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */,
 				E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */,
@@ -340,6 +345,7 @@
 			children = (
 				E494DF131A0A980D004A369E /* Main.storyboard */,
 				E494DF181A0A980D004A369E /* LaunchScreen.xib */,
+				E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */,
 				E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */,
 			);
 			name = Main;
@@ -581,7 +587,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift";
+			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift prod";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -632,9 +638,11 @@
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
 				E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */,
+				E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */,
 				E4737D891A10C01300A4AB81 /* FCCollectorRootVC.swift in Sources */,
 				E4A4096D1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift in Sources */,
 				E45DA7321A9DB89800F45C70 /* FCCollectorContainerController.swift in Sources */,
+				E4DB3A7D1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift in Sources */,
 				E4737DB11A10E2E600A4AB81 /* FCFoodCollectorWebServer.swift in Sources */,
 				E42ED5751A8B682C008FB618 /* DataUpdater.swift in Sources */,
 				E42ED57D1A8BD380008FB618 /* FCModel+PostNotifications.swift in Sources */,

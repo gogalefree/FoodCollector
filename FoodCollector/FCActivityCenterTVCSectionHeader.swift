@@ -48,6 +48,6 @@ class FCActivityCenterTVCSectionHeader: UIVisualEffectView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.blackBackgroundView.layer.cornerRadius = 8
+        self.blackBackgroundView.layer.cornerRadius = 0
     }
 }

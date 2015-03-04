@@ -159,11 +159,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         if let label = self.noUserCreatedPublicationMessageLabel {
             
-            label.center = CGPointMake(recCenterX, recCenterY)
+            label.center = CGPointMake(recCenterX, recCenterY - 100)
             label.textAlignment = NSTextAlignment.Center
             label.numberOfLines = 0
             label.font = UIFont.systemFontOfSize(fontSize)
-            label.text = String.localizedStringWithFormat("You have not created a publication yet.\n\nClick the + button to create a new publication." , "No user created publications message")
+            label.text = String.localizedStringWithFormat("Hi,\nYou haven't shared yet." , "No user created publications message")
             self.view.addSubview(label)
         }
     }

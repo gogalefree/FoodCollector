@@ -37,6 +37,12 @@ protocol FCServerProtocol {
     func downloadAllPublicationsWithCompletion(completion: (thePublications: [FCPublication]) -> Void)
     
     ///
+    /// fetch publication with a certain identifier
+    /// called after a newPublication push notification had arrived.
+    func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: FCPublication) -> Void)
+
+    
+    ///
     /// fetch all reports to a certain Publication
     ///
     func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport]?)->())

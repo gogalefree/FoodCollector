@@ -19,22 +19,25 @@ protocol CollectorVCSlideDelegate: NSObjectProtocol {
     func collectorVCWillSlide()
 }
 
-class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate, FCPublicationsTVCDelegate{
+class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate, FCPublicationsTVCDelegate, FCNewDataMessageViewDelegate{
     
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
     @IBOutlet weak var trackUserButton: UIButton!
     
     @IBOutlet weak var blureView: UIView!
+    @IBOutlet weak var newPublicationMessageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var newPublicationMessageView: FCCollectorNewDataMessageView!
+
+
     weak var delegate: CollectorVCSlideDelegate!
     var showTableButtonCopy:UIBarButtonItem!
     var publications = [FCPublication]()
-    var isPresentingPublicationDetailsView = false
+    var isPresentingNewDataMessageView = false
+    let kNewDataMessageViewTopConstant: CGFloat = 13
     var publicationDetailsTVC: FCPublicationDetailsTVC?
     var isPresentingActivityCenter = false
     var activityCenterTVC: UINavigationController?
-    var activityCenterHiddenCenter = CGPointZero
-    var activityCenterVisibleCenter = CGPointZero
     var tabbarVisibleCenter = CGPointZero
     var tabbarHiddenCenter = CGPointZero
     var tabbarDragCenter = CGPointZero
@@ -71,8 +74,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             self.locationManager.startUpdatingHeading()
         }
     }
-    
-//    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+
+    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
 //        
 //        if self.trackingUserLocation{
 //
@@ -83,7 +86,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
 //                newCamera.heading = theHeading
 //                self.mapView.setCamera(newCamera, animated: true)
 //        }
-//    }
+    }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
     
@@ -129,7 +132,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.blureView.layer.cornerRadius = self.blureView.frame.size.width / 2
         self.blureView.layer.borderWidth = 1
         self.blureView.layer.borderColor = UIColor.grayColor().CGColor
-
+        
+        self.hideNewDataMessageView()
+        self.newPublicationMessageView.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -153,15 +158,47 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     //MARK: - UI configuration
     
+    func hideNewDataMessageView() {
+        
+        let topConstraintValue = CGRectGetHeight(self.newPublicationMessageView.bounds)
+        
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            self.newPublicationMessageViewTopConstraint.constant = -topConstraintValue
+            self.view.layoutIfNeeded()
+            
+            }) { (completion) -> Void in
+                
+                self.isPresentingNewDataMessageView = false
+        }
+    }
+    
+    func showNewDataMessageView(publication:FCPublication) {
+        
+        if self.isPresentingNewDataMessageView {hideNewDataMessageView()}
+        self.newPublicationMessageView.publication = publication
+        
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            self.newPublicationMessageViewTopConstraint.constant = self.kNewDataMessageViewTopConstant
+            self.view.layoutIfNeeded()
+            
+        }) { (completion) -> Void in
+         
+            self.isPresentingNewDataMessageView = true
+
+        }
+    }
+    
     func defineBarsCenterPoints() {
         
         tabbarDragCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y + self.tabBarController!.tabBar.frame.size.height)
         
         tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
         
-        activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
-        activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
-        
+//        activityCenterVisibleCenter = CGPointMake(self.view.center.x - 0.1*self.view.center.x, self.view.center.y )
+//        activityCenterHiddenCenter = CGPointMake(-self.view.center.x, self.view.center.y )
+//        
         tabbarHiddenCenter = CGPointMake(self.tabBarController!.tabBar.center.x + CGRectGetWidth(self.view.frame), self.tabBarController!.tabBar.center.y)
     }
     
@@ -180,8 +217,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             self.tabBarController?.tabBar.center = self.tabbarHiddenCenter
         }
         
-        activityCenterVisibleCenter = CGPointMake(0.9 * size.width / 2, size.height/2)
-        activityCenterHiddenCenter = CGPointMake(-size.width, size.height/2)
+//        activityCenterVisibleCenter = CGPointMake(0.9 * size.width / 2, size.height/2)
+//        activityCenterHiddenCenter = CGPointMake(-size.width, size.height/2)
     }
 
     
@@ -271,15 +308,18 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }
         
         let publication = view.annotation as FCPublication
-
+        self.presentPublicationDetailsTVC(publication)
+        self.reloadAnnotations()
+        
+      //  self.postOnSpotReport(publication)
+    }
+    
+    func presentPublicationDetailsTVC(publication:FCPublication) {
+        
         self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         
         self.publicationDetailsTVC?.publication = publication
         self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
-
-        self.reloadAnnotations()
-        
-      //  self.postOnSpotReport(publication)
     }
     
     
@@ -305,6 +345,7 @@ extension FCCollectorRootVC {
     
     @IBAction func ShowActivityCenter(sender: AnyObject) {
         
+        self.isPresentingActivityCenter = !self.isPresentingActivityCenter
         if let delegate = self.delegate {
             self.delegate.collectorVCWillSlide()
         }
@@ -340,50 +381,55 @@ extension FCCollectorRootVC {
     func didRecieveNewPublication(notification: NSNotification) {
         
         let recivedPublication = FCModel.sharedInstance.publications.last!
-        self.deleteOldVersionsOf(recivedPublication)
-        self.mapView.addAnnotation(recivedPublication)
+        self.reloadAnnotations()
         
+        //check to delete this
+//        self.deleteOldVersionsOf(recivedPublication)
+//        self.mapView.addAnnotation(recivedPublication)
+//        self.publications = FCModel.sharedInstance.publications
+        //
         
-        //change this to the presented publication
-        var presentedPublication = self.publications[1]
-        if self.isPresentingPublicationDetailsView {
-            if presentedPublication.uniqueId == recivedPublication.uniqueId &&
-                presentedPublication.version < recivedPublication.version {
-                    println("updating view with new publication")
-                    //update the view
-                    //detailsView.publication = updatedPresentingPublication
-                    //detailsView.reloadSubViews
-            }
-        }
+        //display new publication view
+        self.showNewDataMessageView(recivedPublication)
         
-        self.publications = FCModel.sharedInstance.publications
     }
     
-    func deleteOldVersionsOf(recievedPublication: FCPublication) {
-        
-        if recievedPublication.version > 1 {
-            
-            let removeAnnotationQperation = NSBlockOperation { () -> Void in
-                
-                for annotation in self.mapView.annotations {
-                    
-                    if !annotation.isKindOfClass(FCPublication) {continue}
-                    
-                    var thePublication = annotation as FCPublication
-                    if thePublication.uniqueId == recievedPublication.uniqueId &&
-                        thePublication.version < recievedPublication.version {
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.mapView.removeAnnotation(thePublication)
-                            })
-                    }
-                }
-            }
-            let removeAnnotationQue = NSOperationQueue.mainQueue()
-            removeAnnotationQue.qualityOfService = .Background
-            removeAnnotationQue.addOperations([removeAnnotationQperation], waitUntilFinished: false)
-        }
+    //MARK: - newDataMessageViewDelegate
+    func showNewPublicationDetails(publication: FCPublication) {
+
+        self.hideNewDataMessageView()
+        self.presentPublicationDetailsTVC(publication)
     }
     
+    func dissmissNewOublicationMessageView() {
+        self.hideNewDataMessageView()
+    }
+    
+//    func deleteOldVersionsOf(recievedPublication: FCPublication) {
+//        
+//        if recievedPublication.version > 1 {
+//            
+//            let removeAnnotationQperation = NSBlockOperation { () -> Void in
+//                
+//                for annotation in self.mapView.annotations {
+//                    
+//                    if !annotation.isKindOfClass(FCPublication) {continue}
+//                    
+//                    var thePublication = annotation as FCPublication
+//                    if thePublication.uniqueId == recievedPublication.uniqueId &&
+//                        thePublication.version < recievedPublication.version {
+//                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                                self.mapView.removeAnnotation(thePublication)
+//                            })
+//                    }
+//                }
+//            }
+//            let removeAnnotationQue = NSOperationQueue.mainQueue()
+//            removeAnnotationQue.qualityOfService = .Background
+//            removeAnnotationQue.addOperations([removeAnnotationQperation], waitUntilFinished: false)
+//        }
+//    }
+//    
     
     func didDeletePublication(notification: NSNotification) {
         
@@ -400,7 +446,7 @@ extension FCCollectorRootVC {
         //change this to the presented publication
         var presentedPublication = self.publications[1]
         //check if it's being displayed
-        if self.isPresentingPublicationDetailsView &&
+        if self.isPresentingNewDataMessageView &&
             presentedPublication.uniqueId == toDeleteIdentifier.uniqueId &&
             presentedPublication.version == toDeleteIdentifier.version {
                 //show Publication deleted view
@@ -417,13 +463,12 @@ extension FCCollectorRootVC {
         //change this to the presented publication
         var presentedPublication = self.publications[0]
         
-        if self.isPresentingPublicationDetailsView &&
+        if self.isPresentingNewDataMessageView &&
             presentedPublication.uniqueId == identifier.uniqueId &&
             presentedPublication.version == identifier.version {
                 
                 //self.publicationDetailsView.reloadReports
         }
-        
     }
     
     func didRecievePublicationRegistration(notification: NSNotification) {

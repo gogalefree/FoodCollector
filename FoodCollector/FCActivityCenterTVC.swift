@@ -8,14 +8,16 @@
 
 import UIKit
 
-let collectorTitle = String.localizedStringWithFormat("בדרך לקחת", "activity center table view collector section title. means collector")
-let publisherTitle = String.localizedStringWithFormat("שיתופים פעילים", "activity center table view publisher section title. means contributer")
+let collectorTitle = String.localizedStringWithFormat("בדרך לאסוף", "activity center table view collector section title. means collector")
+let publisherTitle = String.localizedStringWithFormat("השיתופים שלי", "activity center table view publisher section title. means contributer")
 let collectorIcon = UIImage(named: "Collect.png")
 let publisherIcon = UIImage(named: "Donate.png")
 
 
-class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDelegate{
+class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDelegate, UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var leftSwipeGesture: UISwipeGestureRecognizer!
+
     var userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
     var userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
     
@@ -30,8 +32,15 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         self.tableView.estimatedRowHeight = 55
         self.tableView.rowHeight = UITableViewAutomaticDimension
         reload()
+        
+        leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
     }
     
+    func leftSwipeAction(recognizer: UISwipeGestureRecognizer) {
+        let container = self.navigationController?.parentViewController as FCCollectorContainerController
+        container.collectorVCWillSlide()
+    }
+        
     func displaySections() {
         
         if !self.isPresenteingregisteredPublication{

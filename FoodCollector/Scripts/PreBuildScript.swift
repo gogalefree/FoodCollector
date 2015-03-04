@@ -13,9 +13,9 @@ import Foundation
 println(">>>> Start Script")
 
 // BaseURL.plist dictionary values, key and path
-let kProdURLVal = "https://prod-fd-server.herokuapp.com/"
+let kProdURLVal = "https://fd-server.herokuapp.com/" //prod-
 let kDevURLVal  = "https://fd-server.herokuapp.com/"
-let kBetaURLVal = "https://test-fd-server.herokuapp.com/"
+let kBetaURLVal = "https://fd-server.herokuapp.com/" //test-
 let kDictKey    = "Server URL"
 let pathToBaseURLPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollector/BaseURL.plist"
 
@@ -23,15 +23,18 @@ let pathToBaseURLPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/F
 // Info.plist dictionary values, keys and path
 let kBundleIDKey          = "CFBundleIdentifier"
 let kBundleIDProdVal      = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)"
-let kBundleIDDevVal       = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)" //.dev
+let kBundleIDDevVal       = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier).dev"
 let kBundleIDBetaVal      = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier).beta"
 let kBundleNameKey        = "CFBundleName"
 let kBundleNameProdVal    = "$(PRODUCT_NAME)"
-let kBundleNameDevVal     = "$(PRODUCT_NAME)" //dev.
+let kBundleNameDevVal     = "dev.$(PRODUCT_NAME)" 
 let kBundleNameBetaVal    = "beta.$(PRODUCT_NAME)"
 let kBundleDispNameKey    = "CFBundleDisplayName"
 let kBundleDispNameDevVal = "Foodonet Dev"
-let pathToInfoPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollectorTests/Info.plist"
+let kBundleDispNameBetaVal = "Foodonet Beta"
+let kBundleDispNameProdVal = "Foodonet"
+
+let pathToInfoPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollector/Info.plist"
 
 let args = Process.arguments
 var argValue = "dev"
@@ -43,7 +46,7 @@ println(argValue)
 
 // START Changes to BaseURL.plist
 var plistDict = NSMutableDictionary(contentsOfFile: pathToBaseURLPlist)
-println(plistDict)
+println("before changing \(plistDict)")
 
 // Change BaseURL.plist dictionary values based on argument value
 switch argValue {
@@ -55,7 +58,7 @@ default: // Dev URL
     plistDict!.setObject(kDevURLVal,  forKey: kDictKey)
 }
 
-println(plistDict)
+println("after changing \(plistDict)")
 
 plistDict!.writeToFile(pathToBaseURLPlist, atomically: false)
 
@@ -63,23 +66,35 @@ plistDict!.writeToFile(pathToBaseURLPlist, atomically: false)
 
 // START Changes to Info.plist
 plistDict = NSMutableDictionary(contentsOfFile: pathToInfoPlist)
-println(plistDict)
+println("before changing \(plistDict)")
+println("arg value \(argValue)")
 
 // Change Info.plist dictionary values based on argument value
 switch argValue {
 case "prod": // Production URL
     plistDict!.setObject(kBundleIDProdVal,         forKey: kBundleIDKey)
     plistDict!.setObject(kBundleNameProdVal,       forKey: kBundleNameKey)
+    plistDict!.setObject(kBundleDispNameProdVal,    forKey: kBundleDispNameKey)
+
 case "beta": // Beta URL
     plistDict!.setObject(kBundleIDBetaVal,         forKey: kBundleIDKey)
     plistDict!.setObject(kBundleNameBetaVal,       forKey: kBundleNameKey)
+    plistDict!.setObject(kBundleDispNameBetaVal,    forKey: kBundleDispNameKey)
+
 default: // Dev URL
     plistDict!.setObject(kBundleIDDevVal,          forKey: kBundleIDKey)
     plistDict!.setObject(kBundleNameDevVal,        forKey: kBundleNameKey)
     plistDict!.setObject(kBundleDispNameDevVal,    forKey: kBundleDispNameKey)
 }
+println("after changing \(plistDict)")
+println("arg value \(argValue)")
 
-plistDict!.writeToFile(pathToInfoPlist, atomically: false)
+
+if plistDict!.writeToFile(pathToInfoPlist, atomically: true) {
+
+    println("path saved: \(pathToInfoPlist)")
+    println("plist saved")
+}
 
 // End Changes to Info.plist
 

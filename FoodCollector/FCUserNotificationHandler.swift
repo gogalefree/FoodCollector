@@ -34,6 +34,7 @@ class FCUserNotificationHandler : NSObject {
         }()
     
     var oldToken: String? = {
+        println("Push TOKEN: \(NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey))")
         return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? NSString
         }()
     
@@ -153,20 +154,16 @@ class FCUserNotificationHandler : NSObject {
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
             
             let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
-            
+            let uniqueId = data[kPublicationUniqueIdKey]! as Int
+            let version = data[kPublicationVersionKey]! as Int
+            let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
+
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
                 
-                let newPublication = FCPublication.publicationWithParams(data)
-                if !self.didHandleNewPublicationNotification(newPublication) {
-                    self.recievedPublications.removeAll(keepCapacity: true)
-                    self.recievedPublications.append(newPublication)
-                    FCModel.sharedInstance.addPublication(newPublication)
-                }
-                
-                
-                
+                self.handleNewPublicationFromPushNotification(publicationIdentifier)
+            
             case kRemoteNotificationTypeDeletedPublication:
                 
                 let publicationIdentifier = self.identifierForInfo(data)
@@ -209,6 +206,28 @@ class FCUserNotificationHandler : NSObject {
                 break
             }
         }
+    }
+    
+    func handleNewPublicationFromPushNotification(publicationIdentifier: PublicationIdentifier) {
+        
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            
+            //check if publication exists
+            if FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier) == nil {
+                
+                //fetch the new publication from the server
+                FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(publicationIdentifier, completion: { (publication: FCPublication) -> Void in
+                    
+                    //handle the new publication
+                    let recivedPublication = publication
+                    if !self.didHandleNewPublicationNotification(recivedPublication) {
+                        self.recievedPublications.removeAll(keepCapacity: true)
+                        self.recievedPublications.append(recivedPublication)
+                        FCModel.sharedInstance.addPublication(recivedPublication)
+                    }
+                })
+            }
+        })
     }
     
     func didHandleNewPublicationNotification(incomingPublication: FCPublication) -> Bool {

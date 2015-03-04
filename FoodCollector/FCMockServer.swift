@@ -21,6 +21,41 @@ let reportUserLocationURL           = baseUrlString + "active_devices/dev_uuid.j
 
 public class FCMockServer: NSObject , FCServerProtocol {
     
+    //fetches a publication with a certain identifier
+    //called when a newPublication remote notification has arrived
+    
+    func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: FCPublication) ->  Void) {
+        
+        let uniqueId = identifier.uniqueId
+        let version = identifier.version
+        let title = "55 מנות חומוס פול"
+        let subtitle = "חומוס עוזי המקורי!"
+        let address = "רחוב שער העמק 17 נתניה"
+        let typeOfCollecting = FCTypeOfCollecting.ContactPublisher
+        let coordinate = CLLocationCoordinate2D(latitude: 32.362653, longitude: 34.923906)
+        let startingDate = NSDate()
+        let endingDate = NSDate(timeIntervalSinceNow: 266000)
+        let photoUrl = "www.maayan.com"
+
+        var params = [String : AnyObject]()
+        params[kPublicationUniqueIdKey] = uniqueId
+        params[kPublicationVersionKey] = version
+        params[kPublicationTitleKey] = title
+        params[kPublicationSubTitleKey] = subtitle
+        params[kPublicationAddressKey] = address
+        params[kPublicationTypeOfCollectingKey] = typeOfCollecting.rawValue
+        params[kPublicationlatitudeKey] = "\(coordinate.latitude)"
+        params[kPublicationLongtitudeKey] = "\(coordinate.longitude)"
+        params[kPublicationStartingDateKey] = "\(startingDate.timeIntervalSince1970)"
+        params[kPublicationEndingDateKey] = "\(endingDate.timeIntervalSince1970)"
+        params[kPublicationContactInfoKey] = "0545554444"
+        
+        let publication = FCPublication.publicationWithParams(params)
+        
+        completion(publication: publication)
+        
+        
+    }
     
     ///
     /// reports device token to our server to use for APNS.

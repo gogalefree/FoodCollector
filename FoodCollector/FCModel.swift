@@ -100,9 +100,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
-           
-       
-    
     func deletePublication(publicationIdentifier: PublicationIdentifier) {
         for (index , publication) in enumerate(self.publications) {
             if publication.uniqueId == publicationIdentifier.uniqueId &&
@@ -135,11 +132,13 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         if !publicationExists(recievedPublication){
             //append the new publication
             self.publications.append(recievedPublication)
-            FCUserNotificationHandler.sharedInstance.registerLocalNotification(recievedPublication)
-            self.postRecievedNewPublicationNotification()
             
             //save the new data
             self.savePublications()
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.postRecievedNewPublicationNotification()
+            })
         }
     }
     
