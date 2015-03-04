@@ -25,20 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
-        baseUrl()
         //uncomment to check the device uuid report service
         //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
 
         //uncomment to check the device push notification token report service
         //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
         
-//        if NSUserDefaults.standardUserDefaults().boolForKey("locationUpdateBackgroundcalled") {
-//            println("locationUpdateBackgroundcalled")
-//        }
-//        if NSUserDefaults.standardUserDefaults().boolForKey("LOCALNOTICICATIONUpdateBackgroundcalled") {
-//            println("LOCALNOTICICATIONUpdateBackgroundcalled")
-//        }
-//
         
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
@@ -54,19 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
             }
             
-//            if option[UIApplicationLaunchOptionsLocationKey] != nil {
-//                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
-//                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
-//                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
-//                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "locationUpdateBackgroundcalled")
-//            }
-//            
+
             if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
                 let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "LOCALNOTICICATIONUpdateBackgroundcalled")
-
             }
         }
         registerAWSS3()
@@ -110,11 +94,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //if the action uses forground - the app is invoked
         //if the action uses backRound - the app calls this method in the backround
         
-        FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
         
         if let id = identifier {
             if id == kUserNotificationShowActionId {
                 //Show ui for new notification
+                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
             
             }
         }
@@ -178,31 +162,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
-    func baseUrl() {
-        
-        var baseUrlPlist: NSDictionary?
-        
-        if let path = NSBundle.mainBundle().pathForResource("BaseURL", ofType:"plist") {
-            
-            baseUrlPlist = NSDictionary(contentsOfFile: path)
-
-        }
-        
-        if let urlDict = baseUrlPlist {
-
-            let urlString = urlDict["Server URL"] as String
-            println("srver url **************: \n\(urlString)")
-            
-        }
-        else {
-            println("srver url **************: NOT FOUND")
- 
-        }
-        
-        
-        
-    }
-
 }
 

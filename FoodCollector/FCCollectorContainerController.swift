@@ -15,8 +15,8 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     var activityCenterPresented = false
     var kCollectorMapVCFraction: CGFloat = 0.85
     
-    var tabBarVisibleCenter: CGPoint!
-    var tabBarHiddenCenter: CGPoint!
+    var tabBarVisibleOrigin: CGPoint!
+    var tabBarHiddenOrigin: CGPoint!
     var collectorMapVisibleOrigin: CGPoint!
     var collectorMapHiddenOrigin: CGPoint!
     
@@ -67,7 +67,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             
             self.collectorRootNavigationController.view.frame.origin = self.collectorMapHiddenOrigin
-            self.tabBarController?.tabBar.center = self.tabBarHiddenCenter
+            self.tabBarController?.tabBar.frame.origin = self.tabBarHiddenOrigin
             
             }) { (completion) -> Void in
                 activityCenterVC.displaySections()
@@ -86,7 +86,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             
             self.collectorRootNavigationController.view.center = self.view.center
-            self.tabBarController?.tabBar.center = self.tabBarVisibleCenter
+            self.tabBarController?.tabBar.frame.origin = self.tabBarVisibleOrigin
             }){ (completion) -> Void in
                 self.showStatusBar(true)
         }
@@ -99,12 +99,11 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         collectorMapHiddenOrigin = CGPointMake(collectorMapHiddenOriginX, collectorMapHiddenOriginy)
         collectorMapVisibleOrigin = containerBounds.origin
         
-        tabBarVisibleCenter = self.tabBarController?.tabBar.center
+        tabBarVisibleOrigin = CGPointMake(0, containerBounds.height - self.tabBarController!.tabBar.frame.size.height)
         
-        let tabBarHiddenCenterX = ceil(tabBarVisibleCenter.x + (containerBounds.width * kCollectorMapVCFraction))
-        let tabBarHiddenCenterY = tabBarVisibleCenter.y
-        tabBarHiddenCenter = CGPointMake(tabBarHiddenCenterX, tabBarHiddenCenterY)
-        
+        let tabBarHiddenOriginX = collectorMapHiddenOriginX
+        let tabBarHiddenOriginY = containerBounds.size.height - self.tabBarController!.tabBar.frame.size.height
+        tabBarHiddenOrigin = CGPointMake(tabBarHiddenOriginX, tabBarHiddenOriginY)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

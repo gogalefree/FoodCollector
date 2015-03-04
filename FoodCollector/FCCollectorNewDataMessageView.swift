@@ -10,7 +10,7 @@ import UIKit
 
 protocol FCNewDataMessageViewDelegate: NSObjectProtocol {
     func showNewPublicationDetails(publication: FCPublication)
-    func dissmissNewOublicationMessageView()
+    func dissmissNewPublicationMessageView()
 }
 
 class FCCollectorNewDataMessageView: UIVisualEffectView {
@@ -36,7 +36,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
     }
 
     @IBAction func dissmissNewPublicationViewAction(sender: UIButton) {
-        self.delegate.dissmissNewOublicationMessageView()
+        self.delegate.dissmissNewPublicationMessageView()
     }
 
     func makeDistanceText(publication: FCPublication) -> String {
