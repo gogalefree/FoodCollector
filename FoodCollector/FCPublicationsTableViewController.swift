@@ -34,7 +34,8 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         self.publications = FCModel.sharedInstance.publications
         self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
         addSearchBar()
-        self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)        
+        self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)
+        self.registerForNotifications()
     }
     
     //MARK: - UISearchBar
@@ -203,6 +204,40 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         if let delegate = self.delegate {
             delegate.didRequestActivityCenter()
         }
+    }
+
+    func didDeletePublication(notification: NSNotification) {
+        
+        let publicationIdentifier = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last
+        
+        if let identifier = publicationIdentifier {
+        
+            for (index, publication) in enumerate(self.publications) {
+                
+                if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version {
+                    self.removePublicationAtIndex(index)
+                    break
+                }
+            }
+        }
+    }
+    
+    func removePublicationAtIndex(index: Int){
+        
+        self.tableView.beginUpdates()
+        self.publications.removeAtIndex(index)
+        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+        self.tableView.endUpdates()
+    }
+   
+    
+    func registerForNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
+
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     

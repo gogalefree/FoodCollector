@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("fe")
+        
+        
+
+        
         //uncomment to check the device uuid report service
         //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
 
@@ -117,8 +122,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //called when the app recieves push while in foreground or backround
         //use UIApplication.sharedApplication().applicationState
         //to find out whether the app was susspended or not
-        FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
-        completionHandler(UIBackgroundFetchResult.NewData)
+        
+        //if the app is in background Mode and we recived a delete notification
+        //we delete it from the publications array
+        if UIApplication.sharedApplication().applicationState != .Active {
+            if let notificationType = userInfo[kRemoteNotificationType] as? String {
+                if notificationType == kRemoteNotificationTypeDeletedPublication {
+                    self.deletePublication(userInfo)
+                }
+            }
+        }
+        else {
+            FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+            completionHandler(UIBackgroundFetchResult.NewData)
+        }
     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
@@ -160,6 +177,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if !fm.removeItemAtPath(photoPath.stringByAppendingPathComponent("/\(file)"), error: &error) {
                 println("Error deleting file: \(error)")
             }
+        }
+    }
+    
+    func deletePublication(userInfo: [NSObject: AnyObject]) {
+        
+        let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
+        let uniqueId = data[kPublicationUniqueIdKey]! as Int
+        let version = data[kPublicationVersionKey]! as Int
+
+        let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
+        if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
+            var publications = NSKeyedUnarchiver.unarchiveObjectWithFile(publicationsFilePath) as [FCPublication]
+            for (index, publication) in enumerate(publications) {
+                
+                if version == publication.version && uniqueId == publication.uniqueId {
+                    publications.removeAtIndex(index)
+                    break
+                }
+            }
+            
+            NSKeyedArchiver.archiveRootObject(publications, toFile:publicationsFilePath)
         }
     }
 }

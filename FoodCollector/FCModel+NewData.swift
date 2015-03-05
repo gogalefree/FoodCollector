@@ -18,7 +18,7 @@ extension FCModel {
                 self.fetchedPublications = thePublications
                 println("COUNT OF FETCHED: \(self.fetchedPublications.count)")
                 for publication in self.fetchedPublications {
-                    println("name: \(publication.title)")
+                    println("name: \(publication.title) id: \(publication.uniqueId) versio: \(publication.version)")
                 }
                 self.prepareNewData()
         }

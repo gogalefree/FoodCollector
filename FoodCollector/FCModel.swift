@@ -100,12 +100,26 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func prepareToDeletePublication(identifier: PublicationIdentifier) {
+        
+        if let publication = self.publicationWithIdentifier(identifier) {
+            
+            if publication.didRegisterForCurrentPublication {
+                //only if registered
+                //inform the tab bar to present an alert
+                FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
+                let userInfo = ["publication" : publication]
+                NSNotificationCenter.defaultCenter().postNotificationName("prepareToDelete", object: nil, userInfo: userInfo)
+            }
+            self.deletePublication(identifier)          
+        }
+    }
+    
     func deletePublication(publicationIdentifier: PublicationIdentifier) {
         for (index , publication) in enumerate(self.publications) {
             if publication.uniqueId == publicationIdentifier.uniqueId &&
                 publication.version == publicationIdentifier.version{
                     self.publications.removeAtIndex(index)
-                    FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
                     self.postDeletedPublicationNotification(publicationIdentifier)
                     //save data
                     self.savePublications()

@@ -28,6 +28,9 @@ public extension FCModel {
             if NSFileManager.defaultManager().fileExistsAtPath(self.publicationsFilePath){
                 let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.publicationsFilePath) as [FCPublication]
                 self.publications = array
+                for publication in self.publications {
+                    println("NAME: \(publication.title)")
+                }
             }
         }
     }

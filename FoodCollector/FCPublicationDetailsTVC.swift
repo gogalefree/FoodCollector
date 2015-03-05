@@ -32,6 +32,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         self.tableView.estimatedRowHeight = 140
         fetchPublicationReports()
         fetchPublicationPhoto()
+        registerForNotifications()
      
     }
     
@@ -196,6 +197,35 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         }
     }
     
+    func didDeletePublication(notification: NSNotification) {
+        
+        let publicationIdentifier = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last
+        
+        if let identifier = publicationIdentifier {
+            
+            if let publication = self.publication {
+                
+                if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version{
+                    
+                    let alert = UIAlertController(title: publication.title, message: kpublicationDeletedAlertMessage, preferredStyle: .Alert)
+                    let action = UIAlertAction(title: "okay", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    
+                        alert.dismissViewControllerAnimated(true, completion: nil)
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                    
+                    alert.addAction(action)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func registerForNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
+        
+    }
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -207,7 +237,12 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+
     }
 
 }

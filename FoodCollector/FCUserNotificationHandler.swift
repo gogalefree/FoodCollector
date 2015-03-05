@@ -152,12 +152,10 @@ class FCUserNotificationHandler : NSObject {
     func didRecieveRemoteNotification(userInfo: [NSObject : AnyObject]) {
         
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
-            
-            let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
-            let uniqueId = data[kPublicationUniqueIdKey]! as Int
-            let version = data[kPublicationVersionKey]! as Int
-            let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
 
+            let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
+            let publicationIdentifier = self.identifierForInfo(data)
+            
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
@@ -166,11 +164,10 @@ class FCUserNotificationHandler : NSObject {
             
             case kRemoteNotificationTypeDeletedPublication:
                 
-                let publicationIdentifier = self.identifierForInfo(data)
                 if !self.didHandlePublicationToDelete(publicationIdentifier){
                     self.recivedtoDelete.removeAll(keepCapacity: true)
                     self.recivedtoDelete.append(publicationIdentifier)
-                    FCModel.sharedInstance.deletePublication(publicationIdentifier)
+                    FCModel.sharedInstance.prepareToDeletePublication(publicationIdentifier)
                 }
                 
             case kRemoteNotificationTypePublicationReport:

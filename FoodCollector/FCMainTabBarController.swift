@@ -8,6 +8,7 @@
 
 import UIKit
 
+let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("לא נותר כלום במקום", "a message that informs the user that nothing was left and the publication ended")
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate {
     
@@ -19,6 +20,9 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,6 +68,21 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         if self.presentedViewController != nil {
         self.dismissViewControllerAnimated(true, completion: nil)
         isPresentingOnSpotReportVC = false
+        }
+    }
+    
+    //this event fires if the user is registered
+    //just before it expires
+    func presentPrepareToDeleteMessage(notification: NSNotification) {
+        
+        let info = notification.userInfo as? [String : AnyObject]
+
+        if let userInfo = info {
+        
+            let publication = userInfo["publication"] as FCPublication
+            
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(publication.title, aMessage: kpublicationDeletedAlertMessage)
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

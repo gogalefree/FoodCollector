@@ -70,19 +70,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             self.locationManager.startUpdatingHeading()
         }
     }
-
-    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
-//        
-//        if self.trackingUserLocation{
-//
-//            if newHeading.headingAccuracy < 0 {return}
-//       
-//                var theHeading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
-//                var newCamera = self.mapView.camera.copy() as MKMapCamera
-//                newCamera.heading = theHeading
-//                self.mapView.setCamera(newCamera, animated: true)
-//        }
-    }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
     
@@ -347,19 +334,6 @@ extension FCCollectorRootVC {
         self.reloadAnnotations()
     }
     
-//    func updatePublicationDetailsViewWithNewData(publicationsToAdd: [FCPublication]) {
-//        
-//        //change this to the presented publication
-//        var presentedPublication = self.publications[1]
-//        
-//        if let updatedPresentingPublication = FCFetchedDataSorter.findPublicationToUpdate(publicationsToAdd, presentedPublication: presentedPublication){
-//            
-//            println("publication to update: \(updatedPresentingPublication.title)")
-//            //update the view
-//            //detailsView.publication = updatedPresentingPublication
-//            //detailsView.reloadSubViews
-//        }
-//    }
     
     //MARK - new data from push notification.
     //these notifications are posted ny FCModel after handling remote notification events
@@ -387,27 +361,7 @@ extension FCCollectorRootVC {
     
     func didDeletePublication(notification: NSNotification) {
         
-        let toDeleteIdentifier = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last!
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            if let publicationToDelete = self.publicationWithIdentifier(toDeleteIdentifier) {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.mapView.removeAnnotation(publicationToDelete)
-                })
-            }
-        })
-        
-        
-        //change this to the presented publication
-        var presentedPublication = self.publications[1]
-        //check if it's being displayed
-        if self.isPresentingNewDataMessageView &&
-            presentedPublication.uniqueId == toDeleteIdentifier.uniqueId &&
-            presentedPublication.version == toDeleteIdentifier.version {
-                //show Publication deleted view
-        }
-        
-        self.publications = FCModel.sharedInstance.publications
-        
+     self.reloadAnnotations()
     }
     
     func didRecievePublicationReport(notification: NSNotification) {
@@ -478,5 +432,19 @@ extension FCCollectorRootVC {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
         
     }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+        //
+        //        if self.trackingUserLocation{
+        //
+        //            if newHeading.headingAccuracy < 0 {return}
+        //
+        //                var theHeading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
+        //                var newCamera = self.mapView.camera.copy() as MKMapCamera
+        //                newCamera.heading = theHeading
+        //                self.mapView.setCamera(newCamera, animated: true)
+        //        }
+    }
+
 }
 

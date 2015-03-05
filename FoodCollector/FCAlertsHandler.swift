@@ -27,6 +27,7 @@ public class FCAlertsHandler : NSObject {
         return alertController
     }
     
+    
     public func alertWithCallDissmissButton(aTitle: String, aMessage: String, phoneNumber: String) -> UIAlertController {
         
         let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: UIAlertControllerStyle.Alert)
