@@ -18,11 +18,21 @@ extension UIView {
         }, completion: nil)
     }
     
-    func animateToCenterWithSpring(duration: NSTimeInterval , center: CGPoint) {
+    func animateToCenterWithSpring(duration: NSTimeInterval , center: CGPoint, completion: (completion:Bool)->()) {
         
         UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
             self.center = center
-            }, completion: nil)
+            }, completion: completion)
+    }
+    
+    func animateToYWithSpring(duration: NSTimeInterval , Yvalue: CGFloat ,completion: (completion:Bool)->()) {
+        
+        var newOrigin = self.frame.origin
+        newOrigin.y = Yvalue
+        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            self.frame.origin = newOrigin
+            self.superview?.layoutIfNeeded()
+            }, completion: completion)
     }
 }
 

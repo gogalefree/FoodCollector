@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("לא נותר כלום במקום", "a message that informs the user that nothing was left and the publication ended")
+let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("אירוע הסתיים בקירבתך:", "a message that informs the user that nothing was left and the publication ended")
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate {
     

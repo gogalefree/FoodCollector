@@ -28,7 +28,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     @IBOutlet weak var blureView: UIView!
     @IBOutlet weak var newPublicationMessageViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var newPublicationMessageView: FCCollectorNewDataMessageView!
-
+    
     weak var delegate: CollectorVCSlideDelegate!
 
     var publications = [FCPublication]()
@@ -105,7 +105,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         addPanRecognizer()
         if CLLocationManager.locationServicesEnabled() {
             self.setupLocationManager()
-        }
+        }        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -360,8 +360,8 @@ extension FCCollectorRootVC {
     }
     
     func didDeletePublication(notification: NSNotification) {
-        
-     self.reloadAnnotations()
+
+        self.reloadAnnotations()
     }
     
     func didRecievePublicationReport(notification: NSNotification) {

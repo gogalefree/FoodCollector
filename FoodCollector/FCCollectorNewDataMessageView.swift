@@ -18,6 +18,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
     
     weak var delegate: FCNewDataMessageViewDelegate!
     var publication: FCPublication! {
@@ -27,6 +28,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
                 let distanceString = self.makeDistanceText(publication)
                 self.titleLabel.text = distanceString
                 self.fetchPhotoIfNeeded(publication)
+                self.typeLabel.text = kNewPublicationMessage
             }
         }
     }

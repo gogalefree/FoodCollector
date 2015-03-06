@@ -687,7 +687,7 @@
                                                 <action selector="dissmissNewPublicationViewAction:" destination="0ZZ-OS-eix" eventType="touchUpInside" id="rTd-IY-zDf"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שיתוף חדש" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjY-js-UK8">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שיתוף חדש" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjY-js-UK8">
                                             <rect key="frame" x="212" y="104" width="80" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.96470594409999999" green="0.43921571970000001" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
@@ -744,6 +744,7 @@
                                     <outlet property="imageView" destination="bYi-G0-JPi" id="akm-SO-E67"/>
                                     <outlet property="messageLabel" destination="j9e-1d-Zhx" id="MfU-0X-zfr"/>
                                     <outlet property="titleLabel" destination="Kmr-Qw-WMT" id="NOk-UW-1km"/>
+                                    <outlet property="typeLabel" destination="FjY-js-UK8" id="NCZ-Vz-ceY"/>
                                 </connections>
                             </visualEffectView>
                         </subviews>
