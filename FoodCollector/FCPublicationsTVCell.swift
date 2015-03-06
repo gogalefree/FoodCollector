@@ -25,7 +25,6 @@ class FCPublicationsTVCell: UITableViewCell {
     }
     
     func setUp(publication: FCPublication) {
-        self.photoImageView.image = UIImage(named: "No-photo") //change to default image
         self.titleLabel.text = publication.title
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
         self.iconImageView.image = FCIconFactory.smallIconForPublication(publication)
@@ -50,17 +49,6 @@ class FCPublicationsTVCell: UITableViewCell {
                 })
             }
         })
-        
-//        else {
-//            
-//            self.publication?.photoData.didTryToDonwloadImage = true
-//            let localFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(self.publication?.photoUrl)")
-//            let image = UIImage(contentsOfFile: localFilePath.path!)
-//            if let photo = image {
-//                self.publication?.photoData.photo = image
-//                showImage()
-//            }
-//        }
     }
     
     func showImage() {
@@ -76,23 +64,5 @@ class FCPublicationsTVCell: UITableViewCell {
         })
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
- //       self.translatesAutoresizingMaskIntoConstraints()
-        // Initialization code
-    }
-    
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
 }
 
-extension FCPublicationsTVCell {
- 
-    // MARK: - Cell Icon Picker
-    
-   }

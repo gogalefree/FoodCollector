@@ -10,12 +10,12 @@
 import CoreLocation
 import Foundation
 
-let kRecievedNewDataNotification = "RecievedNewDataNotification"
-let kRecievedNewPublicationNotification = "RecievedNewPublicationNotification"
-let kDeletedPublicationNotification = "DeletedPublicationNotification"
-let kRecivedPublicationReportNotification = "RecivedPublicationReportNotification"
-let kRecievedPublicationRegistrationNotification = "kRecievedPublicationRegistrationNotification"
-let kNewUserCreatedPublicationNotification = "newUserCreatedPublicationNotification"
+let kRecievedNewDataNotification =                  "RecievedNewDataNotification"
+let kRecievedNewPublicationNotification =           "RecievedNewPublicationNotification"
+let kDeletedPublicationNotification =               "DeletedPublicationNotification"
+let kRecivedPublicationReportNotification =         "RecivedPublicationReportNotification"
+let kRecievedPublicationRegistrationNotification =  "kRecievedPublicationRegistrationNotification"
+let kNewUserCreatedPublicationNotification =        "newUserCreatedPublicationNotification"
 
 let kDeviceUUIDKey = "seviceUUIDString"
 let kDistanceFilter = 5.0
@@ -23,7 +23,6 @@ let kModifyCoordsToPresentOnMapView = 0.0004
 
 public class FCModel : NSObject, CLLocationManagerDelegate {
     
-    var appDataStoreManager = FCAppDataStoreManager()
     var readyToLaunchUI:Bool = false
     var foodCollectorWebServer:FCServerProtocol!
     

@@ -1266,7 +1266,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nOK-Hd-C35" id="aNs-u4-V9a">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bell-26.png" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-l9-AxA">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-l9-AxA">
                                             <rect key="frame" x="8" y="5" width="90" height="90"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="90" id="blG-k3-UcP">
@@ -1283,7 +1283,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bell-26.png" translatesAutoresizingMaskIntoConstraints="NO" id="UUi-bh-y4c">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="UUi-bh-y4c">
                                             <rect key="frame" x="552" y="35" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="KA6-dF-YpJ"/>
@@ -2069,7 +2069,6 @@
         <image name="Map-view" width="27" height="30"/>
         <image name="No-photo" width="118" height="118"/>
         <image name="Table-view" width="27" height="30"/>
-        <image name="bell-26.png" width="26" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Uz-wH-dgX"/>
