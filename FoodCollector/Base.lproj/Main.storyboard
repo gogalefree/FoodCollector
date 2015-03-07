@@ -20,7 +20,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="lsf-Tz-2dX">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="lsf-Tz-2dX">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                                 </imageView>
                             </subviews>
@@ -358,7 +358,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aGN-Uz-n91" id="MeU-0E-Rd7">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-P3-Mfa">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-P3-Mfa">
                                             <rect key="frame" x="158" y="8" width="284" height="284"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="284" id="0KO-Xh-ikx"/>
@@ -536,7 +536,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c5z-vm-whl" id="gHd-qA-QwO">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="3lK-nq-ZwC">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="3lK-nq-ZwC">
                                             <rect key="frame" x="532" y="2" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="jmW-ki-F2J"/>
@@ -647,7 +647,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="bYi-G0-JPi">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="bYi-G0-JPi">
                                             <rect key="frame" x="212" y="10" width="80" height="80"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="80" id="1yQ-gg-kcc"/>
@@ -833,7 +833,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
                                 <rect key="frame" x="175" y="102" width="250" height="246"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="118" id="an0-f5-JCt">
@@ -1266,7 +1266,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nOK-Hd-C35" id="aNs-u4-V9a">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-l9-AxA">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-l9-AxA">
                                             <rect key="frame" x="8" y="5" width="90" height="90"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="90" id="blG-k3-UcP">
@@ -1283,7 +1283,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="UUi-bh-y4c">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="UUi-bh-y4c">
                                             <rect key="frame" x="552" y="35" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="KA6-dF-YpJ"/>
@@ -1478,7 +1478,7 @@
                                                         <constraint firstAttribute="width" priority="999" constant="320" id="r2F-cv-J6S"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="PRi-xz-AS1" userLabel="FoodImage">
                                                     <rect key="frame" x="234" y="5" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="80" id="hc7-yt-SgB"/>
@@ -2067,7 +2067,7 @@
         <image name="Donate-off" width="49" height="49"/>
         <image name="Green-dot" width="7" height="7"/>
         <image name="Map-view" width="27" height="30"/>
-        <image name="No-photo" width="118" height="118"/>
+        <image name="NoPhoto-Placeholder" width="88" height="88"/>
         <image name="Table-view" width="27" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>

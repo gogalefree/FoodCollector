@@ -41,9 +41,11 @@ class FCActivityCenterTVCell: UITableViewCell {
         else if !self.publication.photoData.didTryToDonwloadImage {
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(self.publication, completion: { (image) -> Void in
-                self.iconImageView.image = self.publication.photoData.photo
+                self.publication.photoData.didTryToDonwloadImage = true
+                self.iconImageView.image = image ??  UIImage(named: "NoPhoto-Placeholder")
             })
         }
+        
         self.iconImageView.animateToAlphaWithSpring(0.4, alpha: 1)
     }
     
@@ -56,9 +58,9 @@ class FCActivityCenterTVCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.titleLabel.text = ""
-        self.iconImageView.image = nil
-        self.userInteractionEnabled = true
+        self.iconImageView.image = UIImage(named: "NoPhoto-Placeholder")
 
+        self.userInteractionEnabled = true
     }
 
 }

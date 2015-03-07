@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="EY7-sP-78b">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhoto-Placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="EY7-sP-78b">
                         <rect key="frame" x="262" y="8" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="XtU-xC-fc6"/>
@@ -66,6 +66,6 @@
         </visualEffectView>
     </objects>
     <resources>
-        <image name="No-photo" width="118" height="118"/>
+        <image name="NoPhoto-Placeholder" width="88" height="88"/>
     </resources>
 </document>

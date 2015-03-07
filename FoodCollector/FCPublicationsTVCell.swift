@@ -43,6 +43,8 @@ class FCPublicationsTVCell: UITableViewCell {
                 let photoFetcher = FCPhotoFetcher()
                 photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
                     
+                    self.publication?.photoData.didTryToDonwloadImage = true
+                    
                     if self.publication?.photoData.photo != nil {
                         self.showImage()
                     }
@@ -62,6 +64,11 @@ class FCPublicationsTVCell: UITableViewCell {
             })
 
         })
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.photoImageView.image = UIImage(named: "NoPhoto-Placeholder")
     }
     
 }

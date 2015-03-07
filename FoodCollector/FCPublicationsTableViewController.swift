@@ -266,6 +266,8 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     func hideMessageView() {
         self.messageView.animateToYWithSpring(0.4, Yvalue: self.messageViewHidenY) { (completion) -> () in
             self.messageView.removeFromSuperview()
+            self.messageView.reset()
+
         }
     }
     

@@ -76,4 +76,11 @@ class FCPublicationsTVCMessageView: UIVisualEffectView {
         self.imageView.animateToAlphaWithSpring(0.4, alpha: 1)
     }
     
-   }
+    func reset() {
+        self.titleLabel.text = ""
+        self.contentLabel.text = ""
+        self.imageView.image = UIImage(named: "NoPhoto-Placeholder")
+    }
+    
+   
+}
