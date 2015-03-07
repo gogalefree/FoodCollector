@@ -26,6 +26,10 @@ let kPublishEndDatePrefix = String.localizedStringWithFormat("מסתיים: ", "
 
 let kSeperatHeaderHeight = CGFloat(30.0)
 
+let kAddDefaultHoursToStartDate:Double = 24 // Amount of hours to add to the start date so that we will have an End date for new publication only!
+let kTimeIntervalInSecondsToEndDate = kAddDefaultHoursToStartDate * 60.0 * 60.0 // Hours * 60 Minutes * 60 seconds
+
+
 
 struct FCPublicationEditorTVCCellData {
     
@@ -67,6 +71,14 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         prepareDataSource()
         if self.state != .CreateNewPublication {
             self.fetchPhotoIfNeeded()
+        }
+        
+        println(">>>> show self.dataSource")
+        for dataObj in self.dataSource {
+            println(dataObj.cellTitle)
+            println(dataObj.containsUserData)
+            println(dataObj.userData)
+            println("-------------------------")
         }
     }
     
@@ -130,7 +142,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.selectedIndexPath = indexPath
         
         switch indexPath.section {
-        case 0, 1: // Title, Subtutle
+        case 0, 1: // Title, Subtitle
             self.performSegueWithIdentifier("showPublicationStringFieldsEditor", sender: nil)
         case 2: // Address
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
@@ -150,7 +162,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         }
     }
     
-    //MARK: - unwind from editors
+    //MARK: - Unwind from editors
     
     @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
         
@@ -330,7 +342,13 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
                 publication.photoData.photo = self.dataSource[6].userData as? UIImage
-                
+                /*
+                if publication.photoData.photo != nil {
+                  //send the photo
+                  let uploader = FCPhotoFetcher()
+                  uploader.uploadPhotoForPublication(publication)
+                }
+                */
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     self.navigationController?.popViewControllerAnimated(true)
@@ -341,14 +359,15 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                     
                     //add user created publication
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
-                
                     
-                    //send the photo
-                    let uploader = FCPhotoFetcher()
-                    uploader.uploadPhotoForPublication(publication)
+                    
+                    if publication.photoData.photo != nil {
+                        //send the photo
+                        let uploader = FCPhotoFetcher()
+                        uploader.uploadPhotoForPublication(publication)
+                    }
                 })
             }
-                
             else {
                 self.removeActivityIndicator()
                 let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
@@ -434,6 +453,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         let typeOfCollectingDict = self.dataSource[5].userData as [String : AnyObject]
         params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
         params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as Int
+
         return params
     }
     
@@ -599,6 +619,47 @@ extension  FCPublicationEditorTVC {
                     
                 }
             }
+            else { // Create defaults for new empty publication
+                println(">>> Create defaults for new empty publication")
+                
+                switch index {
+                        
+                    case 3:
+                        //publication starting date
+                        cellData.userData = NSDate()
+                        cellData.containsUserData = true
+                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as NSDate)
+                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as NSDate)
+                        let prefix = kPublishStartDatePrefix
+                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+                        cellData.cellTitle = cellTitle
+                        
+                    case 4:
+                        //publication ending date
+                        cellData.userData = NSDate().dateByAddingTimeInterval(kTimeIntervalInSecondsToEndDate)
+                        cellData.containsUserData = true
+                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as NSDate)
+                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as NSDate)
+                        let prefix = kPublishEndDatePrefix
+                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+                        cellData.cellTitle = cellTitle
+                        
+                    case 5:
+                        //publication type of collecting
+                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 1 , kPublicationContactInfoKey : "no"]
+                        
+                        cellData.userData = typeOfCollectingDict
+                        cellData.containsUserData = true
+                        cellData.cellTitle = kTypeOfCollectingFreePickUpTitle
+                    case 6:
+                    //publication photo
+                        //cellData.userData = ""
+                        cellData.containsUserData = true
+
+                    default:
+                        break
+                    }
+            }
             self.dataSource.append(cellData)
         }
     }
@@ -633,4 +694,3 @@ extension FCPublicationEditorTVC {
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
 }
-

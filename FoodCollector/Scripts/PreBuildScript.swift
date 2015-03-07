@@ -11,13 +11,13 @@
 import Foundation
 
 println(">>>> Start Script")
-
+//println(${SRCROOT})
 // BaseURL.plist dictionary values, key and path
 let kProdURLVal = "https://fd-server.herokuapp.com/" //prod-
 let kDevURLVal  = "https://fd-server.herokuapp.com/"
 let kBetaURLVal = "https://fd-server.herokuapp.com/" //test-
 let kDictKey    = "Server URL"
-let pathToBaseURLPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollector/BaseURL.plist"
+let pathToBaseURLPlist = "/Users/Boris/Developer/Projects/foodCollector4/FoodCollector/FoodCollector/BaseURL.plist"
 
 
 // Info.plist dictionary values, keys and path
@@ -39,7 +39,7 @@ let pathToInfoPlist = "/Users/Guy/ios projects/foodCollector4/FoodCollector/Food
 let args = Process.arguments
 var argValue = "dev"
 if args.count > 1 {
-  argValue = args[1]
+    argValue = args[1]
 }
 
 println(argValue)
