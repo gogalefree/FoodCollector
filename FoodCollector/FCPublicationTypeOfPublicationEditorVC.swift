@@ -89,6 +89,12 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         self.cellData.cellTitle = cellTitle
 
         //here I can check if the number is valid
+//        if isPhoneNumberValid {
+//            self.performSegueWithIdentifier(unwindSegueId, sender: self)
+//        }
+//        else {
+//            showPhoneNumberAllert()
+//        }
         if userChosenTypeOfCollectin == 2 && !isPhoneNumberValid {
             showPhoneNumberAllert()
         }

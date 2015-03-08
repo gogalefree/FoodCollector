@@ -28,6 +28,8 @@
 	<string>notify when you arrive to a publication spot</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Notify when you arrive to a publication spot</string>
+	<key>Server URL</key>
+	<string>https://fd-server.herokuapp.com/</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
