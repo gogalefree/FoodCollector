@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E80A3251AB076D4008537E9 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80A3241AB076D4008537E9 /* AboutVC.swift */; };
 		A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
 		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
@@ -90,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		4C0F0BBFA42B094D8A074F35 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E80A3241AB076D4008537E9 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		A108F5C41A94732A00816EFA /* BaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURL.plist; sourceTree = "<group>"; };
 		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -194,6 +196,14 @@
 				4C0F0BBFA42B094D8A074F35 /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5E80A3231AB07678008537E9 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				5E80A3241AB076D4008537E9 /* AboutVC.swift */,
+			);
+			name = About;
 			sourceTree = "<group>";
 		};
 		A16619A41A94E53C009D9EEA /* Scripts */ = {
@@ -327,6 +337,7 @@
 		E4737DA71A10C1DD00A4AB81 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5E80A3231AB07678008537E9 /* About */,
 				E4737DAB1A10C24A00A4AB81 /* Main */,
 				E4737DAA1A10C23200A4AB81 /* Publisher */,
 				E4737DA91A10C21C00A4AB81 /* Collector */,
@@ -616,7 +627,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -669,6 +680,7 @@
 				E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */,
 				E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */,
 				E4737D891A10C01300A4AB81 /* FCCollectorRootVC.swift in Sources */,
+				5E80A3251AB076D4008537E9 /* AboutVC.swift in Sources */,
 				E4A4096D1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift in Sources */,
 				E45DA7321A9DB89800F45C70 /* FCCollectorContainerController.swift in Sources */,
 				E4DB3A7D1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift in Sources */,
