@@ -8,12 +8,15 @@
 
 import UIKit
 
-class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleCellDelegate, UIScrollViewDelegate {
+class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     
     var publication: FCPublication?
     
     private let kTableViewHeaderHeight: CGFloat = 300.0
     var headerView: FCPublicationDetailsTVHeaderView!
+    var photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
+    var photoPresentor: PublicationPhotoPresentorVC!
+    var photoPresentorNavController: photoPresentorNavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         self.tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
         headerView.publication = self.publication
+        addTapGestureToHeaderView()
         
         self.tableView.contentInset = UIEdgeInsets(top: kTableViewHeaderHeight, left: 0, bottom: 0, right: 0)
         self.tableView.contentOffset = CGPointMake(0, -kTableViewHeaderHeight)
@@ -33,11 +37,11 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         fetchPublicationReports()
         fetchPublicationPhoto()
         registerForNotifications()
-     
+        
     }
     
     func updateHeaderView() {
-    
+        
         var headerRect = CGRect(x: 0, y: -kTableViewHeaderHeight, width: self.tableView.bounds.width, height: kTableViewHeaderHeight)
         if self.tableView.contentOffset.y < -kTableViewHeaderHeight {
             headerRect.origin.y = tableView.contentOffset.y
@@ -55,7 +59,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-
+        
         switch indexPath.row {
         case 0:
             return UITableViewAutomaticDimension
@@ -67,8 +71,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
+  
         return 1
     }
     
@@ -121,61 +124,13 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
                 fetcher.fetchPhotoForPublication(publication, completion: { (image: UIImage?) -> Void in
                     if publication.photoData.photo != nil {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: 3, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                            //                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: 3, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
                             self.headerView.updatePhoto()
                         })
                     }
                 })
             }
         }
-    }
-    
-    //MARK: - Title cell delegate
-    
-    func didRegisterForPublication(publication: FCPublication) {
-        
-        publication.didRegisterForCurrentPublication = true
-        publication.countOfRegisteredUsers += 1
-        
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
-        
-        FCModel.sharedInstance.savePublications()
-        
-        //show alert controller
-        if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
-            
-            let title = String.localizedStringWithFormat("Please Contact the Publisher", "an alert title requesting to contact the publisher")
-            let subtitle = String.localizedStringWithFormat("Call: \(publication.contactInfo!)", "the word call before presenting the phone number")
-            let alert = FCAlertsHandler.sharedInstance.alertWithCallDissmissButton(title, aMessage: subtitle, phoneNumber: publication.contactInfo!)
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func didUnRegisterForPublication(publication: FCPublication) {
-
-        publication.didRegisterForCurrentPublication = false
-        publication.countOfRegisteredUsers -= 1
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
-        
-        FCModel.sharedInstance.savePublications()
-    }
-    
-    func didRequestNavigationForPublication(publication: FCPublication) {
-        
-        
-        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-            let title = String.localizedStringWithFormat("Navigate With:", "an action sheet title meening chose app to navigate with")
-            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        }
-        else {
-            //navigateWithWaze
-            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
-        }
-    }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
     
     //MARK: - fetch data for publication
@@ -209,7 +164,7 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
                     
                     let alert = UIAlertController(title: publication.title, message: kpublicationDeletedAlertMessage, preferredStyle: .Alert)
                     let action = UIAlertAction(title: "okay", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                    
+                        
                         alert.dismissViewControllerAnimated(true, completion: nil)
                         self.dismissViewControllerAnimated(true, completion: nil)
                     })
@@ -226,15 +181,6 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
         
     }
     
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -242,7 +188,122 @@ class FCPublicationDetailsTVC: UITableViewController, FCPublicationDetailsTitleC
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-
+        
     }
-
+    
 }
+
+extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
+    
+    //MARK: - Title cell delegate
+    
+    func didRegisterForPublication(publication: FCPublication) {
+        
+        publication.didRegisterForCurrentPublication = true
+        publication.countOfRegisteredUsers += 1
+        
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
+        
+        FCModel.sharedInstance.savePublications()
+        
+        //show alert controller
+        if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
+            
+            let title = String.localizedStringWithFormat("Please Contact the Publisher", "an alert title requesting to contact the publisher")
+            let subtitle = String.localizedStringWithFormat("Call: \(publication.contactInfo!)", "the word call before presenting the phone number")
+            let alert = FCAlertsHandler.sharedInstance.alertWithCallDissmissButton(title, aMessage: subtitle, phoneNumber: publication.contactInfo!)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func didUnRegisterForPublication(publication: FCPublication) {
+        
+        publication.didRegisterForCurrentPublication = false
+        publication.countOfRegisteredUsers -= 1
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
+        
+        FCModel.sharedInstance.savePublications()
+    }
+    
+    func didRequestNavigationForPublication(publication: FCPublication) {
+        
+        
+        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
+            let title = String.localizedStringWithFormat("Navigate With:", "an action sheet title meening chose app to navigate with")
+            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+        }
+        else {
+            //navigateWithWaze
+            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
+        }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    }
+    
+    
+}
+
+extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
+    
+    //MARK: - Header View gesture recognizer
+    
+    func addTapGestureToHeaderView() {
+        let recognizer = UITapGestureRecognizer(target: self, action: "headerTapped")
+        recognizer.delegate = self
+        recognizer.numberOfTapsRequired = 1
+        recognizer.numberOfTouchesRequired = 1
+        self.headerView.addGestureRecognizer(recognizer)
+        
+    }
+    
+    func headerTapped () {
+        
+        //add if to check whether there's a photo or default
+        if self.publication?.photoData.photo == nil {return}
+        
+        self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as photoPresentorNavigationController
+
+        photoPresentorNavController.transitioningDelegate = self
+        photoPresentorNavController.modalPresentationStyle = .Custom
+        
+        let photoPresentorVC = photoPresentorNavController.viewControllers[0] as PublicationPhotoPresentorVC
+        self.photoPresentor = photoPresentorVC
+        photoPresentorVC.publication = self.publication
+        
+        self.navigationController?.presentViewController(photoPresentorNavController, animated: true, completion:nil)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
+    
+    //MARK: - Transition Delegate
+    
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
+       
+        let pcontrol = PublicationPhotoPresentorPresentationController(
+            presentedViewController: self.photoPresentorNavController,
+            presentingViewController: self.navigationController)
+        return  pcontrol
+    }
+    
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        //starting frame for transition
+        self.photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
+        self.photoPresentorVCAnimator.originFrame = self.headerView.bounds
+        return self.photoPresentorVCAnimator
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return PublicationPhotoPresentorDissmissAnimator()
+    }
+}
+

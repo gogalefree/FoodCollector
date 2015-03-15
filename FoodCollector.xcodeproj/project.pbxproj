@@ -14,6 +14,11 @@
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E4030A721A63DD92005D224E /* FCPublishPhotoEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4030A711A63DD92005D224E /* FCPublishPhotoEditorVC.swift */; };
 		E4030A741A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4030A731A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift */; };
+		E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */; };
+		E407DEA31AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */; };
+		E407DEA51AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */; };
+		E407DEA71AB0C37D00FC8415 /* photoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* photoPresentorNavigationController.swift */; };
+		E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
 		E40BD4FB1A5819D900BB2F98 /* FCPublicationDetailsTVReportsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40BD4FA1A5819D900BB2F98 /* FCPublicationDetailsTVReportsCell.swift */; };
 		E4214E6C1A63E0860070332D /* FCPublishDateEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4214E6B1A63E0860070332D /* FCPublishDateEditorVC.swift */; };
 		E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */; };
@@ -97,6 +102,11 @@
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E4030A711A63DD92005D224E /* FCPublishPhotoEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishPhotoEditorVC.swift; sourceTree = "<group>"; };
 		E4030A731A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationTypeOfPublicationEditorVC.swift; sourceTree = "<group>"; };
+		E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorVC.swift; sourceTree = "<group>"; };
+		E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorPresentationController.swift; sourceTree = "<group>"; };
+		E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorAnimator.swift; sourceTree = "<group>"; };
+		E407DEA61AB0C37D00FC8415 /* photoPresentorNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = photoPresentorNavigationController.swift; sourceTree = "<group>"; };
+		E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorDissmissAnimator.swift; sourceTree = "<group>"; };
 		E40BD4FA1A5819D900BB2F98 /* FCPublicationDetailsTVReportsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsTVReportsCell.swift; sourceTree = "<group>"; };
 		E4214E6B1A63E0860070332D /* FCPublishDateEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishDateEditorVC.swift; sourceTree = "<group>"; };
 		E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorVC.swift; sourceTree = "<group>"; };
@@ -271,6 +281,11 @@
 				E426AD321A5A682B006F609C /* FCPublicationSingleReportCell.swift */,
 				E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */,
 				E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */,
+				E407DEA61AB0C37D00FC8415 /* photoPresentorNavigationController.swift */,
+				E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */,
+				E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */,
+				E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */,
+				E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */,
 			);
 			name = "Publication Details";
 			sourceTree = "<group>";
@@ -627,8 +642,10 @@
 			files = (
 				E42C9E231A55D311000E0FB1 /* FCIconFactory.swift in Sources */,
 				E42ED5791A8BD175008FB618 /* FCModel+LocationManager.swift in Sources */,
+				E407DEA31AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift in Sources */,
 				E4C1C1651A52AB3500A37E00 /* FCAnnotationView.swift in Sources */,
 				E4737D991A10C01300A4AB81 /* FCPublicationEditorTVC.swift in Sources */,
+				E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */,
 				E4737D961A10C01300A4AB81 /* FCPublicationDataInputVC.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
 				E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */,
@@ -663,8 +680,10 @@
 				E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */,
 				E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */,
 				E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */,
+				E407DEA71AB0C37D00FC8415 /* photoPresentorNavigationController.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,
 				E4DC5D5E1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift in Sources */,
+				E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
 				E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */,
 				E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */,
@@ -679,6 +698,7 @@
 				E4737D8C1A10C01300A4AB81 /* FCModel.swift in Sources */,
 				E4214E701A63E1020070332D /* FCPublishStringFieldsEditorVC.swift in Sources */,
 				E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */,
+				E407DEA51AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift in Sources */,
 				E4737D9F1A10C01300A4AB81 /* FCStringFunctions.swift in Sources */,
 				E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */,
 			);

@@ -148,6 +148,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     
     func dismissDetailVC() {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        self.reload()
     }
     
     func titleForIndexPath(indexPath:NSIndexPath) -> String{

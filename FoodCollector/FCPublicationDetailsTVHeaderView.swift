@@ -48,4 +48,13 @@ class FCPublicationDetailsTVHeaderView: UIView {
             }
         }
     }
+    
+//    override init() {
+//        UIView.loadFromNibNamed("", bundle: nil)
+//        super.init()
+//    }
+//
+//    required init(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 }

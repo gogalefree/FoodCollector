@@ -14,7 +14,7 @@ extension FCModel {
     public func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         switch status {
-        case .Authorized , .AuthorizedWhenInUse :
+        case  .AuthorizedWhenInUse :
             self.setupLocationManager()
         default:
             break

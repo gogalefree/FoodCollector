@@ -51,7 +51,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         
         switch status {
             
-        case .Authorized , .AuthorizedWhenInUse :
+        case .AuthorizedWhenInUse :
             self.setupLocationManager()
         default :
             break

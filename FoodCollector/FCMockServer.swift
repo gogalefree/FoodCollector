@@ -134,12 +134,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let task = session.dataTaskWithRequest(request, completionHandler: {
             (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
+            if let response = response {
             let serverResponse = response as NSHTTPURLResponse
             
             if error != nil || serverResponse.statusCode != 200 {
                 //we delete the key from UD so the app tries again in next launch
                 NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
                 return
+            }
             }
         })
         
