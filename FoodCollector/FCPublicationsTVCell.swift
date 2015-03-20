@@ -12,6 +12,8 @@ class FCPublicationsTVCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
     
@@ -26,12 +28,12 @@ class FCPublicationsTVCell: UITableViewCell {
     
     func setUp(publication: FCPublication) {
         self.titleLabel.text = publication.title
+        self.addressLabel.text = publication.address
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
         self.iconImageView.image = FCIconFactory.publicationsTableIcon(publication)
         downloadImage()
     }
     
-        
     func downloadImage() {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in

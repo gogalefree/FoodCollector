@@ -16,11 +16,24 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     var headerView: FCPublicationDetailsTVHeaderView!
 
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
-    var publicationReportsNavController: UINavigationController!
-  //  var publicationPhotoPresentorAnimator : PublicationPhotoPresentorAnimator!
+    var publicationReportsNavController: FCPublicationReportsNavigationController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.estimatedRowHeight = 140
+        configureHeaderView()
+        fetchPublicationReports()
+        fetchPublicationPhoto()
+        registerForNotifications()
+        
+        self.title = publication?.title
+        
+    }
+    
+    func configureHeaderView() {
         
         headerView = self.tableView.tableHeaderView as FCPublicationDetailsTVHeaderView
         self.tableView.tableHeaderView = nil
@@ -31,14 +44,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         self.tableView.contentInset = UIEdgeInsets(top: kTableViewHeaderHeight, left: 0, bottom: 0, right: 0)
         self.tableView.contentOffset = CGPointMake(0, -kTableViewHeaderHeight)
         updateHeaderView()
-        
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.estimatedRowHeight = 140
-        fetchPublicationReports()
-        fetchPublicationPhoto()
-        registerForNotifications()
-        
+
     }
     
     func updateHeaderView() {
@@ -253,12 +259,12 @@ extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
     //MARK: - Header View gesture recognizer
     
     func addTapGestureToHeaderView() {
+        
         let recognizer = UITapGestureRecognizer(target: self, action: "headerTapped")
         recognizer.delegate = self
         recognizer.numberOfTapsRequired = 1
         recognizer.numberOfTouchesRequired = 1
         self.headerView.addGestureRecognizer(recognizer)
-        
     }
     
     func headerTapped () {
@@ -268,13 +274,14 @@ extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
         
         self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as FCPhotoPresentorNavigationController
 
-        photoPresentorNavController.transitioningDelegate = self
-        photoPresentorNavController.modalPresentationStyle = .Custom
+        self.photoPresentorNavController.transitioningDelegate = self
+        self.photoPresentorNavController.modalPresentationStyle = .Custom
         
-        let photoPresentorVC = photoPresentorNavController.viewControllers[0] as PublicationPhotoPresentorVC
+        let photoPresentorVC = self.photoPresentorNavController.viewControllers[0] as PublicationPhotoPresentorVC
         photoPresentorVC.publication = self.publication
         
-        self.navigationController?.presentViewController(photoPresentorNavController, animated: true, completion:nil)
+        self.navigationController?.presentViewController(
+            self.photoPresentorNavController, animated: true, completion:nil)
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -290,14 +297,15 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
        
         var pcontrol: UIPresentationController!
         
-        if presentedViewController is FCPhotoPresentorNavigationController {
+        if presented is FCPhotoPresentorNavigationController {
             
             pcontrol = PublicationPhotoPresentorPresentationController(
             presentedViewController: self.photoPresentorNavController,
-            presentingViewController: self.navigationController)
+            presentingViewController: self.navigationController!)
         }
         
-        else if presentedViewController == self.publicationReportsNavController {
+        else if presented is FCPublicationReportsNavigationController{
+            
             pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
                 presentingViewController: self.navigationController)
         }
@@ -316,12 +324,12 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
             return photoPresentorVCAnimator
         }
         
-        else if presented == self.publicationReportsNavController {
+        else if presented is FCPublicationReportsNavigationController{
+            
             var publicationReportsAnimator = FCPublicationReportsVCAnimator()
             var startingFrame = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
             startingFrame.origin.y += kTableViewHeaderHeight
             startingFrame.size.width = startingFrame.size.width / 2
-          //  startingFrame.origin.y += self.tableView.contentOffset.y
     
             publicationReportsAnimator.originFrame = startingFrame
             return publicationReportsAnimator
@@ -361,7 +369,7 @@ extension FCPublicationDetailsTVC: PublicationDetailsReprtsCellDelegate {
     func displayReportsWithFullScreen() {
 
         if self.publication!.reportsForPublication.count != 0 {
-            let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as UINavigationController
+            let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as FCPublicationReportsNavigationController
             self.publicationReportsNavController = publicationReportsNavController
             
             publicationReportsNavController.transitioningDelegate = self
