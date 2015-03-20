@@ -33,6 +33,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
 
     var publications = [FCPublication]()
     var isPresentingNewDataMessageView = false
+    var panStartingPoint: CGPoint!
     let kNewDataMessageViewTopConstant: CGFloat = 13
     var publicationDetailsTVC: FCPublicationDetailsTVC?
     var isPresentingActivityCenter = false
@@ -194,10 +195,11 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         tabbarDragCenter = CGPointMake(tabbarVisibleCenter.x, size.height + self.tabBarController!.tabBar.frame.size.height)
     }
     
-    func didDragMap(gestureRecognizer: UIGestureRecognizer) {
+    func didDragMap(gestureRecognizer: UIPanGestureRecognizer) {
        
         if (gestureRecognizer.state == UIGestureRecognizerState.Began){
 
+            self.panStartingPoint = gestureRecognizer.translationInView(self.mapView)
             if !isPresentingActivityCenter {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
                 self.hideTabbar()
@@ -211,6 +213,11 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
                 self.trackingUserLocation = false
                 self.blureView.animateToAlphaWithSpring(0.4, alpha: 1)
             }
+            else {
+                //hide activty center
+                ShowActivityCenter(self)
+            }
+            
         }
     }
     

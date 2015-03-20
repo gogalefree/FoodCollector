@@ -26,6 +26,9 @@ let kPublicationPhotoUrl = "photo_url"
 let kPublicationIsOnAirKey = "is_on_air"
 let kDidRegisterForCurrentPublicationKey = "did_Register_for_current_publication"
 let kDidModifyCoordinatesKey = "did_modify_coords"
+let kReportsMessageArray = "reportsMessageArray"
+let kReportsDateArray = "reportsDateArray"
+let kPublicationCountOfRegisteredUsersKey = "pulbicationCountOfRegisteredUsersKey"
 
 struct PublicationIdentifier {
     
@@ -127,6 +130,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     
     public func encodeWithCoder(aCoder: NSCoder){
+        
         aCoder.encodeInteger(self.uniqueId, forKey: kPublicationUniqueIdKey)
         aCoder.encodeInteger(self.version, forKey: kPublicationVersionKey)
         aCoder.encodeObject(self.title, forKey: kPublicationTitleKey)
@@ -142,10 +146,22 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeBool(self.isOnAir, forKey: kPublicationIsOnAirKey)
         aCoder.encodeBool(self.didRegisterForCurrentPublication, forKey: kDidRegisterForCurrentPublicationKey)
         aCoder.encodeBool(self.didModifyCoords, forKey: kDidModifyCoordinatesKey)
+        aCoder.encodeInteger(self.countOfRegisteredUsers, forKey: kPublicationCountOfRegisteredUsersKey)
+    
+        var reportsMessageArray = [Int]()
+        var reportsDateArray = [Int]()
+        
+        for onSporReport in self.reportsForPublication {
+            reportsMessageArray.append(onSporReport.onSpotPublicationReportMessage.rawValue)
+            reportsDateArray.append(Int(onSporReport.date.timeIntervalSince1970))
+        }
+        
+        aCoder.encodeObject(reportsMessageArray, forKey: kReportsMessageArray)
+        aCoder.encodeObject(reportsDateArray, forKey: kReportsDateArray )
     }
     
     public required init(coder aDecoder: NSCoder) {
-        
+
         self.uniqueId = aDecoder.decodeIntegerForKey(kPublicationUniqueIdKey)
         self.version = aDecoder.decodeIntegerForKey(kPublicationVersionKey)
         self.title = aDecoder.decodeObjectForKey(kPublicationTitleKey) as String
@@ -164,6 +180,35 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.isOnAir = aDecoder.decodeBoolForKey(kPublicationIsOnAirKey) as Bool
         self.didRegisterForCurrentPublication = aDecoder.decodeBoolForKey(kDidRegisterForCurrentPublicationKey) as Bool
         self.didModifyCoords = aDecoder.decodeBoolForKey(kDidModifyCoordinatesKey) as Bool
+        self.countOfRegisteredUsers = aDecoder.decodeIntegerForKey(kPublicationCountOfRegisteredUsersKey)
+        
+        var reportsMessageArray : [Int]? = [Int]()
+        var reportsDateArray : [Int]? = [Int]()
+
+        var publicationReports = [FCOnSpotPublicationReport]()
+        
+        reportsMessageArray = aDecoder.decodeObjectForKey(kReportsMessageArray) as? [Int]
+        reportsDateArray = aDecoder.decodeObjectForKey(kReportsDateArray) as? [Int]
+
+        if let reportsMessageArray = reportsMessageArray {
+        if let reportsDateArray = reportsDateArray {
+       
+            let count = min(reportsMessageArray.count, reportsDateArray.count)
+            
+            for index in 0..<count {
+                
+                let message = reportsMessageArray[index]
+                let date = NSDate(timeIntervalSince1970: NSTimeInterval (reportsDateArray[index]))
+                
+                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: message)!, date: date)
+                
+                publicationReports.append(report)
+            }
+            
+            self.reportsForPublication = publicationReports
+        }
+        }
+        
         super.init()
     }
     
@@ -198,6 +243,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     }
     
     class func userCreatedPublicationWithParams(params: [String : AnyObject]) -> FCPublication {
+       
         let aUniquId = params[kPublicationUniqueIdKey]! as Int
         let aTitle = params[kPublicationTitleKey]! as String
         let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
