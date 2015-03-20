@@ -8,7 +8,7 @@
 
 import UIKit
 
-class photoPresentorNavigationController: UINavigationController {
+class FCPhotoPresentorNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

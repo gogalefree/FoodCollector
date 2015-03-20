@@ -27,7 +27,7 @@ class FCPublicationsTVCell: UITableViewCell {
     func setUp(publication: FCPublication) {
         self.titleLabel.text = publication.title
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
-        self.iconImageView.image = FCIconFactory.smallIconForPublication(publication)
+        self.iconImageView.image = FCIconFactory.publicationsTableIcon(publication)
         downloadImage()
     }
     

@@ -14,9 +14,10 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     
     private let kTableViewHeaderHeight: CGFloat = 300.0
     var headerView: FCPublicationDetailsTVHeaderView!
-    var photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
-    var photoPresentor: PublicationPhotoPresentorVC!
-    var photoPresentorNavController: photoPresentorNavigationController!
+
+    var photoPresentorNavController: FCPhotoPresentorNavigationController!
+    var publicationReportsNavController: UINavigationController!
+  //  var publicationPhotoPresentorAnimator : PublicationPhotoPresentorAnimator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +94,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         else if indexPath.row == 1 {
             
             var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell", forIndexPath: indexPath) as FCPublicationDetailsTVReportsCell
+            cell.delegate = self
             cell.publication = self.publication?
             return cell
             
@@ -264,13 +266,12 @@ extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
         //add if to check whether there's a photo or default
         if self.publication?.photoData.photo == nil {return}
         
-        self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as photoPresentorNavigationController
+        self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as FCPhotoPresentorNavigationController
 
         photoPresentorNavController.transitioningDelegate = self
         photoPresentorNavController.modalPresentationStyle = .Custom
         
         let photoPresentorVC = photoPresentorNavController.viewControllers[0] as PublicationPhotoPresentorVC
-        self.photoPresentor = photoPresentorVC
         photoPresentorVC.publication = self.publication
         
         self.navigationController?.presentViewController(photoPresentorNavController, animated: true, completion:nil)
@@ -287,23 +288,91 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
     
     func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
        
-        let pcontrol = PublicationPhotoPresentorPresentationController(
+        var pcontrol: UIPresentationController!
+        
+        if presentedViewController is FCPhotoPresentorNavigationController {
+            
+            pcontrol = PublicationPhotoPresentorPresentationController(
             presentedViewController: self.photoPresentorNavController,
             presentingViewController: self.navigationController)
+        }
+        
+        else if presentedViewController == self.publicationReportsNavController {
+            pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
+                presentingViewController: self.navigationController)
+        }
+        
         return  pcontrol
     }
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         //starting frame for transition
-        self.photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
-        self.photoPresentorVCAnimator.originFrame = self.headerView.bounds
-        return self.photoPresentorVCAnimator
+        if presented is FCPhotoPresentorNavigationController {
+
+            var photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
+          //  self.publicationPhotoPresentorAnimator = photoPresentorVCAnimator
+            photoPresentorVCAnimator.originFrame = self.headerView.bounds
+            return photoPresentorVCAnimator
+        }
+        
+        else if presented == self.publicationReportsNavController {
+            var publicationReportsAnimator = FCPublicationReportsVCAnimator()
+            var startingFrame = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+            startingFrame.origin.y += kTableViewHeaderHeight
+            startingFrame.size.width = startingFrame.size.width / 2
+          //  startingFrame.origin.y += self.tableView.contentOffset.y
+    
+            publicationReportsAnimator.originFrame = startingFrame
+            return publicationReportsAnimator
+            
+        }
+        
+        return nil
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        return PublicationPhotoPresentorDissmissAnimator()
+        if dismissed is FCPhotoPresentorNavigationController {
+            return PublicationPhotoPresentorDissmissAnimator()
+        }
+        else if dismissed == self.publicationReportsNavController {
+            
+            let animator = FCPublicationReportsDismissAnimator()
+            
+            var destinationFrame =
+            self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+            
+            destinationFrame.origin.y += kTableViewHeaderHeight
+            animator.destinationRect = destinationFrame
+            
+            return animator
+        }
+        
+        return nil
     }
 }
 
+extension FCPublicationDetailsTVC: PublicationDetailsReprtsCellDelegate {
+    //MARK: - reports cell Delegate
+    //show full reports list on full screen
+    
+
+    func displayReportsWithFullScreen() {
+
+        if self.publication!.reportsForPublication.count != 0 {
+            let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as UINavigationController
+            self.publicationReportsNavController = publicationReportsNavController
+            
+            publicationReportsNavController.transitioningDelegate = self
+            publicationReportsNavController.modalPresentationStyle = .Custom
+            
+            let publicationReportsTVC = publicationReportsNavController.viewControllers[0] as FCPublicationReportsTVC
+            
+            publicationReportsTVC.publication = self.publication
+            
+            self.navigationController?.presentViewController(publicationReportsNavController, animated: true, completion: { () -> Void in})
+        }
+    }
+
+}

@@ -39,7 +39,7 @@ class FCPublicationSingleReportCell: UITableViewCell {
     func noReports() {
         self.reportLabel.text = String.localizedStringWithFormat("אין דיווחים", "the title in the table view cell displayed when a publication has no reports")
         self.reportDate.text = ""
-        self.reportIcon.image = FCIconFactory.greenImage(FCTypeOfCollecting.FreePickUp)
+        self.reportIcon.image = FCIconFactory.greenImage()
 //        self.layoutIfNeeded()
     }
     
@@ -66,10 +66,10 @@ class FCPublicationSingleReportCell: UITableViewCell {
         
         switch report.onSpotPublicationReportMessage{
             case .HasMore:
-                icon = FCIconFactory.orangeImage(self.typeOfCollecting)
+                icon = FCIconFactory.orangeImage()
                 
             default:
-                icon = FCIconFactory.redImage(self.typeOfCollecting)
+                icon = FCIconFactory.redImage()
             }
         return icon
     }
@@ -78,7 +78,7 @@ class FCPublicationSingleReportCell: UITableViewCell {
         super.prepareForReuse()
         self.reportLabel.text = ""
         self.reportDate.text = ""
-        self.reportIcon.image = FCIconFactory.greenImage(FCTypeOfCollecting.FreePickUp)
+        self.reportIcon.image = FCIconFactory.greenImage()
     }
     
     override func awakeFromNib() {

@@ -46,6 +46,8 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         else {
             
             userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)
+            collectionView.userInteractionEnabled = true
+            collectionView.scrollEnabled = true
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "newUserCreatedPublication", name: kNewUserCreatedPublicationNotification, object: nil)

@@ -17,62 +17,52 @@ class FCIconFactory: NSObject {
         switch publication.countOfRegisteredUsers {
             
         case 0...1:
-           icon = self.greenImage(publication.typeOfCollecting)
+           icon = self.greenImage()
             
         case 2...4:
-            icon = self.orangeImage(publication.typeOfCollecting)
+            icon = self.orangeImage()
             
         default:
-            icon = self.redImage(publication.typeOfCollecting)
+            icon = self.redImage()
         }
         
         return icon
     }
     
-    class func greenImage(typeOfCollecting: FCTypeOfCollecting) -> UIImage {
+    class func greenImage() -> UIImage {
         
-        var icon: UIImage
-        
-        switch typeOfCollecting {
-            
-        case .ContactPublisher:
-            icon = UIImage(named: "Pin-Whole")!
-        default:
-            icon = UIImage(named: "Pin-Whole")!
-        }
-        
+         var icon = UIImage(named: "Pin-Whole")!
         return icon
     }
     
-    class func orangeImage(typeOfCollecting: FCTypeOfCollecting) -> UIImage{
+    class func orangeImage() -> UIImage{
         
-        var icon: UIImage
-
-        switch typeOfCollecting {
-            
-        case .ContactPublisher:
-            icon = UIImage(named: "Pin-Half")!
-        default:
-            icon = UIImage(named: "Pin-Half")!
-        }
-        
+        var icon = UIImage(named: "Pin-Half")!
         return icon
     }
     
-    class func redImage(typeOfCollecting: FCTypeOfCollecting) -> UIImage {
+    class func redImage() -> UIImage {
         
+        var icon = UIImage(named: "Pin-Few")!
+        return icon
+    }
+    
+    class func publicationsTableIcon(publication: FCPublication) -> UIImage {
+    
         var icon: UIImage
-
-        switch typeOfCollecting {
+        
+        switch publication.countOfRegisteredUsers {
             
-        case .ContactPublisher:
-            icon = UIImage(named: "Pin-Few")!
+        case 0...1:
+            icon = UIImage(named: "Pin-Table-Whole")!
+            
+        case 2...4:
+            icon = UIImage(named: "Pin-Table-Half")!
+            
         default:
-            icon = UIImage(named: "Pin-Few")!
+            icon = UIImage(named: "Pin-Table-Few")!
         }
         
         return icon
     }
-
-   
 }
