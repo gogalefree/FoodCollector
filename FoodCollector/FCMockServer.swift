@@ -267,6 +267,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                             let timeInterval = NSTimeInterval(reportDateInt)
                             let reportDate = NSDate(timeIntervalSince1970: timeInterval)
                             
+                            //prevent wrong data
                             if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
                             
                             let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)

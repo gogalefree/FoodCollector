@@ -37,6 +37,8 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         self.publications = FCModel.sharedInstance.publications
         self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
         addSearchBar()
+        self.tableView.estimatedRowHeight = 96
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)
         self.registerForNotifications()
     }
@@ -159,10 +161,10 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         return self.publications.count
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 96
-    }
-    
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return 96
+//    }
+//    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell =  tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell", forIndexPath: indexPath) as FCPublicationsTVCell
