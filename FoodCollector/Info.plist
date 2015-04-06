@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationUsageDescription</key>
-	<string>notify when you arrive to a publication spot</string>
+	<string>Notify when you arrive to a publication spot</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Notify when you arrive to a publication spot</string>
 	<key>Server URL</key>

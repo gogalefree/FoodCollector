@@ -230,7 +230,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kk7-De-Qo2">
-                                                                <rect key="frame" x="69" y="23" width="507" height="21"/>
+                                                                <rect key="frame" x="69" y="22" width="507" height="13"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="21" id="1cU-hE-lpw"/>
                                                                     <constraint firstAttribute="height" constant="21" id="9b9-ca-MEx"/>
@@ -247,6 +247,7 @@
                                                                         <exclude reference="9b9-ca-MEx"/>
                                                                         <exclude reference="Z4e-2v-edK"/>
                                                                         <exclude reference="c0N-N2-NU6"/>
+                                                                        <exclude reference="ozi-cx-DUT"/>
                                                                     </mask>
                                                                 </variation>
                                                             </label>
@@ -264,7 +265,7 @@
                                                                 </variation>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeS-S7-D5z">
-                                                                <rect key="frame" x="69" y="7" width="507" height="21"/>
+                                                                <rect key="frame" x="69" y="7" width="507" height="15"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="9bC-V4-xEA"/>
                                                                     <constraint firstAttribute="height" constant="21" id="L56-9T-5db"/>
@@ -275,6 +276,7 @@
                                                                 <nil key="highlightedColor"/>
                                                                 <variation key="default">
                                                                     <mask key="constraints">
+                                                                        <exclude reference="9bC-V4-xEA"/>
                                                                         <exclude reference="L56-9T-5db"/>
                                                                         <exclude reference="fKU-Jl-Uj2"/>
                                                                     </mask>
@@ -285,7 +287,7 @@
                                                             <constraint firstItem="Kk7-De-Qo2" firstAttribute="trailing" secondItem="12z-8H-cDY" secondAttribute="trailingMargin" id="3Cs-Gr-b8K"/>
                                                             <constraint firstAttribute="bottomMargin" secondItem="Kk7-De-Qo2" secondAttribute="bottom" constant="-8" id="9uw-5E-cCi"/>
                                                             <constraint firstAttribute="bottomMargin" secondItem="oeS-S7-D5z" secondAttribute="bottom" constant="15" id="AAl-Td-82F"/>
-                                                            <constraint firstItem="Kk7-De-Qo2" firstAttribute="top" secondItem="oeS-S7-D5z" secondAttribute="bottom" constant="-5" id="GOO-tM-i0f"/>
+                                                            <constraint firstItem="Kk7-De-Qo2" firstAttribute="top" secondItem="oeS-S7-D5z" secondAttribute="bottom" id="GOO-tM-i0f"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="topMargin" constant="-6" id="HZH-Rr-VJB"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="leading" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="28" id="I84-ab-6Hk"/>
                                                             <constraint firstAttribute="trailingMargin" secondItem="Kk7-De-Qo2" secondAttribute="trailing" constant="16" id="JVL-8G-tzo"/>
@@ -297,6 +299,7 @@
                                                             <constraint firstItem="Kk7-De-Qo2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="10" id="Uf2-JU-LMH"/>
                                                             <constraint firstItem="OW5-c0-a8V" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="topMargin" constant="-4" id="VGP-FE-Uaa"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="top" secondItem="12z-8H-cDY" secondAttribute="top" constant="7" id="Zs3-Vo-u2i"/>
+                                                            <constraint firstAttribute="centerY" secondItem="OW5-c0-a8V" secondAttribute="centerY" id="gbH-ra-HlJ"/>
                                                             <constraint firstItem="Kk7-De-Qo2" firstAttribute="leading" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="28" id="kbn-Vb-CIp"/>
                                                             <constraint firstItem="oeS-S7-D5z" firstAttribute="leading" secondItem="OW5-c0-a8V" secondAttribute="trailing" constant="491" id="u4o-Qb-YXw"/>
                                                             <constraint firstAttribute="bottomMargin" secondItem="OW5-c0-a8V" secondAttribute="bottom" constant="2" id="vMt-sg-S4b"/>
@@ -304,6 +307,7 @@
                                                         </constraints>
                                                         <variation key="default">
                                                             <mask key="constraints">
+                                                                <exclude reference="K05-Xy-bgl"/>
                                                                 <exclude reference="VGP-FE-Uaa"/>
                                                                 <exclude reference="vMt-sg-S4b"/>
                                                                 <exclude reference="AAl-Td-82F"/>
@@ -312,6 +316,7 @@
                                                                 <exclude reference="u4o-Qb-YXw"/>
                                                                 <exclude reference="zdy-Am-SjC"/>
                                                                 <exclude reference="3Cs-Gr-b8K"/>
+                                                                <exclude reference="9uw-5E-cCi"/>
                                                                 <exclude reference="SKu-e5-kLh"/>
                                                                 <exclude reference="Uf2-JU-LMH"/>
                                                             </mask>
@@ -1509,7 +1514,7 @@
                                                 <mask key="constraints">
                                                     <exclude reference="KA6-dF-YpJ"/>
                                                     <exclude reference="eqf-PN-Rp7"/>
-                                                    <include reference="psn-HU-lJV"/>
+                                                    <exclude reference="psn-HU-lJV"/>
                                                     <exclude reference="wdz-qW-giF"/>
                                                 </mask>
                                             </variation>
@@ -1608,7 +1613,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="Hf6-tK-AE0" secondAttribute="bottom" constant="14" id="XPe-Ch-oAl"/>
                                         <constraint firstItem="5OQ-bl-l9O" firstAttribute="top" secondItem="UUi-bh-y4c" secondAttribute="bottom" constant="16" id="XVJ-9J-Knn"/>
                                         <constraint firstItem="5OQ-bl-l9O" firstAttribute="top" secondItem="UUi-bh-y4c" secondAttribute="bottom" constant="14" id="YzL-uL-s1w">
-                                            <variation key="widthClass=compact" constant="13"/>
+                                            <variation key="widthClass=compact" constant="16"/>
                                         </constraint>
                                         <constraint firstItem="Hf6-tK-AE0" firstAttribute="top" secondItem="5OQ-bl-l9O" secondAttribute="bottom" constant="3" id="ZVC-Eb-YZG">
                                             <variation key="widthClass=compact" constant="3"/>
@@ -1738,6 +1743,7 @@
                                             <exclude reference="lNf-Xc-Txg"/>
                                             <include reference="tlF-Ln-W3F"/>
                                             <include reference="x1w-Db-BdI"/>
+                                            <exclude reference="3Lq-mK-sul"/>
                                             <exclude reference="HE3-L2-7l8"/>
                                             <exclude reference="LAJ-JZ-G7x"/>
                                             <exclude reference="XPe-Ch-oAl"/>
@@ -1782,6 +1788,7 @@
                                             <include reference="tGK-wR-rJh"/>
                                             <exclude reference="tJl-Ko-RDY"/>
                                             <exclude reference="vSW-rg-yXn"/>
+                                            <exclude reference="vXv-ij-cYV"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
