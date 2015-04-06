@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Publication DetailsTVC-->
@@ -664,20 +663,19 @@
                         <viewControllerLayoutGuide type="bottom" id="eTU-Ox-MTr"/>
                     </layoutGuides>
                     <view key="view" contentMode="center" id="lTl-0D-oa1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FOODONET" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwX-fR-duM">
-                                <rect key="frame" x="93" y="120" width="188" height="62"/>
+                                <rect key="frame" x="205" y="53" width="188" height="62"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="duE-ht-L4o"/>
-                                    <constraint firstAttribute="width" constant="188" id="jSa-OE-o43"/>
+                                    <constraint firstAttribute="height" constant="62" id="23p-Ui-raO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gc2-Ub-dog" userLabel="Container">
-                                <rect key="frame" x="62" y="182" width="251" height="126"/>
+                                <rect key="frame" x="175" y="145" width="251" height="126"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-8Q-eHZ">
                                         <rect key="frame" x="13" y="8" width="150" height="45"/>
@@ -689,8 +687,12 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1111" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JI-o1-rSK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1111" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JI-o1-rSK">
                                         <rect key="frame" x="160" y="8" width="75" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Jn9-HG-dV1"/>
+                                            <constraint firstAttribute="width" constant="75" id="jpz-3M-haM"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -709,27 +711,32 @@
                                     </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="ebw-8Q-eHZ" firstAttribute="top" secondItem="2JI-o1-rSK" secondAttribute="top" id="9z3-OH-smu"/>
                                     <constraint firstItem="ebw-8Q-eHZ" firstAttribute="top" secondItem="Gc2-Ub-dog" secondAttribute="top" constant="8" id="EWL-fT-vkl"/>
                                     <constraint firstAttribute="width" constant="251" id="Rcd-UT-XBm"/>
                                     <constraint firstAttribute="height" constant="126" id="anc-Ns-uul"/>
+                                    <constraint firstItem="2JI-o1-rSK" firstAttribute="leading" secondItem="ebw-8Q-eHZ" secondAttribute="trailing" constant="-3" id="bCn-RX-SfK"/>
                                     <constraint firstItem="ebw-8Q-eHZ" firstAttribute="leading" secondItem="Gc2-Ub-dog" secondAttribute="leading" constant="13" id="cTK-Mc-wOq"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Gc2-Ub-dog" firstAttribute="top" secondItem="HwX-fR-duM" secondAttribute="bottom" constant="30" id="4xl-tI-6YE"/>
+                            <constraint firstItem="HwX-fR-duM" firstAttribute="leading" secondItem="lTl-0D-oa1" secondAttribute="leading" constant="205" id="6e0-SW-9QN"/>
+                            <constraint firstItem="HwX-fR-duM" firstAttribute="top" secondItem="a2t-cz-VCE" secondAttribute="bottom" constant="33" id="Ml7-4K-Vr9"/>
                             <constraint firstAttribute="centerX" secondItem="Gc2-Ub-dog" secondAttribute="centerX" id="TMA-6g-6WO"/>
-                            <constraint firstItem="Gc2-Ub-dog" firstAttribute="top" secondItem="HwX-fR-duM" secondAttribute="bottom" id="cfy-w4-Bf1"/>
-                            <constraint firstAttribute="centerX" secondItem="HwX-fR-duM" secondAttribute="centerX" id="i23-ux-dZD"/>
-                            <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="HwX-fR-duM" secondAttribute="bottom" constant="120" id="qF2-ff-EgK"/>
-                            <constraint firstItem="HwX-fR-duM" firstAttribute="top" relation="lessThanOrEqual" secondItem="lTl-0D-oa1" secondAttribute="topMargin" constant="120" id="wZ0-BR-2Y0"/>
-                            <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="HwX-fR-duM" secondAttribute="bottom" priority="750" constant="485" id="yhZ-zx-mpG"/>
+                            <constraint firstAttribute="centerX" secondItem="HwX-fR-duM" secondAttribute="centerX" constant="1" id="l7j-e9-aJj"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="6e0-SW-9QN"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="About" id="4Gj-9Q-F5S"/>
                     <navigationItem key="navigationItem" id="U6H-5I-pCU"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="aboutView" destination="lTl-0D-oa1" id="4Ts-CO-5iJ"/>
                         <outlet property="lblBuild" destination="pUc-t4-Vil" id="Oza-Gr-Psf"/>
