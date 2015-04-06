@@ -34,6 +34,21 @@
 		E42ED5791A8BD175008FB618 /* FCModel+LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED5781A8BD175008FB618 /* FCModel+LocationManager.swift */; };
 		E42ED57B1A8BD2B9008FB618 /* FCModel+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED57A1A8BD2B9008FB618 /* FCModel+Store.swift */; };
 		E42ED57D1A8BD380008FB618 /* FCModel+PostNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED57C1A8BD380008FB618 /* FCModel+PostNotifications.swift */; };
+		E4545D821AD320E60031CF8A /* Track-clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D7F1AD320E60031CF8A /* Track-clear.png */; };
+		E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D801AD320E60031CF8A /* Track-clear@2x.png */; };
+		E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D811AD320E60031CF8A /* Track-clear@3x.png */; };
+		E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D851AD3210A0031CF8A /* Pin-Whole.png */; };
+		E4545D891AD3210A0031CF8A /* Pin-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */; };
+		E4545D8A1AD3210A0031CF8A /* Pin-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */; };
+		E4545D941AD322B20031CF8A /* Pin-Table-Few.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */; };
+		E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */; };
+		E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */; };
+		E4545D971AD322B20031CF8A /* Pin-Table-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */; };
+		E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */; };
+		E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */; };
+		E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */; };
+		E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */; };
+		E4545D9C1AD322B20031CF8A /* Pin-Table-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */; };
 		E45DA7321A9DB89800F45C70 /* FCCollectorContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */; };
 		E45DA7361A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45DA7351A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib */; };
 		E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */; };
@@ -128,6 +143,21 @@
 		E42ED5781A8BD175008FB618 /* FCModel+LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCModel+LocationManager.swift"; sourceTree = "<group>"; };
 		E42ED57A1A8BD2B9008FB618 /* FCModel+Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCModel+Store.swift"; sourceTree = "<group>"; };
 		E42ED57C1A8BD380008FB618 /* FCModel+PostNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCModel+PostNotifications.swift"; sourceTree = "<group>"; };
+		E4545D7F1AD320E60031CF8A /* Track-clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear.png"; sourceTree = "<group>"; };
+		E4545D801AD320E60031CF8A /* Track-clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear@2x.png"; sourceTree = "<group>"; };
+		E4545D811AD320E60031CF8A /* Track-clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear@3x.png"; sourceTree = "<group>"; };
+		E4545D851AD3210A0031CF8A /* Pin-Whole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Whole.png"; sourceTree = "<group>"; };
+		E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Whole@2x.png"; sourceTree = "<group>"; };
+		E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Whole@3x.png"; sourceTree = "<group>"; };
+		E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Few.png"; sourceTree = "<group>"; };
+		E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Few@2x.png"; sourceTree = "<group>"; };
+		E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Few@3x.png"; sourceTree = "<group>"; };
+		E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Half.png"; sourceTree = "<group>"; };
+		E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Half@2x.png"; sourceTree = "<group>"; };
+		E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Half@3x.png"; sourceTree = "<group>"; };
+		E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole.png"; sourceTree = "<group>"; };
+		E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole@2x.png"; sourceTree = "<group>"; };
+		E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole@3x.png"; sourceTree = "<group>"; };
 		E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorContainerController.swift; sourceTree = "<group>"; };
 		E45DA7351A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCActivityCenterTVSectionHeader.xib; sourceTree = "<group>"; };
 		E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCSectionHeader.swift; sourceTree = "<group>"; };
@@ -486,6 +516,21 @@
 			children = (
 				A16619A41A94E53C009D9EEA /* Scripts */,
 				E494DF161A0A980D004A369E /* Images.xcassets */,
+				E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */,
+				E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */,
+				E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */,
+				E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */,
+				E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */,
+				E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */,
+				E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */,
+				E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */,
+				E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */,
+				E4545D851AD3210A0031CF8A /* Pin-Whole.png */,
+				E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */,
+				E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */,
+				E4545D7F1AD320E60031CF8A /* Track-clear.png */,
+				E4545D801AD320E60031CF8A /* Track-clear@2x.png */,
+				E4545D811AD320E60031CF8A /* Track-clear@3x.png */,
 				E494DF0E1A0A980D004A369E /* Info.plist */,
 				A108F5C41A94732A00816EFA /* BaseURL.plist */,
 			);
@@ -606,11 +651,26 @@
 			files = (
 				E494DF151A0A980D004A369E /* Main.storyboard in Resources */,
 				E45DA7361A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib in Resources */,
+				E4545D8A1AD3210A0031CF8A /* Pin-Whole@3x.png in Resources */,
+				E4545D941AD322B20031CF8A /* Pin-Table-Few.png in Resources */,
 				E4DC5D5C1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib in Resources */,
+				E4545D971AD322B20031CF8A /* Pin-Table-Half.png in Resources */,
+				E4545D821AD320E60031CF8A /* Track-clear.png in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
+				E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */,
+				E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */,
+				E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */,
+				E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */,
 				A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */,
+				E4545D891AD3210A0031CF8A /* Pin-Whole@2x.png in Resources */,
+				E4545D9C1AD322B20031CF8A /* Pin-Table-Whole@3x.png in Resources */,
+				E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
+				E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */,
+				E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */,
 				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
+				E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */,
+				E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,7 +725,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift";
+			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift prod";
 		};
 /* End PBXShellScriptBuildPhase section */
 
