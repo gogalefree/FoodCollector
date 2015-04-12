@@ -117,7 +117,6 @@ class FCUserNotificationHandler : NSObject {
     
     func registerLocalNotification(publication: FCPublication) {
         //check if we handeled
-        println("registered \(publication.title)")
         let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
         let localNotification = UILocalNotification()
         localNotification.userInfo = userInfo
@@ -127,6 +126,8 @@ class FCUserNotificationHandler : NSObject {
         localNotification.soundName = UILocalNotificationDefaultSoundName
         localNotification.regionTriggersOnce = true
         localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(kRegionRadiusForLocationNotification), identifier: publication.title)
+        localNotification.region.notifyOnEntry = true
+        localNotification.region.notifyOnExit = false
         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         self.registeredLocationNotification.append((localNotification, publication))
     }
