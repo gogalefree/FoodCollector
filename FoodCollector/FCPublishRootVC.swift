@@ -80,7 +80,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         var publication = userCreatedPublications[indexPath.item]
         let reusableId = "FCPublishCollectionViewCell"
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as FCPublishRootVCCustomCollectionViewCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as! FCPublishRootVCCustomCollectionViewCell
         cell.publication = publication
         
         // The tag property will be used later in the segue to identify
@@ -116,11 +116,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
       
         if (segue.identifier == "showEditPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
+            let publicationEditorTVC = segue!.destinationViewController as! FCPublicationEditorTVC
             publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
         }
         else if (segue.identifier == "showNewPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as FCPublicationEditorTVC
+            let publicationEditorTVC = segue!.destinationViewController as! FCPublicationEditorTVC
             publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
         }
     }
@@ -180,7 +180,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         if (kind == UICollectionElementKindSectionHeader) {
             
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: kPublisherRootVCHeaderViewReusableId, forIndexPath: indexPath) as FCPublisherRootVCCollectionViewHeaderCollectionReusableView
+            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: kPublisherRootVCHeaderViewReusableId, forIndexPath: indexPath) as! FCPublisherRootVCCollectionViewHeaderCollectionReusableView
             
             headerView.setUp()
             self.searchBar = headerView.searchBar
@@ -196,7 +196,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         //user is deleting
         //show all publications
-        if searchText == "" || countElements(searchText) < self.searchTextCharCount{
+        if searchText == "" || count(searchText) < self.searchTextCharCount{
             
             self.isFiltered = false
             self.showAllUserCreatedPublications()
@@ -209,7 +209,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         }
         
         //save the count to check whether user writing or deleting
-        self.searchTextCharCount = countElements(searchText)
+        self.searchTextCharCount = count(searchText)
     }
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {

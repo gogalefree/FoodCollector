@@ -85,7 +85,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
             
             if let theResponse = response {
             
-                let serverResponse = theResponse as NSHTTPURLResponse
+                let serverResponse = theResponse as! NSHTTPURLResponse
                 print("respons: \(serverResponse.description)")
                 println("status code: \(serverResponse.statusCode) ***************")
                 
@@ -135,7 +135,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
             (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if let response = response {
-            let serverResponse = response as NSHTTPURLResponse
+            let serverResponse = response as! NSHTTPURLResponse
             
             if error != nil || serverResponse.statusCode != 200 {
                 //we delete the key from UD so the app tries again in next launch
@@ -180,7 +180,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
             
             if let theResponse = response {
                 
-                let serverResponse = theResponse as NSHTTPURLResponse
+                let serverResponse = theResponse as! NSHTTPURLResponse
                 
                 if error != nil || serverResponse.statusCode == 200 {
                     println("success")
@@ -207,13 +207,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             
             if var serverResponse = response  {
-                serverResponse = serverResponse as NSHTTPURLResponse
+                serverResponse = serverResponse as! NSHTTPURLResponse
             
             print("response: \(serverResponse.description)")
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                 
-                let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
+                let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [[String : AnyObject]]
                 
                 for publicationDict in arrayOfPublicationDicts {
                    
@@ -250,19 +250,19 @@ public class FCMockServer: NSObject , FCServerProtocol {
             
             if let theResponse = response {
                 
-               let serverResponse = theResponse as NSHTTPURLResponse
+               let serverResponse = theResponse as! NSHTTPURLResponse
                 
                 if error == nil && serverResponse.statusCode == 200 {
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                         
                         
-                        let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [[String : AnyObject]]
+                        let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [[String : AnyObject]]
                         
                         for publicationReportDict in arrayOfReports {
                             
-                            let reportMessage = publicationReportDict["report"] as Int
-                            let reportDateString = publicationReportDict["date_of_report"] as NSString
+                            let reportMessage = publicationReportDict["report"] as! Int
+                            let reportDateString = publicationReportDict["date_of_report"] as! NSString
                             let reportDateInt = reportDateString.doubleValue
                             let timeInterval = NSTimeInterval(reportDateInt)
                             let reportDate = NSDate(timeIntervalSince1970: timeInterval)
@@ -398,9 +398,9 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 if error == nil && serverResponse.statusCode == 200 {
                    
                     //we currently implement as best effort. nothing is done with an error
-                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String : AnyObject]
-                    let uniqueId = dict[kPublicationUniqueIdKey] as Int
-                    let version = dict[kPublicationVersionKey] as Int
+                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String : AnyObject]
+                    let uniqueId = dict[kPublicationUniqueIdKey] as! Int
+                    let version = dict[kPublicationVersionKey] as! Int
                     completion(success: true, uniqueID: uniqueId, version: version)
                 }
                 else {
@@ -439,8 +439,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 
                 if error == nil && serverResponse.statusCode == 200 {
                     
-                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String : AnyObject]
-                    let version = dict[kPublicationVersionKey] as Int
+                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String : AnyObject]
+                    let version = dict[kPublicationVersionKey] as! Int
                     completion(success: true,  version: version)
                 }
                 else {

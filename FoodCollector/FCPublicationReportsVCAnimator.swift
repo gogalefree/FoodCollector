@@ -25,9 +25,9 @@ class FCPublicationReportsVCAnimator: NSObject , UIViewControllerAnimatedTransit
         let navigationControllerView =
         transitionContext.viewForKey(UITransitionContextToViewKey)!
         
-        let navigationController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as UINavigationController
+        let navigationController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! UINavigationController
         
-        let tableViewController = navigationController.viewControllers[0] as FCPublicationReportsTVC
+        let tableViewController = navigationController.viewControllers[0] as! FCPublicationReportsTVC
         
         let tableView = tableViewController.tableView
         

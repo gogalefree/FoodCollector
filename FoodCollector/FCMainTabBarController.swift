@@ -51,7 +51,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
                 
                 let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier)
                 
-                var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as FCArrivedToPublicationSpotVC
+                var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
                 
                 arrivedToSpotReportVC.publication = publication
                 arrivedToSpotReportVC.delegate = self
@@ -79,7 +79,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
 
         if let userInfo = info {
         
-            let publication = userInfo["publication"] as FCPublication
+            let publication = userInfo["publication"] as! FCPublication
             
             let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(publication.title, aMessage: kpublicationDeletedAlertMessage)
             self.presentViewController(alert, animated: true, completion: nil)

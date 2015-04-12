@@ -33,7 +33,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var registeredUsersLabel: UILabel!
-    var navigationButton: UIButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    var navigationButton: UIButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
     
     var delegate: FCPublicationDetailsTitleCellDelegate? //publicationDetailsTVC
     
@@ -41,7 +41,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         
         didSet {
             
-            if let publication = self.publication?{
+            if let publication = self.publication{
                 self.titleLabel.text = publication.title
                 self.subtitleLabel.text = publication.subtitle
                 self.addressLabel.text = self.makeDistanceText(publication)
@@ -64,7 +64,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     
     @IBAction func registerButtonAction(sender: AnyObject) {
         
-        if let publication = self.publication?{
+        if let publication = self.publication{
             
             if publication.didRegisterForCurrentPublication == true {
                 

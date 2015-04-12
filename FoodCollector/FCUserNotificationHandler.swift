@@ -35,7 +35,7 @@ class FCUserNotificationHandler : NSObject {
     
     var oldToken: String? = {
         println("Push TOKEN: \(NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey))")
-        return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? NSString
+        return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? String
         }()
     
     var registeredLocationNotification = [(UILocalNotification, FCPublication)]()
@@ -154,7 +154,7 @@ class FCUserNotificationHandler : NSObject {
         
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
 
-            let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
+            let data = userInfo[kRemoteNotificationDataKey]! as! [String : AnyObject]
             let publicationIdentifier = self.identifierForInfo(data)
             
             switch notificationType {
@@ -175,7 +175,7 @@ class FCUserNotificationHandler : NSObject {
                 
                 let publicationIdentifier = self.identifierForInfo(data)
                 let reportDate = self.dateWithInfo(data)
-                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey]! as Int
+                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey]! as! Int
                 let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
                 
                 if !self.didHandlePublicationReport(report, publicationIdentifier: publicationIdentifier) {
@@ -190,7 +190,7 @@ class FCUserNotificationHandler : NSObject {
                 let publicationIdentifier = identifierForInfo(data)
                 let registrationDate = dateWithInfo(data)
                 
-                let registrationMessage = data[kRemoteNotificationRegistrationMessageForPublicationKey]! as Int
+                let registrationMessage = data[kRemoteNotificationRegistrationMessageForPublicationKey] as! Int
                 
                 let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, registrationMessage: FCRegistrationForPublication.RegistrationMessage(rawValue: registrationMessage)!)
                 
@@ -280,14 +280,14 @@ class FCUserNotificationHandler : NSObject {
     }
     
     func identifierForInfo(data: [ NSObject: AnyObject?]) -> PublicationIdentifier {
-        let uniqueId = data[kPublicationUniqueIdKey]! as Int
-        let version = data[kPublicationVersionKey]! as Int
+        let uniqueId = data[kPublicationUniqueIdKey] as! Int
+        let version = data[kPublicationVersionKey] as! Int
         let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
         return publicationIdentifier
     }
     
     func dateWithInfo(data: [NSObject: AnyObject?]) -> NSDate {
-        let timeInt = data[kRemoteNotificationPublicationReportDateKey]! as Int
+        let timeInt = data[kRemoteNotificationPublicationReportDateKey] as! Int
         let date = NSDate(timeIntervalSince1970: NSTimeInterval(timeInt))
         return date
     }
@@ -334,11 +334,12 @@ extension FCUserNotificationHandler {
         arrivedToPublicationCategory.setActions([showAction, cancelAction], forContext: UIUserNotificationActionContext.Default)
         
         
-        let categoriesSet = NSSet(object: arrivedToPublicationCategory)
+        let categoriesSet = Set(arrayLiteral: arrivedToPublicationCategory)// arrivedToPublicationCategory) as Set<NSObject>
         let types = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound;
         
-        let settings = UIUserNotificationSettings(forTypes: types, categories: categoriesSet);
-        
+        let settings = UIUserNotificationSettings(forTypes: types, categories: categoriesSet)
+
+    
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         UIApplication.sharedApplication().registerForRemoteNotifications();
     }

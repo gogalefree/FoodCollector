@@ -1,1 +1,0 @@
-../../../AWSCognitoSync/Cognito/Cognito.h

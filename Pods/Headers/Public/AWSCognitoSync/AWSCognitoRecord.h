@@ -1,1 +1,0 @@
-../../../AWSCognitoSync/Cognito/AWSCognitoRecord.h

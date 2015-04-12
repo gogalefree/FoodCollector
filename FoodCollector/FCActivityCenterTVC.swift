@@ -37,7 +37,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     }
     
     func leftSwipeAction(recognizer: UISwipeGestureRecognizer) {
-        let container = self.navigationController?.parentViewController as FCCollectorContainerController
+        let container = self.navigationController?.parentViewController as! FCCollectorContainerController
         container.collectorVCWillSlide()
     }
         
@@ -96,7 +96,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = FCActivityCenterTVCSectionHeader.loadFromNibNamed("FCActivityCenterTVSectionHeader") as FCActivityCenterTVCSectionHeader
+        let headerView = FCActivityCenterTVCSectionHeader.loadFromNibNamed("FCActivityCenterTVSectionHeader")as! FCActivityCenterTVCSectionHeader
         headerView.section = section
         headerView.delegate = self
         return headerView
@@ -108,7 +108,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
-        let cell = tableView.dequeueReusableCellWithIdentifier("FCActivityCenterTVCell", forIndexPath: indexPath) as FCActivityCenterTVCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("FCActivityCenterTVCell", forIndexPath: indexPath) as! FCActivityCenterTVCell
         
 //        let colorView = UIView()
 //        colorView.backgroundColor = UIColor.blackColor()

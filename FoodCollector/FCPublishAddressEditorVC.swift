@@ -12,8 +12,8 @@ import MapKit
 let addressEditorTitle = String.localizedStringWithFormat( "כתובת", "the editor title for enter a publication address")
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-
- 
+    
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
@@ -35,7 +35,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
     }
     
-
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -46,8 +46,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         println("start cell defenition")
-
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as UITableViewCell
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
         cell.textLabel?.text = self.initialData[indexPath.row] as String
         println("cell text has been set")
         return cell
@@ -81,17 +81,17 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             
         else {
             println("else \(newText.length)")
-            if !self.didSerchAndFindResults {
-                println("self.googleLocationSearch(\(searchText))")
-                self.googleLocationSearch(searchText)
-                
-            }
+            //if !self.didSerchAndFindResults {
+            println("self.googleLocationSearch(\(searchText))")
+            self.googleLocationSearch(searchText)
+            
+            /*}
             else {
-                println("self.refineSearchResults(\(searchText))")
-                self.refineSearchResults(searchText)
-                // Currently not implemented
-                
-            }
+            println("self.refineSearchResults(\(searchText))")
+            self.refineSearchResults(searchText)
+            // Currently not implemented
+            
+            }*/
         }
     }
     
@@ -111,20 +111,21 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             if (error == nil) {
                 println("response: \(response)")
                 
-                var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+                var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)as! NSDictionary
                 
                 println("result: \(jsonResult) " )
                 
                 
-                var arrayOfPredications = jsonResult["predictions"] as NSArray
+                var arrayOfPredications = jsonResult["predictions"] as! NSArray
                 
                 if arrayOfPredications.count != 0 {
                     
                     self.didSerchAndFindResults = true
+                    self.initialData.removeAll(keepCapacity: false)
                     
                     for object in arrayOfPredications {
-                        var dict = object as NSDictionary
-                        var desc = dict["description"] as String
+                        var dict = object as! NSDictionary
+                        var desc = dict["description"] as! String
                         println(desc)
                         self.initialData.append(desc)
                     }
@@ -158,17 +159,17 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 
                 //println("response: \(response)")
                 
-                let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+                let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
                 
                 //println("result: \(jsonResult) " )
                 
                 
-                let results = jsonResult["results"] as NSArray
-                let aResultDict = results.lastObject as NSDictionary
-                let geo = aResultDict["geometry"] as NSDictionary
-                let locationDict = geo["location"] as NSDictionary
-                self.selectedLatitude = locationDict["lat"] as Double
-                self.selectedLongtitude = locationDict["lng"] as Double
+                let results = jsonResult["results"] as! NSArray
+                let aResultDict = results.lastObject as! NSDictionary
+                let geo = aResultDict["geometry"] as! NSDictionary
+                let locationDict = geo["location"] as! NSDictionary
+                self.selectedLatitude = locationDict["lat"] as! Double
+                self.selectedLongtitude = locationDict["lng"] as! Double
                 //println("dict is \(latitude) and \(longtitude)")
                 
             }else {
@@ -185,24 +186,24 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         self.googleLocationSearch(searchBar.text)
         self.tableView.reloadData()
     }
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  
+        
         var addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
         
         cellData.userData = addressDict
         cellData.containsUserData = true
         cellData.cellTitle = self.selectedAddress
     }
-
+    
     
     func refineSearchResults(searchText: String) {
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }

@@ -77,7 +77,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         if trackingUserLocation{
             
             self.mapView.setCenterCoordinate(self.mapView.userLocation.coordinate, animated: true)
-            var newCamera = self.mapView.camera.copy() as MKMapCamera
+            var newCamera = self.mapView.camera.copy() as! MKMapCamera
             newCamera.heading = self.mapView.userLocation.location.course
             self.mapView.setCamera(newCamera, animated: true)
             
@@ -237,8 +237,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "presentPublicationsTVC" {
-            let navController = segue.destinationViewController as UINavigationController
-            let tableViewController = navController.viewControllers[0] as FCPublicationsTableViewController
+            let navController = segue.destinationViewController as! UINavigationController
+            let tableViewController = navController.viewControllers[0] as! FCPublicationsTableViewController
             tableViewController.delegate = self
         }
     }
@@ -276,7 +276,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         if annotationView == nil {
             annotationView = FCAnnotationView(annotation: annotation, reuseIdentifier: reusableIdentifier)
         }
-        annotationView!.image = FCIconFactory.smallIconForPublication(annotation as FCPublication)
+        annotationView!.image = FCIconFactory.smallIconForPublication(annotation as! FCPublication)
         return annotationView
     }
     
@@ -287,7 +287,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             return
         }
         
-        let publication = view.annotation as FCPublication
+        let publication = view.annotation as! FCPublication
         self.presentPublicationDetailsTVC(publication)
         self.reloadAnnotations()
         

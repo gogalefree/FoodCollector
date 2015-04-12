@@ -26,7 +26,7 @@ public extension FCModel {
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
             if NSFileManager.defaultManager().fileExistsAtPath(self.publicationsFilePath){
-                let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.publicationsFilePath) as [FCPublication]
+                let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.publicationsFilePath) as! [FCPublication]
                 self.publications = array                
             }
         }
@@ -44,7 +44,7 @@ public extension FCModel {
         
         if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath){
             
-            let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as [FCPublication]
+            let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as! [FCPublication]
             self.userCreatedPublications = array
         }
     }

@@ -68,7 +68,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         
         if let urlDict = baseUrlPlist {
             
-            urlString = urlDict["Server URL"] as String
+            urlString = urlDict["Server URL"] as! String
             println("srver url **************: \n\(urlString)")
             
         }

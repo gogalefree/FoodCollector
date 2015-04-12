@@ -45,12 +45,12 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         
         if cellData.containsUserData {
           
-            let typeOfCollectingDict = cellData.userData as [String : AnyObject]
-            let aRawValue = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as Int
+            let typeOfCollectingDict = cellData.userData as! [String : AnyObject]
+            let aRawValue = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as! Int
             let typeOfcollecting = FCTypeOfCollecting(rawValue: aRawValue)
             if typeOfcollecting == FCTypeOfCollecting.ContactPublisher {
                 
-                let phoneNumber = typeOfCollectingDict[kPublicationContactInfoKey] as String
+                let phoneNumber = typeOfCollectingDict[kPublicationContactInfoKey] as! String
                 self.textField.text = phoneNumber
                 showContactDetailsViews()
                 self.collectionTypePicker.selectRow(1, inComponent: 0, animated: true)
@@ -171,7 +171,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         return true
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         if self.view.frame.height == 480 && self.didAnimateViewUp {
             animateViewDown()
         }
@@ -245,7 +245,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         println("onlyDigitsPhoneString: \(onlyDigitsPhoneString)")
         
         // Check if phone lenght is 9 digits
-        if countElements(onlyDigitsPhoneString) == 9 {
+        if count(onlyDigitsPhoneString) == 9 {
             isPhoneLengthCorrect = true
             // Check if a two digit area code is legal
             for areaCode in twoDigitAreaCodes {
@@ -259,7 +259,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
             }
         }
             // Check if phone lenght is 10 digits
-        else if countElements(onlyDigitsPhoneString) == 10 {
+        else if count(onlyDigitsPhoneString) == 10 {
             isPhoneLengthCorrect = true
             // Check if a three digit area code is legal
             for areaCode in threeDigitAreaCodes {

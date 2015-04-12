@@ -25,9 +25,9 @@ class FCPublicationReportsDismissAnimator: NSObject , UIViewControllerAnimatedTr
         let navigationControllerView =
         transitionContext.viewForKey(UITransitionContextFromViewKey)!
         
-        let navigationController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as UINavigationController
+        let navigationController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! UINavigationController
         
-        let tableViewController = navigationController.viewControllers[0] as FCPublicationReportsTVC
+        let tableViewController = navigationController.viewControllers[0] as! FCPublicationReportsTVC
         
         let tableView = tableViewController.tableView
         

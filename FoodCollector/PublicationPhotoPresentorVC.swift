@@ -167,7 +167,7 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
         return self.myImageView
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView!) {
+    func scrollViewDidZoom(scrollView: UIScrollView) {
         
         if scrollView.zoomScale == self.scrollView.minimumZoomScale && self.scrollViewZoomed{
             self.scrollViewZoomed = false

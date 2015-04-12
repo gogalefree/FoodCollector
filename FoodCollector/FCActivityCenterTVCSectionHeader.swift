@@ -38,13 +38,12 @@ class FCActivityCenterTVCSectionHeader: UIVisualEffectView {
         }
     }
 
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-                if let delegate = self.delegate {
-                    delegate.headerTapped(section)
-                }
-            }
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        if let delegate = self.delegate {
+            delegate.headerTapped(section)
+        }
 
-    
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

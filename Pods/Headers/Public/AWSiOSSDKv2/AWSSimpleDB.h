@@ -1,1 +1,0 @@
-../../../AWSiOSSDKv2/SimpleDB/AWSSimpleDB.h

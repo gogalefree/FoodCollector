@@ -17,7 +17,7 @@ class FCLaunchScreenView: UIView {
         if let path = NSBundle.mainBundle().pathForResource("info", ofType:"plist") {
             
             let plist = NSDictionary(contentsOfFile: path)
-            let version = plist?.objectForKey("CFBundleVersion") as String
+            let version = plist?.objectForKey("CFBundleVersion") as! String
             self.versionLabel.text = version
             print("version ++++++++ \(version)")
             

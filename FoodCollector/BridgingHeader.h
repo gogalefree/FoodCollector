@@ -10,10 +10,10 @@
 #define FoodCollector_BridgingHeader_h
 
 #import "AWSCore.h"
-#import "S3.h"
-#import "DynamoDB.h"
-#import "SQS.h"
-#import "SNS.h"
+#import "AWSS3.h"
+#import "AWSDynamoDB.h"
+#import "AWSSQS.h"
+#import "AWSSNS.h"
 
 
 

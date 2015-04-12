@@ -17,7 +17,7 @@ class PublicationPhotoPresentorPresentationController: UIPresentationController 
         self.prepareDimmingView()
         
         let containerView  = self.containerView
-        let presentedVC    = self.presentedViewController as UINavigationController
+        let presentedVC    = self.presentedViewController as! UINavigationController
 
         containerView.insertSubview(dimmingView, atIndex: 0)
         self.dimmingView.alpha = 1

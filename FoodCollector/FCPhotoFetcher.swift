@@ -37,7 +37,7 @@ class FCPhotoFetcher: NSObject {
             
             if task.result != nil {
                 
-                let downloadOutput = task.result as AWSS3TransferManagerDownloadOutput
+                let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
                 println("success")
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
                 publication.photoData.didTryToDonwloadImage = true

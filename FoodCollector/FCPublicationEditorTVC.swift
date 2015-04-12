@@ -117,7 +117,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: (NSIndexPath!)) -> UITableViewCell {
         
         let cellIdentifier = "publicationEditorTVCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as FCPublicationEditorTVCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! FCPublicationEditorTVCell
         cell.indexPath = indexPath
         cell.shouldEnablePublishButton = self.publishButtonEnabled
         cell.shouldEnableTakeOffAirButton = self.takeOffAirButtonEnabled
@@ -166,7 +166,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     @IBAction func unwindFromStringFieldsEditorVC(segue: UIStoryboardSegue) {
         
-        let sourceVC = segue.sourceViewController as FCPublishStringFieldsEditorVC
+        let sourceVC = segue.sourceViewController as! FCPublishStringFieldsEditorVC
         let cellData = sourceVC.celldata
         let section = selectedIndexPath!.section
         self.dataSource[section] = cellData
@@ -175,7 +175,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     
     @IBAction func unwindFromDateEditorVC(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as FCPublishDateEditorVC
+        let sourceVC = segue.sourceViewController as! FCPublishDateEditorVC
         let cellData = sourceVC.cellData
         let section = self.selectedIndexPath!.section
         self.dataSource[section] = cellData
@@ -183,7 +183,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     @IBAction func unwindFromTypeOfCollectionEditorVC(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as FCPublicationTypeOfPublicationEditorVC
+        let sourceVC = segue.sourceViewController as! FCPublicationTypeOfPublicationEditorVC
         let cellData = sourceVC.cellData
         let section = selectedIndexPath!.section
         self.dataSource[section] = cellData
@@ -191,7 +191,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
-        let sourceVC = segue.sourceViewController as FCPublishAddressEditorVC
+        let sourceVC = segue.sourceViewController as! FCPublishAddressEditorVC
         let cellData = sourceVC.cellData
         let section = selectedIndexPath!.section
         self.dataSource[section] = cellData
@@ -271,8 +271,8 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
             
             if self.dataSource[3].containsUserData && self.dataSource[4].containsUserData {
                 
-                let startindDate =  self.dataSource[3].userData as NSDate
-                let endingDate = self.dataSource[4].userData as NSDate
+                let startindDate =  self.dataSource[3].userData as! NSDate
+                let endingDate = self.dataSource[4].userData as! NSDate
                 expired = FCDateFunctions.PublicationDidExpired(endingDate)
                 
                 //check if ending date is later than starting date
@@ -433,26 +433,26 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         // 7.  Take off air button
         // 8.  Publish button
         var params = [String: AnyObject]()
-        params[kPublicationTitleKey] = self.dataSource[0].userData as String
-        params[kPublicationSubTitleKey] = self.dataSource[1].userData as String
-        let addressDict = self.dataSource[2].userData as [String: AnyObject]
-        params[kPublicationAddressKey] = addressDict["adress"] as String
-        params[kPublicationlatitudeKey] = addressDict["Latitude"] as Double
-        params[kPublicationLongtitudeKey] = addressDict["longitude"] as Double
+        params[kPublicationTitleKey] = self.dataSource[0].userData as! String
+        params[kPublicationSubTitleKey] = self.dataSource[1].userData as! String
+        let addressDict = self.dataSource[2].userData as! [String: AnyObject]
+        params[kPublicationAddressKey] = addressDict["adress"] as! String
+        params[kPublicationlatitudeKey] = addressDict["Latitude"] as! Double
+        params[kPublicationLongtitudeKey] = addressDict["longitude"] as! Double
         
-        let strtingDate = self.dataSource[3].userData as NSDate
+        let strtingDate = self.dataSource[3].userData as! NSDate
         let startingDateInterval = strtingDate.timeIntervalSince1970
         let startingDateInt: Int = Int(startingDateInterval)
         params[kPublicationStartingDateKey] = startingDateInt as Int
         
-        let endingDate = self.dataSource[4].userData as NSDate
+        let endingDate = self.dataSource[4].userData as! NSDate
         let endingDateInterval = endingDate.timeIntervalSince1970
         let endingDateInt: Int = Int(endingDateInterval)
         params[kPublicationEndingDateKey] = endingDateInt as Int
         
-        let typeOfCollectingDict = self.dataSource[5].userData as [String : AnyObject]
+        let typeOfCollectingDict = self.dataSource[5].userData as! [String : AnyObject]
         params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
-        params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as Int
+        params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as! Int
 
         return params
     }
@@ -485,24 +485,24 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         let cellData = self.dataSource[section]
         
         if (segue.identifier == "showPublicationStringFieldsEditor") {
-            let pubEditorVC = segue!.destinationViewController as FCPublishStringFieldsEditorVC
+            let pubEditorVC = segue!.destinationViewController as! FCPublishStringFieldsEditorVC
             pubEditorVC.celldata = cellData
             pubEditorVC.state = FCPublishStringFieldsEditorVC.DisplayState(rawValue: section)!
         }
         
         if (segue.identifier == "showPublicationDateEditor") {
-            let pubEditorVC = segue!.destinationViewController as FCPublishDateEditorVC
+            let pubEditorVC = segue!.destinationViewController as! FCPublishDateEditorVC
             pubEditorVC.cellData = cellData
             pubEditorVC.state = FCPublishDateEditorVC.PickerState(rawValue: section)!
         }
         
         if (segue.identifier == "showPublicationTypeOfCollectionEditor") {
-            let typeOfCollectingEditorVC = segue!.destinationViewController as FCPublicationTypeOfPublicationEditorVC
+            let typeOfCollectingEditorVC = segue!.destinationViewController as! FCPublicationTypeOfPublicationEditorVC
             typeOfCollectingEditorVC.cellData = cellData
         }
         
         if (segue.identifier == "showPublicationAdressEditor") {
-            let pubEditorVC = segue!.destinationViewController as FCPublishAddressEditorVC
+            let pubEditorVC = segue!.destinationViewController as! FCPublishAddressEditorVC
             
         }
         
@@ -628,8 +628,8 @@ extension  FCPublicationEditorTVC {
                         //publication starting date
                         cellData.userData = NSDate()
                         cellData.containsUserData = true
-                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as NSDate)
-                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as NSDate)
+                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
+                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
                         let prefix = kPublishStartDatePrefix
                         let cellTitle = "\(prefix) \(dateString)   \(timeString)"
                         cellData.cellTitle = cellTitle
@@ -638,8 +638,8 @@ extension  FCPublicationEditorTVC {
                         //publication ending date
                         cellData.userData = NSDate().dateByAddingTimeInterval(kTimeIntervalInSecondsToEndDate)
                         cellData.containsUserData = true
-                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as NSDate)
-                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as NSDate)
+                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
+                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
                         let prefix = kPublishEndDatePrefix
                         let cellTitle = "\(prefix) \(dateString)   \(timeString)"
                         cellData.cellTitle = cellTitle
@@ -679,7 +679,7 @@ extension FCPublicationEditorTVC {
         
         var myInfo = info
         if info[UIImagePickerControllerOriginalImage] != nil {
-            let image = info[UIImagePickerControllerOriginalImage] as UIImage
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             self.updateCellDataWithImage(image)
         }
     }

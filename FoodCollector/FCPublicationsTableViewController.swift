@@ -29,7 +29,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     var isFiltered = false
     let messageViewHidenY: CGFloat = -10
     let messageViewVisibleY: CGFloat = 62
-    let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as FCPublicationsTVCMessageView
+    let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
     
     override func viewDidLoad() {
         
@@ -167,7 +167,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
 //    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell =  tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell", forIndexPath: indexPath) as FCPublicationsTVCell
+        let cell =  tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell", forIndexPath: indexPath)as! FCPublicationsTVCell
 
         var publication: FCPublication
         

@@ -35,7 +35,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     
     func configureHeaderView() {
         
-        headerView = self.tableView.tableHeaderView as FCPublicationDetailsTVHeaderView
+        headerView = self.tableView.tableHeaderView as! FCPublicationDetailsTVHeaderView
         self.tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
         headerView.publication = self.publication
@@ -92,28 +92,28 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         
         if indexPath.row == 0 {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath) as FCPublicationsDetailsTVTitleCell
+            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath)as! FCPublicationsDetailsTVTitleCell
             cell.delegate = self
-            cell.publication = self.publication?
+            cell.publication = self.publication
             return cell
         }
         else if indexPath.row == 1 {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell", forIndexPath: indexPath) as FCPublicationDetailsTVReportsCell
+            var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell", forIndexPath: indexPath) as! FCPublicationDetailsTVReportsCell
             cell.delegate = self
-            cell.publication = self.publication?
+            cell.publication = self.publication
             return cell
             
         }
         else if indexPath.row == 2 {
-            var cell = self.tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as FCPublicationDetailsDatesCell
+            var cell = self.tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as! FCPublicationDetailsDatesCell
             cell.publication = self.publication
             return cell
         }
         else if indexPath.row == 3 {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsPhotoCell", forIndexPath: indexPath) as FCPublicationDetailsPhotoCell
-            cell.publication = self.publication?
+            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsPhotoCell", forIndexPath: indexPath) as! FCPublicationDetailsPhotoCell
+            cell.publication = self.publication
             return cell
         }
         else {
@@ -124,7 +124,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     }
     
     func fetchPublicationPhoto() {
-        if let publication = self.publication? {
+        if let publication = self.publication {
             if publication.photoData.photo == nil && !publication.photoData.didTryToDonwloadImage {
                 
                 
@@ -272,12 +272,12 @@ extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
         //add if to check whether there's a photo or default
         if self.publication?.photoData.photo == nil {return}
         
-        self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as FCPhotoPresentorNavigationController
+        self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as! FCPhotoPresentorNavigationController
 
         self.photoPresentorNavController.transitioningDelegate = self
         self.photoPresentorNavController.modalPresentationStyle = .Custom
         
-        let photoPresentorVC = self.photoPresentorNavController.viewControllers[0] as PublicationPhotoPresentorVC
+        let photoPresentorVC = self.photoPresentorNavController.viewControllers[0] as! PublicationPhotoPresentorVC
         photoPresentorVC.publication = self.publication
         
         self.navigationController?.presentViewController(
@@ -369,13 +369,13 @@ extension FCPublicationDetailsTVC: PublicationDetailsReprtsCellDelegate {
     func displayReportsWithFullScreen() {
 
         if self.publication!.reportsForPublication.count != 0 {
-            let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as FCPublicationReportsNavigationController
+            let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as! FCPublicationReportsNavigationController
             self.publicationReportsNavController = publicationReportsNavController
             
             publicationReportsNavController.transitioningDelegate = self
             publicationReportsNavController.modalPresentationStyle = .Custom
             
-            let publicationReportsTVC = publicationReportsNavController.viewControllers[0] as FCPublicationReportsTVC
+            let publicationReportsTVC = publicationReportsNavController.viewControllers[0] as! FCPublicationReportsTVC
             
             publicationReportsTVC.publication = self.publication
             

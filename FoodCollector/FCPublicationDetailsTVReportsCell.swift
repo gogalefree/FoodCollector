@@ -21,7 +21,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     
     var publication: FCPublication? {
         didSet{
-            if let publication = self.publication? {
+            if let publication = self.publication {
                 self.setup(publication)
             }
         }
@@ -58,7 +58,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("singleReportCell") as UITableViewCell as FCPublicationSingleReportCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("singleReportCell") as! UITableViewCell as! FCPublicationSingleReportCell
         
         if self.noReports {
             cell.noReports()
@@ -95,7 +95,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         self.tableView.rowHeight = 44
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         if let delegate = self.delegate {
             delegate.displayReportsWithFullScreen()
         }

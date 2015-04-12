@@ -47,14 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let option = launchOptions{
             
             if option[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
-                let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as [String : AnyObject]
+                let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as! [String : AnyObject]
                 FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
             }
             
 
             if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
-                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as UILocalNotification
+                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as! UILocalNotification
                 FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
             }
         }
@@ -63,7 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func registerAWSS3() {
+
+       let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityId: nil, accountId:  "458352772906", identityPoolId: "us-east-1:ec4b269f-88a9-471d-b548-7886e1f9f2d7", unauthRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolUnauth_DefaultRole", authRoleArn:  "arn:aws:iam::458352772906:role/Cognito_food_collector_poolAuth_DefaultRole", logins: nil)
+    
         
+        /*
         let credentialsProvider = AWSCognitoCredentialsProvider.credentialsWithRegionType(
             AWSRegionType.USEast1,
             accountId: "458352772906",
@@ -71,11 +75,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             unauthRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolUnauth_DefaultRole",
             authRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolAuth_DefaultRole"
         )
-        
+        */
         let defaultServiceConfiguration = AWSServiceConfiguration(
             region: AWSRegionType.USEast1,
             credentialsProvider: credentialsProvider)
-        AWSServiceManager.defaultServiceManager().setDefaultServiceConfiguration(defaultServiceConfiguration)
+        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = defaultServiceConfiguration
+        //AWSServiceManager.defaultServiceManager().setDefaultServiceConfiguration(defaultServiceConfiguration)
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -83,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var token = deviceToken.description as NSString
         token = token.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
         token = token.stringByReplacingOccurrencesOfString(" ", withString: "")
-        FCUserNotificationHandler.sharedInstance.registerForPushNotificationWithToken(token)
+        FCUserNotificationHandler.sharedInstance.registerForPushNotificationWithToken(token as String)
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -170,7 +175,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //delete all photos
         let fm = NSFileManager.defaultManager()
         var photoPath = FCModel.sharedInstance.photosDirectoryUrl.path!
-        let files = fm.contentsOfDirectoryAtPath(photoPath, error: nil) as [String]
+        let files = fm.contentsOfDirectoryAtPath(photoPath, error: nil) as! [String]
         var error: NSError?
         for file in files {
             
@@ -182,13 +187,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func deletePublication(userInfo: [NSObject: AnyObject]) {
         
-        let data = userInfo[kRemoteNotificationDataKey]! as [String : AnyObject]
-        let uniqueId = data[kPublicationUniqueIdKey]! as Int
-        let version = data[kPublicationVersionKey]! as Int
+        let data = userInfo[kRemoteNotificationDataKey]! as! [String : AnyObject]
+        let uniqueId = data[kPublicationUniqueIdKey]! as! Int
+        let version = data[kPublicationVersionKey]! as! Int
 
         let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
         if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
-            var publications = NSKeyedUnarchiver.unarchiveObjectWithFile(publicationsFilePath) as [FCPublication]
+            var publications = NSKeyedUnarchiver.unarchiveObjectWithFile(publicationsFilePath) as! [FCPublication]
             for (index, publication) in enumerate(publications) {
                 
                 if version == publication.version && uniqueId == publication.uniqueId {

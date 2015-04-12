@@ -38,7 +38,7 @@ class FCPublicationReportsTVC: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-        let cell = tableView.dequeueReusableCellWithIdentifier("publicationReportsTVCell", forIndexPath: indexPath) as FCPublicationReporetsTVCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("publicationReportsTVCell", forIndexPath: indexPath) as! FCPublicationReporetsTVCell
 
         cell.report = self.publication.reportsForPublication[indexPath.row]
         return cell
