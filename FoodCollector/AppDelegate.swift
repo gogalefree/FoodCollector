@@ -26,9 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
         
-        
-        let a = 10
-        
         //uncomment to check the device uuid report service
         //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
 

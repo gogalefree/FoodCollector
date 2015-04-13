@@ -96,6 +96,7 @@
 		E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */; };
 		E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */; };
 		E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */; };
+		E4F1A8611ADB9D5600973C51 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1A8601ADB9D5600973C51 /* AboutVC.swift */; };
 		E4F8391F1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F8391E1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift */; };
 		E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */; };
 		E4F839231ABB03460055A277 /* FCPublicationReportsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839221ABB03460055A277 /* FCPublicationReportsTVC.swift */; };
@@ -210,6 +211,7 @@
 		E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsSorter.swift; sourceTree = "<group>"; };
 		E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCTableViewAnimator.swift; sourceTree = "<group>"; };
 		E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		E4F1A8601ADB9D5600973C51 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		E4F8391E1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsPresentationController.swift; sourceTree = "<group>"; };
 		E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsVCAnimator.swift; sourceTree = "<group>"; };
 		E4F839221ABB03460055A277 /* FCPublicationReportsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsTVC.swift; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 		E4737DA71A10C1DD00A4AB81 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E4F1A8601ADB9D5600973C51 /* AboutVC.swift */,
 				E4737DAB1A10C24A00A4AB81 /* Main */,
 				E4737DAA1A10C23200A4AB81 /* Publisher */,
 				E4737DA91A10C21C00A4AB81 /* Collector */,
@@ -798,6 +801,7 @@
 				E4737D8C1A10C01300A4AB81 /* FCModel.swift in Sources */,
 				E4214E701A63E1020070332D /* FCPublishStringFieldsEditorVC.swift in Sources */,
 				E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */,
+				E4F1A8611ADB9D5600973C51 /* AboutVC.swift in Sources */,
 				E407DEA51AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift in Sources */,
 				E4737D9F1A10C01300A4AB81 /* FCStringFunctions.swift in Sources */,
 				E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */,
