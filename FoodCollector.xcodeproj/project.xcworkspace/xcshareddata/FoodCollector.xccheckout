@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D8F3B9F9-8FC3-4536-8201-8818F94EBF99</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FoodCollector</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</key>
+		<string>https://github.com/gogalefree/FoodCollector.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FoodCollector.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/gogalefree/FoodCollector.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FoodCollector</string>
+		</dict>
+	</array>
+</dict>
+</plist>
