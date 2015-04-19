@@ -85,7 +85,7 @@ class FCActivityCenterTVCell: UITableViewCell {
     }
     
     private func toString() -> String {
-        return "\(10)"
+        return "\(publication.reportsForPublication.count)"
     }
     
 }
