@@ -54,7 +54,8 @@ class FCIconFactory: NSObject {
         switch publication.countOfRegisteredUsers {
             
         case 0...1:
-            icon = UIImage(named: "Pin-Table-Whole")!
+            //icon = UIImage(named: "Pin-Table-Whole")!
+            icon = UIImage(named: "Pin-Table-Half")!
             
         case 2...4:
             icon = UIImage(named: "Pin-Table-Half")!
