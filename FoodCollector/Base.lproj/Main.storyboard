@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -568,7 +568,7 @@
                                             </variation>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-vw-aeu">
-                                            <rect key="frame" x="8" y="17" width="516" height="19"/>
+                                            <rect key="frame" x="58" y="17" width="466" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="516" id="747-RT-dRK"/>
                                             </constraints>
@@ -586,19 +586,29 @@
                                                 </mask>
                                             </variation>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgc-mg-1nz" customClass="FCActivityCenterTVCellBadgeLabel" customModule="FoodCollector" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="17" width="21" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="21" id="c3V-m9-tOu"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="-6" id="7Tu-LJ-8fu"/>
-                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="leading" secondItem="fgF-vw-aeu" secondAttribute="trailing" constant="8" symbolic="YES" id="JmM-Kg-XOj">
-                                            <variation key="heightClass=compact-widthClass=regular" constant="10"/>
-                                        </constraint>
-                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="VFm-Ha-E8Z"/>
+                                        <constraint firstItem="qgc-mg-1nz" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="7d2-2J-oXz"/>
+                                        <constraint firstItem="3lK-nq-ZwC" firstAttribute="leading" secondItem="fgF-vw-aeu" secondAttribute="trailing" constant="8" symbolic="YES" id="Ava-N8-gmZ"/>
+                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="qgc-mg-1nz" secondAttribute="trailing" constant="29" id="BPJ-zI-thM"/>
+                                        <constraint firstItem="qgc-mg-1nz" firstAttribute="centerY" secondItem="3lK-nq-ZwC" secondAttribute="centerY" id="ELi-Kn-mm4"/>
+                                        <constraint firstItem="qgc-mg-1nz" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="9" id="OiA-BZ-4uL"/>
                                         <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="YpH-Yr-h90"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="fgF-vw-aeu" secondAttribute="bottom" constant="10" id="ark-Qj-6bg"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="fgF-vw-aeu" secondAttribute="bottom" constant="10.5" id="boW-hr-3wl"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="3lK-nq-ZwC" secondAttribute="trailing" constant="10" id="bvJ-gg-SlK"/>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="centerY" secondItem="gHd-qA-QwO" secondAttribute="centerY" id="irM-bJ-V8J"/>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="-6" id="jeL-Ec-rQO"/>
-                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="9" id="p0p-77-1rw"/>
+                                        <constraint firstItem="qgc-mg-1nz" firstAttribute="top" secondItem="fgF-vw-aeu" secondAttribute="top" id="rN0-PC-wac"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -609,7 +619,6 @@
                                     </variation>
                                     <variation key="heightClass=compact-widthClass=regular">
                                         <mask key="constraints">
-                                            <exclude reference="VFm-Ha-E8Z"/>
                                             <include reference="YpH-Yr-h90"/>
                                         </mask>
                                     </variation>
@@ -618,6 +627,7 @@
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="iconImageView" destination="3lK-nq-ZwC" id="ZCv-YO-fFh"/>
+                                    <outlet property="notificationLabel" destination="qgc-mg-1nz" id="nzv-ex-IHc"/>
                                     <outlet property="titleLabel" destination="fgF-vw-aeu" id="aNF-oH-hbG"/>
                                 </connections>
                             </tableViewCell>

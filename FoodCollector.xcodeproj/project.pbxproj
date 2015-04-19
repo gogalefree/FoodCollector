@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EBD3A071ADEC7E100BCFFC2 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBD3A061ADEC7E100BCFFC2 /* FCActivityCenterTVCellBadgeLabel.swift */; };
 		A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
 		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
@@ -101,6 +102,7 @@
 
 /* Begin PBXFileReference section */
 		4C0F0BBFA42B094D8A074F35 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EBD3A061ADEC7E100BCFFC2 /* FCActivityCenterTVCellBadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCellBadgeLabel.swift; sourceTree = "<group>"; };
 		A108F5C41A94732A00816EFA /* BaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURL.plist; sourceTree = "<group>"; };
 		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */,
 				E45DA7351A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib */,
 				E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */,
+				5EBD3A061ADEC7E100BCFFC2 /* FCActivityCenterTVCellBadgeLabel.swift */,
 			);
 			name = "Activity Center";
 			sourceTree = "<group>";
@@ -665,7 +668,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -725,6 +728,7 @@
 				E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
 				E4F8391F1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift in Sources */,
+				5EBD3A071ADEC7E100BCFFC2 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */,
 				E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */,
 				E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */,
 				E4737D891A10C01300A4AB81 /* FCCollectorRootVC.swift in Sources */,
