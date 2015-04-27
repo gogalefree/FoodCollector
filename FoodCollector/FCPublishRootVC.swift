@@ -93,8 +93,13 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         
-        self.collectionView.collectionViewLayout.invalidateLayout()
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        if let collectionView = self.collectionView {
+        
+            self.collectionView.collectionViewLayout.invalidateLayout()
+            super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

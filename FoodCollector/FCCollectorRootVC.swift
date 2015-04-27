@@ -43,7 +43,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     var trackingUserLocation = false
     var locationManager = CLLocationManager()
     var didFailToRegisterPushNotifications = {
-        NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
+        return NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
         }()
     
     //MARK: - Location Manager setup
@@ -111,8 +111,12 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
+        let registeredForRemoteNotifications = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
         
-        if self.didFailToRegisterPushNotifications &&
+        println("types are \(registeredForRemoteNotifications)")
+        
+        if !registeredForRemoteNotifications &&
             !NSUserDefaults.standardUserDefaults().boolForKey(kDidShowFailedToRegisterForPushAlertKey){
                 
                 let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")

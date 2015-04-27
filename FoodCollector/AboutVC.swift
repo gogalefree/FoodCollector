@@ -28,8 +28,8 @@ class AboutVC: UIViewController {
         
         let dictionary = NSBundle.mainBundle().infoDictionary!
         let version = dictionary["CFBundleShortVersionString"] as! String
-        
-        return "\(version)"
+        let x = 10
+        return version
     }
     
     func build() -> String {
