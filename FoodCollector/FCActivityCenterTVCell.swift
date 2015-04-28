@@ -12,6 +12,8 @@ class FCActivityCenterTVCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var notificationLabel: FCActivityCenterTVCellBadgeLabel!
+
     
     var publication: FCPublication! {
         didSet{
@@ -61,6 +63,23 @@ class FCActivityCenterTVCell: UITableViewCell {
         self.iconImageView.image = UIImage(named: "NoPhoto-Placeholder")
 
         self.userInteractionEnabled = true
+    }
+    
+    func hideNotificationNumber() {
+        self.notificationLabel.alpha = 0
+    }
+    
+    func showNotificationNumber(){
+        if publication.countOfRegisteredUsers > 0 {
+            self.notificationLabel.text = toString()
+        }
+        else{
+            hideNotificationNumber()
+        }
+    }
+    
+    private func toString() -> String {
+        return "\(publication.reportsForPublication.count)"
     }
 
 }

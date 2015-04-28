@@ -567,8 +567,8 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-vw-aeu">
-                                            <rect key="frame" x="8" y="17" width="516" height="19"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-vw-aeu">
+                                            <rect key="frame" x="37" y="17" width="487" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="516" id="747-RT-dRK"/>
                                             </constraints>
@@ -586,9 +586,27 @@
                                                 </mask>
                                             </variation>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVY-Wg-6Zy" customClass="FCActivityCenterTVCellBadgeLabel" customModule="FoodCollector" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="16" width="21" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="KNV-em-kGl"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="21" id="aWX-pd-AMg"/>
+                                                <constraint firstAttribute="width" constant="21" id="ppe-rM-i2G"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="aWX-pd-AMg"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="EVY-Wg-6Zy" secondAttribute="trailing" constant="8" id="5vb-c9-GA5"/>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="-6" id="7Tu-LJ-8fu"/>
+                                        <constraint firstItem="EVY-Wg-6Zy" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="HEx-DE-afm"/>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="leading" secondItem="fgF-vw-aeu" secondAttribute="trailing" constant="8" symbolic="YES" id="JmM-Kg-XOj">
                                             <variation key="heightClass=compact-widthClass=regular" constant="10"/>
                                         </constraint>
@@ -599,9 +617,11 @@
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="centerY" secondItem="gHd-qA-QwO" secondAttribute="centerY" id="irM-bJ-V8J"/>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="-6" id="jeL-Ec-rQO"/>
                                         <constraint firstItem="fgF-vw-aeu" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="9" id="p0p-77-1rw"/>
+                                        <constraint firstAttribute="centerY" secondItem="EVY-Wg-6Zy" secondAttribute="centerY" constant="0.5" id="pMk-f0-igq"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="VFm-Ha-E8Z"/>
                                             <exclude reference="YpH-Yr-h90"/>
                                             <exclude reference="7Tu-LJ-8fu"/>
                                             <exclude reference="jeL-Ec-rQO"/>
@@ -618,6 +638,7 @@
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="iconImageView" destination="3lK-nq-ZwC" id="ZCv-YO-fFh"/>
+                                    <outlet property="notificationLabel" destination="EVY-Wg-6Zy" id="nEU-VV-EnR"/>
                                     <outlet property="titleLabel" destination="fgF-vw-aeu" id="aNF-oH-hbG"/>
                                 </connections>
                             </tableViewCell>

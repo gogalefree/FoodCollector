@@ -17,7 +17,6 @@ let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificati
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
 
@@ -31,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //uncomment to check the device push notification token report service
         //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+        
         
         
         let model = FCModel.sharedInstance
