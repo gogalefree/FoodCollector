@@ -10,14 +10,14 @@
 	<string>FoodCollector</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>BC4CACA4462653D6AFAD73C2FB0E7C193E7A348A</key>
+		<key>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</key>
 		<string>https://github.com/gogalefree/FoodCollector.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>FoodCollector.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>BC4CACA4462653D6AFAD73C2FB0E7C193E7A348A</key>
+		<key>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>BC4CACA4462653D6AFAD73C2FB0E7C193E7A348A</string>
+	<string>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>BC4CACA4462653D6AFAD73C2FB0E7C193E7A348A</string>
+			<string>3405B86EDE18226E5ACD1A8C41DBC99FE6FBE675</string>
 			<key>IDESourceControlWCCName</key>
 			<string>FoodCollector</string>
 		</dict>
