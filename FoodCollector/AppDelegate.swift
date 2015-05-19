@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import QuartzCore
 
 let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
@@ -24,6 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+     
+        // Nav bar color hex string: #3197d3
+        UINavigationBar.appearance().barTintColor = UIColor(red: 49/255, green: 151/255, blue: 211/255, alpha: 1)
+        UINavigationBar.appearance().translucent = true
         
         //uncomment to check the device uuid report service
         //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
@@ -39,21 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let userNotificationHandler = FCUserNotificationHandler.sharedInstance
         userNotificationHandler.setup()
+       
+        handelNotificationsIfNeeded(launchOptions)
         
-        if let option = launchOptions{
-            
-            if option[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
-                let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as! [String : AnyObject]
-                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
-            }
-            
-
-            if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
-                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as! UILocalNotification
-                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
-            }
-        }
         registerAWSS3()
         return true
     }
@@ -199,6 +194,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             NSKeyedArchiver.archiveRootObject(publications, toFile:publicationsFilePath)
+        }
+    }
+    
+    func handelNotificationsIfNeeded(launchOptions: [NSObject: AnyObject]?) {
+        
+        if let option = launchOptions{
+            
+            if option[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
+                let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as! [String : AnyObject]
+                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
+            }
+            
+            
+            if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
+                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as! UILocalNotification
+                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
+            }
         }
     }
 }
