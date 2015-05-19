@@ -30,17 +30,21 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     let messageViewHidenY: CGFloat = -10
     let messageViewVisibleY: CGFloat = 62
     let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
+    let navBarTitle = String.localizedStringWithFormat("אירועים בקירבתך", "Nav Bar title - the publications near you")
+    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.title = navBarTitle
         self.publications = FCModel.sharedInstance.publications
         self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
         addSearchBar()
         self.tableView.estimatedRowHeight = 96
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)
-        self.registerForNotifications()
+        self.registerForAppNotifications()
     }
     
     //MARK: - UISearchBar
@@ -292,7 +296,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         self.tableView.endUpdates()
     }
     
-    func registerForNotifications() {
+    func registerForAppNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)

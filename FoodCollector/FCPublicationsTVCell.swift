@@ -76,6 +76,7 @@ class FCPublicationsTVCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:96 ))
+        self.photoImageView.layer.cornerRadius = CGRectGetWidth(self.photoImageView.bounds) / 2
         
 
     }
