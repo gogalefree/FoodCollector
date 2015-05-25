@@ -31,6 +31,7 @@ class FCPublicationsTVCell: UITableViewCell {
         self.addressLabel.text = publication.address
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
         self.iconImageView.image = FCIconFactory.publicationsTableIcon(publication)
+        self.photoImageView.layer.cornerRadius = self.photoImageView.frame.height/2
         downloadImage()
     }
     
@@ -60,9 +61,11 @@ class FCPublicationsTVCell: UITableViewCell {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
             UIView.animateWithDuration(0.4, animations: { () -> Void in
+                
                 self.photoImageView.alpha = 0
                 self.photoImageView.image = self.publication?.photoData.photo
                 self.photoImageView.alpha = 1
+                self.photoImageView.layer.cornerRadius = self.photoImageView.frame.height/2
             })
 
         })
@@ -71,6 +74,7 @@ class FCPublicationsTVCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.photoImageView.image = UIImage(named: "NoPhoto-Placeholder")
+        self.photoImageView.layer.cornerRadius = self.photoImageView.frame.height/2
     }
     
     override func awakeFromNib() {

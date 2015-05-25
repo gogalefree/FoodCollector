@@ -29,6 +29,7 @@ class FCActivityCenterTVCell: UITableViewCell {
         // Initialization code
         
         self.titleLabel.textColor = UIColor.whiteColor()
+        self.iconImageView.layer.cornerRadius = CGRectGetWidth(self.iconImageView.bounds)/2
         
          self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:55 ))
         
