@@ -26,6 +26,7 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 
                 var status = ""
                 var statusImg : UIImage
+                self.FCPublisherEventImage.layer.cornerRadius = self.FCPublisherEventImage.frame.height/2
                 let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
                 
                 if FCDateFunctions.PublicationDidExpired(publication.endingDate){
