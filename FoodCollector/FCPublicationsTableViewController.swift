@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 10 Nov 2014.
-//  Copyright (c) 2014 UPP Project . All rights reserved.
+//  Copyright (c) 2015 UPP Project. All rights reserved.
 //
 
 
@@ -30,7 +30,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     let messageViewHidenY: CGFloat = -10
     let messageViewVisibleY: CGFloat = 62
     let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
-    let navBarTitle = String.localizedStringWithFormat("אירועים בקירבתך", "Nav Bar title - the publications near you")
+    let navBarTitle = String.localizedStringWithFormat("שיתופים בקירבתך", "Nav Bar title - the publications near you")
     
     
     override func viewDidLoad() {
@@ -53,9 +53,13 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         let searchBar = UISearchBar(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44))
         self.searchBar = searchBar
         searchBar.delegate = self
-        searchBar.placeholder = "Search"
+        // English String
+        // searchBar.placeholder = "Search"
+        searchBar.placeholder = "חיפוש" // Localized String
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
-        searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Available"]
+        // English String
+        // searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Active"]
+        searchBar.scopeButtonTitles = ["קרובים" , "אחרונים" , "פעילים"]  // Localized String
         searchBar.showsScopeBar = true
         searchBar.selectedScopeButtonIndex = 0
         searchBar.sizeToFit()

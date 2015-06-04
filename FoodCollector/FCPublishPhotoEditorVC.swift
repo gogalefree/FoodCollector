@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Boris Tsigelman on 03/01/15.
-//  Copyright (c) 2015 Guy Freeman. All rights reserved.
+//  Copyright (c) 2015 UPP Project. All rights reserved.
 //
 
 import UIKit

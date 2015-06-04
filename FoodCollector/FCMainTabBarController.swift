@@ -3,12 +3,12 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 1/7/15.
-//  Copyright (c) 2015 Guy Freeman. All rights reserved.
+//  Copyright (c) 2015 UPP Project. All rights reserved.
 //
 
 import UIKit
 
-let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("אירוע הסתיים בקירבתך:", "a message that informs the user that nothing was left and the publication ended")
+let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("שיתוף הסתיים בקירבתך:", "a message that informs the user that nothing was left and the publication ended")
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate {
     

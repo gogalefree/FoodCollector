@@ -4,7 +4,7 @@
 //  FoodCollector
 //
 //  Created by Boris Tsigelman on 18/02/15.
-//  Copyright (c) 2015 Guy Freeman. All rights reserved.
+//  Copyright (c) 2015 UPP Project. All rights reserved.
 //
 
 // chmod +rx       adds read and execute for everyone
