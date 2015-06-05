@@ -60,6 +60,11 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     
     @IBAction func saveButtonAction(sender: AnyObject) {
         
+        //for iPhone 3.5 inch. animate the view down if needed
+        if self.view.frame.height == 480 && self.didAnimateViewUp {
+            animateViewDown()
+        }
+        
         let unwindSegueId = "unwindFromTypeOfCollectionEditorVC"
         let userChosenTypeOfCollectin = self.collectionTypePicker.selectedRowInComponent(0) + 1
         let typeOfCollecting = FCTypeOfCollecting(rawValue: userChosenTypeOfCollectin)!

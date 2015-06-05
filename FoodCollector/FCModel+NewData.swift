@@ -27,7 +27,7 @@ extension FCModel {
         let prepareDataQperation = NSBlockOperation { () -> Void in
             
             for fetchedPublication in self.fetchedPublications {
-                
+                              
                 for publication in self.publications {
                     
                     if fetchedPublication.uniqueId == publication.uniqueId &&

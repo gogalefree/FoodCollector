@@ -45,14 +45,20 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         }
         else {
             
+            userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(userCreatedPublications)
             userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)
             collectionView.userInteractionEnabled = true
             collectionView.scrollEnabled = true
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "newUserCreatedPublication", name: kNewUserCreatedPublicationNotification, object: nil)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublicationNotification", name: kDeletedPublicationNotification, object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        self.collectionView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -243,7 +249,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         switch selectedScope {
         case 0:
             //sort by onAire
-            self.userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(self.userCreatedPublications)
+             self.userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(self.userCreatedPublications)
         case 1:
             //sort by OffAir
             self.userCreatedPublications = FCPublicationsSorter.sortPublicationsByIsOffAir(self.userCreatedPublications)

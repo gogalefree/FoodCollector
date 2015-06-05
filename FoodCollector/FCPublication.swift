@@ -123,9 +123,6 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             super.init()
     }
     
-    deinit {
-        println("DEINIT publication id: \(self.uniqueId) version: \(self.version)")
-    }
     // MARK: - NSSecureCoding protocol
     
     
@@ -147,7 +144,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeBool(self.didRegisterForCurrentPublication, forKey: kDidRegisterForCurrentPublicationKey)
         aCoder.encodeBool(self.didModifyCoords, forKey: kDidModifyCoordinatesKey)
         aCoder.encodeInteger(self.countOfRegisteredUsers, forKey: kPublicationCountOfRegisteredUsersKey)
-        println("SAVE COUNT OG REGISTERED: \(self.countOfRegisteredUsers)")
+        
 
     
         var reportsMessageArray = [Int]()
@@ -183,8 +180,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.didRegisterForCurrentPublication = aDecoder.decodeBoolForKey(kDidRegisterForCurrentPublicationKey) as Bool
         self.didModifyCoords = aDecoder.decodeBoolForKey(kDidModifyCoordinatesKey) as Bool
         self.countOfRegisteredUsers = aDecoder.decodeIntegerForKey(kPublicationCountOfRegisteredUsersKey) as Int
-        
-        println("COUNT OG REGISTERED: \(self.countOfRegisteredUsers)")
+      
         
         var reportsMessageArray : [Int]? = [Int]()
         var reportsDateArray : [Int]? = [Int]()
@@ -213,7 +209,6 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             
             //delete this when we implement count of registered users service
             self.countOfRegisteredUsers  = count
-            println("COUNT Of Reports: \(self.countOfRegisteredUsers)")
 
         }
         }

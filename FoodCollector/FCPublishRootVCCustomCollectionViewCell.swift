@@ -64,7 +64,7 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
         
                                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                         
-                                        UIView.animateWithDuration(0.4, animations: { () -> Void in
+                                        UIView.animateWithDuration(0.2, animations: { () -> Void in
                                             self.FCPublisherEventImage.alpha = 0
                                             self.FCPublisherEventImage.image = publication.photoData.photo
                                             self.FCPublisherEventImage.alpha = 1
@@ -80,5 +80,10 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         self.FCPublisherEventImage.image = UIImage(named: "NoPhoto-Placeholder")
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:90))
     }
 }

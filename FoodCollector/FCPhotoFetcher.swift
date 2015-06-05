@@ -28,7 +28,6 @@ class FCPhotoFetcher: NSObject {
         
         transferManager.download(downloadRequest).continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
             
-            println("inside the block")
             
             if task.error != nil {
                 println(task.error)
@@ -38,7 +37,6 @@ class FCPhotoFetcher: NSObject {
             if task.result != nil {
                 
                 let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
-                println("success")
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
                 publication.photoData.didTryToDonwloadImage = true
                 if let publicationPhoto = photo {
@@ -74,12 +72,12 @@ class FCPhotoFetcher: NSObject {
             
             if task.error != nil {
                 
-                println("task error: \(task.error)")
+             //   println("task error: \(task.error)")
             }
             
             if task.result != nil {
                 
-                println("success: \(task.result)")
+            //    println("success: \(task.result)")
             }
             
             return nil
@@ -87,9 +85,5 @@ class FCPhotoFetcher: NSObject {
         
     }
 
-    
-    deinit {
-        println("DEINIT PHOTO FETCHER")
-    }
     
 }
