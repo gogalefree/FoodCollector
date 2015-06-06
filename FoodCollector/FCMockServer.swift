@@ -17,7 +17,7 @@ let postNewPublicationURL           = baseUrlString + "publications.json"
 let reportArrivedToPublicationURL   = baseUrlString + "publications/"
 let reportsForPublicationBaseURL    = baseUrlString + "publications/"
 let reportUserLocationURL           = baseUrlString + "active_devices/dev_uuid.json"
-
+let getPublicationWithIdentifierURL = baseUrlString + "publications/"
 
 public class FCMockServer: NSObject , FCServerProtocol {
     
@@ -27,34 +27,55 @@ public class FCMockServer: NSObject , FCServerProtocol {
     func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: FCPublication) ->  Void) {
         
         let uniqueId = identifier.uniqueId
-        let version = identifier.version
-        let title = "55 מנות חומוס פול"
-        let subtitle = "חומוס עוזי המקורי!"
-        let address = "רחוב שער העמק 17 נתניה"
-        let typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        let coordinate = CLLocationCoordinate2D(latitude: 32.362653, longitude: 34.923906)
-        let startingDate = NSDate()
-        let endingDate = NSDate(timeIntervalSinceNow: 266000)
-        let photoUrl = "www.maayan.com"
+//        let version = identifier.version
+//        let title = "55 מנות חומוס פול"
+//        let subtitle = "חומוס עוזי המקורי!"
+//        let address = "רחוב שער העמק 17 נתניה"
+//        let typeOfCollecting = FCTypeOfCollecting.ContactPublisher
+//        let coordinate = CLLocationCoordinate2D(latitude: 32.362653, longitude: 34.923906)
+//        let startingDate = NSDate()
+//        let endingDate = NSDate(timeIntervalSinceNow: 266000)
+//        let photoUrl = "www.maayan.com"
+//
+//        var params = [String : AnyObject]()
+//        params[kPublicationUniqueIdKey] = uniqueId
+//        params[kPublicationVersionKey] = version
+//        params[kPublicationTitleKey] = title
+//        params[kPublicationSubTitleKey] = subtitle
+//        params[kPublicationAddressKey] = address
+//        params[kPublicationTypeOfCollectingKey] = typeOfCollecting.rawValue
+//        params[kPublicationlatitudeKey] = "\(coordinate.latitude)"
+//        params[kPublicationLongtitudeKey] = "\(coordinate.longitude)"
+//        params[kPublicationStartingDateKey] = "\(startingDate.timeIntervalSince1970)"
+//        params[kPublicationEndingDateKey] = "\(endingDate.timeIntervalSince1970)"
+//        params[kPublicationContactInfoKey] = "0545554444"
+        
+        let session = NSURLSession.sharedSession()
+        let url = NSURL(string: getPublicationWithIdentifierURL + "\(uniqueId)")
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            
+            if let serverResponse = response  {
+                var aServerResponse = serverResponse as! NSHTTPURLResponse
+                print("response: \(serverResponse.description)")
 
-        var params = [String : AnyObject]()
-        params[kPublicationUniqueIdKey] = uniqueId
-        params[kPublicationVersionKey] = version
-        params[kPublicationTitleKey] = title
-        params[kPublicationSubTitleKey] = subtitle
-        params[kPublicationAddressKey] = address
-        params[kPublicationTypeOfCollectingKey] = typeOfCollecting.rawValue
-        params[kPublicationlatitudeKey] = "\(coordinate.latitude)"
-        params[kPublicationLongtitudeKey] = "\(coordinate.longitude)"
-        params[kPublicationStartingDateKey] = "\(startingDate.timeIntervalSince1970)"
-        params[kPublicationEndingDateKey] = "\(endingDate.timeIntervalSince1970)"
-        params[kPublicationContactInfoKey] = "0545554444"
-        
-        let publication = FCPublication.publicationWithParams(params)
-        
-        completion(publication: publication)
-        
-        
+                
+                if error == nil && aServerResponse.statusCode == 200{
+                   
+                    let publicationDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String : AnyObject]
+                    
+                    if let params = publicationDict {
+
+                        let publication = FCPublication.publicationWithParams(params)
+
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            completion(publication: publication)
+                        })
+                        
+                    }
+                }
+            }
+        })
+        task.resume()
     }
     
     ///
