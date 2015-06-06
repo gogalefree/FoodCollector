@@ -28,15 +28,17 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
 
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.tableView.estimatedRowHeight = 55
         self.tableView.rowHeight = UITableViewAutomaticDimension
         reload()
-        
         leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
+        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
     }
     
     func leftSwipeAction(recognizer: UISwipeGestureRecognizer) {
+        
         let container = self.navigationController?.parentViewController as! FCCollectorContainerController
         container.collectorVCWillSlide()
     }
@@ -52,6 +54,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     }
     
     func reload() {
+        
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
         self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
         self.removeExpiredUserCreatedPublications()
@@ -110,9 +113,6 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
        
         let cell = tableView.dequeueReusableCellWithIdentifier("FCActivityCenterTVCell", forIndexPath: indexPath) as! FCActivityCenterTVCell
         
-//        let colorView = UIView()
-//        colorView.backgroundColor = UIColor.blackColor()
-//        cell.selectedBackgroundView = colorView
         let publication = self.publicationForIndexPath(indexPath)
         cell.publication = publication
         return cell
@@ -174,7 +174,6 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     //MARK: - header views delegate
     
     func headerTapped(section: Int) {
-        println("ACTIVITY CENTER HEADER \(section)")
         
         switch section {
         case 0:

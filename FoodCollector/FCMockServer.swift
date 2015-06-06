@@ -290,7 +290,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
     
     func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage) {
         
-        //we are currently only registering the user. we shoukd think of how to delete a registration. shoukd ut be through a delete service or add the registration message to this payload.
+        //we are currently only registering the user. we should think of how to delete a registration. should it be through a delete service or add the registration message to this payload.
         
         let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)/registered_user_for_publications.json"
         

@@ -16,6 +16,7 @@ extension FCModel {
             { (thePublications: [FCPublication]) -> Void in
                 
                 self.fetchedPublications = thePublications
+                println("NEW DATA COUNT ******** \(self.fetchedPublications.count)")
                 self.prepareNewData()
         }
     }
@@ -93,6 +94,8 @@ extension FCModel {
             self.publications = self.fetchedPublications
             self.savePublications()
         }
+        
+        //add fetch number of registered users for publication
         
         let prepareDataQue = NSOperationQueue.mainQueue()
         prepareDataQue.qualityOfService = .Background
