@@ -286,8 +286,10 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     }
     
     func showPhoneNumberAllert() {
-        let alertTitle = String.localizedStringWithFormat("מספר טלפון לא תקין", "Alert title: Phone number is incorrect")
-        let alertMessage = String.localizedStringWithFormat("אנא בידקו שמספר הטלפון הינו בעל 9 או 10 ספרות ושהקידומת נכונה", "Alert message: Please check that the phone number has 9 or 10 digits and that the area code is correct")
+        //let alertTitle = String.localizedStringWithFormat("מספר טלפון לא תקין", "Alert title: Phone number is incorrect")
+        //let alertMessage = String.localizedStringWithFormat("אנא בידקו שמספר הטלפון הינו בעל 9 או 10 ספרות ושהקידומת נכונה", "Alert message: Please check that the phone number has 9 or 10 digits and that the area code is correct")
+        let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
+        let alertMessage = String.localizedStringWithFormat("נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed correctly.")
         let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))

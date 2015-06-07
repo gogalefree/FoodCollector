@@ -931,7 +931,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="DkS-KZ-6DQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="lWx-p4-UgB">
+                        <barButtonItem key="rightBarButtonItem" title="סיום" id="lWx-p4-UgB">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="dissmiss" destination="6Rt-Iu-LwM" id="zg8-Vn-42H"/>
