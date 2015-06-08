@@ -206,10 +206,6 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             }
             
             self.reportsForPublication = publicationReports
-            
-            //delete this when we implement count of registered users service
-            self.countOfRegisteredUsers  = count
-
         }
         }
         

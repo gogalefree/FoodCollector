@@ -11,7 +11,7 @@ import Foundation
 import MapKit
 import CoreLocation
 
-let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
+let kShouldShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
 let kActivityCenterTitle = String.localizedStringWithFormat("מרכז הפעילות","activity center navigation bar title")
 let kCollctorTitle = String.localizedStringWithFormat("אוסף","collector root vc navigation bar title")
 
@@ -109,27 +109,35 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }        
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if tabbarVisibleCenter == CGPointZero {
+            self.defineBarsCenterPoints()
+        }
+
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        //uncomment to present enable push notifications message
 
         let registeredForRemoteNotifications = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
         
-        println("types are \(registeredForRemoteNotifications)")
-        
         if !registeredForRemoteNotifications &&
-            !NSUserDefaults.standardUserDefaults().boolForKey(kDidShowFailedToRegisterForPushAlertKey){
+            NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowFailedToRegisterForPushAlertKey){
                 
                 let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
-                //uncomment to show this message only once
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidShowFailedToRegisterForPushAlertKey)
+                //comment to show this message every time
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowFailedToRegisterForPushAlertKey)
         }
         
-        dispatch_once(&onceToken, { () -> Void in
-            FCModel.sharedInstance.uiReadyForNewData = true
-            self.defineBarsCenterPoints()
-        })
+//        dispatch_once(&onceToken, { () -> Void in
+//            FCModel.sharedInstance.uiReadyForNewData = true
+//            self.defineBarsCenterPoints()
+//        })
     }
     
     //MARK: - UI configuration

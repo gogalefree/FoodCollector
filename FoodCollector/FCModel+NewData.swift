@@ -71,6 +71,17 @@ extension FCModel {
         
         checkIfTwoPublicationsInTheSameCoordinatesOperation.addDependency(prepareDataQperation)
         
+        let fetchPublicationsRegistrationsOperation = NSBlockOperation { () -> Void in
+            
+            for publication in self.fetchedPublications {
+                
+                let registrationFetcher = FCPublicationRegistrationsFetcher()
+                registrationFetcher.publication = publication
+            }
+        }
+        
+        fetchPublicationsRegistrationsOperation.addDependency(checkIfTwoPublicationsInTheSameCoordinatesOperation)
+        
         let fetchPublicationReportsOperation = NSBlockOperation { () -> Void in
             
             let counter = self.fetchedPublications.count - 1
@@ -79,7 +90,6 @@ extension FCModel {
                     
                     if success {
                         publication.reportsForPublication = reports!
-                        publication.countOfRegisteredUsers = publication.reportsForPublication.count
                     }
                     if counter == index {
                         self.postFetchedDataReadyNotification()
@@ -88,17 +98,19 @@ extension FCModel {
             }
         }
         
-        fetchPublicationReportsOperation.addDependency(checkIfTwoPublicationsInTheSameCoordinatesOperation)
+        fetchPublicationReportsOperation.addDependency(fetchPublicationsRegistrationsOperation)
         fetchPublicationReportsOperation.completionBlock = {
             
             self.publications = self.fetchedPublications
             self.savePublications()
         }
         
+        
+        
         //add fetch number of registered users for publication
         
         let prepareDataQue = NSOperationQueue.mainQueue()
         prepareDataQue.qualityOfService = .Background
-        prepareDataQue.addOperations([prepareDataQperation ,checkIfTwoPublicationsInTheSameCoordinatesOperation, fetchPublicationReportsOperation ], waitUntilFinished: false)
+        prepareDataQue.addOperations([prepareDataQperation ,checkIfTwoPublicationsInTheSameCoordinatesOperation, fetchPublicationReportsOperation, fetchPublicationsRegistrationsOperation ], waitUntilFinished: false)
     }
 }

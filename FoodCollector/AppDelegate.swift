@@ -88,6 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //the alert is presented in collector root vc
         println("FAILED TO REGISTER PUSH NOTIFICATIONS: \(error.description)")
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kShouldShowFailedToRegisterForPushAlertKey)
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
