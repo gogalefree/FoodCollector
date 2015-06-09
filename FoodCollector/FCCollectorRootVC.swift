@@ -122,18 +122,18 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         
         //uncomment to present enable push notifications message
 
-        let registeredForRemoteNotifications = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
-        
-        if !registeredForRemoteNotifications &&
-            NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowFailedToRegisterForPushAlertKey){
-                
-                let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")
-                self.presentViewController(alertController, animated: true, completion: nil)
-                
-                //comment to show this message every time
-                NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowFailedToRegisterForPushAlertKey)
-        }
-        
+//        let registeredForRemoteNotifications = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
+//        
+//        if !registeredForRemoteNotifications &&
+//            NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowFailedToRegisterForPushAlertKey){
+//                
+//                let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")
+//                self.presentViewController(alertController, animated: true, completion: nil)
+//                
+//                //comment to show this message every time
+//                NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowFailedToRegisterForPushAlertKey)
+//        }
+//        
 //        dispatch_once(&onceToken, { () -> Void in
 //            FCModel.sharedInstance.uiReadyForNewData = true
 //            self.defineBarsCenterPoints()

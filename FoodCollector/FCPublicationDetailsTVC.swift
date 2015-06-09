@@ -12,8 +12,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     
     var publication: FCPublication?
     
-    private let kTableViewHeaderHeight: CGFloat = 300.0
-    var headerView: FCPublicationDetailsTVHeaderView!
+   // private let kTableViewHeaderHeight: CGFloat = 300.0
+   // var headerView: FCPublicationDetailsTVHeaderView!
 
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
@@ -23,105 +23,171 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.estimatedRowHeight = 140
-        configureHeaderView()
-        fetchPublicationReports()
-        fetchPublicationPhoto()
+        self.tableView.estimatedRowHeight = 65
+//        configureHeaderView()
+//        fetchPublicationReports()
+//        fetchPublicationPhoto()
         registerForNotifications()
         
         self.title = publication?.title
-        
     }
     
-    func configureHeaderView() {
+//    func configureHeaderView() {
+//        
+//        headerView = self.tableView.tableHeaderView as! FCPublicationDetailsTVHeaderView
+//        self.tableView.tableHeaderView = nil
+//        tableView.addSubview(headerView)
+//        headerView.publication = self.publication
+//        addTapGestureToHeaderView()
+//        
+//        self.tableView.contentInset = UIEdgeInsets(top: kTableViewHeaderHeight, left: 0, bottom: 0, right: 0)
+//        self.tableView.contentOffset = CGPointMake(0, -kTableViewHeaderHeight)
+//        updateHeaderView()
+//
+//    }
+    
+//    func updateHeaderView() {
+//        
+//        var headerRect = CGRect(x: 0, y: -kTableViewHeaderHeight, width: self.tableView.bounds.width, height: kTableViewHeaderHeight)
+//        if self.tableView.contentOffset.y < -kTableViewHeaderHeight {
+//            headerRect.origin.y = tableView.contentOffset.y
+//            headerRect.size.height = -tableView.contentOffset.y
+//        }
+//        self.headerView.frame = headerRect
+//        
+//        self.headerView.updateCutAway(headerRect)
+//    }
+//    
+//    override func scrollViewDidScroll(scrollView: UIScrollView) {
+//        updateHeaderView()
+//    }
+    
+    //MARK: - Table view Headers
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        headerView = self.tableView.tableHeaderView as! FCPublicationDetailsTVHeaderView
-        self.tableView.tableHeaderView = nil
-        tableView.addSubview(headerView)
-        headerView.publication = self.publication
-        addTapGestureToHeaderView()
-        
-        self.tableView.contentInset = UIEdgeInsets(top: kTableViewHeaderHeight, left: 0, bottom: 0, right: 0)
-        self.tableView.contentOffset = CGPointMake(0, -kTableViewHeaderHeight)
-        updateHeaderView()
-
+        if section == 1 {return 80}
+        return 0
     }
     
-    func updateHeaderView() {
-        
-        var headerRect = CGRect(x: 0, y: -kTableViewHeaderHeight, width: self.tableView.bounds.width, height: kTableViewHeaderHeight)
-        if self.tableView.contentOffset.y < -kTableViewHeaderHeight {
-            headerRect.origin.y = tableView.contentOffset.y
-            headerRect.size.height = -tableView.contentOffset.y
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section != 1 {
+            return nil
         }
-        self.headerView.frame = headerRect
-        
-        self.headerView.updateCutAway(headerRect)
-    }
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        updateHeaderView()
+        let header = UIView.loadFromNibNamed("PublicationDetsilsActionsHeaderView", bundle: nil) as? PublicationDetsilsActionsHeaderView
+        header?.publication = self.publication
+        return header
     }
     
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            return UITableViewAutomaticDimension
+            //title cell
+            if indexPath.row == 0 {return UITableViewAutomaticDimension}
+            //image cell
+            else if indexPath.row == 1 {return 160}
         case 1:
-            return FCPublicationDetailsTVReportsCell.heightForPublication(self.publication)
+            //subtitle cell
+            if indexPath.row == 0 {return UITableViewAutomaticDimension}
+            //dates cell
+            else if indexPath.row == 1 {return 60}
+            //reports title cell
+            else if indexPath.row == 2 {return 60}
+            //reports cell
+            else {return FCPublicationDetailsTVReportsCell.heightForPublication(self.publication)}
         default:
             return UITableViewAutomaticDimension
         }
+        return UITableViewAutomaticDimension
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
   
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //change to 4 if we want the photo cell down
+        
+        if section == 0 {return 2}
+
         return 3
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
+        switch indexPath.section {
+        case 0:
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath)as! FCPublicationsDetailsTVTitleCell
-            cell.delegate = self
-            cell.publication = self.publication
-            return cell
-        }
-        else if indexPath.row == 1 {
+            switch indexPath.row {
+            case 0:
+                //Title cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsTitleCellTableViewCell", forIndexPath: indexPath) as! PublicationDetailsTitleCellTableViewCell
+                cell.publication = self.publication
+                return cell
+                
+            case 1:
+                //Image cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsImageCell", forIndexPath: indexPath) as! PublicationDetailsImageCell
+                cell.publication = self.publication
+                return cell
+            default:
+                 break
+            }
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell", forIndexPath: indexPath) as! FCPublicationDetailsTVReportsCell
-            cell.delegate = self
-            cell.publication = self.publication
-            return cell
+        case 1:
             
-        }
-        else if indexPath.row == 2 {
-            var cell = self.tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as! FCPublicationDetailsDatesCell
-            cell.publication = self.publication
-            return cell
-        }
-        else if indexPath.row == 3 {
+            switch indexPath.row {
+            case 0:
+                //Subtitle cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsSubtitleCell", forIndexPath: indexPath) as! PublicationDetailsSubtitleCell
+                cell.publication = self.publication
+                return cell
+            default:
+                break
+            }
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsPhotoCell", forIndexPath: indexPath) as! FCPublicationDetailsPhotoCell
-            cell.publication = self.publication
-            return cell
+        default:
+            break
         }
-        else {
-            var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "stamCell") as UITableViewCell
-            return cell
-            
-        }
+        return UITableViewCell()
     }
+    
+//        if indexPath.row == 0 {
+//            
+//            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath)as! FCPublicationsDetailsTVTitleCell
+//            cell.delegate = self
+//            cell.publication = self.publication
+//            return cell
+//        }
+//        else if indexPath.row == 1 {
+//            
+//            var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell", forIndexPath: indexPath) as! FCPublicationDetailsTVReportsCell
+//            cell.delegate = self
+//            cell.publication = self.publication
+//            return cell
+//            
+//        }
+//        else if indexPath.row == 2 {
+//            var cell = self.tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as! FCPublicationDetailsDatesCell
+//            cell.publication = self.publication
+//            return cell
+//        }
+//        else if indexPath.row == 3 {
+//            
+//            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsPhotoCell", forIndexPath: indexPath) as! FCPublicationDetailsPhotoCell
+//            cell.publication = self.publication
+//            return cell
+//        }
+//        else {
+//            var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "stamCell") as UITableViewCell
+//            return cell
+//            
+//        }
+//    }
     
     func fetchPublicationPhoto() {
         if let publication = self.publication {
@@ -132,8 +198,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
                 fetcher.fetchPhotoForPublication(publication, completion: { (image: UIImage?) -> Void in
                     if publication.photoData.photo != nil {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            //                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: 3, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
-                            self.headerView.updatePhoto()
+                   
+                            // TODO: update photo
                         })
                     }
                 })
@@ -258,16 +324,16 @@ extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
     
     //MARK: - Header View gesture recognizer
     
-    func addTapGestureToHeaderView() {
-        
-        let recognizer = UITapGestureRecognizer(target: self, action: "headerTapped")
-        recognizer.delegate = self
-        recognizer.numberOfTapsRequired = 1
-        recognizer.numberOfTouchesRequired = 1
-        self.headerView.addGestureRecognizer(recognizer)
-    }
+//    func addTapGestureToHeaderView() {
+//        
+//        let recognizer = UITapGestureRecognizer(target: self, action: "headerTapped")
+//        recognizer.delegate = self
+//        recognizer.numberOfTapsRequired = 1
+//        recognizer.numberOfTouchesRequired = 1
+//        self.headerView.addGestureRecognizer(recognizer)
+//    }
     
-    func headerTapped () {
+    func presentPhotoPresentor() {
         
         //add if to check whether there's a photo or default
         if self.publication?.photoData.photo == nil {return}
@@ -319,8 +385,9 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
         if presented is FCPhotoPresentorNavigationController {
 
             var photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
-          //  self.publicationPhotoPresentorAnimator = photoPresentorVCAnimator
-            photoPresentorVCAnimator.originFrame = self.headerView.bounds
+
+            //TODO: set initial photo frame
+   //         photoPresentorVCAnimator.originFrame = self.headerView.bounds
             return photoPresentorVCAnimator
         }
         
@@ -328,7 +395,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
             
             var publicationReportsAnimator = FCPublicationReportsVCAnimator()
             var startingFrame = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
-            startingFrame.origin.y += kTableViewHeaderHeight
+    //        startingFrame.origin.y += kTableViewHeaderHeight
             startingFrame.size.width = startingFrame.size.width / 2
     
             publicationReportsAnimator.originFrame = startingFrame
@@ -351,7 +418,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
             var destinationFrame =
             self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
             
-            destinationFrame.origin.y += kTableViewHeaderHeight
+//            destinationFrame.origin.y += kTableViewHeaderHeight
             animator.destinationRect = destinationFrame
             
             return animator
