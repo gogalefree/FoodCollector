@@ -48,7 +48,7 @@ class PublicationDetsilsActionsHeaderView: UIView {
             
         case registerButton:
             println("publication details register button")
-            animateRegisterButton()
+            animateButton(self.registerButton)
             
         case navigateButton:
             println("publication details navigate button")
@@ -103,7 +103,7 @@ class PublicationDetsilsActionsHeaderView: UIView {
         
         if isRegistered {
          
-            animateRegisterButton()
+            animateButton(self.registerButton)
             //change icon
 
         }
@@ -138,21 +138,21 @@ class PublicationDetsilsActionsHeaderView: UIView {
         }
     }
     
-    private func animateRegisterButton() {
+    private func animateButton(button: UIButton) {
         
         let scale = CGAffineTransformMakeScale(1.2, 1.2)
         
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: nil, animations: { () -> Void in
             
-            self.registerButton.transform = scale
-            self.registerButton.backgroundColor = self.buttonPressColor
+            button.transform = scale
+            button.backgroundColor = self.buttonPressColor
 
         }) { (finished) -> Void in
             
-                UIView.animateWithDuration(0.2, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
                     
-                    self.registerButton.transform = CGAffineTransformIdentity
-                    self.registerButton.backgroundColor = self.normalColor
+                    button.transform = CGAffineTransformIdentity
+                    button.backgroundColor = self.normalColor
 
 
                 }, completion: nil)
