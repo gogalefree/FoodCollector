@@ -20,6 +20,9 @@ protocol PublicationDetailsActionsHeaderDelegate: NSObjectProtocol {
 
 class PublicationDetsilsActionsHeaderView: UIView {
     
+    let buttonPressColor = UIColor(red: 44/255, green: 131/255, blue: 189/255, alpha: 1)
+    let normalColor = UIColor(red: 49/255, green: 151/255, blue: 211/255, alpha: 1)
+    
     @IBOutlet weak var registerButton:  UIButton!
     @IBOutlet weak var navigateButton:  UIButton!
     @IBOutlet weak var smsButton:       UIButton!
@@ -45,6 +48,7 @@ class PublicationDetsilsActionsHeaderView: UIView {
             
         case registerButton:
             println("publication details register button")
+            animateRegisterButton()
             
         case navigateButton:
             println("publication details navigate button")
@@ -64,17 +68,13 @@ class PublicationDetsilsActionsHeaderView: UIView {
         //User created publication
         if FCModel.sharedInstance.isUserCreaetedPublication(publication){
             self.disableAllButtons()
+            return
         }
-        //User is registered
-        else if !publication.didRegisterForCurrentPublication {
-            configureButtons()
-        }
-        //User is not registered
-        else {
-           configureButtonsForUnregisteredUser()
-        }
+        
+        configureRegisterButtonForState(publication.didRegisterForCurrentPublication)
+
         if publication.typeOfCollecting != .ContactPublisher {
-            
+    
             configureButtonsForFreePickup()
         }
     }
@@ -89,11 +89,23 @@ class PublicationDetsilsActionsHeaderView: UIView {
         
         for button in self.buttons {
             
-            let buttonColor = UIColor(red: 49/255, green: 151/255, blue: 211/255, alpha: 1)
-            button.backgroundColor = buttonColor
+            button.backgroundColor = normalColor
             button.setTitle("", forState: .Normal)
             button.layer.cornerRadius = CGRectGetWidth(button.frame) / 2
             button.enabled = true
+        }
+    }
+    
+    private func configureRegisterButtonForState(isRegistered: Bool) {
+        
+        configureButtonsForNormalState()
+
+        
+        if isRegistered {
+         
+            animateRegisterButton()
+            //change icon
+
         }
     }
     
@@ -106,17 +118,17 @@ class PublicationDetsilsActionsHeaderView: UIView {
         }
     }
     
-    func configureButtonsForUnregisteredUser() {
+    func configureButtonsForNormalState() {
      
         for button in self.buttons {
             
-            let buttonColor = UIColor.lightGrayColor()
-            button.backgroundColor = buttonColor
+            button.backgroundColor = normalColor
             button.enabled = true
         }
     }
     
-    final func configureButtonsForFreePickup() {
+    private func configureButtonsForFreePickup() {
+        
         let contactButtons = [smsButton , phoneCallButton]
         for button in contactButtons {
             
@@ -125,4 +137,26 @@ class PublicationDetsilsActionsHeaderView: UIView {
             button.enabled = false
         }
     }
+    
+    private func animateRegisterButton() {
+        
+        let scale = CGAffineTransformMakeScale(1.2, 1.2)
+        
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            self.registerButton.transform = scale
+            self.registerButton.backgroundColor = self.buttonPressColor
+
+        }) { (finished) -> Void in
+            
+                UIView.animateWithDuration(0.2, delay: 0.1, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                    
+                    self.registerButton.transform = CGAffineTransformIdentity
+                    self.registerButton.backgroundColor = self.normalColor
+
+
+                }, completion: nil)
+        }
+    }
+    
 }

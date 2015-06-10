@@ -37,9 +37,12 @@ class PublicationDetailsImageCell: UITableViewCell {
     func reloadPublicationImage() {
     
         if let photo = publication.photoData.photo {
-            self.publicationImageView.animateToAlphaWithSpring(0.2, alpha: 0)
-            self.publicationImageView.image = photo
-            self.publicationImageView.animateToAlphaWithSpring(0.2, alpha: 1)
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.publicationImageView.alpha = 0
+            }, completion: { (finished) -> Void in
+                self.publicationImageView.image = photo
+                self.publicationImageView.animateToAlphaWithSpring(0.4, alpha: 1)
+            })
         }
     }
     

@@ -24,12 +24,18 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 65
-//        configureHeaderView()
-//        fetchPublicationReports()
-//        fetchPublicationPhoto()
+        fetchPublicationReports()
+        fetchPublicationPhoto()
         registerForNotifications()
         
         self.title = publication?.title
+        
+//        for index in 1...5 {
+//            
+//            let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: 3)! , date: NSDate())
+//            self.publication?.reportsForPublication.append(report)
+//
+//        }
     }
     
 //    func configureHeaderView() {
@@ -75,6 +81,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
             return nil
         }
         let header = UIView.loadFromNibNamed("PublicationDetsilsActionsHeaderView", bundle: nil) as? PublicationDetsilsActionsHeaderView
+//        header?.delegate = self
         header?.publication = self.publication
         return header
     }
@@ -93,11 +100,12 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
             //subtitle cell
             if indexPath.row == 0 {return UITableViewAutomaticDimension}
             //dates cell
-            else if indexPath.row == 1 {return 60}
+            else if indexPath.row == 1 {return 97}
             //reports title cell
             else if indexPath.row == 2 {return 60}
+        case 2:
             //reports cell
-            else {return FCPublicationDetailsTVReportsCell.heightForPublication(self.publication)}
+            return 61
         default:
             return UITableViewAutomaticDimension
         }
@@ -106,14 +114,15 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
   
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {return 2}
+        else if section == 1 {return 3}
+        return PublicationDetailsReportCell.numberOfReportsToPresent(self.publication)
 
-        return 3
     }
     
     
@@ -146,13 +155,29 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
                 let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsSubtitleCell", forIndexPath: indexPath) as! PublicationDetailsSubtitleCell
                 cell.publication = self.publication
                 return cell
+            case 1:
+                //Dates cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as! FCPublicationDetailsDatesCell
+                cell.publication = self.publication
+                return cell
+            case 2:
+                //Reports title cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportsTitleCell", forIndexPath: indexPath) as! PublicationDetailsReportsTitleCell
+                return cell
             default:
                 break
             }
             
-        default:
-            break
-        }
+        case 2:
+                //Reports cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
+                cell.indexPath = indexPath
+                cell.publication = self.publication
+                return cell
+            default:
+                break
+            }
+        
         return UITableViewCell()
     }
     
@@ -199,7 +224,11 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
                     if publication.photoData.photo != nil {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                    
-                            // TODO: update photo
+                            let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+                            let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+                            if let cell = imageCell {
+                                cell.reloadPublicationImage()
+                            }
                         })
                     }
                 })
@@ -217,8 +246,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
                     if let incomingReports = reports {
                         publication.reportsForPublication = incomingReports
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            let reportsCellIp = NSIndexPath(forRow: 1, inSection: 0)
-                            self.tableView.reloadRowsAtIndexPaths([reportsCellIp], withRowAnimation: .Automatic)
+                            self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .Automatic)
                         })
                     }
                 }

@@ -65,4 +65,23 @@ class FCIconFactory: NSObject {
         
         return icon
     }
+    
+    class func publicationDetailsReportIcon(report: FCOnSpotPublicationReport) -> UIImage {
+        
+        var icon: UIImage
+        
+        switch report.onSpotPublicationReportMessage.rawValue {
+            
+        case 1:
+            icon = UIImage(named: "Pin-Table-Whole")!
+            
+        case 3:
+            icon = UIImage(named: "Pin-Table-Half")!
+            
+        default:
+            icon = UIImage(named: "Pin-Table-Few")!
+        }
+        
+        return icon
+    }
 }
