@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 11/17/14.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 Guy Freeman. All rights reserved.
 //
 
 import Foundation

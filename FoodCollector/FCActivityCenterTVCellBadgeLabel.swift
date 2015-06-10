@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Artyom on 4/15/15.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2015 Guy Freeman. All rights reserved.
 //
 
 import Foundation

@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 2/18/15.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2015 Guy Freeman. All rights reserved.
 //
 
 import UIKit
@@ -17,13 +17,9 @@ class FCPublisherRootVCCollectionViewHeaderCollectionReusableView: UICollectionR
         
         super.awakeFromNib()
 
-        // English String
-        // searchBar.placeholder = "Search"
-        searchBar.placeholder = "חיפוש" // Localized String
+        searchBar.placeholder = "Search"
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
-        // English String
-        // searchBar.scopeButtonTitles = ["On Air" , "Off Air" , "Ends"]
-        searchBar.scopeButtonTitles = ["פעיל" , "לא פעיל" , "מסתיים"] // Localized String
+        searchBar.scopeButtonTitles = ["On Air" , "Off Air" , "Ends"]
         searchBar.showsScopeBar = true
         searchBar.selectedScopeButtonIndex = 0
         searchBar.sizeToFit()

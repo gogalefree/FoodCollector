@@ -3,12 +3,12 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 3/6/15.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2015 Guy Freeman. All rights reserved.
 //
 
 import UIKit
 
-let kNewPublicationMessage = String.localizedStringWithFormat("שיתוף חדש בקירבתך", "title of the message banner meaning that there is nothing left at thepublication spot")
+let kNewPublicationMessage = String.localizedStringWithFormat("אירוע חדש בקירבתך", "title of the message banner meaning that there is nothing left at thepublication spot")
 
 enum FCPublicationTVCMessageViewState {
     case DeleteMessage

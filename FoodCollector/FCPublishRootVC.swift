@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 10 Nov 2014.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 UPP Project . All rights reserved.
 //
 
 import UIKit
@@ -170,7 +170,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             label.textAlignment = NSTextAlignment.Center
             label.numberOfLines = 0
             label.font = UIFont.systemFontOfSize(fontSize)
-            label.text = String.localizedStringWithFormat("שלום,\nעדיין לא נוצרו שיתופים." , "No user created publications message")
+            label.text = String.localizedStringWithFormat("Hi,\nYou haven't shared yet." , "No user created publications message")
             self.view.addSubview(label)
         }
     }

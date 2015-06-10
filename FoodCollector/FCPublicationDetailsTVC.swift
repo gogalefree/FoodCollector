@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 1/1/15.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2015 Guy Freeman. All rights reserved.
 //
 
 import UIKit
@@ -171,8 +171,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
                 if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version{
                     
                     let alert = UIAlertController(title: publication.title, message: kpublicationDeletedAlertMessage, preferredStyle: .Alert)
-                    // Localization: Original string = title: "okay"
-                    let action = UIAlertAction(title: "אישור", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    let action = UIAlertAction(title: "okay", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         
                         alert.dismissViewControllerAnimated(true, completion: nil)
                         self.dismissViewControllerAnimated(true, completion: nil)
@@ -218,8 +217,8 @@ extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
         //show alert controller
         if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
             
-            let title = String.localizedStringWithFormat("יצירת קשר עם המשתף", "an alert title requesting to contact the publisher")
-            let subtitle = String.localizedStringWithFormat("טלפון: \(publication.contactInfo!)", "the word call before presenting the phone number")
+            let title = String.localizedStringWithFormat("Please Contact the Publisher", "an alert title requesting to contact the publisher")
+            let subtitle = String.localizedStringWithFormat("Call: \(publication.contactInfo!)", "the word call before presenting the phone number")
             let alert = FCAlertsHandler.sharedInstance.alertWithCallDissmissButton(title, aMessage: subtitle, phoneNumber: publication.contactInfo!)
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -238,7 +237,7 @@ extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
         
         
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-            let title = String.localizedStringWithFormat("ניווט בעזרת:", "an action sheet title meening chose app to navigate with")
+            let title = String.localizedStringWithFormat("Navigate With:", "an action sheet title meening chose app to navigate with")
             let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }

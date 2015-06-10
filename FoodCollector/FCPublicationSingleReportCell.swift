@@ -3,16 +3,16 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 1/5/15.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2015 Guy Freeman. All rights reserved.
 //
 
 import UIKit
 
-let kHasMoreTitle = String.localizedStringWithFormat("דיווח איסוף: נשאר עוד","the title of a user report which means that there is more food to pick up")
+let kHasMoreTitle = String.localizedStringWithFormat("משתמש דיווח: נשאר עוד","the title of a user report which means that there is more food to pick up")
 
-let ktookAllTitle = String.localizedStringWithFormat("דיווח איסוף: הכל נאסף","the title of a user report which means that he took all the food")
+let ktookAllTitle = String.localizedStringWithFormat("משתמש דיווח: לקחתי הכל","the title of a user report which means that he took all the food")
 
-let kNothingThereTitle = String.localizedStringWithFormat("דיווח איסוף: לא נשאר כלום","the title of a user report which means that he found nothing")
+let kNothingThereTitle = String.localizedStringWithFormat("משתמש דיווח: לא מצאתי כלום","the title of a user report which means that he found nothing")
 
 class FCPublicationSingleReportCell: UITableViewCell {
     

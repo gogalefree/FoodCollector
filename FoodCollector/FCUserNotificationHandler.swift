@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 10 Nov 2014.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 UPP Project . All rights reserved.
 //
 //  SingleTone
 
@@ -306,7 +306,7 @@ extension FCUserNotificationHandler {
         let showAction = UIMutableUserNotificationAction()
         showAction.identifier = "SHOW_IDENTIFIER"
         // Localized string displayed in the action button
-        showAction.title = "הצגת שיתוף"
+        showAction.title = "Show"
         // If you need to show UI, choose foreground
         showAction.activationMode = UIUserNotificationActivationMode.Foreground
         // Destructive actions display in red
@@ -317,7 +317,7 @@ extension FCUserNotificationHandler {
         let cancelAction = UIMutableUserNotificationAction()
         cancelAction.identifier = "DISSMISS_IDENTIFIER"
         // Localized string displayed in the action button
-        cancelAction.title = "ביטול"
+        cancelAction.title = "Dissmiss"
         // If you need to show UI, choose foreground
         cancelAction.activationMode = UIUserNotificationActivationMode.Background
         // Destructive actions display in red

@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 10 Nov 2014.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 UPP Project . All rights reserved.
 //
 
 
@@ -30,7 +30,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     let messageViewHidenY: CGFloat = -10
     let messageViewVisibleY: CGFloat = 62
     let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
-    let navBarTitle = String.localizedStringWithFormat("שיתופים בקירבתך", "Nav Bar title - the publications near you")
+    let navBarTitle = String.localizedStringWithFormat("אירועים בקירבתך", "Nav Bar title - the publications near you")
     
     
     override func viewDidLoad() {
@@ -53,20 +53,12 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         let searchBar = UISearchBar(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44))
         self.searchBar = searchBar
         searchBar.delegate = self
-        // English String
-        // searchBar.placeholder = "Search"
-        searchBar.placeholder = "חיפוש" // Localized String
+        searchBar.placeholder = "Search"
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
-        // English String
-        // searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Active"]
-        searchBar.scopeButtonTitles = ["קרובים" , "אחרונים" , "פעילים"]  // Localized String
+        searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Available"]
         searchBar.showsScopeBar = true
         searchBar.selectedScopeButtonIndex = 0
         searchBar.sizeToFit()
-        
-        //println("SUBVIEWS Count: \(searchBar.subviews[0].subviews[0].subviews.count)")
-        //println("SUBVIEWS 0: \(searchBar.subviews[0].subviews[0].subviews[0].description)")
-        //println("SUBVIEWS 1: \(searchBar.subviews[0].subviews[0].subviews[1].description)")
         
         let white = UIColor.whiteColor()
         searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(white, view: self.view), forState: .Normal)
@@ -75,29 +67,6 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(color, view: self.view), forState: .Selected)
         searchBar.scopeBarBackgroundImage = UIImage.imageWithColor(white, view: self.view)
         self.tableView.tableHeaderView = searchBar
-    }
-    
-    func findCancelButonInSearchBar(currentView: UIView){
-        // Get the subviews of the searchBar
-        var viewsArray = currentView.subviews
-        
-        // Return if there are no subviews
-        if (viewsArray.count == 0) {
-            return
-        }
-        
-        for subView in viewsArray {
-            if subView.isKindOfClass(UIButton) {
-                if let title = subView.currentTitle {
-                    subView.setTitle("ביטול", forState: .Normal)
-                    return
-                }
-            }
-            
-            // Resursive call
-            self.findCancelButonInSearchBar(subView as! UIView);
-        }
-        
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -117,7 +86,6 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         searchBar.setShowsCancelButton(true, animated: true)
-        findCancelButonInSearchBar(searchBar)
         return true
     }
     

@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 10 Nov 2014.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 UPP Project . All rights reserved.
 //
 
 import UIKit
@@ -13,7 +13,7 @@ import CoreLocation
 
 let kDidShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
 let kActivityCenterTitle = String.localizedStringWithFormat("מרכז הפעילות","activity center navigation bar title")
-let kCollctorTitle = String.localizedStringWithFormat("איסוף","collector root vc navigation bar title")
+let kCollctorTitle = String.localizedStringWithFormat("אוסף","collector root vc navigation bar title")
 
 protocol CollectorVCSlideDelegate: NSObjectProtocol {
     func collectorVCWillSlide()
@@ -96,7 +96,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.title = String.localizedStringWithFormat("איסוף", "collector map title")
+        self.title = String.localizedStringWithFormat("אוסף", "collector map title")
         self.publications = FCModel.sharedInstance.publications
         self.newPublicationMessageView.delegate = self
         registerForNSNotifications()

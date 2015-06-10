@@ -3,14 +3,14 @@
 //  FoodCollector
 //
 //  Created by Boris Tsigelman on 20/12/14.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 Guy Freeman. All rights reserved.
 //
 
 import UIKit
 import QuartzCore
 
-let titleEditorTitle = String.localizedStringWithFormat("הוספת שם", "the editor title for enter a publication name")
-let subTitleEditorTitle = String.localizedStringWithFormat("הוספת תיאור", "the editor title for enter a publication name")
+let titleEditorTitle = String.localizedStringWithFormat("הוסף שם", "the editor title for enter a publication name")
+let subTitleEditorTitle = String.localizedStringWithFormat("הוסף תיאור", "the editor title for enter a publication name")
 
 class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITextFieldDelegate{
 

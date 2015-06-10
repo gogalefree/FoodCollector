@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 12/30/14.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 Guy Freeman. All rights reserved.
 //
 
 #ifndef FoodCollector_BridgingHeader_h

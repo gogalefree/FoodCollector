@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Guy Freedman on 10 Nov 2014.
-//  Copyright (c) 2015 UPP Project. All rights reserved.
+//  Copyright (c) 2014 UPP Project . All rights reserved.
 //
 import UIKit
 import CoreLocation

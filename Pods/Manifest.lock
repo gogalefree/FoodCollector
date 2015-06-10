@@ -101,12 +101,7 @@ PODS:
     - AWSCore (= 2.1.1)
     - Bolts (~> 1.1.0)
     - Mantle (~> 1.4)
-  - Bolts (1.1.5):
-    - Bolts/AppLinks (= 1.1.5)
-    - Bolts/Tasks (= 1.1.5)
-  - Bolts/AppLinks (1.1.5):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.1.5)
+  - Bolts (1.1.4)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -141,7 +136,7 @@ SPEC CHECKSUMS:
   AWSSimpleDB: e863f52f11557d8af42e5fd47e702ea01e6446e2
   AWSSNS: 49d9144ec52c8650ba9207232fdd17c68289fac8
   AWSSQS: bb6b810a5d9826b4b25ed520e344b71a90d6e48f
-  Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   GZIP: f0863fda354e8f83316508c0a2c7bbe385e39129
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
@@ -150,4 +145,4 @@ SPEC CHECKSUMS:
   UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361
   XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.0.beta.1
