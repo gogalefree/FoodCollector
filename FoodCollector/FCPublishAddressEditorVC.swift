@@ -3,13 +3,13 @@
 //  FoodCollector
 //
 //  Created by Boris Tsigelman on 01/01/15.
-//  Copyright (c) 2015 Guy Freeman. All rights reserved.
+//  Copyright (c) 2015 UPP Project. All rights reserved.
 //
 
 import UIKit
 import MapKit
 
-let addressEditorTitle = String.localizedStringWithFormat( "כתובת", "the editor title for enter a publication address")
+let addressEditorTitle = String.localizedStringWithFormat( "הוספת כתובת", "the editor title for enter a publication address")
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     

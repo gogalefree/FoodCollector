@@ -750,7 +750,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="84" id="4yY-Qw-xXj"/>
                                             </constraints>
-                                            <state key="normal" title="Show">
+                                            <state key="normal" title="הצגת שיתוף">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -759,7 +759,7 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6de-z3-7Uw">
                                             <rect key="frame" x="120" y="145" width="84" height="47"/>
-                                            <state key="normal" title="Okay">
+                                            <state key="normal" title="אישור">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -931,7 +931,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="DkS-KZ-6DQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="lWx-p4-UgB">
+                        <barButtonItem key="rightBarButtonItem" title="סיום" id="lWx-p4-UgB">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="dissmiss" destination="6Rt-Iu-LwM" id="zg8-Vn-42H"/>
@@ -1032,7 +1032,7 @@
                                         <variation key="heightClass=compact-widthClass=compact" constant="40"/>
                                     </constraint>
                                 </constraints>
-                                <state key="normal" title="לא מצאתי כלום">
+                                <state key="normal" title="לא נשאר כלום">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1074,7 +1074,7 @@
                                         <variation key="heightClass=compact-widthClass=compact" constant="40"/>
                                     </constraint>
                                 </constraints>
-                                <state key="normal" title="אספתי הכל">
+                                <state key="normal" title="הכל נאסף">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1119,7 +1119,7 @@
                                         <variation key="heightClass=compact-widthClass=compact" constant="40"/>
                                     </constraint>
                                 </constraints>
-                                <state key="normal" title="אספתי חלק">
+                                <state key="normal" title="חלק נאסף">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1481,7 +1481,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="כל הדיווחים" id="X9g-Fl-nzX">
-                        <barButtonItem key="rightBarButtonItem" title="חזור" id="fqk-Lk-drl">
+                        <barButtonItem key="rightBarButtonItem" title="חזרה" id="fqk-Lk-drl">
                             <connections>
                                 <action selector="dismiss" destination="Jy6-C0-m1v" id="qtN-tM-d4Y"/>
                             </connections>
@@ -1856,7 +1856,7 @@
             </objects>
             <point key="canvasLocation" x="4179" y="290"/>
         </scene>
-        <!--חפש-->
+        <!--איסוף-->
         <scene sceneID="87N-7M-znR">
             <objects>
                 <viewController id="akw-hV-T1a" customClass="FCCollectorContainerController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
@@ -1869,7 +1869,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="חפש" image="Collect-off" id="J8w-tF-wCB"/>
+                    <tabBarItem key="tabBarItem" title="איסוף" image="Collect-off" id="J8w-tF-wCB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htA-Ht-Vb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2060,7 +2060,7 @@
                             <constraint firstAttribute="centerX" secondItem="F1S-aM-6hz" secondAttribute="centerX" id="jhE-Rg-21t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="הארועים שלי" id="bjZ-lv-Ao0">
+                    <navigationItem key="navigationItem" title="השיתופים שלי" id="bjZ-lv-Ao0">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aGi-dR-bYS">
                             <connections>
                                 <segue destination="OX1-Os-hYj" kind="show" identifier="showNewPublicationEditorTVC" id="7Uz-wH-dgX"/>
@@ -2095,11 +2095,11 @@
             </objects>
             <point key="canvasLocation" x="434" y="293"/>
         </scene>
-        <!--שתף-->
+        <!--שיתוף-->
         <scene sceneID="YRb-Ue-goy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="swm-m4-wSU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="שתף" image="Donate-off" id="ho0-XI-XhJ"/>
+                    <tabBarItem key="tabBarItem" title="שיתוף" image="Donate-off" id="ho0-XI-XhJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MTn-JS-G1s">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2134,10 +2134,10 @@
             </objects>
             <point key="canvasLocation" x="1715" y="-670"/>
         </scene>
-        <!--אירוע חדש-->
+        <!--שיתוף חדש-->
         <scene sceneID="NU4-FC-Iq9">
             <objects>
-                <tableViewController storyboardIdentifier="FCPublicationEditorTVC" title="אירוע חדש" id="OX1-Os-hYj" customClass="FCPublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FCPublicationEditorTVC" title="שיתוף חדש" id="OX1-Os-hYj" customClass="FCPublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="csm-Ou-Igg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2290,14 +2290,14 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="61" id="RV4-nR-zDb"/>
                                 </constraints>
-                                <state key="normal" title="Save">
+                                <state key="normal" title="שמירה">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="saveButtonAction:" destination="19G-X7-6HX" eventType="touchUpInside" id="M5A-ui-5qC"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="הכנס מספר טלפון" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TIx-uY-As2">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="מספר טלפון" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TIx-uY-As2">
                                 <rect key="frame" x="195" y="214" width="210" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="210" id="kUN-EV-H9h"/>
@@ -2351,7 +2351,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="118" id="SHf-xi-ql8"/>
                                 </constraints>
-                                <state key="normal" title="Save">
+                                <state key="normal" title="שמירה">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -2392,7 +2392,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEc-tq-uHy">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulr-E7-krT">
+                                    <searchBar contentMode="redraw" placeholder="חיפוש כתובת" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulr-E7-krT">
                                         <rect key="frame" x="0.0" y="0.0" width="524" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -2404,7 +2404,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="76" id="dpF-8a-gJ6"/>
                                         </constraints>
-                                        <state key="normal" title="Select">
+                                        <state key="normal" title="בחירה">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -2488,7 +2488,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="61" id="IbJ-ew-0Zp"/>
                                 </constraints>
-                                <state key="normal" title="Save">
+                                <state key="normal" title="שמירה">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

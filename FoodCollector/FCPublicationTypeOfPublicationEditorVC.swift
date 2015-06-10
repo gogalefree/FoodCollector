@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Boris Tsigelman on 28/12/14.
-//  Copyright (c) 2014 Guy Freeman. All rights reserved.
+//  Copyright (c) 2015 UPP Project. All rights reserved.
 //
 
 import UIKit
@@ -12,9 +12,9 @@ let kTypeOfCollectingFreePickUpTitle =
 String.localizedStringWithFormat("איסוף חופשי", "the type of collecting method meaning free pickup")
 
 let kTypeOfCollectingContactPublisherTitle =
-String.localizedStringWithFormat("צור קשר עם המפרסם", "the type of collecting method meaning call publisher")
+String.localizedStringWithFormat("יצירת קשר עם המשתף", "the type of collecting method meaning call publisher")
 
-let typeOfCollectionEditorTitle = String.localizedStringWithFormat("צורת איסוף", "the editor title for enter type of collecting")
+let typeOfCollectionEditorTitle = String.localizedStringWithFormat("סגנון איסוף", "the editor title for enter type of collecting")
 
 class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
@@ -80,7 +80,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         case .FreePickUp:
             cellTitle = kTypeOfCollectingFreePickUpTitle
         case .ContactPublisher:
-            var callString = String.localizedStringWithFormat("התקשר: ", "means call to be added before a phone number")
+            var callString = String.localizedStringWithFormat("יצירת קשר טלפוני: ", "means call to be added before a phone number")
             cellTitle = "\(callString) \(self.textField.text)"
         }
         
@@ -286,8 +286,10 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     }
     
     func showPhoneNumberAllert() {
-        let alertTitle = String.localizedStringWithFormat("מספר טלפון לא תקין", "Alert title: Phone number is incorrect")
-        let alertMessage = String.localizedStringWithFormat("אנא בדוק שמספר הטלפון הינו בעל 9 או 10 ספרות ושהקידומת נכונה", "Alert message: Please check that the phone number has 9 or 10 digits and that the area code is correct")
+        //let alertTitle = String.localizedStringWithFormat("מספר טלפון לא תקין", "Alert title: Phone number is incorrect")
+        //let alertMessage = String.localizedStringWithFormat("אנא בידקו שמספר הטלפון הינו בעל 9 או 10 ספרות ושהקידומת נכונה", "Alert message: Please check that the phone number has 9 or 10 digits and that the area code is correct")
+        let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
+        let alertMessage = String.localizedStringWithFormat("נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed correctly.")
         let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
