@@ -12,32 +12,39 @@ class FCActivityCenterTVCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var notificationLabel: FCActivityCenterTVCellBadgeLabel!
+    @IBOutlet weak var notificationLabel: UILabel!
+    
+    final let placeholderImage = UIImage(named: "PlaceholderActivity")
 
     
-    var publication: FCPublication! {
+    final var publication: FCPublication! {
         didSet{
             if let publication = self.publication {
                 self.titleLabel.text = publication.title
                 self.fetchPhotoIfNeeded()
+                showNotificationNumber()
             }
         }
     }
     
-    override func awakeFromNib() {
+    final override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         self.titleLabel.textColor = UIColor.whiteColor()
-        self.iconImageView.layer.cornerRadius = CGRectGetWidth(self.iconImageView.bounds)/2
+        self.iconImageView.layer.cornerRadius = CGRectGetWidth(self.iconImageView.frame)/2
         
-         self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:55 ))
+      //   self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:55 ))
+        
+        self.notificationLabel.layer.cornerRadius = CGRectGetWidth(self.notificationLabel.frame) / 2
+        self.notificationLabel.backgroundColor = UIColor.lightGrayColor()
+        self.notificationLabel.textColor = UIColor.darkGrayColor()
         
     }
 
-    func fetchPhotoIfNeeded() {
+    final func fetchPhotoIfNeeded() {
     
-        self.iconImageView.alpha = 0
+   //     self.iconImageView.alpha = 0
         if self.publication.photoData.photo != nil {
             self.iconImageView.image = self.publication.photoData.photo
         }
@@ -49,29 +56,29 @@ class FCActivityCenterTVCell: UITableViewCell {
             })
         }
         
-        self.iconImageView.animateToAlphaWithSpring(0.4, alpha: 1)
+     //   self.iconImageView.animateToAlphaWithSpring(0.4, alpha: 1)
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    final override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    override func prepareForReuse() {
+    final override func prepareForReuse() {
         super.prepareForReuse()
         self.titleLabel.text = ""
-        self.iconImageView.image = UIImage(named: "NoPhotoPlaceholder")
-
+        self.iconImageView.image = placeholderImage
         self.userInteractionEnabled = true
     }
     
-    func hideNotificationNumber() {
+    final func hideNotificationNumber() {
         self.notificationLabel.alpha = 0
     }
     
-    func showNotificationNumber(){
+    final func showNotificationNumber(){
         if publication.countOfRegisteredUsers > 0 {
+            self.notificationLabel.alpha = 1
             self.notificationLabel.text = toString()
         }
         else{
@@ -79,8 +86,8 @@ class FCActivityCenterTVCell: UITableViewCell {
         }
     }
     
-    private func toString() -> String {
-        return "\(publication.reportsForPublication.count)"
+    final private func toString() -> String {
+        return "\(publication.countOfRegisteredUsers)"
     }
 
 }

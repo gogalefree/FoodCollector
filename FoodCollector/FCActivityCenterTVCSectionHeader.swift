@@ -14,7 +14,9 @@ protocol ActivityCenterHeaderViewDelegate : NSObjectProtocol, UIGestureRecognize
 }
 
 
-class FCActivityCenterTVCSectionHeader: UIVisualEffectView {
+class FCActivityCenterTVCSectionHeader: UIView {
+    
+    let textColor = UIColor(red: 215/255, green: 215/255, blue: 215/255, alpha: 1)
 
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
@@ -47,6 +49,6 @@ class FCActivityCenterTVCSectionHeader: UIVisualEffectView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.blackBackgroundView.layer.cornerRadius = 0
+        self.textLabel.textColor = self.textColor
     }
 }

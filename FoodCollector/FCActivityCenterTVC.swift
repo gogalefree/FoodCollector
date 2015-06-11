@@ -10,40 +10,65 @@ import UIKit
 
 let collectorTitle = String.localizedStringWithFormat("בדרך לאסוף", "activity center table view collector section title. means collector")
 let publisherTitle = String.localizedStringWithFormat("השיתופים שלי", "activity center table view publisher section title. means contributer")
-let collectorIcon = UIImage(named: "CollectWhite")
-let publisherIcon = UIImage(named: "DonateWhite")
+let collectorIcon = UIImage(named: "CollectActivity")
+let publisherIcon = UIImage(named: "DonateActivity")
 
 
 class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var leftSwipeGesture: UISwipeGestureRecognizer!
 
+    let kTableviewPortraitInset: CGFloat = 58.0
+    let kTableviewLandscapeInset: CGFloat = 10.0
+
+    
     var userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
     var userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-    
     var isPresenteingregisteredPublication  = false
     var isPresentingUserCreatedPublications = false
+    
+    let navBarColor = UIColor(red: 55/255, green: 55/255, blue: 55/255, alpha: 1)
     
     var selectedIndexPath: NSIndexPath!
 
 
-    override func viewDidLoad() {
+    final override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.tableView.estimatedRowHeight = 55
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        reload()
+
         leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
-        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        self.navigationController?.navigationBar.barTintColor = navBarColor
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeleteOldVersionOfUserCreatedPublication", name: kDidDeleteOldVersionsOfUserCreatedPublication, object: nil)
     }
     
-    func leftSwipeAction(recognizer: UISwipeGestureRecognizer) {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if view.frame.height > view.frame.width {
+            self.tableView.contentInset.top = kTableviewPortraitInset
+        }
+    }
+    
+    final override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        if size.height > size.width {
+            
+            self.tableView.contentInset.top = kTableviewLandscapeInset
+
+        }
+        else if size.width > size.height {
+
+            self.tableView.contentInset.top = kTableviewPortraitInset
+        }
+    }
+    
+    final func leftSwipeAction(recognizer: UISwipeGestureRecognizer) {
         
         let container = self.navigationController?.parentViewController as! FCCollectorContainerController
         container.collectorVCWillSlide()
     }
         
-    func displaySections() {
+    final func displaySections() {
         
         if !self.isPresenteingregisteredPublication{
             self.headerTapped(0)
@@ -53,38 +78,55 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         }
     }
     
-    func reload() {
+    final func reload() {
         
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
-        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-        self.removeExpiredUserCreatedPublications()
+        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in publication.isOnAir == true
+        }
+
+      //  self.removeExpiredUserCreatedPublications()
         self.tableView.reloadData()
+
     }
     
-    func removeExpiredUserCreatedPublications() {
+    final func removeExpiredUserCreatedPublications() {
         
-        var indexesToRemove = [Int]()
-        
-        for (index ,userCreatedPublication) in enumerate(self.userCreatedPublications){
-           
-            if !userCreatedPublication.isOnAir || FCDateFunctions.PublicationDidExpired(userCreatedPublication.endingDate){
+        let removeExpiredUserCreatedPublicationOperation = NSBlockOperation { () -> Void in
+                       
+            var indexesToRemove = [Int]()
+            
+            for (index ,userCreatedPublication) in enumerate(self.userCreatedPublications){
+                
+                if !userCreatedPublication.isOnAir || FCDateFunctions.PublicationDidExpired(userCreatedPublication.endingDate){
                     indexesToRemove.append(index)
+                }
             }
+            
+            for (index, indexToRemove) in enumerate(indexesToRemove) {
+                let removalIndex = indexToRemove - index
+                self.userCreatedPublications.removeAtIndex(removalIndex)
+            }
+            
         }
         
-        for (index, indexToRemove) in enumerate(indexesToRemove) {
-            let removalIndex = indexToRemove - index
-            self.userCreatedPublications.removeAtIndex(removalIndex)
+        removeExpiredUserCreatedPublicationOperation.completionBlock = {
+            
+            //self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+            self.tableView.reloadData()
         }
+        
+        let removeQue = NSOperationQueue.mainQueue()
+        removeQue.qualityOfService = .UserInteractive
+        removeQue.addOperations([removeExpiredUserCreatedPublicationOperation], waitUntilFinished: false)
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    final override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    final override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
         switch section {
         case 0:
@@ -97,7 +139,11 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         }
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    final override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
+    }
+    
+   final override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = FCActivityCenterTVCSectionHeader.loadFromNibNamed("FCActivityCenterTVSectionHeader")as! FCActivityCenterTVCSectionHeader
         headerView.section = section
@@ -105,11 +151,11 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         return headerView
     }
 
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 80
+    final override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 55
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    final override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCellWithIdentifier("FCActivityCenterTVCell", forIndexPath: indexPath) as! FCActivityCenterTVCell
         
@@ -118,7 +164,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    final override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         var publication = self.publicationForIndexPath(indexPath)
         let title = titleForIndexPath(indexPath)
@@ -146,17 +192,17 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         }
     }
     
-    func dismissDetailVC() {
+    final func dismissDetailVC() {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
         self.reload()
     }
     
-    func titleForIndexPath(indexPath:NSIndexPath) -> String{
+    final func titleForIndexPath(indexPath:NSIndexPath) -> String{
         if indexPath.section == 0 {return collectorTitle}
         else {return publisherTitle}
     }
 
-    func publicationForIndexPath(indexPath: NSIndexPath)-> FCPublication {
+    final func publicationForIndexPath(indexPath: NSIndexPath)-> FCPublication {
         
         var publication: FCPublication!
         switch indexPath.section {
@@ -173,7 +219,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     
     //MARK: - header views delegate
     
-    func headerTapped(section: Int) {
+    final func headerTapped(section: Int) {
         
         switch section {
         case 0:
@@ -185,7 +231,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         }
     }
     
-    func reloadUserRegisteredPublications() {
+    final func reloadUserRegisteredPublications() {
         
         if !isPresenteingregisteredPublication {
             isPresenteingregisteredPublication = true
@@ -195,7 +241,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
     }
     
-    func reloadUserCreayedPublications() {
+    final func reloadUserCreayedPublications() {
 
         if !isPresentingUserCreatedPublications {
             isPresentingUserCreatedPublications = true
@@ -204,10 +250,18 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         
         self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
     }
+    
+    final func didDeleteOldVersionOfUserCreatedPublication() {
+        self.reload()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 }

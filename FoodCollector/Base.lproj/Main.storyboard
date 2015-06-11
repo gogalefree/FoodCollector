@@ -352,7 +352,7 @@
         <scene sceneID="z6c-7A-Y3g">
             <objects>
                 <tableViewController storyboardIdentifier="FCActivityCenterTVC" title="מרכז הפעילות" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="55" sectionFooterHeight="22" id="fCA-8J-hlL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="55" sectionFooterHeight="1" id="fCA-8J-hlL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -363,17 +363,17 @@
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="FCActivityCenterTVCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FCActivityCenterTVCell" id="c5z-vm-whl" customClass="FCActivityCenterTVCell" customModule="FoodCollector" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c5z-vm-whl" id="gHd-qA-QwO">
+                                <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c5z-vm-whl" id="gHd-qA-QwO">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderActivity" translatesAutoresizingMaskIntoConstraints="NO" id="3lK-nq-ZwC">
-                                            <rect key="frame" x="535" y="7" width="40" height="40"/>
+                                            <rect key="frame" x="535" y="9" width="35" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="88" id="ZMy-Dq-adq">
                                                     <variation key="heightClass=compact-widthClass=regular" constant="55"/>
                                                 </constraint>
-                                                <constraint firstAttribute="width" constant="40" id="jmW-ki-F2J"/>
-                                                <constraint firstAttribute="height" constant="40" id="nRa-Gs-m4a"/>
+                                                <constraint firstAttribute="width" constant="35" id="jmW-ki-F2J"/>
+                                                <constraint firstAttribute="height" constant="35" id="nRa-Gs-m4a"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -387,7 +387,7 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-vw-aeu">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-vw-aeu">
                                             <rect key="frame" x="37" y="19" width="478" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="516" id="747-RT-dRK"/>
@@ -406,7 +406,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVY-Wg-6Zy" customClass="FCActivityCenterTVCellBadgeLabel" customModule="FoodCollector" customModuleProvider="target">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVY-Wg-6Zy">
                                             <rect key="frame" x="8" y="16" width="21" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="KNV-em-kGl"/>
@@ -433,7 +433,7 @@
                                         <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="VFm-Ha-E8Z"/>
                                         <constraint firstItem="fgF-vw-aeu" firstAttribute="leading" secondItem="gHd-qA-QwO" secondAttribute="leadingMargin" id="YpH-Yr-h90"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="fgF-vw-aeu" secondAttribute="bottom" constant="8" id="ark-Qj-6bg"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="3lK-nq-ZwC" secondAttribute="trailing" constant="17" id="bvJ-gg-SlK"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="3lK-nq-ZwC" secondAttribute="trailing" constant="22" id="bvJ-gg-SlK"/>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="centerY" secondItem="gHd-qA-QwO" secondAttribute="centerY" id="irM-bJ-V8J"/>
                                         <constraint firstItem="3lK-nq-ZwC" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="-6" id="jeL-Ec-rQO"/>
                                         <constraint firstItem="fgF-vw-aeu" firstAttribute="top" secondItem="gHd-qA-QwO" secondAttribute="topMargin" constant="11" id="p0p-77-1rw"/>

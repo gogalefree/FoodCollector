@@ -53,6 +53,10 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "newUserCreatedPublication", name: kNewUserCreatedPublicationNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublicationNotification", name: kDeletedPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeleteOldVersionOfUserCreatedPublication", name: kDidDeleteOldVersionsOfUserCreatedPublication, object: nil)
+        
+        
+        kDidDeleteOldVersionsOfUserCreatedPublication
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -158,6 +162,12 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     //this is triggered by a NSNotification.
     //we reload the collection view since it might have been a user created publication taken off air
     func didDeletePublicationNotification() {
+        self.collectionView.reloadData()
+    }
+    
+    //this is trigered when a user had updated or reposted userCreatedPublication
+    //the model deletes old versions and posts this notification
+    func didDeleteOldVersionOfUserCreatedPublication() {
         self.collectionView.reloadData()
     }
     

@@ -36,4 +36,9 @@ extension FCModel {
     func postNewUserCreatedPublicationNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(kNewUserCreatedPublicationNotification, object: self)
     }
+    
+    func postDeleteOldVersionOfUserCreatedPublications() {
+        NSNotificationCenter.defaultCenter().postNotificationName(kDidDeleteOldVersionsOfUserCreatedPublication, object: self)
+        
+    }
 }

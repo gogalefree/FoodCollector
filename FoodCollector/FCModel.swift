@@ -16,6 +16,7 @@ let kDeletedPublicationNotification =               "DeletedPublicationNotificat
 let kRecivedPublicationReportNotification =         "RecivedPublicationReportNotification"
 let kRecievedPublicationRegistrationNotification =  "kRecievedPublicationRegistrationNotification"
 let kNewUserCreatedPublicationNotification =        "newUserCreatedPublicationNotification"
+let kDidDeleteOldVersionsOfUserCreatedPublication = "DidDeleteOldVersionsOfUserCreatedPublication"
 
 let kDeviceUUIDKey = "seviceUUIDString"
 let kDistanceFilter = 5.0
@@ -196,6 +197,31 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             }
         }
         return false
+    }
+    
+    final func deleteOldVersionsOfUserCreatedPublication(userCreatedPublication: FCPublication) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+            
+            var indexesToRemove = [Int]()
+            for (index, publication) in enumerate(self.userCreatedPublications) {
+                
+                if publication.uniqueId == userCreatedPublication.uniqueId &&
+                    publication.version < userCreatedPublication.version {
+                       indexesToRemove.append(index)
+                }
+            }
+           
+            for (i ,index) in enumerate(indexesToRemove) {
+                
+                self.userCreatedPublications.removeAtIndex(index - i)
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                
+                self.postDeleteOldVersionOfUserCreatedPublications()
+            })
+        })
     }
     
     func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {

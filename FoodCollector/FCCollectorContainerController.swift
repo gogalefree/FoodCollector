@@ -71,7 +71,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
             
             }) { (completion) -> Void in
                 activityCenterVC.displaySections()
-                self.showStatusBar(false)
+        //        self.showStatusBar(false)
         }
     }
     
@@ -88,7 +88,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
             self.collectorRootNavigationController.view.center = self.view.center
             self.tabBarController?.tabBar.frame.origin = self.tabBarVisibleOrigin
             }){ (completion) -> Void in
-                self.showStatusBar(true)
+      //          self.showStatusBar(true)
         }
     }
     
@@ -124,17 +124,17 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
             }, completion: { (context) -> Void in})
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return statusBarHidden
-    }
+//    override func prefersStatusBarHidden() -> Bool {
+//        return statusBarHidden
+//    }
     
-    func showStatusBar(show: Bool) {
-        
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.statusBarHidden = !show
-            self.setNeedsStatusBarAppearanceUpdate()
-        })
-    }
+//    func showStatusBar(show: Bool) {
+//        
+//        UIView.animateWithDuration(0.3, animations: { () -> Void in
+//            self.statusBarHidden = !show
+//            self.setNeedsStatusBarAppearanceUpdate()
+//        })
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

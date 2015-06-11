@@ -18,6 +18,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBar.itemPositioning = UITabBarItemPositioning.Fill
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
@@ -85,6 +86,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

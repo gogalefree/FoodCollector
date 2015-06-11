@@ -35,11 +35,11 @@ class FCActivityCenterTVCellBadgeLabel: UILabel {
         self.alpha = 0
 
         
-        // Shadow
-        layer.shadowOpacity = 0.5 as Float
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowRadius = 0.5
-        layer.shadowColor = UIColor.blackColor().CGColor
+//        // Shadow
+//        layer.shadowOpacity = 0.5 as Float
+//        layer.shadowOffset = CGSize(width: 0, height: 0)
+//        layer.shadowRadius = 0.5
+//        layer.shadowColor = UIColor.blackColor().CGColor
         
     }
     

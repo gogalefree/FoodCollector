@@ -400,8 +400,8 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                     }
                     
                     FCModel.sharedInstance.addPublication(publication)
-                    
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
+                    FCModel.sharedInstance.deleteOldVersionsOfUserCreatedPublication(publication)
                     
                     let uploader = FCPhotoFetcher()
                     uploader.uploadPhotoForPublication(publication)
