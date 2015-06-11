@@ -17,9 +17,13 @@ class FCPublisherRootVCCollectionViewHeaderCollectionReusableView: UICollectionR
         
         super.awakeFromNib()
 
-        searchBar.placeholder = "Search"
+        // English String
+        // searchBar.placeholder = "Search"
+        searchBar.placeholder = "חיפוש" // Localized String
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
-        searchBar.scopeButtonTitles = ["On Air" , "Off Air" , "Ends"]
+        // English String
+        // searchBar.scopeButtonTitles = ["On Air" , "Off Air" , "Ends"]
+        searchBar.scopeButtonTitles = ["פעיל" , "לא פעיל" , "מסתיים"] // Localized String
         searchBar.showsScopeBar = true
         searchBar.selectedScopeButtonIndex = 0
         searchBar.sizeToFit()

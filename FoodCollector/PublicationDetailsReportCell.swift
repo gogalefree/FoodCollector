@@ -8,11 +8,11 @@
 
 import UIKit
 
-let kHasMoreTitle = String.localizedStringWithFormat("נשאר עוד","the title of a user report which means that there is more food to pick up")
+let kHasMoreTitle = String.localizedStringWithFormat("דיווח איסוף: נשאר עוד","the title of a user report which means that there is more food to pick up")
 
-let ktookAllTitle = String.localizedStringWithFormat("לקחתי הכל","the title of a user report which means that he took all the food")
+let ktookAllTitle = String.localizedStringWithFormat("דיווח איסוף: הכל נאסף","the title of a user report which means that he took all the food")
 
-let kNothingThereTitle = String.localizedStringWithFormat("לא מצאתי כלום","the title of a user report which means that he found nothing")
+let kNothingThereTitle = String.localizedStringWithFormat("דיווח איסוף: לא נשאר כלום","the title of a user report which means that he found nothing")
 
 
 class PublicationDetailsReportCell: UITableViewCell {

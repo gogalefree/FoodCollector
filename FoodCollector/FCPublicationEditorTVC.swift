@@ -12,17 +12,17 @@ import UIKit
 import CoreLocation
 
 // String constants for Publish table titles
-let kPublishTitle = String.localizedStringWithFormat("הוסף שם", "Add title for a new event")
-let kPublishSubtitle = String.localizedStringWithFormat("הוסף תיאור", "Add subitle for a new event")
-let kPublishAddress = String.localizedStringWithFormat("הוסף כתובת", "Add address for a new event")
-let kPublishTypeOfCollection = String.localizedStringWithFormat("הוסף צורת איסוף", "Select Type Of Collection for a new event")
-let kPublishStartDate = String.localizedStringWithFormat("הוסף תאריך התחלה", "Add start date for a new event")
-let kPublishEndDate = String.localizedStringWithFormat("הוסף תאריך סיום", "Add ebd date for a new event")
-let kPublishImage = String.localizedStringWithFormat("הוסף תמונה", "Add image for a new event")
-let kPublishPublishButtonLabel = String.localizedStringWithFormat("פרסם", "Publish button to publish a new event")
-let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסר פרסום", "Take Off Air button to immediately stop publication of an exciting active event")
-let kPublishStartDatePrefix = String.localizedStringWithFormat("מתחיל:  ", "Start date label for displaying an exciting start date event")
-let kPublishEndDatePrefix = String.localizedStringWithFormat("מסתיים: ", "End date label for displaying an exciting end date event")
+let kPublishTitle = String.localizedStringWithFormat("הוספת שם", "Add title for a new event")
+let kPublishSubtitle = String.localizedStringWithFormat("הוספת תיאור", "Add subitle for a new event")
+let kPublishAddress = String.localizedStringWithFormat("הוספת כתובת", "Add address for a new event")
+let kPublishTypeOfCollection = String.localizedStringWithFormat("הוספת סגנון איסוף", "Select Type Of Collection for a new event")
+let kPublishStartDate = String.localizedStringWithFormat("הוספת תאריך התחלה", "Add start date for a new event")
+let kPublishEndDate = String.localizedStringWithFormat("הוספת תאריך סיום", "Add ebd date for a new event")
+let kPublishImage = String.localizedStringWithFormat("הוספת תמונה", "Add image for a new event")
+let kPublishPublishButtonLabel = String.localizedStringWithFormat("פרסום", "Publish button to publish a new event")
+let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסרת פרסום", "Take Off Air button to immediately stop publication of an exciting active event")
+let kPublishStartDatePrefix = String.localizedStringWithFormat("התחלה:  ", "Start date label for displaying an exciting start date event")
+let kPublishEndDatePrefix = String.localizedStringWithFormat("סיום: ", "End date label for displaying an exciting end date event")
 
 let kSeperatHeaderHeight = CGFloat(30.0)
 
@@ -594,7 +594,7 @@ extension  FCPublicationEditorTVC {
                         case .FreePickUp:
                             cellTitle = kTypeOfCollectingFreePickUpTitle
                         case .ContactPublisher:
-                            let callString = String.localizedStringWithFormat("התקשר: ", "means call to be added before a phone number")
+                            let callString = String.localizedStringWithFormat("קשר טלפוני: ", "means call to be added before a phone number")
                             let contactInfo = publication.contactInfo ?? ""
                             cellTitle = "\(callString) \(contactInfo)"
                         }

@@ -25,9 +25,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationUsageDescription</key>
-	<string>Notify when you arrive to a publication spot</string>
+	<string>הצגת הודעה בזמן הגעה לנקודת שיתוף</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Notify when you arrive to a publication spot</string>
+	<string>הצגת הודעה בזמן הגעה לנקודת שיתוף</string>
 	<key>Server URL</key>
 	<string>https://fd-server.herokuapp.com/</string>
 	<key>UIBackgroundModes</key>
