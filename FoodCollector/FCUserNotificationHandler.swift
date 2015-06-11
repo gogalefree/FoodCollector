@@ -22,7 +22,7 @@ let kRemoteNotificationPublicationReportDateKey = "date"
 let kRemoteNotificationTypeUserRegisteredForPublication = "registeration_for_publication"
 let kRemoteNotificationRegistrationMessageForPublicationKey = "registration_message"
 let kRemoteNotificationDataKey = "data"
-let kRegionRadiusForLocationNotification = 5
+let kRegionRadiusForLocationNotification = 20
 
 let kDidArriveOnSpotNotification = "didArriveOnSpot"
 

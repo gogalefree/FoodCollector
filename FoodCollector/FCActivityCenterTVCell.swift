@@ -45,7 +45,7 @@ class FCActivityCenterTVCell: UITableViewCell {
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(self.publication, completion: { (image) -> Void in
                 self.publication.photoData.didTryToDonwloadImage = true
-                self.iconImageView.image = image ??  UIImage(named: "NoPhoto-Placeholder")
+                self.iconImageView.image = image ??  UIImage(named: "NoPhotoPlaceholder")
             })
         }
         
@@ -61,7 +61,7 @@ class FCActivityCenterTVCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.titleLabel.text = ""
-        self.iconImageView.image = UIImage(named: "NoPhoto-Placeholder")
+        self.iconImageView.image = UIImage(named: "NoPhotoPlaceholder")
 
         self.userInteractionEnabled = true
     }

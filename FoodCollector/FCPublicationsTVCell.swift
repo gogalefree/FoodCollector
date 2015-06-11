@@ -70,7 +70,7 @@ class FCPublicationsTVCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.photoImageView.image = UIImage(named: "NoPhoto-Placeholder")
+        self.photoImageView.image = UIImage(named: "NoPhotoPlaceholder")
     }
     
     override func awakeFromNib() {

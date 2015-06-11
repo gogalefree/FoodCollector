@@ -10,8 +10,8 @@ import UIKit
 
 let collectorTitle = String.localizedStringWithFormat("בדרך לאסוף", "activity center table view collector section title. means collector")
 let publisherTitle = String.localizedStringWithFormat("השיתופים שלי", "activity center table view publisher section title. means contributer")
-let collectorIcon = UIImage(named: "Collect.png")
-let publisherIcon = UIImage(named: "Donate.png")
+let collectorIcon = UIImage(named: "CollectWhite")
+let publisherIcon = UIImage(named: "DonateWhite")
 
 
 class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDelegate, UIGestureRecognizerDelegate {

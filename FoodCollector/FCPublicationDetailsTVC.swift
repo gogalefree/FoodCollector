@@ -7,14 +7,12 @@
 //
 
 import UIKit
+import MessageUI
 
 class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     
     var publication: FCPublication?
-    
-   // private let kTableViewHeaderHeight: CGFloat = 300.0
-   // var headerView: FCPublicationDetailsTVHeaderView!
-
+ 
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
     
@@ -29,44 +27,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         registerForNotifications()
         
         self.title = publication?.title
-        
-//        for index in 1...5 {
-//            
-//            let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: 3)! , date: NSDate())
-//            self.publication?.reportsForPublication.append(report)
-//
-//        }
     }
-    
-//    func configureHeaderView() {
-//        
-//        headerView = self.tableView.tableHeaderView as! FCPublicationDetailsTVHeaderView
-//        self.tableView.tableHeaderView = nil
-//        tableView.addSubview(headerView)
-//        headerView.publication = self.publication
-//        addTapGestureToHeaderView()
-//        
-//        self.tableView.contentInset = UIEdgeInsets(top: kTableViewHeaderHeight, left: 0, bottom: 0, right: 0)
-//        self.tableView.contentOffset = CGPointMake(0, -kTableViewHeaderHeight)
-//        updateHeaderView()
-//
-//    }
-    
-//    func updateHeaderView() {
-//        
-//        var headerRect = CGRect(x: 0, y: -kTableViewHeaderHeight, width: self.tableView.bounds.width, height: kTableViewHeaderHeight)
-//        if self.tableView.contentOffset.y < -kTableViewHeaderHeight {
-//            headerRect.origin.y = tableView.contentOffset.y
-//            headerRect.size.height = -tableView.contentOffset.y
-//        }
-//        self.headerView.frame = headerRect
-//        
-//        self.headerView.updateCutAway(headerRect)
-//    }
-//    
-//    override func scrollViewDidScroll(scrollView: UIScrollView) {
-//        updateHeaderView()
-//    }
     
     //MARK: - Table view Headers
     
@@ -81,7 +42,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
             return nil
         }
         let header = UIView.loadFromNibNamed("PublicationDetsilsActionsHeaderView", bundle: nil) as? PublicationDetsilsActionsHeaderView
-//        header?.delegate = self
+        header?.delegate = self
         header?.publication = self.publication
         return header
     }
@@ -141,6 +102,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
             case 1:
                 //Image cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsImageCell", forIndexPath: indexPath) as! PublicationDetailsImageCell
+                cell.delegate = self
                 cell.publication = self.publication
                 return cell
             default:
@@ -181,38 +143,17 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         return UITableViewCell()
     }
     
-//        if indexPath.row == 0 {
-//            
-//            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationsDetailsTVTitleCell", forIndexPath: indexPath)as! FCPublicationsDetailsTVTitleCell
-//            cell.delegate = self
-//            cell.publication = self.publication
-//            return cell
-//        }
-//        else if indexPath.row == 1 {
-//            
-//            var cell = tableView.dequeueReusableCellWithIdentifier("reportsCell", forIndexPath: indexPath) as! FCPublicationDetailsTVReportsCell
-//            cell.delegate = self
-//            cell.publication = self.publication
-//            return cell
-//            
-//        }
-//        else if indexPath.row == 2 {
-//            var cell = self.tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as! FCPublicationDetailsDatesCell
-//            cell.publication = self.publication
-//            return cell
-//        }
-//        else if indexPath.row == 3 {
-//            
-//            var cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsPhotoCell", forIndexPath: indexPath) as! FCPublicationDetailsPhotoCell
-//            cell.publication = self.publication
-//            return cell
-//        }
-//        else {
-//            var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "stamCell") as UITableViewCell
-//            return cell
-//            
-//        }
-//    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
+        //present reports on full screen
+        if indexPath.section == 2 {
+            
+            self.displayReportsWithFullScreen()
+        }
+    }
+    
     
     func fetchPublicationPhoto() {
         if let publication = self.publication {
@@ -295,7 +236,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
     
 }
 
-extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
+extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
     
     //MARK: - Title cell delegate
     
@@ -303,17 +244,15 @@ extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
         
         publication.didRegisterForCurrentPublication = true
         publication.countOfRegisteredUsers += 1
-        
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
-        
         FCModel.sharedInstance.savePublications()
         
+        self.updateRegisteredUserIconCounter()
         //show alert controller
         if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
             
-            let title = String.localizedStringWithFormat("Please Contact the Publisher", "an alert title requesting to contact the publisher")
-            let subtitle = String.localizedStringWithFormat("Call: \(publication.contactInfo!)", "the word call before presenting the phone number")
-            let alert = FCAlertsHandler.sharedInstance.alertWithCallDissmissButton(title, aMessage: subtitle, phoneNumber: publication.contactInfo!)
+            let title = String.localizedStringWithFormat("נא ליצור קשר עם המפרסם", "an alert title requesting to contact the publisher")
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: " ")
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
@@ -322,9 +261,11 @@ extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
         
         publication.didRegisterForCurrentPublication = false
         publication.countOfRegisteredUsers -= 1
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
-        
+        //TODO: Delete registration from server
+    //    FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
         FCModel.sharedInstance.savePublications()
+        self.updateRegisteredUserIconCounter()
+
     }
     
     func didRequestNavigationForPublication(publication: FCPublication) {
@@ -341,6 +282,43 @@ extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
         }
     }
     
+    func didRequestSmsForPublication(publication: FCPublication) {
+        
+        if let phoneNumber = self.publication?.contactInfo {
+            
+            if MFMessageComposeViewController.canSendText() {
+                
+                let messageVC = MFMessageComposeViewController()
+                messageVC.body = String.localizedStringWithFormat("רוצה לבוא לאסוף \(publication.title)", "sms message to be sent to the publisher sayin i want to come pick up")
+                messageVC.recipients = [phoneNumber]
+                messageVC.messageComposeDelegate = self
+                self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
+                
+            }
+        }
+    }
+    
+    func didRequestPhoneCallForPublication(publication: FCPublication) {
+        
+        if let phoneNumber = self.publication?.contactInfo {
+            
+            let telUrl = NSURL(string: "tel://\(phoneNumber)")!
+
+            if UIApplication.sharedApplication().canOpenURL(telUrl){
+                
+                UIApplication.sharedApplication().openURL(telUrl)
+            }
+        }
+    }
+
+    private func updateRegisteredUserIconCounter() {
+        
+        let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+        let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+        if let cell = imageCell {
+            cell.reloadRegisteredUserIconCounter()
+        }
+    }
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
@@ -348,18 +326,12 @@ extension FCPublicationDetailsTVC: FCPublicationDetailsTitleCellDelegate {
     
 }
 
-extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
+extension FCPublicationDetailsTVC : PublicationDetailsImageCellDelegate {
     
-    //MARK: - Header View gesture recognizer
     
-//    func addTapGestureToHeaderView() {
-//        
-//        let recognizer = UITapGestureRecognizer(target: self, action: "headerTapped")
-//        recognizer.delegate = self
-//        recognizer.numberOfTapsRequired = 1
-//        recognizer.numberOfTouchesRequired = 1
-//        self.headerView.addGestureRecognizer(recognizer)
-//    }
+    func didRequestFullScreenImage() {
+        self.presentPhotoPresentor()
+    }
     
     func presentPhotoPresentor() {
         
@@ -376,10 +348,6 @@ extension FCPublicationDetailsTVC : UIGestureRecognizerDelegate {
         
         self.navigationController?.presentViewController(
             self.photoPresentorNavController, animated: true, completion:nil)
-    }
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }
 
@@ -414,8 +382,15 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
 
             var photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
 
+            var originFrame = CGRectZero
             //TODO: set initial photo frame
-   //         photoPresentorVCAnimator.originFrame = self.headerView.bounds
+            let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+            let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+            if let cell = imageCell {
+                originFrame = self.view.convertRect(cell.publicationImageView.frame, fromView: cell)
+            }
+            
+            photoPresentorVCAnimator.originFrame = originFrame
             return photoPresentorVCAnimator
         }
         
@@ -446,7 +421,6 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
             var destinationFrame =
             self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
             
-//            destinationFrame.origin.y += kTableViewHeaderHeight
             animator.destinationRect = destinationFrame
             
             return animator
@@ -456,9 +430,8 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
     }
 }
 
-extension FCPublicationDetailsTVC: PublicationDetailsReprtsCellDelegate {
-    //MARK: - reports cell Delegate
-    //show full reports list on full screen
+extension FCPublicationDetailsTVC {
+    //MARK: - reports cell full screen
     
 
     func displayReportsWithFullScreen() {
@@ -478,4 +451,38 @@ extension FCPublicationDetailsTVC: PublicationDetailsReprtsCellDelegate {
         }
     }
 
+}
+
+extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
+    
+    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+        
+        switch (result.value) {
+        
+        case MessageComposeResultCancelled.value:
+            println("Message was cancelled")
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+       
+        case MessageComposeResultFailed.value:
+            
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+
+            
+            let alert = UIAlertController(title: "שליחת ההודעה נכשלה", message: "לנסות שוב?", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "כן", style: .Default , handler: { (action) -> Void in
+                self.didRequestSmsForPublication(self.publication!)
+            }))
+            alert.addAction(UIAlertAction(title: "לא", style: .Cancel, handler: { (action) -> Void in
+                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            }))
+            
+            self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+            
+        case MessageComposeResultSent.value:
+            println("Message was sent")
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        default:
+            break;
+        }
+    }
 }

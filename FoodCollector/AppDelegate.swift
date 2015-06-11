@@ -13,7 +13,7 @@ import QuartzCore
 let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
 let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificationInBackground"
-
+let kNavBarBlueColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
 
 
 @UIApplicationMain
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
      
         // Nav bar color hex string: #3197d3
-        UINavigationBar.appearance().barTintColor = UIColor(red: 49/255, green: 151/255, blue: 211/255, alpha: 1)
+        UINavigationBar.appearance().barTintColor = kNavBarBlueColor
         UINavigationBar.appearance().translucent = true
         
         //uncomment to check the device uuid report service

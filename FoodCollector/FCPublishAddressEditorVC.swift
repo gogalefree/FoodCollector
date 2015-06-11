@@ -108,37 +108,46 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         session.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             
             
-            if (error == nil) {
-                println("response: \(response)")
-                
-                var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)as! NSDictionary
-                
-                println("result: \(jsonResult) " )
-                
-                
-                var arrayOfPredications = jsonResult["predictions"] as! NSArray
-                
-                if arrayOfPredications.count != 0 {
+            if let respone = response {
+             
+                if (error == nil) {
+                    println("response: \(response)")
                     
-                    self.didSerchAndFindResults = true
-                    self.initialData.removeAll(keepCapacity: false)
+                    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)as! NSDictionary
                     
-                    for object in arrayOfPredications {
-                        var dict = object as! NSDictionary
-                        var desc = dict["description"] as! String
-                        println(desc)
-                        self.initialData.append(desc)
+                    println("result: \(jsonResult) " )
+                    
+                    
+                    var arrayOfPredications = jsonResult["predictions"] as! NSArray
+                    
+                    if arrayOfPredications.count != 0 {
+                        
+                        self.didSerchAndFindResults = true
+                        self.initialData.removeAll(keepCapacity: false)
+                        
+                        for object in arrayOfPredications {
+                            var dict = object as! NSDictionary
+                            var desc = dict["description"] as! String
+                            println(desc)
+                            self.initialData.append(desc)
+                        }
+                        
+                        
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.tableView.reloadData()
+                        })
                     }
-                    
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.tableView.reloadData()
-                    })
+                }else {
+                    //handle error
+                    println(error.description)
                 }
-            }else {
-                //handle error
-                println(error.description)
             }
+            else {
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("בעיית רשת", aMessage: "נסה שנית")
+                self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+            
+            }
+            
             
             
             
@@ -155,27 +164,37 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         session.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             
-            if error == nil {
+            if let response = response {
                 
-                //println("response: \(response)")
+                if error == nil {
+                    
+                    //println("response: \(response)")
+                    
+                    let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+                    
+                    //println("result: \(jsonResult) " )
+                    
+                    
+                    let results = jsonResult["results"] as! NSArray
+                    let aResultDict = results.lastObject as! NSDictionary
+                    let geo = aResultDict["geometry"] as! NSDictionary
+                    let locationDict = geo["location"] as! NSDictionary
+                    self.selectedLatitude = locationDict["lat"] as! Double
+                    self.selectedLongtitude = locationDict["lng"] as! Double
+                    //println("dict is \(latitude) and \(longtitude)")
+                    
+                }else {
+                    //handle error
+                    println(error.description)
+                }
+
                 
-                let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
                 
-                //println("result: \(jsonResult) " )
-                
-                
-                let results = jsonResult["results"] as! NSArray
-                let aResultDict = results.lastObject as! NSDictionary
-                let geo = aResultDict["geometry"] as! NSDictionary
-                let locationDict = geo["location"] as! NSDictionary
-                self.selectedLatitude = locationDict["lat"] as! Double
-                self.selectedLongtitude = locationDict["lng"] as! Double
-                //println("dict is \(latitude) and \(longtitude)")
-                
-            }else {
-                //handle error
-                println(error.description)
             }
+            else {
+                
+            }
+            
             
         }).resume()
     }

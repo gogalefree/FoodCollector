@@ -79,7 +79,7 @@ class FCPublicationsTVCMessageView: UIVisualEffectView {
     func reset() {
         self.titleLabel.text = ""
         self.contentLabel.text = ""
-        self.imageView.image = UIImage(named: "NoPhoto-Placeholder")
+        self.imageView.image = UIImage(named: "NoPhotoPlaceholder")
     }
     
    

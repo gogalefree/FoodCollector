@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Donate.png"
+      "filename" : "PlaceholderActivity.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Donate@2x.png"
+      "filename" : "PlaceholderActivity@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "Donate@3x.png"
+      "filename" : "PlaceholderActivity@3x.png"
     }
   ],
   "info" : {

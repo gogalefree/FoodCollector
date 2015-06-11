@@ -14,8 +14,8 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
     @IBOutlet weak var scrollViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollViewButtomConstraint: NSLayoutConstraint!
 
-    let initialScrollViewButtomConstartintConstant: CGFloat = 236.0
-    let initialScrollViewTopConstartintConstant: CGFloat = 0.0
+    let initialScrollViewButtomConstartintConstant: CGFloat = 176.0 //236.0
+    let initialScrollViewTopConstartintConstant: CGFloat = 60.0 //0.0
 
     var scrollViewZoomed = false
     var publication: FCPublication!
@@ -45,7 +45,6 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
             let image = publication.photoData.photo!
             myImageView = UIImageView(image: image)
             myImageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size:image.size)
-            myImageView.image = image
             scrollView.addSubview(myImageView)
         }
     }

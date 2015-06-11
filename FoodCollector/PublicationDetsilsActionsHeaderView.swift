@@ -20,8 +20,9 @@ protocol PublicationDetailsActionsHeaderDelegate: NSObjectProtocol {
 
 class PublicationDetsilsActionsHeaderView: UIView {
     
-    let buttonPressColor = UIColor(red: 44/255, green: 131/255, blue: 189/255, alpha: 1)
-    let normalColor = UIColor(red: 49/255, green: 151/255, blue: 211/255, alpha: 1)
+    let buttonPressColor = UIColor(red: 32/255, green: 137/255, blue: 75/255, alpha: 1)
+    let normalColor = kNavBarBlueColor
+    
     
     @IBOutlet weak var registerButton:  UIButton!
     @IBOutlet weak var navigateButton:  UIButton!
@@ -44,20 +45,46 @@ class PublicationDetsilsActionsHeaderView: UIView {
     
     @IBAction func buttonsActions (sender: UIButton!) {
     
+        animateButton(sender)
+
         switch sender {
-            
+
         case registerButton:
-            println("publication details register button")
-            animateButton(self.registerButton)
+
+            
+            if let delegate = self.delegate {
+                switch self.publication.didRegisterForCurrentPublication {
+                case true:
+                    delegate.didUnRegisterForPublication(self.publication)
+                case false:
+                    delegate.didRegisterForPublication(self.publication)
+                default:
+                    break
+                }
+            }
             
         case navigateButton:
-            println("publication details navigate button")
+            
+            if !self.publication.didRegisterForCurrentPublication {
+                self.delegate.didRegisterForPublication(self.publication)
+                if self.publication.typeOfCollecting == .ContactPublisher {return}
+            }
+
+            if let delegate = self.delegate {
+                    delegate.didRequestNavigationForPublication(self.publication)
+            }
             
         case smsButton:
-            println("publication details sms button")
+
+            if let delegate = self.delegate {
+                delegate.didRequestSmsForPublication(self.publication)
+            }
             
         case phoneCallButton:
-            println("publication details phone call button")
+
+            if let delegate = self.delegate {
+                delegate.didRequestPhoneCallForPublication(self.publication)
+            }
             
         default:
             println("publication details unknown button")
@@ -100,12 +127,9 @@ class PublicationDetsilsActionsHeaderView: UIView {
         
         configureButtonsForNormalState()
 
-        
         if isRegistered {
          
             animateButton(self.registerButton)
-            //change icon
-
         }
     }
     
