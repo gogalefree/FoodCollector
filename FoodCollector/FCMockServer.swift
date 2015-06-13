@@ -29,29 +29,6 @@ public class FCMockServer: NSObject , FCServerProtocol {
     func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: FCPublication) ->  Void) {
         
         let uniqueId = identifier.uniqueId
-//        let version = identifier.version
-//        let title = "55 מנות חומוס פול"
-//        let subtitle = "חומוס עוזי המקורי!"
-//        let address = "רחוב שער העמק 17 נתניה"
-//        let typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-//        let coordinate = CLLocationCoordinate2D(latitude: 32.362653, longitude: 34.923906)
-//        let startingDate = NSDate()
-//        let endingDate = NSDate(timeIntervalSinceNow: 266000)
-//        let photoUrl = "www.maayan.com"
-//
-//        var params = [String : AnyObject]()
-//        params[kPublicationUniqueIdKey] = uniqueId
-//        params[kPublicationVersionKey] = version
-//        params[kPublicationTitleKey] = title
-//        params[kPublicationSubTitleKey] = subtitle
-//        params[kPublicationAddressKey] = address
-//        params[kPublicationTypeOfCollectingKey] = typeOfCollecting.rawValue
-//        params[kPublicationlatitudeKey] = "\(coordinate.latitude)"
-//        params[kPublicationLongtitudeKey] = "\(coordinate.longitude)"
-//        params[kPublicationStartingDateKey] = "\(startingDate.timeIntervalSince1970)"
-//        params[kPublicationEndingDateKey] = "\(endingDate.timeIntervalSince1970)"
-//        params[kPublicationContactInfoKey] = "0545554444"
-        
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getPublicationWithIdentifierURL + "\(uniqueId)")
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
@@ -63,6 +40,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 
                 if error == nil && aServerResponse.statusCode == 200{
                    
+                    if let data = data {
                     let publicationDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String : AnyObject]
                     
                     if let params = publicationDict {
@@ -73,6 +51,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                             completion(publication: publication)
                         })
                         
+                    }
                     }
                 }
             }
@@ -236,6 +215,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                 
+                if let data = data {
                 let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [[String : AnyObject]]
                 
                 for publicationDict in arrayOfPublicationDicts {
@@ -247,6 +227,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     completion(thePublications: publications)
                 })
+                }
             })
             }
         })
@@ -276,7 +257,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                let serverResponse = theResponse as! NSHTTPURLResponse
                 
                 if error == nil && serverResponse.statusCode == 200 {
-                    
+                    if let data = data {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                         
                         
@@ -301,6 +282,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                             completion(success: true, reports: publicationReports)
                         })
                     })
+                }
                 }
                 else {
                     completion(success: false, reports: nil)
@@ -369,7 +351,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
 
-        let url = NSURL(string: unRegisterUserFromPublicationURL + "\(uniqueId)" + "/registered_user_for_publications.json")
+        let url = NSURL(string: unRegisterUserFromPublicationURL + "\(uniqueId)" + "/registered_user_for_publications/5")
         println("url: \(url)")
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"
@@ -382,7 +364,6 @@ public class FCMockServer: NSObject , FCServerProtocol {
             
             if var serverResponse = response as? NSHTTPURLResponse {
                 print("respons: \(serverResponse.description)")
-                
                 if error != nil || serverResponse.statusCode != 200 {
                     //we currently implement as best effort. nothing is done with an error
                     println("Unregister for publication error: \(error)")
@@ -461,12 +442,15 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 
                 
                 if error == nil && serverResponse.statusCode == 200 {
+                    
+                    if let data = data {
                    
                     //we currently implement as best effort. nothing is done with an error
                     let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String : AnyObject]
                     let uniqueId = dict[kPublicationUniqueIdKey] as! Int
                     let version = dict[kPublicationVersionKey] as! Int
                     completion(success: true, uniqueID: uniqueId, version: version)
+                    }
                 }
                 else {
                     completion(success: false, uniqueID: 0, version: 0)
@@ -503,10 +487,11 @@ public class FCMockServer: NSObject , FCServerProtocol {
             if var serverResponse = response as? NSHTTPURLResponse {
                 println("post edited publication response: \(serverResponse)")
                 if error == nil && serverResponse.statusCode == 200 {
-                    
+                    if let data = data {
                     let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String : AnyObject]
                     let version = dict[kPublicationVersionKey] as! Int
                     completion(success: true,  version: version)
+                    }
                 }
                 else {
                     completion(success: false, version: 0)
@@ -589,222 +574,222 @@ public class FCMockServer: NSObject , FCServerProtocol {
     
 }
 
-public extension FCMockServer {
-    
-    public func makePublication () -> [FCPublication] {
-        
-        var publicaions = [FCPublication]()
-        var uniqueId = 111111
-        var title = "תפוחים ירוקים מהעץ"
-        var subtitle = "השארתי על הגדר מחוץ לבית"
-        var address = "רחוב שדרות בנימין 16, הוד השרון"
-        var typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        var coordinate = CLLocationCoordinate2D(latitude: 32.361233, longitude: 34.867452)
-        var startingDate = NSDate()
-        var endingDate = NSDate(timeIntervalSinceNow: 129600)
-        var contactInfo = "0544448246"
-        var photoUrl = "www.url.com"
-        var version = 2
-        
-        let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
-        pub1.countOfRegisteredUsers = 2
-        var report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage.HasMore, date: startingDate)
-        pub1.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
-        pub1.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
-        pub1.reportsForPublication.append(report)
-        
-        publicaions.append(pub1)
-        
-        uniqueId = 2222222
-        title = "50 קג עוף צלוי"
-        subtitle = "כנפי עוף שהופשרו אתמול. נא להזדרז!"
-        address = "מושב בית הלוי"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.357868, longitude: 34.934164)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: -360000)
-        photoUrl = "www.guy.com"
-        version = 1
-        
-        let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,contactInfo: contactInfo, subTitle: subtitle, version: version)
-        pub2.countOfRegisteredUsers = 4
-        
-        report.date = endingDate
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub2.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub2.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub2.reportsForPublication.append(report)
-        publicaions.append(pub2 )
-        
-        
-        uniqueId = 3333333
-        title = "35 מנות מוכנות"
-        subtitle = "מנות ראשונות ומנות עיקריות בקופסאות פלסטיק"
-        address = "רופין 19 תל אביב"
-        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: -345600)
-        contactInfo = "0544448246"
-        photoUrl = "www.denis.com"
-        version = 1
-        
-        let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
-        pub3.countOfRegisteredUsers = 6
-        report.date = endingDate
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub3.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub3.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
-        pub3.reportsForPublication.append(report)
-        
-        publicaions.append(pub3)
-        
-        uniqueId = 444444
-        title = "צלי בקר ממסיבת חתונה"
-        subtitle = "5 ק״ג אנטריקוט"
-        address = "טשרנחובסקי 5 רעננה"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.357622, longitude: 34.908564)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
-        photoUrl = "www.denis.com"
-        version = 1
-        
-        let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
-        pub4.countOfRegisteredUsers = 4
-        report.date = endingDate
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub4.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub4.reportsForPublication.append(report)
-        publicaions.append(pub4)
-        
-        uniqueId = 555555
-        title = "55 מנות חומוס"
-        subtitle = "חומוס עוזי המקורי!"
-        address = "רחוב שער העמק 17 נתניה"
-        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        coordinate = CLLocationCoordinate2D(latitude: 32.350807, longitude: 34.908221)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
-        photoUrl = "www.maayan.com"
-        version = 1
-        
-        let pub5 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: contactInfo, subTitle: subtitle, version: version)
-        pub4.countOfRegisteredUsers = 4
-        report.date = startingDate
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub5.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
-        pub5.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
-        pub5.reportsForPublication.append(report)
-        
-        publicaions.append(pub5)
-        
-        uniqueId = 666666
-        title = "סנדביץ׳ אבוקדו"
-        subtitle = "נשאר בקפיטריה של אוניברסיטת תל אביב"
-        address = "רחוב איינשטיין תל אביב"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.140298, longitude: 34.848289)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: -266000)
-        photoUrl = "www.denis.com"
-        version = 1
-        
-        let pub6 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
-        pub6.countOfRegisteredUsers = 6
-        report.date = startingDate
-        
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
-        report.date = endingDate
-        pub6.reportsForPublication.append(report)
-        
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
-        report.date = startingDate
-        pub6.reportsForPublication.append(report)
-        publicaions.append(pub6)
-        
-        uniqueId = 777777
-        title = "מרק חם"
-        subtitle = "75 מנות מרק עוף טרי"
-        address = "כיכר העצמאות נתניה"
-        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        coordinate = CLLocationCoordinate2D(latitude: 32.349792, longitude: 34.880111)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
-        photoUrl = "www.denis.com"
-        version = 1
-        
-        let pub7 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: contactInfo, subTitle: subtitle, version: version)
-        pub7.countOfRegisteredUsers = 10
-        
-        report.date = startingDate
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub7.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub7.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
-        pub7.reportsForPublication.append(report)
-        publicaions.append(pub7)
-        
-        uniqueId = 888888
-        title = "10 מנות פלאפל"
-        subtitle = "פלאפל התחנה"
-        address = "מחלף נתניה"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.277409, longitude: 34.883995)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
-        photoUrl = "www.denis.com"
-        
-        
-        let pub8 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
-        pub8.countOfRegisteredUsers = 3
-        report.date = startingDate
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub8.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
-        pub8.reportsForPublication.append(report)
-        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
-        pub8.reportsForPublication.append(report)
-        publicaions.append(pub8)
-        
-        uniqueId = 999999
-        title = "חמוצים בייתיים"
-        subtitle = "ךימון כבוש, זייתים ירוקים"
-        address = "רחוב המעלות 2 כפר יונה"
-        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
-        coordinate = CLLocationCoordinate2D(latitude: 32.296855, longitude: 34.914207)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
-        photoUrl = "www.denis.com"
-        
-        let pub9 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
-        pub9.countOfRegisteredUsers = 0
-        publicaions.append(pub9)
-        
-        uniqueId = 101010
-        title = "מוקפץ תאילנדי"
-        subtitle = "2 ק״ג מוקפץ חם וטרי"
-        address = "קניון השרון נתניה, קומה א׳"
-        typeOfCollecting = FCTypeOfCollecting.FreePickUp
-        coordinate = CLLocationCoordinate2D(latitude: 32.318038, longitude: 34.857559)
-        startingDate = NSDate()
-        endingDate = NSDate(timeIntervalSinceNow: 266000)
-        photoUrl = "www.denis.com"
-        
-        let pub10 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
-        pub10.countOfRegisteredUsers = 1
-        publicaions.append(pub10)
-        
-        return publicaions
-    }
-}
+//public extension FCMockServer {
+//    
+//    public func makePublication () -> [FCPublication] {
+//        
+//        var publicaions = [FCPublication]()
+//        var uniqueId = 111111
+//        var title = "תפוחים ירוקים מהעץ"
+//        var subtitle = "השארתי על הגדר מחוץ לבית"
+//        var address = "רחוב שדרות בנימין 16, הוד השרון"
+//        var typeOfCollecting = FCTypeOfCollecting.ContactPublisher
+//        var coordinate = CLLocationCoordinate2D(latitude: 32.361233, longitude: 34.867452)
+//        var startingDate = NSDate()
+//        var endingDate = NSDate(timeIntervalSinceNow: 129600)
+//        var contactInfo = "0544448246"
+//        var photoUrl = "www.url.com"
+//        var version = 2
+//        
+//        let pub1 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
+//        pub1.countOfRegisteredUsers = 2
+//        var report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage.HasMore, date: startingDate)
+//        pub1.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+//        pub1.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+//        pub1.reportsForPublication.append(report)
+//        
+//        publicaions.append(pub1)
+//        
+//        uniqueId = 2222222
+//        title = "50 קג עוף צלוי"
+//        subtitle = "כנפי עוף שהופשרו אתמול. נא להזדרז!"
+//        address = "מושב בית הלוי"
+//        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+//        coordinate = CLLocationCoordinate2D(latitude: 32.357868, longitude: 34.934164)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: -360000)
+//        photoUrl = "www.guy.com"
+//        version = 1
+//        
+//        let pub2 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,contactInfo: contactInfo, subTitle: subtitle, version: version)
+//        pub2.countOfRegisteredUsers = 4
+//        
+//        report.date = endingDate
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub2.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub2.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub2.reportsForPublication.append(report)
+//        publicaions.append(pub2 )
+//        
+//        
+//        uniqueId = 3333333
+//        title = "35 מנות מוכנות"
+//        subtitle = "מנות ראשונות ומנות עיקריות בקופסאות פלסטיק"
+//        address = "רופין 19 תל אביב"
+//        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
+//        coordinate = CLLocationCoordinate2D(latitude: 32.381214, longitude: 34.882611)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: -345600)
+//        contactInfo = "0544448246"
+//        photoUrl = "www.denis.com"
+//        version = 1
+//        
+//        let pub3 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
+//        pub3.countOfRegisteredUsers = 6
+//        report.date = endingDate
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub3.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub3.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+//        pub3.reportsForPublication.append(report)
+//        
+//        publicaions.append(pub3)
+//        
+//        uniqueId = 444444
+//        title = "צלי בקר ממסיבת חתונה"
+//        subtitle = "5 ק״ג אנטריקוט"
+//        address = "טשרנחובסקי 5 רעננה"
+//        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+//        coordinate = CLLocationCoordinate2D(latitude: 32.357622, longitude: 34.908564)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: 266000)
+//        photoUrl = "www.denis.com"
+//        version = 1
+//        
+//        let pub4 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
+//        pub4.countOfRegisteredUsers = 4
+//        report.date = endingDate
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub4.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub4.reportsForPublication.append(report)
+//        publicaions.append(pub4)
+//        
+//        uniqueId = 555555
+//        title = "55 מנות חומוס"
+//        subtitle = "חומוס עוזי המקורי!"
+//        address = "רחוב שער העמק 17 נתניה"
+//        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
+//        coordinate = CLLocationCoordinate2D(latitude: 32.350807, longitude: 34.908221)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: 266000)
+//        photoUrl = "www.maayan.com"
+//        version = 1
+//        
+//        let pub5 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: contactInfo, subTitle: subtitle, version: version)
+//        pub4.countOfRegisteredUsers = 4
+//        report.date = startingDate
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub5.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+//        pub5.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+//        pub5.reportsForPublication.append(report)
+//        
+//        publicaions.append(pub5)
+//        
+//        uniqueId = 666666
+//        title = "סנדביץ׳ אבוקדו"
+//        subtitle = "נשאר בקפיטריה של אוניברסיטת תל אביב"
+//        address = "רחוב איינשטיין תל אביב"
+//        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+//        coordinate = CLLocationCoordinate2D(latitude: 32.140298, longitude: 34.848289)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: -266000)
+//        photoUrl = "www.denis.com"
+//        version = 1
+//        
+//        let pub6 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
+//        pub6.countOfRegisteredUsers = 6
+//        report.date = startingDate
+//        
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.NothingThere
+//        report.date = endingDate
+//        pub6.reportsForPublication.append(report)
+//        
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+//        report.date = startingDate
+//        pub6.reportsForPublication.append(report)
+//        publicaions.append(pub6)
+//        
+//        uniqueId = 777777
+//        title = "מרק חם"
+//        subtitle = "75 מנות מרק עוף טרי"
+//        address = "כיכר העצמאות נתניה"
+//        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
+//        coordinate = CLLocationCoordinate2D(latitude: 32.349792, longitude: 34.880111)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: 266000)
+//        photoUrl = "www.denis.com"
+//        version = 1
+//        
+//        let pub7 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: contactInfo, subTitle: subtitle, version: version)
+//        pub7.countOfRegisteredUsers = 10
+//        
+//        report.date = startingDate
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub7.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub7.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+//        pub7.reportsForPublication.append(report)
+//        publicaions.append(pub7)
+//        
+//        uniqueId = 888888
+//        title = "10 מנות פלאפל"
+//        subtitle = "פלאפל התחנה"
+//        address = "מחלף נתניה"
+//        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+//        coordinate = CLLocationCoordinate2D(latitude: 32.277409, longitude: 34.883995)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: 266000)
+//        photoUrl = "www.denis.com"
+//        
+//        
+//        let pub8 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address,  contactInfo: nil, subTitle: subtitle, version: version)
+//        pub8.countOfRegisteredUsers = 3
+//        report.date = startingDate
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub8.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.HasMore
+//        pub8.reportsForPublication.append(report)
+//        report.onSpotPublicationReportMessage = FCOnSpotPublicationReportMessage.TookAll
+//        pub8.reportsForPublication.append(report)
+//        publicaions.append(pub8)
+//        
+//        uniqueId = 999999
+//        title = "חמוצים בייתיים"
+//        subtitle = "ךימון כבוש, זייתים ירוקים"
+//        address = "רחוב המעלות 2 כפר יונה"
+//        typeOfCollecting = FCTypeOfCollecting.ContactPublisher
+//        coordinate = CLLocationCoordinate2D(latitude: 32.296855, longitude: 34.914207)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: 266000)
+//        photoUrl = "www.denis.com"
+//        
+//        let pub9 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: contactInfo, subTitle: subtitle, version: version)
+//        pub9.countOfRegisteredUsers = 0
+//        publicaions.append(pub9)
+//        
+//        uniqueId = 101010
+//        title = "מוקפץ תאילנדי"
+//        subtitle = "2 ק״ג מוקפץ חם וטרי"
+//        address = "קניון השרון נתניה, קומה א׳"
+//        typeOfCollecting = FCTypeOfCollecting.FreePickUp
+//        coordinate = CLLocationCoordinate2D(latitude: 32.318038, longitude: 34.857559)
+//        startingDate = NSDate()
+//        endingDate = NSDate(timeIntervalSinceNow: 266000)
+//        photoUrl = "www.denis.com"
+//        
+//        let pub10 = FCPublication(coordinates: coordinate, theTitle: title, endingDate: endingDate, typeOfCollecting: typeOfCollecting, startingDate: startingDate, uniqueId: uniqueId, address: address, contactInfo: nil, subTitle: subtitle, version: version)
+//        pub10.countOfRegisteredUsers = 1
+//        publicaions.append(pub10)
+//        
+//        return publicaions
+//    }
+//}
