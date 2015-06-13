@@ -55,6 +55,7 @@ public enum FCTypeOfCollecting: Int {
 
 class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var publication:FCPublication?
     var state = FCPublicationEditorTVCState.CreateNewPublication
@@ -72,6 +73,11 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         if self.state != .CreateNewPublication {
             self.fetchPhotoIfNeeded()
         }
+        
+        if self.state != .EditPublication {
+            self.deleteButton.enabled = false
+        }
+        
         
         println(">>>> show self.dataSource")
         for dataObj in self.dataSource {
@@ -417,9 +423,12 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     func removeActivityIndicator() {
-        self.activityIndicatorBlureView.removeFromSuperview()
-        self.tableView.userInteractionEnabled = true
-        self.activityIndicatorBlureView.alpha = 0
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            
+            self.activityIndicatorBlureView.removeFromSuperview()
+            self.tableView.userInteractionEnabled = true
+            self.activityIndicatorBlureView.alpha = 0
+        })
     }
     
     func prepareParamsDictToSend() -> [String: AnyObject]{
@@ -481,33 +490,33 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         
-        let section = self.selectedIndexPath!.section
-        let cellData = self.dataSource[section]
+        if segue.identifier != "unwindWithDeletePublicationSegue" {
         
-        if (segue.identifier == "showPublicationStringFieldsEditor") {
-            let pubEditorVC = segue!.destinationViewController as! FCPublishStringFieldsEditorVC
-            pubEditorVC.celldata = cellData
-            pubEditorVC.state = FCPublishStringFieldsEditorVC.DisplayState(rawValue: section)!
-        }
-        
-        if (segue.identifier == "showPublicationDateEditor") {
-            let pubEditorVC = segue!.destinationViewController as! FCPublishDateEditorVC
-            pubEditorVC.cellData = cellData
-            pubEditorVC.state = FCPublishDateEditorVC.PickerState(rawValue: section)!
-        }
-        
-        if (segue.identifier == "showPublicationTypeOfCollectionEditor") {
-            let typeOfCollectingEditorVC = segue!.destinationViewController as! FCPublicationTypeOfPublicationEditorVC
-            typeOfCollectingEditorVC.cellData = cellData
-        }
-        
-        if (segue.identifier == "showPublicationAdressEditor") {
-            let pubEditorVC = segue!.destinationViewController as! FCPublishAddressEditorVC
+            let section = self.selectedIndexPath!.section
+            let cellData = self.dataSource[section]
             
+            if (segue.identifier == "showPublicationStringFieldsEditor") {
+                let pubEditorVC = segue!.destinationViewController as! FCPublishStringFieldsEditorVC
+                pubEditorVC.celldata = cellData
+                pubEditorVC.state = FCPublishStringFieldsEditorVC.DisplayState(rawValue: section)!
+            }
+            
+            if (segue.identifier == "showPublicationDateEditor") {
+                let pubEditorVC = segue!.destinationViewController as! FCPublishDateEditorVC
+                pubEditorVC.cellData = cellData
+                pubEditorVC.state = FCPublishDateEditorVC.PickerState(rawValue: section)!
+            }
+            
+            if (segue.identifier == "showPublicationTypeOfCollectionEditor") {
+                let typeOfCollectingEditorVC = segue!.destinationViewController as! FCPublicationTypeOfPublicationEditorVC
+                typeOfCollectingEditorVC.cellData = cellData
+            }
+            
+            if (segue.identifier == "showPublicationAdressEditor") {
+                let pubEditorVC = segue!.destinationViewController as! FCPublishAddressEditorVC
+                
+            }
         }
-        
-        
-        
     }
 }
 

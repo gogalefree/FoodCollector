@@ -72,5 +72,14 @@ protocol FCServerProtocol {
     /// register or unregister the current user to a publication
     func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage)
     
+    ///
+    /// unRegister or unregister the current user to a publication
+    func unRegisterUserFromComingToPickUpPublication(publication: FCPublication, completion: (success: Bool) -> Void)
+   
+    ///
+    /// Delete userCreatedPublication by the user
+    /// Currently we dont implement persistency so if the service fails, we try again
+    func deletePublication(publicationIdentifier: PublicationIdentifier , completion: (success: Bool) -> ())
+    
 }
 

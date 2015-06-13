@@ -148,6 +148,46 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 0)])        
     }
     
+    //MARK: - User deleted his own user created publication
+    //Segue initiated by delete button in PublicationEditorTVC
+    
+    @IBAction func unwindWithDeletePublication(segue: UIStoryboardSegue) {
+    
+        //if the state is not .Edit new the user cant delete
+        let publicationEditorTVC = segue.sourceViewController as! FCPublicationEditorTVC
+        if publicationEditorTVC.state != .EditPublication {return}
+        
+        let pubicationToDelete = publicationEditorTVC.publication!
+        let indexPathToRemove = self.indexPathForUserCreatedPublication(pubicationToDelete)
+        
+        //delete fron ColectionView
+        if let indexPath = indexPathToRemove {
+            self.userCreatedPublications.removeAtIndex(indexPath.row)
+            self.collectionView.deleteItemsAtIndexPaths([indexPath])
+        }
+        
+        //make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
+        let publicationIdentifier = PublicationIdentifier(uniqueId: pubicationToDelete.uniqueId , version: pubicationToDelete.version)
+        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+        
+        
+        //delete from model
+        FCModel.sharedInstance.deletePublication(publicationIdentifier)
+    
+    }
+    
+    func indexPathForUserCreatedPublication(pubicationToDelete: FCPublication) -> NSIndexPath? {
+        
+        for (index,publication) in enumerate(self.userCreatedPublications) {
+            if publication.uniqueId == pubicationToDelete.uniqueId &&
+                publication.version == pubicationToDelete.version {
+                   return NSIndexPath(forItem: index, inSection: 0)
+            }
+        }
+        return nil
+    }
+    
+    
     func showCollectionView() {
         self.collectionViewHidden = false
         UIView.animateWithDuration(0.4, animations: { () -> Void in
@@ -162,13 +202,18 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     //this is triggered by a NSNotification.
     //we reload the collection view since it might have been a user created publication taken off air
     func didDeletePublicationNotification() {
-        self.collectionView.reloadData()
+        if let collectionView = self.collectionView {
+            self.collectionView.reloadData()
+        }
     }
     
     //this is trigered when a user had updated or reposted userCreatedPublication
     //the model deletes old versions and posts this notification
     func didDeleteOldVersionOfUserCreatedPublication() {
-        self.collectionView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+            self.collectionView.reloadData()
+        })
     }
     
     func displayNoPublicatiosMessage(){

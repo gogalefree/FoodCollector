@@ -81,7 +81,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     final func reload() {
         
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
-        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in publication.isOnAir == true
+        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in return publication.isOnAir == true
         }
 
       //  self.removeExpiredUserCreatedPublications()

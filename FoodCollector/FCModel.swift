@@ -1,4 +1,4 @@
-//
+   //
 //  FCModel.swift
 //  FoodCollector
 //
@@ -116,6 +116,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     }
     
     func deletePublication(publicationIdentifier: PublicationIdentifier) {
+        //delete the publication
         for (index , publication) in enumerate(self.publications) {
             if publication.uniqueId == publicationIdentifier.uniqueId &&
                 publication.version == publicationIdentifier.version{
@@ -126,6 +127,25 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                     break
             }
         }
+        //delete the publication from user created publications
+        for (index , publication) in enumerate(self.userCreatedPublications) {
+            if publication.uniqueId == publicationIdentifier.uniqueId &&
+                publication.version == publicationIdentifier.version{
+                    self.userCreatedPublications.removeAtIndex(index)
+                    self.saveUserCreatedPublications()
+                    break
+            }
+        }
+
+        
+        self.foodCollectorWebServer.deletePublication(publicationIdentifier, completion: { (success) -> () in
+          
+            //TODO: implement persistency so we'll save the identifier and try again
+//            if !success {
+//                self.deletePublication(publicationIdentifier)
+//            }
+        })
+        //TODO: Delete photo from AWS
     }
     
     /// add a Publication to Publications array
@@ -218,7 +238,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                
+                self.saveUserCreatedPublications()
                 self.postDeleteOldVersionOfUserCreatedPublications()
             })
         })

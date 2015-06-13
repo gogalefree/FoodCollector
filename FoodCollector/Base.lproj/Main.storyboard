@@ -2081,9 +2081,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Mm9-XB-BhA">
-                        <barButtonItem key="rightBarButtonItem" image="Delete" id="YOT-YH-7PL"/>
+                        <barButtonItem key="rightBarButtonItem" image="Delete" id="YOT-YH-7PL">
+                            <connections>
+                                <segue destination="01Y-nf-hmz" kind="unwind" identifier="unwindWithDeletePublicationSegue" unwindAction="unwindWithDeletePublication:" id="6Nu-X4-Cxm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deleteButton" destination="YOT-YH-7PL" id="Mdy-Ui-Sfy"/>
                         <segue destination="v3R-dA-34T" kind="show" identifier="showPublicationImageEditor" id="Yao-aa-Gxi"/>
                         <segue destination="19G-X7-6HX" kind="show" identifier="showPublicationTypeOfCollectionEditor" id="NxB-aR-5qR"/>
                         <segue destination="6NJ-7D-o8q" kind="show" identifier="showPublicationDateEditor" id="Eg4-bV-caN"/>
@@ -2092,6 +2097,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXF-oP-PNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="01Y-nf-hmz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2845" y="1024"/>
         </scene>

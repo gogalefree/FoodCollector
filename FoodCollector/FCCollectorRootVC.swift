@@ -113,6 +113,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         super.viewDidLayoutSubviews()
         if tabbarVisibleCenter == CGPointZero {
             self.defineBarsCenterPoints()
+            FCModel.sharedInstance.uiReadyForNewData = true
         }
 
     }

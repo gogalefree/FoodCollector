@@ -261,11 +261,9 @@ extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
         
         publication.didRegisterForCurrentPublication = false
         publication.countOfRegisteredUsers -= 1
-        //TODO: Delete registration from server
-    //    FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.unRegister)
+        FCModel.sharedInstance.foodCollectorWebServer.unRegisterUserFromComingToPickUpPublication(publication, completion: { (success) -> Void in})
         FCModel.sharedInstance.savePublications()
         self.updateRegisteredUserIconCounter()
-
     }
     
     func didRequestNavigationForPublication(publication: FCPublication) {

@@ -10,14 +10,16 @@ import UIKit
 
 let baseUrlString = FCModel.sharedInstance.baseUrl
 
-let reportActiveDeviceURL           = baseUrlString + "active_devices.json"
-let registerForPushNotificationsURL = baseUrlString + "active_devices/dev_uuid.json"
-let getAllPublicationsURL           = baseUrlString + "publications.json"
-let postNewPublicationURL           = baseUrlString + "publications.json"
-let reportArrivedToPublicationURL   = baseUrlString + "publications/"
-let reportsForPublicationBaseURL    = baseUrlString + "publications/"
-let reportUserLocationURL           = baseUrlString + "active_devices/dev_uuid.json"
-let getPublicationWithIdentifierURL = baseUrlString + "publications/"
+let reportActiveDeviceURL            = baseUrlString + "active_devices.json"
+let registerForPushNotificationsURL  = baseUrlString + "active_devices/dev_uuid.json"
+let getAllPublicationsURL            = baseUrlString + "publications.json"
+let postNewPublicationURL            = baseUrlString + "publications.json"
+let reportArrivedToPublicationURL    = baseUrlString + "publications/"
+let reportsForPublicationBaseURL     = baseUrlString + "publications/"
+let reportUserLocationURL            = baseUrlString + "active_devices/dev_uuid.json"
+let getPublicationWithIdentifierURL  = baseUrlString + "publications/"
+let deletePublicationURL             = baseUrlString + "publications/"
+let unRegisterUserFromPublicationURL = baseUrlString + "publications/"
 
 public class FCMockServer: NSObject , FCServerProtocol {
     
@@ -323,7 +325,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         var dicToSend = ["registered_user_for_publication" : params]
         
-        let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
+        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
         println(dicToSend)
         let url = NSURL(string: urlString)
         var request = NSMutableURLRequest(URL: url!)
@@ -346,6 +348,48 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         task.resume()
         
+    }
+    
+    //unregister
+    
+    func unRegisterUserFromComingToPickUpPublication(publication: FCPublication, completion: (success: Bool) -> Void) {
+
+        let uniqueId = publication.uniqueId
+        let publicationVersion = publication.version
+        let deviceUUID = FCModel.sharedInstance.deviceUUID
+        
+        var params = [String : AnyObject]()
+        params["active_device_dev_uuid"] = deviceUUID
+        params["publication_version"] = publicationVersion
+        params["publication_id"] = uniqueId
+        params["date_of_registration"] = 11243423
+        println("params: \(params)")
+        
+        let dicToSend = ["registered_user_for_publication" : params]
+        
+        let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
+
+        let url = NSURL(string: unRegisterUserFromPublicationURL + "\(uniqueId)" + "/registered_user_for_publications.json")
+        println("url: \(url)")
+        var request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "DELETE"
+        request.HTTPBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+     
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            
+            if var serverResponse = response as? NSHTTPURLResponse {
+                print("respons: \(serverResponse.description)")
+                
+                if error != nil || serverResponse.statusCode != 200 {
+                    //we currently implement as best effort. nothing is done with an error
+                    println("Unregister for publication error: \(error)")
+                }
+            }
+        })
+        task.resume()
     }
     
     ///
@@ -457,7 +501,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
             completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
-                
+                println("post edited publication response: \(serverResponse)")
                 if error == nil && serverResponse.statusCode == 200 {
                     
                     let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String : AnyObject]
@@ -507,6 +551,40 @@ public class FCMockServer: NSObject , FCServerProtocol {
         })
         
         task.resume()
+    }
+    
+    func deletePublication(publicationIdentifier: PublicationIdentifier , completion: (success: Bool) -> ()) {
+
+        let publicationUniqueID = publicationIdentifier.uniqueId
+        
+        let url = NSURL(string: deletePublicationURL + "\(publicationUniqueID)")
+        var request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "DELETE"
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            
+            if let response = response {
+                let serverResponse = response as! NSHTTPURLResponse
+                
+                println("DELETE PUBLICATION RESPONSE: \(serverResponse)")
+                
+                if error != nil || serverResponse.statusCode != 200 {
+                   
+                    println("ERROR DELETING: \(error)")
+                 //   completion(success: false)
+                }
+            }
+            else {
+              //  completion(success: false)
+            }
+        })
+        
+        
+        task.resume()
+
+    
     }
     
 }
