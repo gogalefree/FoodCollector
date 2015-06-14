@@ -49,16 +49,24 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     
     //MARK: - UISearchBar
     func addSearchBar() {
-    
+        
         let searchBar = UISearchBar(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44))
         self.searchBar = searchBar
         searchBar.delegate = self
-        searchBar.placeholder = "Search"
+        // English String
+        // searchBar.placeholder = "Search"
+        searchBar.placeholder = "חיפוש" // Localized String
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
-        searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Available"]
+        // English String
+        // searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Active"]
+        searchBar.scopeButtonTitles = ["קרובים" , "אחרונים" , "פעילים"]  // Localized String
         searchBar.showsScopeBar = true
         searchBar.selectedScopeButtonIndex = 0
         searchBar.sizeToFit()
+        
+        //println("SUBVIEWS Count: \(searchBar.subviews[0].subviews[0].subviews.count)")
+        //println("SUBVIEWS 0: \(searchBar.subviews[0].subviews[0].subviews[0].description)")
+        //println("SUBVIEWS 1: \(searchBar.subviews[0].subviews[0].subviews[1].description)")
         
         let white = UIColor.whiteColor()
         searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(white, view: self.view), forState: .Normal)
@@ -67,6 +75,29 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(color, view: self.view), forState: .Selected)
         searchBar.scopeBarBackgroundImage = UIImage.imageWithColor(white, view: self.view)
         self.tableView.tableHeaderView = searchBar
+    }
+    
+    func findCancelButonInSearchBar(currentView: UIView){
+        // Get the subviews of the searchBar
+        var viewsArray = currentView.subviews
+        
+        // Return if there are no subviews
+        if (viewsArray.count == 0) {
+            return
+        }
+        
+        for subView in viewsArray {
+            if subView.isKindOfClass(UIButton) {
+                if let title = subView.currentTitle {
+                    subView.setTitle("ביטול", forState: .Normal)
+                    return
+                }
+            }
+            
+            // Resursive call
+            self.findCancelButonInSearchBar(subView as! UIView);
+        }
+        
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -86,6 +117,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         searchBar.setShowsCancelButton(true, animated: true)
+        findCancelButonInSearchBar(searchBar)
         return true
     }
     

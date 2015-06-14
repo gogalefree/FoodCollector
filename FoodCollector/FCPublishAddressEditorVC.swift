@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-let addressEditorTitle = String.localizedStringWithFormat( "כתובת", "the editor title for enter a publication address")
+let addressEditorTitle = String.localizedStringWithFormat( "הוספת כתובת", "the editor title for enter a publication address")
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -143,7 +143,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 }
             }
             else {
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("בעיית רשת", aMessage: "נסה שנית")
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("בעיית רשת", aMessage: "נסו שנית")
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             
             }

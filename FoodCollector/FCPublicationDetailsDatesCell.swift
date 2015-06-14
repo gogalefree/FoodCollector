@@ -8,9 +8,9 @@
 
 import UIKit
 
-let publishedTitle = String.localizedStringWithFormat("פורסם ב:", "a label title meaning: published on")
+let publishedTitle = String.localizedStringWithFormat("התחלה:", "a label title meaning: published on")
 
-let endsTitle = String.localizedStringWithFormat("מסתיים ב:", "a label title meaning: will finish on date")
+let endsTitle = String.localizedStringWithFormat("סיום:", "a label title meaning: will finish on date")
 
 class FCPublicationDetailsDatesCell: UITableViewCell {
 

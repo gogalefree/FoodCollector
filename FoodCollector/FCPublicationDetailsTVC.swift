@@ -206,7 +206,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
                 if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version{
                     
                     let alert = UIAlertController(title: publication.title, message: kpublicationDeletedAlertMessage, preferredStyle: .Alert)
-                    let action = UIAlertAction(title: "okay", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    // Localization: Original string = title: "okay"
+                    let action = UIAlertAction(title: "אישור", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         
                         alert.dismissViewControllerAnimated(true, completion: nil)
                         self.dismissViewControllerAnimated(true, completion: nil)
@@ -251,7 +252,7 @@ extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
         //show alert controller
         if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
             
-            let title = String.localizedStringWithFormat("נא ליצור קשר עם המפרסם", "an alert title requesting to contact the publisher")
+            let title = String.localizedStringWithFormat("נא ליצור קשר עם המשתף", "an alert title requesting to contact the publisher")
             let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: " ")
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -270,7 +271,7 @@ extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
         
         
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-            let title = String.localizedStringWithFormat("Navigate With:", "an action sheet title meening chose app to navigate with")
+            let title = String.localizedStringWithFormat("ניווט בעזרת:", "an action sheet title meening chose app to navigate with")
             let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }

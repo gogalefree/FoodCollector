@@ -19,11 +19,11 @@ enum RegisterButtonState {
     case Unregistered
 }
 
-let registerButtonTitleForUnregisteredState = String.localizedStringWithFormat("הרשם" , "regiterration button title meening register")
+let registerButtonTitleForUnregisteredState = String.localizedStringWithFormat("הרשמה" , "regiterration button title meening register")
 
-let registerButtonTitleForRegisteredState = String.localizedStringWithFormat("הסר" , "regiterration button title meening unregister")
+let registerButtonTitleForRegisteredState = String.localizedStringWithFormat("הסרה" , "regiterration button title meening unregister")
 
-let navigationButtonTitle = String.localizedStringWithFormat("נווט" , "navigation button title meening take me to the destination")
+let navigationButtonTitle = String.localizedStringWithFormat("ניווט" , "navigation button title meening take me to the destination")
 
 
 class FCPublicationsDetailsTVTitleCell: UITableViewCell {

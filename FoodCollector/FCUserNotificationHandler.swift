@@ -306,7 +306,7 @@ extension FCUserNotificationHandler {
         let showAction = UIMutableUserNotificationAction()
         showAction.identifier = "SHOW_IDENTIFIER"
         // Localized string displayed in the action button
-        showAction.title = "Show"
+        showAction.title = "הצגת שיתוף"
         // If you need to show UI, choose foreground
         showAction.activationMode = UIUserNotificationActivationMode.Foreground
         // Destructive actions display in red
@@ -317,7 +317,7 @@ extension FCUserNotificationHandler {
         let cancelAction = UIMutableUserNotificationAction()
         cancelAction.identifier = "DISSMISS_IDENTIFIER"
         // Localized string displayed in the action button
-        cancelAction.title = "Dissmiss"
+        cancelAction.title = "ביטול"
         // If you need to show UI, choose foreground
         cancelAction.activationMode = UIUserNotificationActivationMode.Background
         // Destructive actions display in red

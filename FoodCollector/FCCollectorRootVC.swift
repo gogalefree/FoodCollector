@@ -13,7 +13,7 @@ import CoreLocation
 
 let kShouldShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
 let kActivityCenterTitle = String.localizedStringWithFormat("מרכז הפעילות","activity center navigation bar title")
-let kCollctorTitle = String.localizedStringWithFormat("אוסף","collector root vc navigation bar title")
+let kCollctorTitle = String.localizedStringWithFormat("איסוף","collector root vc navigation bar title")
 
 protocol CollectorVCSlideDelegate: NSObjectProtocol {
     func collectorVCWillSlide()
@@ -96,7 +96,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.title = String.localizedStringWithFormat("אוסף", "collector map title")
+        self.title = String.localizedStringWithFormat("איסוף", "collector map title")
         self.publications = FCModel.sharedInstance.publications
         self.newPublicationMessageView.delegate = self
         registerForNSNotifications()

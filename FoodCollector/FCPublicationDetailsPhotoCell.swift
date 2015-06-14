@@ -8,7 +8,7 @@
 
 import UIKit
 
-let noPhotoTitle = String.localizedStringWithFormat("No Image", "a label title that indicates that a publication has no image")
+let noPhotoTitle = String.localizedStringWithFormat("ללא תמונה", "a label title that indicates that a publication has no image")
 
 let kPublicationPhotoCellHeightNoImage: CGFloat = 44.0
 let kPublicationPhotoCellHeightHasImage: CGFloat = 300.0
