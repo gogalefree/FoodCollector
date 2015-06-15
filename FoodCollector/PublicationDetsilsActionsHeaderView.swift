@@ -24,6 +24,11 @@ class PublicationDetsilsActionsHeaderView: UIView {
     let normalColor = kNavBarBlueColor
     let registeredButtonImage = UIImage(named: "rishum")!
     let unRegisteredButtonImage = UIImage(named: "CancelRishum")!
+    
+    @IBOutlet weak var button1to2widthConstraint : NSLayoutConstraint!
+    @IBOutlet weak var button2to3widthConstraint : NSLayoutConstraint!
+    @IBOutlet weak var button3to4widthConstraint : NSLayoutConstraint!
+
 
     
     @IBOutlet weak var registerButton:  UIButton!
@@ -195,6 +200,29 @@ class PublicationDetsilsActionsHeaderView: UIView {
                     self.configureRegisterButton()
             }
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.updateButtonsConstraints()
+    }
+    
+    private func updateButtonsConstraints() {
+
+        let buttonTotalWidth: CGFloat = 230
+        let viewWidth = FCDeviceData.screenWidth()
+        let margin = floor((viewWidth - buttonTotalWidth) / 3)
+        let middleMargin = viewWidth - buttonTotalWidth - 2*margin
+        
+        println("width: \(viewWidth)")
+        println("margin: \(margin)")
+        println("middle margin: \(middleMargin)")
+
+        
+        self.button1to2widthConstraint.constant = margin
+        self.button2to3widthConstraint.constant = middleMargin
+        self.button3to4widthConstraint.constant = margin
+        self.layoutIfNeeded()
     }
     
 }

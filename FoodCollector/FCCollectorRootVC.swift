@@ -39,7 +39,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     var isPresentingActivityCenter = false
     var tabbarVisibleCenter = CGPointZero
     var tabbarDragCenter = CGPointZero
-    var onceToken = 0
     var trackingUserLocation = false
     var locationManager = CLLocationManager()
     var didFailToRegisterPushNotifications = {
@@ -134,13 +133,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
 //                //comment to show this message every time
 //                NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowFailedToRegisterForPushAlertKey)
 //        }
-//        
-//        dispatch_once(&onceToken, { () -> Void in
-//            FCModel.sharedInstance.uiReadyForNewData = true
-//            self.defineBarsCenterPoints()
-//        })
-        
-        showNewDataMessageView(self.publications[3])
+//
+//        showNewDataMessageView(self.publications[3])
         
     }
     
