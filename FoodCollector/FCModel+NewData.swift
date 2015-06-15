@@ -16,7 +16,7 @@ extension FCModel {
             { (thePublications: [FCPublication]) -> Void in
                 
                 self.fetchedPublications = thePublications
-                println("NEW DATA COUNT ******** \(self.fetchedPublications.count)")
+              //  println("NEW DATA COUNT ******** \(self.fetchedPublications.count)")
                 self.prepareNewData()
         }
     }

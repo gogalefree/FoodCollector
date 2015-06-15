@@ -139,6 +139,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
 //            FCModel.sharedInstance.uiReadyForNewData = true
 //            self.defineBarsCenterPoints()
 //        })
+        
+        showNewDataMessageView(self.publications[3])
+        
     }
     
     //MARK: - UI configuration

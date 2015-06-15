@@ -22,7 +22,9 @@ class PublicationDetsilsActionsHeaderView: UIView {
     
     let buttonPressColor = UIColor(red: 32/255, green: 137/255, blue: 75/255, alpha: 1)
     let normalColor = kNavBarBlueColor
-    
+    let registeredButtonImage = UIImage(named: "rishum")!
+    let unRegisteredButtonImage = UIImage(named: "CancelRishum")!
+
     
     @IBOutlet weak var registerButton:  UIButton!
     @IBOutlet weak var navigateButton:  UIButton!
@@ -98,8 +100,10 @@ class PublicationDetsilsActionsHeaderView: UIView {
             return
         }
         
-        configureRegisterButtonForState(publication.didRegisterForCurrentPublication)
+        configureButtonsForNormalState()
+        configureRegisterButton()
 
+        
         if publication.typeOfCollecting != .ContactPublisher {
     
             configureButtonsForFreePickup()
@@ -122,17 +126,7 @@ class PublicationDetsilsActionsHeaderView: UIView {
             button.enabled = true
         }
     }
-    
-    private func configureRegisterButtonForState(isRegistered: Bool) {
         
-        configureButtonsForNormalState()
-
-        if isRegistered {
-         
-            animateButton(self.registerButton)
-        }
-    }
-    
     func disableAllButtons() {
         for button in self.buttons {
             
@@ -162,6 +156,21 @@ class PublicationDetsilsActionsHeaderView: UIView {
         }
     }
     
+    private func configureRegisterButton() {
+        
+        if let publication = publication {
+            switch publication.didRegisterForCurrentPublication {
+            case true:
+                self.registerButton.backgroundColor = self.buttonPressColor
+                self.registerButton.setImage(unRegisteredButtonImage, forState: .Normal)
+                
+            default :
+                self.registerButton.backgroundColor = self.normalColor
+                self.registerButton.setImage(registeredButtonImage, forState: UIControlState.Normal)
+            }
+        }
+    }
+    
     private func animateButton(button: UIButton) {
         
         let scale = CGAffineTransformMakeScale(1.2, 1.2)
@@ -176,10 +185,15 @@ class PublicationDetsilsActionsHeaderView: UIView {
                 UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
                     
                     button.transform = CGAffineTransformIdentity
-                    button.backgroundColor = self.normalColor
+                    if button != self.registerButton {
+                        button.backgroundColor = self.normalColor
+                    }
 
 
-                }, completion: nil)
+                }) { (finished) -> Void in
+                    
+                    self.configureRegisterButton()
+            }
         }
     }
     

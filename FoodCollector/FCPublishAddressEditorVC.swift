@@ -111,8 +111,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             if let respone = response {
              
                 if (error == nil) {
-                    println("response: \(response)")
-                    
+
+                    if let data = data {
                     var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)as! NSDictionary
                     
                     println("result: \(jsonResult) " )
@@ -136,6 +136,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             self.tableView.reloadData()
                         })
+                    }
                     }
                 }else {
                     //handle error
@@ -207,6 +208,19 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        //remove country from string
+        var sub = self.selectedAddress.substringFromIndex(advance(selectedAddress.endIndex, -7))
+        if sub == ", ישראל" {
+            self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -7))
+            println("\(selectedAddress)")
+        }
+        
+        sub = self.selectedAddress.substringFromIndex(advance(selectedAddress.endIndex, -8))
+        if sub == ", Israel" {
+            self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -8))
+            println("\(selectedAddress)")
+        }
         
         var addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
         

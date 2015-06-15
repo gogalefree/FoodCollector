@@ -14,8 +14,8 @@
                     <rect key="frame" x="15" y="15" width="50" height="50"/>
                     <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="32T-d3-cX4"/>
-                        <constraint firstAttribute="width" constant="50" id="McA-W8-OWa"/>
+                        <constraint firstAttribute="width" constant="50" id="LYX-Lm-DHl"/>
+                        <constraint firstAttribute="height" constant="50" id="lJh-nY-TSa"/>
                     </constraints>
                     <state key="normal" image="rishum">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -25,11 +25,11 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goW-fJ-MoN">
-                    <rect key="frame" x="185" y="15" width="50" height="50"/>
+                    <rect key="frame" x="198" y="15" width="50" height="50"/>
                     <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="Rjf-dI-G1d"/>
-                        <constraint firstAttribute="width" constant="50" id="icD-B0-YlN"/>
+                        <constraint firstAttribute="height" constant="50" id="l6I-l1-8yr"/>
+                        <constraint firstAttribute="width" constant="50" id="oo1-Jf-4vi"/>
                     </constraints>
                     <state key="normal" image="Navigate">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -38,26 +38,12 @@
                         <action selector="buttonsActions:" destination="iN0-l3-epB" eventType="touchUpInside" id="6yQ-mQ-6oh"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAK-ST-0jT">
-                    <rect key="frame" x="360" y="15" width="50" height="50"/>
-                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="2bH-UP-vBu"/>
-                        <constraint firstAttribute="width" constant="50" id="wkl-7b-wSf"/>
-                    </constraints>
-                    <state key="normal" image="sms">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="buttonsActions:" destination="iN0-l3-epB" eventType="touchUpInside" id="HVd-Eg-IR8"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sxk-05-spA">
                     <rect key="frame" x="535" y="15" width="50" height="50"/>
                     <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="50" id="HRL-Rr-3RK"/>
-                        <constraint firstAttribute="height" constant="50" id="lGm-AR-OCM"/>
+                        <constraint firstAttribute="height" constant="50" id="uMU-aQ-GxP"/>
+                        <constraint firstAttribute="width" constant="50" id="wSi-3Z-51g"/>
                     </constraints>
                     <state key="normal" image="call">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -70,32 +56,80 @@
                     <rect key="frame" x="0.0" y="79" width="600" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="gIk-rd-nUH"/>
+                        <constraint firstAttribute="height" constant="1" id="etz-84-aZW"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAK-ST-0jT">
+                    <rect key="frame" x="368" y="15" width="50" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Txc-32-Tbu"/>
+                        <constraint firstAttribute="width" constant="50" id="t13-s0-p6k"/>
+                    </constraints>
+                    <state key="normal" image="sms">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonsActions:" destination="iN0-l3-epB" eventType="touchUpInside" id="HVd-Eg-IR8"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="sxk-05-spA" secondAttribute="trailing" constant="15" id="4ac-fO-9z4"/>
-                <constraint firstAttribute="trailing" secondItem="gxi-yq-Ucm" secondAttribute="trailing" id="4tz-8f-cSl"/>
-                <constraint firstItem="mAK-ST-0jT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="goW-fJ-MoN" secondAttribute="trailing" constant="30" id="ADH-Nq-hWz"/>
-                <constraint firstItem="sxk-05-spA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mAK-ST-0jT" secondAttribute="trailing" constant="30" id="Hxn-z3-Shv"/>
-                <constraint firstItem="sxk-05-spA" firstAttribute="leading" relation="lessThanOrEqual" secondItem="mAK-ST-0jT" secondAttribute="trailing" constant="125" id="K0l-ur-MOx"/>
-                <constraint firstItem="mAK-ST-0jT" firstAttribute="leading" relation="lessThanOrEqual" secondItem="goW-fJ-MoN" secondAttribute="trailing" constant="125" id="OuQ-qz-X5f"/>
-                <constraint firstItem="RF8-iD-c8n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="PYg-y7-tg0"/>
-                <constraint firstItem="goW-fJ-MoN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="brn-8Z-Wqe"/>
-                <constraint firstItem="sxk-05-spA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="dLJ-rL-aOA"/>
-                <constraint firstItem="gxi-yq-Ucm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hkF-79-qc3"/>
-                <constraint firstAttribute="bottom" secondItem="gxi-yq-Ucm" secondAttribute="bottom" id="kgz-aX-spH"/>
-                <constraint firstItem="goW-fJ-MoN" firstAttribute="leading" relation="lessThanOrEqual" secondItem="RF8-iD-c8n" secondAttribute="trailing" constant="120" id="p8A-yB-BEa"/>
-                <constraint firstItem="goW-fJ-MoN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RF8-iD-c8n" secondAttribute="trailing" constant="30" id="thl-Xc-kQL"/>
-                <constraint firstItem="mAK-ST-0jT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="yyH-pi-EIv"/>
-                <constraint firstItem="RF8-iD-c8n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="zNy-4V-bgH"/>
+                <constraint firstItem="goW-fJ-MoN" firstAttribute="leading" secondItem="RF8-iD-c8n" secondAttribute="trailing" priority="750" constant="121" id="6gj-M7-GXX"/>
+                <constraint firstItem="sxk-05-spA" firstAttribute="leading" secondItem="mAK-ST-0jT" secondAttribute="trailing" priority="750" constant="117" id="9Bl-aJ-Jy0"/>
+                <constraint firstAttribute="bottom" secondItem="RF8-iD-c8n" secondAttribute="bottom" constant="15" id="B34-WJ-TJ6"/>
+                <constraint firstItem="RF8-iD-c8n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="C9L-7Q-76Y"/>
+                <constraint firstAttribute="bottom" secondItem="mAK-ST-0jT" secondAttribute="bottom" constant="15" id="E1I-Vw-wRL"/>
+                <constraint firstAttribute="trailing" secondItem="gxi-yq-Ucm" secondAttribute="trailing" constant="533" id="HqD-Dl-2Us"/>
+                <constraint firstItem="sxk-05-spA" firstAttribute="leading" relation="lessThanOrEqual" secondItem="mAK-ST-0jT" secondAttribute="trailing" constant="117" id="MDQ-3c-QC4"/>
+                <constraint firstItem="mAK-ST-0jT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="goW-fJ-MoN" secondAttribute="trailing" constant="20" id="Mq2-vg-rwY"/>
+                <constraint firstItem="RF8-iD-c8n" firstAttribute="top" secondItem="gxi-yq-Ucm" secondAttribute="bottom" constant="42" id="Nn7-7I-xv7"/>
+                <constraint firstItem="gxi-yq-Ucm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OTk-ch-FFU"/>
+                <constraint firstItem="RF8-iD-c8n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="P7N-C0-TNZ"/>
+                <constraint firstItem="RF8-iD-c8n" firstAttribute="top" secondItem="gxi-yq-Ucm" secondAttribute="bottom" constant="42" id="RUD-Sd-eJ0"/>
+                <constraint firstItem="sxk-05-spA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mAK-ST-0jT" secondAttribute="trailing" constant="30" id="Sa6-mP-8dv"/>
+                <constraint firstAttribute="bottom" secondItem="sxk-05-spA" secondAttribute="bottom" constant="15" id="Stt-yV-kJZ"/>
+                <constraint firstAttribute="trailing" secondItem="sxk-05-spA" secondAttribute="trailing" constant="15" id="Sy5-fe-fja"/>
+                <constraint firstAttribute="trailing" secondItem="gxi-yq-Ucm" secondAttribute="trailing" id="cpW-yD-ULE"/>
+                <constraint firstItem="goW-fJ-MoN" firstAttribute="leading" relation="lessThanOrEqual" secondItem="RF8-iD-c8n" secondAttribute="trailing" constant="133" id="dIU-J1-30y"/>
+                <constraint firstItem="mAK-ST-0jT" firstAttribute="leading" secondItem="goW-fJ-MoN" secondAttribute="trailing" constant="132" id="ept-uA-oUe"/>
+                <constraint firstItem="goW-fJ-MoN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="gD9-oR-XpZ"/>
+                <constraint firstAttribute="bottom" secondItem="goW-fJ-MoN" secondAttribute="bottom" constant="15" id="hQH-D4-51P"/>
+                <constraint firstItem="gxi-yq-Ucm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-98" id="iYN-tZ-H7d"/>
+                <constraint firstItem="RF8-iD-c8n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="ixi-s3-eS6"/>
+                <constraint firstItem="RF8-iD-c8n" firstAttribute="top" secondItem="gxi-yq-Ucm" secondAttribute="bottom" constant="42" id="jKM-1O-3pJ"/>
+                <constraint firstItem="mAK-ST-0jT" firstAttribute="leading" relation="lessThanOrEqual" secondItem="goW-fJ-MoN" secondAttribute="trailing" constant="120" id="leh-wv-GN3"/>
+                <constraint firstItem="mAK-ST-0jT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="lrj-NS-EIL"/>
+                <constraint firstItem="mAK-ST-0jT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="goW-fJ-MoN" secondAttribute="trailing" constant="30" id="pfI-nA-mEC"/>
+                <constraint firstAttribute="trailing" secondItem="sxk-05-spA" secondAttribute="trailing" constant="15" id="qff-sS-o9V"/>
+                <constraint firstItem="sxk-05-spA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="rJG-p0-9AF"/>
+                <constraint firstItem="gxi-yq-Ucm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-23" id="t5H-49-sIx"/>
+                <constraint firstItem="RF8-iD-c8n" firstAttribute="top" secondItem="gxi-yq-Ucm" secondAttribute="bottom" constant="42" id="tRo-72-Chr"/>
+                <constraint firstAttribute="bottom" secondItem="gxi-yq-Ucm" secondAttribute="bottom" id="uCd-jq-KP1"/>
+                <constraint firstItem="goW-fJ-MoN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RF8-iD-c8n" secondAttribute="trailing" constant="30" id="uoj-mb-izG"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Nn7-7I-xv7"/>
+                    <exclude reference="RUD-Sd-eJ0"/>
+                    <exclude reference="ixi-s3-eS6"/>
+                    <exclude reference="jKM-1O-3pJ"/>
+                    <exclude reference="tRo-72-Chr"/>
+                    <exclude reference="HqD-Dl-2Us"/>
+                    <exclude reference="iYN-tZ-H7d"/>
+                    <exclude reference="t5H-49-sIx"/>
+                    <exclude reference="6gj-M7-GXX"/>
+                    <exclude reference="Mq2-vg-rwY"/>
+                    <exclude reference="ept-uA-oUe"/>
+                    <exclude reference="9Bl-aJ-Jy0"/>
+                    <exclude reference="Sy5-fe-fja"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="navigateButton" destination="goW-fJ-MoN" id="zJo-jW-wLv"/>
                 <outlet property="phoneCallButton" destination="sxk-05-spA" id="HlO-Vw-hM5"/>

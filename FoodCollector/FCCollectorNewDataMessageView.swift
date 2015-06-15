@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 protocol FCNewDataMessageViewDelegate: NSObjectProtocol {
     func showNewPublicationDetails(publication: FCPublication)
@@ -19,6 +20,8 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
+    
+    let defaultImage = UIImage(named: "NoPhotoPlaceholder")!
     
     weak var delegate: FCNewDataMessageViewDelegate!
     var publication: FCPublication! {
@@ -69,11 +72,35 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
     }
     
     func presentFetchedPhoto(publication: FCPublication) {
+        
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.imageView.alpha = 0
+            }) { (finished) -> Void in
+                
+                self.imageView.image = publication.photoData.photo
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    self.imageView.alpha = 1
+                    }, completion: nil)
+        }
     
-        self.imageView.animateToAlphaWithSpring(0.2, alpha: 0)
-        self.imageView.image = publication.photoData.photo
-        self.imageView.animateToAlphaWithSpring(0.4, alpha: 1)
+//        self.imageView.animateToAlphaWithSpring(0.2, alpha: 0)
+//        self.imageView.image = publication.photoData.photo
+//        self.imageView.animateToAlphaWithSpring(0.4, alpha: 1)
     }
+    
+    private func presentDefaultPhoto()  {
+    
+        UIView.animateWithDuration(0.1, animations: { () -> Void in
+            self.imageView.alpha = 0
+        }) { (finished) -> Void in
+            
+            self.imageView.image = self.defaultImage
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                self.imageView.alpha = 1
+            }, completion: nil)
+        }
+    }
+    
     
     override func awakeFromNib() {
       
