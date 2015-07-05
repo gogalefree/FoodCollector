@@ -172,7 +172,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         
         //delete from model
-        FCModel.sharedInstance.deletePublication(publicationIdentifier)
+        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true)
     
     }
     

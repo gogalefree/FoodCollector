@@ -243,7 +243,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                         self.navigationController?.popViewControllerAnimated(true)
                         let publicationIdentifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId, version: self.publication!.version)
                         FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
-                        FCModel.sharedInstance.deletePublication(publicationIdentifier)
+                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false)
                     })
                 }
                 else{

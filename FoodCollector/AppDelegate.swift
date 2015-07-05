@@ -122,6 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //if the app is in background Mode and we recived a delete notification
         //we delete it from the publications array
+//        println("INFO: \(userInfo)")
+//        let tit = userInfo["title"] as! String
+//        let id = userInfo["id"] as! Int
+//        println("my \(tit) and id \(id) ")
         if UIApplication.sharedApplication().applicationState != .Active {
             if let notificationType = userInfo[kRemoteNotificationType] as? String {
                 if notificationType == kRemoteNotificationTypeDeletedPublication {

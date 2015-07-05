@@ -100,6 +100,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
+    //initiated by delete push notification
     func prepareToDeletePublication(identifier: PublicationIdentifier) {
         
         if let publication = self.publicationWithIdentifier(identifier) {
@@ -111,11 +112,11 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 let userInfo = ["publication" : publication]
                 NSNotificationCenter.defaultCenter().postNotificationName("prepareToDelete", object: nil, userInfo: userInfo)
             }
-            self.deletePublication(identifier)          
+            self.deletePublication(identifier, deleteFromServer: false)
         }
     }
     
-    func deletePublication(publicationIdentifier: PublicationIdentifier) {
+    func deletePublication(publicationIdentifier: PublicationIdentifier, deleteFromServer: Bool) {
         //delete the publication
         for (index , publication) in enumerate(self.publications) {
             if publication.uniqueId == publicationIdentifier.uniqueId &&
@@ -137,7 +138,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             }
         }
 
-        
+        if deleteFromServer {
         self.foodCollectorWebServer.deletePublication(publicationIdentifier, completion: { (success) -> () in
           
             //TODO: implement persistency so we'll save the identifier and try again
@@ -146,6 +147,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
 //            }
         })
         //TODO: Delete photo from AWS
+        }
     }
     
     /// add a Publication to Publications array

@@ -13,6 +13,8 @@ let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("אירו
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate {
     
     var isPresentingOnSpotReportVC = false
+    var firstLaunch = true
+    var mainActionNavVC: UINavigationController!
     
 
     
@@ -23,7 +25,18 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
         
+        self.mainActionNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainActionNavVC") as! UINavigationController
+        let mainActionVC = self.mainActionNavVC.viewControllers[0] as! MainActionVC
+        mainActionVC.delegate = self
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if firstLaunch {
+            self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
+            firstLaunch = false
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -98,3 +111,11 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
  }
+
+extension FCMainTabBarController: MainActionVCDelegate {
+    
+    func mainActionVCDidRequestAction(actionType: MainActionType) {
+     
+        self.selectedIndex = actionType.rawValue
+    }
+}

@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
+class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPublicationRegistrationsFetcherDelegate {
     
     var publication: FCPublication?
  
@@ -24,7 +24,9 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
         self.tableView.estimatedRowHeight = 65
         fetchPublicationReports()
         fetchPublicationPhoto()
+        fetchPublicationRegistrations()
         registerForNotifications()
+        
         
         self.title = publication?.title
     }
@@ -192,6 +194,23 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate {
                     }
                 }
             })
+        }
+    }
+    
+    func fetchPublicationRegistrations() {
+    
+        if let publication = self.publication {
+            
+            let fetcher = FCPublicationRegistrationsFetcher()
+            fetcher.delegate = self
+            fetcher.publication = publication
+        }
+    }
+    
+    func didFinishFetchingPublicationRegistrations() {
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+        if let imageCell = cell {
+            imageCell.reloadRegisteredUserIconCounter()
         }
     }
     

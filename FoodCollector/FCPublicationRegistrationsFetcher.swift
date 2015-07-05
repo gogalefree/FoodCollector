@@ -8,8 +8,17 @@
 
 import Foundation
 
+protocol FCPublicationRegistrationsFetcherDelegate: NSObjectProtocol {
+    func didFinishFetchingPublicationRegistrations()
+}
+
 
 class FCPublicationRegistrationsFetcher: NSObject {
+    
+    //Fetcher delegate is defined only when PublicationDetailsVC initiates
+    //the fetching. must check if it's nill
+    
+    weak var delegate: FCPublicationRegistrationsFetcherDelegate?
 
     
     var publication: FCPublication! {
@@ -40,12 +49,11 @@ class FCPublicationRegistrationsFetcher: NSObject {
                     
                     if let registrations = registrationsArrayofDicts {
                         
-                       println("registrations: \(registrations)")
-                        println("registrations count: \(registrations.count)")
-                        
                         self.publication.countOfRegisteredUsers = registrations.count
                         
-                        
+                        if let delegate = self.delegate {
+                            delegate.didFinishFetchingPublicationRegistrations()
+                        }
                     }
                 }
             }

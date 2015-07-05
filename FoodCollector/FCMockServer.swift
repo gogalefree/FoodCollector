@@ -438,7 +438,9 @@ public class FCMockServer: NSObject , FCServerProtocol {
             completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)")
+                println("respons: \(serverResponse.description)")
+                println("response error: \(serverResponse)")
+                println("error: \(error)")
                 
                 
                 if error == nil && serverResponse.statusCode == 200 {

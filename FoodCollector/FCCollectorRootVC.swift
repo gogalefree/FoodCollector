@@ -41,9 +41,10 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     var tabbarDragCenter = CGPointZero
     var trackingUserLocation = false
     var locationManager = CLLocationManager()
-    var didFailToRegisterPushNotifications = {
-        return NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
-        }()
+    var initialLaunch = true
+//    var didFailToRegisterPushNotifications = {
+//        return NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
+//        }()
     
     //MARK: - Location Manager setup
     
@@ -304,10 +305,22 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
       //  self.postOnSpotReport(publication)
     }
     
+    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+        
+        //here we setup the initial map region and span
+        if initialLaunch {
+    
+            let span   = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            let region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+            mapView.setRegion(region, animated: false)
+            initialLaunch = false
+        }
+        
+    }
+    
     func presentPublicationDetailsTVC(publication:FCPublication) {
         
         self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-        
         self.publicationDetailsTVC?.publication = publication
         self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
     }
@@ -320,8 +333,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         var userInfo = [NSObject : AnyObject]()
         userInfo[kPublicationUniqueIdKey] = publication.uniqueId
         userInfo[kPublicationVersionKey] = publication.version
-
-    NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
+        NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
     }
     
     deinit {

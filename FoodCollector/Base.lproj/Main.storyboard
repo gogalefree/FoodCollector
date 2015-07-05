@@ -346,7 +346,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="APr-P7-Jqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3623" y="-440"/>
+            <point key="canvasLocation" x="4435" y="-440"/>
         </scene>
         <!--מרכז הפעילות-->
         <scene sceneID="z6c-7A-Y3g">
@@ -477,7 +477,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dyn-7Y-fr6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="nDA-uy-mwO"/>
             </objects>
-            <point key="canvasLocation" x="2527" y="-670"/>
+            <point key="canvasLocation" x="3339" y="-670"/>
         </scene>
         <!--Collect-->
         <scene sceneID="ufC-wZ-h7g">
@@ -1307,7 +1307,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmV-qE-uAT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5136" y="-429"/>
+            <point key="canvasLocation" x="5948" y="-429"/>
         </scene>
         <!--Publications Table View Controller-->
         <scene sceneID="gIv-We-tlG">
@@ -1917,6 +1917,102 @@
             </objects>
             <point key="canvasLocation" x="1996" y="1024"/>
         </scene>
+        <!--מה תרצה לעשות?-->
+        <scene sceneID="emO-q2-foM">
+            <objects>
+                <viewController title="מה תרצה לעשות?" id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PLH-Tb-ElL"/>
+                        <viewControllerLayoutGuide type="bottom" id="EsQ-Yy-vGY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qup-mN-YhI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ברוכים הבאים. מה תרצו לעשות?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-g5-7hP">
+                                <rect key="frame" x="168" y="105" width="256" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Qkz-L5-Wpt"/>
+                                    <constraint firstAttribute="width" constant="256" id="cvd-H1-REd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="לשתף מזון" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6m-Pf-HyI">
+                                <rect key="frame" x="188" y="191" width="71" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="5oL-0j-1Gg"/>
+                                    <constraint firstAttribute="height" constant="21" id="VjU-TH-ebC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwN-rH-Qhj">
+                                <rect key="frame" x="354" y="175" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="JOk-kc-w7T"/>
+                                    <constraint firstAttribute="height" constant="50" id="btJ-1A-kdk"/>
+                                </constraints>
+                                <state key="normal" title="לשתף">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="VRT-ak-60H"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeo-fY-Bbv">
+                                <rect key="frame" x="354" y="243" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="RWZ-M1-YQB"/>
+                                    <constraint firstAttribute="height" constant="50" id="fe9-jr-vO3"/>
+                                </constraints>
+                                <state key="normal" title="לאסוף">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="roy-ou-1kY"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="לאסוף מזון" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIk-n2-CNZ">
+                                <rect key="frame" x="188" y="259" width="71" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="civ-ci-q9k"/>
+                                    <constraint firstAttribute="height" constant="21" id="soK-uD-Tvc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="gIk-n2-CNZ" secondAttribute="leading" constant="-20" id="6JQ-Gx-rTf"/>
+                            <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="gwN-rH-Qhj" secondAttribute="trailing" id="DFZ-Pm-qxx"/>
+                            <constraint firstItem="f6m-Pf-HyI" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="65" id="FEw-F6-U9W"/>
+                            <constraint firstItem="gwN-rH-Qhj" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="49" id="KEN-G8-66E"/>
+                            <constraint firstItem="eeo-fY-Bbv" firstAttribute="top" secondItem="gwN-rH-Qhj" secondAttribute="bottom" constant="18" id="Kfa-LN-mX8"/>
+                            <constraint firstAttribute="centerX" secondItem="x0y-g5-7hP" secondAttribute="centerX" constant="4" id="LNe-zd-5X3"/>
+                            <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="x0y-g5-7hP" secondAttribute="trailing" constant="-20" id="MHA-FW-xLK"/>
+                            <constraint firstItem="gIk-n2-CNZ" firstAttribute="top" secondItem="f6m-Pf-HyI" secondAttribute="bottom" constant="47" id="T1N-C6-vOR"/>
+                            <constraint firstItem="x0y-g5-7hP" firstAttribute="top" secondItem="PLH-Tb-ElL" secondAttribute="bottom" constant="41" id="ah2-or-N2O"/>
+                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="f6m-Pf-HyI" secondAttribute="leading" constant="-20" id="iaD-Zi-Gnh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="NtA-nJ-dYr"/>
+                    <connections>
+                        <outlet property="collectButton" destination="eeo-fY-Bbv" id="g5A-a6-ax8"/>
+                        <outlet property="collectTitleLabel" destination="gIk-n2-CNZ" id="cRZ-WL-XG8"/>
+                        <outlet property="mainTitleLabel" destination="x0y-g5-7hP" id="zlv-fx-zUZ"/>
+                        <outlet property="publishButton" destination="gwN-rH-Qhj" id="H4k-H9-tq0"/>
+                        <outlet property="publishTitleLabel" destination="f6m-Pf-HyI" id="jhr-Rv-u6d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ba8-aR-Mpl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1475" y="-422"/>
+        </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="aDR-lo-JJT">
             <objects>
@@ -1975,7 +2071,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11X-2l-UDf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1715" y="-670"/>
+            <point key="canvasLocation" x="2527" y="-670"/>
         </scene>
         <!--שיתוף חדש-->
         <scene sceneID="NU4-FC-Iq9">
@@ -2424,7 +2520,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="415-Dj-rgd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4362" y="-434"/>
+            <point key="canvasLocation" x="5174" y="-434"/>
         </scene>
         <!--About-->
         <scene sceneID="zuw-Kv-wxY">
@@ -2518,6 +2614,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0iT-aa-mbU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="295" y="1036"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Shl-yE-iQX">
+            <objects>
+                <navigationController storyboardIdentifier="MainActionNavVC" automaticallyAdjustsScrollViewInsets="NO" id="bhS-jO-ntX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fx6-Q5-XKm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="yCW-nD-O9I" kind="relationship" relationship="rootViewController" id="GQr-hR-tPU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4pi-8p-isk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="663" y="-422"/>
         </scene>
     </scenes>
     <resources>
