@@ -10,15 +10,17 @@
 import CoreLocation
 import Foundation
 
-let kRecievedNewDataNotification =                  "RecievedNewDataNotification"
-let kRecievedNewPublicationNotification =           "RecievedNewPublicationNotification"
-let kDeletedPublicationNotification =               "DeletedPublicationNotification"
-let kRecivedPublicationReportNotification =         "RecivedPublicationReportNotification"
-let kRecievedPublicationRegistrationNotification =  "kRecievedPublicationRegistrationNotification"
-let kNewUserCreatedPublicationNotification =        "newUserCreatedPublicationNotification"
+let kRecievedNewDataNotification                  = "RecievedNewDataNotification"
+let kRecievedNewPublicationNotification           = "RecievedNewPublicationNotification"
+let kDeletedPublicationNotification               = "DeletedPublicationNotification"
+let kRecivedPublicationReportNotification         = "RecivedPublicationReportNotification"
+let kRecievedPublicationRegistrationNotification  = "kRecievedPublicationRegistrationNotification"
+let kNewUserCreatedPublicationNotification        = "newUserCreatedPublicationNotification"
 let kDidDeleteOldVersionsOfUserCreatedPublication = "DidDeleteOldVersionsOfUserCreatedPublication"
-
-let kDeviceUUIDKey = "seviceUUIDString"
+let kDidReportDeviceUUIDToServer                  = "kDidReportDeviceUUIDToServer"
+let kDeviceUUIDKey                                = "seviceUUIDString"
+   
+   
 let kDistanceFilter = 5.0
 let kModifyCoordsToPresentOnMapView = 0.0004
 
@@ -86,17 +88,24 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         //we start with loading the current data
         loadPublications()
         loadUserCreatedPublications()
-        self.deviceUUID ?? {
-            var uuid = NSUUID().UUIDString
-            NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
-            self.foodCollectorWebServer.reportDeviceUUID(uuid)
-            return uuid
-            }()
-        
+        reportDeviceUUIDToServer()
         self.dataUpdater.startUpdates()
         
         if CLLocationManager.locationServicesEnabled() {
            self.setupLocationManager()
+        }
+    }
+    
+    func reportDeviceUUIDToServer() {
+        
+        self.deviceUUID ?? {
+            var uuid = NSUUID().UUIDString
+            NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
+            return uuid
+            }()
+        
+        if !NSUserDefaults.standardUserDefaults().boolForKey(kDidReportDeviceUUIDToServer) && self.deviceUUID != nil {
+            self.foodCollectorWebServer.reportDeviceUUID(self.deviceUUID!)
         }
     }
     
@@ -215,7 +224,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         for userCreatedPublication in self.userCreatedPublications {
             if publication.uniqueId == userCreatedPublication.uniqueId &&
                 publication.version == userCreatedPublication.version{
-                    return true
+                return true
             }
         }
         return false
@@ -258,27 +267,36 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func didRecievePublicationRegistration(registration: FCRegistrationForPublication) {
         
+        var userCreatedPublication = self.userCreatedPublicationWithIdentifier(registration.identifier)
+
+        if let userPublication = userCreatedPublication {
+            userPublication.registrationsForPublication.append(registration)
+            userPublication.countOfRegisteredUsers += 1
+            self.saveUserCreatedPublications()
+        }
+        else {return}
+        
         var possiblePublication: FCPublication? = self.publicationWithIdentifier(registration.identifier)
         
-        if possiblePublication != nil {
-            
-            switch registration.registrationMessage {
-            case .register:
-                possiblePublication?.registrationsForPublication.append(registration)
-                possiblePublication?.countOfRegisteredUsers += 1
-            case .unRegister:
-                for (index, aRegistration) in enumerate(possiblePublication!.registrationsForPublication){
-                    if aRegistration.dateOfOrder == registration.dateOfOrder {
-                        possiblePublication?.registrationsForPublication.removeAtIndex(index)
-                        possiblePublication?.countOfRegisteredUsers -= 1
-                    }
-                }
-            default:
-                break
-            }
-            //publication's registrations array holds only instances with a register message.
-            self.postRecivedPublicationRegistrationNotification()
+        if let publication = possiblePublication {
+        
+            publication.registrationsForPublication.append(registration)
+            publication.countOfRegisteredUsers += 1
+            self.postRecivedPublicationRegistrationNotification(publication)
+            self.savePublications()
         }
+    }
+    
+    func userCreatedPublicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
+        
+        for publication in self.userCreatedPublications {
+            if publication.uniqueId == identifier.uniqueId &&
+                publication.version == identifier.version{
+                    return publication
+            }
+        }
+
+        return nil
     }
     
     func publicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {

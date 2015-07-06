@@ -11,7 +11,7 @@ import CoreLocation
 import QuartzCore
 
 let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
-let kDidFailToRegisterPushNotificationKey = "didFailToRegisterPush"
+let kDidReportPushNotificationToServerKey = "didFailToRegisterPush"
 let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificationInBackground"
 let kNavBarBlueColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
 
@@ -38,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //uncomment to check the device push notification token report service
         //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
         
+        
+        
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         
         
         let model = FCModel.sharedInstance
@@ -87,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //show UIAlert informing users to enable push from settings
         //the alert is presented in collector root vc
         println("FAILED TO REGISTER PUSH NOTIFICATIONS: \(error.description)")
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportPushNotificationToServerKey)
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: kShouldShowFailedToRegisterForPushAlertKey)
     }
     
@@ -101,7 +104,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id == kUserNotificationShowActionId {
                 //Show ui for new notification
                 FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
-            
             }
         }
     }
@@ -122,22 +124,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //if the app is in background Mode and we recived a delete notification
         //we delete it from the publications array
-//        println("INFO: \(userInfo)")
-//        let tit = userInfo["title"] as! String
-//        let id = userInfo["id"] as! Int
-//        println("my \(tit) and id \(id) ")
-        if UIApplication.sharedApplication().applicationState != .Active {
-            if let notificationType = userInfo[kRemoteNotificationType] as? String {
-                if notificationType == kRemoteNotificationTypeDeletedPublication {
-                    self.deletePublication(userInfo)
-                }
+        if let notificationType = userInfo[kRemoteNotificationType] as? String {
+            
+            if notificationType == kRemoteNotificationTypeDeletedPublication && UIApplication.sharedApplication().applicationState != .Active {
+                self.deletePublication(userInfo)
             }
-        }
-        else {
-            FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+            
+            else {
+                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+            }
+            
             completionHandler(UIBackgroundFetchResult.NewData)
         }
-    }
+        else {
+            completionHandler(UIBackgroundFetchResult.NoData)
+
+        }
+     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         

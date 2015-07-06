@@ -89,6 +89,8 @@
 		E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */; };
 		E4A4096D1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */; };
 		E4A41D331B490321007A611E /* MainActionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A41D321B490321007A611E /* MainActionVC.swift */; };
+		E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A41D341B491AA1007A611E /* NewRegistrationBannerView.swift */; };
+		E4A41D371B491AD0007A611E /* NewRegistrationBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A41D361B491AD0007A611E /* NewRegistrationBannerView.xib */; };
 		E4AEDE551B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */; };
 		E4AEDE5C1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5B1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift */; };
 		E4AEDE5E1B257E9D00431F9B /* PublicationDetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */; };
@@ -214,6 +216,8 @@
 		E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMainTabBarController.swift; sourceTree = "<group>"; };
 		E4A4096C1A5C70A20077542C /* FCPublicationDetailsPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationDetailsPhotoCell.swift; sourceTree = "<group>"; };
 		E4A41D321B490321007A611E /* MainActionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainActionVC.swift; sourceTree = "<group>"; };
+		E4A41D341B491AA1007A611E /* NewRegistrationBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRegistrationBannerView.swift; sourceTree = "<group>"; };
+		E4A41D361B491AD0007A611E /* NewRegistrationBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewRegistrationBannerView.xib; sourceTree = "<group>"; };
 		E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationRegistrationsFetcher.swift; sourceTree = "<group>"; };
 		E4AEDE5B1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsTitleCellTableViewCell.swift; sourceTree = "<group>"; };
 		E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsImageCell.swift; sourceTree = "<group>"; };
@@ -491,6 +495,8 @@
 				E494DF181A0A980D004A369E /* LaunchScreen.xib */,
 				E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */,
 				E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */,
+				E4A41D341B491AA1007A611E /* NewRegistrationBannerView.swift */,
+				E4A41D361B491AD0007A611E /* NewRegistrationBannerView.xib */,
 				E4A41D321B490321007A611E /* MainActionVC.swift */,
 			);
 			name = Main;
@@ -714,6 +720,7 @@
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
 				E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */,
 				E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */,
+				E4A41D371B491AD0007A611E /* NewRegistrationBannerView.xib in Resources */,
 				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
 				E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */,
 				E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */,
@@ -788,6 +795,7 @@
 				E4AEDE5E1B257E9D00431F9B /* PublicationDetailsImageCell.swift in Sources */,
 				E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */,
 				E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */,
+				E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */,
 				E4737D961A10C01300A4AB81 /* FCPublicationDataInputVC.swift in Sources */,
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,

@@ -50,6 +50,7 @@ class FCPublicationRegistrationsFetcher: NSObject {
                     if let registrations = registrationsArrayofDicts {
                         
                         self.publication.countOfRegisteredUsers = registrations.count
+                        self.updateUserCreatedPublicationForPublication(publication)
                         
                         if let delegate = self.delegate {
                             delegate.didFinishFetchingPublicationRegistrations()
@@ -61,4 +62,21 @@ class FCPublicationRegistrationsFetcher: NSObject {
         task.resume()
     }
     
+    func updateUserCreatedPublicationForPublication(publication: FCPublication) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+        
+        let userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+        
+            for userCreatedPublication in userCreatedPublications {
+            
+                if publication.uniqueId == userCreatedPublication.uniqueId &&
+                
+                    publication.version == userCreatedPublication.version {
+                    userCreatedPublication.countOfRegisteredUsers = publication.countOfRegisteredUsers
+                    break
+                }
+            }
+       })
+    }
 }

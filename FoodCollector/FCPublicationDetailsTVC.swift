@@ -22,13 +22,11 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 65
+        self.title = publication?.title
         fetchPublicationReports()
         fetchPublicationPhoto()
         fetchPublicationRegistrations()
         registerForNotifications()
-        
-        
-        self.title = publication?.title
     }
     
     //MARK: - Table view Headers
@@ -239,8 +237,63 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         }
     }
     
+    func didRecievePublicationRegistration(notification: NSNotification) {
+        
+        let info = notification.userInfo as? [String : AnyObject]
+        
+        if let userInfo = info {
+            
+            let publication = userInfo["publication"] as! FCPublication
+            if let presentedPublication = self.publication {
+                
+                if  presentedPublication.uniqueId == publication.uniqueId &&
+                    presentedPublication.version == publication.version {
+                        
+                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+                        if let cell = imageCell {
+                         
+                            cell.reloadRegisteredUserIconCounter()
+                            self.showNewRegistrationBanner()
+                        }
+                }
+            }
+        }
+    }
+    
+    func showNewRegistrationBanner() {
+        
+        let newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
+        newRgistrationBannerView.userCreatedPublication = self.publication
+        
+        let kNewRegistrationBannerHiddenY: CGFloat = -80
+        
+        newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
+        self.view.addSubview(newRgistrationBannerView)
+        
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            newRgistrationBannerView.alpha = 1
+            newRgistrationBannerView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 66)
+            
+            }) { (finished) -> Void in
+                
+                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                    
+                    newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
+                    newRgistrationBannerView.alpha = 0
+                    
+                    
+                    }){ (finished) -> Void in
+                        
+                        newRgistrationBannerView.removeFromSuperview()
+                }
+        }
+    }
+    
     func registerForNotifications() {
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
         
     }
     

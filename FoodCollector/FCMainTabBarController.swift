@@ -12,9 +12,12 @@ let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("אירו
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate {
     
+    let kNewRegistrationBannerHiddenY: CGFloat = -80
+    
     var isPresentingOnSpotReportVC = false
     var firstLaunch = true
     var mainActionNavVC: UINavigationController!
+    lazy var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
     
 
     
@@ -24,6 +27,8 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+
         
         self.mainActionNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainActionNavVC") as! UINavigationController
         let mainActionVC = self.mainActionNavVC.viewControllers[0] as! MainActionVC
@@ -31,8 +36,8 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         if firstLaunch {
             self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
             firstLaunch = false
@@ -100,6 +105,44 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         }
     }
     
+    //triggered when a new publicationRegistration push notification has arrived
+    //that means that a user is registered to come pick up a user created publication
+    func didRecievePublicationRegistration(notification: NSNotification) {
+        
+        let info = notification.userInfo as? [String : AnyObject]
+        
+        if let userInfo = info {
+            
+            let publication = userInfo["publication"] as! FCPublication
+            self.newRgistrationBannerView.reset()
+            self.newRgistrationBannerView.userCreatedPublication = publication
+            self.presentNewRegistrationBanner()
+        }
+    }
+    
+    func presentNewRegistrationBanner() {
+        self.newRgistrationBannerView.frame = CGRectMake(0, self.kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
+        self.view.addSubview(self.newRgistrationBannerView)
+        
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            self.newRgistrationBannerView.alpha = 1
+            self.newRgistrationBannerView.frame = CGRectMake(0, 66 , CGRectGetWidth(self.view.bounds), 66)
+
+        }) { (finished) -> Void in
+            
+            UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                
+                self.newRgistrationBannerView.frame = CGRectMake(0, self.kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
+                self.newRgistrationBannerView.alpha = 0
+
+                
+            }){ (finished) -> Void in
+             
+                self.newRgistrationBannerView.removeFromSuperview()
+            }
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

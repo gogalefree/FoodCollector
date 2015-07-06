@@ -92,12 +92,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 println("status code: \(serverResponse.statusCode) ***************")
                 
                 if error != nil || serverResponse.statusCode != 200 {
-                    //we delete the key from UD so the app tries again in next launch
-                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+
+                    NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportPushNotificationToServerKey)
+                    FCUserNotificationHandler.sharedInstance.resendPushNotificationToken()
                 }
                 else {
                     
-                    NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidFailToRegisterPushNotificationKey)
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidReportPushNotificationToServerKey)
                 }
             }
             
@@ -137,13 +138,19 @@ public class FCMockServer: NSObject , FCServerProtocol {
             (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if let response = response {
-            let serverResponse = response as! NSHTTPURLResponse
             
-            if error != nil || serverResponse.statusCode != 200 {
-                //we delete the key from UD so the app tries again in next launch
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
-                return
-            }
+                let serverResponse = response as! NSHTTPURLResponse
+            
+                if error != nil || serverResponse.statusCode != 200 {
+
+                    NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportDeviceUUIDToServer)
+                    FCModel.sharedInstance.reportDeviceUUIDToServer()
+                }
+                else {
+                
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidReportDeviceUUIDToServer)
+
+                }
             }
         })
         

@@ -29,8 +29,9 @@ extension FCModel {
         NSNotificationCenter.defaultCenter().postNotificationName(kRecivedPublicationReportNotification, object: self)
     }
     
-    func postRecivedPublicationRegistrationNotification() {
-        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self)
+    func postRecivedPublicationRegistrationNotification(publication:FCPublication) {
+        let userInfo = ["publication" : publication]
+        NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self, userInfo: userInfo)
     }
     
     func postNewUserCreatedPublicationNotification() {

@@ -79,7 +79,10 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         self.FCPublisherEventImage.image = UIImage(named: "NoPhotoPlaceholder")
+        self.FCPublisherEventTitle.text = ""
+        self.FCPublisherEventStatus.text = ""
     }
     
     override func awakeFromNib() {

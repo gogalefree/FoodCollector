@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCMockServer.swift"
-            timestampString = "456750463.830253"
+            timestampString = "457875626.221469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
+            startingLineNumber = "462"
+            endingLineNumber = "462"
             landmarkName = "postNewCreatedPublication(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -55,38 +55,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FoodCollector/FCModel.swift"
-            timestampString = "455860241.883887"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "setUp()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodCollector/FCModel.swift"
-            timestampString = "455860259.098781"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "FCModel"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCPublicationEditorTVC.swift"
             timestampString = "457504542.761712"
             startingColumnNumber = "9223372036854775807"
@@ -104,12 +72,12 @@
                   moduleName = "FoodCollector"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Guy/ios%20projects/foodCollector_oldREPO/FoodCollector/FoodCollector/FCPublicationEditorTVC.swift"
-                  timestampString = "457712986.709892"
+                  timestampString = "457891601.200955"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "390"
                   endingLineNumber = "390"
-                  offsetFromSymbolStart = "149">
+                  offsetFromSymbolStart = "128">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -119,12 +87,12 @@
                   moduleName = "FoodCollector"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Guy/ios%20projects/foodCollector_oldREPO/FoodCollector/FoodCollector/FCPublicationEditorTVC.swift"
-                  timestampString = "457712986.710161"
+                  timestampString = "457891601.201135"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "392"
                   endingLineNumber = "392"
-                  offsetFromSymbolStart = "63">
+                  offsetFromSymbolStart = "64">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -136,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCModel.swift"
-            timestampString = "455862991.900851"
+            timestampString = "457875626.221469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "deleteOldVersionsOfUserCreatedPublication(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,28 +120,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCUserNotificationHandler.swift"
-            timestampString = "456474058.699687"
+            timestampString = "457875626.221469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "didRecieveRemoteNotification(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodCollector/AppDelegate.swift"
-            timestampString = "456518917.680211"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -200,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCMockServer.swift"
-            timestampString = "457504757.453744"
+            timestampString = "457875626.221469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "474"
-            endingLineNumber = "474"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
             landmarkName = "postEditedPublication(_:publication:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -232,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCMockServer.swift"
-            timestampString = "457514672.750908"
+            timestampString = "457875626.221469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
             landmarkName = "takePublicationOffAir(_:completion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -248,12 +200,140 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FoodCollector/FCMockServer.swift"
-            timestampString = "457514686.520603"
+            timestampString = "457875626.221469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "545"
-            endingLineNumber = "545"
+            startingLineNumber = "552"
+            endingLineNumber = "552"
             landmarkName = "deletePublication(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/AppDelegate.swift"
+            timestampString = "457878566.241576"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "application(_:didReceiveRemoteNotification:fetchCompletionHandler:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/FCUserNotificationHandler.swift"
+            timestampString = "457875626.221469"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "didRecieveRemoteNotification(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/FCPublicationDetailsTVC.swift"
+            timestampString = "457888266.034141"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "didFinishFetchingPublicationRegistrations()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/FCPublicationDetailsTVC.swift"
+            timestampString = "457888283.635244"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "didFinishFetchingPublicationRegistrations()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/FCModel.swift"
+            timestampString = "457891779.507362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "didRecievePublicationRegistration(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/FCPublicationDetailsTVC.swift"
+            timestampString = "457891504.991923"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "didRecievePublicationRegistration(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/FCPublicationDetailsTVC.swift"
+            timestampString = "457891507.789594"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
+            landmarkName = "didRecievePublicationRegistration(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FoodCollector/FCUserNotificationHandler.swift"
+            timestampString = "457891768.445074"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "didRecieveRemoteNotification(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

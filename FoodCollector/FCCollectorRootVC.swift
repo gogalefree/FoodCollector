@@ -120,7 +120,13 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        if initialLaunch {
+            
+            let span   = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+            let region = MKCoordinateRegion(center: FCModel.sharedInstance.userLocation.coordinate, span: span)
+            mapView.setRegion(region, animated: false)
+            initialLaunch = false
+        }
         //uncomment to present enable push notifications message
 
 //        let registeredForRemoteNotifications = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
@@ -305,18 +311,18 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
       //  self.postOnSpotReport(publication)
     }
     
-    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
-        
-        //here we setup the initial map region and span
-        if initialLaunch {
-    
-            let span   = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-            let region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
-            mapView.setRegion(region, animated: false)
-            initialLaunch = false
-        }
-        
-    }
+//    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+//        
+//        //here we setup the initial map region and span
+//        if initialLaunch {
+//    
+//            let span   = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+//            let region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+//            mapView.setRegion(region, animated: false)
+//            initialLaunch = false
+//        }
+//        
+//    }
     
     func presentPublicationDetailsTVC(publication:FCPublication) {
         
@@ -408,23 +414,6 @@ extension FCCollectorRootVC {
         }
     }
     
-    func didRecievePublicationRegistration(notification: NSNotification) {
-        
-        var registration = FCUserNotificationHandler.sharedInstance.recievedRegistrations.last!
-        
-        //the registration was added to the publication
-        //we need to check if the registration belongs to the presented detailsView
-        
-        //change this to the presented publication
-        var presentedPublication = self.publications[0]
-        
-        if presentedPublication.uniqueId == registration.identifier.uniqueId &&
-            presentedPublication.version == registration.identifier.version {
-                //self.publicationDetailsView.reloadRegistrations
-                println("updated pubication registration \(presentedPublication.registrationsForPublication.count)")
-        }
-        
-    }
     
     func publicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
         var requestedPublication: FCPublication?
@@ -457,9 +446,6 @@ extension FCCollectorRootVC {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationReport:", name: kRecivedPublicationReportNotification, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
-        
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {

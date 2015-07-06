@@ -18,7 +18,9 @@ class FCActivityCenterTVCell: UITableViewCell {
 
     
     final var publication: FCPublication! {
+        
         didSet{
+        
             if let publication = self.publication {
                 self.titleLabel.text = publication.title
                 self.fetchPhotoIfNeeded()
@@ -28,14 +30,10 @@ class FCActivityCenterTVCell: UITableViewCell {
     }
     
     final override func awakeFromNib() {
+
         super.awakeFromNib()
-        // Initialization code
-        
         self.titleLabel.textColor = UIColor.whiteColor()
         self.iconImageView.layer.cornerRadius = CGRectGetWidth(self.iconImageView.frame)/2
-        
-      //   self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:55 ))
-        
         self.notificationLabel.layer.cornerRadius = CGRectGetWidth(self.notificationLabel.frame) / 2
         self.notificationLabel.backgroundColor = UIColor.lightGrayColor()
         self.notificationLabel.textColor = UIColor.darkGrayColor()
@@ -44,26 +42,20 @@ class FCActivityCenterTVCell: UITableViewCell {
 
     final func fetchPhotoIfNeeded() {
     
-   //     self.iconImageView.alpha = 0
         if self.publication.photoData.photo != nil {
             self.iconImageView.image = self.publication.photoData.photo
         }
+        
         else if !self.publication.photoData.didTryToDonwloadImage {
+            
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(self.publication, completion: { (image) -> Void in
                 self.publication.photoData.didTryToDonwloadImage = true
-                self.iconImageView.image = image ??  UIImage(named: "NoPhotoPlaceholder")
+                self.iconImageView.image = image
             })
         }
-        
-     //   self.iconImageView.animateToAlphaWithSpring(0.4, alpha: 1)
     }
     
-    final override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     final override func prepareForReuse() {
         super.prepareForReuse()
@@ -77,10 +69,12 @@ class FCActivityCenterTVCell: UITableViewCell {
     }
     
     final func showNotificationNumber(){
+        
         if publication.countOfRegisteredUsers > 0 {
             self.notificationLabel.alpha = 1
             self.notificationLabel.text = toString()
         }
+            
         else{
             hideNotificationNumber()
         }

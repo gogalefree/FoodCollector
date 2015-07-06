@@ -40,6 +40,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         self.navigationController?.navigationBar.barTintColor = navBarColor
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeleteOldVersionOfUserCreatedPublication", name: kDidDeleteOldVersionsOfUserCreatedPublication, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -81,12 +82,8 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     final func reload() {
         
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
-        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in return publication.isOnAir == true
-        }
-
-      //  self.removeExpiredUserCreatedPublications()
+        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in return publication.isOnAir == true}
         self.tableView.reloadData()
-
     }
     
     final func removeExpiredUserCreatedPublications() {
@@ -254,7 +251,12 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     final func didDeleteOldVersionOfUserCreatedPublication() {
         self.reload()
     }
-
+    
+    final func didRecievePublicationRegistration(notification: NSNotification) {
+     
+        self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         NSNotificationCenter.defaultCenter().removeObserver(self)

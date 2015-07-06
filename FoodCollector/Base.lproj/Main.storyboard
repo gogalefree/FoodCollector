@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -491,7 +491,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-ic-60V">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-ic-60V">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OgJ-ic-60V" secondAttribute="height" multiplier="1:1" id="Grs-K2-HBY"/>
@@ -1929,75 +1929,77 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ברוכים הבאים. מה תרצו לעשות?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-g5-7hP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="מה תרצה לעשות?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-g5-7hP">
                                 <rect key="frame" x="168" y="105" width="256" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Qkz-L5-Wpt"/>
                                     <constraint firstAttribute="width" constant="256" id="cvd-H1-REd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="24"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="לשתף מזון" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6m-Pf-HyI">
-                                <rect key="frame" x="188" y="191" width="71" height="21"/>
+                                <rect key="frame" x="212" y="191" width="98" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="5oL-0j-1Gg"/>
+                                    <constraint firstAttribute="width" constant="98" id="5oL-0j-1Gg"/>
                                     <constraint firstAttribute="height" constant="21" id="VjU-TH-ebC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwN-rH-Qhj">
-                                <rect key="frame" x="354" y="175" width="50" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwN-rH-Qhj">
+                                <rect key="frame" x="327" y="172" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="JOk-kc-w7T"/>
-                                    <constraint firstAttribute="height" constant="50" id="btJ-1A-kdk"/>
+                                    <constraint firstAttribute="width" constant="60" id="JOk-kc-w7T"/>
+                                    <constraint firstAttribute="height" constant="60" id="btJ-1A-kdk"/>
                                 </constraints>
-                                <state key="normal" title="לשתף">
+                                <state key="normal" image="first-screen-donate">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="VRT-ak-60H"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeo-fY-Bbv">
-                                <rect key="frame" x="354" y="243" width="50" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="לאסוף מזון" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIk-n2-CNZ">
+                                <rect key="frame" x="212" y="277" width="98" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="RWZ-M1-YQB"/>
-                                    <constraint firstAttribute="height" constant="50" id="fe9-jr-vO3"/>
+                                    <constraint firstAttribute="width" constant="98" id="civ-ci-q9k"/>
+                                    <constraint firstAttribute="height" constant="21" id="soK-uD-Tvc"/>
                                 </constraints>
-                                <state key="normal" title="לאסוף">
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeo-fY-Bbv">
+                                <rect key="frame" x="327" y="258" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="RWZ-M1-YQB"/>
+                                    <constraint firstAttribute="height" constant="60" id="fe9-jr-vO3"/>
+                                </constraints>
+                                <state key="normal" image="first-screen-collect">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="roy-ou-1kY"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="לאסוף מזון" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIk-n2-CNZ">
-                                <rect key="frame" x="188" y="259" width="71" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="civ-ci-q9k"/>
-                                    <constraint firstAttribute="height" constant="21" id="soK-uD-Tvc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="gIk-n2-CNZ" secondAttribute="leading" constant="-20" id="6JQ-Gx-rTf"/>
+                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="gIk-n2-CNZ" secondAttribute="leading" constant="-44" id="6JQ-Gx-rTf"/>
                             <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="gwN-rH-Qhj" secondAttribute="trailing" id="DFZ-Pm-qxx"/>
                             <constraint firstItem="f6m-Pf-HyI" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="65" id="FEw-F6-U9W"/>
-                            <constraint firstItem="gwN-rH-Qhj" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="49" id="KEN-G8-66E"/>
-                            <constraint firstItem="eeo-fY-Bbv" firstAttribute="top" secondItem="gwN-rH-Qhj" secondAttribute="bottom" constant="18" id="Kfa-LN-mX8"/>
+                            <constraint firstItem="gwN-rH-Qhj" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="46" id="KEN-G8-66E"/>
+                            <constraint firstItem="eeo-fY-Bbv" firstAttribute="top" secondItem="gwN-rH-Qhj" secondAttribute="bottom" constant="26" id="Kfa-LN-mX8"/>
                             <constraint firstAttribute="centerX" secondItem="x0y-g5-7hP" secondAttribute="centerX" constant="4" id="LNe-zd-5X3"/>
-                            <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="x0y-g5-7hP" secondAttribute="trailing" constant="-20" id="MHA-FW-xLK"/>
-                            <constraint firstItem="gIk-n2-CNZ" firstAttribute="top" secondItem="f6m-Pf-HyI" secondAttribute="bottom" constant="47" id="T1N-C6-vOR"/>
+                            <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="x0y-g5-7hP" secondAttribute="trailing" constant="-37" id="MHA-FW-xLK"/>
+                            <constraint firstItem="gIk-n2-CNZ" firstAttribute="top" secondItem="f6m-Pf-HyI" secondAttribute="bottom" constant="65" id="T1N-C6-vOR"/>
                             <constraint firstItem="x0y-g5-7hP" firstAttribute="top" secondItem="PLH-Tb-ElL" secondAttribute="bottom" constant="41" id="ah2-or-N2O"/>
-                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="f6m-Pf-HyI" secondAttribute="leading" constant="-20" id="iaD-Zi-Gnh"/>
+                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="f6m-Pf-HyI" secondAttribute="leading" constant="-44" id="iaD-Zi-Gnh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NtA-nJ-dYr"/>
@@ -2647,6 +2649,8 @@
         <image name="Table-view" width="27" height="30"/>
         <image name="Track-clear" width="60" height="60"/>
         <image name="User" width="15" height="16"/>
+        <image name="first-screen-collect" width="44" height="15"/>
+        <image name="first-screen-donate" width="44" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Uz-wH-dgX"/>

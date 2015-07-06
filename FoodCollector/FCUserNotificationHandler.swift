@@ -51,11 +51,12 @@ class FCUserNotificationHandler : NSObject {
     func registerForPushNotificationWithToken(newToken:String) {
         
         if let currentToken = self.oldToken {
-            if currentToken == newToken {return}
+            if currentToken == newToken && NSUserDefaults.standardUserDefaults().boolForKey(kDidReportPushNotificationToServerKey) == true
+            {return}
         }
         
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportPushNotificationToServerKey)
         FCModel.sharedInstance.foodCollectorWebServer.reportDeviceTokenForPushWithDeviceNewToken(newToken)
-        
         NSUserDefaults.standardUserDefaults().setObject(newToken, forKey: kRemoteNotificationTokenKey)
     }
     
@@ -63,7 +64,7 @@ class FCUserNotificationHandler : NSObject {
     func resendPushNotificationToken() {
         if let token = oldToken {
             
-            if NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey) == true {
+            if !NSUserDefaults.standardUserDefaults().boolForKey(kDidReportPushNotificationToServerKey) && self.registeredForNotifications{
                 FCModel.sharedInstance.foodCollectorWebServer.reportDeviceTokenForPushWithDeviceNewToken(token)
             }
         }
@@ -187,12 +188,9 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
-                let publicationIdentifier = identifierForInfo(data)
-                let registrationDate = dateWithInfo(data)
-                
-                let registrationMessage = data[kRemoteNotificationRegistrationMessageForPublicationKey] as! Int
-                
-                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, registrationMessage: FCRegistrationForPublication.RegistrationMessage(rawValue: registrationMessage)!)
+                let registrationDate = self.dateWithInfo(data)
+                 
+                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, registrationMessage: FCRegistrationForPublication.RegistrationMessage.register)
                 
                 if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
                     self.recievedRegistrations.removeAll(keepCapacity: true)

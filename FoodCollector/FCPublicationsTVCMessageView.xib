@@ -62,7 +62,7 @@
                 <outlet property="imageView" destination="EY7-sP-78b" id="EnW-Oh-xuw"/>
                 <outlet property="titleLabel" destination="bXm-5k-wCp" id="93k-GV-Hfa"/>
             </connections>
-            <point key="canvasLocation" x="302" y="213"/>
+            <point key="canvasLocation" x="373" y="-37"/>
         </visualEffectView>
     </objects>
     <resources>

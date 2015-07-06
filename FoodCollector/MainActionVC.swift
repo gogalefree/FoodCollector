@@ -20,8 +20,8 @@ protocol MainActionVCDelegate: NSObjectProtocol {
 
 class MainActionVC: UIViewController {
     
-    let mainActionVCTitle = String.localizedStringWithFormat("מה תרצה לעשות?", "main action vc title")
-    let mainLabelText = String.localizedStringWithFormat("ברוכים הבאים. מה תרצו לעשות?", "main action vc title")
+    let mainActionVCTitle = String.localizedStringWithFormat("ברוכים הבאים", "main action vc title")
+    let mainLabelText = String.localizedStringWithFormat("מה תרצו לעשות?", "main action vc title")
     let collectLabelText = String.localizedStringWithFormat("לאסוף מזון", "main action vc title")
     let publishLabelText = String.localizedStringWithFormat("לשתף מזון", "main action vc title")
     let labelsTextColor = UIColor(red: 149/255, green: 149/255, blue: 149/255, alpha: 1)
@@ -35,11 +35,17 @@ class MainActionVC: UIViewController {
 
     weak var delegate: MainActionVCDelegate!
     
+    final override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = mainActionVCTitle
         configureLabels()
+        configureButtons()
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : UIFont.boldSystemFontOfSize(24) , NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func configureLabels() {
@@ -51,6 +57,29 @@ class MainActionVC: UIViewController {
         for label in labels {
             label.textColor = self.labelsTextColor
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.setNeedsStatusBarAppearanceUpdate()
+        
+        let statusBarView = UIView(frame: CGRectMake(0, -20, 320, 22))
+        statusBarView.backgroundColor = UIColor.whiteColor()
+        statusBarView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+        self.navigationController?.navigationBar.addSubview(statusBarView)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
+    func configureButtons() {
+        let buttons = [collectButton, publishButton]
+        for button in buttons {
+            button.layer.cornerRadius = CGRectGetWidth(button.bounds) / 2
+            button.backgroundColor = kNavBarBlueColor
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

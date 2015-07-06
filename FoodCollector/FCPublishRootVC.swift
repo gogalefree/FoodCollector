@@ -39,14 +39,14 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         collectionView.delegate = self
         if userCreatedPublications.count == 0 {
-            collectionView.alpha = 0
-            collectionViewHidden = true
-            displayNoPublicatiosMessage()
+//            collectionView.alpha = 0
+//            collectionViewHidden = true
+//            displayNoPublicatiosMessage()
+            hideCollectionView()
         }
         else {
             
-            userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(userCreatedPublications)
-            userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)
+            
             collectionView.userInteractionEnabled = true
             collectionView.scrollEnabled = true
         }
@@ -62,6 +62,8 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
+        userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(userCreatedPublications)
+        userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)
         self.collectionView.reloadData()
     }
     
@@ -96,7 +98,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         // The tag property will be used later in the segue to identify
         // the publication item clicked by the user for editing.
         cell.tag = indexPath.item
-       // FCTableViewAnimator.animateCollectionViewCell(cell, sender: self.collectionView)
         
         return cell
     }
@@ -162,8 +163,21 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         //delete fron ColectionView
         if let indexPath = indexPathToRemove {
-            self.userCreatedPublications.removeAtIndex(indexPath.row)
-            self.collectionView.deleteItemsAtIndexPaths([indexPath])
+            self.collectionView.performBatchUpdates({ () -> Void in
+                
+                self.userCreatedPublications.removeAtIndex(indexPath.row)
+                self.collectionView.deleteItemsAtIndexPaths([indexPath])
+                
+            }, completion: { (finished) -> Void in
+                self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+                self.collectionView.reloadData()
+            })
+            
+            println("after delete segue from notification: \(self.userCreatedPublications.count)")
+
+            if self.userCreatedPublications.count == 0 {
+                hideCollectionView()
+            }
         }
         
         //make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
@@ -187,6 +201,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         return nil
     }
     
+    func hideCollectionView() {
+        
+    }
     
     func showCollectionView() {
         self.collectionViewHidden = false
@@ -203,7 +220,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     //we reload the collection view since it might have been a user created publication taken off air
     func didDeletePublicationNotification() {
         if let collectionView = self.collectionView {
+            self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
             self.collectionView.reloadData()
+            println("after reloading from notification: \(self.userCreatedPublications.count)")
         }
     }
     
@@ -380,9 +399,15 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             self.unPresentedPublications.removeAll(keepCapacity: false)
         
         self.collectionView.performBatchUpdates({ () -> Void in
+            
             self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+            self.userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(self.userCreatedPublications)
             self.userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(self.userCreatedPublications)
-        }, completion: nil)
+            
+        }, completion: { (finished) -> Void in
+            
+            self.collectionView.reloadData()
+        })
     }
     
     deinit {
