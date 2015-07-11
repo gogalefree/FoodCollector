@@ -17,6 +17,13 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    // Address Search History
+    let plistSearchHistoryFilneName = "SearchHistory"
+    let plistSearchHistoryFilneNameExt = "plist"
+    var isThereSearchHistory = false
+    var searchHistoryArray: [[String: AnyObject]] = [] //an array of dicionaries
+    
+    var addressDict: [String: AnyObject]?
     var cellData = FCPublicationEditorTVCCellData()
     var didSerchAndFindResults = false
     var initialData = [String]()
@@ -33,15 +40,30 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         // Because the table thinks there is a footer to show, it doesn't display any
         // cells beyond those you explicitly asked for.
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
+        
+        // Check if theres a search history and If true, load the contect of the serach History
+        readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
+        if (isThereSearchHistory){
+            for serachItem in searchHistoryArray{
+                var addr = (serachItem as NSDictionary).objectForKey("adress") as! String
+                self.initialData.append(addr)
+            }
+            self.tableView.reloadData()
+        }
     }
     
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if !didSerchAndFindResults {return 0}
+        if (isThereSearchHistory){
+            return initialData.count
+        }
+        else if !didSerchAndFindResults {
+            return 0
+        }
         println("return initialData.count: \(initialData.count)")
         return initialData.count
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -227,11 +249,71 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         cellData.userData = addressDict
         cellData.containsUserData = true
         cellData.cellTitle = self.selectedAddress
+        
+        // Add Address data to serach History Array Object and write it to a plist
+        appendAddressToSerachHistoryArray(addressDict)
+        writeArrayResultsToPlist(plistSearchHistoryFilneName,fileExt: plistSearchHistoryFilneNameExt)
     }
     
     
+    /*
     func refineSearchResults(searchText: String) {
+    
+    }
+    */
+    
+    // MARK - Address Search History
+    
+    func readArrayResultsFromPlist(fileName: String, fileExt: String){
+        println("// Check for Search History")
+        println("======================================")
         
+        var fullPlistName = fileName + "." + fileExt
+        let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent(fullPlistName)
+        
+        println("Path: \(publicationsFilePath)")
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
+            isThereSearchHistory = true
+            searchHistoryArray = NSArray(contentsOfFile: publicationsFilePath) as! [[String : AnyObject]]
+            
+            
+            //println("Path: \(path)")
+            println(searchHistoryArray.description)
+        }
+        else {
+            println("Could not load \(fileName).\(fileExt)")
+            isThereSearchHistory = false
+        }
+        println("isThereSearchHistory: \(isThereSearchHistory)")
+    }
+    
+    func writeArrayResultsToPlist(fileName: String, fileExt: String){
+        var fullPlistName = fileName + "." + fileExt
+        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        var path = paths.stringByAppendingPathComponent(fullPlistName)
+        
+        (searchHistoryArray as NSArray).writeToFile(path, atomically: true)
+        
+        println("Saved plist file in --> \(path)")
+    }
+    
+    func appendAddressToSerachHistoryArray(addrDict: [String : AnyObject]){
+        // Check if the address is already in History
+        var isSearchAddressTheSame = true
+        for serachItem in searchHistoryArray{
+            var historyAddr = (serachItem as NSDictionary).objectForKey("adress") as! String
+            var selectedAddr = (addrDict as NSDictionary).objectForKey("adress") as! String
+            
+            if historyAddr == selectedAddr {
+                isSearchAddressTheSame = true
+                break
+            }
+            else {
+                isSearchAddressTheSame = false
+            }
+        }
+        if (!isSearchAddressTheSame){searchHistoryArray.append(addrDict)}
     }
     
     override func didReceiveMemoryWarning() {
