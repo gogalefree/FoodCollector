@@ -22,6 +22,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     let plistSearchHistoryFilneNameExt = "plist"
     var isThereSearchHistory = false
     var searchHistoryArray: [[String: AnyObject]] = [] //an array of dicionaries
+    let maxItemsToDisplay = 8 // The maximum number of items to display from the search history
     
     var addressDict: [String: AnyObject]?
     var cellData = FCPublicationEditorTVCCellData()
@@ -44,10 +45,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         // Check if theres a search history and If true, load the contect of the serach History
         readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
         if (isThereSearchHistory){
-            for serachItem in searchHistoryArray{
-                var addr = (serachItem as NSDictionary).objectForKey("adress") as! String
-                self.initialData.append(addr)
-            }
+            loadContentOfSearchHistory()
             self.tableView.reloadData()
         }
     }
@@ -298,6 +296,16 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         println("Saved plist file in --> \(path)")
     }
     
+    func loadContentOfSearchHistory(){
+        var countItemsAdded = 0
+        for serachItem in searchHistoryArray{
+            var addr = (serachItem as NSDictionary).objectForKey("adress") as! String
+            self.initialData.append(addr)
+            countItemsAdded++
+            if (countItemsAdded == maxItemsToDisplay) {break}
+        }
+    }
+    
     func appendAddressToSerachHistoryArray(addrDict: [String : AnyObject]){
         // Check if the address is already in History
         var isSearchAddressTheSame = true
@@ -313,7 +321,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 isSearchAddressTheSame = false
             }
         }
-        if (!isSearchAddressTheSame){searchHistoryArray.append(addrDict)}
+        // Add the new Item at the begining of the array.
+        // This way the last ite, searched will be the first item at the top of the list.
+        if (!isSearchAddressTheSame){searchHistoryArray.insert(addrDict, atIndex: 0)}
     }
     
     override func didReceiveMemoryWarning() {
