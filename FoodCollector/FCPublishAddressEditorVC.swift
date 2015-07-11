@@ -84,6 +84,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             self.googleReverseGeoCodeForAddress(address!)
             searchBar.text = address
             selectedAddress = address!
+            println("Inside didSelectRowAtIndexPath")
+            println("lang & long are \(self.selectedLatitude) and \(self.selectedLongtitude)")
+            //self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
         }
     }
     
@@ -202,18 +205,29 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     let locationDict = geo["location"] as! NSDictionary
                     self.selectedLatitude = locationDict["lat"] as! Double
                     self.selectedLongtitude = locationDict["lng"] as! Double
-                    //println("dict is \(latitude) and \(longtitude)")
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
+                    })
+                    
+                    
+                    //println("dict is \(self.selectedLatitude) and \(self.selectedLongtitude)")
                     
                 }else {
                     //handle error
                     println(error.description)
+                    // UIALERT
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("אירע שגיאה", aMessage: "נסו שוב")
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
 
                 
                 
             }
             else {
-                
+                // UIALERT
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("יש בעיית תקשורת", aMessage: "נסו שוב")
+                self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
             
             
@@ -241,7 +255,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -8))
             println("\(selectedAddress)")
         }
-        
+        println("Inside prepareForSegue")
+        println("lang & long are \(self.selectedLatitude) and \(self.selectedLongtitude)")
         var addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
         
         cellData.userData = addressDict
@@ -249,6 +264,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         cellData.cellTitle = self.selectedAddress
         
         // Add Address data to serach History Array Object and write it to a plist
+        println("Befor appendAddressToSerachHistoryArray")
+        println(addressDict.description)
         appendAddressToSerachHistoryArray(addressDict)
         writeArrayResultsToPlist(plistSearchHistoryFilneName,fileExt: plistSearchHistoryFilneNameExt)
     }
@@ -307,6 +324,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     func appendAddressToSerachHistoryArray(addrDict: [String : AnyObject]){
+        println("Start appendAddressToSerachHistoryArray")
+        println(addrDict.description)
         // Check if the address is already in History
         var isSearchAddressTheSame = true
         
