@@ -31,15 +31,21 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
 
         
         self.mainActionNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainActionNavVC") as! UINavigationController
+
         let mainActionVC = self.mainActionNavVC.viewControllers[0] as! MainActionVC
         mainActionVC.delegate = self
         
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        
+        super.viewDidLayoutSubviews()
         if firstLaunch {
-            self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
+            //self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
+            self.addChildViewController(self.mainActionNavVC)
+            self.mainActionNavVC.view.frame = self.view.bounds
+            self.view.addSubview(self.mainActionNavVC.view)
+            self.mainActionNavVC.didMoveToParentViewController(self)
             firstLaunch = false
         }
     }

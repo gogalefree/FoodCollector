@@ -27,6 +27,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         fetchPublicationPhoto()
         fetchPublicationRegistrations()
         registerForNotifications()
+        configAdminIfNeeded()
     }
     
     //MARK: - Table view Headers
@@ -555,5 +556,49 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
         default:
             break;
         }
+    }
+}
+
+extension FCPublicationDetailsTVC {
+    
+    func configAdminIfNeeded() {
+        
+        var infoPlist: NSDictionary?
+        var urlString: String
+        
+        if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
+            
+            infoPlist = NSDictionary(contentsOfFile: path)
+        }
+        
+        if let infoPlist = infoPlist {
+            
+            let bundleName = infoPlist["CFBundleName"] as! String
+            if bundleName.hasPrefix("beta") {
+             
+                println("Beta Version. adding deleteButton")
+                addDeletButton()
+            }
+        }
+        else {
+            println("Config Admin **************: NOT FOUND")
+            
+        }
+    }
+    
+    func addDeletButton() {
+        
+        let deleteButton = UIBarButtonItem(title: "delete", style: UIBarButtonItemStyle.Plain, target: self, action: "deletePublication")
+        self.navigationItem.setRightBarButtonItem(deleteButton, animated: false)
+    }
+    
+    func deletePublication() {
+        println("deleting publication")
+        
+        let identifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId , version: self.publication!.version)
+        
+        FCModel.sharedInstance.foodCollectorWebServer.deletePublication(identifier, completion: { (success) -> () in
+            
+        })
     }
 }

@@ -121,11 +121,11 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 let userInfo = ["publication" : publication]
                 NSNotificationCenter.defaultCenter().postNotificationName("prepareToDelete", object: nil, userInfo: userInfo)
             }
-            self.deletePublication(identifier, deleteFromServer: false)
+            self.deletePublication(identifier, deleteFromServer: false, deleteUserCreatedPublication: false)
         }
     }
     
-    func deletePublication(publicationIdentifier: PublicationIdentifier, deleteFromServer: Bool) {
+    func deletePublication(publicationIdentifier: PublicationIdentifier, deleteFromServer: Bool, deleteUserCreatedPublication: Bool) {
         //delete the publication
         for (index , publication) in enumerate(self.publications) {
             if publication.uniqueId == publicationIdentifier.uniqueId &&
@@ -138,12 +138,14 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             }
         }
         //delete the publication from user created publications
-        for (index , publication) in enumerate(self.userCreatedPublications) {
-            if publication.uniqueId == publicationIdentifier.uniqueId &&
-                publication.version == publicationIdentifier.version{
-                    self.userCreatedPublications.removeAtIndex(index)
-                    self.saveUserCreatedPublications()
-                    break
+        if deleteUserCreatedPublication {
+            for (index , publication) in enumerate(self.userCreatedPublications) {
+                if publication.uniqueId == publicationIdentifier.uniqueId &&
+                    publication.version == publicationIdentifier.version{
+                        self.userCreatedPublications.removeAtIndex(index)
+                        self.saveUserCreatedPublications()
+                        break
+                }
             }
         }
 

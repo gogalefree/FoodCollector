@@ -555,6 +555,18 @@ public class FCMockServer: NSObject , FCServerProtocol {
         var request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"
         
+        
+//        var params = [String:AnyObject]()
+//        params[kPublicationUniqueIdKey] = publicationIdentifier.uniqueId
+//        params[kPublicationVersionKey] = publicationIdentifier.version
+//        var pubDict = ["publication" : params]
+//        
+//        let jsonData = NSJSONSerialization.dataWithJSONObject(pubDict, options: nil, error: nil)
+//        
+//        request.HTTPBody = jsonData
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: {
             (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in

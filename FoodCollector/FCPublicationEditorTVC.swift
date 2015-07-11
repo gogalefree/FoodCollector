@@ -243,7 +243,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                         self.navigationController?.popViewControllerAnimated(true)
                         let publicationIdentifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId, version: self.publication!.version)
                         FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
-                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false)
+                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
                     })
                 }
                 else{
@@ -262,7 +262,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
             var containsData = true
             
             //check cellData
-            for index in 0...6 {
+            for index in 0...5 {
                 
                 let cellData = self.dataSource[index]
                 if !cellData.containsUserData{
@@ -314,25 +314,23 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     func addActivityIndicator() {
         self.activityIndicatorBlureView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150))
-        let blureView = self.activityIndicatorBlureView
-        var center = self.view.center
-        
-        blureView.frame = CGRectMake(0, 0, 150, 150)
-        center.y += 60
-        blureView.center = center
-        blureView.alpha = 0
-        blureView.contentView.addSubview(activityIndicator)
-        blureView.layer.cornerRadius = 20
-        blureView.clipsToBounds = true
+        let offset = self.tableView.contentOffset.y
+        var center = CGPointMake(FCDeviceData.screenWidth() / 2, FCDeviceData.screenHight() / 2 + offset )
+        self.activityIndicatorBlureView.frame = CGRectMake(0, 0, 150, 150)
+        self.activityIndicatorBlureView.center = center
+        self.activityIndicatorBlureView.alpha = 0
+        self.activityIndicatorBlureView.contentView.addSubview(activityIndicator)
+        self.activityIndicatorBlureView.layer.cornerRadius = 20
+        self.activityIndicatorBlureView.clipsToBounds = true
 
         
         activityIndicator.activityIndicatorViewStyle = .WhiteLarge
         activityIndicator.color = UIColor.darkGrayColor()
         activityIndicator.startAnimating()
         
-        self.view.addSubview(blureView)
-        self.view.bringSubviewToFront(blureView)
-        blureView.animateToAlphaWithSpring(0.6, alpha: 1)
+        self.view.addSubview(self.activityIndicatorBlureView)
+        self.view.bringSubviewToFront(self.activityIndicatorBlureView)
+        self.activityIndicatorBlureView.animateToAlphaWithSpring(0.6, alpha: 1)
         self.tableView.userInteractionEnabled = false
 
     }

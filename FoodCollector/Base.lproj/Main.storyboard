@@ -1930,7 +1930,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="מה תרצה לעשות?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-g5-7hP">
-                                <rect key="frame" x="168" y="105" width="256" height="21"/>
+                                <rect key="frame" x="168" y="164" width="256" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Qkz-L5-Wpt"/>
                                     <constraint firstAttribute="width" constant="256" id="cvd-H1-REd"/>
@@ -1939,18 +1939,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="לשתף מזון" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6m-Pf-HyI">
-                                <rect key="frame" x="212" y="191" width="98" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="98" id="5oL-0j-1Gg"/>
-                                    <constraint firstAttribute="height" constant="21" id="VjU-TH-ebC"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwN-rH-Qhj">
-                                <rect key="frame" x="327" y="172" width="60" height="60"/>
+                                <rect key="frame" x="327" y="231" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="JOk-kc-w7T"/>
@@ -1963,18 +1953,8 @@
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="VRT-ak-60H"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="לאסוף מזון" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIk-n2-CNZ">
-                                <rect key="frame" x="212" y="277" width="98" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="98" id="civ-ci-q9k"/>
-                                    <constraint firstAttribute="height" constant="21" id="soK-uD-Tvc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeo-fY-Bbv">
-                                <rect key="frame" x="327" y="258" width="60" height="60"/>
+                                <rect key="frame" x="327" y="317" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="RWZ-M1-YQB"/>
@@ -1987,28 +1967,54 @@
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="roy-ou-1kY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aup-wQ-Bfq">
+                                <rect key="frame" x="168" y="325" width="151" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="mfX-hz-95J"/>
+                                    <constraint firstAttribute="width" constant="151" id="qqm-s8-Oqq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
+                                <state key="normal" title="לאסוף מזון"/>
+                                <connections>
+                                    <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="FiU-zY-mbk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spz-xB-01E">
+                                <rect key="frame" x="168" y="239" width="151" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="151" id="d1r-1f-mgO"/>
+                                    <constraint firstAttribute="height" constant="44" id="qeT-au-u1V"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
+                                <state key="normal" title="לשתף מזון"/>
+                                <connections>
+                                    <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="PzU-3M-qXq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="gIk-n2-CNZ" secondAttribute="leading" constant="-44" id="6JQ-Gx-rTf"/>
                             <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="gwN-rH-Qhj" secondAttribute="trailing" id="DFZ-Pm-qxx"/>
-                            <constraint firstItem="f6m-Pf-HyI" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="65" id="FEw-F6-U9W"/>
                             <constraint firstItem="gwN-rH-Qhj" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="46" id="KEN-G8-66E"/>
                             <constraint firstItem="eeo-fY-Bbv" firstAttribute="top" secondItem="gwN-rH-Qhj" secondAttribute="bottom" constant="26" id="Kfa-LN-mX8"/>
                             <constraint firstAttribute="centerX" secondItem="x0y-g5-7hP" secondAttribute="centerX" constant="4" id="LNe-zd-5X3"/>
                             <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="x0y-g5-7hP" secondAttribute="trailing" constant="-37" id="MHA-FW-xLK"/>
-                            <constraint firstItem="gIk-n2-CNZ" firstAttribute="top" secondItem="f6m-Pf-HyI" secondAttribute="bottom" constant="65" id="T1N-C6-vOR"/>
-                            <constraint firstItem="x0y-g5-7hP" firstAttribute="top" secondItem="PLH-Tb-ElL" secondAttribute="bottom" constant="41" id="ah2-or-N2O"/>
-                            <constraint firstItem="x0y-g5-7hP" firstAttribute="leading" secondItem="f6m-Pf-HyI" secondAttribute="leading" constant="-44" id="iaD-Zi-Gnh"/>
+                            <constraint firstItem="aup-wQ-Bfq" firstAttribute="top" secondItem="spz-xB-01E" secondAttribute="bottom" constant="42" id="Trd-QD-vBj"/>
+                            <constraint firstItem="spz-xB-01E" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="54" id="Ul5-V2-udW"/>
+                            <constraint firstItem="spz-xB-01E" firstAttribute="leading" secondItem="x0y-g5-7hP" secondAttribute="leading" id="Zeh-vh-Ri4"/>
+                            <constraint firstItem="x0y-g5-7hP" firstAttribute="top" secondItem="PLH-Tb-ElL" secondAttribute="bottom" constant="100" id="ah2-or-N2O"/>
+                            <constraint firstItem="spz-xB-01E" firstAttribute="leading" secondItem="aup-wQ-Bfq" secondAttribute="leading" id="eH3-Id-0U5"/>
+                            <constraint firstItem="aup-wQ-Bfq" firstAttribute="top" secondItem="spz-xB-01E" secondAttribute="bottom" constant="42" id="fa6-5k-L1l"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NtA-nJ-dYr"/>
                     <connections>
                         <outlet property="collectButton" destination="eeo-fY-Bbv" id="g5A-a6-ax8"/>
-                        <outlet property="collectTitleLabel" destination="gIk-n2-CNZ" id="cRZ-WL-XG8"/>
+                        <outlet property="collectTitleButton" destination="aup-wQ-Bfq" id="zL1-Qh-FJw"/>
+                        <outlet property="mainLabelTopConstraint" destination="ah2-or-N2O" id="b4p-MH-2TO"/>
                         <outlet property="mainTitleLabel" destination="x0y-g5-7hP" id="zlv-fx-zUZ"/>
                         <outlet property="publishButton" destination="gwN-rH-Qhj" id="H4k-H9-tq0"/>
-                        <outlet property="publishTitleLabel" destination="f6m-Pf-HyI" id="jhr-Rv-u6d"/>
+                        <outlet property="publishTitleButton" destination="spz-xB-01E" id="fTK-gs-wGc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ba8-aR-Mpl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2649,8 +2655,8 @@
         <image name="Table-view" width="27" height="30"/>
         <image name="Track-clear" width="60" height="60"/>
         <image name="User" width="15" height="16"/>
-        <image name="first-screen-collect" width="44" height="15"/>
-        <image name="first-screen-donate" width="44" height="23"/>
+        <image name="first-screen-collect" width="44" height="16"/>
+        <image name="first-screen-donate" width="44" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Uz-wH-dgX"/>

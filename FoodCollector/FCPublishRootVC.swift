@@ -186,7 +186,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         
         //delete from model
-        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true)
+        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
     
     }
     
@@ -202,7 +202,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     func hideCollectionView() {
-        
+        collectionView.alpha = 0
+        collectionViewHidden = true
+        displayNoPublicatiosMessage()
     }
     
     func showCollectionView() {
@@ -229,8 +231,19 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     //this is trigered when a user had updated or reposted userCreatedPublication
     //the model deletes old versions and posts this notification
     func didDeleteOldVersionOfUserCreatedPublication() {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
+
+        let newUserCreatedPublication = FCModel.sharedInstance.userCreatedPublications.last
+        for (index,publication) in enumerate(self.userCreatedPublications) {
+            if publication.uniqueId == newUserCreatedPublication?.uniqueId && publication.version < newUserCreatedPublication?.version {
+                self.userCreatedPublications.removeAtIndex(index)
+                self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
+                break
+            }
+        }
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+            Int64(1 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
             self.collectionView.reloadData()
         })
     }
@@ -251,7 +264,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             label.numberOfLines = 0
             label.font = UIFont.systemFontOfSize(fontSize)
             //label.text = String.localizedStringWithFormat("Hi,\nYou haven't shared yet." , "No user created publications message")
-            label.text = String.localizedStringWithFormat("שלום,\nעדיין לא נוצרו שיתופים." , "No user created publications message")
+            label.text = String.localizedStringWithFormat("הי,\nמה תרצו לשתף?" , "No user created publications message")
             self.view.addSubview(label)
         }
     }

@@ -26,12 +26,18 @@ class MainActionVC: UIViewController {
     let publishLabelText = String.localizedStringWithFormat("לשתף מזון", "main action vc title")
     let labelsTextColor = UIColor(red: 149/255, green: 149/255, blue: 149/255, alpha: 1)
 
+    @IBOutlet weak var mainLabelTopConstraint: NSLayoutConstraint!
+    let topConstraintLandscapeConstant: CGFloat = 60
+    let topConstraintPortraitConstant: CGFloat = 100
+
     
     @IBOutlet weak var mainTitleLabel: UILabel!
-    @IBOutlet weak var collectTitleLabel: UILabel!
-    @IBOutlet weak var publishTitleLabel: UILabel!
+    @IBOutlet weak var collectTitleButton: UIButton!
+    @IBOutlet weak var publishTitleButton: UIButton!
     @IBOutlet weak var collectButton : UIButton!
     @IBOutlet weak var publishButton : UIButton!
+    
+    var statusBarView: UIView!
 
     weak var delegate: MainActionVCDelegate!
     
@@ -44,29 +50,32 @@ class MainActionVC: UIViewController {
         self.title = mainActionVCTitle
         configureLabels()
         configureButtons()
-        
+        configureLabels()
+
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : UIFont.boldSystemFontOfSize(24) , NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func configureLabels() {
         
-        collectTitleLabel.text = self.collectLabelText
-        publishTitleLabel.text = self.publishLabelText
+        collectTitleButton.setTitle(self.collectLabelText, forState: .Normal)
+        publishTitleButton.setTitle(self.publishLabelText, forState: .Normal)
         mainTitleLabel.text = self.mainLabelText
-        let labels = [collectTitleLabel, publishTitleLabel, mainTitleLabel]
-        for label in labels {
-            label.textColor = self.labelsTextColor
+        let buttons = [collectTitleButton, publishTitleButton]
+        for button in buttons {
+            button.setTitleColor(self.labelsTextColor, forState: .Normal)
         }
+        self.mainTitleLabel.textColor = self.labelsTextColor
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.setNeedsStatusBarAppearanceUpdate()
-        
-        let statusBarView = UIView(frame: CGRectMake(0, -20, 320, 22))
-        statusBarView.backgroundColor = UIColor.whiteColor()
-        statusBarView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-        self.navigationController?.navigationBar.addSubview(statusBarView)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if self.statusBarView == nil {
+            
+            self.statusBarView =  UIView(frame: CGRectMake(0, -20, CGRectGetWidth(self.view.bounds), 22))
+            statusBarView.backgroundColor = UIColor.whiteColor()
+            statusBarView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+            self.navigationController?.navigationBar.addSubview(statusBarView)
+        }
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -93,18 +102,39 @@ class MainActionVC: UIViewController {
             
             switch sender {
                 
-            case self.collectButton:
+            case self.collectButton, self.collectTitleButton:
                 delegate.mainActionVCDidRequestAction(.Collect)
             
             
-            case self.publishButton:
+            case self.publishButton, self.publishTitleButton:
                 delegate.mainActionVCDidRequestAction(.Publish)
             
             default:
                 break
             }
             
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
+                self.navigationController?.view.alpha = 0
+                }) {  (finished)->() in
+            
+                    self.navigationController?.view.removeFromSuperview()
+                    self.navigationController?.removeFromParentViewController()
+            }
+            
         }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        if size.height > size.width {
+            self.mainLabelTopConstraint.constant = self.topConstraintPortraitConstant
+        }
+        else {
+            self.mainLabelTopConstraint.constant = self.topConstraintLandscapeConstant
+            
+        }
+        self.view.layoutIfNeeded()
     }
 }
