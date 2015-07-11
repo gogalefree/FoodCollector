@@ -309,6 +309,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     func appendAddressToSerachHistoryArray(addrDict: [String : AnyObject]){
         // Check if the address is already in History
         var isSearchAddressTheSame = true
+        
+        if (searchHistoryArray.count == 0){isSearchAddressTheSame = false}
         for serachItem in searchHistoryArray{
             var historyAddr = (serachItem as NSDictionary).objectForKey("adress") as! String
             var selectedAddr = (addrDict as NSDictionary).objectForKey("adress") as! String
@@ -322,8 +324,17 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             }
         }
         // Add the new Item at the begining of the array.
-        // This way the last ite, searched will be the first item at the top of the list.
-        if (!isSearchAddressTheSame){searchHistoryArray.insert(addrDict, atIndex: 0)}
+        // This way the last item, searched will be the first item at the top of the list.
+        if (!isSearchAddressTheSame){
+            //if (searchHistoryArray.count == 0){
+                // when searchHistoryArray is empty (when used for the first time)
+                // we need to append
+                //searchHistoryArray.append(addrDict)
+            //}
+            //else {
+                searchHistoryArray.insert(addrDict, atIndex: 0)
+            //}
+        }
     }
     
     override func didReceiveMemoryWarning() {
