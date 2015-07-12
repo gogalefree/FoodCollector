@@ -217,7 +217,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     println(error.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("אירע שגיאה", aMessage: "נסו שוב")
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
 
@@ -226,7 +226,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             }
             else {
                 // UIALERT
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("יש בעיית תקשורת", aMessage: "נסו שוב")
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
             
