@@ -12,7 +12,7 @@ import UIKit
 import CoreLocation
 
 // String constants for Publish table titles
-let kPublishTitle = String.localizedStringWithFormat("הוספת שם", "Add title for a new event")
+let kPublishTitle = String.localizedStringWithFormat("הוספת שם מוצר", "Add title for a new event")
 let kPublishSubtitle = String.localizedStringWithFormat("הוספת תיאור", "Add subitle for a new event")
 let kPublishAddress = String.localizedStringWithFormat("הוספת כתובת", "Add address for a new event")
 let kPublishTypeOfCollection = String.localizedStringWithFormat("הוספת סגנון איסוף", "Select Type Of Collection for a new event")
