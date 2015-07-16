@@ -14,6 +14,18 @@
 #import "AWSDynamoDB.h"
 #import "AWSSQS.h"
 #import "AWSSNS.h"
+#import "AWSCognito.h"
+#import "AWSBolts.h"
+
+
+
+
+#import <AWSCore/AWSCore.h>
+#import <AWSS3/AWSS3.h>
+#import <AWSDynamoDB/AWSDynamoDB.h>
+#import <AWSSQS/AWSSQS.h>
+#import <AWSSNS/AWSSNS.h>
+#import <AWSCognito/AWSCognito.h>
 
 
 

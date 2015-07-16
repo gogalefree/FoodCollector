@@ -75,6 +75,9 @@
 		E4737DAD1A10CD5800A4AB81 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAC1A10CD5800A4AB81 /* MapKit.framework */; };
 		E4737DAF1A10CD6200A4AB81 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */; };
 		E473A6291A8DEF4100CB8C44 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473A6281A8DEF4100CB8C44 /* UIView+Extensions.swift */; };
+		E476114A1B570EC000042D8F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E47611491B570EC000042D8F /* libsqlite3.dylib */; };
+		E476114C1B570ED400042D8F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114B1B570ED400042D8F /* libz.dylib */; };
+		E476114E1B570EE700042D8F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114D1B570EE700042D8F /* SystemConfiguration.framework */; };
 		E476C2321A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E476C2311A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift */; };
 		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
 		E47F9C531A12184200079164 /* ModelInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C521A12184200079164 /* ModelInitTests.swift */; };
@@ -198,6 +201,9 @@
 		E4737DAC1A10CD5800A4AB81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E473A6281A8DEF4100CB8C44 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		E47611491B570EC000042D8F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		E476114B1B570ED400042D8F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		E476114D1B570EE700042D8F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E476C2311A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationEditorTVCell.swift; sourceTree = "<group>"; };
 		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
 		E47F9C521A12184200079164 /* ModelInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInitTests.swift; sourceTree = "<group>"; };
@@ -252,6 +258,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E476114E1B570EE700042D8F /* SystemConfiguration.framework in Frameworks */,
+				E476114C1B570ED400042D8F /* libz.dylib in Frameworks */,
+				E476114A1B570EC000042D8F /* libsqlite3.dylib in Frameworks */,
 				E417FEE41B296AE0000341C7 /* MessageUI.framework in Frameworks */,
 				E4737DAF1A10CD6200A4AB81 /* CoreLocation.framework in Frameworks */,
 				E4737DAD1A10CD5800A4AB81 /* MapKit.framework in Frameworks */,
@@ -272,6 +281,9 @@
 		584074C33F5C6389DE88C629 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E476114D1B570EE700042D8F /* SystemConfiguration.framework */,
+				E476114B1B570ED400042D8F /* libz.dylib */,
+				E47611491B570EC000042D8F /* libsqlite3.dylib */,
 				E417FEE31B296AE0000341C7 /* MessageUI.framework */,
 				4C0F0BBFA42B094D8A074F35 /* libPods.a */,
 			);
@@ -778,7 +790,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/Users/Guy/ios\\ projects/foodCollector4/FoodCollector/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
 		};
 /* End PBXShellScriptBuildPhase section */
 

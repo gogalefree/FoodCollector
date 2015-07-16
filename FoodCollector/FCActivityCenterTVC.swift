@@ -10,6 +10,7 @@ import UIKit
 
 let collectorTitle = String.localizedStringWithFormat("בדרך לאסוף", "activity center table view collector section title. means collector")
 let publisherTitle = String.localizedStringWithFormat("השיתופים שלי", "activity center table view publisher section title. means contributer")
+let backButtonLabel = String.localizedStringWithFormat("חזרה", "The label of a back button")
 let collectorIcon = UIImage(named: "CollectActivity")
 let publisherIcon = UIImage(named: "DonateActivity")
 
@@ -172,18 +173,29 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
             publicationDetailsTVC?.title = title
             publicationDetailsTVC?.publication = publication
             
-            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
             let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
             self.navigationController?.presentViewController(nav, animated: true, completion: nil)
             
         case 1:
+            let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+            publicationDetailsTVC?.title = title
+            publicationDetailsTVC?.publication = publication
+            
+            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+            self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+            
+
+            
+            /*
             let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationEditorTVC") as? FCPublicationEditorTVC
             publicationEditorTVC?.setupWithState(.ActivityCenter, publication: publication)
-            publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
             publicationEditorTVC?.title = title
             let nav = UINavigationController(rootViewController: publicationEditorTVC!)
             self.navigationController?.presentViewController(nav, animated: true, completion: nil)
-        
+            */
         default: break
         
         }

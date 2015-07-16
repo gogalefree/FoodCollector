@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class FCPhotoFetcher: NSObject {
     
@@ -26,7 +26,7 @@ class FCPhotoFetcher: NSObject {
         downloadRequest.key = publication.photoUrl
         downloadRequest.downloadingFileURL = downloadedFileUrl
         
-        transferManager.download(downloadRequest).continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+        transferManager.download(downloadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
             
             
             if task.error != nil {
@@ -68,7 +68,7 @@ class FCPhotoFetcher: NSObject {
         uploadRequest.body = uploadFileURL
         
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
-        transferManager.upload(uploadRequest).continueWithExecutor(BFExecutor.mainThreadExecutor(), withBlock: { (task: BFTask!) -> AnyObject! in
+        transferManager.upload(uploadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
             
             if task.error != nil {
                 
