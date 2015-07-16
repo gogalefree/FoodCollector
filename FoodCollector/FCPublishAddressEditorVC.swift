@@ -81,7 +81,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         if cell.textLabel?.text != nil {
             var address = cell.textLabel?.text!
-            self.googleReverseGeoCodeForAddress(address!)
+            self.googleGeoCodeForAddress(address!)
             searchBar.text = address
             selectedAddress = address!
             println("Inside didSelectRowAtIndexPath")
@@ -178,7 +178,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         }).resume()
     }
     
-    func googleReverseGeoCodeForAddress(address: String) {
+    func googleGeoCodeForAddress(address: String) {
         
         let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
         let addressToSearch = address.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())!
@@ -234,12 +234,15 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         }).resume()
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        self.didSerchAndFindResults = false
-        self.initialData.removeAll(keepCapacity: false)
-        self.googleLocationSearch(searchBar.text)
-        self.tableView.reloadData()
+    func googleReverseGeoCodeForLatLngLocation(lat: Double, lng: Double) {
+        let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
+        
+        //https://maps.googleapis.com/maps/api/geocode/json?latlng=32.1499984,34.8939178&language=iw&key=API_KEY
+        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lng)&language-iw&key=\(key)")!)
+        
+        let session = NSURLSession.sharedSession()
     }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
