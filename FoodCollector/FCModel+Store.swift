@@ -46,6 +46,11 @@ public extension FCModel {
             
             let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as! [FCPublication]
             self.userCreatedPublications = array
+            for publi in self.userCreatedPublications {
+                println("id of user: \(publi.uniqueId)")
+                println("version of user: \(publi.version)")
+
+            }
         }
     }
 }

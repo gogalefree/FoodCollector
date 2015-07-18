@@ -22,6 +22,7 @@ let kRemoteNotificationPublicationReportDateKey = "date"
 let kRemoteNotificationTypeUserRegisteredForPublication = "registeration_for_publication"
 let kRemoteNotificationRegistrationMessageForPublicationKey = "registration_message"
 let kRemoteNotificationDataKey = "data"
+let kShouldShowNewPublicationFromPushNotification = "kShouldShowNewPublicationFromPushNotification"
 let kRegionRadiusForLocationNotification = 20
 
 let kDidArriveOnSpotNotification = "didArriveOnSpot"
@@ -217,6 +218,7 @@ class FCUserNotificationHandler : NSObject {
                     //handle the new publication
                     let recivedPublication = publication
                     if !self.didHandleNewPublicationNotification(recivedPublication) {
+                        NSUserDefaults.standardUserDefaults().setBool(true, forKey:kShouldShowNewPublicationFromPushNotification)
                         self.recievedPublications.removeAll(keepCapacity: true)
                         self.recievedPublications.append(recivedPublication)
                         FCModel.sharedInstance.addPublication(recivedPublication)

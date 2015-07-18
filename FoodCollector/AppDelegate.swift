@@ -13,6 +13,7 @@ import QuartzCore
 let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidReportPushNotificationToServerKey = "didFailToRegisterPush"
 let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificationInBackground"
+
 let kNavBarBlueColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
 
 
@@ -37,11 +38,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //uncomment to check the device push notification token report service
         //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
+       
+        //check if there was a push notification while the app was inActive
+        
+        let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject : AnyObject]
+        if userInfo != nil {
+            
+            //this is called if a push notification arrived and the user did not tap on it
+            //we save the identifier and type and handle it later when the app launches
+            handelRemoteNotificationsFromBackground(userInfo)
+            NSUserDefaults.standardUserDefaults().setObject("from did finish launching", forKey: "abbbb")
+        }
         
         
-        
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        
+        let newDict = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeUserRegisteredForPublication) as? [NSObject : AnyObject]
+        println(newDict)
+
+//        NSUserDefaults.standardUserDefaults().removeObjectForKey("abbbb")
+//         NSUserDefaults.standardUserDefaults().removeObjectForKey("apppp")
+        let message = NSUserDefaults.standardUserDefaults().objectForKey("apppp") as? String
+        println(message)
+//        
+        let message1 = NSUserDefaults.standardUserDefaults().objectForKey("abbbb") as? String
+        println(message1)
         
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
@@ -49,8 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let userNotificationHandler = FCUserNotificationHandler.sharedInstance
         userNotificationHandler.setup()
-       
-        handelNotificationsIfNeeded(launchOptions)
         
         registerAWSS3()
         return true
@@ -58,23 +75,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func registerAWSS3() {
 
-       let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityId: nil, accountId:  "458352772906", identityPoolId: "us-east-1:ec4b269f-88a9-471d-b548-7886e1f9f2d7", unauthRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolUnauth_DefaultRole", authRoleArn:  "arn:aws:iam::458352772906:role/Cognito_food_collector_poolAuth_DefaultRole", logins: nil)
     
-        
-        /*
-        let credentialsProvider = AWSCognitoCredentialsProvider.credentialsWithRegionType(
-            AWSRegionType.USEast1,
-            accountId: "458352772906",
-            identityPoolId: "us-east-1:ec4b269f-88a9-471d-b548-7886e1f9f2d7",
-            unauthRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolUnauth_DefaultRole",
-            authRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolAuth_DefaultRole"
-        )
-        */
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityId: nil, accountId:  "458352772906", identityPoolId: "us-east-1:ec4b269f-88a9-471d-b548-7886e1f9f2d7", unauthRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolUnauth_DefaultRole", authRoleArn:  "arn:aws:iam::458352772906:role/Cognito_food_collector_poolAuth_DefaultRole", logins: nil)
+    
         let defaultServiceConfiguration = AWSServiceConfiguration(
             region: AWSRegionType.USEast1,
             credentialsProvider: credentialsProvider)
+       
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = defaultServiceConfiguration
-        //AWSServiceManager.defaultServiceManager().setDefaultServiceConfiguration(defaultServiceConfiguration)
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -98,12 +106,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //called when a remote push arrives while in backround and the user tapped a button
         //if the action uses forground - the app is invoked
         //if the action uses backRound - the app calls this method in the backround
-        
+
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+
         
         if let id = identifier {
+            
             if id == kUserNotificationShowActionId {
                 //Show ui for new notification
-                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+
+                if let type = userInfo[kRemoteNotificationType] as? String {
+                    
+                    if type == kRemoteNotificationTypeUserRegisteredForPublication {
+                        self.handelRemoteNotificationsFromBackground(userInfo)
+//                        let tabBar = self.window?.rootViewController as? FCMainTabBarController
+//                        tabBar?.showUserRegistrationNotificationIfNeeded(0.5)
+                        
+                    }
+                    else {
+                         
+                        FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+                    }
+                }
             }
         }
     }
@@ -118,24 +142,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
+
         //called when the app recieves push while in foreground or backround
         //use UIApplication.sharedApplication().applicationState
         //to find out whether the app was susspended or not
         
         //if the app is in background Mode and we recived a delete notification
         //we delete it from the publications array
+        
+        
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
             
-            if notificationType == kRemoteNotificationTypeDeletedPublication && UIApplication.sharedApplication().applicationState != .Active {
-                self.deletePublication(userInfo)
+            if UIApplication.sharedApplication().applicationState != .Active {
+                self.handelRemoteNotificationsFromBackground(userInfo)
+                NSUserDefaults.standardUserDefaults().setObject("inside inactive did recieve remote", forKey: "apppp")
             }
             
             else {
+                
+                UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                 FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
             }
             
             completionHandler(UIBackgroundFetchResult.NewData)
         }
+            
         else {
             completionHandler(UIBackgroundFetchResult.NoData)
 
@@ -162,10 +193,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -186,7 +219,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func deletePublication(userInfo: [NSObject: AnyObject]) {
         
-        let data = userInfo[kRemoteNotificationDataKey]! as! [String : AnyObject]
+        let data = userInfo[kRemoteNotificationDataKey]! as! [NSObject : AnyObject]
         let uniqueId = data[kPublicationUniqueIdKey]! as! Int
         let version = data[kPublicationVersionKey]! as! Int
 
@@ -205,22 +238,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func handelNotificationsIfNeeded(launchOptions: [NSObject: AnyObject]?) {
+    func handelRemoteNotificationsFromBackground(launchOptions: [NSObject: AnyObject]?) {
         
-        if let option = launchOptions{
+        if let userInfo = launchOptions{
             
-            if option[UIApplicationLaunchOptionsRemoteNotificationKey] != nil {
-                let dict = option[UIApplicationLaunchOptionsRemoteNotificationKey] as! [String : AnyObject]
-                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(dict)
-            }
+            let data = userInfo[kRemoteNotificationDataKey]! as! [String : AnyObject]
+            let identifier = self.identifierForInfo(data)
             
+            if let notificationType = userInfo[kRemoteNotificationType] as? String {
             
-            if option[UIApplicationLaunchOptionsLocalNotificationKey] != nil {
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey:kDidReciveLocationNotificationInBackground)
-                let not = option[UIApplicationLaunchOptionsLocalNotificationKey] as! UILocalNotification
-                FCUserNotificationHandler.sharedInstance.didRecieveLocalNotification(not)
+                switch notificationType {
+                    
+                case kRemoteNotificationTypeNewPublication:
+            
+                    let dictToSave = [kPublicationUniqueIdKey : identifier.uniqueId, kPublicationVersionKey : identifier.version]
+                    NSUserDefaults.standardUserDefaults().setObject(dictToSave, forKey: kRemoteNotificationTypeNewPublication)
+                    
+                case kRemoteNotificationTypeUserRegisteredForPublication:
+                    
+                    let dictToSave = [kPublicationUniqueIdKey : identifier.uniqueId, kPublicationVersionKey : identifier.version]
+                    NSUserDefaults.standardUserDefaults().setObject(dictToSave, forKey: kRemoteNotificationTypeUserRegisteredForPublication)
+                    let activity = UIApplication.sharedApplication().applicationState
+                    let x = 1
+                    
+                case kRemoteNotificationTypeDeletedPublication:
+                    self.deletePublication(userInfo)
+                    
+                default:
+                    break
+                }
             }
         }
+    }
+    
+    func identifierForInfo(data: [String : AnyObject]) -> PublicationIdentifier {
+        let uniqueId =  data[kPublicationUniqueIdKey]! as! Int
+        let version = data[kPublicationVersionKey]! as! Int
+        let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
+        return publicationIdentifier
     }
 }
 

@@ -157,7 +157,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         case 5: // Type of collection
             self.performSegueWithIdentifier("showPublicationTypeOfCollectionEditor", sender: nil)
         case 6: // Image picker
-            self.presentImagePickerController()
+            self.presentImagePickerActionSheet()
         case 7: // Take off-air
             takeOffAir()
             shouldEnableTakeOfAirButton()
@@ -674,8 +674,33 @@ extension  FCPublicationEditorTVC {
 
 extension FCPublicationEditorTVC {
     
-    func presentImagePickerController () {
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+    func presentImagePickerActionSheet() {
+    
+        let actionSheet = UIAlertController(title: "", message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("ביטול", "alert dissmiss button title"), style: .Cancel) { (action) in
+            actionSheet.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        let cameraAction = UIAlertAction(title:String.localizedStringWithFormat("מצלמה", "camera button title "), style: UIAlertActionStyle.Default) { (action) in
+            self.presentImagePickerController(.Camera)
+            actionSheet.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        let photoLibraryAction = UIAlertAction(title:String.localizedStringWithFormat("גלריה", "photo galery button title"), style: UIAlertActionStyle.Default) { (action) in
+            self.presentImagePickerController(.PhotoLibrary)
+            actionSheet.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        actionSheet.addAction(cameraAction)
+        actionSheet.addAction(photoLibraryAction)
+        actionSheet.addAction(dissmissAction)
+        
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func presentImagePickerController (source: UIImagePickerControllerSourceType) {
+        imagePicker.sourceType = source
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         self.presentViewController(imagePicker, animated: true, completion: nil)
@@ -685,7 +710,7 @@ extension FCPublicationEditorTVC {
         self.dismissViewControllerAnimated(true, completion: nil)
         
         var myInfo = info
-        if info[UIImagePickerControllerOriginalImage] != nil {
+        if info[UIImagePickerControllerEditedImage] != nil {
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             self.updateCellDataWithImage(image)
         }

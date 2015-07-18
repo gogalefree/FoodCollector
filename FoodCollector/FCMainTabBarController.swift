@@ -17,7 +17,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     var isPresentingOnSpotReportVC = false
     var firstLaunch = true
     var mainActionNavVC: UINavigationController!
-    lazy var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
+    var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
     
 
     
@@ -28,6 +28,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
 
         
         self.mainActionNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainActionNavVC") as! UINavigationController
@@ -53,11 +54,45 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     override func viewDidAppear(animated: Bool) {
         
         super.viewDidAppear(animated)
+        //Location Notification
         if NSUserDefaults.standardUserDefaults().boolForKey(kDidReciveLocationNotificationInBackground){
             let userInfo = FCUserNotificationHandler.sharedInstance.recivedLocationNotification.last!
             let notification = NSNotification(name: "auto", object: self, userInfo: userInfo)
             self.didRecieveOnspotNotification(notification)
             NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReciveLocationNotificationInBackground)
+        }
+        
+        //RegistrationForPublication Remote Notification while the app was inActive
+        self.showUserRegistrationNotificationIfNeeded(1.5)
+        
+    }
+    
+    func appWillEnterForeground() {
+        self.showUserRegistrationNotificationIfNeeded(1.5)
+    }
+    
+    final func showUserRegistrationNotificationIfNeeded(dealey: NSTimeInterval) {
+        
+         if let data = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeUserRegisteredForPublication) as? [String : AnyObject]{
+            
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                Int64(dealey * Double(NSEC_PER_SEC)))
+            
+            dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+
+                
+                        let id = data[kPublicationUniqueIdKey] as! Int
+                        let version = data[kPublicationVersionKey] as! Int
+                        let identifier = PublicationIdentifier(uniqueId: id, version: version)
+                        let publication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier)
+                        if let publication = publication {
+                            self.newRgistrationBannerView.reset()
+                            self.newRgistrationBannerView.userCreatedPublication = publication
+                            self.presentNewRegistrationBanner()
+                        }
+                        NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeUserRegisteredForPublication)
+                
+            })
         }
     }
     
@@ -129,6 +164,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     func presentNewRegistrationBanner() {
         self.newRgistrationBannerView.frame = CGRectMake(0, self.kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
         self.view.addSubview(self.newRgistrationBannerView)
+        self.view.bringSubviewToFront(self.newRgistrationBannerView)
         
         UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
             
@@ -152,7 +188,6 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     

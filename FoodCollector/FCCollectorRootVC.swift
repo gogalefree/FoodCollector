@@ -42,9 +42,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     var trackingUserLocation = false
     var locationManager = CLLocationManager()
     var initialLaunch = true
-//    var didFailToRegisterPushNotifications = {
-//        return NSUserDefaults.standardUserDefaults().boolForKey(kDidFailToRegisterPushNotificationKey)
-//        }()
+
     
     //MARK: - Location Manager setup
     
@@ -127,6 +125,21 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             mapView.setRegion(region, animated: false)
             initialLaunch = false
         }
+        
+        //if a new publication was recived in a push notification - show the new publication message
+        //this is initiated if the app was active
+        
+        if NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowNewPublicationFromPushNotification) {
+            
+            let recivedPublication = FCModel.sharedInstance.publications.last!
+            self.showNewDataMessageView(recivedPublication)
+        }
+        
+        //if a new publication arrived through a remote notification while the app was inActive, and the user did not tap the banner
+        
+        self.showNewPublicationMessageViewIfNeeded()
+        
+        
         //uncomment to present enable push notifications message
 
 //        let registeredForRemoteNotifications = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
@@ -143,6 +156,26 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
 //
 //        showNewDataMessageView(self.publications[3])
         
+    }
+    
+    func showNewPublicationMessageViewIfNeeded() {
+        
+        if let data =  NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeNewPublication) as? [NSObject : AnyObject] {
+            
+            let id = data[kPublicationUniqueIdKey] as! Int
+            let version = data[kPublicationVersionKey] as! Int
+            let identifier = PublicationIdentifier(uniqueId: id, version: version)
+            FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(identifier, completion: { (publication) -> Void in
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    self.showNewDataMessageView(publication)
+                })
+                
+                NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeNewPublication)
+                
+            })
+        }
     }
     
     //MARK: - UI configuration
@@ -190,6 +223,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }) { (completion) -> Void in
          
             self.isPresentingNewDataMessageView = true
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowNewPublicationFromPushNotification)
         }
     }
     
@@ -311,18 +345,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
       //  self.postOnSpotReport(publication)
     }
     
-//    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
-//        
-//        //here we setup the initial map region and span
-//        if initialLaunch {
-//    
-//            let span   = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
-//            let region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
-//            mapView.setRegion(region, animated: false)
-//            initialLaunch = false
-//        }
-//        
-//    }
     
     func presentPublicationDetailsTVC(publication:FCPublication) {
         
@@ -340,6 +362,11 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         userInfo[kPublicationUniqueIdKey] = publication.uniqueId
         userInfo[kPublicationVersionKey] = publication.version
         NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     deinit {
@@ -379,7 +406,9 @@ extension FCCollectorRootVC {
         self.reloadAnnotations()
         
         //display new publication view
-        self.showNewDataMessageView(recivedPublication)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.showNewDataMessageView(recivedPublication)
+        })
     }
     
     //MARK: - newDataMessageViewDelegate
@@ -435,6 +464,10 @@ extension FCCollectorRootVC {
         })
     }
     
+    func appWillEnterForeground() {
+        self.showNewPublicationMessageViewIfNeeded()
+    }
+    
     func registerForNSNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: "didFetchNewPublicationReportNotification", object: nil)
@@ -446,6 +479,9 @@ extension FCCollectorRootVC {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationReport:", name: kRecivedPublicationReportNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
+
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
@@ -461,5 +497,6 @@ extension FCCollectorRootVC {
         //        }
     }
 
+    
 }
 

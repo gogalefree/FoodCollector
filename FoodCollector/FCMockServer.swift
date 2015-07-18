@@ -223,17 +223,20 @@ public class FCMockServer: NSObject , FCServerProtocol {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                 
                 if let data = data {
-                let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [[String : AnyObject]]
+                let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [[String : AnyObject]]
+                    
+                    if let arrayOfPublicationDicts = arrayOfPublicationDicts {
                 
-                for publicationDict in arrayOfPublicationDicts {
+                        for publicationDict in arrayOfPublicationDicts {
                    
-                    let publication = FCPublication.publicationWithParams(publicationDict)
-                    publications.append(publication)
-                }
+                            let publication = FCPublication.publicationWithParams(publicationDict)
+                            publications.append(publication)
+                        }
                 
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(thePublications: publications)
-                })
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            completion(thePublications: publications)
+                        })
+                    }
                 }
             })
             }
@@ -268,26 +271,29 @@ public class FCMockServer: NSObject , FCServerProtocol {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                         
                         
-                        let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [[String : AnyObject]]
+                        let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [[String : AnyObject]]
                         
-                        for publicationReportDict in arrayOfReports {
+                        if let arrayOfReports = arrayOfReports {
+                        
+                            for publicationReportDict in arrayOfReports {
+                                
+                                let reportMessage = publicationReportDict["report"] as! Int
+                                let reportDateString = publicationReportDict["date_of_report"] as! NSString
+                                let reportDateInt = reportDateString.doubleValue
+                                let timeInterval = NSTimeInterval(reportDateInt)
+                                let reportDate = NSDate(timeIntervalSince1970: timeInterval)
+                                
+                                //prevent wrong data
+                                if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
+                                
+                                let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
+                                publicationReports.append(publicationReport)
+                            }
                             
-                            let reportMessage = publicationReportDict["report"] as! Int
-                            let reportDateString = publicationReportDict["date_of_report"] as! NSString
-                            let reportDateInt = reportDateString.doubleValue
-                            let timeInterval = NSTimeInterval(reportDateInt)
-                            let reportDate = NSDate(timeIntervalSince1970: timeInterval)
-                            
-                            //prevent wrong data
-                            if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
-                            
-                            let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
-                            publicationReports.append(publicationReport)
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                completion(success: true, reports: publicationReports)
+                            })
                         }
-                        
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            completion(success: true, reports: publicationReports)
-                        })
                     })
                 }
                 }
@@ -327,7 +333,9 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)")
+//                print("respons: \(serverResponse.description)")
+//                let mydata = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
+//                println("response data: \(mydata)")
                 
                 if error != nil || serverResponse.statusCode != 200 {
                     //we currently implement as best effort. nothing is done with an error
@@ -455,10 +463,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
                     if let data = data {
                    
                     //we currently implement as best effort. nothing is done with an error
-                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String : AnyObject]
-                    let uniqueId = dict[kPublicationUniqueIdKey] as! Int
-                    let version = dict[kPublicationVersionKey] as! Int
-                    completion(success: true, uniqueID: uniqueId, version: version)
+                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String : AnyObject]
+                        
+                        if let dict = dict {
+
+                            let uniqueId = dict[kPublicationUniqueIdKey] as! Int
+                            let version = dict[kPublicationVersionKey] as! Int
+                            completion(success: true, uniqueID: uniqueId, version: version)
+                        }
                     }
                 }
                 else {
@@ -497,9 +509,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 println("post edited publication response: \(serverResponse)")
                 if error == nil && serverResponse.statusCode == 200 {
                     if let data = data {
-                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String : AnyObject]
-                    let version = dict[kPublicationVersionKey] as! Int
-                    completion(success: true,  version: version)
+                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String : AnyObject]
+                        if let dict = dict {
+                    
+                            let version = dict[kPublicationVersionKey] as! Int
+                            completion(success: true,  version: version)
+                        }
                     }
                 }
                 else {
