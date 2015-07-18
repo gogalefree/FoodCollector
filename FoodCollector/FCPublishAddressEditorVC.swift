@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import MapKit
+import CoreLocation
 
 let addressEditorTitle = String.localizedStringWithFormat( "הוספת כתובת", "the editor title for enter a publication address")
 
-class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
+class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -23,6 +23,10 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     var isThereSearchHistory = false
     var searchHistoryArray: [[String: AnyObject]] = [] //an array of dicionaries
     let maxItemsToDisplay = 8 // The maximum number of items to display in the search history list
+    let kUseCurrentLocationTitle = String.localizedStringWithFormat("לחצו כדי להשתמש במיקומכם הנוכחי", "Use My Current Location button label")
+    
+    let locationManager = CLLocationManager()
+    var didStartedSearch = false
     
     var addressDict: [String: AnyObject]?
     var cellData = FCPublicationEditorTVCCellData()
@@ -42,26 +46,26 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         // cells beyond those you explicitly asked for.
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
         
+        initialData.append(kUseCurrentLocationTitle)
+        
         // Check if theres a search history and If true, load the contect of the serach History
         readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
+        
         if (isThereSearchHistory){
             loadContentOfSearchHistory()
             self.tableView.reloadData()
         }
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
     }
     
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (isThereSearchHistory){
-            return initialData.count
-        }
-        else if !didSerchAndFindResults {
-            return 0
-        }
         println("return initialData.count: \(initialData.count)")
         return initialData.count
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -69,6 +73,25 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
         cell.textLabel?.text = self.initialData[indexPath.row] as String
+        
+        // if first row is "Use my currnt loction" use the follwoing display design.
+        println("didStartedSearch = \(didStartedSearch)")
+        if (indexPath.row == 0 && didStartedSearch == false){
+            let bgColor = UIColor(red: 0.25, green: 0.58, blue: 0.86, alpha: 0.8)
+            cell.backgroundColor = bgColor
+            cell.textLabel?.textAlignment = NSTextAlignment.Center
+            cell.textLabel?.textColor = UIColor.whiteColor()
+            cell.textLabel?.shadowColor = UIColor.grayColor()
+            cell.textLabel?.font = UIFont.boldSystemFontOfSize(18)
+        }
+        else {
+            cell.backgroundColor = UIColor.whiteColor()
+            cell.textLabel?.textAlignment = NSTextAlignment.Right
+            cell.textLabel?.textColor = UIColor.blackColor()
+            cell.textLabel?.shadowColor = nil
+            cell.textLabel?.font = UIFont.systemFontOfSize(18)
+        }
+        
         println("cell text has been set")
         return cell
     }
@@ -79,42 +102,38 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
         
-        if cell.textLabel?.text != nil {
-            var address = cell.textLabel?.text!
-            self.googleGeoCodeForAddress(address!)
-            searchBar.text = address
-            selectedAddress = address!
-            println("Inside didSelectRowAtIndexPath")
-            println("lang & long are \(self.selectedLatitude) and \(self.selectedLongtitude)")
-            //self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
+        // if first row was selected (Use my currnt loction) use the reverse geocoder
+        if (indexPath.item == 0 && !didSerchAndFindResults){
+            self.googleReverseGeoCodeForLatLngLocation(lat: selectedLatitude,lng: selectedLongtitude)
+        }
+        else {
+            if cell.textLabel?.text != nil {
+                var address = cell.textLabel?.text!
+                self.googleGeoCodeForAddress(address!)
+                searchBar.text = address
+                selectedAddress = address!
+                println("Inside didSelectRowAtIndexPath")
+                println("lang & long are \(self.selectedLatitude) and \(self.selectedLongtitude)")
+            }
         }
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        println("didStartedSearch = true")
+        didStartedSearch = true
         var newText = searchText as NSString
         
-        if newText.length < 6 {
+        if (newText.length < 6) {
             println("if newText.length < 6 \(newText.length)")
             self.didSerchAndFindResults = false
             self.initialData.removeAll(keepCapacity: false)
             self.tableView.reloadData()
             return
         }
-            
         else {
             println("else \(newText.length)")
-            //if !self.didSerchAndFindResults {
             println("self.googleLocationSearch(\(searchText))")
             self.googleLocationSearch(searchText)
-            
-            /*}
-            else {
-            println("self.refineSearchResults(\(searchText))")
-            self.refineSearchResults(searchText)
-            // Currently not implemented
-            
-            }*/
         }
     }
     
@@ -167,7 +186,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 }
             }
             else {
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("בעיית רשת", aMessage: "נסו שנית")
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 
             }
@@ -191,14 +210,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             if let response = response {
                 
                 if error == nil {
-                    
-                    //println("response: \(response)")
-                    
                     let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-                    
-                    //println("result: \(jsonResult) " )
-                    
-                    
                     let results = jsonResult["results"] as! NSArray
                     let aResultDict = results.lastObject as! NSDictionary
                     let geo = aResultDict["geometry"] as! NSDictionary
@@ -209,20 +221,14 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
                     })
-                    
-                    
-                    //println("dict is \(self.selectedLatitude) and \(self.selectedLongtitude)")
-                    
-                }else {
+                }
+                else {
                     //handle error
                     println(error.description)
                     // UIALERT
                     let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
-                
-                
-                
             }
             else {
                 // UIALERT
@@ -230,17 +236,54 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
             
-            
         }).resume()
     }
     
-    func googleReverseGeoCodeForLatLngLocation(lat: Double, lng: Double) {
+    func googleReverseGeoCodeForLatLngLocation(#lat: Double, lng: Double) {
         let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
         
         //https://maps.googleapis.com/maps/api/geocode/json?latlng=32.1499984,34.8939178&language=iw&key=API_KEY
         let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lng)&language-iw&key=\(key)")!)
         
         let session = NSURLSession.sharedSession()
+        
+        session.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            
+            if let response = response {
+                
+                if error == nil {
+                    
+                    let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
+                    
+                    let jResults = jsonResult["results"] as! NSArray
+                    let addrResultDict = jResults.firstObject as! NSDictionary
+                    if let address = addrResultDict.valueForKey("formatted_address") as? String {
+                        self.selectedAddress = address
+                    }
+                    let geometryResults = addrResultDict["geometry"] as! NSDictionary
+                    let locationDict = geometryResults["location"] as! NSDictionary
+                    //self.selectedLatitude = lat
+                    //self.selectedLongtitude = lng
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
+                    })
+                }
+                else {
+                    //handle error
+                    println(error.description)
+                    // UIALERT
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+            else {
+                // UIALERT
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+        }).resume()
     }
     
     
@@ -248,6 +291,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         //remove country from string
         var sub = self.selectedAddress.substringFromIndex(advance(selectedAddress.endIndex, -7))
+        println("sub: \(sub)")
         if sub == ", ישראל" {
             self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -7))
             println("\(selectedAddress)")
@@ -258,8 +302,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -8))
             println("\(selectedAddress)")
         }
-        println("Inside prepareForSegue")
-        println("lang & long are \(self.selectedLatitude) and \(self.selectedLongtitude)")
+
         var addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
         
         cellData.userData = addressDict
@@ -272,13 +315,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         appendAddressToSerachHistoryArray(addressDict)
         writeArrayResultsToPlist(plistSearchHistoryFilneName,fileExt: plistSearchHistoryFilneNameExt)
     }
-    
-    
-    /*
-    func refineSearchResults(searchText: String) {
-    
-    }
-    */
     
     // MARK - Address Search History
     
@@ -294,9 +330,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
             isThereSearchHistory = true
             searchHistoryArray = NSArray(contentsOfFile: publicationsFilePath) as! [[String : AnyObject]]
-            
-            
-            //println("Path: \(path)")
             println(searchHistoryArray.description)
         }
         else {
@@ -347,16 +380,17 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         }
         // Add the new Item at the begining of the array.
         // This way the last item, searched will be the first item at the top of the list.
-        if (!isSearchAddressTheSame){
-            //if (searchHistoryArray.count == 0){
-            // when searchHistoryArray is empty (when used for the first time)
-            // we need to append
-            //searchHistoryArray.append(addrDict)
-            //}
-            //else {
-            searchHistoryArray.insert(addrDict, atIndex: 0)
-            //}
-        }
+        if (!isSearchAddressTheSame){searchHistoryArray.insert(addrDict, atIndex: 0)}
+    }
+    
+    // MARK - locationManager functions
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        selectedLatitude = manager.location.coordinate.latitude
+        selectedLongtitude = manager.location.coordinate.longitude
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        println("Error while updating location " + error.localizedDescription)
     }
     
     override func didReceiveMemoryWarning() {
