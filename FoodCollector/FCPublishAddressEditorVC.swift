@@ -46,14 +46,16 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         // cells beyond those you explicitly asked for.
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
         
-        initialData.append(kUseCurrentLocationTitle)
         
         // Check if theres a search history and If true, load the contect of the serach History
         readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
         
         if (isThereSearchHistory){
             loadContentOfSearchHistory()
+            println("=> Loaded Content Of Search History")
+            println("=> Started table - reload data")
             self.tableView.reloadData()
+            println("=> Finished table - reload data")
         }
         
         locationManager.delegate = self
@@ -61,19 +63,57 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         locationManager.startUpdatingLocation()
     }
     
-    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        if (isThereSearchHistory){
+            println("=> numberOfSectionsInTableView: 2")
+            return 2
+        }
+        /*
+        if (didStartedSearch){
+            return 0
+        }
+        */
+        println("=> numberOfSectionsInTableView: 1")
+        return 1
+    }
+
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (section == 0 && !didStartedSearch){
+            return 1
+        }
         println("return initialData.count: \(initialData.count)")
+        println("=> Section: \(section)")
+
         return initialData.count
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (section == 1 && !didStartedSearch){
+            return "חיפושים אחרונים"
+        }
+        return ""
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         println("start cell defenition")
-        
+
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
-        cell.textLabel?.text = self.initialData[indexPath.row] as String
         
+        if (indexPath.section == 0 && !didStartedSearch) {
+            let currentLocationImage = UIImage(named: "CurentLocationIcon")
+            cell.textLabel?.text = "מיקום נוכחי"
+            cell.imageView!.image = currentLocationImage
+            println("cellForRowAtIndexPath IF")
+        }
+        else {
+            println("cellForRowAtIndexPath ELSE")
+            cell.textLabel?.text = self.initialData[indexPath.row] as String
+        }
+        
+        
+        /*
         // if first row is "Use my currnt loction" use the follwoing display design.
         println("didStartedSearch = \(didStartedSearch)")
         if (indexPath.row == 0 && didStartedSearch == false){
@@ -91,6 +131,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             cell.textLabel?.shadowColor = nil
             cell.textLabel?.font = UIFont.systemFontOfSize(18)
         }
+        */
         
         println("cell text has been set")
         return cell
@@ -121,12 +162,14 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         println("didStartedSearch = true")
         didStartedSearch = true
+        isThereSearchHistory = false // if we start a search, it's as if we do not have a serach history
         var newText = searchText as NSString
         
         if (newText.length < 6) {
             println("if newText.length < 6 \(newText.length)")
             self.didSerchAndFindResults = false
             self.initialData.removeAll(keepCapacity: false)
+            println("=> From searchBar: Started self.tableView.reloadData()")
             self.tableView.reloadData()
             return
         }
