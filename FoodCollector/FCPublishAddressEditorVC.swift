@@ -108,9 +108,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         // if first row was selected (Use my currnt loction) use the reverse geocoder
         if (indexPath.item == 0 && !didSerchAndFindResults){
-            self.googleReverseGeoCodeForLatLngLocation(
-                lat: FCModel.sharedInstance.userLocation.coordinate.latitude,
-                lng: FCModel.sharedInstance.userLocation.coordinate.longitude)
+            self.selectedLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
+            self.selectedLongtitude = FCModel.sharedInstance.userLocation.coordinate.longitude
+            self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lng: self.selectedLongtitude)
         }
         else {
             if cell.textLabel?.text != nil {

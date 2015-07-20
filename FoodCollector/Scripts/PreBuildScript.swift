@@ -18,9 +18,9 @@ let projectPath = filemgr.currentDirectoryPath
 
 //println(${SRCROOT})
 // BaseURL.plist dictionary values, key and path
-let kProdURLVal = "https://fd-server.herokuapp.com/" //prod-
-let kDevURLVal  = "https://fd-server.herokuapp.com/"
-let kBetaURLVal = "https://fd-server.herokuapp.com/" //test-
+let kProdURLVal = "https://fd-server.herokuapp.com/"
+let kDevURLVal  = "https://prv-fd-server.herokuapp.com/"
+let kBetaURLVal = "https://fd-server.herokuapp.com/"
 let kDictKey    = "Server URL"
 let pathToBaseURLPlist = projectPath + "/FoodCollector/BaseURL.plist"
 // "/Users/Guy/ios projects/foodCollector4/FoodCollector/FoodCollector/Info.plist"
@@ -36,8 +36,8 @@ let kBundleNameProdVal    = "$(PRODUCT_NAME)"
 let kBundleNameDevVal     = "dev.$(PRODUCT_NAME)" 
 let kBundleNameBetaVal    = "beta.$(PRODUCT_NAME)"
 let kBundleDispNameKey    = "CFBundleDisplayName"
-let kBundleDispNameDevVal = "Foodonet Dev"
-let kBundleDispNameBetaVal = "Foodonet Beta"
+let kBundleDispNameDevVal = "FDN Dev"
+let kBundleDispNameBetaVal = "FDN Beta"
 let kBundleDispNameProdVal = "Foodonet"
 
 let pathToInfoPlist = projectPath + "/FoodCollector/Info.plist"
