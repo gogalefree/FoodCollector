@@ -9,7 +9,10 @@
 import UIKit
 //import CoreLocation
 
-let addressEditorTitle = String.localizedStringWithFormat( "הוספת כתובת", "the editor title for enter a publication address")
+let addressEditorTitle = String.localizedStringWithFormat("הוספת כתובת", "the editor title for enter a publication address")
+let lastSearchesHeaderTitle = String.localizedStringWithFormat("חיפושים אחרונים", "the section header title for last searches history list")
+let currentLocationText = String.localizedStringWithFormat("מיקום נוכחי", "the string for current location table row")
+
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -25,7 +28,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     let maxItemsToDisplay = 8 // The maximum number of items to display in the search history list
     let kUseCurrentLocationTitle = String.localizedStringWithFormat("לחצו כדי להשתמש במיקומכם הנוכחי", "Use My Current Location button label")
     
-    //let locationManager = CLLocationManager()
     var didStartedSearch = false
     
     var addressDict: [String: AnyObject]?
@@ -52,29 +54,16 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         if (isThereSearchHistory){
             loadContentOfSearchHistory()
-            println("=> Loaded Content Of Search History")
-            println("=> Started table - reload data")
             self.tableView.reloadData()
-            println("=> Finished table - reload data")
         }
-        
-        //locationManager.delegate = self
-        //locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //locationManager.startUpdatingLocation()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         if (isThereSearchHistory){
-            println("=> numberOfSectionsInTableView: 2")
             return 2
         }
-        /*
-        if (didStartedSearch){
-            return 0
-        }
-        */
-        println("=> numberOfSectionsInTableView: 1")
+
         return 1
     }
 
@@ -83,57 +72,31 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         if (section == 0 && !didStartedSearch){
             return 1
         }
-        println("return initialData.count: \(initialData.count)")
-        println("=> Section: \(section)")
 
         return initialData.count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (section == 1 && !didStartedSearch){
-            return "חיפושים אחרונים"
+            return lastSearchesHeaderTitle
         }
         return ""
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println("start cell defenition")
 
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
         
         if (indexPath.section == 0 && !didStartedSearch) {
             let currentLocationImage = UIImage(named: "CurentLocationIcon")
-            cell.textLabel?.text = "מיקום נוכחי"
+            cell.textLabel?.text = currentLocationText
             cell.imageView!.image = currentLocationImage
-            println("cellForRowAtIndexPath IF")
         }
         else {
-            println("cellForRowAtIndexPath ELSE")
             cell.textLabel?.text = self.initialData[indexPath.row] as String
+            cell.imageView!.image = nil
         }
         
-        
-        /*
-        // if first row is "Use my currnt loction" use the follwoing display design.
-        println("didStartedSearch = \(didStartedSearch)")
-        if (indexPath.row == 0 && didStartedSearch == false){
-            let bgColor = UIColor(red: 0.25, green: 0.58, blue: 0.86, alpha: 0.8)
-            cell.backgroundColor = bgColor
-            cell.textLabel?.textAlignment = NSTextAlignment.Center
-            cell.textLabel?.textColor = UIColor.whiteColor()
-            cell.textLabel?.shadowColor = UIColor.grayColor()
-            cell.textLabel?.font = UIFont.boldSystemFontOfSize(18)
-        }
-        else {
-            cell.backgroundColor = UIColor.whiteColor()
-            cell.textLabel?.textAlignment = NSTextAlignment.Right
-            cell.textLabel?.textColor = UIColor.blackColor()
-            cell.textLabel?.shadowColor = nil
-            cell.textLabel?.font = UIFont.systemFontOfSize(18)
-        }
-        */
-        
-        println("cell text has been set")
         return cell
     }
     
@@ -145,9 +108,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         // if first row was selected (Use my currnt loction) use the reverse geocoder
         if (indexPath.item == 0 && !didSerchAndFindResults){
-            //println("FCModel: Lat -> \(FCModel.sharedInstance.userLocation.coordinate.latitude)")
-            //println("FCModel: Lon -> \(FCModel.sharedInstance.userLocation.coordinate.longitude)")
-            self.googleReverseGeoCodeForLatLngLocation(lat: FCModel.sharedInstance.userLocation.coordinate.latitude,lng: FCModel.sharedInstance.userLocation.coordinate.longitude)
+            self.googleReverseGeoCodeForLatLngLocation(
+                lat: FCModel.sharedInstance.userLocation.coordinate.latitude,
+                lng: FCModel.sharedInstance.userLocation.coordinate.longitude)
         }
         else {
             if cell.textLabel?.text != nil {
@@ -155,8 +118,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 self.googleGeoCodeForAddress(address!)
                 searchBar.text = address
                 selectedAddress = address!
-                println("Inside didSelectRowAtIndexPath")
-                println("lang & long are \(self.selectedLatitude) and \(self.selectedLongtitude)")
             }
         }
     }
@@ -171,7 +132,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             println("if newText.length < 6 \(newText.length)")
             self.didSerchAndFindResults = false
             self.initialData.removeAll(keepCapacity: false)
-            println("=> From searchBar: Started self.tableView.reloadData()")
             self.tableView.reloadData()
             return
         }
@@ -307,8 +267,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     }
                     let geometryResults = addrResultDict["geometry"] as! NSDictionary
                     let locationDict = geometryResults["location"] as! NSDictionary
-                    //self.selectedLatitude = lat
-                    //self.selectedLongtitude = lng
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
@@ -355,7 +313,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         cellData.cellTitle = self.selectedAddress
         
         // Add Address data to serach History Array Object and write it to a plist
-        println("Befor appendAddressToSerachHistoryArray")
         println(addressDict.description)
         appendAddressToSerachHistoryArray(addressDict)
         writeArrayResultsToPlist(plistSearchHistoryFilneName,fileExt: plistSearchHistoryFilneNameExt)
@@ -427,19 +384,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         // This way the last item, searched will be the first item at the top of the list.
         if (!isSearchAddressTheSame){searchHistoryArray.insert(addrDict, atIndex: 0)}
     }
-    
-    /*
-    // MARK - locationManager functions
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        selectedLatitude = manager.location.coordinate.latitude
-        selectedLongtitude = manager.location.coordinate.longitude
-        
-    }
-    
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println("Error while updating location " + error.localizedDescription)
-    }
-    */
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
