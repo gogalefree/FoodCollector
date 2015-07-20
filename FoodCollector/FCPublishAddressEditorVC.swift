@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import CoreLocation
+//import CoreLocation
 
 let addressEditorTitle = String.localizedStringWithFormat( "הוספת כתובת", "the editor title for enter a publication address")
 
-class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -25,7 +25,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     let maxItemsToDisplay = 8 // The maximum number of items to display in the search history list
     let kUseCurrentLocationTitle = String.localizedStringWithFormat("לחצו כדי להשתמש במיקומכם הנוכחי", "Use My Current Location button label")
     
-    let locationManager = CLLocationManager()
+    //let locationManager = CLLocationManager()
     var didStartedSearch = false
     
     var addressDict: [String: AnyObject]?
@@ -58,9 +58,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             println("=> Finished table - reload data")
         }
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+        //locationManager.delegate = self
+        //locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //locationManager.startUpdatingLocation()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -145,7 +145,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         // if first row was selected (Use my currnt loction) use the reverse geocoder
         if (indexPath.item == 0 && !didSerchAndFindResults){
-            self.googleReverseGeoCodeForLatLngLocation(lat: selectedLatitude,lng: selectedLongtitude)
+            //println("FCModel: Lat -> \(FCModel.sharedInstance.userLocation.coordinate.latitude)")
+            //println("FCModel: Lon -> \(FCModel.sharedInstance.userLocation.coordinate.longitude)")
+            self.googleReverseGeoCodeForLatLngLocation(lat: FCModel.sharedInstance.userLocation.coordinate.latitude,lng: FCModel.sharedInstance.userLocation.coordinate.longitude)
         }
         else {
             if cell.textLabel?.text != nil {
@@ -426,15 +428,18 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         if (!isSearchAddressTheSame){searchHistoryArray.insert(addrDict, atIndex: 0)}
     }
     
+    /*
     // MARK - locationManager functions
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         selectedLatitude = manager.location.coordinate.latitude
         selectedLongtitude = manager.location.coordinate.longitude
+        
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println("Error while updating location " + error.localizedDescription)
     }
+    */
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
