@@ -83,7 +83,8 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     final func reload() {
         
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
-        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in return publication.isOnAir == true}
+        self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in
+            return publication.isOnAir == true && publication.endingDate.timeIntervalSince1970 > NSDate().timeIntervalSince1970}
         self.tableView.reloadData()
     }
     
