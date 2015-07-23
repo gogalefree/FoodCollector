@@ -26,7 +26,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     var isThereSearchHistory = false
     var searchHistoryArray: [[String: AnyObject]] = [] //an array of dicionaries
     let maxItemsToDisplay = 8 // The maximum number of items to display in the search history list
-    let kUseCurrentLocationTitle = String.localizedStringWithFormat("לחצו כדי להשתמש במיקומכם הנוכחי", "Use My Current Location button label")
     
     var didStartedSearch = false
     
@@ -69,14 +68,18 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
 
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        println("==> numberOfRowsInSection (Section: \(section)) didStartedSearch: \(didStartedSearch)")
+        println("==> self.initialData: \(self.initialData.count)")
         if (section == 0 && !didStartedSearch){
+            println("==> numberOfRowsInSection (Return: 1)")
             return 1
         }
-
+        println("==> numberOfRowsInSection (Return: \(initialData.count))")
         return initialData.count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        println("==> titleForHeaderInSection (Section: \(section)) didStartedSearch: \(didStartedSearch)")
         if (section == 1 && !didStartedSearch){
             return lastSearchesHeaderTitle
         }
@@ -84,6 +87,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        println("==> cellForRowAtIndexPath (Section: \(indexPath.section)) (Row: \(indexPath.row)) didStartedSearch: \(didStartedSearch)")
 
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
         
@@ -129,9 +133,20 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         var newText = searchText as NSString
         
         if (newText.length < 6) {
+            if (newText.length == 0) {
+                println("THE SEARCH BAR IS EMPTY")
+                self.didStartedSearch = false
+                readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
+                
+                if (isThereSearchHistory){
+                    println("==> From SearBar -> isThereSearchHistory: \(isThereSearchHistory)")
+                    loadContentOfSearchHistory()
+                    self.tableView.reloadData()
+                }
+            }
             println("if newText.length < 6 \(newText.length)")
             self.didSerchAndFindResults = false
-            self.initialData.removeAll(keepCapacity: false)
+            if (newText.length > 0){self.initialData.removeAll(keepCapacity: false)}
             self.tableView.reloadData()
             return
         }
@@ -359,6 +374,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             countItemsAdded++
             if (countItemsAdded == maxItemsToDisplay) {break}
         }
+        println("==> From loadContentOfSearchHistory --> self.initialData: \(self.initialData.count)")
     }
     
     func appendAddressToSerachHistoryArray(addrDict: [String : AnyObject]){
