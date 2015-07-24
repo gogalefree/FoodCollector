@@ -110,8 +110,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
         
-        // if first row was selected (Use my currnt loction) use the reverse geocoder
-        if (indexPath.item == 0 && !didSerchAndFindResults){
+        // if first row (in first section) was selected (Use my currnt loction) use the reverse geocoder
+        if (indexPath.item == 0 && indexPath.section == 0 && !didSerchAndFindResults){
+            println("==> My Location was selected")
             self.selectedLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
             self.selectedLongtitude = FCModel.sharedInstance.userLocation.coordinate.longitude
             self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lng: self.selectedLongtitude)
@@ -134,6 +135,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         if (newText.length < 6) {
             if (newText.length == 0) {
+                self.initialData.removeAll(keepCapacity: false)
                 println("THE SEARCH BAR IS EMPTY")
                 self.didStartedSearch = false
                 readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
