@@ -106,7 +106,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
         
         // if first row was selected (Use my currnt loction) use the reverse geocoder
-        if (indexPath.item == 0 && !didSerchAndFindResults){
+        if (indexPath.row == 0 && !didSerchAndFindResults){
             self.selectedLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
             self.selectedLongtitude = FCModel.sharedInstance.userLocation.coordinate.longitude
             self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lng: self.selectedLongtitude)
@@ -266,25 +266,27 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 
                 if error == nil {
                     
-                    if let data = data {
+                    if data != nil {
                     
                         let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
                         
                         if let jsonResult = jsonResult {
                     
                         
-                            let jResults = jsonResult["results"] as! NSArray
+                            let jResults = jsonResult["results"] as? NSArray
                          
-                            let addrResultDict = jResults.firstObject as! NSDictionary
-                            if let address = addrResultDict.valueForKey("formatted_address") as? String {
+                            let addrResultDict = jResults?.firstObject as? NSDictionary
+                            if let address = addrResultDict?.valueForKey("formatted_address") as? String {
                                 self.selectedAddress = address
                             }
-                            let geometryResults = addrResultDict["geometry"] as! NSDictionary
-                            let locationDict = geometryResults["location"] as! NSDictionary
-                            
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
-                            })
+                            if addrResultDict != nil {
+                                let geometryResults = addrResultDict?["geometry"] as! NSDictionary
+                                let locationDict = geometryResults["location"] as! NSDictionary
+                                
+                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                    self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
+                                })
+                            }
                         }
                     }
                 }
