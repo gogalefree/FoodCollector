@@ -120,8 +120,16 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         super.viewDidAppear(animated)
         if initialLaunch {
             
-            let span   = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-            let region = MKCoordinateRegion(center: FCModel.sharedInstance.userLocation.coordinate, span: span)
+            //we set the map to center on user's location. if the location manager has no location, we set the map's center to Tel-Aviv
+            var userCoordinadets = FCModel.sharedInstance.userLocation.coordinate
+            if Int(userCoordinadets.longitude) == 0 || Int(userCoordinadets.latitude) == 0 {
+               
+                userCoordinadets.latitude = 32.0539
+                userCoordinadets.longitude = 34.785227
+            }
+            
+            let span   = MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
+            let region = MKCoordinateRegion(center: userCoordinadets, span: span)
             mapView.setRegion(region, animated: false)
             initialLaunch = false
         }

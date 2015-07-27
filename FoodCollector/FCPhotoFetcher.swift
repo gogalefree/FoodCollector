@@ -11,6 +11,8 @@ import UIKit
 
 class FCPhotoFetcher: NSObject {
     
+    let foodCollectorProductionBucketName  = "foodcollector"
+    let foodCollectorDevelopmentBucketName = "foodcollectordev"
     
     func fetchPhotoForPublication(publication: FCPublication , completion: (image: UIImage?)->Void) {
         
@@ -22,7 +24,7 @@ class FCPhotoFetcher: NSObject {
         let downloadedFileUrl = NSURL.fileURLWithPath(downloadedFilePath.path!)
         
         var downloadRequest = AWSS3TransferManagerDownloadRequest()
-        downloadRequest.bucket = "foodcollector"
+        downloadRequest.bucket = self.bucketNameForBundle()//"foodcollector"
         downloadRequest.key = publication.photoUrl
         downloadRequest.downloadingFileURL = downloadedFileUrl
         
@@ -63,7 +65,7 @@ class FCPhotoFetcher: NSObject {
         // the more it's compressed the smaller the file is
         
         let uploadRequest = AWSS3TransferManagerUploadRequest()
-        uploadRequest.bucket = "foodcollector"
+        uploadRequest.bucket = self.bucketNameForBundle() //"foodcollector"
         uploadRequest.key = publication.photoUrl;
         uploadRequest.body = uploadFileURL
         
@@ -84,6 +86,28 @@ class FCPhotoFetcher: NSObject {
         })
         
     }
-
     
+    func bucketNameForBundle() -> String {
+        
+        var infoPlist: NSDictionary?
+        var urlString: String
+        
+        if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
+            
+            infoPlist = NSDictionary(contentsOfFile: path)
+        }
+        
+        if let infoPlist = infoPlist {
+            
+            let bundleName = infoPlist["CFBundleName"] as! String
+            if bundleName.hasPrefix("dev") {
+                
+                println("dev Version. buck is \(self.foodCollectorDevelopmentBucketName)")
+                return self.foodCollectorDevelopmentBucketName
+            }
+        }
+        
+        println("prod or beta - bucket is \(self.foodCollectorProductionBucketName)")
+        return self.foodCollectorProductionBucketName
+    }
 }

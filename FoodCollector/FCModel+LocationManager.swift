@@ -32,7 +32,7 @@ extension FCModel {
     
     
     public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!){
-        self.userLocation = locations.first as! CLLocation
+        self.userLocation = locations.last as! CLLocation
     }
     
 }
