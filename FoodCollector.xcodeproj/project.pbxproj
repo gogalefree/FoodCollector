@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
+		A1535BE41B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */; };
+		A1535BE81B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */; };
 		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
 		A1B793241B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */; };
@@ -140,6 +142,8 @@
 /* Begin PBXFileReference section */
 		4C0F0BBFA42B094D8A074F35 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A108F5C41A94732A00816EFA /* BaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURL.plist; sourceTree = "<group>"; };
+		A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorAddressHistoryCustomHeaderView.swift; sourceTree = "<group>"; };
+		A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublishAddressEditorAddressHistoryCustomHeaderView.xib; sourceTree = "<group>"; };
 		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorMyLocationCustomCell.swift; sourceTree = "<group>"; };
@@ -316,9 +320,11 @@
 			children = (
 				E4214E6F1A63E1020070332D /* FCPublishStringFieldsEditorVC.swift */,
 				E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */,
-				A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */,
+				A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */,
+				A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */,
 				A1B7932A1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.swift */,
 				A1B7932B1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.xib */,
+				A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */,
 				A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */,
 				A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */,
 				A1B793231B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib */,
@@ -743,6 +749,7 @@
 				E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */,
 				E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */,
 				A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */,
+				A1535BE81B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */,
 				E4545D891AD3210A0031CF8A /* Pin-Whole@2x.png in Resources */,
 				E4AEDE681B25A7CE00431F9B /* PublicationDetsilsActionsHeaderView.xib in Resources */,
 				A1B793291B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
@@ -811,7 +818,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift beta";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift dev";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -873,6 +880,7 @@
 				E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */,
 				E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */,
 				E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */,
+				A1535BE41B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */,
 				A1B7932C1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.swift in Sources */,
 				E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,

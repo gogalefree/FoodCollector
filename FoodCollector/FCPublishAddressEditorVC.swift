@@ -49,7 +49,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorAddressHistoryCustomCell", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomCell")
         
-        self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorAddressHistoryCustomHeader", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomHeader")
+        //self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorAddressHistoryCustomHeader", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomHeader")
         
 
         
@@ -91,8 +91,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if (section == 1 && !didStartedSearch){
-            let header = UIView.loadFromNibNamed("FCPublishAddressEditorAddressHistoryCustomHeader", bundle: nil) as? FCPublishAddressEditorAddressHistoryCustomHeader
-            return header
+            let headerView = FCPublishAddressEditorAddressHistoryCustomHeaderView.instanceFromNib()
+            return headerView
         }
         
         
