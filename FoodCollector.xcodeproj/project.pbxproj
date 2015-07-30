@@ -16,8 +16,6 @@
 		A1B793251B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B793231B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib */; };
 		A1B793281B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */; };
 		A1B793291B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */; };
-		A1B7932C1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7932A1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.swift */; };
-		A1B7932D1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B7932B1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.xib */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E4030A721A63DD92005D224E /* FCPublishPhotoEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4030A711A63DD92005D224E /* FCPublishPhotoEditorVC.swift */; };
@@ -150,8 +148,6 @@
 		A1B793231B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublishAddressEditorMyLocationCustomCell.xib; sourceTree = "<group>"; };
 		A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorAddressHistoryCustomCell.swift; sourceTree = "<group>"; };
 		A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublishAddressEditorAddressHistoryCustomCell.xib; sourceTree = "<group>"; };
-		A1B7932A1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorAddressHistoryCustomHeader.swift; sourceTree = "<group>"; };
-		A1B7932B1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublishAddressEditorAddressHistoryCustomHeader.xib; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E4030A711A63DD92005D224E /* FCPublishPhotoEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishPhotoEditorVC.swift; sourceTree = "<group>"; };
@@ -322,8 +318,6 @@
 				E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */,
 				A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */,
 				A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */,
-				A1B7932A1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.swift */,
-				A1B7932B1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.xib */,
 				A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */,
 				A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */,
 				A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */,
@@ -755,7 +749,6 @@
 				A1B793291B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
 				E4545D9C1AD322B20031CF8A /* Pin-Table-Whole@3x.png in Resources */,
 				E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */,
-				A1B7932D1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.xib in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
 				E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */,
 				E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */,
@@ -881,7 +874,6 @@
 				E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */,
 				E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */,
 				A1535BE41B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */,
-				A1B7932C1B697EB20058198A /* FCPublishAddressEditorAddressHistoryCustomHeader.swift in Sources */,
 				E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,
 				E4DC5D5E1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift in Sources */,
