@@ -119,8 +119,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     if type == kRemoteNotificationTypeUserRegisteredForPublication {
                         self.handelRemoteNotificationsFromBackground(userInfo)
-//                        let tabBar = self.window?.rootViewController as? FCMainTabBarController
-//                        tabBar?.showUserRegistrationNotificationIfNeeded(0.5)
                         
                     }
                     else {
@@ -155,7 +153,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if UIApplication.sharedApplication().applicationState != .Active {
                 self.handelRemoteNotificationsFromBackground(userInfo)
-                NSUserDefaults.standardUserDefaults().setObject("inside inactive did recieve remote", forKey: "apppp")
             }
             
             else {
@@ -258,11 +255,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     let dictToSave = [kPublicationUniqueIdKey : identifier.uniqueId, kPublicationVersionKey : identifier.version]
                     NSUserDefaults.standardUserDefaults().setObject(dictToSave, forKey: kRemoteNotificationTypeUserRegisteredForPublication)
-                    let activity = UIApplication.sharedApplication().applicationState
-                    let x = 1
                     
                 case kRemoteNotificationTypeDeletedPublication:
                     self.deletePublication(userInfo)
+                    
+                case kRemoteNotificationTypePublicationReport:
+                
+                    if let reportMessageRawValue  = data[kRemoteNotificationPublicationReportMessageKey] as? Int {
+                    
+                        let dictToSave = [kPublicationUniqueIdKey : identifier.uniqueId, kPublicationVersionKey : identifier.version, kRemoteNotificationPublicationReportMessageKey :reportMessageRawValue, kRemoteNotificationPublicationReportDateKey: (data[kRemoteNotificationPublicationReportDateKey] as! Int)]
+                        NSUserDefaults.standardUserDefaults().setObject(dictToSave, forKey: kRemoteNotificationTypePublicationReport)
+                    }
                     
                 default:
                     break

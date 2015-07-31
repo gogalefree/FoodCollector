@@ -53,7 +53,7 @@ extension FCModel {
             for index in 0..<(self.fetchedPublications.count - 1) {
                 
                 let publication = self.fetchedPublications[index]
-                
+                               
                 for var i = index ; i < (self.fetchedPublications.count - 2) ; ++i {
                     
                     let anotherPublication = self.fetchedPublications[i+1]

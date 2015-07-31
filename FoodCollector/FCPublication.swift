@@ -29,6 +29,7 @@ let kDidModifyCoordinatesKey = "did_modify_coords"
 let kReportsMessageArray = "reportsMessageArray"
 let kReportsDateArray = "reportsDateArray"
 let kPublicationCountOfRegisteredUsersKey = "pulbicationCountOfRegisteredUsersKey"
+let kReportMessageValueKey = "kReportMessageValueKey"
 
 struct PublicationIdentifier {
     

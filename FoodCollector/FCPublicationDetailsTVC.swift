@@ -27,6 +27,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         fetchPublicationPhoto()
         fetchPublicationRegistrations()
         registerForNotifications()
+        addReportButton()
         configAdminIfNeeded()
        // showOnSpotReport()
     }
@@ -569,6 +570,38 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
         default:
             break;
+        }
+    }
+}
+
+//MARK: - Report Button and delegate
+
+extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
+    
+    func addReportButton() {
+     
+        if !FCModel.sharedInstance.isUserCreaetedPublication(self.publication!){
+            let title = String.localizedStringWithFormat("דווח", "report button title")
+            let reportButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "presentReportVC")
+            self.navigationItem.setRightBarButtonItem(reportButton, animated: false)
+        }
+    }
+    
+    func presentReportVC() {
+        
+        var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+        
+        arrivedToSpotReportVC.publication = self.publication
+        arrivedToSpotReportVC.delegate = self
+
+        let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+        
+        self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    func dismiss() {
+        if self.presentedViewController != nil {
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
 }

@@ -20,6 +20,8 @@
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E4030A721A63DD92005D224E /* FCPublishPhotoEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4030A711A63DD92005D224E /* FCPublishPhotoEditorVC.swift */; };
 		E4030A741A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4030A731A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift */; };
+		E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */; };
+		E4064D471B6BB29D00FB1669 /* NewReportMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4064D461B6BB29D00FB1669 /* NewReportMessageView.xib */; };
 		E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */; };
 		E407DEA31AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */; };
 		E407DEA51AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */; };
@@ -152,6 +154,8 @@
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E4030A711A63DD92005D224E /* FCPublishPhotoEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishPhotoEditorVC.swift; sourceTree = "<group>"; };
 		E4030A731A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationTypeOfPublicationEditorVC.swift; sourceTree = "<group>"; };
+		E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReportMessageView.swift; sourceTree = "<group>"; };
+		E4064D461B6BB29D00FB1669 /* NewReportMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewReportMessageView.xib; sourceTree = "<group>"; };
 		E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorVC.swift; sourceTree = "<group>"; };
 		E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorPresentationController.swift; sourceTree = "<group>"; };
 		E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorAnimator.swift; sourceTree = "<group>"; };
@@ -527,6 +531,8 @@
 				E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */,
 				E4A41D341B491AA1007A611E /* NewRegistrationBannerView.swift */,
 				E4A41D361B491AD0007A611E /* NewRegistrationBannerView.xib */,
+				E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */,
+				E4064D461B6BB29D00FB1669 /* NewReportMessageView.xib */,
 				E4A41D321B490321007A611E /* MainActionVC.swift */,
 			);
 			name = Main;
@@ -698,7 +704,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = Z43P8YG44T;
+						DevelopmentTeam = 58NS37C8VA;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -737,6 +743,7 @@
 				E4DC5D5C1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib in Resources */,
 				E4545D971AD322B20031CF8A /* Pin-Table-Half.png in Resources */,
 				E4545D821AD320E60031CF8A /* Track-clear.png in Resources */,
+				E4064D471B6BB29D00FB1669 /* NewReportMessageView.xib in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
 				E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */,
 				E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */,
@@ -811,7 +818,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -859,6 +866,7 @@
 				E42ED57B1A8BD2B9008FB618 /* FCModel+Store.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
+				E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */,
 				E4214E6C1A63E0860070332D /* FCPublishDateEditorVC.swift in Sources */,
 				A1B793241B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift in Sources */,
 				E473A6291A8DEF4100CB8C44 /* UIView+Extensions.swift in Sources */,

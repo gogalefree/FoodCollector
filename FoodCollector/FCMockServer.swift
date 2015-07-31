@@ -413,7 +413,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         println("params: \(params)")
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request,
+        session.dataTaskWithRequest(request,
             completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
             
             if var serverResponse = response as? NSHTTPURLResponse {
@@ -422,9 +422,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                     //we currently implement as best effort. nothing is done with an error
                 }
             }
-        })
-        
-        task.resume()
+        }).resume()
     }
     
     

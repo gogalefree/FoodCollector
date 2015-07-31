@@ -58,6 +58,8 @@ class FCArrivedToPublicationSpotVC: UIViewController {
                 }
             })
         }
+        
+        self.presentUserNotCloseToPublicationAlertIfNeeded()
     }
     
     @IBAction func tookAllAction(sender: AnyObject) {
@@ -104,5 +106,27 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         button.layer.borderColor = UIColor.blueColor().CGColor
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 0.5
+    }
+    
+    func presentUserNotCloseToPublicationAlertIfNeeded() {
+        
+        let userLocation = FCModel.sharedInstance.userLocation
+        let distanceFromPublication = self.publication?.distanceFromUserLocation
+        
+        if distanceFromPublication != nil && distanceFromPublication > 2000 {
+            
+            let title = String.localizedStringWithFormat("את/ה רחוק ממקום הפרסום", "")
+            let message = String.localizedStringWithFormat("אנא דווח רק אחרי שהיית במקום", "")
+            
+            let alertController = UIAlertController(title: title, message:message, preferredStyle: .Alert)
+            let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("אחלה", "alert dissmiss button title"), style: .Cancel) { (action) in
+                alertController.dismissViewControllerAnimated(true , completion: nil)
+            }
+
+            alertController.addAction(dissmissAction)
+            self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
+            
+        }
+
     }
 }

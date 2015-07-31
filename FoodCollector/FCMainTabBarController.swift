@@ -10,7 +10,7 @@ import UIKit
 
 let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("אירוע הסתיים בקירבתך:", "a message that informs the user that nothing was left and the publication ended")
 
-class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate {
+class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate , NewReportMessageViewDelegate{
     
     let kNewRegistrationBannerHiddenY: CGFloat = -80
     
@@ -18,21 +18,14 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     var firstLaunch = true
     var mainActionNavVC: UINavigationController!
     var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
-    
+    lazy var newReportMessageView = NewReportMessageView.loadFromNibNamed("NewReportMessageView", bundle: nil) as! NewReportMessageView
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.itemPositioning = UITabBarItemPositioning.Fill
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
-
-        
+        registerNSNotifications()
         self.mainActionNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainActionNavVC") as! UINavigationController
-
         let mainActionVC = self.mainActionNavVC.viewControllers[0] as! MainActionVC
         mainActionVC.delegate = self
         
@@ -91,8 +84,28 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
                             self.presentNewRegistrationBanner()
                         }
                         NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeUserRegisteredForPublication)
-                
             })
+        }
+        else {
+         
+            showNewReportIfNeeded()
+        }
+    }
+    
+    func showNewReportIfNeeded() {
+       
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypePublicationReport) as? [String : AnyObject]{
+            
+            let uniqueId = data[kPublicationUniqueIdKey] as! Int
+            let version = data[kPublicationVersionKey] as! Int
+            let identifier = PublicationIdentifier(uniqueId: uniqueId , version: version)
+            let reportMessageRawValue = data[kRemoteNotificationPublicationReportMessageKey] as! Int
+            let dateInt = data[kRemoteNotificationPublicationReportDateKey] as! Int
+            let timeInterval = NSTimeInterval(dateInt)
+            let reportMessage = FCOnSpotPublicationReportMessage(rawValue: reportMessageRawValue)!
+            let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: reportMessage , date:NSDate(timeIntervalSince1970: timeInterval))
+            FCUserNotificationHandler.sharedInstance.recivedReports.append((identifier , report))
+            self.didRecievePublicationReport()
         }
     }
     
@@ -182,13 +195,123 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
             }){ (finished) -> Void in
              
                 self.newRgistrationBannerView.removeFromSuperview()
+                self.showNewReportIfNeeded()
             }
         }
     }
     
+    //Triggered if a publicationReport arrived via remote notification 
+    func didRecievePublicationReport() {
+        
+        //delete notification data
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypePublicationReport)
+        
+        let (identifier , report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
+        
+        //if the report is took all or nothing there, we suggest taking the publication off air
+        //else we suggest to see the publication details tvc
+        if let publication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier) {
+       
+            self.newReportMessageView.delegate = self
+            self.newReportMessageView.userCreatedPublication = publication
+            
+            if report.onSpotPublicationReportMessage != FCOnSpotPublicationReportMessage.HasMore {
+            
+                self.newReportMessageView.state = .NothingLeft
+            }
+                
+            else {
+            //present message with show details button
+                self.newReportMessageView.state = .HasMore
+            }
+            
+            self.presentNewReportMessageView()
+        }
+    }
+    
+    func presentNewReportMessageView() {
+        
+        self.newReportMessageView.frame = CGRectMake(0, self.kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 129)
+        self.view.addSubview(self.newReportMessageView)
+        self.view.bringSubviewToFront(self.newReportMessageView)
+        
+
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+    
+            self.newReportMessageView.alpha = 1
+            self.newReportMessageView.frame = CGRectMake(0, 66 , CGRectGetWidth(self.view.bounds), 129)
+
+        }, completion: nil)
+    }
+    
+    func hideNewReportMessageView() {
+        
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            
+            self.newReportMessageView.frame = CGRectMake(0, self.kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 129)
+            self.newReportMessageView.alpha = 0
+            }){ (finished) -> Void in
+                self.newReportMessageView.removeFromSuperview()
+                self.newReportMessageView.reset()
+        }
+    }
+    
+    func newReportMessageViewActionDissmiss() {
+        self.hideNewReportMessageView()
+    }
+    
+    func newReportMessageViewActionTakeOffAir(publication: FCPublication) {
+        
+            //update model
+            publication.isOnAir = false
+            FCModel.sharedInstance.saveUserCreatedPublications()
+        
+            //inform server and model
+            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+                
+                if success{
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        self.hideNewReportMessageView()
+                        let publicationIdentifier = PublicationIdentifier(uniqueId: publication.uniqueId, version: publication.version)
+                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
+                    })
+                }
+                else{
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("בעיית תקשורת", aMessage: "נסה שוב")
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
+    }
+    
+    func newReportMessageViewActionShowDetails(publication: FCPublication) {
+        
+        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        publicationDetailsTVC?.title = publication.title
+        publicationDetailsTVC?.publication = publication
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        let navController = UINavigationController(rootViewController: publicationDetailsTVC!)
+        self.presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    func dismissDetailVC() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func registerNSNotifications() {
+    
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationReport", name: kRecivedPublicationReportNotification, object: nil)
     }
     
     deinit {

@@ -147,6 +147,12 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.selectedIndexPath = indexPath
         
+        //if the publication is on air, user can not edit untill they take it off air
+        if self.publication?.isOnAir == true && self.state == .EditPublication && indexPath.section != 7{
+            presentCanNotEditOnAirPublicationAlert()
+            return
+        }
+        
         switch indexPath.section {
         case 0, 1: // Title, Subtitle
             self.performSegueWithIdentifier("showPublicationStringFieldsEditor", sender: nil)
@@ -380,8 +386,6 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         })
     }
     
-    
-    
     func publishEdidtedPublication() {
         
         var params = self.prepareParamsDictToSend()
@@ -482,6 +486,19 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                 })
             }
         }
+    }
+    
+    func presentCanNotEditOnAirPublicationAlert() {
+        
+        let title = String.localizedStringWithFormat("לא ניתן לערוך כל עוד הפרסום באוויר", "")
+        let message = String.localizedStringWithFormat("גלול למטה והסר את הפרסום.", "")
+
+        let alert = UIAlertController(title: title, message:message, preferredStyle: .Alert)
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("אחלה", "alert dissmiss button title"), style: .Cancel) { (action) in
+            alert.dismissViewControllerAnimated(true , completion: nil)
+        }
+        alert.addAction(dissmissAction)
+        self.navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
     
     //MARK: - Navigation

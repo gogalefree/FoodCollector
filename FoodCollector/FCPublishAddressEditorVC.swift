@@ -134,9 +134,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             
             searchHistoryCell.addressName.text! = self.initialData[indexPath.row] as String
             return searchHistoryCell
-        }
-        
-        return UITableViewCell()
+        }        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
