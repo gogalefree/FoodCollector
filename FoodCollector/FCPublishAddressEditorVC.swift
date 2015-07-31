@@ -42,6 +42,17 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         self.title = addressEditorTitle
         
+        //self.tableView.registerClass(FCPublishAddressEditorMyLocationCustomCell.self, forCellReuseIdentifier: "myLocationCustomCell")
+        //self.tableView.registerClass(FCPublishAddressEditorAddressHistoryCustomCell.self, forCellReuseIdentifier: "addressHistoryCustomCell")
+        
+        self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorMyLocationCustomCell", bundle: nil), forCellReuseIdentifier: "myLocationCustomCell")
+        
+        self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorAddressHistoryCustomCell", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomCell")
+        
+        //self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorAddressHistoryCustomHeader", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomHeader")
+        
+
+        
         // To hide the empty cells set a zero size table footer view.
         // Because the table thinks there is a footer to show, it doesn't display any
         // cells beyond those you explicitly asked for.
@@ -61,10 +72,10 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         if (isThereSearchHistory){
             return 2
         }
-
+        
         return 1
     }
-
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         println("==> numberOfRowsInSection (Section: \(section)) didStartedSearch: \(didStartedSearch)")
@@ -77,6 +88,19 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         return initialData.count
     }
     
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if (section == 1 && !didStartedSearch){
+            let headerView = FCPublishAddressEditorAddressHistoryCustomHeaderView.instanceFromNib()
+            return headerView
+        }
+        
+        
+        return nil
+        
+    }
+    
+    /*
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         println("==> titleForHeaderInSection (Section: \(section)) didStartedSearch: \(didStartedSearch)")
         if (section == 1 && !didStartedSearch){
@@ -84,30 +108,42 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         }
         return ""
     }
+*/
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 45.0
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 1 && !didStartedSearch){
+            return 30.0
+        }
+        return 0
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         println("==> cellForRowAtIndexPath (Section: \(indexPath.section)) (Row: \(indexPath.row)) didStartedSearch: \(didStartedSearch)")
-
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         
         if (indexPath.section == 0 && !didStartedSearch) {
-            let currentLocationImage = UIImage(named: "CurentLocationIcon")
-            cell.textLabel?.text = currentLocationText
-            cell.imageView!.image = currentLocationImage
+            let myLocationCell = tableView.dequeueReusableCellWithIdentifier("myLocationCustomCell", forIndexPath: indexPath) as! FCPublishAddressEditorMyLocationCustomCell
+            
+            return myLocationCell
         }
         else {
-            cell.textLabel?.text = self.initialData[indexPath.row] as String
-            cell.imageView!.image = nil
+            let searchHistoryCell = tableView.dequeueReusableCellWithIdentifier("addressHistoryCustomCell", forIndexPath: indexPath) as! FCPublishAddressEditorAddressHistoryCustomCell
+            
+            searchHistoryCell.addressName.text! = self.initialData[indexPath.row] as String
+            return searchHistoryCell
         }
         
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
+        
         
         // if first row (in first section) was selected (Use my currnt loction) use the reverse geocoder
         if (indexPath.item == 0 && indexPath.section == 0 && !didSerchAndFindResults){
@@ -117,12 +153,11 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lng: self.selectedLongtitude)
         }
         else {
-            if cell.textLabel?.text != nil {
-                var address = cell.textLabel?.text!
-                self.googleGeoCodeForAddress(address!)
-                searchBar.text = address
-                selectedAddress = address!
-            }
+            let userSelectedAddress = self.initialData[indexPath.item] as String
+            self.googleGeoCodeForAddress(userSelectedAddress)
+            searchBar.text = userSelectedAddress
+            selectedAddress = userSelectedAddress
+
         }
     }
     
@@ -182,7 +217,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                         
                         if let jsonResult = jsonResult {
                             
-                        
+                            
                             var arrayOfPredications = jsonResult["predictions"] as! NSArray
                             
                             if arrayOfPredications.count != 0 {
@@ -286,7 +321,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 if error == nil {
                     
                     if data != nil {
-                    
+                        
                         let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
                         
                         if let jsonResult = jsonResult {
@@ -295,7 +330,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
 
                         
                             let jResults = jsonResult["results"] as? NSArray
-                         
+                            
                             let addrResultDict = jResults?.firstObject as? NSDictionary
                             if let address = addrResultDict?.valueForKey("formatted_address") as? String {
                                 self.selectedAddress = address
@@ -344,7 +379,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -8))
             println("\(selectedAddress)")
         }
-
+        
         var addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
         
         cellData.userData = addressDict
