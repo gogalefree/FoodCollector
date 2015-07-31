@@ -28,7 +28,21 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         fetchPublicationRegistrations()
         registerForNotifications()
         configAdminIfNeeded()
+       // showOnSpotReport()
     }
+    
+    //tests only
+    func showOnSpotReport() {
+    
+        var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+        
+        arrivedToSpotReportVC.publication = self.publication
+        
+        let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+        
+        self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+    }
+    //end tests
     
     //MARK: - Table view Headers
     

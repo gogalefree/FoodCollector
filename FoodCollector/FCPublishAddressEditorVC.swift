@@ -281,6 +281,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             
             if let response = response {
                 
+                println("response: \(response)")
+                
                 if error == nil {
                     
                     if data != nil {
@@ -289,6 +291,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                         
                         if let jsonResult = jsonResult {
                     
+                            println("data: \(data)")
+
                         
                             let jResults = jsonResult["results"] as? NSArray
                          

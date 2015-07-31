@@ -1,4 +1,4 @@
-   //
+//
 //  FCModel.swift
 //  FoodCollector
 //
