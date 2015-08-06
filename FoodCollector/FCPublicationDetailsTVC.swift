@@ -99,9 +99,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         if section == 0 {return 2}
         else if section == 1 {return 3}
         return PublicationDetailsReportCell.numberOfReportsToPresent(self.publication)
-
     }
-    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -228,6 +226,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         }
     }
     
+    //MARK: - Remote Notification Handling
     func didDeletePublication(notification: NSNotification) {
         
         let publicationIdentifier = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last
@@ -306,6 +305,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         }
     }
     
+    //MARK: - NSNotifications
     func registerForNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
@@ -325,9 +325,10 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
     
 }
 
+//MARK: - Actions Header delegate
+
 extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
     
-    //MARK: - Title cell delegate
     
     func didRegisterForPublication(publication: FCPublication) {
         
@@ -412,6 +413,8 @@ extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
     
     
 }
+
+//MARK: - Image cell delegate
 
 extension FCPublicationDetailsTVC : PublicationDetailsImageCellDelegate {
     
@@ -540,6 +543,8 @@ extension FCPublicationDetailsTVC {
 
 }
 
+//MARK: - SMS Message Composer
+
 extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
     
     func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
@@ -606,6 +611,8 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     }
 }
 
+//MARK: - Admin for beta bundle
+
 extension FCPublicationDetailsTVC {
     
     func configAdminIfNeeded() {
@@ -621,6 +628,8 @@ extension FCPublicationDetailsTVC {
         if let infoPlist = infoPlist {
             
             let bundleName = infoPlist["CFBundleName"] as! String
+            let bundleID = infoPlist["CFBundleIdentifier"] as! String
+            println("BUNDLE ID: \(bundleID)")
             if bundleName.hasPrefix("beta") {
              
                 println("Beta Version. adding deleteButton")

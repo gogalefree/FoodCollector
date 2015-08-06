@@ -33,12 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = kNavBarBlueColor
         UINavigationBar.appearance().translucent = true
         
-        //uncomment to check the device uuid report service
-        //NSUserDefaults.standardUserDefaults().removeObjectForKey(kDeviceUUIDKey)
-
-        //uncomment to check the device push notification token report service
-        //NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidFailToRegisterPushNotificationKey)
-       
         //check if there was a push notification while the app was inActive
         
         let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject : AnyObject]
@@ -47,21 +41,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //this is called if a push notification arrived and the user did not tap on it
             //we save the identifier and type and handle it later when the app launches
             handelRemoteNotificationsFromBackground(userInfo)
-            NSUserDefaults.standardUserDefaults().setObject("from did finish launching", forKey: "abbbb")
         }
         
         
-        let newDict = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeUserRegisteredForPublication) as? [NSObject : AnyObject]
-        println(newDict)
+       
 
-//        NSUserDefaults.standardUserDefaults().removeObjectForKey("abbbb")
-//         NSUserDefaults.standardUserDefaults().removeObjectForKey("apppp")
-        let message = NSUserDefaults.standardUserDefaults().objectForKey("apppp") as? String
-        println(message)
-//        
-        let message1 = NSUserDefaults.standardUserDefaults().objectForKey("abbbb") as? String
-        println(message1)
-        
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("abbbb")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("apppp")
+       
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()

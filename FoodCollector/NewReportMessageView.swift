@@ -15,7 +15,7 @@ protocol NewReportMessageViewDelegate: NSObjectProtocol {
 }
 
 enum NewReportMessageViewState {
-    case HasMore , NothingLeft
+    case HasMore , NothingLeft , RegisteredUser
 }
 
 class NewReportMessageView: UIVisualEffectView {
@@ -24,6 +24,8 @@ class NewReportMessageView: UIVisualEffectView {
     let actionButtonTitleForNothingLeftState = String.localizedStringWithFormat("הסר פרסום", "action button title take off air")
 
     let titleText = String.localizedStringWithFormat("משתמש נוסף בדרך לאסוף:", "new registration banner title text")
+    
+    var panStartPoin: CGPoint!
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -61,6 +63,25 @@ class NewReportMessageView: UIVisualEffectView {
         case .HasMore:
             self.actionButton.setTitle(self.actionButtonTitleForHasMoreState, forState: .Normal)
             self.messageLabel.text = kHasMoreTitle
+            
+        case .RegisteredUser:
+            self.actionButton.alpha = 0
+            let (_ , report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
+            self.messageLabel.text = self.messageForReport(report)
+        }
+    }
+    
+    func messageForReport(report: FCOnSpotPublicationReport) -> String {
+        var message = ""
+        switch report.onSpotPublicationReportMessage {
+        case  .HasMore :
+            return kHasMoreTitle
+            
+        case .TookAll:
+            return ktookAllTitle
+            
+        case .NothingThere:
+            return kNothingThereTitle
         }
     }
     
@@ -73,6 +94,9 @@ class NewReportMessageView: UIVisualEffectView {
             
         case .HasMore:
             self.delegate?.newReportMessageViewActionShowDetails(self.userCreatedPublication)
+            
+        default:
+            break
 
         }
     }
@@ -87,6 +111,27 @@ class NewReportMessageView: UIVisualEffectView {
         self.titleLabel.text = titleText
         var color = UIColor.greenColor().colorWithAlphaComponent(0.1)
         self.contentView.backgroundColor = color
+        self.addGestures()
+    }
+    
+    func addGestures() {
+        
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: "panInView:")
+        self.addGestureRecognizer(panRecognizer)
+    }
+    
+    func panInView(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .Began:
+           panStartPoin = recognizer.velocityInView(recognizer.view!)
+        case .Changed:
+            let point = recognizer.velocityInView(recognizer.view)
+            if point.y < panStartPoin.y {
+                self.dissmissButtonClicked()
+            }
+        default:
+            break
+        }
     }
     
     func fetchPhotoIfNeeded(publication: FCPublication) {
@@ -126,6 +171,7 @@ class NewReportMessageView: UIVisualEffectView {
     }
     
     func reset() {
+        self.actionButton.alpha = 1
         self.messageLabel.text = ""
         self.imageView.image = UIImage(named: "NoPhotoPlaceholder")
     }

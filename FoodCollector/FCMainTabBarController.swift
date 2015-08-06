@@ -57,7 +57,6 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         
         //RegistrationForPublication Remote Notification while the app was inActive
         self.showUserRegistrationNotificationIfNeeded(1.5)
-        
     }
     
     func appWillEnterForeground() {
@@ -206,13 +205,14 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         //delete notification data
         NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypePublicationReport)
         
+        self.newReportMessageView.delegate = self
+
         let (identifier , report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
         
-        //if the report is took all or nothing there, we suggest taking the publication off air
+        //for the user who created the publication - if the report is took all or nothing there, we suggest taking the publication off air
         //else we suggest to see the publication details tvc
         if let publication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier) {
        
-            self.newReportMessageView.delegate = self
             self.newReportMessageView.userCreatedPublication = publication
             
             if report.onSpotPublicationReportMessage != FCOnSpotPublicationReportMessage.HasMore {
@@ -225,6 +225,13 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
                 self.newReportMessageView.state = .HasMore
             }
             
+            self.presentNewReportMessageView()
+        }
+        //for a registered user who did not create the publication
+        else if let publication = FCModel.sharedInstance.publicationWithIdentifier(identifier) {
+            
+            self.newReportMessageView.userCreatedPublication = publication
+            self.newReportMessageView.state = .RegisteredUser
             self.presentNewReportMessageView()
         }
     }

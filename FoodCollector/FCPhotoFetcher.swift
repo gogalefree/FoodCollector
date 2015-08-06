@@ -100,6 +100,7 @@ class FCPhotoFetcher: NSObject {
         if let infoPlist = infoPlist {
             
             let bundleName = infoPlist["CFBundleName"] as! String
+            println("bundle: \(bundleName)")
             if bundleName.hasPrefix("dev") {
                 
                 println("dev Version. buck is \(self.foodCollectorDevelopmentBucketName)")
