@@ -1360,19 +1360,19 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6h8-2b-WKd">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6h8-2b-WKd">
                                             <rect key="frame" x="116" y="19" width="436" height="22"/>
                                             <fontDescription key="fontDescription" name="ArialHebrew-Bold" family="Arial Hebrew" pointSize="20"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-bl-l9O">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-bl-l9O">
                                             <rect key="frame" x="116" y="50" width="461" height="16"/>
                                             <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-tK-AE0">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-tK-AE0">
                                             <rect key="frame" x="545" y="67" width="32" height="14"/>
                                             <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1670,6 +1670,25 @@
             </objects>
             <point key="canvasLocation" x="4179" y="290"/>
         </scene>
+        <!--Publication EditorTVC-->
+        <scene sceneID="Z5v-h8-0Md">
+            <objects>
+                <tableViewController id="wMX-dT-Bep" customClass="PublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kdi-9F-RDr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.85490196078431369" green="0.85490196078431369" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="wMX-dT-Bep" id="ot5-xq-AlS"/>
+                            <outlet property="delegate" destination="wMX-dT-Bep" id="Hsr-rK-uhQ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4fH-Ct-9fs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3759" y="1018"/>
+        </scene>
         <!--איסוף-->
         <scene sceneID="87N-7M-znR">
             <objects>
@@ -1858,7 +1877,7 @@
                                             <outlet property="FCPublisherEventStatus" destination="7JS-sO-3EK" id="aWm-kA-q15"/>
                                             <outlet property="FCPublisherEventStatusIcon" destination="VJr-uC-AAG" id="IpN-dm-0zt"/>
                                             <outlet property="FCPublisherEventTitle" destination="0PR-vp-DHe" id="ZAR-KB-9AH"/>
-                                            <segue destination="OX1-Os-hYj" kind="show" identifier="showEditPublicationEditorTVC" id="zRq-Fh-spd"/>
+                                            <segue destination="wMX-dT-Bep" kind="show" identifier="showEditPublicationEditorTVC" id="ugN-94-YIT"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1905,7 +1924,7 @@
                     <navigationItem key="navigationItem" title="השיתופים שלי" id="bjZ-lv-Ao0">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="aGi-dR-bYS">
                             <connections>
-                                <segue destination="OX1-Os-hYj" kind="show" identifier="showNewPublicationEditorTVC" id="7Uz-wH-dgX"/>
+                                <segue destination="wMX-dT-Bep" kind="show" identifier="showNewPublicationEditorTVC" id="NQE-cH-Sd8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1915,7 +1934,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPV-wW-e7y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1996" y="1024"/>
+            <point key="canvasLocation" x="2026" y="1024"/>
         </scene>
         <!--מה תרצה לעשות?-->
         <scene sceneID="emO-q2-foM">
@@ -2090,7 +2109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="publicationEditorTVCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="publicationEditorTVCell" rowHeight="50" id="Ewy-4Y-mzw" customClass="FCPublicationEditorTVCell" customModule="FoodCollector" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="fcpublicationEditorTVCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="publicationEditorTVCell" rowHeight="50" id="Ewy-4Y-mzw" customClass="FCPublicationEditorTVCell" customModule="FoodCollector" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ewy-4Y-mzw" id="RyL-mx-sYp">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -2202,7 +2221,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXF-oP-PNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="01Y-nf-hmz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2845" y="1024"/>
+            <point key="canvasLocation" x="2903" y="1618"/>
         </scene>
         <!--Image-->
         <scene sceneID="K1Q-5c-8XF">
@@ -2220,7 +2239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHd-HS-0Rz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3880" y="1878"/>
+            <point key="canvasLocation" x="3856" y="2718"/>
         </scene>
         <!--Type Of Collection-->
         <scene sceneID="hpN-oW-anY">
@@ -2282,7 +2301,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNj-mh-Oo8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Pa4-Qn-N74" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3120" y="1878"/>
+            <point key="canvasLocation" x="3096" y="2718"/>
         </scene>
         <!--Date Picker-->
         <scene sceneID="mRh-D8-t31">
@@ -2331,7 +2350,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gES-f9-Ayx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="kis-C0-kx7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2331" y="1878"/>
+            <point key="canvasLocation" x="2307" y="2718"/>
         </scene>
         <!--Adress Selector-->
         <scene sceneID="x9I-Df-6XD">
@@ -2401,7 +2420,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fDE-GL-Iku" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Tae-sj-idE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1618" y="1878"/>
+            <point key="canvasLocation" x="1594" y="2718"/>
         </scene>
         <!--String Fields-->
         <scene sceneID="qPM-ou-GAw">
@@ -2460,7 +2479,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XcG-CF-ncX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="elZ-cS-FgV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="726" y="1872"/>
+            <point key="canvasLocation" x="702" y="2712"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zE3-oX-fu8">
@@ -2646,6 +2665,6 @@
         <image name="first-screen-donate" width="44" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7Uz-wH-dgX"/>
+        <segue reference="ugN-94-YIT"/>
     </inferredMetricsTieBreakers>
 </document>

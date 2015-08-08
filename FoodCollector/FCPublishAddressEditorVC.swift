@@ -42,15 +42,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         self.title = addressEditorTitle
         
-        //self.tableView.registerClass(FCPublishAddressEditorMyLocationCustomCell.self, forCellReuseIdentifier: "myLocationCustomCell")
-        //self.tableView.registerClass(FCPublishAddressEditorAddressHistoryCustomCell.self, forCellReuseIdentifier: "addressHistoryCustomCell")
-        
         self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorMyLocationCustomCell", bundle: nil), forCellReuseIdentifier: "myLocationCustomCell")
         
-        self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorAddressHistoryCustomCell", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomCell")
-        
-        //self.tableView.registerNib(UINib(nibName: "FCPublishAddressEditorAddressHistoryCustomHeader", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomHeader")
-        
+        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCOnlyLabelCustomCell", bundle: nil), forCellReuseIdentifier: "addressHistoryCustomCell")
 
         
         // To hide the empty cells set a zero size table footer view.

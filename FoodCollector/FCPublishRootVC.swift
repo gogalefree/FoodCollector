@@ -119,24 +119,24 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         return size
     }
     
-    // Check which segue was used to go to the FCPublicationEditorTVC view.
+    // Check which segue was used to go to the PublicationEditorTVC view.
     //
     // If the segue identifier is "showNewPublicationEditorTVC" - do nothing. In the
-    // FCPublicationEditorTVC class we will check to see if var publication is empty or nil
+    // PublicationEditorTVC class we will check to see if var publication is empty or nil
     // and if it is, we will disply a new publication table.
     //
     // If the segue identifier is "showEditPublicationEditorTVC" we will pass on the
     // publication object that corresponds to the clicked cell in the collection view
-    // and display the publication's content in the FCPublicationEditorTVC class.
+    // and display the publication's content in the PublicationEditorTVC class.
 
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
       
         if (segue.identifier == "showEditPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as! FCPublicationEditorTVC
+            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
             publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
         }
         else if (segue.identifier == "showNewPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as! FCPublicationEditorTVC
+            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
             publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
         }
     }

@@ -339,7 +339,7 @@ extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
         
         self.updateRegisteredUserIconCounter()
         //show alert controller
-        if publication.typeOfCollecting == FCTypeOfCollecting.ContactPublisher {
+        if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
             
             let title = String.localizedStringWithFormat("נא ליצור קשר עם המשתף", "an alert title requesting to contact the publisher")
             let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: " ")

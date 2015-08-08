@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
+		A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */; };
+		A1248A7E1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A7C1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift */; };
+		A1248A7F1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1248A7D1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.xib */; };
+		A1248A831B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A811B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift */; };
+		A1248A841B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1248A821B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.xib */; };
+		A1248A881B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A861B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift */; };
+		A1248A891B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1248A871B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.xib */; };
+		A1248A8D1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A8B1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift */; };
+		A1248A921B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */; };
+		A1248A951B7681FD001C5901 /* PublicationEditorTVCImageCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1248A941B7681FD001C5901 /* PublicationEditorTVCImageCustomCell.xib */; };
+		A1248A971B76822D001C5901 /* PublicationEditorTVCMoreInfoCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1248A961B76822D001C5901 /* PublicationEditorTVCMoreInfoCustomCell.xib */; };
 		A1535BE41B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */; };
 		A1535BE81B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */; };
 		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
@@ -142,6 +153,17 @@
 /* Begin PBXFileReference section */
 		4C0F0BBFA42B094D8A074F35 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A108F5C41A94732A00816EFA /* BaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURL.plist; sourceTree = "<group>"; };
+		A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVC.swift; sourceTree = "<group>"; };
+		A1248A7C1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCOnlyLabelCustomCell.swift; sourceTree = "<group>"; };
+		A1248A7D1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCOnlyLabelCustomCell.xib; sourceTree = "<group>"; };
+		A1248A811B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCStartEndDateCustomCell.swift; sourceTree = "<group>"; };
+		A1248A821B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCStartEndDateCustomCell.xib; sourceTree = "<group>"; };
+		A1248A861B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCContactPublisherCustomCell.swift; sourceTree = "<group>"; };
+		A1248A871B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCContactPublisherCustomCell.xib; sourceTree = "<group>"; };
+		A1248A8B1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCImageCustomCell.swift; sourceTree = "<group>"; };
+		A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCMoreInfoCustomCell.swift; sourceTree = "<group>"; };
+		A1248A941B7681FD001C5901 /* PublicationEditorTVCImageCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCImageCustomCell.xib; sourceTree = "<group>"; };
+		A1248A961B76822D001C5901 /* PublicationEditorTVCMoreInfoCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCMoreInfoCustomCell.xib; sourceTree = "<group>"; };
 		A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorAddressHistoryCustomHeaderView.swift; sourceTree = "<group>"; };
 		A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublishAddressEditorAddressHistoryCustomHeaderView.xib; sourceTree = "<group>"; };
 		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
@@ -306,6 +328,79 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A1248A791B7643C6001C5901 /* New Editor */ = {
+			isa = PBXGroup;
+			children = (
+				A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */,
+				A1248A7B1B76451A001C5901 /* Only One Label Cell */,
+				A1248A801B7665DC001C5901 /* Start End Date Cell */,
+				A1248A851B766D16001C5901 /* Contact Publisher Cell */,
+				A1248A8A1B7670A1001C5901 /* Image Cell */,
+				A1248A8F1B767391001C5901 /* More Info Cell */,
+				A1248A7A1B764416001C5901 /* Address Editor */,
+			);
+			name = "New Editor";
+			sourceTree = "<group>";
+		};
+		A1248A7A1B764416001C5901 /* Address Editor */ = {
+			isa = PBXGroup;
+			children = (
+				E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */,
+				A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */,
+				A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */,
+				A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */,
+				A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */,
+				A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */,
+				A1B793231B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib */,
+			);
+			name = "Address Editor";
+			sourceTree = "<group>";
+		};
+		A1248A7B1B76451A001C5901 /* Only One Label Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A1248A7C1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift */,
+				A1248A7D1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.xib */,
+			);
+			name = "Only One Label Cell";
+			sourceTree = "<group>";
+		};
+		A1248A801B7665DC001C5901 /* Start End Date Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A1248A811B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift */,
+				A1248A821B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.xib */,
+			);
+			name = "Start End Date Cell";
+			sourceTree = "<group>";
+		};
+		A1248A851B766D16001C5901 /* Contact Publisher Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A1248A861B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift */,
+				A1248A871B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.xib */,
+			);
+			name = "Contact Publisher Cell";
+			sourceTree = "<group>";
+		};
+		A1248A8A1B7670A1001C5901 /* Image Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A1248A8B1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift */,
+				A1248A941B7681FD001C5901 /* PublicationEditorTVCImageCustomCell.xib */,
+			);
+			name = "Image Cell";
+			sourceTree = "<group>";
+		};
+		A1248A8F1B767391001C5901 /* More Info Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */,
+				A1248A961B76822D001C5901 /* PublicationEditorTVCMoreInfoCustomCell.xib */,
+			);
+			name = "More Info Cell";
+			sourceTree = "<group>";
+		};
 		A16619A41A94E53C009D9EEA /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,24 +410,17 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		E4030A701A63DD7B005D224E /* Editor */ = {
+		E4030A701A63DD7B005D224E /* Editor Sub Views and Screens */ = {
 			isa = PBXGroup;
 			children = (
 				E4214E6F1A63E1020070332D /* FCPublishStringFieldsEditorVC.swift */,
-				E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */,
-				A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */,
-				A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */,
-				A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */,
-				A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */,
-				A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */,
-				A1B793231B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib */,
 				E4214E6B1A63E0860070332D /* FCPublishDateEditorVC.swift */,
 				E4030A731A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift */,
 				E4030A711A63DD92005D224E /* FCPublishPhotoEditorVC.swift */,
 				E4737D751A10C01300A4AB81 /* FCPublicationDataInputVC.swift */,
 				E4737D731A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift */,
 			);
-			name = Editor;
+			name = "Editor Sub Views and Screens";
 			sourceTree = "<group>";
 		};
 		E41235CB1ABC18B30016FE5F /* Photo Presentor */ = {
@@ -517,7 +605,8 @@
 				A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */,
 				E4737D781A10C01300A4AB81 /* FCPublicationEditorTVC.swift */,
 				E476C2311A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift */,
-				E4030A701A63DD7B005D224E /* Editor */,
+				A1248A791B7643C6001C5901 /* New Editor */,
+				E4030A701A63DD7B005D224E /* Editor Sub Views and Screens */,
 			);
 			name = Publisher;
 			sourceTree = "<group>";
@@ -738,6 +827,7 @@
 			files = (
 				E494DF151A0A980D004A369E /* Main.storyboard in Resources */,
 				E45DA7361A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib in Resources */,
+				A1248A891B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.xib in Resources */,
 				E4545D8A1AD3210A0031CF8A /* Pin-Whole@3x.png in Resources */,
 				E4545D941AD322B20031CF8A /* Pin-Table-Few.png in Resources */,
 				E4DC5D5C1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib in Resources */,
@@ -751,6 +841,8 @@
 				E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */,
 				A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */,
 				A1535BE81B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */,
+				A1248A951B7681FD001C5901 /* PublicationEditorTVCImageCustomCell.xib in Resources */,
+				A1248A841B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.xib in Resources */,
 				E4545D891AD3210A0031CF8A /* Pin-Whole@2x.png in Resources */,
 				E4AEDE681B25A7CE00431F9B /* PublicationDetsilsActionsHeaderView.xib in Resources */,
 				A1B793291B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
@@ -759,10 +851,12 @@
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
 				E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */,
 				E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */,
+				A1248A971B76822D001C5901 /* PublicationEditorTVCMoreInfoCustomCell.xib in Resources */,
 				E4A41D371B491AD0007A611E /* NewRegistrationBannerView.xib in Resources */,
 				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
 				E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */,
 				A1B793251B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
+				A1248A7F1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -843,17 +937,21 @@
 				E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */,
 				E4737D9E1A10C01300A4AB81 /* FCServerProtocol.swift in Sources */,
 				E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */,
+				A1248A8D1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift in Sources */,
 				E4BF44F31A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
 				A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */,
 				E45DA73A1AA05B9200F45C70 /* FCPublicationDetailsTVHeaderView.swift in Sources */,
 				E4AEDE621B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift in Sources */,
+				A1248A921B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */,
 				E4AEDE6A1B26FE1000431F9B /* PublicationDetailsReportCell.swift in Sources */,
 				E4F839231ABB03460055A277 /* FCPublicationReportsTVC.swift in Sources */,
 				E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */,
 				E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */,
 				E4737D9D1A10C01300A4AB81 /* FCPublishRootVC.swift in Sources */,
+				A1248A831B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
+				A1248A881B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */,
 				E40BD4FB1A5819D900BB2F98 /* FCPublicationDetailsTVReportsCell.swift in Sources */,
 				E4AEDE551B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift in Sources */,
 				E426AD331A5A682B006F609C /* FCPublicationSingleReportCell.swift in Sources */,
@@ -873,6 +971,7 @@
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E476C2321A65501C00E3BCC3 /* FCPublicationEditorTVCell.swift in Sources */,
 				E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */,
+				A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */,
 				E4FEFC201A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift in Sources */,
 				E4030A741A63DFC9005D224E /* FCPublicationTypeOfPublicationEditorVC.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
@@ -885,6 +984,7 @@
 				E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */,
 				E4737D941A10C01300A4AB81 /* FCPublicationAddressPickerVC.swift in Sources */,
 				E4DC5D5E1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift in Sources */,
+				A1248A7E1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */,
 				E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
 				E4F8391F1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift in Sources */,

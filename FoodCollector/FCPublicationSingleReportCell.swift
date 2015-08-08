@@ -15,7 +15,7 @@ class FCPublicationSingleReportCell: UITableViewCell {
     @IBOutlet weak var reportDate: UILabel!
     @IBOutlet weak var reportIcon: UIImageView!
     
-    var typeOfCollecting: FCTypeOfCollecting = FCTypeOfCollecting.FreePickUp
+    var typeOfCollecting = TypeOfCollecting.FreePickUp
     var report: FCOnSpotPublicationReport? {
         didSet{
             if let aReport = self.report {
