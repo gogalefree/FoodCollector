@@ -12,7 +12,16 @@ class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!
     
-    
+    var cellData: PublicationEditorTVCCellData? {
+        
+        didSet {
+            
+            if let cellData = self.cellData {
+                
+                self.cellLabel.text = cellData.cellTitle
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

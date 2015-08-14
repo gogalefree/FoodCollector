@@ -63,7 +63,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     
     var publication:FCPublication?
     var state = PublicationEditorTVCState.CreateNewPublication
-    var dataSource = [FCPublicationEditorTVCCellData]()
+    var dataSource = [PublicationEditorTVCCellData]()
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
     var selectedIndexPath: NSIndexPath?
     var takeOffAirButtonEnabled = false
@@ -206,6 +206,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
     
+    /*
     @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
         let sourceVC = segue.sourceViewController as! FCPublishAddressEditorVC
         let cellData = sourceVC.cellData
@@ -213,7 +214,8 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.dataSource[section] = cellData
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
-    
+    */
+
     //MARK: - TakeOffAir and Publish buttons logic
     
     private func shouldEnableTakeOfAirButton() {

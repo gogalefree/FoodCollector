@@ -16,13 +16,33 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
     
     @IBOutlet weak var pictureButton: UIButton!
     
+    var section = 5
+    
+    var cameraButtonClicked: ((PublicationEditorTVCImageCustomCell) -> Void)?
+    
+    var cellData: PublicationEditorTVCCellData? {
+        
+        didSet {
+            
+            if let cellData = self.cellData {
+                
+                self.cellLabel.text = cellData.cellTitle
+                
+                self.publicationImage.image = cellData.userData as? UIImage
+                self.publicationImage.layer.cornerRadius = self.publicationImage.frame.height/2
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        //self.addressName.text = self.addressListItem
-        //println("self.addressName.text: \(self.addressName.text)")
+        pictureButton.addTarget(self, action: "photoButtonClicked", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
+    func photoButtonClicked(){
+        cameraButtonClicked!(self)
+    }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
@@ -35,3 +55,4 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
     }
     
 }
+

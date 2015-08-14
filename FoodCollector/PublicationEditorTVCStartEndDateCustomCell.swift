@@ -14,6 +14,20 @@ class PublicationEditorTVCStartEndDateCustomCell: UITableViewCell {
     
     @IBOutlet weak var dateValueLabel: UILabel!
     
+    var cellData: PublicationEditorTVCCellData? {
+        
+        didSet {
+            
+            if let cellData = self.cellData {
+                
+                self.cellLabel.text = cellData.cellTitle
+                
+                let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
+                let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
+                self.dateValueLabel.text = "\(timeString)  \(dateString)"
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

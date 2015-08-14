@@ -15,17 +15,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cF-9F-VqL">
-                        <rect key="frame" x="169" y="12" width="136" height="21"/>
+                        <rect key="frame" x="119" y="12" width="186" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ig-gW-jAe">
-                        <rect key="frame" x="10" y="1" width="42" height="42"/>
+                        <rect key="frame" x="18" y="1" width="42" height="42"/>
                         <state key="normal" title="Button" image="CameraIcon"/>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="5J7-kJ-tvb">
-                        <rect key="frame" x="63" y="1" width="42" height="42.5"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="5J7-kJ-tvb">
+                        <rect key="frame" x="69" y="1" width="42" height="42.5"/>
                     </imageView>
                 </subviews>
                 <constraints>

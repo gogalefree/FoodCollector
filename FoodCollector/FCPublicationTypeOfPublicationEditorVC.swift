@@ -21,7 +21,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var collectionTypePicker: UIPickerView!
     
-    var cellData = FCPublicationEditorTVCCellData()
+    var cellData = PublicationEditorTVCCellData()
     let digits = "0123456789"
     var onlyDigitsPhoneString = ""
     var isPhoneNumberValid = false

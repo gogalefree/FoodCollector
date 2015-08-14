@@ -1673,8 +1673,8 @@
         <!--Publication EditorTVC-->
         <scene sceneID="Z5v-h8-0Md">
             <objects>
-                <tableViewController id="wMX-dT-Bep" customClass="PublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kdi-9F-RDr">
+                <tableViewController storyboardIdentifier="PublicationEditorTVC" id="wMX-dT-Bep" customClass="PublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kdi-9F-RDr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1684,10 +1684,13 @@
                             <outlet property="delegate" destination="wMX-dT-Bep" id="Hsr-rK-uhQ"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="hdu-mN-4y2" kind="show" identifier="showPublicationAdressEditor" id="A0O-sE-e8c"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fH-Ct-9fs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3759" y="1018"/>
+            <point key="canvasLocation" x="2943" y="1024"/>
         </scene>
         <!--איסוף-->
         <scene sceneID="87N-7M-znR">
@@ -2214,14 +2217,13 @@
                         <segue destination="v3R-dA-34T" kind="show" identifier="showPublicationImageEditor" id="Yao-aa-Gxi"/>
                         <segue destination="19G-X7-6HX" kind="show" identifier="showPublicationTypeOfCollectionEditor" id="NxB-aR-5qR"/>
                         <segue destination="6NJ-7D-o8q" kind="show" identifier="showPublicationDateEditor" id="Eg4-bV-caN"/>
-                        <segue destination="hdu-mN-4y2" kind="show" identifier="showPublicationAdressEditor" id="Y05-aN-O0g"/>
                         <segue destination="y2d-tq-wyI" kind="show" identifier="showPublicationStringFieldsEditor" id="wZR-si-eRW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXF-oP-PNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="01Y-nf-hmz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2903" y="1618"/>
+            <point key="canvasLocation" x="1863" y="2218"/>
         </scene>
         <!--Image-->
         <scene sceneID="K1Q-5c-8XF">
@@ -2239,7 +2241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHd-HS-0Rz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3856" y="2718"/>
+            <point key="canvasLocation" x="2928" y="3062"/>
         </scene>
         <!--Type Of Collection-->
         <scene sceneID="hpN-oW-anY">
@@ -2253,14 +2255,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gzb-Rh-v0y">
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gzb-Rh-v0y">
                                 <rect key="frame" x="0.0" y="68" width="600" height="162"/>
                                 <connections>
                                     <outlet property="dataSource" destination="19G-X7-6HX" id="myC-LK-hCc"/>
                                     <outlet property="delegate" destination="19G-X7-6HX" id="Rqm-J1-q80"/>
                                 </connections>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4c-Or-ldA">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4c-Or-ldA">
                                 <rect key="frame" x="270" y="300" width="61" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="61" id="RV4-nR-zDb"/>
@@ -2272,7 +2274,7 @@
                                     <action selector="saveButtonAction:" destination="19G-X7-6HX" eventType="touchUpInside" id="M5A-ui-5qC"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="מספר טלפון" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TIx-uY-As2">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="מספר טלפון" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TIx-uY-As2">
                                 <rect key="frame" x="195" y="214" width="210" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="210" id="kUN-EV-H9h"/>
@@ -2301,7 +2303,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNj-mh-Oo8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Pa4-Qn-N74" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3096" y="2718"/>
+            <point key="canvasLocation" x="2152" y="3056"/>
         </scene>
         <!--Date Picker-->
         <scene sceneID="mRh-D8-t31">
@@ -2315,13 +2317,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="MA1-GG-3fS">
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="MA1-GG-3fS">
                                 <rect key="frame" x="0.0" y="72" width="600" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="440793059.67927003">
                                     <!--2014-12-20 18:30:59 +0000-->
                                 </date>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lC-CS-FO7">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lC-CS-FO7">
                                 <rect key="frame" x="241" y="271" width="118" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="118" id="SHf-xi-ql8"/>
@@ -2350,7 +2352,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gES-f9-Ayx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="kis-C0-kx7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2307" y="2718"/>
+            <point key="canvasLocation" x="1459" y="3062"/>
         </scene>
         <!--Adress Selector-->
         <scene sceneID="x9I-Df-6XD">
@@ -2420,7 +2422,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fDE-GL-Iku" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Tae-sj-idE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1594" y="2718"/>
+            <point key="canvasLocation" x="2943" y="1814"/>
         </scene>
         <!--String Fields-->
         <scene sceneID="qPM-ou-GAw">
@@ -2434,18 +2436,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WXd-d6-bYT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WXd-d6-bYT">
                                 <rect key="frame" x="16" y="128" width="568" height="30"/>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="AwG-v1-fGh">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="AwG-v1-fGh">
                                 <rect key="frame" x="16" y="103" width="568" height="72"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlY-bO-6XQ">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlY-bO-6XQ">
                                 <rect key="frame" x="270" y="231" width="61" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="61" id="IbJ-ew-0Zp"/>
@@ -2479,7 +2481,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XcG-CF-ncX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="elZ-cS-FgV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="702" y="2712"/>
+            <point key="canvasLocation" x="702" y="3056"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zE3-oX-fu8">

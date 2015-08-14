@@ -155,7 +155,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     @IBAction func unwindWithDeletePublication(segue: UIStoryboardSegue) {
     
         //if the state is not .Edit new the user cant delete
-        let publicationEditorTVC = segue.sourceViewController as! FCPublicationEditorTVC
+        let publicationEditorTVC = segue.sourceViewController as! PublicationEditorTVC
         if publicationEditorTVC.state != .EditPublication {return}
         
         let pubicationToDelete = publicationEditorTVC.publication!
