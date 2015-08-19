@@ -14,6 +14,25 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
     
     @IBOutlet weak var contactPubliserSwitch: UISwitch!
     
+    
+        
+    @IBAction func contactPubliserSwitchAction(sender: UISwitch) {
+        var typeOfCollecting = 1
+        
+        if (sender.on == true) {
+            typeOfCollecting = 2
+        }
+        
+        let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : typeOfCollecting , kPublicationContactInfoKey : (cellData!.userData as! NSDictionary).objectForKey(kPublicationContactInfoKey)!]
+        cellData!.userData = typeOfCollectingDict
+        cellData!.containsUserData = true
+        
+        if let delegate = self.delegate {
+            delegate.updateData(cellData!, section: section!)
+        }
+    }
+    
+    
     var cellData: PublicationEditorTVCCellData? {
         
         didSet {
@@ -24,12 +43,21 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
             }
         }
     }
+    
+    var section: Int?
+    
+    var switchIsOn: Bool? {
+        didSet {
+            contactPubliserSwitch.setOn(switchIsOn!, animated: true)
+        }
+    }
+    
+    var delegate: CellInfoDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        //self.addressName.text = self.addressListItem
-        //println("self.addressName.text: \(self.addressName.text)")
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -38,9 +66,11 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    /*
     override func prepareForReuse() {
         super.prepareForReuse()
         self.cellLabel.text = ""
     }
+    */
     
 }

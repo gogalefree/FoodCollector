@@ -24,7 +24,7 @@ let kPublishSubtitle = String.localizedStringWithFormat("רוצה לתת פרט�
 
 let kSeperatHeaderHeight = CGFloat(30.0)
 
-let kAddDefaultHoursToStartDate:Double = 24 // Amount of hours to add to the start date so that we will have an End date for new publication only!
+let kAddDefaultHoursToStartDate:Double = 36 // Amount of hours to add to the start date so that we will have an End date for new publication only!
 let kTimeIntervalInSecondsToEndDate = kAddDefaultHoursToStartDate * 60.0 * 60.0 // Hours * 60 Minutes * 60 seconds
 
 struct PublicationEditorTVCCellData {
@@ -54,7 +54,7 @@ public enum TypeOfCollecting: Int {
 }
 
 
-class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CellInfoDelegate {
     
     var publication:FCPublication?
     var state = PublicationEditorTVCState.CreateNewPublication
@@ -65,7 +65,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     var publishButtonEnabled = false
     lazy var activityIndicatorBlureView = UIVisualEffectView()
     
-    var isCellInEditMode = false
+    var defaultRowHeigt = CGFloat(45)
+    
+    var showStartDatePickerCell = false
+    var showEndDatePickerCell = false
+    var contactPublisherSelected = true // For new publication it sets the default value of the contact publisher data and switch state. It also, reflects the state of the switch in contact publisher row.
     
     func setupWithState(initialState: PublicationEditorTVCState, publication: FCPublication?) {
         self.state = initialState
@@ -81,6 +85,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             self.fetchPhotoIfNeeded()
         }
         
+        // Check the state of Contact Publisher
+        let contactValueRawValue = (dataSource[4].userData as! [String : AnyObject])[kPublicationTypeOfCollectingKey] as! Int
+        if (contactValueRawValue == 1) {
+            contactPublisherSelected = false
+        }
         
         println(">>>> show self.dataSource")
         for dataObj in self.dataSource {
@@ -94,18 +103,23 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
+        
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCOnlyLabelCustomCell", bundle: nil), forCellReuseIdentifier: "onlyLabelCustomCell")
         
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCStartEndDateCustomCell", bundle: nil), forCellReuseIdentifier: "startEndDateCustomCell")
         
+        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCDatePickerCustomCell", bundle: nil), forCellReuseIdentifier: "datePickerCustomCell")
+        
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCContactPublisherCustomCell", bundle: nil), forCellReuseIdentifier: "contactPublisherCustomCell")
+        
+        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCPhoneNumEditorCustomCell", bundle: nil), forCellReuseIdentifier: "phoneNumEditorCustomCell")
         
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCImageCustomCell", bundle: nil), forCellReuseIdentifier: "imageCustomCell")
         
@@ -113,8 +127,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // Because the table thinks there is a footer to show, it doesn't display any
         // cells beyond those you explicitly asked for.
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
-        //tableView.layoutMargins = UIEdgeInsetsMake(0, 0, 0, 0) //(top, left, bottom, right)
-        //tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0) //(top, left, bottom, right)
+        
 
     }
 
@@ -128,7 +141,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     // Sections and Cells outline:
     // ----------------------------------------------------
     // Section 0 - Title (has a scetion header)
-    //    Cell 0 - Label or Text field
+    //    Cell 0 - Text field
     
     // Section 1 - Address
     //    Cell 0 - Label (clicking it loads a view for adding address)
@@ -149,7 +162,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     //    Cell 0 - Label + add Image button + small UIview to display selected image
     
     // Section 6 - More Detials
-    //    Cell 0 - Label or Text view
+    //    Cell 0 - Text field
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 7
@@ -167,10 +180,13 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 2: // Start Date Section
+            if (showStartDatePickerCell) {return 2}
             return 1
         case 3: // End Date Section
+            if (showEndDatePickerCell) {return 2}
             return 1
         case 4: // Contact publisher? Section
+            if (contactPublisherSelected) {return 2}
             return 1
         default:
             return 1
@@ -179,10 +195,20 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
-        case 6:
-            return 90
+        case 2, 3:
+            if (showStartDatePickerCell || showEndDatePickerCell) {
+                if (indexPath.row == 1) {
+                    return 162
+                }
+                else{
+                    return defaultRowHeigt
+                }
+            }
+            return defaultRowHeigt
+        //case 6:
+        //    return 90
         default:
-            return 45
+            return defaultRowHeigt
         }
     }
     
@@ -195,28 +221,58 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-        case 0:
+        case 0: // Subject Section
+            let textFieldCell = tableView.dequeueReusableCellWithIdentifier("textFieldCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCTextFieldCustomCell
+            textFieldCell.cellData = self.dataSource[indexPath.section]
+            textFieldCell.section = indexPath.section
+            textFieldCell.delegate = self
+            textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            return textFieldCell
+            
+        case 1: // Address section
             let onlyLabelCell = tableView.dequeueReusableCellWithIdentifier("onlyLabelCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCOnlyLabelCustomCell
             onlyLabelCell.cellData = self.dataSource[indexPath.section]
-            onlyLabelCell.selectionStyle = UITableViewCellSelectionStyle.None
-            if (isCellInEditMode) {onlyLabelCell.cellState = CellState.Edit}
             
             return onlyLabelCell
 
         case 2, 3: // Start & End Date Sections
-            
-            let dateCell = tableView.dequeueReusableCellWithIdentifier("startEndDateCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCStartEndDateCustomCell
-            dateCell.cellData = self.dataSource[indexPath.section]
+            if (indexPath.row == 0) {
+                let dateCell = tableView.dequeueReusableCellWithIdentifier("startEndDateCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCStartEndDateCustomCell
+                dateCell.cellData = self.dataSource[indexPath.section]
 
-            return dateCell
+                return dateCell
+            }
+            else {
+                let datePickerCell = tableView.dequeueReusableCellWithIdentifier("datePickerCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCDatePickerCustomCell
+                datePickerCell.cellData = self.dataSource[indexPath.section]
+                datePickerCell.section = indexPath.section
+                datePickerCell.delegate = self
+                datePickerCell.selectionStyle = UITableViewCellSelectionStyle.None
+                
+                return datePickerCell
+            }
             
         case 4: // Contact publisher? Section
-            
-            let contactPublisherCell = tableView.dequeueReusableCellWithIdentifier("contactPublisherCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCContactPublisherCustomCell
-            contactPublisherCell.cellData = self.dataSource[indexPath.section]
-            contactPublisherCell.selectionStyle = UITableViewCellSelectionStyle.None
-            
-            return contactPublisherCell
+            if (indexPath.row == 0) {
+                let contactPublisherCell = tableView.dequeueReusableCellWithIdentifier("contactPublisherCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCContactPublisherCustomCell
+                contactPublisherCell.cellData = self.dataSource[indexPath.section]
+                contactPublisherCell.section = indexPath.section
+                contactPublisherCell.delegate = self
+                contactPublisherCell.selectionStyle = UITableViewCellSelectionStyle.None
+                contactPublisherCell.switchIsOn = contactPublisherSelected
+                
+                return contactPublisherCell
+            }
+            else {
+                let phoneNumEditorCell = tableView.dequeueReusableCellWithIdentifier("phoneNumEditorCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCPhoneNumEditorCustomCell
+                phoneNumEditorCell.cellData = self.dataSource[indexPath.section]
+                phoneNumEditorCell.section = indexPath.section
+                phoneNumEditorCell.delegate = self
+                phoneNumEditorCell.selectionStyle = UITableViewCellSelectionStyle.None
+                
+                return phoneNumEditorCell
+            }
         
         case 5: // Image Section
             
@@ -227,20 +283,25 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             
             imageCell.cameraButtonClicked = { [unowned self] (selectedCell) -> Void in
                 let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
-                self.selectedIndexPath = NSIndexPath(forRow: 0, inSection: selectedCell.section)
+                self.selectedIndexPath = NSIndexPath(forRow: 0, inSection: selectedCell.section!)
                 self.presentImagePickerActionSheet()
             }
             
             return imageCell
 
-        default: // Address & More Info sections
-            let onlyLabelCell = tableView.dequeueReusableCellWithIdentifier("onlyLabelCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCOnlyLabelCustomCell
-            onlyLabelCell.cellData = self.dataSource[indexPath.section]
-
-            if (indexPath.section == 6) {
-                onlyLabelCell.cellLabel.frame.size.height = 90
-            }
-            return onlyLabelCell
+        case 6: // More Info Section
+            let textFieldCell = tableView.dequeueReusableCellWithIdentifier("textFieldCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCTextFieldCustomCell
+            textFieldCell.cellData = self.dataSource[indexPath.section]
+            textFieldCell.section = indexPath.section
+            textFieldCell.delegate = self
+            textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            return textFieldCell
+        
+        default:
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.text = self.dataSource[indexPath.section].cellTitle
+            return cell
         }
     }
     
@@ -256,23 +317,28 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         }
         
         switch indexPath.section {
-        case 0: // Title
-            isCellInEditMode = true
-            self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
             
         case 1: // Address
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
-        case 2, 3: // Start & End date
-            self.performSegueWithIdentifier("showPublicationDateEditor", sender: indexPath.row)
-        case 4: // Type of collection
-            self.performSegueWithIdentifier("showPublicationTypeOfCollectionEditor", sender: nil)
-        //case 5: // Image picker
-        //    self.presentImagePickerActionSheet()
-        //case 7: // Take off-air
-        //    takeOffAir()
-        //    shouldEnableTakeOfAirButton()
-        //case 8: // Publish
-        //    publish()
+            
+        case 2: // Start date
+            if (showStartDatePickerCell) {
+                showStartDatePickerCell = false
+            }
+            else {
+                showStartDatePickerCell = true
+            }
+            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+            
+        case 3: // End date
+            if (showEndDatePickerCell) {
+                showEndDatePickerCell = false
+            }
+            else {
+                showEndDatePickerCell = true
+            }
+            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+        
         default: // Title, Subtitle (More Info)
             break
         }
@@ -324,6 +390,23 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         return true
     }
     */
+    
+    func updateData(data:PublicationEditorTVCCellData, section: Int){
+        dataSource[section] = data
+        
+        if (section == 4) { // Type of collection
+            let contactPublisherRawValue = (data.userData as! NSDictionary).objectForKey(kPublicationTypeOfCollectingKey)! as! Int
+            println("contactPublisherRawValue: \(contactPublisherRawValue)")
+            if (contactPublisherRawValue == 1) {
+                contactPublisherSelected = false
+            }
+            else {
+                contactPublisherSelected = true
+            }
+        }
+        
+        tableView.reloadSections(NSIndexSet(index: section), withRowAnimation: .Automatic)
+    }
 
     /*
     // MARK: - Navigation
@@ -646,7 +729,7 @@ extension  PublicationEditorTVC {
     //===========================================================================
     
     func prepareDataSource() {
-        // Each section represents a cell
+        // Sections Index
         // 0.  Title
         // 1.  Address + latitude + longitude
         // 2.  Start date
@@ -696,12 +779,27 @@ extension  PublicationEditorTVC {
                         
                     case 4:
                         //publication type of collecting
-                        var contactInfo = publication.contactInfo ?? ""
-                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : publication.typeOfCollecting.rawValue , kPublicationContactInfoKey : contactInfo]
+                        var contactInfo = ""
+                        
+                        if (publication.typeOfCollecting == TypeOfCollecting.ContactPublisher) {
+                            //contactPublisherSelected = true
+                            if (publication.contactInfo! == "") {
+                                cellData.containsUserData = false
+                            }
+                            else {
+                                contactInfo = publication.contactInfo!
+                                cellData.containsUserData = true
+                            }
+                        }
+                        else {
+                            //contactPublisherSelected = false
+                            cellData.containsUserData = true
+                            
+                        }
+                        
+                        let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : publication.typeOfCollecting.rawValue , kPublicationContactInfoKey : contactInfo]
                         
                         cellData.userData = typeOfCollectingDict
-                        cellData.containsUserData = true
-                        
                         cellData.cellTitle = kPublishTypeOfCollection
                         
                     case 5:
@@ -744,10 +842,9 @@ extension  PublicationEditorTVC {
                     
                 case 4:
                     //publication type of collecting
-                    var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 1 , kPublicationContactInfoKey : "no"]
-                    
+                    let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 2 , kPublicationContactInfoKey : ""]
                     cellData.userData = typeOfCollectingDict
-                    cellData.containsUserData = true
+                    cellData.containsUserData = false
                     cellData.cellTitle = kPublishTypeOfCollection
                 case 5:
                     //publication photo
@@ -817,6 +914,11 @@ extension PublicationEditorTVC {
         self.dataSource[section] = cellData
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
+    
+}
+
+protocol CellInfoDelegate {
+    func updateData(data:PublicationEditorTVCCellData, section: Int)
 }
 
 

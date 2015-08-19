@@ -16,7 +16,7 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
     
     @IBOutlet weak var pictureButton: UIButton!
     
-    var section = 5
+    var section: Int?
     
     var cameraButtonClicked: ((PublicationEditorTVCImageCustomCell) -> Void)?
     
@@ -43,6 +43,7 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
     func photoButtonClicked(){
         cameraButtonClicked!(self)
     }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

@@ -32,8 +32,6 @@ class PublicationEditorTVCStartEndDateCustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        //self.addressName.text = self.addressListItem
-        //println("self.addressName.text: \(self.addressName.text)")
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
