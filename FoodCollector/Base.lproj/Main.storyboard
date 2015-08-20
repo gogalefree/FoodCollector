@@ -1698,7 +1698,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fH-Ct-9fs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2943" y="1024"/>
+            <point key="canvasLocation" x="2943" y="1036"/>
         </scene>
         <!--איסוף-->
         <scene sceneID="87N-7M-znR">
@@ -1888,6 +1888,7 @@
                                             <outlet property="FCPublisherEventStatus" destination="7JS-sO-3EK" id="aWm-kA-q15"/>
                                             <outlet property="FCPublisherEventStatusIcon" destination="VJr-uC-AAG" id="IpN-dm-0zt"/>
                                             <outlet property="FCPublisherEventTitle" destination="0PR-vp-DHe" id="ZAR-KB-9AH"/>
+                                            <segue destination="wMX-dT-Bep" kind="show" identifier="showEditPublicationEditorTVC" id="L6U-3P-vB1"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1944,7 +1945,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPV-wW-e7y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2026" y="1024"/>
+            <point key="canvasLocation" x="2026" y="1036"/>
         </scene>
         <!--מה תרצה לעשות?-->
         <scene sceneID="emO-q2-foM">
@@ -2673,4 +2674,7 @@
         <image name="first-screen-collect" width="44" height="16"/>
         <image name="first-screen-donate" width="44" height="22"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="L6U-3P-vB1"/>
+    </inferredMetricsTieBreakers>
 </document>

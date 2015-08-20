@@ -21,10 +21,12 @@ let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסרת �
 //let kPublishStartDatePrefix = String.localizedStringWithFormat("התחלה:  ", "Start date label for displaying an exciting start date event")
 //let kPublishEndDatePrefix = String.localizedStringWithFormat("סיום: ", "End date label for displaying an exciting end date event")
 let kPublishSubtitle = String.localizedStringWithFormat("רוצה לתת פרטים נוספים?", "Add subitle for a new event")
+let kPublishtopRightBarButtonSaveTitle = String.localizedStringWithFormat("שמירה", "'Save' title for top right bar button")
+
 
 let kSeperatHeaderHeight = CGFloat(30.0)
 
-let kAddDefaultHoursToStartDate:Double = 36 // Amount of hours to add to the start date so that we will have an End date for new publication only!
+let kAddDefaultHoursToStartDate:Double = 72 // Amount of hours to add to the start date so that we will have an End date for new publication only!
 let kTimeIntervalInSecondsToEndDate = kAddDefaultHoursToStartDate * 60.0 * 60.0 // Hours * 60 Minutes * 60 seconds
 
 struct PublicationEditorTVCCellData {
@@ -72,6 +74,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     var contactPublisherSelected = true // For new publication it sets the default value of the contact publisher data and switch state. It also, reflects the state of the switch in contact publisher row.
     
     func setupWithState(initialState: PublicationEditorTVCState, publication: FCPublication?) {
+        // This function is executed before viewDidLoad()
         self.state = initialState
         self.publication = publication
         prepareDataSource()
@@ -106,8 +109,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        addTopRightButton()
+        
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "popViewController")
         
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
         
@@ -427,6 +432,21 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
     
+    func popViewController() {
+        self.navigationController!.popViewControllerAnimated(true)
+    }
+    
+    func addTopRightButton() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: kPublishtopRightBarButtonSaveTitle, style: UIBarButtonItemStyle.Done,
+            target: self, action: "publish")
+        setTopRightButtonStatus()
+    }
+    
+    func setTopRightButtonStatus(){
+        self.navigationItem.rightBarButtonItem?.enabled = publishButtonEnabled
+    }
+    
     //MARK: - TakeOffAir and Publish buttons logic
     
     private func shouldEnableTakeOfAirButton() {
@@ -485,7 +505,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             var containsData = true
             
             //check cellData
-            for index in 0...5 {
+            for index in 0...6 {
                 
                 let cellData = self.dataSource[index]
                 if !cellData.containsUserData{
@@ -498,10 +518,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             var normalDates = true
             var expired = true
             
-            if self.dataSource[3].containsUserData && self.dataSource[4].containsUserData {
+            if self.dataSource[2].containsUserData && self.dataSource[3].containsUserData {
                 
-                let startindDate =  self.dataSource[3].userData as! NSDate
-                let endingDate = self.dataSource[4].userData as! NSDate
+                let startindDate =  self.dataSource[2].userData as! NSDate
+                let endingDate = self.dataSource[3].userData as! NSDate
                 expired = FCDateFunctions.PublicationDidExpired(endingDate)
                 
                 //check if ending date is later than starting date
@@ -515,10 +535,12 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 self.publishButtonEnabled = false
             }
             
+            /*
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 8)], withRowAnimation: .Automatic)
                 
             })
+            */
         })
     }
     
@@ -652,35 +674,34 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func prepareParamsDictToSend() -> [String: AnyObject]{
         // 0.  Title
-        // 1.  Subtitle
-        // 2.  Address + latitude + longitude
-        // 3.  Start date
-        // 4.  End date
-        // 5.  Type of collection
-        // 6.  Photo
-        // 7.  Take off air button
-        // 8.  Publish button
+        // 1.  Address + latitude + longitude
+        // 2.  Start date
+        // 3.  End date
+        // 4.  Type of collection
+        // 5.  Photo
+        // 6.  Subtitle (More info)
+
         var params = [String: AnyObject]()
         params[kPublicationTitleKey] = self.dataSource[0].userData as! String
-        params[kPublicationSubTitleKey] = self.dataSource[1].userData as! String
-        let addressDict = self.dataSource[2].userData as! [String: AnyObject]
+        let addressDict = self.dataSource[1].userData as! [String: AnyObject]
         params[kPublicationAddressKey] = addressDict["adress"] as! String
         params[kPublicationlatitudeKey] = addressDict["Latitude"] as! Double
         params[kPublicationLongtitudeKey] = addressDict["longitude"] as! Double
         
-        let strtingDate = self.dataSource[3].userData as! NSDate
-        let startingDateInterval = strtingDate.timeIntervalSince1970
+        let startingDate = self.dataSource[2].userData as! NSDate
+        let startingDateInterval = startingDate.timeIntervalSince1970
         let startingDateInt: Int = Int(startingDateInterval)
         params[kPublicationStartingDateKey] = startingDateInt as Int
         
-        let endingDate = self.dataSource[4].userData as! NSDate
+        let endingDate = self.dataSource[3].userData as! NSDate
         let endingDateInterval = endingDate.timeIntervalSince1970
         let endingDateInt: Int = Int(endingDateInterval)
         params[kPublicationEndingDateKey] = endingDateInt as Int
         
-        let typeOfCollectingDict = self.dataSource[5].userData as! [String : AnyObject]
+        let typeOfCollectingDict = self.dataSource[4].userData as! [String : AnyObject]
         params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
         params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as! Int
+        params[kPublicationSubTitleKey] = self.dataSource[6].userData as! String
         
         return params
     }

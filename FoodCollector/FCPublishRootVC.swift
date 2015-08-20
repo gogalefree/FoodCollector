@@ -119,16 +119,16 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         return size
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-        publicationDetailsTVC?.title = userCreatedPublications[indexPath.item].title
-        publicationDetailsTVC?.publication = userCreatedPublications[indexPath.item]
-        
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
-        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
-        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
-        
-    }
+//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+//        publicationDetailsTVC?.title = userCreatedPublications[indexPath.item].title
+//        publicationDetailsTVC?.publication = userCreatedPublications[indexPath.item]
+//        
+//        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+//        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+//        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+//        
+//    }
     
     // Check which segue was used to go to the PublicationEditorTVC view.
     //
@@ -136,9 +136,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     // PublicationEditorTVC class we will check to see if var publication is empty or nil
     // and if it is, we will disply a new publication table.
     //
-    // If the segue identifier is "showPublicationDetailsWithEditButtonTVC" we will pass on the
+    // If the segue identifier is "showEditPublicationEditorTVC" we will pass on the
     // publication object that corresponds to the clicked cell in the collection view
-    // and display the publication's content in the FCPublicationDetailsTVC class.
+    // and display the publication's content in the PublicationEditorTVC class.
 
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
       
@@ -147,18 +147,16 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
 //            publicationDetailsWithEditButtonTVC.publication = userCreatedPublications[sender.tag]
 //            publicationDetailsWithEditButtonTVC.title = userCreatedPublications[sender.tag].title
 //            
-//            publicationDetailsWithEditButtonTVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
-//        }
-//        else
-        if (segue.identifier == "showNewPublicationEditorTVC") {
+        if (segue.identifier == "showEditPublicationEditorTVC") {
+            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
+            publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
+        }
+        else if (segue.identifier == "showNewPublicationEditorTVC") {
             let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
             publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
         }
     }
     
-//    func dismissDetailVC() {
-//        self.dismissViewControllerAnimated(true, completion: nil)
-//    }
     
     func newUserCreatedPublication() {
         
