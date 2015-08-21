@@ -12,6 +12,10 @@ class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!
     
+    let digits = "0123456789"
+    var onlyDigitsPhoneString = ""
+    var isPhoneNumberValid = false
+    
     var cellData: PublicationEditorTVCCellData? {
         
         didSet {

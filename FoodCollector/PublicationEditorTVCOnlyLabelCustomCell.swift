@@ -15,10 +15,6 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
     
     var cellState = CellState.Display
     
-    // Use [label sizeToFit]; to adjust the text in UILabel
-    // run this on main thread using dispatch_async(dispatch_get_main_queue...
-    
-    
     var cellData: PublicationEditorTVCCellData? {
         
         didSet {
@@ -37,7 +33,6 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
                     txtField.text = cellData.userData as! String
                     self.addSubview(txtField)
                 }
-                
             }
         }
     }

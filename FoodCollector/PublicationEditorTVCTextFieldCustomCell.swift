@@ -28,14 +28,18 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        //cellTextField.delegate = self
+        cellTextField.delegate = self
     }
     
-//    override func setSelected(selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        cellTextField.resignFirstResponder()
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -51,6 +55,7 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+        println("@@@@@@@@  textFieldDidEndEditing()")
         if !cellTextField.text!.isEmpty {
             cellData!.cellTitle = textField.text
             cellData!.userData = textField.text

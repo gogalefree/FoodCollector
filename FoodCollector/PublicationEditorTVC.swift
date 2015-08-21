@@ -141,7 +141,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+//===========================================================================
+//   MARK: - TableView Functions
+//===========================================================================
+
     
     // Sections and Cells outline:
     // ----------------------------------------------------
@@ -311,15 +314,16 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.view.endEditing(true)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         
-        //if the publication is on air, user can not edit untill they take it off air
-        if self.publication?.isOnAir == true && self.state == .EditPublication && indexPath.section != 7{
-            presentCanNotEditOnAirPublicationAlert()
-            return
-        }
+//        //if the publication is on air, user can not edit untill they take it off air
+//        if self.publication?.isOnAir == true && self.state == .EditPublication && indexPath.section != 7{
+//            presentCanNotEditOnAirPublicationAlert()
+//            return
+//        }
         
         switch indexPath.section {
             
@@ -411,11 +415,16 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         }
         
         tableView.reloadSections(NSIndexSet(index: section), withRowAnimation: .Automatic)
+        
+        checkIfReadyForPublish()
     }
 
-    /*
-    // MARK: - Navigation
 
+//===========================================================================
+//   MARK: - Navigation Functions
+//===========================================================================
+
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
@@ -430,6 +439,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         let section = selectedIndexPath!.section
         self.dataSource[section] = cellData
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+        checkIfReadyForPublish()
     }
     
     func popViewController() {
@@ -440,14 +450,19 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: kPublishtopRightBarButtonSaveTitle, style: UIBarButtonItemStyle.Done,
             target: self, action: "publish")
+        println("------> button status: " + self.navigationItem.rightBarButtonItem!.enabled.description)
         setTopRightButtonStatus()
     }
     
     func setTopRightButtonStatus(){
-        self.navigationItem.rightBarButtonItem?.enabled = publishButtonEnabled
+        println("---> setTopRightButtonStatus: " + publishButtonEnabled.description)
+        self.navigationItem.rightBarButtonItem!.enabled = publishButtonEnabled
     }
     
-    //MARK: - TakeOffAir and Publish buttons logic
+
+//===========================================================================
+//   MARK: - TakeOffAir and Publish buttons logic
+//===========================================================================
     
     private func shouldEnableTakeOfAirButton() {
         
@@ -500,14 +515,18 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     private func checkIfReadyForPublish(){
         
+        println("@@@@@@@@  checkIfReadyForPublish()")
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
             var containsData = true
             
             //check cellData
-            for index in 0...6 {
+            // Photo and More Info (index 5 & 6) are optional. containsUserData can be false when publishing.
+            for index in 0...4 {
                 
                 let cellData = self.dataSource[index]
+                println("@@@@@@@@  checkIfReadyForPublish: " + cellData.cellTitle + " -> status: " + cellData.containsUserData.description)
                 if !cellData.containsUserData{
                     containsData = false
                     break
@@ -535,12 +554,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 self.publishButtonEnabled = false
             }
             
-            /*
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 8)], withRowAnimation: .Automatic)
-                
-            })
-            */
+            self.setTopRightButtonStatus()
         })
     }
     
@@ -744,11 +758,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 
 
 
+//===========================================================================
+//   MARK: - Prepare Cell Data
+//===========================================================================
 extension  PublicationEditorTVC {
-    //===========================================================================
-    //MARK: - prepare cell data
-    //===========================================================================
-    
+
     func prepareDataSource() {
         // Sections Index
         // 0.  Title
@@ -880,6 +894,9 @@ extension  PublicationEditorTVC {
     }
 }
 
+//===========================================================================
+//   MARK: - Image Functions
+//===========================================================================
 extension PublicationEditorTVC {
     
     func presentImagePickerActionSheet() {
@@ -938,6 +955,19 @@ extension PublicationEditorTVC {
     
 }
 
+////===========================================================================
+////   MARK: - Misc Functions
+////===========================================================================
+//
+//extension PublicationEditorTVC {
+//    func getTypeOfCollectingDict(#typeOfCollecting: Int, contactDetails: String) -> [String : AnyObject] {
+//        return  [kPublicationTypeOfCollectingKey : typeOfCollecting , kPublicationContactInfoKey : contactDetails]
+//    }
+//}
+
+//===========================================================================
+//   MARK: - Protocols
+//===========================================================================
 protocol CellInfoDelegate {
     func updateData(data:PublicationEditorTVCCellData, section: Int)
 }

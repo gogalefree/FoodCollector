@@ -18,14 +18,22 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
         
     @IBAction func contactPubliserSwitchAction(sender: UISwitch) {
         var typeOfCollecting = 1
+        let contactDetails = (cellData!.userData as! NSDictionary).objectForKey(kPublicationContactInfoKey)! as! String
+        cellData!.containsUserData = true
+        
         
         if (sender.on == true) {
             typeOfCollecting = 2
+            if (contactDetails.isEmpty) {
+                cellData!.containsUserData = false
+            }
         }
         
-        let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : typeOfCollecting , kPublicationContactInfoKey : (cellData!.userData as! NSDictionary).objectForKey(kPublicationContactInfoKey)!]
+        println("------>>> contactPubliserSwitchAction: \(typeOfCollecting), No.: \(contactDetails)")
+        
+        let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : typeOfCollecting , kPublicationContactInfoKey : contactDetails]
         cellData!.userData = typeOfCollectingDict
-        cellData!.containsUserData = true
+        
         
         if let delegate = self.delegate {
             delegate.updateData(cellData!, section: section!)
@@ -66,11 +74,5 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    /*
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.cellLabel.text = ""
-    }
-    */
-    
+       
 }
