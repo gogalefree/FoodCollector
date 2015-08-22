@@ -222,6 +222,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        // Returning an epty custom view o get full transperacy.
         let sectionView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
         return sectionView
         
@@ -611,7 +612,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 params[kPublicationUniqueIdKey] = uniqueID
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
-                publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                publication.photoData.photo = self.dataSource[5].userData as? UIImage
                 /*
                 if publication.photoData.photo != nil {
                 //send the photo
@@ -656,7 +657,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 params[kPublicationUniqueIdKey] = self.publication!.uniqueId
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
-                publication.photoData.photo = self.dataSource[6].userData as? UIImage
+                publication.photoData.photo = self.dataSource[5].userData as? UIImage
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     

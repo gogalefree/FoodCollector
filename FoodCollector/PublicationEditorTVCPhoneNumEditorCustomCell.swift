@@ -39,11 +39,14 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     var isPhoneNumberValid = false
     var onlyDigitsPhoneString = ""
+    var tempPasteString = ""
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        cellPhoneField.delegate = self
         createNumberPadAccessoryViewToolbar()
+        
         
     }
     
@@ -182,15 +185,41 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
         
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
-        
-        //self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        textField.text = getOnlyDigitsNumber(string)
-        //cellPhoneField.reloadInputViews()
-        return false
+    override func paste(sender: AnyObject?) {
+        println("Paste!!!!!!!!!!!")
+        let pasteboard = UIPasteboard.generalPasteboard()
+        if let tempPasteString = pasteboard.string {
+            cellPhoneField.text = getOnlyDigitsNumber(tempPasteString)
+            cellPhoneField.resignFirstResponder()
+            doneNumberPad()
+        }
+        //cellPhoneField.text = getOnlyDigitsNumber(pasteboard.string!)
     }
+    
+    // Catch the string value and store in a temp var when the user pasted a string fomr clipboard.
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        // When typing into the text field each keyboard type adds 1 character.
+        // When pasting into the text field it is usually more than one character.
+        if (count(string) < 2) { // Regular typing action
+            return true
+        }
+        else { // Paste action
+            cellPhoneField.text = getOnlyDigitsNumber(string)
+            cellPhoneField.resignFirstResponder()
+            doneNumberPad()
+        }
+        
+        return true
+    }
+    
+//    func textFieldDidEndEditing(textField: UITextField) {
+//        //textField.text = getOnlyDigitsNumber(tempPasteString)
+//        //cellPhoneField.reloadInputViews()
+//        doneNumberPad()
+//    }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
