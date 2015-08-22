@@ -17,6 +17,7 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
         didSet {
             if let cellTextField = self.cellData {
                 self.cellTextField.text = cellData!.cellTitle
+                self.cellTextField.placeholder = cellData!.cellTitle
             }
         }
     }

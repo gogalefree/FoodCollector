@@ -281,7 +281,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
             isPhoneLengthCorrect = false
         }
         
-        // If phone lenght is OK and area code is OK return true
+        // If phone lenght is OK and area code is OK set isPhoneNumberValid as true
         if isPhoneLengthCorrect && isAreaCodeCorrect {
             isPhoneNumberValid = true
         }

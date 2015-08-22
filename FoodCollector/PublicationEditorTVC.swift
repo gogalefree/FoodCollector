@@ -72,7 +72,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     var showStartDatePickerCell = false
     var showEndDatePickerCell = false
     var contactPublisherSelected = true // For new publication it sets the default value of the contact publisher data and switch state. It also, reflects the state of the switch in contact publisher row.
-    
+
     func setupWithState(initialState: PublicationEditorTVCState, publication: FCPublication?) {
         // This function is executed before viewDidLoad()
         self.state = initialState
@@ -171,12 +171,12 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     // Section 6 - More Detials
     //    Cell 0 - Text field
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 7
     }
     
-    final override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0, 2, 5:
             return 30
@@ -218,6 +218,13 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         default:
             return defaultRowHeigt
         }
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let sectionView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
+        return sectionView
+        
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -517,7 +524,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         
         println("@@@@@@@@  checkIfReadyForPublish()")
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
             var containsData = true
             
@@ -555,7 +562,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             }
             
             self.setTopRightButtonStatus()
-        })
+        //})
     }
     
     func publish() {
@@ -754,8 +761,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         }
     }
 
-}
+    
+    
 
+}
 
 
 //===========================================================================

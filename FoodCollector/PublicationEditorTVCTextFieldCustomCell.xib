@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,12 +14,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-6w-I38">
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-6w-I38">
                         <rect key="frame" x="8" y="7" width="297" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                     </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="iq1-6w-I38" secondAttribute="trailing" constant="7" id="G8p-4q-2SX"/>
+                    <constraint firstItem="iq1-6w-I38" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="gDJ-d9-hxE"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="iq1-6w-I38" secondAttribute="bottom" constant="-1.5" id="uhZ-B3-qP2"/>
+                    <constraint firstItem="iq1-6w-I38" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="uiC-Fb-sW7"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellTextField" destination="iq1-6w-I38" id="1eH-f2-wNJ"/>
