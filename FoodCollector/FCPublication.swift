@@ -146,8 +146,6 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeBool(self.didModifyCoords, forKey: kDidModifyCoordinatesKey)
         aCoder.encodeInteger(self.countOfRegisteredUsers, forKey: kPublicationCountOfRegisteredUsersKey)
         
-
-    
         var reportsMessageArray = [Int]()
         var reportsDateArray = [Int]()
         

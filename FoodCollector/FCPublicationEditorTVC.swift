@@ -318,6 +318,8 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
     
     func addActivityIndicator() {
+        
+        self.tableView.userInteractionEnabled = false
         self.activityIndicatorBlureView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150))
         let offset = self.tableView.contentOffset.y
@@ -337,7 +339,6 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.view.addSubview(self.activityIndicatorBlureView)
         self.view.bringSubviewToFront(self.activityIndicatorBlureView)
         self.activityIndicatorBlureView.animateToAlphaWithSpring(0.6, alpha: 1)
-        self.tableView.userInteractionEnabled = false
 
     }
     

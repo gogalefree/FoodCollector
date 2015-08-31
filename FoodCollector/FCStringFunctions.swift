@@ -34,8 +34,6 @@ class FCStringFunctions : NSObject {
 
 }
 
-
-
 extension FCStringFunctions {
     
     
