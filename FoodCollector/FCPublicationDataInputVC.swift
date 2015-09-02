@@ -14,7 +14,7 @@ protocol FCPublicationDataInputDelegate {
     func didPickSubtitle(subtitle:String)
     func didPickDate(date:NSDate)
     func didPickTitle(title:String)
-    func didPickTypeOfCollection(typeOfCollection: FCTypeOfCollecting ,withContactInfo contactinfo:String)
+    func didPickTypeOfCollection(typeOfCollection: TypeOfCollecting ,withContactInfo contactinfo:String)
     func didPickAddress(address:String,withLocation coordinates:CLLocationCoordinate2D)
 }
 

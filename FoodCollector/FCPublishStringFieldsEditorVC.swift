@@ -17,7 +17,7 @@ class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITex
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var textView: UITextView!
     
-    var celldata = FCPublicationEditorTVCCellData()
+    var celldata = PublicationEditorTVCCellData()
     
     enum DisplayState: Int {
         case textField = 0

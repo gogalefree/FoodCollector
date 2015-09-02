@@ -21,7 +21,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var collectionTypePicker: UIPickerView!
     
-    var cellData = FCPublicationEditorTVCCellData()
+    var cellData = PublicationEditorTVCCellData()
     let digits = "0123456789"
     var onlyDigitsPhoneString = ""
     var isPhoneNumberValid = false
@@ -47,8 +47,8 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
           
             let typeOfCollectingDict = cellData.userData as! [String : AnyObject]
             let aRawValue = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as! Int
-            let typeOfcollecting = FCTypeOfCollecting(rawValue: aRawValue)
-            if typeOfcollecting == FCTypeOfCollecting.ContactPublisher {
+            let typeOfcollecting = TypeOfCollecting(rawValue: aRawValue)
+            if typeOfcollecting == TypeOfCollecting.ContactPublisher {
                 
                 let phoneNumber = typeOfCollectingDict[kPublicationContactInfoKey] as! String
                 self.textField.text = phoneNumber
@@ -67,7 +67,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         
         let unwindSegueId = "unwindFromTypeOfCollectionEditorVC"
         let userChosenTypeOfCollectin = self.collectionTypePicker.selectedRowInComponent(0) + 1
-        let typeOfCollecting = FCTypeOfCollecting(rawValue: userChosenTypeOfCollectin)!
+        let typeOfCollecting = TypeOfCollecting(rawValue: userChosenTypeOfCollectin)!
         var contactInfo = ""
         if userChosenTypeOfCollectin == 1 {contactInfo = "no"}
         else {
@@ -281,7 +281,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
             isPhoneLengthCorrect = false
         }
         
-        // If phone lenght is OK and area code is OK return true
+        // If phone lenght is OK and area code is OK set isPhoneNumberValid as true
         if isPhoneLengthCorrect && isAreaCodeCorrect {
             isPhoneNumberValid = true
         }

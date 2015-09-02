@@ -61,7 +61,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var title:String
     public var subtitle:String?
     public var address:String
-    public var typeOfCollecting: FCTypeOfCollecting
+    public var typeOfCollecting: TypeOfCollecting
     public var coordinate:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     public var startingDate:NSDate
     public var endingDate:NSDate
@@ -103,7 +103,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     public init(coordinates: CLLocationCoordinate2D,
         theTitle: String, endingDate: NSDate,
-        typeOfCollecting: FCTypeOfCollecting, startingDate: NSDate,
+        typeOfCollecting: TypeOfCollecting, startingDate: NSDate,
         uniqueId: Int, address: String,
         contactInfo: String?, subTitle: String?, version: Int) {
             
@@ -165,7 +165,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.title = aDecoder.decodeObjectForKey(kPublicationTitleKey) as! String
         self.subtitle = aDecoder.decodeObjectForKey(kPublicationSubTitleKey) as? String
         self.address = aDecoder.decodeObjectForKey(kPublicationAddressKey) as! String
-        self.typeOfCollecting = FCTypeOfCollecting(rawValue: aDecoder.decodeIntegerForKey(kPublicationTypeOfCollectingKey))!
+        self.typeOfCollecting = TypeOfCollecting(rawValue: aDecoder.decodeIntegerForKey(kPublicationTypeOfCollectingKey))!
         
         let latitude = aDecoder.decodeDoubleForKey(kPublicationlatitudeKey)
         let longtitude = aDecoder.decodeDoubleForKey(kPublicationLongtitudeKey)
@@ -223,7 +223,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aTitle = params[kPublicationTitleKey] as! String
         let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
         let anAddress = params[kPublicationAddressKey] as? String ?? ""
-        let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey] as! Int)
+        let aTypeOfCollecting = TypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey] as! Int)
         let aLatitude =  (params[kPublicationlatitudeKey] as! NSString).doubleValue
         let aLongtitude = (params[kPublicationLongtitudeKey] as! NSString).doubleValue
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
@@ -247,7 +247,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aTitle = params[kPublicationTitleKey] as! String
         let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
         let anAddress = params[kPublicationAddressKey] as? String ?? ""
-        let aTypeOfCollecting = FCTypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey] as! Int)
+        let aTypeOfCollecting = TypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey] as! Int)
         let aLatitude =  params[kPublicationlatitudeKey] as! Double
         let aLongtitude = params[kPublicationLongtitudeKey] as! Double
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)

@@ -119,27 +119,44 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         return size
     }
     
-    // Check which segue was used to go to the FCPublicationEditorTVC view.
+//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+//        publicationDetailsTVC?.title = userCreatedPublications[indexPath.item].title
+//        publicationDetailsTVC?.publication = userCreatedPublications[indexPath.item]
+//        
+//        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+//        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+//        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+//        
+//    }
+    
+    // Check which segue was used to go to the PublicationEditorTVC view.
     //
     // If the segue identifier is "showNewPublicationEditorTVC" - do nothing. In the
-    // FCPublicationEditorTVC class we will check to see if var publication is empty or nil
+    // PublicationEditorTVC class we will check to see if var publication is empty or nil
     // and if it is, we will disply a new publication table.
     //
     // If the segue identifier is "showEditPublicationEditorTVC" we will pass on the
     // publication object that corresponds to the clicked cell in the collection view
-    // and display the publication's content in the FCPublicationEditorTVC class.
+    // and display the publication's content in the PublicationEditorTVC class.
 
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
       
+//        if (segue.identifier == "showPublicationDetailsWithEditButtonTVC") {
+//            let publicationDetailsWithEditButtonTVC = segue!.destinationViewController as! FCPublicationDetailsTVC
+//            publicationDetailsWithEditButtonTVC.publication = userCreatedPublications[sender.tag]
+//            publicationDetailsWithEditButtonTVC.title = userCreatedPublications[sender.tag].title
+//            
         if (segue.identifier == "showEditPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as! FCPublicationEditorTVC
+            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
             publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
         }
         else if (segue.identifier == "showNewPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as! FCPublicationEditorTVC
+            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
             publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
         }
     }
+    
     
     func newUserCreatedPublication() {
         
@@ -155,7 +172,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     @IBAction func unwindWithDeletePublication(segue: UIStoryboardSegue) {
     
         //if the state is not .Edit new the user cant delete
-        let publicationEditorTVC = segue.sourceViewController as! FCPublicationEditorTVC
+        let publicationEditorTVC = segue.sourceViewController as! PublicationEditorTVC
         if publicationEditorTVC.state != .EditPublication {return}
         
         let pubicationToDelete = publicationEditorTVC.publication!

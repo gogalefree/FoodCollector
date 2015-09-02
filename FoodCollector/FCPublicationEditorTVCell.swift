@@ -17,7 +17,7 @@ class FCPublicationEditorTVCell: UITableViewCell {
     var shouldEnableTakeOffAirButton = false
     var shouldEnablePublishButton = false
     
-    var cellData: FCPublicationEditorTVCCellData? {
+    var cellData: PublicationEditorTVCCellData? {
        
         didSet {
             

@@ -14,7 +14,7 @@ class FCPublishDateEditorVC: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    var cellData = FCPublicationEditorTVCCellData()
+    var cellData = PublicationEditorTVCCellData()
     
     enum PickerState: Int {
         //values are in corelation with FCPublicationEditorTVC sections
@@ -45,10 +45,11 @@ class FCPublishDateEditorVC: UIViewController {
         let date = self.datePicker.date
         self.cellData.containsUserData = true
         self.cellData.userData = date
-        let celltitle = self.defineCellTitle()
+        let celltitle = "" //self.defineCellTitle()
         self.cellData.cellTitle = celltitle
     }
     
+    /*
     func defineCellTitle() -> String {
         
         var title = ""
@@ -58,13 +59,14 @@ class FCPublishDateEditorVC: UIViewController {
         
         switch self.state {
         case .StartingDate:
-            prefix = kPublishStartDatePrefix
+            prefix = kPublishStartDate
         case .EndnigDate:
-            prefix = kPublishEndDatePrefix
+            prefix = kPublishEndDate
         }
         title = "\(prefix) \(dateString)   \(timeString)"
         return title
     }
+    */
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

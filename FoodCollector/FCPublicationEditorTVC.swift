@@ -12,32 +12,33 @@ import UIKit
 import CoreLocation
 
 // String constants for Publish table titles
-let kPublishTitle = String.localizedStringWithFormat("הוספת שם מוצר", "Add title for a new event")
-let kPublishSubtitle = String.localizedStringWithFormat("הוספת תיאור", "Add subitle for a new event")
-let kPublishAddress = String.localizedStringWithFormat("הוספת כתובת", "Add address for a new event")
-let kPublishTypeOfCollection = String.localizedStringWithFormat("הוספת סגנון איסוף", "Select Type Of Collection for a new event")
-let kPublishStartDate = String.localizedStringWithFormat("הוספת תאריך התחלה", "Add start date for a new event")
-let kPublishEndDate = String.localizedStringWithFormat("הוספת תאריך סיום", "Add ebd date for a new event")
-let kPublishImage = String.localizedStringWithFormat("הוספת תמונה", "Add image for a new event")
-let kPublishPublishButtonLabel = String.localizedStringWithFormat("פרסום", "Publish button to publish a new event")
-let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסרת פרסום", "Take Off Air button to immediately stop publication of an exciting active event")
-let kPublishStartDatePrefix = String.localizedStringWithFormat("התחלה:  ", "Start date label for displaying an exciting start date event")
-let kPublishEndDatePrefix = String.localizedStringWithFormat("סיום: ", "End date label for displaying an exciting end date event")
+//let kPublishTitle = String.localizedStringWithFormat("הוספת שם מוצר", "Add title for a new event")
+//let kPublishSubtitle = String.localizedStringWithFormat("הוספת תיאור", "Add subitle for a new event")
+//let kPublishAddress = String.localizedStringWithFormat("הוספת כתובת", "Add address for a new event")
+//let kPublishTypeOfCollection = String.localizedStringWithFormat("הוספת סגנון איסוף", "Select Type Of Collection for a new event")
+//let kPublishStartDate = String.localizedStringWithFormat("הוספת תאריך התחלה", "Add start date for a new event")
+//let kPublishEndDate = String.localizedStringWithFormat("הוספת תאריך סיום", "Add ebd date for a new event")
+//let kPublishImage = String.localizedStringWithFormat("הוספת תמונה", "Add image for a new event")
+//let kPublishPublishButtonLabel = String.localizedStringWithFormat("פרסום", "Publish button to publish a new event")
+//let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסרת פרסום", "Take Off Air button to immediately stop publication of an exciting active event")
+//let kPublishStartDatePrefix = String.localizedStringWithFormat("התחלה:  ", "Start date label for displaying an exciting start date event")
+//let kPublishEndDatePrefix = String.localizedStringWithFormat("סיום: ", "End date label for displaying an exciting end date event")
+//
+//let kSeperatHeaderHeight = CGFloat(30.0)
+//
+//let kAddDefaultHoursToStartDate:Double = 24 // Amount of hours to add to the start date so that we will have an End date for new publication only!
+//let kTimeIntervalInSecondsToEndDate = kAddDefaultHoursToStartDate * 60.0 * 60.0 // Hours * 60 Minutes * 60 seconds
 
-let kSeperatHeaderHeight = CGFloat(30.0)
 
-let kAddDefaultHoursToStartDate:Double = 24 // Amount of hours to add to the start date so that we will have an End date for new publication only!
-let kTimeIntervalInSecondsToEndDate = kAddDefaultHoursToStartDate * 60.0 * 60.0 // Hours * 60 Minutes * 60 seconds
-
-
-
+/*
 struct FCPublicationEditorTVCCellData {
     
     var containsUserData:Bool = false
     var cellTitle:String = ""
     var userData:AnyObject = ""
 }
-
+*/
+/*
 enum FCPublicationEditorTVCState {
     
     case EditPublication
@@ -45,31 +46,34 @@ enum FCPublicationEditorTVCState {
     case ActivityCenter
     
 }
-
+*/
+/*
 public enum FCTypeOfCollecting: Int {
     
     case FreePickUp = 1
     case ContactPublisher = 2
     
 }
+*/
+
 
 class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var publication:FCPublication?
-    var state = FCPublicationEditorTVCState.CreateNewPublication
-    var dataSource = [FCPublicationEditorTVCCellData]()
+    var state = PublicationEditorTVCState.CreateNewPublication
+    var dataSource = [PublicationEditorTVCCellData]()
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
     var selectedIndexPath: NSIndexPath?
     var takeOffAirButtonEnabled = false
     var publishButtonEnabled = false
     lazy var activityIndicatorBlureView = UIVisualEffectView()
     
-    func setupWithState(initialState: FCPublicationEditorTVCState, publication: FCPublication?) {
+    func setupWithState(initialState: PublicationEditorTVCState, publication: FCPublication?) {
         self.state = initialState
         self.publication = publication
-        prepareDataSource()
+        //prepareDataSource()
         if self.state != .CreateNewPublication {
             self.fetchPhotoIfNeeded()
         }
@@ -162,8 +166,8 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
             self.performSegueWithIdentifier("showPublicationDateEditor", sender: indexPath.row)
         case 5: // Type of collection
             self.performSegueWithIdentifier("showPublicationTypeOfCollectionEditor", sender: nil)
-        case 6: // Image picker
-            self.presentImagePickerActionSheet()
+        //case 6: // Image picker
+            //self.presentImagePickerActionSheet()
         case 7: // Take off-air
             takeOffAir()
             shouldEnableTakeOfAirButton()
@@ -202,6 +206,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
     
+    /*
     @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
         let sourceVC = segue.sourceViewController as! FCPublishAddressEditorVC
         let cellData = sourceVC.cellData
@@ -209,14 +214,15 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         self.dataSource[section] = cellData
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
     }
-    
+    */
+
     //MARK: - TakeOffAir and Publish buttons logic
     
     private func shouldEnableTakeOfAirButton() {
         
         switch self.state {
             
-        case .EditPublication , .ActivityCenter:
+        case .EditPublication /*, .ActivityCenter*/:
             self.takeOffAirButtonEnabled = self.publication!.isOnAir
             
         default:
@@ -312,7 +318,7 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
         switch self.state {
         case .CreateNewPublication:
             publishNewCreatedPublication()
-        case .EditPublication , .ActivityCenter:
+        case .EditPublication /*, .ActivityCenter*/:
             publishEdidtedPublication()
         }
     }
@@ -404,9 +410,9 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
                     if self.state == .EditPublication{
                         self.navigationController?.popViewControllerAnimated(true)
                     }
-                    else if self.state == .ActivityCenter {
-                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-                    }
+//                    else if self.state == .ActivityCenter {
+//                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//                    }
                     
                     FCModel.sharedInstance.addPublication(publication)
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
@@ -536,211 +542,211 @@ class FCPublicationEditorTVC : UITableViewController, UIImagePickerControllerDel
     }
 }
 
-extension  FCPublicationEditorTVC {
-    //===========================================================================
-    //MARK: - prepare cell data
-    //===========================================================================
-    
-    func prepareDataSource() {
-        // Each section represents a cell
-        // 0.  Title
-        // 1.  Subtitle
-        // 2.  Address + latitude + longitude
-        // 3.  Start date
-        // 4.  End date
-        // 5.  Type of collection
-        // 6.  Photo
-        // 7.  Take off air button
-        // 8.  Publish button
-        
-        var initialTitles = [kPublishTitle, kPublishSubtitle, kPublishAddress, kPublishStartDate, kPublishEndDate,
-            kPublishTypeOfCollection, kPublishImage, kPublishTakeOffAirButtonLabel, kPublishPublishButtonLabel]
-        
-        for index in 0...8 {
-            
-            var cellData = FCPublicationEditorTVCCellData()
-            cellData.cellTitle = initialTitles[index]
-            
-            if self.state == .EditPublication || self.state == .ActivityCenter{
-                
-                if let publication = self.publication {
-                  
-                    switch index {
-                        
-                    case 0:
-                        //publication title
-                        cellData.userData = publication.title
-                        cellData.containsUserData = true
-                        cellData.cellTitle = publication.title
-                        
-                    case 1:
-                        //publication subTitle
-                        cellData.userData = publication.subtitle ?? ""
-                        cellData.containsUserData = true
-                        cellData.cellTitle = publication.subtitle ?? kPublishSubtitle
-                        
-                    case 2:
-                        //publication address
-                        var addressDict: [String: AnyObject] = ["adress":publication.address ,"Latitude":publication.coordinate.latitude, "longitude" : publication.coordinate.longitude]
-                        cellData.userData = addressDict
-                        cellData.containsUserData = true
-                        cellData.cellTitle = publication.address
-                        
-                    case 3:
-                        //publication starting date
-                        cellData.userData = publication.startingDate
-                        cellData.containsUserData = true
-                        let dateString = FCDateFunctions.localizedDateStringShortStyle(publication.startingDate)
-                        let timeString = FCDateFunctions.timeStringEuroStyle(publication.startingDate)
-                        let prefix = kPublishStartDatePrefix
-                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
-                        cellData.cellTitle = cellTitle
-                        
-                    case 4:
-                        //publication ending date
-                        cellData.userData = publication.endingDate
-                        cellData.containsUserData = true
-                        let dateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
-
-                        let timeString = FCDateFunctions.timeStringEuroStyle(publication.endingDate)
-                        let prefix = kPublishEndDatePrefix
-                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
-                        cellData.cellTitle = cellTitle
-                        
-                    case 5:
-                        //publication type of collecting
-                        var contactInfo = publication.contactInfo ?? ""
-                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : publication.typeOfCollecting.rawValue , kPublicationContactInfoKey : contactInfo]
-                        
-                        cellData.userData = typeOfCollectingDict
-                        cellData.containsUserData = true
-                        var cellTitle = ""
-                        switch publication.typeOfCollecting {
-                        case .FreePickUp:
-                            cellTitle = kTypeOfCollectingFreePickUpTitle
-                        case .ContactPublisher:
-                            let callString = String.localizedStringWithFormat("קשר טלפוני: ", "means call to be added before a phone number")
-                            let contactInfo = publication.contactInfo ?? ""
-                            cellTitle = "\(callString) \(contactInfo)"
-                        }
-                        cellData.cellTitle = cellTitle
-                        
-                    case 6:
-                        //publication photo
-                        if let photo = publication.photoData.photo {
-                            
-                            cellData.userData = photo
-                            cellData.containsUserData = true
-                        }
-                        
-                    case 7 , 8:
-                        //take off air button
-                        //publish button
-                        cellData.containsUserData = true
-                        
-                    default:
-                        break
-                    }
-                    
-                }
-            }
-            else { // Create defaults for new empty publication
-                println(">>> Create defaults for new empty publication")
-                
-                switch index {
-                        
-                    case 3:
-                        //publication starting date
-                        cellData.userData = NSDate()
-                        cellData.containsUserData = true
-                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
-                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
-                        let prefix = kPublishStartDatePrefix
-                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
-                        cellData.cellTitle = cellTitle
-                        
-                    case 4:
-                        //publication ending date
-                        cellData.userData = NSDate().dateByAddingTimeInterval(kTimeIntervalInSecondsToEndDate)
-                        cellData.containsUserData = true
-                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
-                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
-                        let prefix = kPublishEndDatePrefix
-                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
-                        cellData.cellTitle = cellTitle
-                        
-                    case 5:
-                        //publication type of collecting
-                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 1 , kPublicationContactInfoKey : "no"]
-                        
-                        cellData.userData = typeOfCollectingDict
-                        cellData.containsUserData = true
-                        cellData.cellTitle = kTypeOfCollectingFreePickUpTitle
-                    case 6:
-                    //publication photo
-                        //cellData.userData = ""
-                        cellData.containsUserData = true
-
-                    default:
-                        break
-                    }
-            }
-            self.dataSource.append(cellData)
-        }
-    }
-}
-
-extension FCPublicationEditorTVC {
-    
-    func presentImagePickerActionSheet() {
-    
-        let actionSheet = UIAlertController(title: "", message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
-        
-        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("ביטול", "alert dissmiss button title"), style: .Cancel) { (action) in
-            actionSheet.dismissViewControllerAnimated(true , completion: nil)
-        }
-        
-        let cameraAction = UIAlertAction(title:String.localizedStringWithFormat("מצלמה", "camera button title "), style: UIAlertActionStyle.Default) { (action) in
-            self.presentImagePickerController(.Camera)
-            actionSheet.dismissViewControllerAnimated(true , completion: nil)
-        }
-        
-        let photoLibraryAction = UIAlertAction(title:String.localizedStringWithFormat("גלריה", "photo galery button title"), style: UIAlertActionStyle.Default) { (action) in
-            self.presentImagePickerController(.PhotoLibrary)
-            actionSheet.dismissViewControllerAnimated(true , completion: nil)
-        }
-        
-        actionSheet.addAction(cameraAction)
-        actionSheet.addAction(photoLibraryAction)
-        actionSheet.addAction(dissmissAction)
-        
-        self.presentViewController(actionSheet, animated: true, completion: nil)
-    }
-    
-    func presentImagePickerController (source: UIImagePickerControllerSourceType) {
-        imagePicker.sourceType = source
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        self.presentViewController(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-        var myInfo = info
-        if info[UIImagePickerControllerEditedImage] != nil {
-            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-            self.updateCellDataWithImage(image)
-        }
-    }
-    
-    func updateCellDataWithImage(anImage: UIImage) {
-        //update data source
-        var cellData = FCPublicationEditorTVCCellData()
-        cellData.containsUserData = true
-        cellData.userData = anImage
-        let section = self.selectedIndexPath!.section
-        self.dataSource[section] = cellData
-        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
-    }
-}
+//extension  FCPublicationEditorTVC {
+//    //===========================================================================
+//    //MARK: - prepare cell data
+//    //===========================================================================
+//    
+//    func prepareDataSource() {
+//        // Each section represents a cell
+//        // 0.  Title
+//        // 1.  Subtitle
+//        // 2.  Address + latitude + longitude
+//        // 3.  Start date
+//        // 4.  End date
+//        // 5.  Type of collection
+//        // 6.  Photo
+//        // 7.  Take off air button
+//        // 8.  Publish button
+//        
+//        var initialTitles = [kPublishTitle, kPublishSubtitle, kPublishAddress, kPublishStartDate, kPublishEndDate,
+//            kPublishTypeOfCollection, kPublishImage, kPublishTakeOffAirButtonLabel, kPublishPublishButtonLabel]
+//        
+//        for index in 0...8 {
+//            
+//            var cellData = FCPublicationEditorTVCCellData()
+//            cellData.cellTitle = initialTitles[index]
+//            
+//            if self.state == .EditPublication || self.state == .ActivityCenter{
+//                
+//                if let publication = self.publication {
+//                  
+//                    switch index {
+//                        
+//                    case 0:
+//                        //publication title
+//                        cellData.userData = publication.title
+//                        cellData.containsUserData = true
+//                        cellData.cellTitle = publication.title
+//                        
+//                    case 1:
+//                        //publication subTitle
+//                        cellData.userData = publication.subtitle ?? ""
+//                        cellData.containsUserData = true
+//                        cellData.cellTitle = publication.subtitle ?? kPublishSubtitle
+//                        
+//                    case 2:
+//                        //publication address
+//                        var addressDict: [String: AnyObject] = ["adress":publication.address ,"Latitude":publication.coordinate.latitude, "longitude" : publication.coordinate.longitude]
+//                        cellData.userData = addressDict
+//                        cellData.containsUserData = true
+//                        cellData.cellTitle = publication.address
+//                        
+//                    case 3:
+//                        //publication starting date
+//                        cellData.userData = publication.startingDate
+//                        cellData.containsUserData = true
+//                        let dateString = FCDateFunctions.localizedDateStringShortStyle(publication.startingDate)
+//                        let timeString = FCDateFunctions.timeStringEuroStyle(publication.startingDate)
+//                        let prefix = kPublishStartDatePrefix
+//                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+//                        cellData.cellTitle = cellTitle
+//                        
+//                    case 4:
+//                        //publication ending date
+//                        cellData.userData = publication.endingDate
+//                        cellData.containsUserData = true
+//                        let dateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
+//
+//                        let timeString = FCDateFunctions.timeStringEuroStyle(publication.endingDate)
+//                        let prefix = kPublishEndDatePrefix
+//                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+//                        cellData.cellTitle = cellTitle
+//                        
+//                    case 5:
+//                        //publication type of collecting
+//                        var contactInfo = publication.contactInfo ?? ""
+//                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : publication.typeOfCollecting.rawValue , kPublicationContactInfoKey : contactInfo]
+//                        
+//                        cellData.userData = typeOfCollectingDict
+//                        cellData.containsUserData = true
+//                        var cellTitle = ""
+//                        switch publication.typeOfCollecting {
+//                        case .FreePickUp:
+//                            cellTitle = kTypeOfCollectingFreePickUpTitle
+//                        case .ContactPublisher:
+//                            let callString = String.localizedStringWithFormat("קשר טלפוני: ", "means call to be added before a phone number")
+//                            let contactInfo = publication.contactInfo ?? ""
+//                            cellTitle = "\(callString) \(contactInfo)"
+//                        }
+//                        cellData.cellTitle = cellTitle
+//                        
+//                    case 6:
+//                        //publication photo
+//                        if let photo = publication.photoData.photo {
+//                            
+//                            cellData.userData = photo
+//                            cellData.containsUserData = true
+//                        }
+//                        
+//                    case 7 , 8:
+//                        //take off air button
+//                        //publish button
+//                        cellData.containsUserData = true
+//                        
+//                    default:
+//                        break
+//                    }
+//                    
+//                }
+//            }
+//            else { // Create defaults for new empty publication
+//                println(">>> Create defaults for new empty publication")
+//                
+//                switch index {
+//                        
+//                    case 3:
+//                        //publication starting date
+//                        cellData.userData = NSDate()
+//                        cellData.containsUserData = true
+//                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
+//                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
+//                        let prefix = kPublishStartDatePrefix
+//                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+//                        cellData.cellTitle = cellTitle
+//                        
+//                    case 4:
+//                        //publication ending date
+//                        cellData.userData = NSDate().dateByAddingTimeInterval(kTimeIntervalInSecondsToEndDate)
+//                        cellData.containsUserData = true
+//                        let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
+//                        let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
+//                        let prefix = kPublishEndDatePrefix
+//                        let cellTitle = "\(prefix) \(dateString)   \(timeString)"
+//                        cellData.cellTitle = cellTitle
+//                        
+//                    case 5:
+//                        //publication type of collecting
+//                        var typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 1 , kPublicationContactInfoKey : "no"]
+//                        
+//                        cellData.userData = typeOfCollectingDict
+//                        cellData.containsUserData = true
+//                        cellData.cellTitle = kTypeOfCollectingFreePickUpTitle
+//                    case 6:
+//                    //publication photo
+//                        //cellData.userData = ""
+//                        cellData.containsUserData = true
+//
+//                    default:
+//                        break
+//                    }
+//            }
+//            self.dataSource.append(cellData)
+//        }
+//    }
+//}
+//
+//extension FCPublicationEditorTVC {
+//    
+//    func presentImagePickerActionSheet() {
+//    
+//        let actionSheet = UIAlertController(title: "", message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
+//        
+//        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("ביטול", "alert dissmiss button title"), style: .Cancel) { (action) in
+//            actionSheet.dismissViewControllerAnimated(true , completion: nil)
+//        }
+//        
+//        let cameraAction = UIAlertAction(title:String.localizedStringWithFormat("מצלמה", "camera button title "), style: UIAlertActionStyle.Default) { (action) in
+//            self.presentImagePickerController(.Camera)
+//            actionSheet.dismissViewControllerAnimated(true , completion: nil)
+//        }
+//        
+//        let photoLibraryAction = UIAlertAction(title:String.localizedStringWithFormat("גלריה", "photo galery button title"), style: UIAlertActionStyle.Default) { (action) in
+//            self.presentImagePickerController(.PhotoLibrary)
+//            actionSheet.dismissViewControllerAnimated(true , completion: nil)
+//        }
+//        
+//        actionSheet.addAction(cameraAction)
+//        actionSheet.addAction(photoLibraryAction)
+//        actionSheet.addAction(dissmissAction)
+//        
+//        self.presentViewController(actionSheet, animated: true, completion: nil)
+//    }
+//    
+//    func presentImagePickerController (source: UIImagePickerControllerSourceType) {
+//        imagePicker.sourceType = source
+//        imagePicker.delegate = self
+//        imagePicker.allowsEditing = true
+//        self.presentViewController(imagePicker, animated: true, completion: nil)
+//    }
+//    
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//        
+//        var myInfo = info
+//        if info[UIImagePickerControllerEditedImage] != nil {
+//            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+//            self.updateCellDataWithImage(image)
+//        }
+//    }
+//    
+//    func updateCellDataWithImage(anImage: UIImage) {
+//        //update data source
+//        var cellData = FCPublicationEditorTVCCellData()
+//        cellData.containsUserData = true
+//        cellData.userData = anImage
+//        let section = self.selectedIndexPath!.section
+//        self.dataSource[section] = cellData
+//        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+//    }
+//}
