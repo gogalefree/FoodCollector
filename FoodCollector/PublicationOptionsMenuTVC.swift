@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol PublicationDetailsOptionsMenuPopUpTVCDelegate: NSObjectProtocol{
+    func didSelectEditPublicationAction()
+    func didSelectTakOffAirPublicationAction()
+    func didSelectDeletePublicationAction()
+}
+
 class PublicationOptionsMenuTVC: UITableViewController {
+    
+    weak var delegate: PublicationDetailsOptionsMenuPopUpTVCDelegate!
     
     let kMenuItem1 = String.localizedStringWithFormat("עריכה", "Publisher top right menu item")
     let kMenuItem2 = String.localizedStringWithFormat("הפסקת שיתוף", "Publisher top right menu item")
@@ -83,51 +91,27 @@ class PublicationOptionsMenuTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         switch indexPath.row {
         case 0: // Edit publication
-            displayPublicationInEditMode()
+            self.delegate.didSelectEditPublicationAction()
         case 1 where publicationData!.isOnAir: // Take publication of air
-            takePublicationOffAir()
+            self.delegate.didSelectTakOffAirPublicationAction()
         case 1 where !publicationData!.isOnAir: // Delete publication
-            deletePublication()
+            self.delegate.didSelectDeletePublicationAction()
         case 2: // Delete publication
-            deletePublication()
+            self.delegate.didSelectDeletePublicationAction()
         default:
             break
         }
-    }
-    
-    func displayPublicationInEditMode() {
         
         //dismissPopOverVC()
-        
-        let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
-        publicationEditorTVC?.setupWithState(.EditPublication, publication: publicationData)
-        
-//        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-//        
-//        publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, publication: userCreatedPublications[indexPath.item])
-//        
-//        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
-//        
-        //let nav = UINavigationController(rootViewController: publicationEditorTVC!)
-        //self.parentViewController!.navigationController?.presentViewController(publicationEditorTVC!, animated: true, completion: nil)
-        self.parentViewController!.presentViewController(publicationEditorTVC!, animated: true, completion: nil)
     }
     
-    func takePublicationOffAir() {
-        println("===========>>>>>>>>>>>> takePublicationOffAir")
-        dismissPopOverVC()
-    }
     
-    func deletePublication() {
-        println("===========>>>>>>>>>>>> deletePublication")
-        dismissPopOverVC()
-    }
-    
-    func dismissPopOverVC() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+//    func dismissPopOverVC() {
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//    }
     
 
     /*

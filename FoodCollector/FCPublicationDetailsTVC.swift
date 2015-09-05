@@ -19,7 +19,7 @@ enum PublicationDetailsTVCViewState {
     case Collector
 }
 
-class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate {
+class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
     var publication: FCPublication?
     var state = PublicationDetailsTVCViewState.Collector
@@ -660,6 +660,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
     func presentOptionsMenuVC(){
         let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
+        optionsMenuPopUpVC.delegate = self
         optionsMenuPopUpVC.publicationData = publication
         
         optionsMenuPopUpVC.popoverPresentationController?.delegate = self
@@ -744,3 +745,32 @@ extension FCPublicationDetailsTVC {
         })
     }
 }
+
+//MARK: - PublicationDetailsOptionsMenuPopUpTVCDelegate Protocol
+
+extension FCPublicationDetailsTVC {
+    
+    func didSelectEditPublicationAction(){
+        dismiss()
+
+        let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
+        publicationEditorTVC?.setupWithState(.EditPublication, publication: publication)
+        
+        let nav = UINavigationController(rootViewController: publicationEditorTVC!)
+        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+
+    }
+    func didSelectTakOffAirPublicationAction() {
+        dismiss()
+        
+    }
+    func didSelectDeletePublicationAction() {
+        dismiss()
+        
+    }
+
+}
+
+
+
+
