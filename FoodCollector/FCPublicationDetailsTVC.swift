@@ -11,6 +11,13 @@ import MessageUI
 
 let kReportButtonTitle = String.localizedStringWithFormat("דווח", "Report title for a button")
 let kOptionsButtonTitle = String.localizedStringWithFormat("אפשרויות", "Report title for a button")
+let kTakeOffAirlertTitle = String.localizedStringWithFormat("אישור הפסקת פרסום אירוע", "Delete confirmation title for an alert controller")
+let kTakeOffAirAlertMessage = String.localizedStringWithFormat("בחרתם להפסיק את פרסום האירוע. אתם בטוחים?", "Delete confirmation message for an alert controller")
+let kDeleteAlertTitle = String.localizedStringWithFormat("אישור מחיקת אירוע", "Delete confirmation title for an alert controller")
+let kDeleteAlertMessage = String.localizedStringWithFormat("בחרתם למחוק את האירוע. זה סופי?", "Delete confirmation message for an alert controller")
+let kAlertOKButtonTitle = String.localizedStringWithFormat("כן", "OK title for an alert button")
+let kAlertCancelButtonTitle = String.localizedStringWithFormat("לא", "Cancel title for an alert button")
+
 
 
 enum PublicationDetailsTVCViewState {
@@ -762,10 +769,31 @@ extension FCPublicationDetailsTVC {
     }
     func didSelectTakOffAirPublicationAction() {
         dismiss()
+        var takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        takeOffAirAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+            println("=====>>>>> Taken Off Air!!!!")
+        }))
+        
+        takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        
+        presentViewController(takeOffAirAlert, animated: true, completion: nil)
         
     }
     func didSelectDeletePublicationAction() {
         dismiss()
+        var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+            //self.deletePublication()
+            println("=====>>>>> DELETED!!!!")
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        
+        presentViewController(deleteAlert, animated: true, completion: nil)
         
     }
 
