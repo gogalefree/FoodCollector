@@ -9,12 +9,45 @@
 import UIKit
 import MessageUI
 
-class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPublicationRegistrationsFetcherDelegate {
+let kReportButtonTitle = String.localizedStringWithFormat("דווח", "Report title for a button")
+let kOptionsButtonTitle = String.localizedStringWithFormat("אפשרויות", "Report title for a button")
+
+
+enum PublicationDetailsTVCViewState {
+
+    case Publisher
+    case Collector
+}
+
+class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate {
     
     var publication: FCPublication?
+    var state = PublicationDetailsTVCViewState.Collector
  
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
+    
+    func setupWithState(initialState: PublicationDetailsTVCViewState, publication: FCPublication?) {
+        // This function is executed before viewDidLoad()
+
+        self.state = initialState
+        self.publication = publication
+        
+        /*
+        // This is for a future implementation (if needed)
+        if self.state == PublicationDetailsTVCViewState.Collector {
+            // Some code
+        }
+        else {
+            // Some code
+        }
+
+        if self.state == PublicationDetailsTVCViewState.Publisher {
+            // Some code
+        }
+        */
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +60,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         fetchPublicationPhoto()
         fetchPublicationRegistrations()
         registerForNotifications()
-        addReportButton()
+        addTopRightButton(self.state)
         configAdminIfNeeded()
        // showOnSpotReport()
     }
@@ -583,14 +616,35 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
 
 extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
-    func addReportButton() {
-     
-        if !FCModel.sharedInstance.isUserCreaetedPublication(self.publication!){
-            let title = String.localizedStringWithFormat("דווח", "report button title")
-            let reportButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "presentReportVC")
-            self.navigationItem.setRightBarButtonItem(reportButton, animated: false)
+//    func addReportButton() {
+//     
+//        if !FCModel.sharedInstance.isUserCreaetedPublication(self.publication!){
+//            let title = kReportButtonTitle
+//            let reportButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "presentReportVC")
+//            self.navigationItem.setRightBarButtonItem(reportButton, animated: false)
+//        }
+//    }
+    
+    func addTopRightButton(buttonType: PublicationDetailsTVCViewState) {
+        var buttonValus = (kReportButtonTitle, "presentReportVC")
+        
+        if buttonType == PublicationDetailsTVCViewState.Publisher {
+            buttonValus = (kOptionsButtonTitle, "presentOptionsMenuVC")
         }
+            
+        createTopRightButton(label: buttonValus.0, andAction: buttonValus.1)
     }
+    
+    func createTopRightButton(#label:String, andAction actionName: String) {
+        let actionSelector = Selector(stringLiteral: actionName)
+        let topRightButton = UIBarButtonItem(
+                title: label,
+                style: UIBarButtonItemStyle.Done,
+                target: self,
+                action: actionSelector)
+        self.navigationItem.setRightBarButtonItem(topRightButton, animated: false)
+    }
+    
     
     func presentReportVC() {
         
@@ -602,6 +656,38 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
         let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
         
         self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    func presentOptionsMenuVC(){
+        let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
+        optionsMenuPopUpVC.publicationData = publication
+        
+        optionsMenuPopUpVC.popoverPresentationController?.delegate = self
+        optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+        if publication!.isOnAir {
+            // 44 is the row height of each cell in the options menu table
+            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
+        }
+        else {
+            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
+        }
+
+        //get the popup presentation controller. it is a property on every
+        //View Controller subclass. there you set the arrows direction etc. take a look at
+        //it's properties, it's very flexible.
+        
+        
+        let popUpPC = optionsMenuPopUpVC.popoverPresentationController
+        popUpPC?.delegate = self
+        popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
+        popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
+        
+        self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyleForPresentationController(
+        controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .None
     }
     
     func dismiss() {

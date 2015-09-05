@@ -171,8 +171,9 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         switch indexPath.section {
         case 0:
             let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-            publicationDetailsTVC?.title = title
-            publicationDetailsTVC?.publication = publication
+            //publicationDetailsTVC?.title = title
+            //publicationDetailsTVC?.publication = publication
+            publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Collector, publication: publication)
             
             publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
             let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
@@ -180,8 +181,9 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
             
         case 1:
             let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-            publicationDetailsTVC?.title = title
-            publicationDetailsTVC?.publication = publication
+            //publicationDetailsTVC?.title = title
+            //publicationDetailsTVC?.publication = publication
+            publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, publication: publication)
             
             publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
             let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
