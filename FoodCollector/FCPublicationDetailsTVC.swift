@@ -30,6 +30,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPo
     
     var publication: FCPublication?
     var state = PublicationDetailsTVCViewState.Collector
+    var eventDeleted = false
  
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
@@ -881,10 +882,28 @@ extension FCPublicationDetailsTVC {
     }
     func didSelectDeletePublicationAction() {
         dismiss()
-        self.dismissViewControllerAnimated(true, completion: nil)
         
-    }
+        var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+            
+            let pubicationToDelete = self.publication!
+            //make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
+            let publicationIdentifier = PublicationIdentifier(uniqueId: pubicationToDelete.uniqueId , version: pubicationToDelete.version)
+            FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+            
+            
+            //delete from model
+            FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
+            
 
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))
+        
+        presentViewController(deleteAlert, animated: true, completion: nil)
+    }
 }
 
 

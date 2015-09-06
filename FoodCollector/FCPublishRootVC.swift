@@ -60,7 +60,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        println("######### viewWillAppear")
         super.viewWillAppear(animated)
         userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(userCreatedPublications)
         userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)

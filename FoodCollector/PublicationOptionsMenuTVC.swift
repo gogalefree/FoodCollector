@@ -95,15 +95,19 @@ class PublicationOptionsMenuTVC: UITableViewController {
         switch indexPath.row {
         case 0: // Edit publication
             self.delegate.didSelectEditPublicationAction()
+            
         case 1 where (publication!.isOnAir): // Take publication of air
             takePublicationOffAir()
             self.delegate.didSelectTakOffAirPublicationAction()
+            
         case 1 where !(publication!.isOnAir): // Delete publication
-            deletePublication()
+            //deletePublication()
             self.delegate.didSelectDeletePublicationAction()
+            
         case 2: // Delete publication
-            deletePublication()
+            //deletePublication()
             self.delegate.didSelectDeletePublicationAction()
+            
         default:
             break
         }
@@ -140,16 +144,7 @@ class PublicationOptionsMenuTVC: UITableViewController {
     }
     
     private func deletePublication() {
-        println("====>>>> Starting deletePublication()")
         
-        let pubicationToDelete = publication!
-        //make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
-        let publicationIdentifier = PublicationIdentifier(uniqueId: pubicationToDelete.uniqueId , version: pubicationToDelete.version)
-        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
-        
-        
-        //delete from model
-        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
         
     }
 
