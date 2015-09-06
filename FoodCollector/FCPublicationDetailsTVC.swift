@@ -97,10 +97,18 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPo
         if section != 1 {
             return nil
         }
-        let header = UIView.loadFromNibNamed("PublicationDetsilsActionsHeaderView", bundle: nil) as? PublicationDetsilsActionsHeaderView
-        header?.delegate = self
-        header?.publication = self.publication
-        return header
+        if state == .Collector {
+            let header = UIView.loadFromNibNamed("PublicationDetsilsCollectorActionsHeaderView", bundle: nil) as? PublicationDetsilsCollectorActionsHeaderView
+            header?.delegate = self
+            header?.publication = self.publication
+            return header
+        }
+        else {
+            let header = UIView.loadFromNibNamed("PublicationDetsilsPublisherActionsHeaderView", bundle: nil) as? PublicationDetsilsPublisherActionsHeaderView
+            header?.delegate = self
+            header?.publication = self.publication
+            return header
+        }
     }
     
     // MARK: - Table view data source
@@ -365,9 +373,9 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPo
     
 }
 
-//MARK: - Actions Header delegate
+//MARK: - Collector Actions Header delegate
 
-extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
+extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDelegate {
     
     
     func didRegisterForPublication(publication: FCPublication) {
@@ -453,6 +461,96 @@ extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
     
     
 }
+
+//MARK: - Publisher Actions Header delegate
+
+extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDelegate {
+    
+    
+    func didRegisterForPublication11111(publication: FCPublication) {
+        
+        publication.didRegisterForCurrentPublication = true
+        publication.countOfRegisteredUsers += 1
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
+        FCModel.sharedInstance.savePublications()
+        
+        self.updateRegisteredUserIconCounter()
+        //show alert controller
+        if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
+            
+            let title = String.localizedStringWithFormat("נא ליצור קשר עם המשתף", "an alert title requesting to contact the publisher")
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: " ")
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func didUnRegisterForPublication111111(publication: FCPublication) {
+        
+        publication.didRegisterForCurrentPublication = false
+        publication.countOfRegisteredUsers -= 1
+        FCModel.sharedInstance.foodCollectorWebServer.unRegisterUserFromComingToPickUpPublication(publication, completion: { (success) -> Void in})
+        FCModel.sharedInstance.savePublications()
+        self.updateRegisteredUserIconCounter()
+    }
+    
+    func didRequestNavigationForPublication11111(publication: FCPublication) {
+        
+        
+        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
+            let title = String.localizedStringWithFormat("ניווט בעזרת:", "an action sheet title meening chose app to navigate with")
+            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+        }
+        else {
+            //navigateWithWaze
+            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
+        }
+    }
+    
+    func didRequestSmsForPublication11111(publication: FCPublication) {
+        
+        if let phoneNumber = self.publication?.contactInfo {
+            
+            if MFMessageComposeViewController.canSendText() {
+                
+                let messageVC = MFMessageComposeViewController()
+                messageVC.body = String.localizedStringWithFormat("רוצה לבוא לאסוף \(publication.title)", "sms message to be sent to the publisher sayin i want to come pick up")
+                messageVC.recipients = [phoneNumber]
+                messageVC.messageComposeDelegate = self
+                self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
+                
+            }
+        }
+    }
+    
+    func didRequestPhoneCallForPublication1111(publication: FCPublication) {
+        
+        if let phoneNumber = self.publication?.contactInfo {
+            
+            let telUrl = NSURL(string: "tel://\(phoneNumber)")!
+            
+            if UIApplication.sharedApplication().canOpenURL(telUrl){
+                
+                UIApplication.sharedApplication().openURL(telUrl)
+            }
+        }
+    }
+    
+    private func updateRegisteredUserIconCounter1111() {
+        
+        let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+        let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+        if let cell = imageCell {
+            cell.reloadRegisteredUserIconCounter()
+        }
+    }
+     func viewWillTransitionToSize111111(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    }
+    
+    
+}
+
 
 //MARK: - Image cell delegate
 
@@ -668,7 +766,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     func presentOptionsMenuVC(){
         let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
         optionsMenuPopUpVC.delegate = self
-        optionsMenuPopUpVC.publicationData = publication
+        optionsMenuPopUpVC.publication = publication
         
         optionsMenuPopUpVC.popoverPresentationController?.delegate = self
         optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
@@ -783,17 +881,7 @@ extension FCPublicationDetailsTVC {
     }
     func didSelectDeletePublicationAction() {
         dismiss()
-        var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
-            //self.deletePublication()
-            println("=====>>>>> DELETED!!!!")
-        }))
-        
-        deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
-        }))
-        
-        presentViewController(deleteAlert, animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
         
     }
 

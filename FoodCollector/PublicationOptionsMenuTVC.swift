@@ -22,14 +22,14 @@ class PublicationOptionsMenuTVC: UITableViewController {
     let kMenuItem2 = String.localizedStringWithFormat("הפסקת שיתוף", "Publisher top right menu item")
     let kMenuItem3 = String.localizedStringWithFormat("מחיקה", "Publisher top right menu item")
     
-    let menuImage1 = UIImage(named: "Green-dot")
-    let menuImage2 = UIImage(named: "Green-dot")
-    let menuImage3 = UIImage(named: "Green-dot")
+    let menuImage1 = UIImage(named: "EditButton")
+    let menuImage2 = UIImage(named: "TakeOffAirButton")
+    let menuImage3 = UIImage(named: "DeleteButton")
     
     var menuTitlesArray: [String] = []
     var menuImagesArray: [UIImage?] = []
     
-    var publicationData: FCPublication?
+    var publication: FCPublication?
 
 
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ class PublicationOptionsMenuTVC: UITableViewController {
     }
     
     func createTableData(){
-        if (publicationData!.isOnAir) {
+        if (publication!.isOnAir) {
             menuTitlesArray = [kMenuItem1, kMenuItem2, kMenuItem3]
             menuImagesArray = [menuImage1, menuImage2, menuImage3]
         }
@@ -95,24 +95,63 @@ class PublicationOptionsMenuTVC: UITableViewController {
         switch indexPath.row {
         case 0: // Edit publication
             self.delegate.didSelectEditPublicationAction()
-        case 1 where publicationData!.isOnAir: // Take publication of air
+        case 1 where (publication!.isOnAir): // Take publication of air
+            takePublicationOffAir()
             self.delegate.didSelectTakOffAirPublicationAction()
-        case 1 where !publicationData!.isOnAir: // Delete publication
+        case 1 where !(publication!.isOnAir): // Delete publication
+            deletePublication()
             self.delegate.didSelectDeletePublicationAction()
         case 2: // Delete publication
+            deletePublication()
             self.delegate.didSelectDeletePublicationAction()
         default:
             break
         }
         
-        //dismissPopOverVC()
     }
     
     
-//    func dismissPopOverVC() {
-//        self.dismissViewControllerAnimated(true, completion: nil)
-//    }
+    private func takePublicationOffAir(){
+        
+        if let publication = self.publication {
+            //update model
+            publication.isOnAir = false
+            FCModel.sharedInstance.saveUserCreatedPublications()
+            
+            //inform server and model
+            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+                
+                if success{
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        self.navigationController?.popViewControllerAnimated(true)
+                        let publicationIdentifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId, version: self.publication!.version)
+                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
+                    })
+                }
+                else{
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not take your event off air", aMessage: "try again later")
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
+        }
+    }
     
+    private func deletePublication() {
+        println("====>>>> Starting deletePublication()")
+        
+        let pubicationToDelete = publication!
+        //make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
+        let publicationIdentifier = PublicationIdentifier(uniqueId: pubicationToDelete.uniqueId , version: pubicationToDelete.version)
+        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+        
+        
+        //delete from model
+        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
+        
+    }
 
     /*
     // Override to support conditional editing of the table view.

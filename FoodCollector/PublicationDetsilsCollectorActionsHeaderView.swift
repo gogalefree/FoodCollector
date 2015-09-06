@@ -1,5 +1,5 @@
 //
-//  PublicationDetsilsActionsHeaderView.swift
+//  PublicationDetsilsCollectorActionsHeaderView.swift
 //  FoodCollector
 //
 //  Created by Guy Freedman on 6/8/15.
@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-protocol PublicationDetailsActionsHeaderDelegate: NSObjectProtocol {
+protocol PublicationDetsilsCollectorActionsHeaderDelegate: NSObjectProtocol {
     
     func didRegisterForPublication(publication: FCPublication)
     func didUnRegisterForPublication(publication: FCPublication)
@@ -18,7 +18,7 @@ protocol PublicationDetailsActionsHeaderDelegate: NSObjectProtocol {
     func didRequestSmsForPublication(publication: FCPublication)
 }
 
-class PublicationDetsilsActionsHeaderView: UIView {
+class PublicationDetsilsCollectorActionsHeaderView: UIView {
     
     let buttonPressColor = UIColor(red: 32/255, green: 137/255, blue: 75/255, alpha: 1)
     let normalColor = kNavBarBlueColor
@@ -36,7 +36,7 @@ class PublicationDetsilsActionsHeaderView: UIView {
     @IBOutlet weak var smsButton:       UIButton!
     @IBOutlet weak var phoneCallButton: UIButton!
     
-    weak var delegate: PublicationDetailsActionsHeaderDelegate!
+    weak var delegate: PublicationDetsilsCollectorActionsHeaderDelegate!
     
     var buttons = [UIButton]()
     
