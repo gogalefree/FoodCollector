@@ -12,7 +12,8 @@ import Foundation
 protocol PublicationDetsilsPublisherActionsHeaderDelegate: NSObjectProtocol {
     
 
-    func didRequestPostToFacebookForPublication(publication: FCPublication)
+    func didRequestPostToFacebookForPublication()
+    func didRequestPostToTwitterForPublication()
 
 }
 
@@ -57,12 +58,12 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         case facebookButton:
             
             if let delegate = self.delegate {
-                delegate.didRequestPostToFacebookForPublication(self.publication)
+                delegate.didRequestPostToFacebookForPublication()
             }
         case twitterButton:
-            
-            // For now this buttun is disabled
-            println("Twitter")
+            if let delegate = self.delegate {
+                delegate.didRequestPostToTwitterForPublication()
+            }
             
         case smsButton:
 
@@ -118,11 +119,11 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         
         for var i=0; i<self.buttons.count; i++ {
             let button = self.buttons[i]
-            if i==0 { // Facebook button
+            switch i {
+            case 0, 1: // Facebook and Twitter buttons
                 button.backgroundColor = normalColor
                 button.enabled = true
-            }
-            else {
+            default:
                 button.backgroundColor = UIColor.lightGrayColor()
                 button.enabled = false
             }

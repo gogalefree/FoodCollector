@@ -480,7 +480,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
 extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDelegate {
     
     
-    func didRequestPostToFacebookForPublication(temppublication: FCPublication) {
+    func didRequestPostToFacebookForPublication() {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
             var facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
@@ -489,6 +489,20 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
             facebookPostController.addImage(publication?.photoData.photo)
             facebookPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
             self.presentViewController(facebookPostController, animated:true, completion:nil)
+        }
+    }
+    
+    func didRequestPostToTwitterForPublication() {
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+            var twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            
+            let hashTagString = "#FooDoNet: "
+            let title = publication?.title
+            twiiterPostController.setInitialText(hashTagString + title!)
+            twiiterPostController.addImage(publication?.photoData.photo)
+            twiiterPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
+            self.presentViewController(twiiterPostController, animated:true, completion:nil)
         }
     }
 }
