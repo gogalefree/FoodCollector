@@ -35,7 +35,14 @@ enum PublicationDetailsTVCVReferral {
     
 }
 
+protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
+    func didDeletePublication(publication: FCPublication, collectionViewIndex: Int)
+    func didTakeOffAirPublication(publication: FCPublication)
+}
+
 class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
+    
+    var deleteDelgate: UserDidDeletePublicationProtocol?
     
     var publication: FCPublication?
     var state = PublicationDetailsTVCViewState.Collector
@@ -817,16 +824,19 @@ extension FCPublicationDetailsTVC {
         let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
         publicationEditorTVC?.setupWithState(.EditPublication, publication: publication)
         
+        //publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        
         let nav = UINavigationController(rootViewController: publicationEditorTVC!)
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
 
     }
+    
     func didSelectTakOffAirPublicationAction() {
-        dismiss()
+        
         var takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
         takeOffAirAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
-            println("=====>>>>> Taken Off Air!!!!")
+            self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
         }))
         
         takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
@@ -835,8 +845,8 @@ extension FCPublicationDetailsTVC {
         presentViewController(takeOffAirAlert, animated: true, completion: nil)
         
     }
+    
     func didSelectDeletePublicationAction() {
-        dismiss()
         
         var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -851,73 +861,20 @@ extension FCPublicationDetailsTVC {
             //delete from model
             FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
             
+            self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
             
-            
-            deleteAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
-                println("##### Completed deleteAlert.dismissViewControllerAnimated")
-                /*
-                println("##### Started deleteAlert.dismissViewControllerAnimated")
-                self.dismissViewControllerAnimated(true, completion: nil)
-                println("##### AFter self.dismissViewControllerAnimated")
-                //let tabBarViews =
-                for vc in self.tabBarController!.viewControllers! {
-                    println("##### vc is of type: \(_stdlib_getDemangledTypeName(vc))")
-                    if vc is FCPublishRootVC {
-                        //let publishRootVC = vc
-                        println("###### publishRootVC = publishRootVC")
-                        //delete from collection view need to be implemented as follows
-                        (vc as! FCPublishRootVC).deleteFromCollectionView(self.publication!, indexNumber: self.publicationIndexNumber)
-                    }
-                }
-                */
-
-
-                /*
-                //let publishRootVC = tabBar?.viewControllers?.last as? FCPublishRootVC
-                if let publishRootVC = publishRootVC {
-                    println("###### publishRootVC = publishRootVC")
-                    //delete from collection view need to be implemented as follows
-                    publishRootVC.deleteFromCollectionView(self.publication!, indexNumber: self.publicationIndexNumber)
-                    
-                }
-                */
-            })
+//            deleteAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
+//                println("##### Completed deleteAlert.dismissViewControllerAnimated")
+//            })
             
         }))
         
         deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))
         
-        presentViewController(deleteAlert, animated: true, completion: nil)
-        
-        println("###### Start tabBar Check")
-        if let tabBar = self.tabBarController {
-            println("###### Start tabBarVCs Check")
-            if let tabBarVCs = tabBar.viewControllers {
-                println("###### Start tabBarVCs Loop")
-                for vc in tabBarVCs {
-                    println("##### vc is of type: \(_stdlib_getDemangledTypeName(vc))")
-                    if vc is FCPublishRootVC {
-                        //let publishRootVC = vc
-                        println("###### publishRootVC = publishRootVC")
-                        //delete from collection view need to be implemented as follows
-                        (vc as! FCPublishRootVC).deleteFromCollectionView(self.publication!, indexNumber: self.publicationIndexNumber)
-                    }
-                }
-            }
-        }
-    
-        
-        
-//        println("##### Start publishRootVC")
-//        let tabBar = self.tabBarController
-//        let publishRootVC = tabBar?.viewControllers?.last as? FCPublishRootVC
-//        if let publishRootVC = publishRootVC {
-//            println("##### publishRootVC = publishRootVC")
-//            //delete from collection view need to be implemented as follows
-//            publishRootVC.deleteFromCollectionView(publication!, indexNumber: publicationIndexNumber)
-//            
-//        }
+        self.presentViewController(deleteAlert, animated: true, completion: nil)
+
     }
+    
 }
 
 

@@ -92,12 +92,12 @@ class PublicationOptionsMenuTVC: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.dismissViewControllerAnimated(true, completion: nil)
         switch indexPath.row {
         case 0: // Edit publication
             self.delegate.didSelectEditPublicationAction()
             
         case 1 where (publication!.isOnAir): // Take publication of air
-            takePublicationOffAir()
             self.delegate.didSelectTakOffAirPublicationAction()
             
         case 1 where !(publication!.isOnAir): // Delete publication
@@ -114,40 +114,6 @@ class PublicationOptionsMenuTVC: UITableViewController {
         
     }
     
-    
-    private func takePublicationOffAir(){
-        
-        if let publication = self.publication {
-            //update model
-            publication.isOnAir = false
-            FCModel.sharedInstance.saveUserCreatedPublications()
-            
-            //inform server and model
-            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
-                
-                if success{
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        
-                        self.navigationController?.popViewControllerAnimated(true)
-                        let publicationIdentifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId, version: self.publication!.version)
-                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
-                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
-                    })
-                }
-                else{
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not take your event off air", aMessage: "try again later")
-                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
-                }
-            })
-        }
-    }
-    
-    private func deletePublication() {
-        
-        
-    }
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

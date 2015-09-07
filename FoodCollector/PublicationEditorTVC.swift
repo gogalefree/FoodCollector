@@ -111,7 +111,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 
         addTopRightButton()
         
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "popViewController")
         
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
@@ -451,7 +450,13 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func popViewController() {
-        self.navigationController!.popViewControllerAnimated(true)
+        if state == PublicationEditorTVCState.CreateNewPublication {
+            self.navigationController!.popViewControllerAnimated(true)
+        }
+        else {
+            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
     }
     
     func addTopRightButton() {
