@@ -26,20 +26,30 @@ enum PublicationDetailsTVCViewState {
     case Collector
 }
 
+enum PublicationDetailsTVCVReferral {
+    
+    case MyPublications
+    case ActivityCenter
+    
+}
+
 class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
     var publication: FCPublication?
     var state = PublicationDetailsTVCViewState.Collector
-    var eventDeleted = false
+    var referral = PublicationDetailsTVCVReferral.MyPublications
+    var publicationIndexNumber = 0
  
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
     
-    func setupWithState(initialState: PublicationDetailsTVCViewState, publication: FCPublication?) {
+    func setupWithState(initialState: PublicationDetailsTVCViewState, caller: PublicationDetailsTVCVReferral, publication: FCPublication?, publicationIndexPath:Int = 0) {
         // This function is executed before viewDidLoad()
 
         self.state = initialState
         self.publication = publication
+        self.referral = caller
+        self.publicationIndexNumber = publicationIndexPath
         
         /*
         // This is for a future implementation (if needed)
@@ -896,8 +906,33 @@ extension FCPublicationDetailsTVC {
             //delete from model
             FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
             
-
-            self.dismissViewControllerAnimated(true, completion: nil)
+            
+            
+            deleteAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
+                println("##### Started deleteAlert.dismissViewControllerAnimated")
+                self.dismissViewControllerAnimated(true, completion: nil)
+                println("##### AFter self.dismissViewControllerAnimated")
+                //let tabBarViews =
+                for vc in self.tabBarController!.viewControllers! {
+                    println("##### vc is of type: \(_stdlib_getDemangledTypeName(vc))")
+                    if vc is FCPublishRootVC {
+                        //let publishRootVC = vc
+                        println("###### publishRootVC = publishRootVC")
+                        //delete from collection view need to be implemented as follows
+                        (vc as! FCPublishRootVC).deleteFromCollectionView(self.publication!, indexNumber: self.publicationIndexNumber)
+                    }
+                }
+                /*
+                //let publishRootVC = tabBar?.viewControllers?.last as? FCPublishRootVC
+                if let publishRootVC = publishRootVC {
+                    println("###### publishRootVC = publishRootVC")
+                    //delete from collection view need to be implemented as follows
+                    publishRootVC.deleteFromCollectionView(self.publication!, indexNumber: self.publicationIndexNumber)
+                    
+                }
+                */
+            })
+            
         }))
         
         deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))

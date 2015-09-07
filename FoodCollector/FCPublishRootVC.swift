@@ -60,7 +60,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     override func viewWillAppear(animated: Bool) {
-        println("######### viewWillAppear")
         super.viewWillAppear(animated)
         userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(userCreatedPublications)
         userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)
@@ -122,7 +121,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         
-        publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, publication: userCreatedPublications[indexPath.item])
+        publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: userCreatedPublications[indexPath.item], publicationIndexPath: indexPath.item)
         
         publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         
@@ -292,6 +291,17 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             label.text = String.localizedStringWithFormat("הי,\nמה תרצו לשתף?" , "No user created publications message")
             self.view.addSubview(label)
         }
+    }
+    
+    func deleteFromCollectionView(publication: FCPublication, indexNumber: Int) {
+        println("###### Started deleteFromCollectionView()")
+        self.collectionView.performBatchUpdates({ () -> Void in
+            println("###### Started self.collectionView.performBatchUpdates()")
+            self.userCreatedPublications.removeAtIndex(indexNumber)
+            self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: indexNumber, inSection: 0)])
+            
+            }, completion:nil)
+        
     }
     
     //MARK: - UISearchBar
