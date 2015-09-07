@@ -8,6 +8,8 @@
 
 import UIKit
 import MessageUI
+import Social
+
 
 let kReportButtonTitle = String.localizedStringWithFormat("דווח", "Report title for a button")
 let kOptionsButtonTitle = String.localizedStringWithFormat("אפשרויות", "Report title for a button")
@@ -478,88 +480,17 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
 extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDelegate {
     
     
-    func didRegisterForPublication11111(publication: FCPublication) {
+    func didRequestPostToFacebookForPublication(temppublication: FCPublication) {
         
-        publication.didRegisterForCurrentPublication = true
-        publication.countOfRegisteredUsers += 1
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
-        FCModel.sharedInstance.savePublications()
-        
-        self.updateRegisteredUserIconCounter()
-        //show alert controller
-        if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+            var facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             
-            let title = String.localizedStringWithFormat("נא ליצור קשר עם המשתף", "an alert title requesting to contact the publisher")
-            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: " ")
-            self.presentViewController(alert, animated: true, completion: nil)
+            facebookPostController.setInitialText(publication?.title)
+            facebookPostController.addImage(publication?.photoData.photo)
+            facebookPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
+            self.presentViewController(facebookPostController, animated:true, completion:nil)
         }
     }
-    
-    func didUnRegisterForPublication111111(publication: FCPublication) {
-        
-        publication.didRegisterForCurrentPublication = false
-        publication.countOfRegisteredUsers -= 1
-        FCModel.sharedInstance.foodCollectorWebServer.unRegisterUserFromComingToPickUpPublication(publication, completion: { (success) -> Void in})
-        FCModel.sharedInstance.savePublications()
-        self.updateRegisteredUserIconCounter()
-    }
-    
-    func didRequestNavigationForPublication11111(publication: FCPublication) {
-        
-        
-        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-            let title = String.localizedStringWithFormat("ניווט בעזרת:", "an action sheet title meening chose app to navigate with")
-            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        }
-        else {
-            //navigateWithWaze
-            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
-        }
-    }
-    
-    func didRequestSmsForPublication11111(publication: FCPublication) {
-        
-        if let phoneNumber = self.publication?.contactInfo {
-            
-            if MFMessageComposeViewController.canSendText() {
-                
-                let messageVC = MFMessageComposeViewController()
-                messageVC.body = String.localizedStringWithFormat("רוצה לבוא לאסוף \(publication.title)", "sms message to be sent to the publisher sayin i want to come pick up")
-                messageVC.recipients = [phoneNumber]
-                messageVC.messageComposeDelegate = self
-                self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
-                
-            }
-        }
-    }
-    
-    func didRequestPhoneCallForPublication1111(publication: FCPublication) {
-        
-        if let phoneNumber = self.publication?.contactInfo {
-            
-            let telUrl = NSURL(string: "tel://\(phoneNumber)")!
-            
-            if UIApplication.sharedApplication().canOpenURL(telUrl){
-                
-                UIApplication.sharedApplication().openURL(telUrl)
-            }
-        }
-    }
-    
-    private func updateRegisteredUserIconCounter1111() {
-        
-        let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-        let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
-        if let cell = imageCell {
-            cell.reloadRegisteredUserIconCounter()
-        }
-    }
-     func viewWillTransitionToSize111111(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-    }
-    
-    
 }
 
 
@@ -909,6 +840,8 @@ extension FCPublicationDetailsTVC {
             
             
             deleteAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
+                println("##### Completed deleteAlert.dismissViewControllerAnimated")
+                /*
                 println("##### Started deleteAlert.dismissViewControllerAnimated")
                 self.dismissViewControllerAnimated(true, completion: nil)
                 println("##### AFter self.dismissViewControllerAnimated")
@@ -922,6 +855,9 @@ extension FCPublicationDetailsTVC {
                         (vc as! FCPublishRootVC).deleteFromCollectionView(self.publication!, indexNumber: self.publicationIndexNumber)
                     }
                 }
+                */
+
+
                 /*
                 //let publishRootVC = tabBar?.viewControllers?.last as? FCPublishRootVC
                 if let publishRootVC = publishRootVC {
@@ -938,6 +874,35 @@ extension FCPublicationDetailsTVC {
         deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))
         
         presentViewController(deleteAlert, animated: true, completion: nil)
+        
+        println("###### Start tabBar Check")
+        if let tabBar = self.tabBarController {
+            println("###### Start tabBarVCs Check")
+            if let tabBarVCs = tabBar.viewControllers {
+                println("###### Start tabBarVCs Loop")
+                for vc in tabBarVCs {
+                    println("##### vc is of type: \(_stdlib_getDemangledTypeName(vc))")
+                    if vc is FCPublishRootVC {
+                        //let publishRootVC = vc
+                        println("###### publishRootVC = publishRootVC")
+                        //delete from collection view need to be implemented as follows
+                        (vc as! FCPublishRootVC).deleteFromCollectionView(self.publication!, indexNumber: self.publicationIndexNumber)
+                    }
+                }
+            }
+        }
+    
+        
+        
+//        println("##### Start publishRootVC")
+//        let tabBar = self.tabBarController
+//        let publishRootVC = tabBar?.viewControllers?.last as? FCPublishRootVC
+//        if let publishRootVC = publishRootVC {
+//            println("##### publishRootVC = publishRootVC")
+//            //delete from collection view need to be implemented as follows
+//            publishRootVC.deleteFromCollectionView(publication!, indexNumber: publicationIndexNumber)
+//            
+//        }
     }
 }
 

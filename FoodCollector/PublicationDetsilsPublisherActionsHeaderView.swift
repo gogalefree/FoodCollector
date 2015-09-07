@@ -11,11 +11,9 @@ import Foundation
 
 protocol PublicationDetsilsPublisherActionsHeaderDelegate: NSObjectProtocol {
     
-    func didRegisterForPublication(publication: FCPublication)
-    func didUnRegisterForPublication(publication: FCPublication)
-    func didRequestNavigationForPublication(publication: FCPublication)
-    func didRequestPhoneCallForPublication(publication: FCPublication)
-    func didRequestSmsForPublication(publication: FCPublication)
+
+    func didRequestPostToFacebookForPublication(publication: FCPublication)
+
 }
 
 class PublicationDetsilsPublisherActionsHeaderView: UIView {
@@ -57,41 +55,24 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         switch sender {
 
         case facebookButton:
-
             
             if let delegate = self.delegate {
-                switch self.publication.didRegisterForCurrentPublication {
-                case true:
-                    delegate.didUnRegisterForPublication(self.publication)
-                case false:
-                    delegate.didRegisterForPublication(self.publication)
-                default:
-                    break
-                }
+                delegate.didRequestPostToFacebookForPublication(self.publication)
             }
-            
         case twitterButton:
             
-            if !self.publication.didRegisterForCurrentPublication {
-                self.delegate.didRegisterForPublication(self.publication)
-                if self.publication.typeOfCollecting == .ContactPublisher {return}
-            }
-
-            if let delegate = self.delegate {
-                    delegate.didRequestNavigationForPublication(self.publication)
-            }
+            // For now this buttun is disabled
+            println("Twitter")
             
         case smsButton:
 
-            if let delegate = self.delegate {
-                delegate.didRequestSmsForPublication(self.publication)
-            }
+            // For now this buttun is disabled
+             println("smsButton")
             
         case phoneCallButton:
 
-            if let delegate = self.delegate {
-                delegate.didRequestPhoneCallForPublication(self.publication)
-            }
+            // For now this buttun is disabled
+            println("phoneCallButton")
             
         default:
             println("publication details unknown button")
@@ -100,19 +81,14 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
     
     func configureInitialState(publication: FCPublication) {
         //User created publication
-        if FCModel.sharedInstance.isUserCreaetedPublication(publication){
+        if !publication.isOnAir {
             self.disableAllButtons()
             return
         }
         
         configureButtonsForNormalState()
-        //configureRegisterButton()
 
         
-        if publication.typeOfCollecting != .ContactPublisher {
-    
-            configureButtonsForFreePickup()
-        }
     }
 
     override func awakeFromNib() {
@@ -124,7 +100,6 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
     func configureButtons() {
         
         for button in self.buttons {
-            
             button.backgroundColor = normalColor
             button.setTitle("", forState: .Normal)
             button.layer.cornerRadius = CGRectGetWidth(button.frame) / 2
@@ -134,47 +109,25 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         
     func disableAllButtons() {
         for button in self.buttons {
-            
-            let buttonColor = UIColor.lightGrayColor()
-            button.backgroundColor = buttonColor
+            button.backgroundColor = UIColor.lightGrayColor()
             button.enabled = false
         }
     }
     
     func configureButtonsForNormalState() {
-     
-        for button in self.buttons {
-            
-            button.backgroundColor = normalColor
-            button.enabled = true
-        }
-    }
-    
-    private func configureButtonsForFreePickup() {
         
-        let contactButtons = [smsButton , phoneCallButton]
-        for button in contactButtons {
-            
-            let buttonColor = UIColor.lightGrayColor()
-            button.backgroundColor = buttonColor
-            button.enabled = false
+        for var i=0; i<self.buttons.count; i++ {
+            let button = self.buttons[i]
+            if i==0 { // Facebook button
+                button.backgroundColor = normalColor
+                button.enabled = true
+            }
+            else {
+                button.backgroundColor = UIColor.lightGrayColor()
+                button.enabled = false
+            }
         }
     }
-    
-//    private func configureRegisterButton() {
-//        
-//        if let publication = publication {
-//            switch publication.didRegisterForCurrentPublication {
-//            case true:
-//                self.registerButton.backgroundColor = self.buttonPressColor
-//                self.registerButton.setImage(unRegisteredButtonImage, forState: .Normal)
-//                
-//            default :
-//                self.registerButton.backgroundColor = self.normalColor
-//                self.registerButton.setImage(registeredButtonImage, forState: UIControlState.Normal)
-//            }
-//        }
-//    }
     
     private func animateButton(button: UIButton) {
         
