@@ -319,7 +319,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
         
         var dicToSend = ["registered_user_for_publication" : params]
-        
+        println(dicToSend)
         let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
         println(dicToSend)
         let url = NSURL(string: urlString)
@@ -438,6 +438,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
         paramsToSend["is_on_air"] = true
         paramsToSend["photo_url"] = ""
         var pubDict = ["publication" : paramsToSend]
+        println(pubDict)
+
         let jsonData = NSJSONSerialization.dataWithJSONObject(pubDict, options: nil, error: nil)
         let url = NSURL(string: postNewPublicationURL)
         var request = NSMutableURLRequest(URL: url!)
