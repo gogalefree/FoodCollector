@@ -832,7 +832,6 @@ extension FCPublicationDetailsTVC {
     }
     
     func didSelectTakOffAirPublicationAction() {
-        println("####### FCPublicationDetailsTVC: didSelectTakOffAirPublicationAction")
         
         var takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -848,7 +847,6 @@ extension FCPublicationDetailsTVC {
     }
     
     func didSelectDeletePublicationAction() {
-        println("####### FCPublicationDetailsTVC: didSelectDeletePublicationAction")
         
         var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -863,19 +861,7 @@ extension FCPublicationDetailsTVC {
             //delete from model
             FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
             
-            //if (self.referral == PublicationDetailsTVCVReferral.MyPublications) {
                 self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
-            //}
-            //else {
-                
-            //}
-            
-            
-            
-//            deleteAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
-//                println("##### Completed deleteAlert.dismissViewControllerAnimated")
-//            })
-            
         }))
         
         deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))

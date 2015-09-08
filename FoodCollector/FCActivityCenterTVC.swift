@@ -283,7 +283,6 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
 
 extension FCActivityCenterTVC: UserDidDeletePublicationProtocol {
     func didDeletePublication(publication: FCPublication,  collectionViewIndex: Int) {
-        println("####### ActivityCenter: didDeletePublication")
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
         
         dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
@@ -292,7 +291,6 @@ extension FCActivityCenterTVC: UserDidDeletePublicationProtocol {
     }
     
     func didTakeOffAirPublication(publication: FCPublication) {
-        println("####### ActivityCenter: didTakeOffAirPublication")
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
         
         dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in

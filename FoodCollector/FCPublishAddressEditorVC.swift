@@ -72,13 +72,10 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("==> numberOfRowsInSection (Section: \(section)) didStartedSearch: \(didStartedSearch)")
-        println("==> self.initialData: \(self.initialData.count)")
+
         if (section == 0 && !didStartedSearch){
-            println("==> numberOfRowsInSection (Return: 1)")
             return 1
         }
-        println("==> numberOfRowsInSection (Return: \(initialData.count))")
         return initialData.count
     }
     
@@ -94,15 +91,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
     }
     
-    /*
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        println("==> titleForHeaderInSection (Section: \(section)) didStartedSearch: \(didStartedSearch)")
-        if (section == 1 && !didStartedSearch){
-            return lastSearchesHeaderTitle
-        }
-        return ""
-    }
-*/
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 45.0
@@ -116,7 +104,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println("==> cellForRowAtIndexPath (Section: \(indexPath.section)) (Row: \(indexPath.row)) didStartedSearch: \(didStartedSearch)")
         
         if (indexPath.section == 0 && !didStartedSearch) {
             let myLocationCell = tableView.dequeueReusableCellWithIdentifier("myLocationCustomCell", forIndexPath: indexPath) as! FCPublishAddressEditorMyLocationCustomCell
@@ -139,7 +126,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         // if first row (in first section) was selected (Use my currnt loction) use the reverse geocoder
         if (indexPath.item == 0 && indexPath.section == 0 && !didSerchAndFindResults){
-            println("==> My Location was selected")
             self.selectedLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
             self.selectedLongtitude = FCModel.sharedInstance.userLocation.coordinate.longitude
             self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lng: self.selectedLongtitude)
@@ -167,7 +153,6 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
                 
                 if (isThereSearchHistory){
-                    println("==> From SearBar -> isThereSearchHistory: \(isThereSearchHistory)")
                     loadContentOfSearchHistory()
                     self.tableView.reloadData()
                 }
@@ -387,13 +372,11 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     // MARK - Address Search History
     
     func readArrayResultsFromPlist(fileName: String, fileExt: String){
-        println("// Check for Search History")
-        println("======================================")
+
         
         var fullPlistName = fileName + "." + fileExt
         let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent(fullPlistName)
         
-        println("Path: \(publicationsFilePath)")
         
         if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
             isThereSearchHistory = true
@@ -401,10 +384,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             println(searchHistoryArray.description)
         }
         else {
-            println("Could not load \(fileName).\(fileExt)")
             isThereSearchHistory = false
         }
-        println("isThereSearchHistory: \(isThereSearchHistory)")
     }
     
     func writeArrayResultsToPlist(fileName: String, fileExt: String){
@@ -425,11 +406,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             countItemsAdded++
             if (countItemsAdded == maxItemsToDisplay) {break}
         }
-        println("==> From loadContentOfSearchHistory --> self.initialData: \(self.initialData.count)")
     }
     
     func appendAddressToSerachHistoryArray(addrDict: [String : AnyObject]){
-        println("Start appendAddressToSerachHistoryArray")
         println(addrDict.description)
         // Check if the address is already in History
         var isSearchAddressTheSame = true

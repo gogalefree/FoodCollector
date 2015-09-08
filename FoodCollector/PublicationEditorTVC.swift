@@ -463,12 +463,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: kPublishtopRightBarButtonSaveTitle, style: UIBarButtonItemStyle.Done,
             target: self, action: "publish")
-        println("------> button status: " + self.navigationItem.rightBarButtonItem!.enabled.description)
         setTopRightButtonStatus()
     }
     
     func setTopRightButtonStatus(){
-        println("---> setTopRightButtonStatus: " + publishButtonEnabled.description)
         self.navigationItem.rightBarButtonItem!.enabled = publishButtonEnabled
     }
     
@@ -528,7 +526,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     private func checkIfReadyForPublish(){
         
-        println("@@@@@@@@  checkIfReadyForPublish()")
         
         //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
@@ -539,7 +536,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             for index in 0...4 {
                 
                 let cellData = self.dataSource[index]
-                println("@@@@@@@@  checkIfReadyForPublish: " + cellData.cellTitle + " -> status: " + cellData.containsUserData.description)
                 if !cellData.containsUserData{
                     containsData = false
                     break
@@ -667,7 +663,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     if self.state == .EditPublication{
-                        self.navigationController?.popViewControllerAnimated(true)
+                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     }
                     //                    else if self.state == .ActivityCenter {
                     //                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
@@ -947,7 +943,6 @@ extension PublicationEditorTVC {
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        println("----> imagePickerController")
         self.dismissViewControllerAnimated(true, completion: nil)
         
         var myInfo = info

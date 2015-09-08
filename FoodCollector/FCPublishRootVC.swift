@@ -296,9 +296,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     func deleteFromCollectionView(publication: FCPublication, indexNumber: Int) {
-        println("###### Started deleteFromCollectionView()")
         self.collectionView.performBatchUpdates({ () -> Void in
-            println("###### Started self.collectionView.performBatchUpdates()")
             self.userCreatedPublications.removeAtIndex(indexNumber)
             self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: indexNumber, inSection: 0)])
             
@@ -482,7 +480,6 @@ extension FCPublishRootVC: UserDidDeletePublicationProtocol {
     }
     
     func didTakeOffAirPublication(publication: FCPublication) {
-        println("####### FCPublishRootVC: didTakeOffAirPublication")
         let delayTime = dispatch_time(DISPATCH_TIME_NOW,
             Int64(2 * Double(NSEC_PER_SEC)))
         
