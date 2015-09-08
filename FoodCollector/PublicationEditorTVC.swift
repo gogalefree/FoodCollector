@@ -649,12 +649,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func publishEdidtedPublication() {
-        
         var params = self.prepareParamsDictToSend()
         FCModel.sharedInstance.foodCollectorWebServer.postEditedPublication(params, publication: self.publication!) { (success, version) -> () in
             
             if success {
-                
                 params[kPublicationUniqueIdKey] = self.publication!.uniqueId
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
@@ -673,8 +671,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
                     FCModel.sharedInstance.deleteOldVersionsOfUserCreatedPublication(publication)
                     
-                    let uploader = FCPhotoFetcher()
-                    uploader.uploadPhotoForPublication(publication)
+                    if publication.photoData.photo != nil {
+                        //send the photo
+                        let uploader = FCPhotoFetcher()
+                        uploader.uploadPhotoForPublication(publication)
+                    }
                 })
             }
                 
@@ -729,7 +730,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         return params
     }
 
-    
+    /*
     func presentCanNotEditOnAirPublicationAlert() {
         
         let title = String.localizedStringWithFormat("לא ניתן לערוך כל עוד הפרסום באוויר", "")
@@ -742,6 +743,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         alert.addAction(dissmissAction)
         self.navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
+    */
     
     func fetchPhotoIfNeeded() {
         

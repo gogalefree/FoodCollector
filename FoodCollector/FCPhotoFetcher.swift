@@ -54,7 +54,6 @@ class FCPhotoFetcher: NSObject {
     
     func uploadPhotoForPublication(publication : FCPublication) {
         
-        
         let imageToUpload = publication.photoData.photo!
         let uploadFilePath = NSTemporaryDirectory().stringByAppendingPathComponent(publication.photoUrl)
         let uploadFileURL = NSURL.fileURLWithPath(uploadFilePath)
