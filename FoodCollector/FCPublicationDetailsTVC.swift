@@ -832,6 +832,7 @@ extension FCPublicationDetailsTVC {
     }
     
     func didSelectTakOffAirPublicationAction() {
+        println("####### FCPublicationDetailsTVC: didSelectTakOffAirPublicationAction")
         
         var takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -847,13 +848,14 @@ extension FCPublicationDetailsTVC {
     }
     
     func didSelectDeletePublicationAction() {
+        println("####### FCPublicationDetailsTVC: didSelectDeletePublicationAction")
         
         var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
         deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
             
             let pubicationToDelete = self.publication!
-            //make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
+            // make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
             let publicationIdentifier = PublicationIdentifier(uniqueId: pubicationToDelete.uniqueId , version: pubicationToDelete.version)
             FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
             
@@ -861,7 +863,14 @@ extension FCPublicationDetailsTVC {
             //delete from model
             FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
             
-            self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
+            //if (self.referral == PublicationDetailsTVCVReferral.MyPublications) {
+                self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
+            //}
+            //else {
+                
+            //}
+            
+            
             
 //            deleteAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
 //                println("##### Completed deleteAlert.dismissViewControllerAnimated")

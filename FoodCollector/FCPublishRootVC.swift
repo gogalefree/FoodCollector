@@ -482,6 +482,7 @@ extension FCPublishRootVC: UserDidDeletePublicationProtocol {
     }
     
     func didTakeOffAirPublication(publication: FCPublication) {
+        println("####### FCPublishRootVC: didTakeOffAirPublication")
         let delayTime = dispatch_time(DISPATCH_TIME_NOW,
             Int64(2 * Double(NSEC_PER_SEC)))
         

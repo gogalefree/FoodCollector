@@ -182,6 +182,8 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
             publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.ActivityCenter, publication: publication)
             
             publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            publicationDetailsTVC?.deleteDelgate = self
+            
             let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
             self.navigationController?.presentViewController(nav, animated: true, completion: nil)
             
@@ -277,4 +279,48 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
+}
+
+extension FCActivityCenterTVC: UserDidDeletePublicationProtocol {
+    func didDeletePublication(publication: FCPublication,  collectionViewIndex: Int) {
+        println("####### ActivityCenter: didDeletePublication")
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+            self.reload()
+        })
+    }
+    
+    func didTakeOffAirPublication(publication: FCPublication) {
+        println("####### ActivityCenter: didTakeOffAirPublication")
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+            
+            //update model
+            publication.isOnAir = false
+            FCModel.sharedInstance.saveUserCreatedPublications()
+            
+            //inform server and model
+            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+                
+                if success{
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        //self.navigationController?.popViewControllerAnimated(true)
+                        let publicationIdentifier = PublicationIdentifier(uniqueId: publication.uniqueId, version: publication.version)
+                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
+                    })
+                }
+                else{
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not take your event off air", aMessage: "try again later")
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
+
+            self.reload()
+        })
+    }
 }
