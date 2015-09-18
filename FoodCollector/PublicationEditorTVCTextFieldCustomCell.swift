@@ -56,7 +56,6 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        println("@@@@@@@@  textFieldDidEndEditing()")
         if !cellTextField.text!.isEmpty {
             cellData!.cellTitle = textField.text
             cellData!.userData = textField.text

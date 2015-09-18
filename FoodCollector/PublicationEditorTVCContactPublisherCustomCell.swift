@@ -18,13 +18,12 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
         
     @IBAction func contactPubliserSwitchAction(sender: UISwitch) {
         var typeOfCollecting = 1
-        let contactDetails = (cellData!.userData as! NSDictionary).objectForKey(kPublicationContactInfoKey)! as! String
+        var contactDetails = "no" //(cellData!.userData as! NSDictionary).objectForKey(kPublicationContactInfoKey)! as! String
         cellData!.containsUserData = true
-        
         
         if (sender.on == true) {
             typeOfCollecting = 2
-            if (contactDetails.isEmpty) {
+            if (contactDetails.isEmpty || contactDetails == "no") {
                 cellData!.containsUserData = false
             }
         }

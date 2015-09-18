@@ -228,11 +228,11 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aLongtitude = (params[kPublicationLongtitudeKey] as! NSString).doubleValue
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
         let startingDateDouble = (params[kPublicationStartingDateKey] as! NSString).doubleValue
-        let startingDateInt = Int(startingDateDouble)
+        let startingDateInt = Double(startingDateDouble)
         let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(startingDateInt))
         
         let endingDateDouble = (params[kPublicationEndingDateKey] as! NSString).doubleValue
-        let endingDateInt = Int(endingDateDouble)
+        let endingDateInt = Double(endingDateDouble)
         let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(endingDateDouble))
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
         let aVersion = params[kPublicationVersionKey] as! Int

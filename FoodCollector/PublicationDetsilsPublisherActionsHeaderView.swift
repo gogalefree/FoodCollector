@@ -1,29 +1,28 @@
 //
-//  PublicationDetsilsActionsHeaderView.swift
+//  PublicationDetsilsPublisherActionsHeaderView.swift
 //  FoodCollector
 //
-//  Created by Guy Freedman on 6/8/15.
+//  Created by Boris Tsigelman on 6/8/15.
 //  Copyright (c) 2015 Guy Freeman. All rights reserved.
 //
 
 import UIKit
 import Foundation
 
-protocol PublicationDetailsActionsHeaderDelegate: NSObjectProtocol {
+protocol PublicationDetsilsPublisherActionsHeaderDelegate: NSObjectProtocol {
     
-    func didRegisterForPublication(publication: FCPublication)
-    func didUnRegisterForPublication(publication: FCPublication)
-    func didRequestNavigationForPublication(publication: FCPublication)
-    func didRequestPhoneCallForPublication(publication: FCPublication)
-    func didRequestSmsForPublication(publication: FCPublication)
+
+    func didRequestPostToFacebookForPublication()
+    func didRequestPostToTwitterForPublication()
+
 }
 
-class PublicationDetsilsActionsHeaderView: UIView {
+class PublicationDetsilsPublisherActionsHeaderView: UIView {
     
     let buttonPressColor = UIColor(red: 32/255, green: 137/255, blue: 75/255, alpha: 1)
     let normalColor = kNavBarBlueColor
-    let registeredButtonImage = UIImage(named: "rishum")!
-    let unRegisteredButtonImage = UIImage(named: "CancelRishum")!
+//    let registeredButtonImage = UIImage(named: "rishum")!
+//    let unRegisteredButtonImage = UIImage(named: "CancelRishum")!
     
     @IBOutlet weak var button1to2widthConstraint : NSLayoutConstraint!
     @IBOutlet weak var button2to3widthConstraint : NSLayoutConstraint!
@@ -31,12 +30,12 @@ class PublicationDetsilsActionsHeaderView: UIView {
 
 
     
-    @IBOutlet weak var registerButton:  UIButton!
-    @IBOutlet weak var navigateButton:  UIButton!
+    @IBOutlet weak var facebookButton:  UIButton!
+    @IBOutlet weak var twitterButton:  UIButton!
     @IBOutlet weak var smsButton:       UIButton!
     @IBOutlet weak var phoneCallButton: UIButton!
     
-    weak var delegate: PublicationDetailsActionsHeaderDelegate!
+    weak var delegate: PublicationDetsilsPublisherActionsHeaderDelegate!
     
     var buttons = [UIButton]()
     
@@ -56,42 +55,25 @@ class PublicationDetsilsActionsHeaderView: UIView {
 
         switch sender {
 
-        case registerButton:
-
+        case facebookButton:
             
             if let delegate = self.delegate {
-                switch self.publication.didRegisterForCurrentPublication {
-                case true:
-                    delegate.didUnRegisterForPublication(self.publication)
-                case false:
-                    delegate.didRegisterForPublication(self.publication)
-                default:
-                    break
-                }
+                delegate.didRequestPostToFacebookForPublication()
             }
-            
-        case navigateButton:
-            
-            if !self.publication.didRegisterForCurrentPublication {
-                self.delegate.didRegisterForPublication(self.publication)
-                if self.publication.typeOfCollecting == .ContactPublisher {return}
-            }
-
+        case twitterButton:
             if let delegate = self.delegate {
-                    delegate.didRequestNavigationForPublication(self.publication)
+                delegate.didRequestPostToTwitterForPublication()
             }
             
         case smsButton:
 
-            if let delegate = self.delegate {
-                delegate.didRequestSmsForPublication(self.publication)
-            }
+            // For now this buttun is disabled
+             println("smsButton")
             
         case phoneCallButton:
 
-            if let delegate = self.delegate {
-                delegate.didRequestPhoneCallForPublication(self.publication)
-            }
+            // For now this buttun is disabled
+            println("phoneCallButton")
             
         default:
             println("publication details unknown button")
@@ -100,31 +82,25 @@ class PublicationDetsilsActionsHeaderView: UIView {
     
     func configureInitialState(publication: FCPublication) {
         //User created publication
-        if FCModel.sharedInstance.isUserCreaetedPublication(publication){
+        if !publication.isOnAir {
             self.disableAllButtons()
             return
         }
         
         configureButtonsForNormalState()
-        configureRegisterButton()
 
         
-        if publication.typeOfCollecting != .ContactPublisher {
-    
-            configureButtonsForFreePickup()
-        }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        buttons = [registerButton, navigateButton,smsButton, phoneCallButton]
+        buttons = [facebookButton, twitterButton,smsButton, phoneCallButton]
         configureButtons()
     }
     
     func configureButtons() {
         
         for button in self.buttons {
-            
             button.backgroundColor = normalColor
             button.setTitle("", forState: .Normal)
             button.layer.cornerRadius = CGRectGetWidth(button.frame) / 2
@@ -134,44 +110,22 @@ class PublicationDetsilsActionsHeaderView: UIView {
         
     func disableAllButtons() {
         for button in self.buttons {
-            
-            let buttonColor = UIColor.lightGrayColor()
-            button.backgroundColor = buttonColor
+            button.backgroundColor = UIColor.lightGrayColor()
             button.enabled = false
         }
     }
     
     func configureButtonsForNormalState() {
-     
-        for button in self.buttons {
-            
-            button.backgroundColor = normalColor
-            button.enabled = true
-        }
-    }
-    
-    private func configureButtonsForFreePickup() {
         
-        let contactButtons = [smsButton , phoneCallButton]
-        for button in contactButtons {
-            
-            let buttonColor = UIColor.lightGrayColor()
-            button.backgroundColor = buttonColor
-            button.enabled = false
-        }
-    }
-    
-    private func configureRegisterButton() {
-        
-        if let publication = publication {
-            switch publication.didRegisterForCurrentPublication {
-            case true:
-                self.registerButton.backgroundColor = self.buttonPressColor
-                self.registerButton.setImage(unRegisteredButtonImage, forState: .Normal)
-                
-            default :
-                self.registerButton.backgroundColor = self.normalColor
-                self.registerButton.setImage(registeredButtonImage, forState: UIControlState.Normal)
+        for var i=0; i<self.buttons.count; i++ {
+            let button = self.buttons[i]
+            switch i {
+            case 0, 1: // Facebook and Twitter buttons
+                button.backgroundColor = normalColor
+                button.enabled = true
+            default:
+                button.backgroundColor = UIColor.lightGrayColor()
+                button.enabled = false
             }
         }
     }
@@ -190,14 +144,14 @@ class PublicationDetsilsActionsHeaderView: UIView {
                 UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
                     
                     button.transform = CGAffineTransformIdentity
-                    if button != self.registerButton {
+                    //if button != self.registerButton {
                         button.backgroundColor = self.normalColor
-                    }
+                    //}
 
 
                 }) { (finished) -> Void in
                     
-                    self.configureRegisterButton()
+                    //self.configureRegisterButton()
             }
         }
     }

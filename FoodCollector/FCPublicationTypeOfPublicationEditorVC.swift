@@ -229,8 +229,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     }
     
     func validtePhoneNumber(phoneNumber:String) {
-        //println(">>> Start phone validation")
-        //println("Phone: \(phoneNumber)")
+
         let legalCharsInPhone:Array<Character> = ["0", "1", "2", "3" ,"4", "5", "6", "7", "8", "9"]
         let twoDigitAreaCodes = ["02", "03", "04", "08", "09"]
         let threeDigitAreaCodes = ["072", "073", "074", "076", "077", "078", "050", "052", "053", "054", "055", "056", "058", "059"]

@@ -8,13 +8,73 @@
 
 import UIKit
 import MessageUI
+import Social
 
-class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPublicationRegistrationsFetcherDelegate {
+
+let kReportButtonTitle = String.localizedStringWithFormat("דווח", "Report title for a button")
+let kOptionsButtonTitle = String.localizedStringWithFormat("אפשרויות", "Report title for a button")
+let kTakeOffAirlertTitle = String.localizedStringWithFormat("אישור הפסקת פרסום אירוע", "Delete confirmation title for an alert controller")
+let kTakeOffAirAlertMessage = String.localizedStringWithFormat("בחרתם להפסיק את פרסום האירוע. אתם בטוחים?", "Delete confirmation message for an alert controller")
+let kDeleteAlertTitle = String.localizedStringWithFormat("אישור מחיקת אירוע", "Delete confirmation title for an alert controller")
+let kDeleteAlertMessage = String.localizedStringWithFormat("בחרתם למחוק את האירוע. זה סופי?", "Delete confirmation message for an alert controller")
+let kAlertOKButtonTitle = String.localizedStringWithFormat("כן", "OK title for an alert button")
+let kAlertCancelButtonTitle = String.localizedStringWithFormat("לא", "Cancel title for an alert button")
+
+
+
+enum PublicationDetailsTVCViewState {
+
+    case Publisher
+    case Collector
+}
+
+enum PublicationDetailsTVCVReferral {
+    
+    case MyPublications
+    case ActivityCenter
+    
+}
+
+protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
+    func didDeletePublication(publication: FCPublication, collectionViewIndex: Int)
+    func didTakeOffAirPublication(publication: FCPublication)
+}
+
+class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
+    
+    var deleteDelgate: UserDidDeletePublicationProtocol?
     
     var publication: FCPublication?
+    var state = PublicationDetailsTVCViewState.Collector
+    var referral = PublicationDetailsTVCVReferral.MyPublications
+    var publicationIndexNumber = 0
  
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
+    
+    func setupWithState(initialState: PublicationDetailsTVCViewState, caller: PublicationDetailsTVCVReferral, publication: FCPublication?, publicationIndexPath:Int = 0) {
+        // This function is executed before viewDidLoad()
+
+        self.state = initialState
+        self.publication = publication
+        self.referral = caller
+        self.publicationIndexNumber = publicationIndexPath
+        
+        /*
+        // This is for a future implementation (if needed)
+        if self.state == PublicationDetailsTVCViewState.Collector {
+            // Some code
+        }
+        else {
+            // Some code
+        }
+
+        if self.state == PublicationDetailsTVCViewState.Publisher {
+            // Some code
+        }
+        */
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +87,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         fetchPublicationPhoto()
         fetchPublicationRegistrations()
         registerForNotifications()
-        addReportButton()
+        addTopRightButton(self.state)
         configAdminIfNeeded()
        // showOnSpotReport()
     }
@@ -57,10 +117,18 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
         if section != 1 {
             return nil
         }
-        let header = UIView.loadFromNibNamed("PublicationDetsilsActionsHeaderView", bundle: nil) as? PublicationDetsilsActionsHeaderView
-        header?.delegate = self
-        header?.publication = self.publication
-        return header
+        if state == .Collector {
+            let header = UIView.loadFromNibNamed("PublicationDetsilsCollectorActionsHeaderView", bundle: nil) as? PublicationDetsilsCollectorActionsHeaderView
+            header?.delegate = self
+            header?.publication = self.publication
+            return header
+        }
+        else {
+            let header = UIView.loadFromNibNamed("PublicationDetsilsPublisherActionsHeaderView", bundle: nil) as? PublicationDetsilsPublisherActionsHeaderView
+            header?.delegate = self
+            header?.publication = self.publication
+            return header
+        }
     }
     
     // MARK: - Table view data source
@@ -325,9 +393,9 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, FCPu
     
 }
 
-//MARK: - Actions Header delegate
+//MARK: - Collector Actions Header delegate
 
-extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
+extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDelegate {
     
     
     func didRegisterForPublication(publication: FCPublication) {
@@ -413,6 +481,39 @@ extension FCPublicationDetailsTVC: PublicationDetailsActionsHeaderDelegate {
     
     
 }
+
+//MARK: - Publisher Actions Header delegate
+
+extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDelegate {
+    
+    
+    func didRequestPostToFacebookForPublication() {
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+            var facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            
+            facebookPostController.setInitialText(publication?.title)
+            facebookPostController.addImage(publication?.photoData.photo)
+            facebookPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
+            self.presentViewController(facebookPostController, animated:true, completion:nil)
+        }
+    }
+    
+    func didRequestPostToTwitterForPublication() {
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+            var twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            
+            let hashTagString = "#FooDoNet: "
+            let title = publication?.title
+            twiiterPostController.setInitialText(hashTagString + title!)
+            twiiterPostController.addImage(publication?.photoData.photo)
+            twiiterPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
+            self.presentViewController(twiiterPostController, animated:true, completion:nil)
+        }
+    }
+}
+
 
 //MARK: - Image cell delegate
 
@@ -583,14 +684,35 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
 
 extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
-    func addReportButton() {
-     
-        if !FCModel.sharedInstance.isUserCreaetedPublication(self.publication!){
-            let title = String.localizedStringWithFormat("דווח", "report button title")
-            let reportButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "presentReportVC")
-            self.navigationItem.setRightBarButtonItem(reportButton, animated: false)
+//    func addReportButton() {
+//     
+//        if !FCModel.sharedInstance.isUserCreaetedPublication(self.publication!){
+//            let title = kReportButtonTitle
+//            let reportButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "presentReportVC")
+//            self.navigationItem.setRightBarButtonItem(reportButton, animated: false)
+//        }
+//    }
+    
+    func addTopRightButton(buttonType: PublicationDetailsTVCViewState) {
+        var buttonValus = (kReportButtonTitle, "presentReportVC")
+        
+        if buttonType == PublicationDetailsTVCViewState.Publisher {
+            buttonValus = (kOptionsButtonTitle, "presentOptionsMenuVC")
         }
+            
+        createTopRightButton(label: buttonValus.0, andAction: buttonValus.1)
     }
+    
+    func createTopRightButton(#label:String, andAction actionName: String) {
+        let actionSelector = Selector(stringLiteral: actionName)
+        let topRightButton = UIBarButtonItem(
+                title: label,
+                style: UIBarButtonItemStyle.Done,
+                target: self,
+                action: actionSelector)
+        self.navigationItem.setRightBarButtonItem(topRightButton, animated: false)
+    }
+    
     
     func presentReportVC() {
         
@@ -602,6 +724,39 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
         let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
         
         self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    func presentOptionsMenuVC(){
+        let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
+        optionsMenuPopUpVC.delegate = self
+        optionsMenuPopUpVC.publication = publication
+        
+        optionsMenuPopUpVC.popoverPresentationController?.delegate = self
+        optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+        if publication!.isOnAir {
+            // 44 is the row height of each cell in the options menu table
+            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
+        }
+        else {
+            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
+        }
+
+        //get the popup presentation controller. it is a property on every
+        //View Controller subclass. there you set the arrows direction etc. take a look at
+        //it's properties, it's very flexible.
+        
+        
+        let popUpPC = optionsMenuPopUpVC.popoverPresentationController
+        popUpPC?.delegate = self
+        popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
+        popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
+        
+        self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyleForPresentationController(
+        controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .None
     }
     
     func dismiss() {
@@ -658,3 +813,65 @@ extension FCPublicationDetailsTVC {
         })
     }
 }
+
+//MARK: - PublicationDetailsOptionsMenuPopUpTVCDelegate Protocol
+
+extension FCPublicationDetailsTVC {
+    
+    func didSelectEditPublicationAction(){
+        dismiss()
+
+        let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
+        publicationEditorTVC?.setupWithState(.EditPublication, publication: publication)
+        
+        //publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        
+        let nav = UINavigationController(rootViewController: publicationEditorTVC!)
+        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+
+    }
+    
+    func didSelectTakOffAirPublicationAction() {
+        
+        var takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        takeOffAirAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+            self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
+        }))
+        
+        takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        }))
+        
+        presentViewController(takeOffAirAlert, animated: true, completion: nil)
+        
+    }
+    
+    func didSelectDeletePublicationAction() {
+        
+        var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+            
+            let pubicationToDelete = self.publication!
+            // make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
+            let publicationIdentifier = PublicationIdentifier(uniqueId: pubicationToDelete.uniqueId , version: pubicationToDelete.version)
+            FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+            
+            
+            //delete from model
+            FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
+            
+                self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))
+        
+        self.presentViewController(deleteAlert, animated: true, completion: nil)
+
+    }
+    
+}
+
+
+
+

@@ -17,7 +17,7 @@ let kPublishEndDate = String.localizedStringWithFormat("ועד-", "Add ebd date 
 let kPublishImage = String.localizedStringWithFormat("רוצה להוסיף תמונה?", "Add image for a new event")
 let kPublishedImage = String.localizedStringWithFormat("זו התמונה שבחרת:", "This is the image you have selected label")
 let kPublishPublishButtonLabel = String.localizedStringWithFormat("פרסום", "Publish button to publish a new event")
-let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסרת פרסום", "Take Off Air button to immediately stop publication of an exciting active event")
+//let kPublishTakeOffAirButtonLabel = String.localizedStringWithFormat("הסרת פרסום", "Take Off Air button to immediately stop publication of an exciting active event")
 //let kPublishStartDatePrefix = String.localizedStringWithFormat("התחלה:  ", "Start date label for displaying an exciting start date event")
 //let kPublishEndDatePrefix = String.localizedStringWithFormat("סיום: ", "End date label for displaying an exciting end date event")
 let kPublishSubtitle = String.localizedStringWithFormat("רוצה לתת פרטים נוספים?", "Add subitle for a new event")
@@ -63,7 +63,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     var dataSource = [PublicationEditorTVCCellData]()
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
     var selectedIndexPath: NSIndexPath?
-    var takeOffAirButtonEnabled = false
+    //var takeOffAirButtonEnabled = false
     var publishButtonEnabled = false
     lazy var activityIndicatorBlureView = UIVisualEffectView()
     
@@ -110,7 +110,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // self.clearsSelectionOnViewWillAppear = false
 
         addTopRightButton()
-        
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "popViewController")
         
@@ -451,79 +450,82 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func popViewController() {
-        self.navigationController!.popViewControllerAnimated(true)
+        if state == PublicationEditorTVCState.CreateNewPublication {
+            self.navigationController!.popViewControllerAnimated(true)
+        }
+        else {
+            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
     }
     
     func addTopRightButton() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: kPublishtopRightBarButtonSaveTitle, style: UIBarButtonItemStyle.Done,
             target: self, action: "publish")
-        println("------> button status: " + self.navigationItem.rightBarButtonItem!.enabled.description)
         setTopRightButtonStatus()
     }
     
     func setTopRightButtonStatus(){
-        println("---> setTopRightButtonStatus: " + publishButtonEnabled.description)
         self.navigationItem.rightBarButtonItem!.enabled = publishButtonEnabled
     }
     
 
 //===========================================================================
-//   MARK: - TakeOffAir and Publish buttons logic
+//   MARK: - Publish buttons logic
 //===========================================================================
     
-    private func shouldEnableTakeOfAirButton() {
-        
-        switch self.state {
-            
-        case .EditPublication /*, .ActivityCenter*/:
-            self.takeOffAirButtonEnabled = self.publication!.isOnAir
-            
-        default:
-            self.takeOffAirButtonEnabled = false
-        }
-        
-        checkIfReadyForPublish()
-        
-        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: .Automatic)
-    }
+//    private func shouldEnableTakeOfAirButton() {
+//        
+//        switch self.state {
+//            
+//        case .EditPublication /*, .ActivityCenter*/:
+//            self.takeOffAirButtonEnabled = self.publication!.isOnAir
+//            
+//        default:
+//            self.takeOffAirButtonEnabled = false
+//        }
+//        
+//        checkIfReadyForPublish()
+//        
+//        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: .Automatic)
+//    }
     
-    private func takeOffAir(){
-        
-        if let publication = self.publication {
-            //update model
-            publication.isOnAir = false
-            FCModel.sharedInstance.saveUserCreatedPublications()
-            
-            //update ui
-            self.takeOffAirButtonEnabled = false
-            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: .Automatic)
-            
-            //inform server and model
-            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
-                
-                if success{
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        
-                        self.navigationController?.popViewControllerAnimated(true)
-                        let publicationIdentifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId, version: self.publication!.version)
-                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
-                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
-                    })
-                }
-                else{
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not take your event off air", aMessage: "try again later")
-                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
-                }
-            })
-        }
-    }
+//    private func takeOffAir(){
+//        
+//        if let publication = self.publication {
+//            //update model
+//            publication.isOnAir = false
+//            FCModel.sharedInstance.saveUserCreatedPublications()
+//            
+//            //update ui
+//            self.takeOffAirButtonEnabled = false
+//            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: .Automatic)
+//            
+//            //inform server and model
+//            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+//                
+//                if success{
+//                    
+//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                        
+//                        self.navigationController?.popViewControllerAnimated(true)
+//                        let publicationIdentifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId, version: self.publication!.version)
+//                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+//                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
+//                    })
+//                }
+//                else{
+//                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not take your event off air", aMessage: "try again later")
+//                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+//                }
+//            })
+//        }
+//    }
     
     
     private func checkIfReadyForPublish(){
         
-        println("@@@@@@@@  checkIfReadyForPublish()")
         
         //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
@@ -534,7 +536,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             for index in 0...4 {
                 
                 let cellData = self.dataSource[index]
-                println("@@@@@@@@  checkIfReadyForPublish: " + cellData.cellTitle + " -> status: " + cellData.containsUserData.description)
                 if !cellData.containsUserData{
                     containsData = false
                     break
@@ -555,7 +556,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 if startindDate.timeIntervalSince1970 >= endingDate.timeIntervalSince1970 {normalDates = false}
             }
             
-            if normalDates && !expired && containsData && !self.takeOffAirButtonEnabled{
+            if normalDates && !expired && containsData /*&& !self.takeOffAirButtonEnabled*/ {
                 self.publishButtonEnabled = true
             }
             else {
@@ -648,12 +649,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func publishEdidtedPublication() {
-        
         var params = self.prepareParamsDictToSend()
         FCModel.sharedInstance.foodCollectorWebServer.postEditedPublication(params, publication: self.publication!) { (success, version) -> () in
             
             if success {
-                
                 params[kPublicationUniqueIdKey] = self.publication!.uniqueId
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
@@ -662,7 +661,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     if self.state == .EditPublication{
-                        self.navigationController?.popViewControllerAnimated(true)
+                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     }
                     //                    else if self.state == .ActivityCenter {
                     //                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
@@ -672,8 +671,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
                     FCModel.sharedInstance.deleteOldVersionsOfUserCreatedPublication(publication)
                     
-                    let uploader = FCPhotoFetcher()
-                    uploader.uploadPhotoForPublication(publication)
+                    if publication.photoData.photo != nil {
+                        //send the photo
+                        let uploader = FCPhotoFetcher()
+                        uploader.uploadPhotoForPublication(publication)
+                    }
                 })
             }
                 
@@ -728,7 +730,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         return params
     }
 
-    
+    /*
     func presentCanNotEditOnAirPublicationAlert() {
         
         let title = String.localizedStringWithFormat("לא ניתן לערוך כל עוד הפרסום באוויר", "")
@@ -741,6 +743,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         alert.addAction(dissmissAction)
         self.navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
+    */
     
     func fetchPhotoIfNeeded() {
         
@@ -942,7 +945,6 @@ extension PublicationEditorTVC {
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        println("----> imagePickerController")
         self.dismissViewControllerAnimated(true, completion: nil)
         
         var myInfo = info

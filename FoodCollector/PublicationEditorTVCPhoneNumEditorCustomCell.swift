@@ -23,9 +23,10 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         didSet {
             if let cellPhoneField = self.cellData {
                 let typeOfPublicationRawValue = cellData!.userData.objectForKey(kPublicationTypeOfCollectingKey) as! Int
-                let cellTitle = cellData!.userData.objectForKey(kPublicationContactInfoKey) as! String
+                var cellTitle = cellData!.userData.objectForKey(kPublicationContactInfoKey) as! String
                 if (typeOfPublicationRawValue == 2){
                     if (cellTitle != "") {
+                        if cellTitle == "no" {cellTitle = ""}
                         self.cellPhoneField.text = cellTitle
                     }
                 }
@@ -105,11 +106,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     }
     
     func validtePhoneNumber(phoneNumber:String) {
-        //println(">>> Start phone validation")
-        //println("Phone: \(phoneNumber)")
-        //let digits = "0123456789"
-        
-        
+
         let twoDigitAreaCodes = ["02", "03", "04", "08", "09"]
         let threeDigitAreaCodes = ["072", "073", "074", "076", "077", "078", "050", "052", "053", "054", "055", "056", "058", "059"]
         // The list above is based on "http://he.wikipedia.org/wiki/קידומת_טלפון_בישראל"

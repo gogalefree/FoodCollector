@@ -360,10 +360,10 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["publication_version"] = publicationVersion
         params["publication_id"] = uniqueId
         params["date_of_registration"] = 11243423
-        println("params: \(params)")
         
         let dicToSend = ["registered_user_for_publication" : params]
-        
+        println("params: \(dicToSend)")
+
         let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
 
         let url = NSURL(string: unRegisterUserFromPublicationURL + "\(uniqueId)" + "/registered_user_for_publications/5")
@@ -404,6 +404,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["report"] = report.onSpotPublicationReportMessage.rawValue
         
         var dicToSend = ["publication_report" : params]
+        println(dicToSend)
         let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
         let url = NSURL(string: urlString)
         var request = NSMutableURLRequest(URL: url!)

@@ -60,7 +60,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     override func viewWillAppear(animated: Bool) {
-        
         super.viewWillAppear(animated)
         userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(userCreatedPublications)
         userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)
@@ -119,16 +118,18 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         return size
     }
     
-//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-//        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-//        publicationDetailsTVC?.title = userCreatedPublications[indexPath.item].title
-//        publicationDetailsTVC?.publication = userCreatedPublications[indexPath.item]
-//        
-//        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
-//        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
-//        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
-//        
-//    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        
+        publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: userCreatedPublications[indexPath.item], publicationIndexPath: indexPath.item)
+        
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        
+        publicationDetailsTVC?.deleteDelgate = self
+        
+        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+    }
     
     // Check which segue was used to go to the PublicationEditorTVC view.
     //
@@ -141,20 +142,28 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     // and display the publication's content in the PublicationEditorTVC class.
 
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
+        if (segue.identifier == "showNewPublicationEditorTVC") {
+            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
+            publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
+        }
       
 //        if (segue.identifier == "showPublicationDetailsWithEditButtonTVC") {
 //            let publicationDetailsWithEditButtonTVC = segue!.destinationViewController as! FCPublicationDetailsTVC
 //            publicationDetailsWithEditButtonTVC.publication = userCreatedPublications[sender.tag]
 //            publicationDetailsWithEditButtonTVC.title = userCreatedPublications[sender.tag].title
 //            
-        if (segue.identifier == "showEditPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
-            publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
-        }
-        else if (segue.identifier == "showNewPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
-            publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
-        }
+//        if (segue.identifier == "showEditPublicationEditorTVC") {
+//            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
+//            publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
+//        }
+//        else if (segue.identifier == "showNewPublicationEditorTVC") {
+//            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
+//            publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
+//        }
+    }
+    
+    func dismissDetailVC() {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
@@ -284,6 +293,15 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             label.text = String.localizedStringWithFormat("הי,\nמה תרצו לשתף?" , "No user created publications message")
             self.view.addSubview(label)
         }
+    }
+    
+    func deleteFromCollectionView(publication: FCPublication, indexNumber: Int) {
+        self.collectionView.performBatchUpdates({ () -> Void in
+            self.userCreatedPublications.removeAtIndex(indexNumber)
+            self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: indexNumber, inSection: 0)])
+            
+            }, completion:nil)
+        
     }
     
     //MARK: - UISearchBar
@@ -444,4 +462,54 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+}
+
+extension FCPublishRootVC: UserDidDeletePublicationProtocol {
+    func didDeletePublication(publication: FCPublication,  collectionViewIndex: Int) {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+            Int64(2 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+            let indexPath = NSIndexPath(forItem: collectionViewIndex, inSection: 0)
+            self.collectionView.performBatchUpdates({ () -> Void in
+                self.userCreatedPublications.removeAtIndex(indexPath.item)
+                self.collectionView.deleteItemsAtIndexPaths([indexPath])
+            }, completion: nil)
+            
+        })
+    }
+    
+    func didTakeOffAirPublication(publication: FCPublication) {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+            Int64(2 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+
+            //update model
+            publication.isOnAir = false
+            FCModel.sharedInstance.saveUserCreatedPublications()
+            
+            //inform server and model
+            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+                
+                if success{
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        //self.navigationController?.popViewControllerAnimated(true)
+                        let publicationIdentifier = PublicationIdentifier(uniqueId: publication.uniqueId, version: publication.version)
+                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
+                    })
+                }
+                else{
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not take your event off air", aMessage: "try again later")
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
+            
+            self.collectionView.reloadData()
+            
+        })
+    }
 }
