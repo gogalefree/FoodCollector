@@ -982,7 +982,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift dev";
 		};
 /* End PBXShellScriptBuildPhase section */
 
