@@ -855,7 +855,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Boris Tsigelman";
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
@@ -1150,6 +1150,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1217,6 +1218,7 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier).dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = FoodCollector/BridgingHeader.h;
@@ -1234,6 +1236,7 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier).dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = FoodCollector/BridgingHeader.h;
@@ -1255,6 +1258,7 @@
 				);
 				INFOPLIST_FILE = FoodCollectorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodCollector.app/FoodCollector";
 			};
@@ -1270,6 +1274,7 @@
 				);
 				INFOPLIST_FILE = FoodCollectorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodCollector.app/FoodCollector";
 			};
