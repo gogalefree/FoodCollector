@@ -390,8 +390,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     func writeArrayResultsToPlist(fileName: String, fileExt: String){
         let fullPlistName = fileName + "." + fileExt
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
-        let path = paths.stringByAppendingString(fullPlistName)
+        let direcoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        let path = direcoryPath.stringByAppendingString(fullPlistName)
         
         (searchHistoryArray as NSArray).writeToFile(path, atomically: true)
         
