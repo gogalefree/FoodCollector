@@ -28,7 +28,6 @@ class AboutVC: UIViewController {
         
         let dictionary = NSBundle.mainBundle().infoDictionary!
         let version = dictionary["CFBundleShortVersionString"] as! String
-        let x = 10
         return version
     }
     

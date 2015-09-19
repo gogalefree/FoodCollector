@@ -94,14 +94,14 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
                        
             var indexesToRemove = [Int]()
             
-            for (index ,userCreatedPublication) in enumerate(self.userCreatedPublications){
+            for (index ,userCreatedPublication) in self.userCreatedPublications.enumerate(){
                 
                 if !userCreatedPublication.isOnAir || FCDateFunctions.PublicationDidExpired(userCreatedPublication.endingDate){
                     indexesToRemove.append(index)
                 }
             }
             
-            for (index, indexToRemove) in enumerate(indexesToRemove) {
+            for (index, indexToRemove) in indexesToRemove.enumerate() {
                 let removalIndex = indexToRemove - index
                 self.userCreatedPublications.removeAtIndex(removalIndex)
             }
@@ -165,7 +165,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
 
     final override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        var publication = self.publicationForIndexPath(indexPath)
+        let publication = self.publicationForIndexPath(indexPath)
         let title = titleForIndexPath(indexPath)
         
         switch indexPath.section {

@@ -19,7 +19,7 @@ class FCLaunchScreenView: UIView {
             let plist = NSDictionary(contentsOfFile: path)
             let version = plist?.objectForKey("CFBundleVersion") as! String
             self.versionLabel.text = version
-            print("version ++++++++ \(version)")
+            print("version ++++++++ \(version)", terminator: "")
             
         }
         

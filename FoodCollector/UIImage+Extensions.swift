@@ -14,11 +14,11 @@ extension UIImage {
     
     class func imageWithColor(color: UIColor, view:UIView) -> UIImage {
      
-        var rect = CGRectMake(0, 0, view.bounds.width, 44)
+        let rect = CGRectMake(0, 0, view.bounds.width, 44)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
         color.setFill()
         UIRectFill(rect)
-        var image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
     }

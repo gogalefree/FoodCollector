@@ -38,15 +38,15 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     var userLocation = CLLocation()
     let locationManager = CLLocationManager()
-    let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
-    let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("userCreatedPublications")
+    let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("publications")
+    let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("userCreatedPublications")
     var photosDirectoryUrl : NSURL = FCModel.preparePhotosDirectory()
     var dataUpdater = DataUpdater()
     var uiReadyForNewData: Bool = false {
         
         didSet {
             if (uiReadyForNewData){
-                println("ready for new data")
+                print("ready for new data")
                 self.downloadData()
                 FCUserNotificationHandler.sharedInstance.resendPushNotificationToken()
             }
@@ -55,7 +55,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     var deviceUUID: String? = {
         var uuid = NSUserDefaults.standardUserDefaults().objectForKey(kDeviceUUIDKey) as? String
-        println("has uuid already: \(uuid)")
+        print("has uuid already: \(uuid)")
         return uuid
         }()
     
@@ -72,12 +72,12 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         if let urlDict = baseUrlPlist {
             
             urlString = urlDict["Server URL"] as! String
-            println("srver url **************: \n\(urlString)")
+            print("srver url **************: \n\(urlString)")
             
         }
         else {
             urlString = ""
-            println("srver url **************: NOT FOUND")
+            print("srver url **************: NOT FOUND")
             
         }
         return urlString
@@ -99,7 +99,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     func reportDeviceUUIDToServer() {
         
         self.deviceUUID ?? {
-            var uuid = NSUUID().UUIDString
+            let uuid = NSUUID().UUIDString
             NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
             return uuid
             }()
@@ -127,7 +127,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func deletePublication(publicationIdentifier: PublicationIdentifier, deleteFromServer: Bool, deleteUserCreatedPublication: Bool) {
         //delete the publication
-        for (index , publication) in enumerate(self.publications) {
+        for (index , publication) in self.publications.enumerate() {
             if publication.uniqueId == publicationIdentifier.uniqueId &&
                 publication.version == publicationIdentifier.version{
                     self.publications.removeAtIndex(index)
@@ -139,7 +139,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
         //delete the publication from user created publications
         if deleteUserCreatedPublication {
-            for (index , publication) in enumerate(self.userCreatedPublications) {
+            for (index , publication) in self.userCreatedPublications.enumerate() {
                 if publication.uniqueId == publicationIdentifier.uniqueId &&
                     publication.version == publicationIdentifier.version{
                         self.userCreatedPublications.removeAtIndex(index)
@@ -166,7 +166,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     func addPublication(recievedPublication: FCPublication) {
         //remove older versions
         if recievedPublication.version > 1 {
-            for (index, publication) in enumerate(self.publications) {
+            for (index, publication) in self.publications.enumerate() {
                 if publication.uniqueId == recievedPublication.uniqueId &&
                     publication.version < recievedPublication.version {
                         self.publications.removeAtIndex(index)
@@ -237,7 +237,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
             
             var indexesToRemove = [Int]()
-            for (index, publication) in enumerate(self.userCreatedPublications) {
+            for (index, publication) in self.userCreatedPublications.enumerate() {
                 
                 if publication.uniqueId == userCreatedPublication.uniqueId &&
                     publication.version < userCreatedPublication.version {
@@ -245,7 +245,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 }
             }
            
-            for (i ,index) in enumerate(indexesToRemove) {
+            for (i ,index) in indexesToRemove.enumerate() {
                 
                 self.userCreatedPublications.removeAtIndex(index - i)
             }
@@ -259,7 +259,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {
         
-        var possiblePublication = self.publicationWithIdentifier(identifier)
+        let possiblePublication = self.publicationWithIdentifier(identifier)
         if possiblePublication != nil {
             
             possiblePublication!.reportsForPublication.append(report)
@@ -269,7 +269,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func didRecievePublicationRegistration(registration: FCRegistrationForPublication) {
         
-        var userCreatedPublication = self.userCreatedPublicationWithIdentifier(registration.identifier)
+        let userCreatedPublication = self.userCreatedPublicationWithIdentifier(registration.identifier)
 
         if let userPublication = userCreatedPublication {
             userPublication.registrationsForPublication.append(registration)
@@ -278,7 +278,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
         else {return}
         
-        var possiblePublication: FCPublication? = self.publicationWithIdentifier(registration.identifier)
+        let possiblePublication: FCPublication? = self.publicationWithIdentifier(registration.identifier)
         
         if let publication = possiblePublication {
         
@@ -354,7 +354,7 @@ public extension FCModel {
     public class func documentsDirectory() -> String {
         
         var doucuments = ""
-        let dirs : [String]? = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String]
+        let dirs : [String]? = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
         if  dirs != nil {
             doucuments = dirs![0]
         }
@@ -367,13 +367,16 @@ public extension FCModel {
         let appSupportDirs = fm.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask)
         let photosDirectoryUrl = appSupportDirs[0].URLByAppendingPathComponent("Images")
         
+        
         if !photosDirectoryUrl.checkResourceIsReachableAndReturnError(nil) {
-            var error: NSError?
-            if !fm.createDirectoryAtURL(photosDirectoryUrl, withIntermediateDirectories: true, attributes: nil, error: &error) {
-                println(error)
+            do {
+                try fm.createDirectoryAtURL(photosDirectoryUrl, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
             }
         }
-        println(photosDirectoryUrl.path)
+        
+        print(photosDirectoryUrl.path)
         return photosDirectoryUrl
     }
 }

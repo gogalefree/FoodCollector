@@ -46,7 +46,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     //MARK: - Location Manager setup
     
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         switch status {
             
@@ -70,13 +70,13 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     
         if trackingUserLocation{
             
             self.mapView.setCenterCoordinate(self.mapView.userLocation.coordinate, animated: true)
             var newCamera = self.mapView.camera.copy() as! MKMapCamera
-            newCamera.heading = self.mapView.userLocation.location.course
+            newCamera.heading = self.mapView.userLocation.location!.course
             self.mapView.setCamera(newCamera, animated: true)
             
         }
@@ -207,7 +207,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         
         let topConstraintValue = CGRectGetHeight(self.newPublicationMessageView.bounds)
         
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.newPublicationMessageViewTopConstraint.constant = -topConstraintValue
             self.view.layoutIfNeeded()
@@ -223,7 +223,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         if self.isPresentingNewDataMessageView {hideNewDataMessageView()}
         self.newPublicationMessageView.publication = publication
         
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.newPublicationMessageViewTopConstraint.constant = self.kNewDataMessageViewTopConstant
             self.view.layoutIfNeeded()
@@ -323,7 +323,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         
         if annotation.isKindOfClass(MKUserLocation) {
             return nil
@@ -339,10 +339,10 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         return annotationView
     }
     
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         mapView.deselectAnnotation(view.annotation, animated: true)
-        let annotation = view.annotation as MKAnnotation
-        if annotation .isKindOfClass(MKUserLocation){
+        let annotation = view.annotation
+        if annotation!.isKindOfClass(MKUserLocation){
             return
         }
         
@@ -441,7 +441,7 @@ extension FCCollectorRootVC {
         
         //we need to check if the report belongs to the presented publication to refresh it
         //change this to the presented publication
-        var presentedPublication = self.publications[0]
+        let presentedPublication = self.publications[0]
         
         if self.isPresentingNewDataMessageView &&
             presentedPublication.uniqueId == identifier.uniqueId &&
@@ -490,7 +490,7 @@ extension FCCollectorRootVC {
 
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+    func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         //
         //        if self.trackingUserLocation{
         //

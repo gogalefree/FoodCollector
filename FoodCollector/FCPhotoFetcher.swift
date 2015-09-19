@@ -18,12 +18,12 @@ class FCPhotoFetcher: NSObject {
         
         var photo: UIImage? = nil
         
-        var transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         
         let downloadedFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(publication.photoUrl)")
         let downloadedFileUrl = NSURL.fileURLWithPath(downloadedFilePath.path!)
         
-        var downloadRequest = AWSS3TransferManagerDownloadRequest()
+        let downloadRequest = AWSS3TransferManagerDownloadRequest()
         downloadRequest.bucket = self.bucketNameForBundle()//"foodcollector"
         downloadRequest.key = publication.photoUrl
         downloadRequest.downloadingFileURL = downloadedFileUrl
@@ -32,7 +32,7 @@ class FCPhotoFetcher: NSObject {
             
             
             if task.error != nil {
-                println(task.error)
+                print(task.error)
                 completion(image: photo)
             }
             
@@ -55,10 +55,10 @@ class FCPhotoFetcher: NSObject {
     func uploadPhotoForPublication(publication : FCPublication) {
         
         let imageToUpload = publication.photoData.photo!
-        let uploadFilePath = NSTemporaryDirectory().stringByAppendingPathComponent(publication.photoUrl)
+        let uploadFilePath = NSTemporaryDirectory().stringByAppendingString(publication.photoUrl)
         let uploadFileURL = NSURL.fileURLWithPath(uploadFilePath)
         
-        UIImageJPEGRepresentation(imageToUpload,0).writeToURL(uploadFileURL!, atomically: true)
+        UIImageJPEGRepresentation(imageToUpload,0)!.writeToURL(uploadFileURL, atomically: true)
         
         // return image as JPEG. May return nil if image has no CGImageRef or invalid bitmap format. compression is 0(most)..1(least)
         // the more it's compressed the smaller the file is
@@ -99,15 +99,15 @@ class FCPhotoFetcher: NSObject {
         if let infoPlist = infoPlist {
             
             let bundleName = infoPlist["CFBundleName"] as! String
-            println("bundle: \(bundleName)")
+            print("bundle: \(bundleName)")
             if bundleName.hasPrefix("dev") {
                 
-                println("dev Version. buck is \(self.foodCollectorDevelopmentBucketName)")
+                print("dev Version. buck is \(self.foodCollectorDevelopmentBucketName)")
                 return self.foodCollectorDevelopmentBucketName
             }
         }
         
-        println("prod or beta - bucket is \(self.foodCollectorProductionBucketName)")
+        print("prod or beta - bucket is \(self.foodCollectorProductionBucketName)")
         return self.foodCollectorProductionBucketName
     }
 }

@@ -42,7 +42,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     //MARK: - tableViewDataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var num = self.publication?.reportsForPublication.count
+        let num = self.publication?.reportsForPublication.count
         if let num = num {
             if num < 3 {
                 //if there are no reports - return 1
@@ -58,7 +58,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("singleReportCell") as! UITableViewCell as! FCPublicationSingleReportCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("singleReportCell") as! FCPublicationSingleReportCell
         
         if self.noReports {
             cell.noReports()
@@ -95,7 +95,7 @@ class FCPublicationDetailsTVReportsCell: UITableViewCell, UITableViewDataSource,
         self.tableView.rowHeight = 44
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let delegate = self.delegate {
             delegate.displayReportsWithFullScreen()
         }

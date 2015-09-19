@@ -67,8 +67,6 @@ class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITex
                 self.textView.alpha = 1
                 self.textView.becomeFirstResponder()
                 self.title = subTitleEditorTitle
-            default:
-                break
         }
     }
     
@@ -76,9 +74,9 @@ class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITex
         self.dissmissKeyBoard()
         switch self.state {
         case .textField:
-            if !self.textField.text.isEmpty {
-                self.celldata.userData = self.textField.text
-                self.celldata.cellTitle = self.textField.text
+            if !self.textField.text!.isEmpty {
+                self.celldata.userData = self.textField.text!
+                self.celldata.cellTitle = self.textField.text!
                 self.celldata.containsUserData = true
             }
         
@@ -101,7 +99,7 @@ class FCPublishStringFieldsEditorVC: UIViewController, UITextViewDelegate, UITex
         return true
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.dissmissKeyBoard()
     }
     

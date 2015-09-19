@@ -19,7 +19,7 @@ class PublicationPhotoPresentorPresentationController: UIPresentationController 
         let containerView  = self.containerView
         let presentedVC    = self.presentedViewController as! UINavigationController
 
-        containerView.insertSubview(dimmingView, atIndex: 0)
+        containerView!.insertSubview(dimmingView, atIndex: 0)
         self.dimmingView.alpha = 1
     }
     
@@ -39,24 +39,24 @@ class PublicationPhotoPresentorPresentationController: UIPresentationController 
     
     override func frameOfPresentedViewInContainerView() -> CGRect {
         //final frame
-        var frame = self.containerView.bounds
+        var frame = self.containerView!.bounds
         return frame
     }
     
     override func containerViewWillLayoutSubviews() {
         
         //handle rotation
-        dimmingView.frame = containerView.bounds
-        presentedView().frame = frameOfPresentedViewInContainerView()
+        dimmingView.frame = containerView!.bounds
+        presentedView()!.frame = frameOfPresentedViewInContainerView()
     }
     
     func prepareDimmingView() {
         
         dimmingView = UIView(frame: presentingViewController.view.bounds)
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
         visualEffectView.frame = dimmingView.bounds
-        visualEffectView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        visualEffectView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         dimmingView.addSubview(visualEffectView)
         dimmingView.alpha = 0
         

@@ -109,7 +109,7 @@ class NewReportMessageView: UIVisualEffectView {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.titleLabel.text = titleText
-        var color = UIColor.greenColor().colorWithAlphaComponent(0.1)
+        let color = UIColor.greenColor().colorWithAlphaComponent(0.1)
         self.contentView.backgroundColor = color
         self.addGestures()
     }
@@ -155,7 +155,7 @@ class NewReportMessageView: UIVisualEffectView {
     
     func presentFetchedPhoto(publication: FCPublication) {
         
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.imageView.alpha = 0
             
@@ -163,7 +163,7 @@ class NewReportMessageView: UIVisualEffectView {
                 
                 self.imageView.image = publication.photoData.photo
                 
-                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     
                     self.imageView.alpha = 1
                     

@@ -68,15 +68,15 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         case smsButton:
 
             // For now this buttun is disabled
-             println("smsButton")
+             print("smsButton")
             
         case phoneCallButton:
 
             // For now this buttun is disabled
-            println("phoneCallButton")
+            print("phoneCallButton")
             
         default:
-            println("publication details unknown button")
+            print("publication details unknown button")
         }
     }
     
@@ -134,14 +134,14 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         
         let scale = CGAffineTransformMakeScale(1.2, 1.2)
         
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             button.transform = scale
             button.backgroundColor = self.buttonPressColor
 
         }) { (finished) -> Void in
             
-                UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     
                     button.transform = CGAffineTransformIdentity
                     //if button != self.registerButton {

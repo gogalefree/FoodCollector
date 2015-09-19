@@ -11,10 +11,10 @@ import UIKit
 class PublicationPhotoPresentorAnimator: NSObject , UIViewControllerAnimatedTransitioning {
     
     var duration = 0.3
-    var originFrame = CGRect.zeroRect //the frame of the header view
+    var originFrame = CGRect.zero //the frame of the header view
 
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return duration
     }
     
@@ -22,20 +22,20 @@ class PublicationPhotoPresentorAnimator: NSObject , UIViewControllerAnimatedTran
         
         let containerView = transitionContext.containerView()
         
-        var navigationControllerView =
+        let navigationControllerView =
         transitionContext.viewForKey(UITransitionContextToViewKey)!
         
         var fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
        
-        navigationControllerView.frame = containerView.bounds
+        navigationControllerView.frame = containerView!.bounds
 
-        containerView.addSubview(navigationControllerView)
-        containerView.bringSubviewToFront(navigationControllerView)
+        containerView!.addSubview(navigationControllerView)
+        containerView!.bringSubviewToFront(navigationControllerView)
         
         UIView.animateWithDuration(duration, delay:0.0,
             usingSpringWithDamping: 0.9,
             initialSpringVelocity: 0.0,
-            options: nil,
+            options: [],
             animations: {
              
             }, completion:{_ in

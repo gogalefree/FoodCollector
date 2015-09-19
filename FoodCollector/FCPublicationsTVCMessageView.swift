@@ -27,12 +27,12 @@ class FCPublicationsTVCMessageView: UIVisualEffectView {
            
             case .DeleteMessage:
                 self.titleLabel.text = kpublicationDeletedAlertMessage
-                var color = UIColor.redColor().colorWithAlphaComponent(0.1)
+                let color = UIColor.redColor().colorWithAlphaComponent(0.1)
                 self.contentView.backgroundColor = color
             
             case .NewPublicationMessage:
                 self.titleLabel.text = kNewPublicationMessage
-                var color = UIColor.greenColor().colorWithAlphaComponent(0.1)
+                let color = UIColor.greenColor().colorWithAlphaComponent(0.1)
                 self.contentView.backgroundColor = color
             }
         }

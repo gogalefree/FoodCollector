@@ -46,7 +46,7 @@ class FCPublicationReportsPresentationController: UIPresentationController {
     
     override func frameOfPresentedViewInContainerView() -> CGRect {
         //final frame
-        var frame = self.containerView.bounds
+        var frame = self.containerView!.bounds
         return frame
     }
     
@@ -54,16 +54,16 @@ class FCPublicationReportsPresentationController: UIPresentationController {
         
         //handle rotation
     //    dimmingView.frame = containerView.bounds
-        presentedView().frame = frameOfPresentedViewInContainerView()
+        presentedView()!.frame = frameOfPresentedViewInContainerView()
     }
     
     func prepareDimmingView() {
         
-        dimmingView = UIView(frame: containerView.bounds)
+        dimmingView = UIView(frame: containerView!.bounds)
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
         visualEffectView.frame = dimmingView.bounds
-        visualEffectView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        visualEffectView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         dimmingView.addSubview(visualEffectView)
         dimmingView.alpha = 0
     }

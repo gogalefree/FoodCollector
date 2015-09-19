@@ -31,19 +31,19 @@ class FCIconFactory: NSObject {
     
     class func greenImage() -> UIImage {
         
-         var icon = UIImage(named: "Pin-Whole")!
+         let icon = UIImage(named: "Pin-Whole")!
         return icon
     }
     
     class func orangeImage() -> UIImage{
         
-        var icon = UIImage(named: "Pin-Half")!
+        let icon = UIImage(named: "Pin-Half")!
         return icon
     }
     
     class func redImage() -> UIImage {
         
-        var icon = UIImage(named: "Pin-Few")!
+        let icon = UIImage(named: "Pin-Few")!
         return icon
     }
     

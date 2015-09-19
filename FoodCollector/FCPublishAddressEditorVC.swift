@@ -140,15 +140,15 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        println("didStartedSearch = true")
+        print("didStartedSearch = true")
         didStartedSearch = true
         isThereSearchHistory = false // if we start a search, it's as if we do not have a serach history
-        var newText = searchText as NSString
+        let newText = searchText as NSString
         
         if (newText.length < 6) {
             if (newText.length == 0) {
                 self.initialData.removeAll(keepCapacity: false)
-                println("THE SEARCH BAR IS EMPTY")
+                print("THE SEARCH BAR IS EMPTY")
                 self.didStartedSearch = false
                 readArrayResultsFromPlist(plistSearchHistoryFilneName, fileExt: plistSearchHistoryFilneNameExt)
                 
@@ -157,15 +157,15 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     self.tableView.reloadData()
                 }
             }
-            println("if newText.length < 6 \(newText.length)")
+            print("if newText.length < 6 \(newText.length)")
             self.didSerchAndFindResults = false
             if (newText.length > 0){self.initialData.removeAll(keepCapacity: false)}
             self.tableView.reloadData()
             return
         }
         else {
-            println("else \(newText.length)")
-            println("self.googleLocationSearch(\(searchText))")
+            print("else \(newText.length)")
+            print("self.googleLocationSearch(\(searchText))")
             self.googleLocationSearch(searchText)
         }
     }
@@ -180,7 +180,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         let session = NSURLSession.sharedSession()
         
-        session.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             
             if let respone = response {
@@ -188,9 +188,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 if (error == nil) {
                     
                     if let data = data {
-                        var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+                        var jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
                         
-                        println("result: \(jsonResult) " )
+                        print("result: \(jsonResult) " )
                         
                         if let jsonResult = jsonResult {
                             
@@ -205,7 +205,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                                 for object in arrayOfPredications {
                                     var dict = object as! NSDictionary
                                     var desc = dict["description"] as! String
-                                    println(desc)
+                                    print(desc)
                                     self.initialData.append(desc)
                                 }
                                 
@@ -218,7 +218,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     }
                 }else {
                     //handle error
-                    println(error.description)
+                    print(error!.description)
                 }
             }
             else {
@@ -241,14 +241,14 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         let session = NSURLSession.sharedSession()
         
-        session.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if let response = response {
                 
                 if error == nil {
                     
                     if let data = data {
-                        let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+                        let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
                         
                         if let jsonResult = jsonResult {
                             let results = jsonResult["results"] as! NSArray
@@ -266,7 +266,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 }
                 else {
                     //handle error
-                    println(error.description)
+                    print(error!.description)
                     // UIALERT
                     let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
@@ -281,7 +281,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         }).resume()
     }
     
-    func googleReverseGeoCodeForLatLngLocation(#lat: Double, lng: Double) {
+    func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lng: Double) {
         let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
         
         //https://maps.googleapis.com/maps/api/geocode/json?latlng=32.1499984,34.8939178&language=iw&key=API_KEY
@@ -289,21 +289,21 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         let session = NSURLSession.sharedSession()
         
-        session.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if let response = response {
                 
-                println("response: \(response)")
+                print("response: \(response)")
                 
                 if error == nil {
                     
                     if data != nil {
                         
-                        let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+                        let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
                         
                         if let jsonResult = jsonResult {
                     
-                            println("data: \(data)")
+                            print("data: \(data)")
 
                         
                             let jResults = jsonResult["results"] as? NSArray
@@ -325,7 +325,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 }
                 else {
                     //handle error
-                    println(error.description)
+                    print(error!.description)
                     // UIALERT
                     let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
@@ -344,27 +344,27 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         //remove country from string
-        var sub = self.selectedAddress.substringFromIndex(advance(selectedAddress.endIndex, -7))
-        println("sub: \(sub)")
+        var sub = self.selectedAddress.substringFromIndex(selectedAddress.endIndex.advancedBy(-7))
+        print("sub: \(sub)")
         if sub == ", ישראל" {
-            self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -7))
-            println("\(selectedAddress)")
+            self.selectedAddress = selectedAddress.substringToIndex(selectedAddress.endIndex.advancedBy(-7))
+            print("\(selectedAddress)")
         }
         
-        sub = self.selectedAddress.substringFromIndex(advance(selectedAddress.endIndex, -8))
+        sub = self.selectedAddress.substringFromIndex(selectedAddress.endIndex.advancedBy(-8))
         if sub == ", Israel" {
-            self.selectedAddress = selectedAddress.substringToIndex(advance(selectedAddress.endIndex, -8))
-            println("\(selectedAddress)")
+            self.selectedAddress = selectedAddress.substringToIndex(selectedAddress.endIndex.advancedBy(-8))
+            print("\(selectedAddress)")
         }
         
-        var addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
+        let addressDict: [String: AnyObject] = ["adress":self.selectedAddress ,"Latitude":self.selectedLatitude, "longitude" : self.selectedLongtitude]
         
         cellData.userData = addressDict
         cellData.containsUserData = true
         cellData.cellTitle = self.selectedAddress
         
         // Add Address data to serach History Array Object and write it to a plist
-        println(addressDict.description)
+        print(addressDict.description)
         appendAddressToSerachHistoryArray(addressDict)
         writeArrayResultsToPlist(plistSearchHistoryFilneName,fileExt: plistSearchHistoryFilneNameExt)
     }
@@ -374,14 +374,14 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     func readArrayResultsFromPlist(fileName: String, fileExt: String){
 
         
-        var fullPlistName = fileName + "." + fileExt
-        let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent(fullPlistName)
+        let fullPlistName = fileName + "." + fileExt
+        let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingString(fullPlistName)
         
         
         if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
             isThereSearchHistory = true
             searchHistoryArray = NSArray(contentsOfFile: publicationsFilePath) as! [[String : AnyObject]]
-            println(searchHistoryArray.description)
+            print(searchHistoryArray.description)
         }
         else {
             isThereSearchHistory = false
@@ -389,19 +389,19 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     func writeArrayResultsToPlist(fileName: String, fileExt: String){
-        var fullPlistName = fileName + "." + fileExt
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        var path = paths.stringByAppendingPathComponent(fullPlistName)
+        let fullPlistName = fileName + "." + fileExt
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        let path = paths.stringByAppendingString(fullPlistName)
         
         (searchHistoryArray as NSArray).writeToFile(path, atomically: true)
         
-        println("Saved plist file in --> \(path)")
+        print("Saved plist file in --> \(path)")
     }
     
     func loadContentOfSearchHistory(){
         var countItemsAdded = 0
         for serachItem in searchHistoryArray{
-            var addr = (serachItem as NSDictionary).objectForKey("adress") as! String
+            let addr = (serachItem as NSDictionary).objectForKey("adress") as! String
             self.initialData.append(addr)
             countItemsAdded++
             if (countItemsAdded == maxItemsToDisplay) {break}
@@ -409,14 +409,14 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     func appendAddressToSerachHistoryArray(addrDict: [String : AnyObject]){
-        println(addrDict.description)
+        print(addrDict.description)
         // Check if the address is already in History
         var isSearchAddressTheSame = true
         
         if (searchHistoryArray.count == 0){isSearchAddressTheSame = false}
         for serachItem in searchHistoryArray{
-            var historyAddr = (serachItem as NSDictionary).objectForKey("adress") as! String
-            var selectedAddr = (addrDict as NSDictionary).objectForKey("adress") as! String
+            let historyAddr = (serachItem as NSDictionary).objectForKey("adress") as! String
+            let selectedAddr = (addrDict as NSDictionary).objectForKey("adress") as! String
             
             if historyAddr == selectedAddr {
                 isSearchAddressTheSame = true

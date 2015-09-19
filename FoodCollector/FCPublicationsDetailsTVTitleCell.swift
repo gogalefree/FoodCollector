@@ -33,7 +33,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var registeredUsersLabel: UILabel!
-    var navigationButton: UIButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+    var navigationButton: UIButton = UIButton(type: UIButtonType.System)
     
     var delegate: FCPublicationDetailsTitleCellDelegate? //publicationDetailsTVC
     
@@ -114,7 +114,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
         let currentCenterY = self.navigationButton.center.y
         let currentCenterX = self.navigationButton.center.x
         
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil , animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [] , animations: { () -> Void in
             self.navigationButton.alpha = 1
             self.navigationButton.center = CGPointMake(currentCenterX, currentCenterY + 60)
             self.registerButton.layer.borderColor = UIColor.greenColor().CGColor
@@ -125,7 +125,7 @@ class FCPublicationsDetailsTVTitleCell: UITableViewCell {
     
     func hideNavigationButton() {
 
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             self.navigationButton.center = self.registerButton.center
             self.registerButton.layer.borderColor = UIColor.blueColor().CGColor
             self.navigationButton.layer.borderColor = UIColor.blueColor().CGColor

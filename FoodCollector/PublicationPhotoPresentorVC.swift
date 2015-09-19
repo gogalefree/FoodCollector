@@ -63,7 +63,7 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
     
     func centerScrollViewContents() {
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
 
             let boundsSize = self.scrollView.bounds.size
             var contentsFrame = self.myImageView.frame
@@ -178,7 +178,7 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
     
     @IBAction func dissmiss() {
         
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.0, options: [], animations: { () -> Void in
             
             self.scrollViewTopConstraint.constant -= 30
             self.scrollViewButtomConstraint.constant += 30

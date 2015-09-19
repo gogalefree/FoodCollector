@@ -85,7 +85,7 @@ extension FCModel {
         let fetchPublicationReportsOperation = NSBlockOperation { () -> Void in
             
             let counter = self.fetchedPublications.count - 1
-            for (index , publication) in enumerate(self.fetchedPublications) {
+            for (index , publication) in self.fetchedPublications.enumerate() {
                 FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, completion: { (success, reports) -> () in
                     
                     if success {

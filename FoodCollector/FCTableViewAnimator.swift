@@ -20,7 +20,7 @@ class FCTableViewAnimator: NSObject {
             cell.bounds.width, cell.bounds.height)
       //  cell.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.2, 0.2)
             
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
           cell.frame = finalRect
         //    cell.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1)
 
@@ -34,7 +34,7 @@ class FCTableViewAnimator: NSObject {
         cell.frame = CGRectMake(cell.frame.origin.x,
             sender.bounds.size.height,
             cell.bounds.width, cell.bounds.height)
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             cell.frame = finalRect            
             }, completion: nil)
     }

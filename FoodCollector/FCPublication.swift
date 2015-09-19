@@ -58,7 +58,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     public var uniqueId: Int
     public var version: Int
-    public var title:String
+    public var title:String?
     public var subtitle:String?
     public var address:String
     public var typeOfCollecting: TypeOfCollecting

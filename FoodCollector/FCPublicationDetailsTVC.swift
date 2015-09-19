@@ -40,7 +40,7 @@ protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
     func didTakeOffAirPublication(publication: FCPublication)
 }
 
-class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
+class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
     var deleteDelgate: UserDidDeletePublicationProtocol?
     
@@ -95,7 +95,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPo
     //tests only
     func showOnSpotReport() {
     
-        var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
         
         arrivedToSpotReportVC.publication = self.publication
         
@@ -353,14 +353,14 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPo
         newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
         self.view.addSubview(newRgistrationBannerView)
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             newRgistrationBannerView.alpha = 1
             newRgistrationBannerView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 66)
             
             }) { (finished) -> Void in
                 
-                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     
                     newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
                     newRgistrationBannerView.alpha = 0
@@ -490,7 +490,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     func didRequestPostToFacebookForPublication() {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
-            var facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            let facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             
             facebookPostController.setInitialText(publication?.title)
             facebookPostController.addImage(publication?.photoData.photo)
@@ -502,7 +502,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     func didRequestPostToTwitterForPublication() {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
-            var twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            let twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             
             let hashTagString = "#FooDoNet: "
             let title = publication?.title
@@ -546,7 +546,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
     
     //MARK: - Transition Delegate
     
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
        
         var pcontrol: UIPresentationController!
         
@@ -560,7 +560,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
         else if presented is FCPublicationReportsNavigationController{
             
             pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
-                presentingViewController: self.navigationController)
+                presentingViewController: self.navigationController!)
         }
         
         return  pcontrol
@@ -571,7 +571,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
         //starting frame for transition
         if presented is FCPhotoPresentorNavigationController {
 
-            var photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
+            let photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
 
             var originFrame = CGRectZero
             //TODO: set initial photo frame
@@ -587,7 +587,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
         
         else if presented is FCPublicationReportsNavigationController{
             
-            var publicationReportsAnimator = FCPublicationReportsVCAnimator()
+            let publicationReportsAnimator = FCPublicationReportsVCAnimator()
             var startingFrame = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
     //        startingFrame.origin.y += kTableViewHeaderHeight
             startingFrame.size.width = startingFrame.size.width / 2
@@ -609,7 +609,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
             
             let animator = FCPublicationReportsDismissAnimator()
             
-            var destinationFrame =
+            let destinationFrame =
             self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
             
             animator.destinationRect = destinationFrame
@@ -648,15 +648,15 @@ extension FCPublicationDetailsTVC {
 
 extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
     
-    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         
-        switch (result.value) {
+        switch (result.rawValue) {
         
-        case MessageComposeResultCancelled.value:
-            println("Message was cancelled")
+        case MessageComposeResultCancelled.rawValue:
+            print("Message was cancelled")
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
        
-        case MessageComposeResultFailed.value:
+        case MessageComposeResultFailed.rawValue:
             
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 
@@ -671,8 +671,8 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
             
             self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             
-        case MessageComposeResultSent.value:
-            println("Message was sent")
+        case MessageComposeResultSent.rawValue:
+            print("Message was sent")
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
         default:
             break;
@@ -703,7 +703,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
         createTopRightButton(label: buttonValus.0, andAction: buttonValus.1)
     }
     
-    func createTopRightButton(#label:String, andAction actionName: String) {
+    func createTopRightButton(label label:String, andAction actionName: String) {
         let actionSelector = Selector(stringLiteral: actionName)
         let topRightButton = UIBarButtonItem(
                 title: label,
@@ -716,7 +716,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
     func presentReportVC() {
         
-        var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
         
         arrivedToSpotReportVC.publication = self.publication
         arrivedToSpotReportVC.delegate = self
@@ -784,15 +784,15 @@ extension FCPublicationDetailsTVC {
             
             let bundleName = infoPlist["CFBundleName"] as! String
             let bundleID = infoPlist["CFBundleIdentifier"] as! String
-            println("BUNDLE ID: \(bundleID)")
+            print("BUNDLE ID: \(bundleID)")
             if bundleName.hasPrefix("beta") {
              
-                println("Beta Version. adding deleteButton")
+                print("Beta Version. adding deleteButton")
                 addDeletButton()
             }
         }
         else {
-            println("Config Admin **************: NOT FOUND")
+            print("Config Admin **************: NOT FOUND")
             
         }
     }
@@ -804,7 +804,7 @@ extension FCPublicationDetailsTVC {
     }
     
     func deletePublication() {
-        println("deleting publication")
+        print("deleting publication")
         
         let identifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId , version: self.publication!.version)
         
@@ -833,13 +833,13 @@ extension FCPublicationDetailsTVC {
     
     func didSelectTakOffAirPublicationAction() {
         
-        var takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        let takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
         takeOffAirAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
             self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
         }))
         
-        takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
         }))
         
         presentViewController(takeOffAirAlert, animated: true, completion: nil)
@@ -848,9 +848,9 @@ extension FCPublicationDetailsTVC {
     
     func didSelectDeletePublicationAction() {
         
-        var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        let deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
-        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
             
             let pubicationToDelete = self.publication!
             // make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there

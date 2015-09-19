@@ -1,4 +1,4 @@
-#!/usr/bin/env xcrun swift -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+#!/usr/bin/env xcrun swift -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
 //
 //  PreBuildScript.swift
 //  FoodCollector
@@ -10,7 +10,7 @@
 // chmod +rx       adds read and execute for everyone
 import Foundation
 
-println(">>>> Start Script")
+print(">>>> Start Script")
 
 let filemgr = NSFileManager.defaultManager()
 let projectPath = filemgr.currentDirectoryPath
@@ -49,11 +49,11 @@ if args.count > 1 {
     argValue = args[1]
 }
 
-println(argValue)
+print(argValue)
 
 // START Changes to BaseURL.plist
 var plistDict = NSMutableDictionary(contentsOfFile: pathToBaseURLPlist)
-println("before changing \(plistDict)")
+print("before changing \(plistDict)")
 
 // Change BaseURL.plist dictionary values based on argument value
 switch argValue {
@@ -65,7 +65,7 @@ default: // Dev URL
     plistDict!.setObject(kDevURLVal,  forKey: kDictKey)
 }
 
-println("after changing \(plistDict)")
+print("after changing \(plistDict)")
 
 plistDict!.writeToFile(pathToBaseURLPlist, atomically: false)
 
@@ -73,8 +73,8 @@ plistDict!.writeToFile(pathToBaseURLPlist, atomically: false)
 
 // START Changes to Info.plist
 plistDict = NSMutableDictionary(contentsOfFile: pathToInfoPlist)
-println("before changing \(plistDict)")
-println("arg value \(argValue)")
+print("before changing \(plistDict)")
+print("arg value \(argValue)")
 
 // Change Info.plist dictionary values based on argument value
 switch argValue {
@@ -93,18 +93,18 @@ default: // Dev URL
     plistDict!.setObject(kBundleNameDevVal,        forKey: kBundleNameKey)
     plistDict!.setObject(kBundleDispNameDevVal,    forKey: kBundleDispNameKey)
 }
-println("after changing \(plistDict)")
-println("arg value \(argValue)")
+print("after changing \(plistDict)")
+print("arg value \(argValue)")
 
 
 if plistDict!.writeToFile(pathToInfoPlist, atomically: true) {
 
-    println("path saved: \(pathToInfoPlist)")
-    println("plist saved")
+    print("path saved: \(pathToInfoPlist)")
+    print("plist saved")
 }
 
 // End Changes to Info.plist
 
-println(">>>> End Script")
+print(">>>> End Script")
 
 

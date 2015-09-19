@@ -32,7 +32,7 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
         cellTextField.delegate = self
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         cellTextField.resignFirstResponder()
     }
     
@@ -57,8 +57,8 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     
     func textFieldDidEndEditing(textField: UITextField) {
         if !cellTextField.text!.isEmpty {
-            cellData!.cellTitle = textField.text
-            cellData!.userData = textField.text
+            cellData!.cellTitle = textField.text!
+            cellData!.userData = textField.text!
             cellData!.containsUserData = true
             
             if let delegate = self.delegate {

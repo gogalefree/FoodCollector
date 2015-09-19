@@ -32,38 +32,38 @@ class PublicationInitTests: XCTestCase {
     }
 
     func testuniqueId() {
-        println("uniqu id ******** \(publication.uniqueId)")
+        print("uniqu id ******** \(publication.uniqueId)")
         XCTAssertNotNil(publication.uniqueId, "unique id is nill")
     }
 
     
     func testAddress() {
-        println("Address ******** \(publication.address)")
+        print("Address ******** \(publication.address)")
         XCTAssertNotNil(publication.address, "address is nill")
     }
    
     func testStartingDate() {
-        println("Starting date ******** \(publication.startingDate.description)")
+        print("Starting date ******** \(publication.startingDate.description)")
         XCTAssertNotNil(publication.startingDate, "strating date is nill")
     }
     
     func testEndingDate() {
-        println("Ending date ******** \(publication.endingDate.description)")
+        print("Ending date ******** \(publication.endingDate.description)")
         XCTAssertNotNil(publication.endingDate, "strating date is nill")
     }
     
     func testTypeOfCollecting() {
-        println("Type Of Collecting date ******** \(publication.typeOfCollecting.rawValue)")
+        print("Type Of Collecting date ******** \(publication.typeOfCollecting.rawValue)")
         XCTAssertNotNil(publication.typeOfCollecting.rawValue, "type of collecting date is nill")
     }
     
     func testcontactInfoExist() {
-        println("Contact Information ******** \(publication.contactInfo)")
+        print("Contact Information ******** \(publication.contactInfo)")
         XCTAssertNotNil(publication.contactInfo, "contact info is nill")
     }
     
     func testcontactInfoNotExist() {
-        println("Contact Information ******** \(publication1.contactInfo)")
+        print("Contact Information ******** \(publication1.contactInfo)")
         XCTAssertNil(publication1.contactInfo, "contact info should be nill")
     }
     

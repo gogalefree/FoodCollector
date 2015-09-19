@@ -77,12 +77,12 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     func doneNumberPad() {
         
-        if(cellPhoneField.text.isEmpty) {
+        if(cellPhoneField.text!.isEmpty) {
             showPhoneNumberAllert()
             cellPhoneField?.resignFirstResponder()
         }
         else {
-            validtePhoneNumber(cellPhoneField.text)
+            validtePhoneNumber(cellPhoneField.text!)
         }
         
         
@@ -117,10 +117,10 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         // Remove all characters that are not numbers
         onlyDigitsPhoneString = getOnlyDigitsNumber(phoneNumber)
         
-        println("onlyDigitsPhoneString: \(onlyDigitsPhoneString)")
+        print("onlyDigitsPhoneString: \(onlyDigitsPhoneString)")
         
         // Check if phone lenght is 9 digits
-        if count(onlyDigitsPhoneString) == 9 {
+        if onlyDigitsPhoneString.characters.count == 9 {
             isPhoneLengthCorrect = true
             // Check if a two digit area code is legal
             for areaCode in twoDigitAreaCodes {
@@ -134,7 +134,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
             }
         }
             // Check if phone lenght is 10 digits
-        else if count(onlyDigitsPhoneString) == 10 {
+        else if onlyDigitsPhoneString.characters.count == 10 {
             isPhoneLengthCorrect = true
             // Check if a three digit area code is legal
             for areaCode in threeDigitAreaCodes {
@@ -164,8 +164,8 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         // Remove all characters that are not numbers
         let legalCharsInPhone:Array<Character> = ["0", "1", "2", "3" ,"4", "5", "6", "7", "8", "9"]
         var tempPhoneString = "" // Reset variable to empty string
-        for digitChar in numberString {
-            if contains(legalCharsInPhone, digitChar) {
+        for digitChar in numberString.characters {
+            if legalCharsInPhone.contains(digitChar) {
                 tempPhoneString += String(digitChar)
             }
         }
@@ -185,7 +185,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     }
     
     override func paste(sender: AnyObject?) {
-        println("Paste!!!!!!!!!!!")
+        print("Paste!!!!!!!!!!!")
         let pasteboard = UIPasteboard.generalPasteboard()
         if let tempPasteString = pasteboard.string {
             cellPhoneField.text = getOnlyDigitsNumber(tempPasteString)
@@ -200,7 +200,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         
         // When typing into the text field each keyboard type adds 1 character.
         // When pasting into the text field it is usually more than one character.
-        if (count(string) < 2) { // Regular typing action
+        if (string.characters.count < 2) { // Regular typing action
             return true
         }
         else { // Paste action

@@ -71,7 +71,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         var contactInfo = ""
         if userChosenTypeOfCollectin == 1 {contactInfo = "no"}
         else {
-            validtePhoneNumber(self.textField.text)
+            validtePhoneNumber(self.textField.text!)
             if isPhoneNumberValid {
                 contactInfo = onlyDigitsPhoneString
             }
@@ -133,18 +133,18 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        println("picker view did select row")
+        print("picker view did select row")
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        let newLength = (textField.text as NSString).length + (string as NSString).length - range.length
+        let newLength = (textField.text! as NSString).length + (string as NSString).length - range.length
         
         let digitsCharecterSet = NSCharacterSet(charactersInString: digits).invertedSet
         
         let components = string.componentsSeparatedByCharactersInSet(digitsCharecterSet)
         
-        let filtered = join("", components)
+        let filtered = components.joinWithSeparator("")
         
         return string == filtered && newLength <= 10
     }
@@ -176,7 +176,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         return true
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if self.view.frame.height == 480 && self.didAnimateViewUp {
             animateViewDown()
         }
@@ -205,7 +205,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
 
     func animateViewUp() {
         
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             var newCenter = self.view.center
             newCenter.y -= 120
@@ -218,7 +218,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
     }
     
     func animateViewDown() {
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             var newCenter = self.view.center
             newCenter.y += 120
             self.view.center = newCenter
@@ -240,16 +240,16 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
         
         // Remove all characters that are not numbers
         onlyDigitsPhoneString = "" // Reset variable to empty string
-        for digitChar in phoneNumber {
-            if contains(legalCharsInPhone, digitChar) {
+        for digitChar in phoneNumber.characters {
+            if legalCharsInPhone.contains(digitChar) {
                 onlyDigitsPhoneString += String(digitChar)
             }
         }
         
-        println("onlyDigitsPhoneString: \(onlyDigitsPhoneString)")
+        print("onlyDigitsPhoneString: \(onlyDigitsPhoneString)")
         
         // Check if phone lenght is 9 digits
-        if count(onlyDigitsPhoneString) == 9 {
+        if onlyDigitsPhoneString.characters.count == 9 {
             isPhoneLengthCorrect = true
             // Check if a two digit area code is legal
             for areaCode in twoDigitAreaCodes {
@@ -263,7 +263,7 @@ class FCPublicationTypeOfPublicationEditorVC: UIViewController, UIPickerViewData
             }
         }
             // Check if phone lenght is 10 digits
-        else if count(onlyDigitsPhoneString) == 10 {
+        else if onlyDigitsPhoneString.characters.count == 10 {
             isPhoneLengthCorrect = true
             // Check if a three digit area code is legal
             for areaCode in threeDigitAreaCodes {

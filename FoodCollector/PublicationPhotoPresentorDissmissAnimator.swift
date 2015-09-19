@@ -12,7 +12,7 @@ class PublicationPhotoPresentorDissmissAnimator: NSObject, UIViewControllerAnima
    
     var duration = 0.3
 
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return duration
     }
     
@@ -20,18 +20,18 @@ class PublicationPhotoPresentorDissmissAnimator: NSObject, UIViewControllerAnima
         
         let containerView = transitionContext.containerView()
         
-        var navigationControllerView =
+        let navigationControllerView =
         transitionContext.viewForKey(UITransitionContextFromViewKey)!
         
         
         
-        containerView.addSubview(navigationControllerView)
-        containerView.bringSubviewToFront(navigationControllerView)
+        containerView!.addSubview(navigationControllerView)
+        containerView!.bringSubviewToFront(navigationControllerView)
         
         UIView.animateWithDuration(duration, delay:0.0,
             usingSpringWithDamping: 0.9,
             initialSpringVelocity: 0.0,
-            options: nil,
+            options: [],
             animations: {
                 
                 navigationControllerView.alpha = 0

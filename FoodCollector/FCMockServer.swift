@@ -31,17 +31,17 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let uniqueId = identifier.uniqueId
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getPublicationWithIdentifierURL + "\(uniqueId)")
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if let serverResponse = response  {
-                var aServerResponse = serverResponse as! NSHTTPURLResponse
-                print("response: \(serverResponse.description)")
+                let aServerResponse = serverResponse as! NSHTTPURLResponse
+                print("response: \(serverResponse.description)", terminator: "")
 
                 
                 if error == nil && aServerResponse.statusCode == 200{
                    
                     if let data = data {
-                    let publicationDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String : AnyObject]
+                    let publicationDict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
                     
                     if let params = publicationDict {
 
@@ -70,12 +70,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["dev_uuid"] = FCModel.sharedInstance.deviceUUID
         params["remote_notification_token"] = newtoken
         
-        var dictToSend = ["active_device" : params]
-        let jsonData = NSJSONSerialization.dataWithJSONObject(dictToSend, options: nil, error: nil)
+        let dictToSend = ["active_device" : params]
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(dictToSend, options: [])
         let devId = FCModel.sharedInstance.deviceUUID!
         let url = NSURL(string: registerForPushNotificationsURL)
         
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
         request.HTTPBody = jsonData!
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -83,13 +83,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: {
-            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             if let theResponse = response {
             
                 let serverResponse = theResponse as! NSHTTPURLResponse
-                print("respons: \(serverResponse.description)")
-                println("status code: \(serverResponse.statusCode) ***************")
+                print("respons: \(serverResponse.description)", terminator: "")
+                print("status code: \(serverResponse.statusCode) ***************")
                 
                 if error != nil || serverResponse.statusCode != 200 {
 
@@ -123,11 +123,11 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["last_location_latitude"] = currentLatitude
         params["last_location_longitude"] = curruntLongitude
         
-        var dictToSend = ["active_device" : params]
-        let jsonData = NSJSONSerialization.dataWithJSONObject(dictToSend, options: nil, error: nil)
+        let dictToSend = ["active_device" : params]
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(dictToSend, options: [])
         
         let url = NSURL(string: reportActiveDeviceURL)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -135,7 +135,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: {
-            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             if let response = response {
             
@@ -172,12 +172,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["last_location_latitude"] = location.latitude
         params["dev_uuid"] = FCModel.sharedInstance.deviceUUID
         
-        var dictToSend = ["active_device" : params]
-        let jsonData = NSJSONSerialization.dataWithJSONObject(dictToSend, options: nil, error: nil)
-        println(dictToSend)
+        let dictToSend = ["active_device" : params]
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(dictToSend, options: [])
+        print(dictToSend)
         
         let url = NSURL(string: reportUserLocationURL)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
         request.HTTPBody = jsonData!
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -185,14 +185,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: {
-            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             if let theResponse = response {
                 
                 let serverResponse = theResponse as! NSHTTPURLResponse
                 
                 if error != nil || serverResponse.statusCode == 200 {
-                    println("success")
+                    print("success")
                 }
             }
         })
@@ -213,17 +213,17 @@ public class FCMockServer: NSObject , FCServerProtocol {
         var publications = [FCPublication]()
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getAllPublicationsURL)
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if var serverResponse = response  {
                 serverResponse = serverResponse as! NSHTTPURLResponse
             
-            print("response: \(serverResponse.description)")
+            print("response: \(serverResponse.description)", terminator: "")
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                 
                 if let data = data {
-                let arrayOfPublicationDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [[String : AnyObject]]
+                let arrayOfPublicationDicts = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [[String : AnyObject]]
                     
                     if let arrayOfPublicationDicts = arrayOfPublicationDicts {
                 
@@ -250,7 +250,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
     public func reportsForPublication(publication:FCPublication, completion:
         (success: Bool, reports: [FCOnSpotPublicationReport]?)->()) {
         
-        var urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)" + "/publication_reports.json?publication_version=" + "\(publication.version)"
+        let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)" + "/publication_reports.json?publication_version=" + "\(publication.version)"
         
         //uncomment to check the mock report on server
         //var urlTempString = reportsForPublicationBaseURL + "3" + "/publication_reports.json?publication_version=1"
@@ -260,7 +260,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let url = NSURL(string: urlString)
         
         let task = session.dataTaskWithURL(url!, completionHandler: {
-            (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if let theResponse = response {
                 
@@ -271,7 +271,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                         
                         
-                        let arrayOfReports = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [[String : AnyObject]]
+                        let arrayOfReports = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [[String : AnyObject]]
                         
                         if let arrayOfReports = arrayOfReports {
                         
@@ -318,21 +318,21 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["date_of_registration"] = Int(NSDate().timeIntervalSince1970)
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
         
-        var dicToSend = ["registered_user_for_publication" : params]
-        println(dicToSend)
-        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        println(dicToSend)
+        let dicToSend = ["registered_user_for_publication" : params]
+        print(dicToSend)
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(params, options: [])
+        print(dicToSend)
         let url = NSURL(string: urlString)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
-            if var serverResponse = response as? NSHTTPURLResponse {
+            if let serverResponse = response as? NSHTTPURLResponse {
 //                print("respons: \(serverResponse.description)")
 //                let mydata = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
 //                println("response data: \(mydata)")
@@ -362,26 +362,26 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["date_of_registration"] = 11243423
         
         let dicToSend = ["registered_user_for_publication" : params]
-        println("params: \(dicToSend)")
+        print("params: \(dicToSend)")
 
-        let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(dicToSend, options: [])
 
         let url = NSURL(string: unRegisterUserFromPublicationURL + "\(uniqueId)" + "/registered_user_for_publications/5")
-        println("url: \(url)")
-        var request = NSMutableURLRequest(URL: url!)
+        print("url: \(url)")
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
      
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
-            if var serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)")
+            if let serverResponse = response as? NSHTTPURLResponse {
+                print("respons: \(serverResponse.description)", terminator: "")
                 if error != nil || serverResponse.statusCode != 200 {
                     //we currently implement as best effort. nothing is done with an error
-                    println("Unregister for publication error: \(error)")
+                    print("Unregister for publication error: \(error)")
                 }
             }
         })
@@ -403,22 +403,22 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["date_of_report"] = report.date.timeIntervalSince1970
         params["report"] = report.onSpotPublicationReportMessage.rawValue
         
-        var dicToSend = ["publication_report" : params]
-        println(dicToSend)
-        let jsonData = NSJSONSerialization.dataWithJSONObject(dicToSend, options: nil, error: nil)
+        let dicToSend = ["publication_report" : params]
+        print(dicToSend)
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(dicToSend, options: [])
         let url = NSURL(string: urlString)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        println("params: \(params)")
+        print("params: \(params)")
         let session = NSURLSession.sharedSession()
         session.dataTaskWithRequest(request,
-            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
-            if var serverResponse = response as? NSHTTPURLResponse {
-             println("response: \(serverResponse)")
+            if let serverResponse = response as? NSHTTPURLResponse {
+             print("response: \(serverResponse)")
                 if error != nil || serverResponse.statusCode != 200 {
                     //we currently implement as best effort. nothing is done with an error
                 }
@@ -438,12 +438,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
         paramsToSend["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
         paramsToSend["is_on_air"] = true
         paramsToSend["photo_url"] = ""
-        var pubDict = ["publication" : paramsToSend]
-        println(pubDict)
+        let pubDict = ["publication" : paramsToSend]
+        print(pubDict)
 
-        let jsonData = NSJSONSerialization.dataWithJSONObject(pubDict, options: nil, error: nil)
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
         let url = NSURL(string: postNewPublicationURL)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -451,12 +451,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request,
-            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
-            if var serverResponse = response as? NSHTTPURLResponse {
-                println("respons: \(serverResponse.description)")
-                println("response error: \(serverResponse)")
-                println("error: \(error)")
+            if let serverResponse = response as? NSHTTPURLResponse {
+                print("respons: \(serverResponse.description)")
+                print("response error: \(serverResponse)")
+                print("error: \(error)")
                 
                 
                 if error == nil && serverResponse.statusCode == 200 {
@@ -464,7 +464,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                     if let data = data {
                    
                     //we currently implement as best effort. nothing is done with an error
-                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String : AnyObject]
+                    let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
                         
                         if let dict = dict {
 
@@ -491,12 +491,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
         paramsToSend["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
         paramsToSend["is_on_air"] = true
         paramsToSend["photo_url"] = ""
-        var pubDict = ["publication" : paramsToSend]
-        let jsonData = NSJSONSerialization.dataWithJSONObject(pubDict, options: nil, error: nil)
+        let pubDict = ["publication" : paramsToSend]
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
         let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId).json"
         let url = NSURL(string: urlString)
         
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -504,13 +504,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request,
-            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
-            if var serverResponse = response as? NSHTTPURLResponse {
-                println("post edited publication response: \(serverResponse)")
+            if let serverResponse = response as? NSHTTPURLResponse {
+                print("post edited publication response: \(serverResponse)")
                 if error == nil && serverResponse.statusCode == 200 {
                     if let data = data {
-                    let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String : AnyObject]
+                    let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
                         if let dict = dict {
                     
                             let version = dict[kPublicationVersionKey] as! Int
@@ -531,12 +531,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         var params = [String:AnyObject]()
         params["is_on_air"] = false
-        var pubDict = ["publication" : params]
-        let jsonData = NSJSONSerialization.dataWithJSONObject(pubDict, options: nil, error: nil)
+        let pubDict = ["publication" : params]
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
         
         let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId).json"
         let url = NSURL(string: urlString)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "PUT"
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -544,10 +544,10 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request,
-            completionHandler: { (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
-            if var serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)")
+            if let serverResponse = response as? NSHTTPURLResponse {
+                print("respons: \(serverResponse.description)", terminator: "")
                 
                 
                 if error == nil && serverResponse.statusCode == 200 {
@@ -568,7 +568,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let publicationUniqueID = publicationIdentifier.uniqueId
         
         let url = NSURL(string: deletePublicationURL + "\(publicationUniqueID)")
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"
         
         
@@ -585,16 +585,16 @@ public class FCMockServer: NSObject , FCServerProtocol {
 //        
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: {
-            (data:NSData!, response: NSURLResponse!, error:NSError!) -> Void in
+            (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             if let response = response {
                 let serverResponse = response as! NSHTTPURLResponse
                 
-                println("DELETE PUBLICATION RESPONSE: \(serverResponse)")
+                print("DELETE PUBLICATION RESPONSE: \(serverResponse)")
                 
                 if error != nil || serverResponse.statusCode != 200 {
                    
-                    println("ERROR DELETING: \(error)")
+                    print("ERROR DELETING: \(error)")
                  //   completion(success: false)
                 }
             }

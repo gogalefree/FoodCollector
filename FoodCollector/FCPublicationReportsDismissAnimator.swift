@@ -14,7 +14,7 @@ class FCPublicationReportsDismissAnimator: NSObject , UIViewControllerAnimatedTr
     var duration = 0.4
 
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return duration
     }
     
@@ -32,21 +32,21 @@ class FCPublicationReportsDismissAnimator: NSObject , UIViewControllerAnimatedTr
         let tableView = tableViewController.tableView
         
         
-        let xScaleFactor =   destinationRect.width / containerView.bounds.size.width
-        let yScaleFactor = destinationRect.height / containerView.bounds.size.height
+        let xScaleFactor =   destinationRect.width / containerView!.bounds.size.width
+        let yScaleFactor = destinationRect.height / containerView!.bounds.size.height
         
         let finalScale = CGAffineTransformMakeScale(xScaleFactor,  yScaleFactor)
         
         
         
-        containerView.addSubview(navigationControllerView)
-        containerView.bringSubviewToFront(navigationControllerView)
+        containerView!.addSubview(navigationControllerView)
+        containerView!.bringSubviewToFront(navigationControllerView)
         
         
         UIView.animateWithDuration(duration, delay:0.0,
             usingSpringWithDamping: 0.7,
             initialSpringVelocity: 0.0,
-            options: nil,
+            options: [],
             animations: {
                 
                 tableView.transform = finalScale

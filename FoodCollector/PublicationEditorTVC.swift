@@ -94,12 +94,12 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             contactPublisherSelected = false
         }
         
-        println(">>>> show self.dataSource")
+        print(">>>> show self.dataSource")
         for dataObj in self.dataSource {
-            println(dataObj.cellTitle)
-            println(dataObj.containsUserData)
-            println(dataObj.userData)
-            println("-------------------------")
+            print(dataObj.cellTitle)
+            print(dataObj.containsUserData)
+            print(dataObj.userData)
+            print("-------------------------")
         }
     }
 
@@ -314,7 +314,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             return textFieldCell
         
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) 
             cell.textLabel?.text = self.dataSource[indexPath.section].cellTitle
             return cell
         }
@@ -412,7 +412,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         
         if (section == 4) { // Type of collection
             let contactPublisherRawValue = (data.userData as! NSDictionary).objectForKey(kPublicationTypeOfCollectingKey)! as! Int
-            println("contactPublisherRawValue: \(contactPublisherRawValue)")
+            print("contactPublisherRawValue: \(contactPublisherRawValue)")
             if (contactPublisherRawValue == 1) {
                 contactPublisherSelected = false
             }
@@ -583,7 +583,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         self.activityIndicatorBlureView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150))
         let offset = self.tableView.contentOffset.y
-        var center = CGPointMake(FCDeviceData.screenWidth() / 2, FCDeviceData.screenHight() / 2 + offset )
+        let center = CGPointMake(FCDeviceData.screenWidth() / 2, FCDeviceData.screenHight() / 2 + offset )
         self.activityIndicatorBlureView.frame = CGRectMake(0, 0, 150, 150)
         self.activityIndicatorBlureView.center = center
         self.activityIndicatorBlureView.alpha = 0
@@ -802,13 +802,13 @@ extension  PublicationEditorTVC {
                         
                     case 0:
                         //publication title
-                        cellData.userData = publication.title
+                        cellData.userData = publication.title!
                         cellData.containsUserData = true
-                        cellData.cellTitle = publication.title
+                        cellData.cellTitle = publication.title!
                         
                     case 1:
                         //publication address
-                        var addressDict: [String: AnyObject] = ["adress":publication.address ,"Latitude":publication.coordinate.latitude, "longitude" : publication.coordinate.longitude]
+                        let addressDict: [String: AnyObject] = ["adress":publication.address ,"Latitude":publication.coordinate.latitude, "longitude" : publication.coordinate.longitude]
                         cellData.userData = addressDict
                         cellData.containsUserData = true
                         cellData.cellTitle = publication.address
@@ -872,7 +872,7 @@ extension  PublicationEditorTVC {
                 }
             }
             else { // Create defaults for new empty publication
-                println(">>> Create defaults for new empty publication")
+                print(">>> Create defaults for new empty publication")
                 
                 switch index {
                     
@@ -944,7 +944,7 @@ extension PublicationEditorTVC {
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
         var myInfo = info
