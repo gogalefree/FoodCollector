@@ -399,19 +399,12 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     
     func didRegisterForPublication(publication: FCPublication) {
-        
-        publication.didRegisterForCurrentPublication = true
-        publication.countOfRegisteredUsers += 1
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
-        FCModel.sharedInstance.savePublications()
-        
-        self.updateRegisteredUserIconCounter()
-        //show alert controller
+        print("didRegisterForPublication")
         if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
-            
-            let title = String.localizedStringWithFormat("נא ליצור קשר עם המשתף", "an alert title requesting to contact the publisher")
-            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: " ")
-            self.presentViewController(alert, animated: true, completion: nil)
+            showPickupRegistrationAlert()
+        }
+        else {
+            registerUserForPublication()
         }
     }
     
@@ -466,6 +459,15 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             }
         }
     }
+    
+    private func registerUserForPublication() {
+        publication!.didRegisterForCurrentPublication = true
+        publication!.countOfRegisteredUsers += 1
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication!, message: FCRegistrationForPublication.RegistrationMessage.register)
+        FCModel.sharedInstance.savePublications()
+        
+        self.updateRegisteredUserIconCounter()
+    }
 
     private func updateRegisteredUserIconCounter() {
         
@@ -475,6 +477,89 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             cell.reloadRegisteredUserIconCounter()
         }
     }
+    
+    func showPickupRegistrationAlert() {
+        // The user is prompt to register to the event as a picker using a name and a phone number
+        // Set string labels for the alert
+        print("showPickupRegistrationAlert")
+        let alertTitle = String.localizedStringWithFormat("רישום לאיסוף", "Alert title: Pickup Registration")
+        let alertMessage = String.localizedStringWithFormat("יש למלא פרטי התקשרות כדי להצטרף לאיסוף", "Alert message: Please fill in details to join this pickup")
+        let alertRegisterButtonTitle = String.localizedStringWithFormat("הרשמה", "Alert button title: Register")
+        let alertCancelButtonTitle = String.localizedStringWithFormat("ביטול", "Alert button title: Cancel")
+        let alertNameTextFieldLabel = String.localizedStringWithFormat("שם", "Alert text field label: Name")
+        let alertPhoneTextFieldLabel = String.localizedStringWithFormat("מספר טלפון", "Alert text field label: Phone number")
+        
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Add text fields
+        alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            if User.sharedInstance.userName != "" {
+                textField.text = User.sharedInstance.userName
+            }
+            else {
+                textField.placeholder = alertNameTextFieldLabel
+            }
+            textField.textAlignment = NSTextAlignment.Right
+        })
+        
+        alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            if User.sharedInstance.userPhoneNumber != "" {
+                textField.text = User.sharedInstance.userPhoneNumber
+            }
+            else {
+                textField.placeholder = alertPhoneTextFieldLabel
+            }
+            textField.textAlignment = NSTextAlignment.Right
+            textField.keyboardType = UIKeyboardType.NumberPad
+        })
+        
+        // Add buttons
+        alertController.addAction(UIAlertAction(title: alertRegisterButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+            let name = (alertController.textFields![0] as UITextField).text
+            let number = (alertController.textFields![1] as UITextField).text
+            if name != nil && number != nil {
+                self.registerUser(name!, number: number!, publication: self.publication!)
+                
+            }
+            
+            
+            
+            print("name: \(name)")
+            print("number: \(number)")
+        }))
+        alertController.addAction(UIAlertAction(title: alertCancelButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+    }
+    
+    private func registerUser(name: String, number: String, publication: FCPublication) {
+        // Get a valid phone number or a nil
+        let phoneNumber = Validator().getValidPhoneNumber(number)
+        
+        if phoneNumber == nil {
+            showPhoneNumberAllert()
+        }
+        else {
+            User.sharedInstance.setUserName(name, andPhoneNumber: number)
+            
+            registerUserForPublication()
+        }
+        
+        
+    }
+    
+    private func showPhoneNumberAllert() {
+        
+        let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
+        let alertMessage = String.localizedStringWithFormat("נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed correctly.")
+        let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
+        
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }

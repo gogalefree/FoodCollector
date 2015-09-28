@@ -57,16 +57,12 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         switch sender {
 
         case registerButton:
-
-            
             if let delegate = self.delegate {
                 switch self.publication.didRegisterForCurrentPublication {
                 case true:
                     delegate.didUnRegisterForPublication(self.publication)
                 case false:
                     delegate.didRegisterForPublication(self.publication)
-                default:
-                    break
                 }
             }
             
@@ -219,5 +215,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         self.button3to4widthConstraint.constant = margin
         self.layoutIfNeeded()
     }
+    
+    
     
 }
