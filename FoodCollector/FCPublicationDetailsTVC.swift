@@ -399,7 +399,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     
     func didRegisterForPublication(publication: FCPublication) {
-        print("didRegisterForPublication")
+        //print("didRegisterForPublication")
         if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
             showPickupRegistrationAlert()
         }
@@ -481,7 +481,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     func showPickupRegistrationAlert() {
         // The user is prompt to register to the event as a picker using a name and a phone number
         // Set string labels for the alert
-        print("showPickupRegistrationAlert")
+        //print("showPickupRegistrationAlert")
         let alertTitle = String.localizedStringWithFormat("רישום לאיסוף", "Alert title: Pickup Registration")
         let alertMessage = String.localizedStringWithFormat("יש למלא פרטי התקשרות כדי להצטרף לאיסוף", "Alert message: Please fill in details to join this pickup")
         let alertRegisterButtonTitle = String.localizedStringWithFormat("הרשמה", "Alert button title: Register")
@@ -524,8 +524,8 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             
             
             
-            print("name: \(name)")
-            print("number: \(number)")
+            //print("name: \(name)")
+            //print("number: \(number)")
         }))
         alertController.addAction(UIAlertAction(title: alertCancelButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
         
@@ -537,16 +537,33 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         // Get a valid phone number or a nil
         let phoneNumber = Validator().getValidPhoneNumber(number)
         
-        if phoneNumber == nil {
-            showPhoneNumberAllert()
+        if name == "" {
+            showNameAllert()
         }
         else {
-            User.sharedInstance.setUserName(name, andPhoneNumber: number)
-            
-            registerUserForPublication()
+            User.sharedInstance.setUserName(name)
+            if phoneNumber == nil {
+                showPhoneNumberAllert()
+            }
+            else {
+                User.sharedInstance.setUserPhoneNumber(number)
+                
+                registerUserForPublication()
+            }
         }
+    }
+    
+    private func showNameAllert() {
         
-        
+        let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
+        let alertMessage = String.localizedStringWithFormat("חובה להקליד שם", "Alert message: You have to type a name")
+        let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
+            self.showPickupRegistrationAlert()
+            
+        }))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     private func showPhoneNumberAllert() {
@@ -555,9 +572,11 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         let alertMessage = String.localizedStringWithFormat("נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed correctly.")
         let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
+                self.showPickupRegistrationAlert()
         
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+        }))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

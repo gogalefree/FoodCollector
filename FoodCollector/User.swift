@@ -66,7 +66,7 @@ class User {
     
     private func createInternalUserDataBase(){
         let filePath = FCModel.documentsDirectory().stringByAppendingString("/" + pListName)
-        print("USER -> filePath: \(filePath)")
+        //print("USER -> filePath: \(filePath)")
         if !readData(filePath) {
             createEmptyUserData()
         }
@@ -88,7 +88,7 @@ class User {
     private func readData(path: String) -> Bool {
         if NSFileManager.defaultManager().fileExistsAtPath(path){
             userData = NSDictionary(contentsOfFile: path) as! [String : String]
-            print(userData.description)
+            //print(userData.description)
             return true
         }
         
@@ -101,9 +101,9 @@ class User {
         
         (userData as NSDictionary).writeToFile(path, atomically: true)
         
-        print("USER -> Saved plist file in --> \(path)")
-        print("=========")
-        print(NSDictionary(contentsOfFile: path))
+        //print("USER -> Saved plist file in --> \(path)")
+        //print("=========")
+        //print(NSDictionary(contentsOfFile: path))
     }
     
     
