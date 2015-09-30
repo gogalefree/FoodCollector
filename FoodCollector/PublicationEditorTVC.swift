@@ -297,7 +297,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             imageCell.selectionStyle = UITableViewCellSelectionStyle.None
             
             imageCell.cameraButtonClicked = { [unowned self] (selectedCell) -> Void in
-                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                //let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
                 self.selectedIndexPath = NSIndexPath(forRow: 0, inSection: selectedCell.section!)
                 self.presentImagePickerActionSheet()
             }
@@ -947,7 +947,6 @@ extension PublicationEditorTVC {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         self.dismissViewControllerAnimated(true, completion: nil)
         
-        var myInfo = info
         if info[UIImagePickerControllerEditedImage] != nil {
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             self.updateCellDataWithImage(image)
