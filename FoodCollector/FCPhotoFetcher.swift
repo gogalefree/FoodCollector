@@ -38,7 +38,7 @@ class FCPhotoFetcher: NSObject {
             
             if task.result != nil {
                 
-                let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
+                //let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
                 publication.photoData.didTryToDonwloadImage = true
                 if let publicationPhoto = photo {
@@ -89,7 +89,6 @@ class FCPhotoFetcher: NSObject {
     func bucketNameForBundle() -> String {
         
         var infoPlist: NSDictionary?
-        var urlString: String
         
         if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
             

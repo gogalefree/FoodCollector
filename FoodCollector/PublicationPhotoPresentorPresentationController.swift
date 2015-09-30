@@ -17,7 +17,7 @@ class PublicationPhotoPresentorPresentationController: UIPresentationController 
         self.prepareDimmingView()
         
         let containerView  = self.containerView
-        let presentedVC    = self.presentedViewController as! UINavigationController
+        //let presentedVC    = self.presentedViewController as! UINavigationController
 
         containerView!.insertSubview(dimmingView, atIndex: 0)
         self.dimmingView.alpha = 1
@@ -39,7 +39,7 @@ class PublicationPhotoPresentorPresentationController: UIPresentationController 
     
     override func frameOfPresentedViewInContainerView() -> CGRect {
         //final frame
-        var frame = self.containerView!.bounds
+        let frame = self.containerView!.bounds
         return frame
     }
     

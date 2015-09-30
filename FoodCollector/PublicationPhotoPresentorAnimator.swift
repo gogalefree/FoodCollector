@@ -25,7 +25,7 @@ class PublicationPhotoPresentorAnimator: NSObject , UIViewControllerAnimatedTran
         let navigationControllerView =
         transitionContext.viewForKey(UITransitionContextToViewKey)!
         
-        var fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
+        //var fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
        
         navigationControllerView.frame = containerView!.bounds
 

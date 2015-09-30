@@ -517,15 +517,12 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         alertController.addAction(UIAlertAction(title: alertRegisterButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
             let name = (alertController.textFields![0] as UITextField).text
             let number = (alertController.textFields![1] as UITextField).text
-            if name != nil && number != nil {
-                self.registerUser(name!, number: number!, publication: self.publication!)
-                
+            if (name == "" ||  number == "") {
+                self.showNoNameOrNumberAllert()
             }
-            
-            
-            
-            //print("name: \(name)")
-            //print("number: \(number)")
+            else {
+                self.registerUser(name!, number: number!, publication: self.publication!)
+            }
         }))
         alertController.addAction(UIAlertAction(title: alertCancelButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
         
@@ -534,29 +531,23 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     }
     
     private func registerUser(name: String, number: String, publication: FCPublication) {
-        // Get a valid phone number or a nil
-        let phoneNumber = Validator().getValidPhoneNumber(number)
+        User.sharedInstance.setUserName(name)
         
-        if name == "" {
-            showNameAllert()
+        // Get and check if phone number is valid or a nil
+        if Validator().getValidPhoneNumber(number) == nil {
+            showPhoneNumberAllert()
         }
         else {
-            User.sharedInstance.setUserName(name)
-            if phoneNumber == nil {
-                showPhoneNumberAllert()
-            }
-            else {
-                User.sharedInstance.setUserPhoneNumber(number)
-                
-                registerUserForPublication()
-            }
+            User.sharedInstance.setUserPhoneNumber(number)
+            
+            registerUserForPublication()
         }
     }
     
-    private func showNameAllert() {
+    private func showNoNameOrNumberAllert() {
         
         let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
-        let alertMessage = String.localizedStringWithFormat("חובה להקליד שם", "Alert message: You have to type a name")
+        let alertMessage = String.localizedStringWithFormat("חובה למלא את כל השדות", "Alert message: You have to fill all the fields")
         let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
@@ -877,7 +868,6 @@ extension FCPublicationDetailsTVC {
     func configAdminIfNeeded() {
         
         var infoPlist: NSDictionary?
-        var urlString: String
         
         if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
             
