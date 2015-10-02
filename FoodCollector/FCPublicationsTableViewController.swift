@@ -79,7 +79,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     
     func findCancelButonInSearchBar(currentView: UIView){
         // Get the subviews of the searchBar
-        var viewsArray = currentView.subviews
+        let viewsArray = currentView.subviews
         
         // Return if there are no subviews
         if (viewsArray.count == 0) {
@@ -88,7 +88,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         
         for subView in viewsArray {
             if subView.isKindOfClass(UIButton) {
-                if let title = (subView as! UIButton).currentTitle {
+                if (subView as! UIButton).currentTitle != nil {
                     (subView as! UIButton).setTitle("ביטול", forState: .Normal)
                     return
                 }

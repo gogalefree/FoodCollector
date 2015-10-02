@@ -105,7 +105,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
-        if let collectionView = self.collectionView {
+        if self.collectionView != nil {
         
             self.collectionView.collectionViewLayout.invalidateLayout()
             super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -247,7 +247,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     //this is triggered by a NSNotification.
     //we reload the collection view since it might have been a user created publication taken off air
     func didDeletePublicationNotification() {
-        if let collectionView = self.collectionView {
+        if self.collectionView != nil {
             self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
             self.collectionView.reloadData()
             print("after reloading from notification: \(self.userCreatedPublications.count)")
@@ -393,7 +393,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     func searchPublications(text: String) {
         
-        for (index ,publication) in self.userCreatedPublications.enumerate() {
+        for (_ ,publication) in self.userCreatedPublications.enumerate() {
             
             let titleRange: Range<String.Index> = Range<String.Index>(start: publication.title!.startIndex  ,end: publication.title!.endIndex)
             

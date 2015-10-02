@@ -162,6 +162,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
 
         self.uniqueId = aDecoder.decodeIntegerForKey(kPublicationUniqueIdKey)
         self.version = aDecoder.decodeIntegerForKey(kPublicationVersionKey)
+        // Boris: If I change to 'as?', how will it effect the program if, for some reason, 'title = nil'?
         self.title = aDecoder.decodeObjectForKey(kPublicationTitleKey) as! String
         self.subtitle = aDecoder.decodeObjectForKey(kPublicationSubTitleKey) as? String
         self.address = aDecoder.decodeObjectForKey(kPublicationAddressKey) as! String
@@ -232,11 +233,11 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(startingDateInt))
         
         let endingDateDouble = (params[kPublicationEndingDateKey] as! NSString).doubleValue
-        let endingDateInt = Double(endingDateDouble)
+        //let endingDateInt = Double(endingDateDouble)
         let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(endingDateDouble))
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
         let aVersion = params[kPublicationVersionKey] as! Int
-        let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
+        //let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
         let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
         return publication
     }
@@ -259,7 +260,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(endingDateInt))
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
         let aVersion = params[kPublicationVersionKey] as! Int
-        let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
+        //let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
         let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
         return publication
 

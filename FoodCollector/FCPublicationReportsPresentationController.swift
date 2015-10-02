@@ -46,7 +46,7 @@ class FCPublicationReportsPresentationController: UIPresentationController {
     
     override func frameOfPresentedViewInContainerView() -> CGRect {
         //final frame
-        var frame = self.containerView!.bounds
+        let frame = self.containerView!.bounds
         return frame
     }
     

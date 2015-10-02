@@ -172,7 +172,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     func googleLocationSearch(searchText: String) {
         
-        var key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
+        let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
         var input = searchText
         input = input.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())!
         
@@ -183,19 +183,19 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             
-            if let respone = response {
+            if response != nil {
                 
                 if (error == nil) {
                     
                     if let data = data {
-                        var jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
+                        let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
                         
                         print("result: \(jsonResult) " )
                         
                         if let jsonResult = jsonResult {
                             
                             
-                            var arrayOfPredications = jsonResult["predictions"] as! NSArray
+                            let arrayOfPredications = jsonResult["predictions"] as! NSArray
                             
                             if arrayOfPredications.count != 0 {
                                 
@@ -203,8 +203,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                                 self.initialData.removeAll(keepCapacity: false)
                                 
                                 for object in arrayOfPredications {
-                                    var dict = object as! NSDictionary
-                                    var desc = dict["description"] as! String
+                                    let dict = object as! NSDictionary
+                                    let desc = dict["description"] as! String
                                     print(desc)
                                     self.initialData.append(desc)
                                 }
@@ -243,7 +243,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         
         session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
-            if let response = response {
+            if response != nil {
                 
                 if error == nil {
                     
@@ -313,8 +313,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                                 self.selectedAddress = address
                             }
                             if addrResultDict != nil {
-                                let geometryResults = addrResultDict?["geometry"] as! NSDictionary
-                                let locationDict = geometryResults["location"] as! NSDictionary
+                                // Boris: Ask Guy what's this code for? Maybe, the 'let' needs to be removed?
+                                //let geometryResults = addrResultDict?["geometry"] as! NSDictionary
+                                //let locationDict = geometryResults["location"] as! NSDictionary
                                 
                                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                     self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)

@@ -31,7 +31,7 @@ class FCPublicationReportsVCAnimator: NSObject , UIViewControllerAnimatedTransit
         
         let tableView = tableViewController.tableView
         
-        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
+        //let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
         
 
         navigationControllerView.frame = containerView!.bounds

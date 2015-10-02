@@ -24,7 +24,7 @@ class PublicationEditorTVCDatePickerCustomCell: UITableViewCell {
     
     var cellData: PublicationEditorTVCCellData? {
         didSet {
-            if let cellDatePicker = self.cellData {
+            if self.cellData != nil {
                 self.cellDatePicker.setDate(cellData?.userData as! NSDate, animated: false)
             }
         }

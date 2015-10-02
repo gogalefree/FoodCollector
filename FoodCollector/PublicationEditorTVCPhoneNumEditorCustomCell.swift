@@ -21,7 +21,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     var cellData: PublicationEditorTVCCellData? {
         didSet {
-            if let cellPhoneField = self.cellData {
+            if self.cellData != nil {
                 let typeOfPublicationRawValue = cellData!.userData.objectForKey(kPublicationTypeOfCollectingKey) as! Int
                 var cellTitle = cellData!.userData.objectForKey(kPublicationContactInfoKey) as! String
                 if (typeOfPublicationRawValue == 2){

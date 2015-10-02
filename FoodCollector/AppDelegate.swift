@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //we delete it from the publications array
         
         
-        if let notificationType = userInfo[kRemoteNotificationType] as? String {
+        if (userInfo[kRemoteNotificationType] as? String) != nil {
             
             if UIApplication.sharedApplication().applicationState != .Active {
                 self.handelRemoteNotificationsFromBackground(userInfo)

@@ -72,7 +72,6 @@ class NewReportMessageView: UIVisualEffectView {
     }
     
     func messageForReport(report: FCOnSpotPublicationReport) -> String {
-        var message = ""
         switch report.onSpotPublicationReportMessage {
         case  .HasMore :
             return kHasMoreTitle
@@ -140,7 +139,7 @@ class NewReportMessageView: UIVisualEffectView {
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
                     
-                    if let photo = image {
+                    if image != nil {
                         //present photo
                         self.presentFetchedPhoto(publication)
                     }

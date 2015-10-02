@@ -24,7 +24,7 @@ class PublicationDetailsReportCell: UITableViewCell {
     var indexPath: NSIndexPath!
     var publication: FCPublication! {
         didSet {
-            if let publication = self.publication {
+            if self.publication != nil {
                 setUp()
             }
         }

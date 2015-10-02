@@ -39,7 +39,7 @@ class FCPublicationRegistrationsFetcher: NSObject {
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if let serverResponse = response  {
-                var aServerResponse = serverResponse as! NSHTTPURLResponse
+                let aServerResponse = serverResponse as! NSHTTPURLResponse
                 print("response: \(serverResponse.description)", terminator: "")
                 
                 

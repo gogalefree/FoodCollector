@@ -75,7 +75,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         if trackingUserLocation{
             
             self.mapView.setCenterCoordinate(self.mapView.userLocation.coordinate, animated: true)
-            var newCamera = self.mapView.camera.copy() as! MKMapCamera
+            let newCamera = self.mapView.camera.copy() as! MKMapCamera
             newCamera.heading = self.mapView.userLocation.location!.course
             self.mapView.setCamera(newCamera, animated: true)
             
@@ -323,6 +323,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
     }
     
+    // Boris: 1. What will happen to the code if the function will return an optional MKAnnotationView?
+    //           This function has a return nil for some cases!!!!
+    //        2. What is the purpose of the class FCAnnotationView? It's an empty class...
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         
         if annotation.isKindOfClass(MKUserLocation) {
@@ -389,7 +392,7 @@ extension FCCollectorRootVC {
     @IBAction func ShowActivityCenter(sender: AnyObject) {
         
         self.isPresentingActivityCenter = !self.isPresentingActivityCenter
-        if let delegate = self.delegate {
+        if self.delegate != nil {
             self.delegate.collectorVCWillSlide()
         }
     }
@@ -437,7 +440,7 @@ extension FCCollectorRootVC {
     }
     
     func didRecievePublicationReport(notification: NSNotification) {
-        var (identifier, report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
+        let (identifier, report) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
         
         //we need to check if the report belongs to the presented publication to refresh it
         //change this to the presented publication

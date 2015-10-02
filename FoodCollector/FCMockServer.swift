@@ -72,7 +72,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let dictToSend = ["active_device" : params]
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(dictToSend, options: [])
-        let devId = FCModel.sharedInstance.deviceUUID!
+        //let devId = FCModel.sharedInstance.deviceUUID!
         let url = NSURL(string: registerForPushNotificationsURL)
         
         let request = NSMutableURLRequest(URL: url!)

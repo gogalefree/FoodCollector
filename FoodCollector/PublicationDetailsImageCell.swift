@@ -32,7 +32,7 @@ class PublicationDetailsImageCell: UITableViewCell {
 
     var publication: FCPublication! {
         didSet {
-            if let publication = self.publication {
+            if self.publication != nil {
                 setUp()
             }
         }
@@ -89,9 +89,6 @@ class PublicationDetailsImageCell: UITableViewCell {
         case false:
             self.registeredUsersIconImageView.image = self.unRegisteredUserBlueImage
             self.registeredUsersCounterlabel.textColor = self.unregisteredUserBlueTextColor
-        
-        default:
-            break
         }
     }
     

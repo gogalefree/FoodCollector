@@ -153,9 +153,6 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
                     self.scrollViewTopConstraint.constant = self.initialScrollViewTopConstartintConstant
                     self.scrollViewButtomConstraint.constant = self.initialScrollViewButtomConstartintConstant
                 }
-                
-            default :
-                break
             }
             
             self.view.layoutIfNeeded()

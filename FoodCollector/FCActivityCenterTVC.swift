@@ -166,7 +166,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     final override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         let publication = self.publicationForIndexPath(indexPath)
-        let title = titleForIndexPath(indexPath)
+        //let title = titleForIndexPath(indexPath)
         
         switch indexPath.section {
         case 0:
