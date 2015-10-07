@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 
+/// ====> This class currently a supper class for future use.
+
 class FCAnnotationView: MKAnnotationView {
     
     override init(frame: CGRect) {

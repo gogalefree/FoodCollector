@@ -323,10 +323,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
     }
     
-    // Boris: 1. What will happen to the code if the function will return an optional MKAnnotationView?
-    //           This function has a return nil for some cases!!!!
-    //        2. What is the purpose of the class FCAnnotationView? It's an empty class...
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
         if annotation.isKindOfClass(MKUserLocation) {
             return nil
@@ -440,7 +437,7 @@ extension FCCollectorRootVC {
     }
     
     func didRecievePublicationReport(notification: NSNotification) {
-        let (identifier, report) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
+        let (identifier, _) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
         
         //we need to check if the report belongs to the presented publication to refresh it
         //change this to the presented publication

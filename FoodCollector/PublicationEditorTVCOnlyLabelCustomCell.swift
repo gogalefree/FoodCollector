@@ -30,8 +30,7 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
                     
                     let txtField = UITextField(frame: CGRect(x: 8, y: 0, width: self.frame.width-10, height: self.frame.height-1))
                     txtField.clearButtonMode = UITextFieldViewMode.WhileEditing
-                    // Boris: If I change to 'as?', how will it effect the program if, for some reason, 'title = nil'?
-                    txtField.text = cellData.userData as! String
+                    txtField.text = cellData.userData as? String
                     self.addSubview(txtField)
                 }
             }

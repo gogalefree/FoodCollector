@@ -16,8 +16,7 @@ public extension FCModel {
         
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            // Boris: Ask Guy what's this code for?
-            let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
+            NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
         }
     }
     
@@ -37,8 +36,7 @@ public extension FCModel {
         
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            // Boris: Ask Guy what's this code for?
-            let success = NSKeyedArchiver.archiveRootObject(self.userCreatedPublications, toFile: self.userCreatedPublicationsFilePath)
+            NSKeyedArchiver.archiveRootObject(self.userCreatedPublications, toFile: self.userCreatedPublicationsFilePath)
         }
     }
     

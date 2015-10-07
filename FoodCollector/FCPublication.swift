@@ -162,8 +162,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
 
         self.uniqueId = aDecoder.decodeIntegerForKey(kPublicationUniqueIdKey)
         self.version = aDecoder.decodeIntegerForKey(kPublicationVersionKey)
-        // Boris: If I change to 'as?', how will it effect the program if, for some reason, 'title = nil'?
-        self.title = aDecoder.decodeObjectForKey(kPublicationTitleKey) as! String
+        self.title = aDecoder.decodeObjectForKey(kPublicationTitleKey) as? String
         self.subtitle = aDecoder.decodeObjectForKey(kPublicationSubTitleKey) as? String
         self.address = aDecoder.decodeObjectForKey(kPublicationAddressKey) as! String
         self.typeOfCollecting = TypeOfCollecting(rawValue: aDecoder.decodeIntegerForKey(kPublicationTypeOfCollectingKey))!
