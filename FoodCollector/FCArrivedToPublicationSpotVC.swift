@@ -110,7 +110,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     
     func presentUserNotCloseToPublicationAlertIfNeeded() {
         
-        let userLocation = FCModel.sharedInstance.userLocation
+        //let userLocation = FCModel.sharedInstance.userLocation
         let distanceFromPublication = self.publication?.distanceFromUserLocation
         
         if distanceFromPublication != nil && distanceFromPublication > 2000 {

@@ -17,7 +17,7 @@ class FCStringFunctions : NSObject {
     
     class func formmatedDistanceString (distance: Double) -> String{
         
-        var km = distance / 1000
+        let km = distance / 1000
         let numberFormatter = NSNumberFormatter()
         numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
         numberFormatter.maximumFractionDigits = 2

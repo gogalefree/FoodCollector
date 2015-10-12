@@ -40,7 +40,7 @@ protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
     func didTakeOffAirPublication(publication: FCPublication)
 }
 
-class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
+class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
     var deleteDelgate: UserDidDeletePublicationProtocol?
     
@@ -95,7 +95,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPo
     //tests only
     func showOnSpotReport() {
     
-        var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
         
         arrivedToSpotReportVC.publication = self.publication
         
@@ -353,14 +353,14 @@ class FCPublicationDetailsTVC: UITableViewController, UIScrollViewDelegate, UIPo
         newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
         self.view.addSubview(newRgistrationBannerView)
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             newRgistrationBannerView.alpha = 1
             newRgistrationBannerView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 66)
             
             }) { (finished) -> Void in
                 
-                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     
                     newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
                     newRgistrationBannerView.alpha = 0
@@ -399,19 +399,12 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     
     func didRegisterForPublication(publication: FCPublication) {
-        
-        publication.didRegisterForCurrentPublication = true
-        publication.countOfRegisteredUsers += 1
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication, message: FCRegistrationForPublication.RegistrationMessage.register)
-        FCModel.sharedInstance.savePublications()
-        
-        self.updateRegisteredUserIconCounter()
-        //show alert controller
+        //print("didRegisterForPublication")
         if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
-            
-            let title = String.localizedStringWithFormat("נא ליצור קשר עם המשתף", "an alert title requesting to contact the publisher")
-            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: " ")
-            self.presentViewController(alert, animated: true, completion: nil)
+            showPickupRegistrationAlert()
+        }
+        else {
+            registerUserForPublication()
         }
     }
     
@@ -466,6 +459,15 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             }
         }
     }
+    
+    private func registerUserForPublication() {
+        publication!.didRegisterForCurrentPublication = true
+        publication!.countOfRegisteredUsers += 1
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication!, message: FCRegistrationForPublication.RegistrationMessage.register)
+        FCModel.sharedInstance.savePublications()
+        
+        self.updateRegisteredUserIconCounter()
+    }
 
     private func updateRegisteredUserIconCounter() {
         
@@ -475,6 +477,99 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             cell.reloadRegisteredUserIconCounter()
         }
     }
+    
+    func showPickupRegistrationAlert() {
+        // The user is prompt to register to the event as a picker using a name and a phone number
+        // Set string labels for the alert
+        //print("showPickupRegistrationAlert")
+        let alertTitle = String.localizedStringWithFormat("רישום לאיסוף", "Alert title: Pickup Registration")
+        let alertMessage = String.localizedStringWithFormat("יש למלא פרטי התקשרות כדי להצטרף לאיסוף", "Alert message: Please fill in details to join this pickup")
+        let alertRegisterButtonTitle = String.localizedStringWithFormat("הרשמה", "Alert button title: Register")
+        let alertCancelButtonTitle = String.localizedStringWithFormat("ביטול", "Alert button title: Cancel")
+        let alertNameTextFieldLabel = String.localizedStringWithFormat("שם", "Alert text field label: Name")
+        let alertPhoneTextFieldLabel = String.localizedStringWithFormat("מספר טלפון", "Alert text field label: Phone number")
+        
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Add text fields
+        alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            if User.sharedInstance.userName != "" {
+                textField.text = User.sharedInstance.userName
+            }
+            else {
+                textField.placeholder = alertNameTextFieldLabel
+            }
+            textField.textAlignment = NSTextAlignment.Right
+        })
+        
+        alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            if User.sharedInstance.userPhoneNumber != "" {
+                textField.text = User.sharedInstance.userPhoneNumber
+            }
+            else {
+                textField.placeholder = alertPhoneTextFieldLabel
+            }
+            textField.textAlignment = NSTextAlignment.Right
+            textField.keyboardType = UIKeyboardType.NumberPad
+        })
+        
+        // Add buttons
+        alertController.addAction(UIAlertAction(title: alertRegisterButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+            let name = (alertController.textFields![0] as UITextField).text
+            let number = (alertController.textFields![1] as UITextField).text
+            if (name == "" ||  number == "") {
+                self.showNoNameOrNumberAllert()
+            }
+            else {
+                self.registerUser(name!, number: number!, publication: self.publication!)
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: alertCancelButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+    }
+    
+    private func registerUser(name: String, number: String, publication: FCPublication) {
+        User.sharedInstance.setUserName(name)
+        
+        // Get and check if phone number is valid or a nil
+        if Validator().getValidPhoneNumber(number) == nil {
+            showPhoneNumberAllert()
+        }
+        else {
+            User.sharedInstance.setUserPhoneNumber(number)
+            
+            registerUserForPublication()
+        }
+    }
+    
+    private func showNoNameOrNumberAllert() {
+        
+        let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
+        let alertMessage = String.localizedStringWithFormat("חובה למלא את כל השדות", "Alert message: You have to fill all the fields")
+        let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
+            self.showPickupRegistrationAlert()
+            
+        }))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    private func showPhoneNumberAllert() {
+        
+        let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
+        let alertMessage = String.localizedStringWithFormat("נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed correctly.")
+        let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
+                self.showPickupRegistrationAlert()
+        
+        }))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
@@ -490,7 +585,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     func didRequestPostToFacebookForPublication() {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
-            var facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            let facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             
             facebookPostController.setInitialText(publication?.title)
             facebookPostController.addImage(publication?.photoData.photo)
@@ -502,7 +597,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     func didRequestPostToTwitterForPublication() {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
-            var twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            let twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             
             let hashTagString = "#FooDoNet: "
             let title = publication?.title
@@ -546,7 +641,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
     
     //MARK: - Transition Delegate
     
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
        
         var pcontrol: UIPresentationController!
         
@@ -560,7 +655,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
         else if presented is FCPublicationReportsNavigationController{
             
             pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
-                presentingViewController: self.navigationController)
+                presentingViewController: self.navigationController!)
         }
         
         return  pcontrol
@@ -571,7 +666,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
         //starting frame for transition
         if presented is FCPhotoPresentorNavigationController {
 
-            var photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
+            let photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
 
             var originFrame = CGRectZero
             //TODO: set initial photo frame
@@ -587,7 +682,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
         
         else if presented is FCPublicationReportsNavigationController{
             
-            var publicationReportsAnimator = FCPublicationReportsVCAnimator()
+            let publicationReportsAnimator = FCPublicationReportsVCAnimator()
             var startingFrame = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
     //        startingFrame.origin.y += kTableViewHeaderHeight
             startingFrame.size.width = startingFrame.size.width / 2
@@ -609,7 +704,7 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
             
             let animator = FCPublicationReportsDismissAnimator()
             
-            var destinationFrame =
+            let destinationFrame =
             self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
             
             animator.destinationRect = destinationFrame
@@ -648,15 +743,15 @@ extension FCPublicationDetailsTVC {
 
 extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
     
-    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         
-        switch (result.value) {
+        switch (result.rawValue) {
         
-        case MessageComposeResultCancelled.value:
-            println("Message was cancelled")
+        case MessageComposeResultCancelled.rawValue:
+            print("Message was cancelled")
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
        
-        case MessageComposeResultFailed.value:
+        case MessageComposeResultFailed.rawValue:
             
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 
@@ -671,8 +766,8 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
             
             self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             
-        case MessageComposeResultSent.value:
-            println("Message was sent")
+        case MessageComposeResultSent.rawValue:
+            print("Message was sent")
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
         default:
             break;
@@ -703,7 +798,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
         createTopRightButton(label: buttonValus.0, andAction: buttonValus.1)
     }
     
-    func createTopRightButton(#label:String, andAction actionName: String) {
+    func createTopRightButton(label label:String, andAction actionName: String) {
         let actionSelector = Selector(stringLiteral: actionName)
         let topRightButton = UIBarButtonItem(
                 title: label,
@@ -716,7 +811,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
     func presentReportVC() {
         
-        var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
         
         arrivedToSpotReportVC.publication = self.publication
         arrivedToSpotReportVC.delegate = self
@@ -773,7 +868,6 @@ extension FCPublicationDetailsTVC {
     func configAdminIfNeeded() {
         
         var infoPlist: NSDictionary?
-        var urlString: String
         
         if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
             
@@ -784,15 +878,15 @@ extension FCPublicationDetailsTVC {
             
             let bundleName = infoPlist["CFBundleName"] as! String
             let bundleID = infoPlist["CFBundleIdentifier"] as! String
-            println("BUNDLE ID: \(bundleID)")
+            print("BUNDLE ID: \(bundleID)")
             if bundleName.hasPrefix("beta") {
              
-                println("Beta Version. adding deleteButton")
+                print("Beta Version. adding deleteButton")
                 addDeletButton()
             }
         }
         else {
-            println("Config Admin **************: NOT FOUND")
+            print("Config Admin **************: NOT FOUND")
             
         }
     }
@@ -804,7 +898,7 @@ extension FCPublicationDetailsTVC {
     }
     
     func deletePublication() {
-        println("deleting publication")
+        print("deleting publication")
         
         let identifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId , version: self.publication!.version)
         
@@ -833,13 +927,13 @@ extension FCPublicationDetailsTVC {
     
     func didSelectTakOffAirPublicationAction() {
         
-        var takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        let takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
         takeOffAirAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
             self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
         }))
         
-        takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
         }))
         
         presentViewController(takeOffAirAlert, animated: true, completion: nil)
@@ -848,9 +942,9 @@ extension FCPublicationDetailsTVC {
     
     func didSelectDeletePublicationAction() {
         
-        var deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        let deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
-        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
             
             let pubicationToDelete = self.publication!
             // make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there

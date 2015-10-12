@@ -36,16 +36,16 @@ class FCPublicationRegistrationsFetcher: NSObject {
         
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getPublicationWithIdentifierURL + "\(publication.uniqueId)/registered_user_for_publications")
-        let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if let serverResponse = response  {
-                var aServerResponse = serverResponse as! NSHTTPURLResponse
-                print("response: \(serverResponse.description)")
+                let aServerResponse = serverResponse as! NSHTTPURLResponse
+                print("response: \(serverResponse.description)", terminator: "")
                 
                 
                 if error == nil && aServerResponse.statusCode == 200{
                     
-                    let registrationsArrayofDicts = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [[String : AnyObject]]
+                    let registrationsArrayofDicts = (try? NSJSONSerialization.JSONObjectWithData(data!, options: [])) as? [[String : AnyObject]]
                     
                     if let registrations = registrationsArrayofDicts {
                         

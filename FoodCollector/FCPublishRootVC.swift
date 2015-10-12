@@ -89,9 +89,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
         
         
-        var publication = userCreatedPublications[indexPath.item]
+        let publication = userCreatedPublications[indexPath.item]
         let reusableId = "FCPublishCollectionViewCell"
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as! FCPublishRootVCCustomCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as! FCPublishRootVCCustomCollectionViewCell
         cell.publication = publication
         
         // The tag property will be used later in the segue to identify
@@ -105,7 +105,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
-        if let collectionView = self.collectionView {
+        if self.collectionView != nil {
         
             self.collectionView.collectionViewLayout.invalidateLayout()
             super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -199,7 +199,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
                 self.collectionView.reloadData()
             })
             
-            println("after delete segue from notification: \(self.userCreatedPublications.count)")
+            print("after delete segue from notification: \(self.userCreatedPublications.count)")
 
             if self.userCreatedPublications.count == 0 {
                 hideCollectionView()
@@ -218,7 +218,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     func indexPathForUserCreatedPublication(pubicationToDelete: FCPublication) -> NSIndexPath? {
         
-        for (index,publication) in enumerate(self.userCreatedPublications) {
+        for (index,publication) in self.userCreatedPublications.enumerate() {
             if publication.uniqueId == pubicationToDelete.uniqueId &&
                 publication.version == pubicationToDelete.version {
                    return NSIndexPath(forItem: index, inSection: 0)
@@ -247,10 +247,10 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     //this is triggered by a NSNotification.
     //we reload the collection view since it might have been a user created publication taken off air
     func didDeletePublicationNotification() {
-        if let collectionView = self.collectionView {
+        if self.collectionView != nil {
             self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
             self.collectionView.reloadData()
-            println("after reloading from notification: \(self.userCreatedPublications.count)")
+            print("after reloading from notification: \(self.userCreatedPublications.count)")
         }
     }
     
@@ -259,7 +259,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     func didDeleteOldVersionOfUserCreatedPublication() {
 
         let newUserCreatedPublication = FCModel.sharedInstance.userCreatedPublications.last
-        for (index,publication) in enumerate(self.userCreatedPublications) {
+        for (index,publication) in self.userCreatedPublications.enumerate() {
             if publication.uniqueId == newUserCreatedPublication?.uniqueId && publication.version < newUserCreatedPublication?.version {
                 self.userCreatedPublications.removeAtIndex(index)
                 self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
@@ -330,7 +330,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         //user is deleting
         //show all publications
-        if searchText == "" || count(searchText) < self.searchTextCharCount{
+        if searchText == "" || searchText.characters.count < self.searchTextCharCount{
             
             self.isFiltered = false
             self.showAllUserCreatedPublications()
@@ -343,7 +343,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         }
         
         //save the count to check whether user writing or deleting
-        self.searchTextCharCount = count(searchText)
+        self.searchTextCharCount = searchText.characters.count
     }
     
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
@@ -393,18 +393,18 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     func searchPublications(text: String) {
         
-        for (index ,publication) in enumerate(self.userCreatedPublications) {
+        for (_ ,publication) in self.userCreatedPublications.enumerate() {
             
-            var titleRange: Range<String.Index> = Range<String.Index>(start: publication.title.startIndex  ,end: publication.title.endIndex)
+            let titleRange: Range<String.Index> = Range<String.Index>(start: publication.title!.startIndex  ,end: publication.title!.endIndex)
             
-            var titleFound = publication.title.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: titleRange, locale: nil)
+            let titleFound = publication.title!.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: titleRange, locale: nil)
             
             
             var subtitleFound: Range<String.Index>?
             
             if let subtitle = publication.subtitle {
                 
-                var subTitleRange = Range<String.Index>(start: subtitle.startIndex  ,end: subtitle.endIndex)
+                let subTitleRange = Range<String.Index>(start: subtitle.startIndex  ,end: subtitle.endIndex)
                 
                 subtitleFound = subtitle.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: subTitleRange, locale: nil)
                 
@@ -424,7 +424,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
             for publicationToRemove in self.unPresentedPublications {
                 
-                for (index, publication) in enumerate(self.userCreatedPublications) {
+                for (index, publication) in self.userCreatedPublications.enumerate() {
                     
                     if publicationToRemove.uniqueId == publication.uniqueId &&
                         publicationToRemove.version == publication.version {

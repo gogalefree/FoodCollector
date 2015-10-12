@@ -9,13 +9,15 @@
 import UIKit
 import MapKit
 
+/// ====> This class currently a supper class for future use.
+
 class FCAnnotationView: MKAnnotationView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
-    override init(annotation: MKAnnotation!, reuseIdentifier: String!) {
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
     }
     
@@ -67,7 +69,7 @@ class FCAnnotationView: MKAnnotationView {
 //        }        
 //    }
 //    
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

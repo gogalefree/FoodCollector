@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //show UIAlert informing users to enable push from settings
         //the alert is presented in collector root vc
-        println("FAILED TO REGISTER PUSH NOTIFICATIONS: \(error.description)")
+        print("FAILED TO REGISTER PUSH NOTIFICATIONS: \(error.description)")
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportPushNotificationToServerKey)
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: kShouldShowFailedToRegisterForPushAlertKey)
     }
@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //we delete it from the publications array
         
         
-        if let notificationType = userInfo[kRemoteNotificationType] as? String {
+        if (userInfo[kRemoteNotificationType] as? String) != nil {
             
             if UIApplication.sharedApplication().applicationState != .Active {
                 self.handelRemoteNotificationsFromBackground(userInfo)
@@ -192,13 +192,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //delete all photos
         let fm = NSFileManager.defaultManager()
-        var photoPath = FCModel.sharedInstance.photosDirectoryUrl.path!
-        let files = fm.contentsOfDirectoryAtPath(photoPath, error: nil) as! [String]
+        let photoPath = FCModel.sharedInstance.photosDirectoryUrl.path!
+        let files = (try! fm.contentsOfDirectoryAtPath(photoPath)) 
         var error: NSError?
         for file in files {
             
-            if !fm.removeItemAtPath(photoPath.stringByAppendingPathComponent("/\(file)"), error: &error) {
-                println("Error deleting file: \(error)")
+            do {
+                try fm.removeItemAtPath(photoPath.stringByAppendingString("/\(file)"))
+            } catch let error1 as NSError {
+                error = error1
+                print("Error deleting file: \(error)")
             }
         }
     }
@@ -209,10 +212,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let uniqueId = data[kPublicationUniqueIdKey]! as! Int
         let version = data[kPublicationVersionKey]! as! Int
 
-        let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingPathComponent("publications")
+        let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("publications")
         if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
             var publications = NSKeyedUnarchiver.unarchiveObjectWithFile(publicationsFilePath) as! [FCPublication]
-            for (index, publication) in enumerate(publications) {
+            for (index, publication) in publications.enumerate() {
                 
                 if version == publication.version && uniqueId == publication.uniqueId {
                     publications.removeAtIndex(index)

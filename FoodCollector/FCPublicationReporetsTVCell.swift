@@ -23,7 +23,6 @@ class FCPublicationReporetsTVCell: UITableViewCell {
     }
 
     func setup(report: FCOnSpotPublicationReport){
-        let text =  self.titleForReport(report)
         self.reportLabel.text = self.titleForReport(report)
         self.reportDate.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(report.date)
         self.reportIcon.image = self.iconForReport(report)

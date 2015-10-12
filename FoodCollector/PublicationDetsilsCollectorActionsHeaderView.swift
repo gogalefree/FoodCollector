@@ -57,16 +57,12 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         switch sender {
 
         case registerButton:
-
-            
             if let delegate = self.delegate {
                 switch self.publication.didRegisterForCurrentPublication {
                 case true:
                     delegate.didUnRegisterForPublication(self.publication)
                 case false:
                     delegate.didRegisterForPublication(self.publication)
-                default:
-                    break
                 }
             }
             
@@ -94,7 +90,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
             }
             
         default:
-            println("publication details unknown button")
+            print("publication details unknown button")
         }
     }
     
@@ -180,14 +176,14 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         
         let scale = CGAffineTransformMakeScale(1.2, 1.2)
         
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             button.transform = scale
             button.backgroundColor = self.buttonPressColor
 
         }) { (finished) -> Void in
             
-                UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+                UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     
                     button.transform = CGAffineTransformIdentity
                     if button != self.registerButton {
@@ -219,5 +215,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         self.button3to4widthConstraint.constant = margin
         self.layoutIfNeeded()
     }
+    
+    
     
 }

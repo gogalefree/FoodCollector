@@ -31,11 +31,11 @@ class FCUserNotificationHandler : NSObject {
     
     
     var registeredForNotifications: Bool = {
-        return UIApplication.sharedApplication().currentUserNotificationSettings().types != nil
+        return UIApplication.sharedApplication().currentUserNotificationSettings()!.types != []
         }()
     
     var oldToken: String? = {
-        println("Push TOKEN: \(NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey))")
+        print("Push TOKEN: \(NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey))")
         return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? String
         }()
     
@@ -109,7 +109,7 @@ class FCUserNotificationHandler : NSObject {
     /// registers a location notification for all current Publications.
     /// this method is invoked by DidRecieveNewData Notification after fetching
     func registerForLocationNotifications(notification: NSNotification) {
-        println("register for local notification")
+        print("register for local notification")
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         self.registeredLocationNotification.removeAll(keepCapacity: false)
         for publication in FCModel.sharedInstance.publications {
@@ -127,9 +127,9 @@ class FCUserNotificationHandler : NSObject {
             "location notification body")
         localNotification.soundName = UILocalNotificationDefaultSoundName
         localNotification.regionTriggersOnce = true
-        localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(kRegionRadiusForLocationNotification), identifier: publication.title)
-        localNotification.region.notifyOnEntry = true
-        localNotification.region.notifyOnExit = false
+        localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(kRegionRadiusForLocationNotification), identifier: publication.title!)
+        localNotification.region!.notifyOnEntry = true
+        localNotification.region!.notifyOnExit = false
         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         self.registeredLocationNotification.append((localNotification, publication))
     }
@@ -139,12 +139,12 @@ class FCUserNotificationHandler : NSObject {
     
     func removeLocationNotification(publication: FCPublication) {
         
-        for (index, (notification , registeredPublication)) in enumerate(self.registeredLocationNotification) {
+        for (index, (notification , registeredPublication)) in self.registeredLocationNotification.enumerate() {
             if registeredPublication.uniqueId == publication.uniqueId &&
                 registeredPublication.version == publication.version {
                     UIApplication.sharedApplication().cancelLocalNotification(notification)
                     self.registeredLocationNotification.removeAtIndex(index)
-                    println("UNregister for local notification: \(registeredPublication.title)")
+                    print("UNregister for local notification: \(registeredPublication.title)")
                     break
             }
         }
@@ -335,7 +335,7 @@ extension FCUserNotificationHandler {
         
         
         let categoriesSet = Set(arrayLiteral: arrivedToPublicationCategory)// arrivedToPublicationCategory) as Set<NSObject>
-        let types = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound;
+        let types: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Alert, UIUserNotificationType.Sound];
         
         let settings = UIUserNotificationSettings(forTypes: types, categories: categoriesSet)
 

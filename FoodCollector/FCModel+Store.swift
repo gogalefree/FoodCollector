@@ -16,7 +16,7 @@ public extension FCModel {
         
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let success = NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
+            NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
         }
     }
     
@@ -36,7 +36,7 @@ public extension FCModel {
         
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let success = NSKeyedArchiver.archiveRootObject(self.userCreatedPublications, toFile: self.userCreatedPublicationsFilePath)
+            NSKeyedArchiver.archiveRootObject(self.userCreatedPublications, toFile: self.userCreatedPublicationsFilePath)
         }
     }
     
@@ -47,8 +47,8 @@ public extension FCModel {
             let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as! [FCPublication]
             self.userCreatedPublications = array
             for publi in self.userCreatedPublications {
-                println("id of user: \(publi.uniqueId)")
-                println("version of user: \(publi.version)")
+                print("id of user: \(publi.uniqueId)")
+                print("version of user: \(publi.version)")
 
             }
         }

@@ -17,8 +17,9 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     var isPresentingOnSpotReportVC = false
     var firstLaunch = true
     var mainActionNavVC: UINavigationController!
-    var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
-    lazy var newReportMessageView = NewReportMessageView.loadFromNibNamed("NewReportMessageView", bundle: nil) as! NewReportMessageView
+    var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView    
+    
+    lazy var newReportMessageView: NewReportMessageView = NewReportMessageView.loadFromNibNamed("NewReportMessageView", bundle: nil) as! NewReportMessageView
 
     
     override func viewDidLoad() {
@@ -123,7 +124,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
                 
                 let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier)
                 
-                var arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+                let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
                 
                 arrivedToSpotReportVC.publication = publication
                 arrivedToSpotReportVC.delegate = self
@@ -153,7 +154,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         
             let publication = userInfo["publication"] as! FCPublication
             
-            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(publication.title, aMessage: kpublicationDeletedAlertMessage)
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(publication.title!, aMessage: kpublicationDeletedAlertMessage)
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
@@ -178,14 +179,14 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         self.view.addSubview(self.newRgistrationBannerView)
         self.view.bringSubviewToFront(self.newRgistrationBannerView)
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.newRgistrationBannerView.alpha = 1
             self.newRgistrationBannerView.frame = CGRectMake(0, 66 , CGRectGetWidth(self.view.bounds), 66)
 
         }) { (finished) -> Void in
             
-            UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                 
                 self.newRgistrationBannerView.frame = CGRectMake(0, self.kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
                 self.newRgistrationBannerView.alpha = 0
@@ -243,7 +244,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         self.view.bringSubviewToFront(self.newReportMessageView)
         
 
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
     
             self.newReportMessageView.alpha = 1
             self.newReportMessageView.frame = CGRectMake(0, 66 , CGRectGetWidth(self.view.bounds), 129)
@@ -253,7 +254,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     func hideNewReportMessageView() {
         
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.newReportMessageView.frame = CGRectMake(0, self.kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 129)
             self.newReportMessageView.alpha = 0

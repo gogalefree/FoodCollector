@@ -32,7 +32,7 @@ class PublicationDetailsImageCell: UITableViewCell {
 
     var publication: FCPublication! {
         didSet {
-            if let publication = self.publication {
+            if self.publication != nil {
                 setUp()
             }
         }
@@ -59,7 +59,7 @@ class PublicationDetailsImageCell: UITableViewCell {
     
     final func reloadRegisteredUserIconCounter() {
     
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.registeredUsersCounterlabel.alpha = 0
             self.registeredUsersIconImageView.alpha = 0
@@ -69,7 +69,7 @@ class PublicationDetailsImageCell: UITableViewCell {
             self.registeredUsersCounterlabel.text = "\(self.publication.countOfRegisteredUsers)"
             self.defineImageColorForUser()
             
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                 
                 self.registeredUsersCounterlabel.alpha = 1
                 self.registeredUsersIconImageView.alpha = 1
@@ -89,9 +89,6 @@ class PublicationDetailsImageCell: UITableViewCell {
         case false:
             self.registeredUsersIconImageView.image = self.unRegisteredUserBlueImage
             self.registeredUsersCounterlabel.textColor = self.unregisteredUserBlueTextColor
-        
-        default:
-            break
         }
     }
     
@@ -114,9 +111,9 @@ class PublicationDetailsImageCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         //super.touchesBegan(touches, withEvent: event)
-        let touch = touches.first as? UITouch
+        let touch = touches.first
         if let touch = touch {
             
             let touchLocation =  touch.locationInView(self.contentView)

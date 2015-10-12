@@ -14,7 +14,7 @@ class FCPublicationReportsVCAnimator: NSObject , UIViewControllerAnimatedTransit
     var duration = 0.4
    
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return duration
     }
     
@@ -31,27 +31,27 @@ class FCPublicationReportsVCAnimator: NSObject , UIViewControllerAnimatedTransit
         
         let tableView = tableViewController.tableView
         
-        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
+        //let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
         
 
-        navigationControllerView.frame = containerView.bounds
+        navigationControllerView.frame = containerView!.bounds
         
-        let xScaleFactor = containerView.bounds.size.width / originFrame.width
-        let yScaleFactor = containerView.bounds.size.height / originFrame.height
+        let xScaleFactor = containerView!.bounds.size.width / originFrame.width
+        let yScaleFactor = containerView!.bounds.size.height / originFrame.height
         
         let startingScale = CGAffineTransformMakeScale(1 / xScaleFactor, 1 / yScaleFactor)
 
         tableView.transform = startingScale
 
         
-        containerView.addSubview(navigationControllerView)
-        containerView.bringSubviewToFront(navigationControllerView)
+        containerView!.addSubview(navigationControllerView)
+        containerView!.bringSubviewToFront(navigationControllerView)
         
         
         UIView.animateWithDuration(duration, delay:0.0,
             usingSpringWithDamping: 0.7,
             initialSpringVelocity: 0.0,
-            options: nil,
+            options: [],
             animations: {
                 
               

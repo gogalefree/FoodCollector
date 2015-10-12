@@ -20,7 +20,7 @@ protocol FCPublicationsTVCDelegate: NSObjectProtocol{
 /// must be sorted by distance from user location. nearest is first.
 
 
-class FCPublicationsTableViewController : UITableViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class FCPublicationsTableViewController : UITableViewController, UISearchBarDelegate {
     
     weak var delegate: FCPublicationsTVCDelegate!
     var publications = [FCPublication]()
@@ -79,7 +79,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
     
     func findCancelButonInSearchBar(currentView: UIView){
         // Get the subviews of the searchBar
-        var viewsArray = currentView.subviews
+        let viewsArray = currentView.subviews
         
         // Return if there are no subviews
         if (viewsArray.count == 0) {
@@ -88,14 +88,14 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         
         for subView in viewsArray {
             if subView.isKindOfClass(UIButton) {
-                if let title = subView.currentTitle {
-                    subView.setTitle("ביטול", forState: .Normal)
+                if (subView as! UIButton).currentTitle != nil {
+                    (subView as! UIButton).setTitle("ביטול", forState: .Normal)
                     return
                 }
             }
             
             // Resursive call
-            self.findCancelButonInSearchBar(subView as! UIView);
+            self.findCancelButonInSearchBar(subView );
         }
         
     }
@@ -168,16 +168,16 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         
         for publication in self.publications {
         
-            var titleRange: Range<String.Index> = Range<String.Index>(start: publication.title.startIndex  ,end: publication.title.endIndex)
+            let titleRange: Range<String.Index> = Range<String.Index>(start: publication.title!.startIndex  ,end: publication.title!.endIndex)
             
-            var titleFound = publication.title.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: titleRange, locale: nil)
+            let titleFound = publication.title!.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: titleRange, locale: nil)
         
            
             var subtitleFound: Range<String.Index>?
             
             if let subtitle = publication.subtitle {
                 
-               var subTitleRange = Range<String.Index>(start: subtitle.startIndex  ,end: subtitle.endIndex)
+               let subTitleRange = Range<String.Index>(start: subtitle.startIndex  ,end: subtitle.endIndex)
                
                 subtitleFound = subtitle.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: subTitleRange, locale: nil)
     
@@ -270,7 +270,7 @@ class FCPublicationsTableViewController : UITableViewController, UITableViewData
         
         if let identifier = publicationIdentifier {
         
-            for (index, publication) in enumerate(self.publications) {
+            for (index, publication) in self.publications.enumerate() {
                 
                 if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version {
                     

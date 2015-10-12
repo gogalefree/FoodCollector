@@ -11,7 +11,7 @@ import CoreLocation
 
 extension FCModel {
     
-    public func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         switch status {
         case  .AuthorizedWhenInUse :
@@ -31,8 +31,8 @@ extension FCModel {
     }
     
     
-    public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!){
-        self.userLocation = locations.last as! CLLocation
+    public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        self.userLocation = locations.last!
     }
     
 }

@@ -21,7 +21,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     var cellData: PublicationEditorTVCCellData? {
         didSet {
-            if let cellPhoneField = self.cellData {
+            if self.cellData != nil {
                 let typeOfPublicationRawValue = cellData!.userData.objectForKey(kPublicationTypeOfCollectingKey) as! Int
                 var cellTitle = cellData!.userData.objectForKey(kPublicationContactInfoKey) as! String
                 if (typeOfPublicationRawValue == 2){
@@ -38,8 +38,8 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     var delegate: CellInfoDelegate?
     
-    var isPhoneNumberValid = false
-    var onlyDigitsPhoneString = ""
+    let phoneNumberValidator = Validator()
+    
     var tempPasteString = ""
 
     override func awakeFromNib() {
@@ -77,101 +77,27 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     func doneNumberPad() {
         
-        if(cellPhoneField.text.isEmpty) {
+        if(cellPhoneField.text!.isEmpty) {
             showPhoneNumberAllert()
             cellPhoneField?.resignFirstResponder()
         }
         else {
-            validtePhoneNumber(cellPhoneField.text)
-        }
-        
-        
-        
-        if (isPhoneNumberValid) {
-            
-            let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 2 , kPublicationContactInfoKey : onlyDigitsPhoneString]
-            cellData!.userData = typeOfCollectingDict
-            cellData!.containsUserData = true
-            
-            
-            if let delegate = self.delegate {
-                delegate.updateData(cellData!, section: section!)
-            }
-            
-        }
-        else {
-            showPhoneNumberAllert()
-        }
-        //cellPhoneField?.resignFirstResponder()
-    }
-    
-    func validtePhoneNumber(phoneNumber:String) {
-
-        let twoDigitAreaCodes = ["02", "03", "04", "08", "09"]
-        let threeDigitAreaCodes = ["072", "073", "074", "076", "077", "078", "050", "052", "053", "054", "055", "056", "058", "059"]
-        // The list above is based on "http://he.wikipedia.org/wiki/קידומת_טלפון_בישראל"
-        
-        var isPhoneLengthCorrect = false
-        var isAreaCodeCorrect = false
-        
-        // Remove all characters that are not numbers
-        onlyDigitsPhoneString = getOnlyDigitsNumber(phoneNumber)
-        
-        println("onlyDigitsPhoneString: \(onlyDigitsPhoneString)")
-        
-        // Check if phone lenght is 9 digits
-        if count(onlyDigitsPhoneString) == 9 {
-            isPhoneLengthCorrect = true
-            // Check if a two digit area code is legal
-            for areaCode in twoDigitAreaCodes {
-                if onlyDigitsPhoneString.hasPrefix(areaCode) {
-                    isAreaCodeCorrect = true
-                    break
-                }
-                else {
-                    isAreaCodeCorrect = false
+            if let onlyDigitsPhoneString = phoneNumberValidator.getValidPhoneNumber(cellPhoneField.text!) {
+                let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 2 , kPublicationContactInfoKey : onlyDigitsPhoneString]
+                cellData!.userData = typeOfCollectingDict
+                cellData!.containsUserData = true
+                
+                if let delegate = self.delegate {
+                    delegate.updateData(cellData!, section: section!)
                 }
             }
-        }
-            // Check if phone lenght is 10 digits
-        else if count(onlyDigitsPhoneString) == 10 {
-            isPhoneLengthCorrect = true
-            // Check if a three digit area code is legal
-            for areaCode in threeDigitAreaCodes {
-                if onlyDigitsPhoneString.hasPrefix(areaCode) {
-                    isAreaCodeCorrect = true
-                    break
-                }
-                else {
-                    isAreaCodeCorrect = false
-                }
+            else {
+                showPhoneNumberAllert()
             }
-        }
-        else {
-            isPhoneLengthCorrect = false
-        }
-        
-        // If phone lenght is OK and area code is OK set isPhoneNumberValid as true
-        if isPhoneLengthCorrect && isAreaCodeCorrect {
-            isPhoneNumberValid = true
-        }
-        else {
-            isPhoneNumberValid = false
+            
         }
     }
     
-    func getOnlyDigitsNumber(numberString: String) -> String {
-        // Remove all characters that are not numbers
-        let legalCharsInPhone:Array<Character> = ["0", "1", "2", "3" ,"4", "5", "6", "7", "8", "9"]
-        var tempPhoneString = "" // Reset variable to empty string
-        for digitChar in numberString {
-            if contains(legalCharsInPhone, digitChar) {
-                tempPhoneString += String(digitChar)
-            }
-        }
-        
-        return tempPhoneString
-    }
     
     func showPhoneNumberAllert() {
 
@@ -185,14 +111,12 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     }
     
     override func paste(sender: AnyObject?) {
-        println("Paste!!!!!!!!!!!")
         let pasteboard = UIPasteboard.generalPasteboard()
         if let tempPasteString = pasteboard.string {
-            cellPhoneField.text = getOnlyDigitsNumber(tempPasteString)
+            cellPhoneField.text = phoneNumberValidator.getValidPhoneNumber(tempPasteString)
             cellPhoneField.resignFirstResponder()
             doneNumberPad()
         }
-        //cellPhoneField.text = getOnlyDigitsNumber(pasteboard.string!)
     }
     
     // Catch the string value and store in a temp var when the user pasted a string fomr clipboard.
@@ -200,23 +124,17 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         
         // When typing into the text field each keyboard type adds 1 character.
         // When pasting into the text field it is usually more than one character.
-        if (count(string) < 2) { // Regular typing action
+        if (string.characters.count < 2) { // Regular typing action
             return true
         }
         else { // Paste action
-            cellPhoneField.text = getOnlyDigitsNumber(string)
+            cellPhoneField.text = phoneNumberValidator.getValidPhoneNumber(string)
             cellPhoneField.resignFirstResponder()
             doneNumberPad()
         }
         
         return true
     }
-    
-//    func textFieldDidEndEditing(textField: UITextField) {
-//        //textField.text = getOnlyDigitsNumber(tempPasteString)
-//        //cellPhoneField.reloadInputViews()
-//        doneNumberPad()
-//    }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

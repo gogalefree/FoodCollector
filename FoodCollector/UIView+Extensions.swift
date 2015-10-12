@@ -13,14 +13,14 @@ extension UIView {
     
     func animateToAlphaWithSpring(duration: NSTimeInterval , alpha: CGFloat) {
         
-        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             self.alpha = alpha
         }, completion: nil)
     }
     
     func animateToCenterWithSpring(duration: NSTimeInterval , center: CGPoint, completion: (completion:Bool)->()) {
         
-        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             self.center = center
             }, completion: completion)
     }
@@ -29,7 +29,7 @@ extension UIView {
         
         var newOrigin = self.frame.origin
         newOrigin.y = Yvalue
-        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             self.frame.origin = newOrigin
             self.superview?.layoutIfNeeded()
             }, completion: completion)
@@ -49,7 +49,7 @@ extension UITabBar{
     
     func animateCenterWithSpring(duration: NSTimeInterval , center: CGPoint) {
         
-        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: nil, animations: { () -> Void in
+        UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             self.center = center
             }, completion: nil)
     }

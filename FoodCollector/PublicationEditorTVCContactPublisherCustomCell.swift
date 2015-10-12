@@ -18,7 +18,7 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
         
     @IBAction func contactPubliserSwitchAction(sender: UISwitch) {
         var typeOfCollecting = 1
-        var contactDetails = "no" //(cellData!.userData as! NSDictionary).objectForKey(kPublicationContactInfoKey)! as! String
+        let contactDetails = "no" //(cellData!.userData as! NSDictionary).objectForKey(kPublicationContactInfoKey)! as! String
         cellData!.containsUserData = true
         
         if (sender.on == true) {
@@ -28,7 +28,7 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
             }
         }
         
-        println("------>>> contactPubliserSwitchAction: \(typeOfCollecting), No.: \(contactDetails)")
+        print("------>>> contactPubliserSwitchAction: \(typeOfCollecting), No.: \(contactDetails)")
         
         let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : typeOfCollecting , kPublicationContactInfoKey : contactDetails]
         cellData!.userData = typeOfCollectingDict

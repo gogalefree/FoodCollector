@@ -58,7 +58,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
                     
-                    if let photo = image {
+                    if image != nil {
                         //present photo
                         self.presentFetchedPhoto(publication)
                     }

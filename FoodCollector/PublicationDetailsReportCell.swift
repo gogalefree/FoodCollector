@@ -24,7 +24,7 @@ class PublicationDetailsReportCell: UITableViewCell {
     var indexPath: NSIndexPath!
     var publication: FCPublication! {
         didSet {
-            if let publication = self.publication {
+            if self.publication != nil {
                 setUp()
             }
         }
@@ -101,7 +101,7 @@ class PublicationDetailsReportCell: UITableViewCell {
     class func numberOfReportsToPresent(publication: FCPublication?) -> Int {
         
         if let publication = publication {
-        var num = publication.reportsForPublication.count
+        let num = publication.reportsForPublication.count
             if num < 3 {
                 //if there are no reports - return 1
                 //if reports.count > 3 return 3

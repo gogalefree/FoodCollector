@@ -40,7 +40,7 @@ class FCActivityCenterTVCSectionHeader: UIView {
         }
     }
 
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let delegate = self.delegate {
             delegate.headerTapped(section)
         }

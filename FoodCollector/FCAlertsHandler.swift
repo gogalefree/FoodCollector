@@ -37,7 +37,7 @@ public class FCAlertsHandler : NSObject {
         
         let callAction = UIAlertAction(title:String.localizedStringWithFormat("התקשר למשתף", "alert call to publisher button title"), style: UIAlertActionStyle.Default) { (action) in
             
-            var url:NSURL = NSURL(string: "tel://\(phoneNumber)")!
+            let url:NSURL = NSURL(string: "tel://\(phoneNumber)")!
             UIApplication.sharedApplication().openURL(url)
 
             alertController.dismissViewControllerAnimated(true , completion: nil)
