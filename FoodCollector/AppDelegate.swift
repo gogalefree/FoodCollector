@@ -53,6 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()
         
+ //       FCModel.sharedInstance.foodCollectorWebServer.reportDeviceUUID("web")
+        
         let userNotificationHandler = FCUserNotificationHandler.sharedInstance
         userNotificationHandler.setup()
         

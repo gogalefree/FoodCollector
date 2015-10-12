@@ -853,6 +853,7 @@
 		E494DF021A0A980D004A369E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Boris Tsigelman";
 				TargetAttributes = {
@@ -982,7 +983,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift beta";
 		};
 /* End PBXShellScriptBuildPhase section */
 

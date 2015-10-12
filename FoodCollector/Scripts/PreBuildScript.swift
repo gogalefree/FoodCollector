@@ -18,6 +18,7 @@ let projectPath = filemgr.currentDirectoryPath
 
 //println(${SRCROOT})
 // BaseURL.plist dictionary values, key and path
+let kLocalHostURLVal = "http://localhost:3000/"
 let kProdURLVal = "https://fd-server.herokuapp.com/"
 let kDevURLVal  = "https://prv-fd-server.herokuapp.com/"
 let kBetaURLVal = "https://fd-server.herokuapp.com/"
@@ -61,6 +62,8 @@ case "prod": // Production URL
     plistDict!.setObject(kProdURLVal, forKey: kDictKey)
 case "beta": // Beta URL
     plistDict!.setObject(kBetaURLVal, forKey: kDictKey)
+case "local":
+    plistDict!.setObject(kLocalHostURLVal, forKey: kDictKey)
 default: // Dev URL
     plistDict!.setObject(kDevURLVal,  forKey: kDictKey)
 }
