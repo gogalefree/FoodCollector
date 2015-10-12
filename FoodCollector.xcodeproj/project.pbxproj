@@ -767,6 +767,7 @@
 				E494DF071A0A980D004A369E /* Frameworks */,
 				E494DF081A0A980D004A369E /* Resources */,
 				43760BF560B1F638BE06A629 /* Copy Pods Resources */,
+				D3D0C8C990FCF26B4B78A14D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -801,8 +802,9 @@
 		E494DF021A0A980D004A369E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Boris Tsigelman";
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
@@ -930,7 +932,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift beta";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+		};
+		D3D0C8C990FCF26B4B78A14D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

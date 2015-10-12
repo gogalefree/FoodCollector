@@ -318,10 +318,10 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["date_of_registration"] = Int(NSDate().timeIntervalSince1970)
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
         
-        var dicToSend = ["registered_user_for_publication" : params]
-        println(dicToSend)
-        let jsonData = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: nil)
-        println("SEND: \(dicToSend)")
+        let dicToSend = ["registered_user_for_publication" : params]
+        print(dicToSend)
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(params, options: [])
+        print(dicToSend)
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
@@ -332,8 +332,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
-            if var serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)")
+            if let serverResponse = response as? NSHTTPURLResponse {
+//                print("respons: \(serverResponse.description)")
 //                let mydata = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
 //                println("response data: \(mydata)")
                 
