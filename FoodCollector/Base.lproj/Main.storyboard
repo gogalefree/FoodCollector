@@ -1651,7 +1651,7 @@
         <!--Publication EditorTVC-->
         <scene sceneID="Z5v-h8-0Md">
             <objects>
-                <tableViewController storyboardIdentifier="PublicationEditorTVC" id="wMX-dT-Bep" customClass="PublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PublicationEditorTVC" hidesBottomBarWhenPushed="YES" id="wMX-dT-Bep" customClass="PublicationEditorTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kdi-9F-RDr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2101,7 +2101,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bEc-tq-uHy">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEc-tq-uHy">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="הקלידו כתובת או ביחרו חיפוש קודם" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulr-E7-krT">
