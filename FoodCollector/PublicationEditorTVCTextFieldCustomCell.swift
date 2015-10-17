@@ -13,7 +13,7 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     
     @IBOutlet weak var cellTextField: UITextField!
     
-    var cellData: PublicationEditorTVCCellData? {
+    var cellData: PublicationEditorVCCellData? {
         didSet {
             if self.cellData != nil {
                 self.cellTextField.text = cellData!.cellTitle

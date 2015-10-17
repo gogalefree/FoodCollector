@@ -915,12 +915,12 @@ extension FCPublicationDetailsTVC {
     func didSelectEditPublicationAction(){
         dismiss()
 
-        let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
-        publicationEditorTVC?.setupWithState(.EditPublication, publication: publication)
+        let publicationEditorVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorVC") as? PublicationEditorVC
+        publicationEditorVC?.setupWithState(.EditPublication, publication: publication)
         
         //publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         
-        let nav = UINavigationController(rootViewController: publicationEditorTVC!)
+        let nav = UINavigationController(rootViewController: publicationEditorVC!)
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
 
     }

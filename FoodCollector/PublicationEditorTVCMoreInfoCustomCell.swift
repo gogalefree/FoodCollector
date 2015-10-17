@@ -16,7 +16,7 @@ class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell {
     var onlyDigitsPhoneString = ""
     var isPhoneNumberValid = false
     
-    var cellData: PublicationEditorTVCCellData? {
+    var cellData: PublicationEditorVCCellData? {
         
         didSet {
             

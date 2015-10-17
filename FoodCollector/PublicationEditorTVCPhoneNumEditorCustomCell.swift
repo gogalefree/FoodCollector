@@ -19,7 +19,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     @IBOutlet weak var cellPhoneField: UITextField!
     
-    var cellData: PublicationEditorTVCCellData? {
+    var cellData: PublicationEditorVCCellData? {
         didSet {
             if self.cellData != nil {
                 let typeOfPublicationRawValue = cellData!.userData.objectForKey(kPublicationTypeOfCollectingKey) as! Int
