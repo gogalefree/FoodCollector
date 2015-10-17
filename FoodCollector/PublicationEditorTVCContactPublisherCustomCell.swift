@@ -40,7 +40,7 @@ class PublicationEditorTVCContactPublisherCustomCell: UITableViewCell {
     }
     
     
-    var cellData: PublicationEditorVCCellData? {
+    var cellData: PublicationEditorTVCCellData? {
         
         didSet {
             

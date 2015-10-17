@@ -14,7 +14,7 @@ class PublicationEditorTVCStartEndDateCustomCell: UITableViewCell {
     
     @IBOutlet weak var dateValueLabel: UILabel!
     
-    var cellData: PublicationEditorVCCellData? {
+    var cellData: PublicationEditorTVCCellData? {
         
         didSet {
             

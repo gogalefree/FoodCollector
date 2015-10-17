@@ -30,7 +30,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     var didStartedSearch = false
     
     var addressDict: [String: AnyObject]?
-    var cellData = PublicationEditorVCCellData()
+    var cellData = PublicationEditorTVCCellData()
     var didSerchAndFindResults = false
     var initialData = [String]()
     var selectedAddress = ""

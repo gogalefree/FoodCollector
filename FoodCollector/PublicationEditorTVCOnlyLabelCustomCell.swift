@@ -15,7 +15,7 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
     
     var cellState = CellState.Display
     
-    var cellData: PublicationEditorVCCellData? {
+    var cellData: PublicationEditorTVCCellData? {
         
         didSet {
             

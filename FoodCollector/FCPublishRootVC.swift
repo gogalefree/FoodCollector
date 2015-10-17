@@ -142,9 +142,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     // and display the publication's content in the PublicationEditorTVC class.
 
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
-        if (segue.identifier == "showNewPublicationEditorVC") {
-            let publicationEditorVC = segue!.destinationViewController as! PublicationEditorVC
-            publicationEditorVC.setupWithState(.CreateNewPublication, publication: nil)
+        if (segue.identifier == "showNewPublicationEditorTVC") {
+            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
+            publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
         }
       
 //        if (segue.identifier == "showPublicationDetailsWithEditButtonTVC") {
@@ -181,10 +181,10 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     @IBAction func unwindWithDeletePublication(segue: UIStoryboardSegue) {
     
         //if the state is not .Edit new the user cant delete
-        let publicationEditorVC = segue.sourceViewController as! PublicationEditorVC
-        if publicationEditorVC.state != .EditPublication {return}
+        let publicationEditorTVC = segue.sourceViewController as! PublicationEditorTVC
+        if publicationEditorTVC.state != .EditPublication {return}
         
-        let pubicationToDelete = publicationEditorVC.publication!
+        let pubicationToDelete = publicationEditorTVC.publication!
         let indexPathToRemove = self.indexPathForUserCreatedPublication(pubicationToDelete)
         
         //delete fron ColectionView

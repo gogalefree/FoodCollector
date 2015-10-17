@@ -43,7 +43,6 @@
 		A1B793281B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */; };
 		A1B793291B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
-		A1F0FD781BD1650B006B747D /* PublicationEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F0FD771BD1650B006B747D /* PublicationEditorVC.swift */; settings = {ASSET_TAGS = (); }; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */; };
 		E4064D471B6BB29D00FB1669 /* NewReportMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4064D461B6BB29D00FB1669 /* NewReportMessageView.xib */; };
@@ -186,7 +185,6 @@
 		A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorAddressHistoryCustomCell.swift; sourceTree = "<group>"; };
 		A1B793271B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublishAddressEditorAddressHistoryCustomCell.xib; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
-		A1F0FD771BD1650B006B747D /* PublicationEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorVC.swift; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReportMessageView.swift; sourceTree = "<group>"; };
 		E4064D461B6BB29D00FB1669 /* NewReportMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewReportMessageView.xib; sourceTree = "<group>"; };
@@ -432,15 +430,6 @@
 			name = "Phone No. Field Cell";
 			sourceTree = "<group>";
 		};
-		A1F0FD761BD16439006B747D /* Publication Editor */ = {
-			isa = PBXGroup;
-			children = (
-				A1F0FD771BD1650B006B747D /* PublicationEditorVC.swift */,
-				E4030A701A63DD7B005D224E /* Editor Sub Views and Screens */,
-			);
-			name = "Publication Editor";
-			sourceTree = "<group>";
-		};
 		E4030A701A63DD7B005D224E /* Editor Sub Views and Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -646,7 +635,7 @@
 				A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */,
 				E4BF44F21A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift */,
 				A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */,
-				A1F0FD761BD16439006B747D /* Publication Editor */,
+				E4030A701A63DD7B005D224E /* Editor Sub Views and Screens */,
 			);
 			name = Publisher;
 			sourceTree = "<group>";
@@ -1033,7 +1022,6 @@
 				E4737D9F1A10C01300A4AB81 /* FCStringFunctions.swift in Sources */,
 				E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */,
 				A14F4D6F1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift in Sources */,
-				A1F0FD781BD1650B006B747D /* PublicationEditorVC.swift in Sources */,
 				A1B793281B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
