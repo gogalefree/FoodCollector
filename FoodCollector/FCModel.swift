@@ -38,8 +38,8 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     var userLocation = CLLocation()
     let locationManager = CLLocationManager()
-    let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("publications")
-    let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("userCreatedPublications")
+    let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("/publications")
+    let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("/userCreatedPublications")
     var photosDirectoryUrl : NSURL = FCModel.preparePhotosDirectory()
     var dataUpdater = DataUpdater()
     var uiReadyForNewData: Bool = false {

@@ -25,6 +25,9 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
                 case .Display:
                     cellLabel.alpha = 1
                     self.cellLabel.text = cellData.cellTitle
+                    if cellData.containsUserData != true {
+                        self.cellLabel.textColor = UIColor(red: 0.74, green: 0.74, blue: 0.76, alpha: 1.00)
+                    }
                 case .Edit:
                     cellLabel.alpha = 1
                     

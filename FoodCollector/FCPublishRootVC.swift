@@ -486,6 +486,7 @@ extension FCPublishRootVC: UserDidDeletePublicationProtocol {
         dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
 
             //update model
+            publication.endingDate = NSDate()
             publication.isOnAir = false
             FCModel.sharedInstance.saveUserCreatedPublications()
             

@@ -42,7 +42,7 @@ public extension FCModel {
     
     func loadUserCreatedPublications() {
         
-        if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath){
+        if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath) {
             
             let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as! [FCPublication]
             self.userCreatedPublications = array

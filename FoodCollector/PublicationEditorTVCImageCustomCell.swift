@@ -10,7 +10,7 @@ import UIKit
 
 class PublicationEditorTVCImageCustomCell: UITableViewCell {
     
-    @IBOutlet weak var cellLabel: UILabel!
+    //@IBOutlet weak var cellLabel: UILabel!
     
     @IBOutlet weak var publicationImage: UIImageView!
     
@@ -26,10 +26,10 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
             
             if let cellData = self.cellData {
                 
-                self.cellLabel.text = cellData.cellTitle
+                //self.cellLabel.text = cellData.cellTitle
                 
                 self.publicationImage.image = cellData.userData as? UIImage
-                self.publicationImage.layer.cornerRadius = self.publicationImage.frame.height/2
+                //self.publicationImage.layer.cornerRadius = self.publicationImage.frame.height/2
             }
         }
     }
@@ -37,12 +37,12 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        pictureButton.addTarget(self, action: "photoButtonClicked", forControlEvents: UIControlEvents.TouchUpInside)
+        //pictureButton.addTarget(self, action: "photoButtonClicked", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
-    func photoButtonClicked(){
-        cameraButtonClicked!(self)
-    }
+    //func photoButtonClicked(){
+        //cameraButtonClicked!(self)
+    //}
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -52,7 +52,7 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.cellLabel.text = ""
+        //self.cellLabel.text = ""
     }
     
 }
