@@ -22,6 +22,7 @@ public extension FCModel {
     
     func loadPublications() {
         
+        print("load publications from path: \(self.publicationsFilePath)")
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             
@@ -41,6 +42,9 @@ public extension FCModel {
     }
     
     func loadUserCreatedPublications() {
+        
+        print("load user created publications from path: \(self.userCreatedPublicationsFilePath)")
+
         
         if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath){
             

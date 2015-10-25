@@ -317,7 +317,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["publication_version"] = publication.version
         params["date_of_registration"] = Int(NSDate().timeIntervalSince1970)
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
-        
+        //TODO: add collector_name and collector_contact_info
         let dicToSend = ["registered_user_for_publication" : params]
         print(dicToSend)
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(params, options: [])
@@ -402,7 +402,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
         params["date_of_report"] = report.date.timeIntervalSince1970
         params["report"] = report.onSpotPublicationReportMessage.rawValue
-        
+        //TODO: Add reporter_user_name and reporter_contact_info
         let dicToSend = ["publication_report" : params]
         print(dicToSend)
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(dicToSend, options: [])
