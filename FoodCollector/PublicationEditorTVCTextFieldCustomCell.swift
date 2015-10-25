@@ -15,9 +15,13 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     
     var cellData: PublicationEditorTVCCellData? {
         didSet {
-            if self.cellData != nil {
-                self.cellTextField.text = cellData!.cellTitle
-                self.cellTextField.placeholder = cellData!.cellTitle
+            if cellData != nil {
+                if cellData?.userData as! String != "" {
+                    self.cellTextField.text = cellData!.cellTitle
+                }
+                else {
+                    self.cellTextField.placeholder = cellData!.cellTitle
+                }
             }
         }
     }

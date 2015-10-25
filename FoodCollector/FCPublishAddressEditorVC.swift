@@ -21,7 +21,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     @IBOutlet weak var tableView: UITableView!
     
     // Address Search History
-    let plistSearchHistoryFilneName = "SearchHistory"
+    let plistSearchHistoryFilneName = "/SearchHistory"
     let plistSearchHistoryFilneNameExt = "plist"
     var isThereSearchHistory = false
     var searchHistoryArray: [[String: AnyObject]] = [] //an array of dicionaries

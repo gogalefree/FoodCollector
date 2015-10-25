@@ -384,6 +384,15 @@
 			name = "More Info Cell";
 			sourceTree = "<group>";
 		};
+		A1481DFF1BD26E4C004FCFA9 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */,
+				E4030A701A63DD7B005D224E /* Sub Views */,
+			);
+			name = Editor;
+			sourceTree = "<group>";
+		};
 		A14F4D701B9ABA0300E29DE4 /* OptionsMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,20 +439,20 @@
 			name = "Phone No. Field Cell";
 			sourceTree = "<group>";
 		};
-		E4030A701A63DD7B005D224E /* Editor Sub Views and Screens */ = {
+		E4030A701A63DD7B005D224E /* Sub Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1248A8A1B7670A1001C5901 /* Image Cell */,
 				A1A738991B7E579800CA2C5A /* Text Field Cell */,
 				A1248A7B1B76451A001C5901 /* Only One Label Cell */,
+				A1248A7A1B764416001C5901 /* Address Editor */,
 				A1248A801B7665DC001C5901 /* Start End Date Cell */,
 				A1A7389A1B7F83D800CA2C5A /* Date Picker Cell */,
 				A1248A851B766D16001C5901 /* Contact Publisher Cell */,
 				A1A7389F1B7FA1D800CA2C5A /* Phone No. Field Cell */,
-				A1248A8A1B7670A1001C5901 /* Image Cell */,
 				A1248A8F1B767391001C5901 /* More Info Cell */,
-				A1248A7A1B764416001C5901 /* Address Editor */,
 			);
-			name = "Editor Sub Views and Screens";
+			name = "Sub Views";
 			sourceTree = "<group>";
 		};
 		E41235CB1ABC18B30016FE5F /* Photo Presentor */ = {
@@ -632,10 +641,9 @@
 			isa = PBXGroup;
 			children = (
 				E4737D7C1A10C01300A4AB81 /* FCPublishRootVC.swift */,
-				A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */,
 				E4BF44F21A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift */,
 				A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */,
-				E4030A701A63DD7B005D224E /* Editor Sub Views and Screens */,
+				A1481DFF1BD26E4C004FCFA9 /* Editor */,
 			);
 			name = Publisher;
 			sourceTree = "<group>";
@@ -767,7 +775,6 @@
 				E494DF071A0A980D004A369E /* Frameworks */,
 				E494DF081A0A980D004A369E /* Resources */,
 				43760BF560B1F638BE06A629 /* Copy Pods Resources */,
-				D3D0C8C990FCF26B4B78A14D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -809,7 +816,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 58NS37C8VA;
+						DevelopmentTeam = Z43P8YG44T;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -933,21 +940,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
-		};
-		D3D0C8C990FCF26B4B78A14D /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
