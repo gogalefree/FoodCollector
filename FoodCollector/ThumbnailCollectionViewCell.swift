@@ -53,4 +53,9 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
                     }, completion: nil)
         }
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.image = defaultImage
+    }
 }

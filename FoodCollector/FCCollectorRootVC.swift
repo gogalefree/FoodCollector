@@ -362,6 +362,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         
         self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         self.publicationDetailsTVC?.publication = publication
+        let state :PublicationDetailsTVCViewState = FCModel.sharedInstance.isUserCreaetedPublication(publication) ? .Publisher : .Collector
+        self.publicationDetailsTVC?.setupWithState(state, caller: .MyPublications, publication: publication)
         self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
     }
     

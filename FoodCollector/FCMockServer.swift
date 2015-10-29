@@ -317,6 +317,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["publication_version"] = publication.version
         params["date_of_registration"] = Int(NSDate().timeIntervalSince1970)
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
+        params["contact_info_regi"] = User.sharedInstance.userPhoneNumber ?? ""
         //TODO: add collector_name and collector_contact_info
         let dicToSend = ["registered_user_for_publication" : params]
         print(dicToSend)
@@ -333,7 +334,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let task = session.dataTaskWithRequest(request, completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             if let serverResponse = response as? NSHTTPURLResponse {
-//                print("respons: \(serverResponse.description)")
+                print("respons: \(serverResponse.description)")
 //                let mydata = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
 //                println("response data: \(mydata)")
                 
