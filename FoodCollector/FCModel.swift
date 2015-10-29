@@ -34,7 +34,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     var fetchedPublications = [FCPublication]()
     var publicationsToDelete = [FCPublication]()
-    var publicationsToAdd = [FCPublication]()
+    var newPublications = [FCPublication]()
     
     var userLocation = CLLocation()
     let locationManager = CLLocationManager()

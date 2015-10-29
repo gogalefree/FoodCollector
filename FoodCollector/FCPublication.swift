@@ -91,13 +91,17 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
     //publication's registrations array holds only instances with a register message.
     //when an unrigister push notification arrives the unregistered publication is taken out
-    
     var registrationsForPublication = [FCRegistrationForPublication]()
     
     //the count of registered devices. is set in initial data download.
     var countOfRegisteredUsers = 0
     
     
+    //These properties chnage to true if the publication recieved new report ot new registration
+    //while the app was in the background. then it's used to determine wheteher a notification message is 
+    //presented to the user.
+    var didRecieveNewReport         = false
+    var didRecieveNewRegistration   = false
     
     
     

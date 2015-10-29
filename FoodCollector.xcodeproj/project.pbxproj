@@ -86,6 +86,7 @@
 		E45DA7361A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45DA7351A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib */; };
 		E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */; };
 		E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */; };
+		E4607B051BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4607B041BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift */; settings = {ASSET_TAGS = (); }; };
 		E462F9BD1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E462F9BC1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
 		E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
@@ -106,6 +107,11 @@
 		E476114C1B570ED400042D8F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114B1B570ED400042D8F /* libz.dylib */; };
 		E476114E1B570EE700042D8F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114D1B570EE700042D8F /* SystemConfiguration.framework */; };
 		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
+		E48263731BE20AE100526C7B /* FetchedDataNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263721BE20AE100526C7B /* FetchedDataNotificationsController.swift */; settings = {ASSET_TAGS = (); }; };
+		E48263751BE20B6C00526C7B /* FetchedDataNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263741BE20B6C00526C7B /* FetchedDataNotification.swift */; settings = {ASSET_TAGS = (); }; };
+		E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263761BE21CAD00526C7B /* FetchedDataNotificationView.swift */; settings = {ASSET_TAGS = (); }; };
+		E48263791BE21DB900526C7B /* FetchedDataNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E48263781BE21DB900526C7B /* FetchedDataNotificationView.xib */; settings = {ASSET_TAGS = (); }; };
+		E482637B1BE22A8400526C7B /* FCCollectorRootVC+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E482637A1BE22A8400526C7B /* FCCollectorRootVC+.swift */; settings = {ASSET_TAGS = (); }; };
 		E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E488473F1A19E055000E98DA /* FCFetchedDataSorter.swift */; };
 		E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF0F1A0A980D004A369E /* AppDelegate.swift */; };
 		E494DF151A0A980D004A369E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494DF131A0A980D004A369E /* Main.storyboard */; };
@@ -133,6 +139,7 @@
 		E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */; };
 		E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */; };
 		E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */; };
+		E4EF49691BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EF49681BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		E4F1A8611ADB9D5600973C51 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1A8601ADB9D5600973C51 /* AboutVC.swift */; };
 		E4F8391F1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F8391E1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift */; };
 		E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */; };
@@ -233,6 +240,7 @@
 		E45DA7351A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCActivityCenterTVSectionHeader.xib; sourceTree = "<group>"; };
 		E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCSectionHeader.swift; sourceTree = "<group>"; };
 		E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCLaunchScreenView.swift; sourceTree = "<group>"; };
+		E4607B041BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCCollectorRootVC+Thumbnails.swift"; sourceTree = "<group>"; };
 		E462F9BC1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationsThumbnailsCollectionViewController.swift; sourceTree = "<group>"; };
 		E463A3AE1A121A5D001D8E3B /* PublicationInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationInitTests.swift; sourceTree = "<group>"; };
 		E469C6F01A2D15E80036038E /* FirstBuildInstructions */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FirstBuildInstructions; sourceTree = "<group>"; };
@@ -255,6 +263,11 @@
 		E476114D1B570EE700042D8F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
 		E47F9C521A12184200079164 /* ModelInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInitTests.swift; sourceTree = "<group>"; };
+		E48263721BE20AE100526C7B /* FetchedDataNotificationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedDataNotificationsController.swift; sourceTree = "<group>"; };
+		E48263741BE20B6C00526C7B /* FetchedDataNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedDataNotification.swift; sourceTree = "<group>"; };
+		E48263761BE21CAD00526C7B /* FetchedDataNotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedDataNotificationView.swift; sourceTree = "<group>"; };
+		E48263781BE21DB900526C7B /* FetchedDataNotificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FetchedDataNotificationView.xib; sourceTree = "<group>"; };
+		E482637A1BE22A8400526C7B /* FCCollectorRootVC+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCCollectorRootVC+.swift"; sourceTree = "<group>"; };
 		E488473F1A19E055000E98DA /* FCFetchedDataSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCFetchedDataSorter.swift; sourceTree = "<group>"; };
 		E494DF0A1A0A980D004A369E /* FoodCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494DF0E1A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -288,6 +301,7 @@
 		E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsSorter.swift; sourceTree = "<group>"; };
 		E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCTableViewAnimator.swift; sourceTree = "<group>"; };
 		E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		E4EF49681BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4F1A8601ADB9D5600973C51 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		E4F8391E1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsPresentationController.swift; sourceTree = "<group>"; };
 		E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsVCAnimator.swift; sourceTree = "<group>"; };
@@ -514,7 +528,8 @@
 			isa = PBXGroup;
 			children = (
 				E4737D681A10C01300A4AB81 /* FCCollectorRootVC.swift */,
-				E462F9BC1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift */,
+				E482637A1BE22A8400526C7B /* FCCollectorRootVC+.swift */,
+				E4607B041BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift */,
 				E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */,
 				E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */,
 			);
@@ -597,6 +612,10 @@
 			isa = PBXGroup;
 			children = (
 				E4737D831A10C01300A4AB81 /* FCUserNotificationHandler.swift */,
+				E48263721BE20AE100526C7B /* FetchedDataNotificationsController.swift */,
+				E48263741BE20B6C00526C7B /* FetchedDataNotification.swift */,
+				E48263761BE21CAD00526C7B /* FetchedDataNotificationView.swift */,
+				E48263781BE21DB900526C7B /* FetchedDataNotificationView.xib */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -645,6 +664,7 @@
 			isa = PBXGroup;
 			children = (
 				E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */,
+				E4EF49671BE26F40009A1A62 /* Thumbnails Collection View */,
 				E45499571AAA1BB8001B5E49 /* Map */,
 				E45499581AAA1BDE001B5E49 /* Publications TableView */,
 				E454995A1AAA1C43001B5E49 /* Publication Details */,
@@ -771,6 +791,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E4EF49671BE26F40009A1A62 /* Thumbnails Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				E462F9BC1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift */,
+				E4EF49681BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift */,
+			);
+			name = "Thumbnails Collection View";
+			sourceTree = "<group>";
+		};
 		ECF6948C369831D557C51FAA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,7 +859,7 @@
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Boris Tsigelman";
+				ORGANIZATIONNAME = Foodonet;
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -876,6 +905,7 @@
 				E4DC5D5C1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib in Resources */,
 				E4545D971AD322B20031CF8A /* Pin-Table-Half.png in Resources */,
 				E4545D821AD320E60031CF8A /* Track-clear.png in Resources */,
+				E48263791BE21DB900526C7B /* FetchedDataNotificationView.xib in Resources */,
 				E4064D471B6BB29D00FB1669 /* NewReportMessageView.xib in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
 				E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */,
@@ -957,7 +987,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -975,6 +1005,7 @@
 				E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */,
 				E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */,
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,
+				E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
 				E41729E81AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */,
 				E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */,
@@ -1002,9 +1033,11 @@
 				E41235D41ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift in Sources */,
 				E42ED5771A8BD007008FB618 /* FCModel+NewData.swift in Sources */,
 				A12394691B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift in Sources */,
+				E4607B051BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift in Sources */,
 				E4F839251ABB04A30055A277 /* FCPublicationReporetsTVCell.swift in Sources */,
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
 				E42ED57B1A8BD2B9008FB618 /* FCModel+Store.swift in Sources */,
+				E48263751BE20B6C00526C7B /* FetchedDataNotification.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				A1A7389D1B7F842E00CA2C5A /* PublicationEditorTVCDatePickerCustomCell.swift in Sources */,
 				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
@@ -1030,6 +1063,7 @@
 				E43F8A021BDEBACE007991E6 /* AppDelegate+.swift in Sources */,
 				E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
+				E482637B1BE22A8400526C7B /* FCCollectorRootVC+.swift in Sources */,
 				E4F8391F1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift in Sources */,
 				E49B932E1A5DC2C300D48C52 /* FCMainTabBarController.swift in Sources */,
 				E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */,
@@ -1040,11 +1074,13 @@
 				A1A738A21B7FA22800CA2C5A /* PublicationEditorTVCPhoneNumEditorCustomCell.swift in Sources */,
 				E42ED57D1A8BD380008FB618 /* FCModel+PostNotifications.swift in Sources */,
 				A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */,
+				E48263731BE20AE100526C7B /* FetchedDataNotificationsController.swift in Sources */,
 				E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */,
 				E4737D8C1A10C01300A4AB81 /* FCModel.swift in Sources */,
 				E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */,
 				E4AEDE5C1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift in Sources */,
 				E4F1A8611ADB9D5600973C51 /* AboutVC.swift in Sources */,
+				E4EF49691BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift in Sources */,
 				E407DEA51AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift in Sources */,
 				E4AEDE601B258D1100431F9B /* PublicationDetailsSubtitleCell.swift in Sources */,
 				E4737D9F1A10C01300A4AB81 /* FCStringFunctions.swift in Sources */,

@@ -19,21 +19,22 @@ class FCPublicationRegistrationsFetcher: NSObject {
     //the fetching. must check if it's nill
     
     weak var delegate: FCPublicationRegistrationsFetcherDelegate?
+    
+    init(publication: FCPublication) {
+        self.publication = publication
+        super.init()
+    }
+
+    var publication: FCPublication
+    
 
     
-    var publication: FCPublication! {
-        didSet {
-            if let publication = publication {
-                fetchPublicationRegistration(publication)
-            }
-        }
-    }
     
     
     
-    
-    func fetchPublicationRegistration(publication: FCPublication) {
+    func fetchPublicationRegistration(checkNew: Bool) {
         
+        let publication = self.publication
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getPublicationWithIdentifierURL + "\(publication.uniqueId)/registered_user_for_publications")
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
@@ -48,6 +49,9 @@ class FCPublicationRegistrationsFetcher: NSObject {
                     let registrationsArrayofDicts = (try? NSJSONSerialization.JSONObjectWithData(data!, options: [])) as? [[String : AnyObject]]
                     
                     if let registrations = registrationsArrayofDicts {
+                        
+                        //if this is initiated by initial web fetch, we check if we should present a new registration notification
+                        if checkNew && self.publication.didRegisterForCurrentPublication && self.publication.countOfRegisteredUsers < registrations.count {self.publication.didRecieveNewRegistration = true}
                         
                         self.publication.countOfRegisteredUsers = registrations.count
                         self.updateUserCreatedPublicationForPublication(publication)

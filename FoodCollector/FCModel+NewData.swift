@@ -16,7 +16,9 @@ extension FCModel {
             { (thePublications: [FCPublication]) -> Void in
                 
                 self.fetchedPublications = thePublications
-              //  println("NEW DATA COUNT ******** \(self.fetchedPublications.count)")
+
+                self.newPublications.removeAll()
+                self.publicationsToDelete.removeAll()
                 self.prepareNewData()
         }
     }
@@ -38,11 +40,29 @@ extension FCModel {
                             fetchedPublication.reportsForPublication = publication.reportsForPublication
                             fetchedPublication.photoData.photo = publication.photoData.photo
                             fetchedPublication.photoData.didTryToDonwloadImage = publication.photoData.didTryToDonwloadImage
+                            fetchedPublication.countOfRegisteredUsers = publication.countOfRegisteredUsers
                             break
                     }
                 }
             }
         }
+        
+        //sort new publications operation
+        let newPublicationsOperation = NSBlockOperation { () -> Void in
+         
+            self.newPublications = FCFetchedDataSorter.publicationToAdd(self.fetchedPublications)
+        }
+        
+        newPublicationsOperation.addDependency(prepareDataQperation)
+        
+        //sort publications to delete operation
+        let publicationsToDeleteOperation = NSBlockOperation { () -> Void in
+            
+            self.publicationsToDelete = FCFetchedDataSorter.publicationsToDelete(self.fetchedPublications)
+        }
+        
+        publicationsToDeleteOperation.addDependency(newPublicationsOperation)
+
         
         //if two publications are in the same coordinates, we chamge on of them by 40 m
         //if the user registers and navigates - we change it back to the right coords
@@ -75,8 +95,8 @@ extension FCModel {
             
             for publication in self.fetchedPublications {
                 
-                let registrationFetcher = FCPublicationRegistrationsFetcher()
-                registrationFetcher.publication = publication
+                let registrationFetcher = FCPublicationRegistrationsFetcher(publication: publication)
+                registrationFetcher.fetchPublicationRegistration(true)
             }
         }
         
@@ -89,15 +109,17 @@ extension FCModel {
                 FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, completion: { (success, reports) -> () in
                     
                     if success {
+                        if publication.didRegisterForCurrentPublication && publication.reportsForPublication.count < reports!.count {publication.didRecieveNewReport = true}
                         publication.reportsForPublication = reports!
                     }
                     if counter == index {
+                        FetchedDataNotificationsController.shared.prepareNotificationsFromWebFetch()
                         self.postFetchedDataReadyNotification()
                     }
                 })
             }
         }
-        
+                
         fetchPublicationReportsOperation.addDependency(fetchPublicationsRegistrationsOperation)
         fetchPublicationReportsOperation.completionBlock = {
             
@@ -105,12 +127,10 @@ extension FCModel {
             self.savePublications()
         }
         
-        
-        
         //add fetch number of registered users for publication
         
         let prepareDataQue = NSOperationQueue.mainQueue()
         prepareDataQue.qualityOfService = .Background
-        prepareDataQue.addOperations([prepareDataQperation ,checkIfTwoPublicationsInTheSameCoordinatesOperation, fetchPublicationReportsOperation, fetchPublicationsRegistrationsOperation ], waitUntilFinished: false)
+        prepareDataQue.addOperations([prepareDataQperation,publicationsToDeleteOperation, newPublicationsOperation ,checkIfTwoPublicationsInTheSameCoordinatesOperation, fetchPublicationReportsOperation, fetchPublicationsRegistrationsOperation ], waitUntilFinished: false)
     }
 }

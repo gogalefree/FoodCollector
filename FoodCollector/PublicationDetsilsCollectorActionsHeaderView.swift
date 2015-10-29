@@ -52,7 +52,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
     
     @IBAction func buttonsActions (sender: UIButton!) {
     
-        animateButton(sender)
+        if sender != registerButton {animateButton(sender)}
 
         switch sender {
 
@@ -157,7 +157,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         }
     }
     
-    private func configureRegisterButton() {
+    func configureRegisterButton() {
         
         if let publication = publication {
             switch publication.didRegisterForCurrentPublication {
@@ -172,7 +172,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         }
     }
     
-    private func animateButton(button: UIButton) {
+    func animateButton(button: UIButton) {
         
         let scale = CGAffineTransformMakeScale(1.2, 1.2)
         

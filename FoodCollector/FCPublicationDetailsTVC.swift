@@ -52,6 +52,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
     
+    weak var actionsHeaderView: PublicationDetsilsCollectorActionsHeaderView?
+    
     func setupWithState(initialState: PublicationDetailsTVCViewState, caller: PublicationDetailsTVCVReferral, publication: FCPublication?, publicationIndexPath:Int = 0) {
         // This function is executed before viewDidLoad()
 
@@ -121,6 +123,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             let header = UIView.loadFromNibNamed("PublicationDetsilsCollectorActionsHeaderView", bundle: nil) as? PublicationDetsilsCollectorActionsHeaderView
             header?.delegate = self
             header?.publication = self.publication
+            self.actionsHeaderView = header
             return header
         }
         else {
@@ -281,9 +284,9 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
         if let publication = self.publication {
             
-            let fetcher = FCPublicationRegistrationsFetcher()
+            let fetcher = FCPublicationRegistrationsFetcher(publication: publication)
             fetcher.delegate = self
-            fetcher.publication = publication
+            fetcher.fetchPublicationRegistration(false)
         }
     }
     
@@ -467,8 +470,14 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         FCModel.sharedInstance.savePublications()
         
         self.updateRegisteredUserIconCounter()
+        self.animateRegistrationButton()
     }
 
+    private func animateRegistrationButton() {
+        actionsHeaderView?.animateButton((actionsHeaderView?.registerButton)!)
+        actionsHeaderView?.configureRegisterButton()
+    }
+    
     private func updateRegisteredUserIconCounter() {
         
         let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)

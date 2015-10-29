@@ -10,49 +10,50 @@ import Foundation
 
 public class FCFetchedDataSorter : NSObject {
     
-    public class func publicationsToDelete(currentPublications: [FCPublication]) -> [FCPublication] {
+    public class func publicationsToDelete(fetchedPublications: [FCPublication]) -> [FCPublication] {
         
         var publicationsToDelete = [FCPublication]()
-        let theNewPublications = FCModel.sharedInstance.publications
+        let currentPublications = FCModel.sharedInstance.publications
 
-        for publication in currentPublications {
+        for existingPublication in currentPublications {
                 
                 var shouldRemove = true
-                for newPublication in theNewPublications {
-                    if publication.uniqueId == newPublication.uniqueId && publication.version == newPublication.version {
+                for newPublication in fetchedPublications {
+                    if existingPublication.uniqueId == newPublication.uniqueId && existingPublication.version == newPublication.version {
                         shouldRemove = false
                         break
                     }
                 }
                 if shouldRemove {
-                    publicationsToDelete.append(publication)
+                    publicationsToDelete.append(existingPublication)
                 }
             }
 
+        print(__FUNCTION__ + " Publications To Delete: \(publicationsToDelete.count) ")
         return publicationsToDelete
     }
     
-    public class func publicationToAdd(currentPublications: [FCPublication]) -> [FCPublication] {
+    public class func publicationToAdd(fetchedPublications: [FCPublication]) -> [FCPublication] {
         
         var toAdd = [FCPublication]()
-        let theNewPublications = FCModel.sharedInstance.publications
+        let currentPublications = FCModel.sharedInstance.publications
         
-            for aNewPublication in theNewPublications {
+            for fetchedPublication in fetchedPublications {
                 
                 var shouldAdd = true
                 
                 for currentPublication in currentPublications {
-                    if currentPublication.uniqueId == aNewPublication.uniqueId && currentPublication.version == aNewPublication.version {
+                    if currentPublication.uniqueId == fetchedPublication.uniqueId && currentPublication.version == fetchedPublication.version {
                         shouldAdd = false
                         break
                     }
                 }
                 
                 if shouldAdd {
-                    toAdd.append(aNewPublication)
+                    toAdd.append(fetchedPublication)
                 }
             }
-
+        print(__FUNCTION__ + " Publications To Add Count: \(toAdd.count) ")
         return toAdd
     }
     

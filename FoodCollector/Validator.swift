@@ -3,7 +3,7 @@
 //  FoodCollector
 //
 //  Created by Boris Tsigelman on 23/09/15.
-//  Copyright © 2015 Boris Tsigelman. All rights reserved.
+//  Copyright © 2015 Foodonet. All rights reserved.
 //
 
 import UIKit

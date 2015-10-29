@@ -336,23 +336,27 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             annotationView = FCAnnotationView(annotation: annotation, reuseIdentifier: reusableIdentifier)
         }
         annotationView!.image = FCIconFactory.smallIconForPublication(annotation as! FCPublication)
+        annotationView?.canShowCallout = true
+        annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+        annotationView?.calloutOffset = CGPoint(x: 0, y: -5)
         return annotationView
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        mapView.deselectAnnotation(view.annotation, animated: true)
         let annotation = view.annotation
         if annotation!.isKindOfClass(MKUserLocation){
             return
         }
         
-        let publication = view.annotation as! FCPublication
-        self.presentPublicationDetailsTVC(publication)
-        self.reloadAnnotations()
-        
-      //  self.postOnSpotReport(publication)
+       
+        //  self.postOnSpotReport(publication)
     }
     
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        let publication = view.annotation as! FCPublication
+        self.presentPublicationDetailsTVC(publication)
+    }
     
     func presentPublicationDetailsTVC(publication:FCPublication) {
         
@@ -364,14 +368,14 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     // MARK: - ArrivedToSpotView Delegate
    
-    func postOnSpotReport(publication: FCPublication) {
-
-        var userInfo = [NSObject : AnyObject]()
-        userInfo[kPublicationUniqueIdKey] = publication.uniqueId
-        userInfo[kPublicationVersionKey] = publication.version
-        NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
-    }
-    
+//    func postOnSpotReport(publication: FCPublication) {
+//
+//        var userInfo = [NSObject : AnyObject]()
+//        userInfo[kPublicationUniqueIdKey] = publication.uniqueId
+//        userInfo[kPublicationVersionKey] = publication.version
+//        NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
+//    }
+//    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -488,6 +492,7 @@ extension FCCollectorRootVC {
                 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentNotificationsFromWebFetch", name: kDidPrepareNotificationsFromWebFetchNotification, object: nil)
     }
     
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
