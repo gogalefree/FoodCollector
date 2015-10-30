@@ -418,6 +418,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         FCModel.sharedInstance.foodCollectorWebServer.unRegisterUserFromComingToPickUpPublication(publication, completion: { (success) -> Void in})
         FCModel.sharedInstance.savePublications()
         self.updateRegisteredUserIconCounter()
+        animateRegistrationButton() 
     }
     
     func didRequestNavigationForPublication(publication: FCPublication) {

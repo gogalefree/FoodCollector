@@ -283,8 +283,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
         self.view.endEditing(true)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
         
         switch indexPath.section {
             
@@ -329,7 +330,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     func updateData(data:PublicationEditorTVCCellData, section: Int){
         dataSource[section] = data
         
-        tableView.reloadSections(NSIndexSet(index: section), withRowAnimation: .Automatic)
+        if section != 5 {tableView.reloadSections(NSIndexSet(index: section), withRowAnimation: .Automatic)}
         
         checkIfReadyForPublish()
     }
@@ -833,7 +834,7 @@ extension PublicationEditorTVC {
 //===========================================================================
 //   MARK: - Protocols
 //===========================================================================
-protocol CellInfoDelegate {
+protocol CellInfoDelegate :NSObjectProtocol{
     func updateData(data:PublicationEditorTVCCellData, section: Int)
 }
 

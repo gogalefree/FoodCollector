@@ -18,11 +18,11 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.view.backgroundColor = kNavBarBlueColor.colorWithAlphaComponent(0.3)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kRecievedNewDataNotification, object: nil)
+        registerAppNotifications()
+        
     }
     
     //MARK: Collection View Delegate
-    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.publications.count
     }
@@ -40,15 +40,19 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
         let mapVC = self.parentViewController as? FCCollectorRootVC
         mapVC?.didSelectThumbnailForPublication(self.publications[indexPath.item])
     }
+   
     //MARK: New data notification
-    
     func didRecieveNewData() {
     
-      //  self.collectionView.performBatchUpdates({ () -> Void in
-            self.publications = FCModel.sharedInstance.publications
-            self.collectionView.reloadData()
-            
-        //    }, completion: nil)
+        self.publications = FCModel.sharedInstance.publications
+        self.collectionView.reloadData()
+    }
+    
+    func registerAppNotifications() {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kRecievedNewDataNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kRecievedNewPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kDeletedPublicationNotification, object: nil)
     }
     
     override func didReceiveMemoryWarning() {

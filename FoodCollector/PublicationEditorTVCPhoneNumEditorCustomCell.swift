@@ -36,7 +36,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     var section: Int?
     
-    var delegate: CellInfoDelegate?
+    weak var delegate: CellInfoDelegate?
     
     let phoneNumberValidator = Validator()
     
@@ -136,6 +136,12 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         return true
     }
 
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        doneNumberPad()
+        return true
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
