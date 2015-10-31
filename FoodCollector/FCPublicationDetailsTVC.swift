@@ -467,7 +467,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     private func registerUserForPublication() {
         publication!.didRegisterForCurrentPublication = true
         publication!.countOfRegisteredUsers += 1
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication!, message: FCRegistrationForPublication.RegistrationMessage.register)
+        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication!)
         FCModel.sharedInstance.savePublications()
         
         self.updateRegisteredUserIconCounter()
@@ -616,6 +616,53 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
             twiiterPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
             self.presentViewController(twiiterPostController, animated:true, completion:nil)
         }
+    }
+    
+    func publisherDidRequestSmsCollectors() {
+        
+        if publication?.registrationsForPublication.count == 0 {
+            let title = String.localizedStringWithFormat("אין משתמשים בדרך לאסוף", "")
+            presentNoCollectorsAlert(title)
+            return
+        }
+        
+        let validator = Validator()
+        let trueNumbers = publication?.registrationsForPublication.filter {(registration) in validator.getValidPhoneNumber(registration.contactInfo) != nil}
+        if trueNumbers == nil || trueNumbers?.count == 0 {
+            let title = String.localizedStringWithFormat("אין מספרי טלפון חוקיים", "")
+            presentNoCollectorsAlert(title)
+            return
+        }
+        
+        //present ContactCollectorPicker
+        let contactCollectorPickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorsNavController") as! UINavigationController
+        contactCollectorPickerNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        let contactCollectorPicker = contactCollectorPickerNavVC.viewControllers[0] as! ContactCollectorsPickerTVC
+        contactCollectorPicker.publication = self.publication
+        self.navigationController?.presentViewController(contactCollectorPickerNavVC, animated: true, completion: nil)
+    }
+    
+    func publisherDidRequestPhoneCall() {
+    
+        if publication?.registrationsForPublication.count == 0 {
+            
+            let title = String.localizedStringWithFormat("אין משתמשים בדרך לאסוף", "")
+            presentNoCollectorsAlert(title)
+            return
+        }
+        
+        //present ContactCollectorPhonePicker
+        let contactCollectorPhonePickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorPhonePickerNavVC") as! UINavigationController
+        contactCollectorPhonePickerNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        let contactCollectorPhonePicker = contactCollectorPhonePickerNavVC.viewControllers[0] as! ContactCollectorPhonePickerVC
+        contactCollectorPhonePicker.registrations = self.publication!.registrationsForPublication
+        self.navigationController?.presentViewController(contactCollectorPhonePickerNavVC, animated: true, completion: nil)
+    }
+    
+    func presentNoCollectorsAlert(title: String) {
+        
+        let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: "")
+        self.navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
 }
 

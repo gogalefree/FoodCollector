@@ -12,6 +12,13 @@ protocol FCPublicationRegistrationsFetcherDelegate: NSObjectProtocol {
     func didFinishFetchingPublicationRegistrations()
 }
 
+let kPublicationRegistrationUniqueIdKey             = "id"
+let kPublicationRegistrationPublicationIdKey        = "publication_id"
+let kPublicationRegistrationPublicationVersionKey   = "publication_version"
+let kPublicationRegistrationContactInfoKey          = "collector_contact_info"
+let kPublicationRegistrationCollectorNameKey        = "collector_name"
+let kPublicationRegistrationDateOfRegistrationKey   = "date_of_registration"
+
 
 class FCPublicationRegistrationsFetcher: NSObject {
     
@@ -52,8 +59,8 @@ class FCPublicationRegistrationsFetcher: NSObject {
                         
                         //if this is initiated by initial web fetch, we check if we should present a new registration notification
                         if checkNew && self.publication.didRegisterForCurrentPublication && self.publication.countOfRegisteredUsers < registrations.count {self.publication.didRecieveNewRegistration = true}
-                        
                         self.publication.countOfRegisteredUsers = registrations.count
+                        self.publication.registrationsForPublication = FCPublicationRegistrationsFetcher.registrationsWithData(registrations)
                         self.updateUserCreatedPublicationForPublication(publication)
                         
                         if let delegate = self.delegate {
@@ -78,9 +85,39 @@ class FCPublicationRegistrationsFetcher: NSObject {
                 
                     publication.version == userCreatedPublication.version {
                     userCreatedPublication.countOfRegisteredUsers = publication.countOfRegisteredUsers
+                    userCreatedPublication.registrationsForPublication = publication.registrationsForPublication
                     break
                 }
             }
        })
+    }
+    
+    class func registrationsWithData(params: [[String: AnyObject]]) -> [FCRegistrationForPublication] {
+    
+        //TODO: clean up
+        var registrations = [FCRegistrationForPublication]()
+        
+        for registrationDict in params {
+        
+            let id                      = registrationDict[kPublicationRegistrationUniqueIdKey]             as? Int ?? 0
+            let publicationId           = registrationDict[kPublicationRegistrationPublicationIdKey]        as? Int ?? 0
+            let publicationVersion      = registrationDict[kPublicationRegistrationPublicationVersionKey]   as? Int ?? 0
+            let collectorName           = registrationDict[kPublicationRegistrationCollectorNameKey]        as? String ?? "guy" //"No Name"
+            let collectorContactInfo    = registrationDict[kPublicationRegistrationContactInfoKey]          as? String ?? "0546684685" //"Unavilable"
+            let dateDouble              = registrationDict[kPublicationRegistrationDateOfRegistrationKey]   as? Double ?? NSDate().timeIntervalSince1970
+            let dateOfRegistration      = NSDate(timeIntervalSince1970: dateDouble)
+            let identifier = PublicationIdentifier(uniqueId: publicationId, version: publicationVersion)
+           
+            let registration = FCRegistrationForPublication(
+                                identifier      :identifier,
+                                dateOfOrder     :dateOfRegistration,
+                                contactInfo     :collectorContactInfo,
+                                collectorName   :collectorName,
+                                uniqueId        :id)
+           
+            registrations.append(registration)
+        }
+        
+        return registrations
     }
 }

@@ -306,7 +306,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         task.resume()
     }
     
-    func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage) {
+    func registerUserForPublication(publication: FCPublication) {
         
         //we are currently only registering the user. we should think of how to delete a registration. should it be through a delete service or add the registration message to this payload.
         

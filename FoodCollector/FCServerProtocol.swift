@@ -70,7 +70,7 @@ protocol FCServerProtocol {
    
     ///
     /// register or unregister the current user to a publication
-    func registerUserForPublication(publication: FCPublication, message: FCRegistrationForPublication.RegistrationMessage)
+    func registerUserForPublication(publication: FCPublication)
     
     ///
     /// unRegister or unregister the current user to a publication

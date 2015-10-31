@@ -364,9 +364,14 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.publicationDetailsTVC?.publication = publication
         let state :PublicationDetailsTVCViewState = FCModel.sharedInstance.isUserCreaetedPublication(publication) ? .Publisher : .Collector
         self.publicationDetailsTVC?.setupWithState(state, caller: .MyPublications, publication: publication)
-        self.navigationController!.pushViewController(self.publicationDetailsTVC!, animated: true)
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+        self.navigationController!.presentViewController(nav, animated: true, completion: nil)
     }
     
+    func dismissDetailVC() {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     // MARK: - ArrivedToSpotView Delegate
    

@@ -14,7 +14,8 @@ protocol PublicationDetsilsPublisherActionsHeaderDelegate: NSObjectProtocol {
 
     func didRequestPostToFacebookForPublication()
     func didRequestPostToTwitterForPublication()
-
+    func publisherDidRequestSmsCollectors()
+    func publisherDidRequestPhoneCall()
 }
 
 class PublicationDetsilsPublisherActionsHeaderView: UIView {
@@ -67,13 +68,14 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
             
         case smsButton:
 
-            // For now this buttun is disabled
-             print("smsButton")
+            print(__FUNCTION__ + "smsButton")
+            delegate?.publisherDidRequestSmsCollectors()
+            
             
         case phoneCallButton:
 
-            // For now this buttun is disabled
-            print("phoneCallButton")
+            print(__FUNCTION__ + "phoneCallButton")
+            delegate?.publisherDidRequestPhoneCall()
             
         default:
             print("publication details unknown button")
@@ -117,17 +119,21 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
     
     func configureButtonsForNormalState() {
         
-        for var i=0; i<self.buttons.count; i++ {
-            let button = self.buttons[i]
-            switch i {
-            case 0, 1: // Facebook and Twitter buttons
-                button.backgroundColor = normalColor
-                button.enabled = true
-            default:
-                button.backgroundColor = UIColor.lightGrayColor()
-                button.enabled = false
-            }
+        for button in buttons {
+            button.backgroundColor = normalColor
+            button.enabled = true
         }
+//        for var i=0; i<self.buttons.count; i++ {
+//            let button = self.buttons[i]
+//            switch i {
+//            case 0, 1 , 2: // Facebook and Twitter buttons
+//                button.backgroundColor = normalColor
+//                button.enabled = true
+//            default:
+//                button.backgroundColor = UIColor.lightGrayColor()
+//                button.enabled = false
+//            }
+//        }
     }
     
     private func animateButton(button: UIButton) {

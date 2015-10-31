@@ -39,14 +39,11 @@ struct PublicationIdentifier {
 
 struct FCRegistrationForPublication {
     
-    enum RegistrationMessage: Int {
-        case register = 1
-        case unRegister = 2
-    }
-    
-    var identifier: PublicationIdentifier
-    var dateOfOrder: NSDate
-    var registrationMessage: RegistrationMessage
+    let identifier      :PublicationIdentifier
+    let dateOfOrder     :NSDate
+    let contactInfo     :String
+    let collectorName   :String
+    let uniqueId        :Int
 }
 
 struct PhotoData {

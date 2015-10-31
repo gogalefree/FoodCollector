@@ -191,7 +191,7 @@ class FCUserNotificationHandler : NSObject {
                 
                 let registrationDate = self.dateWithInfo(data)
                  
-                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, registrationMessage: FCRegistrationForPublication.RegistrationMessage.register)
+                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, contactInfo: "Unavilable", collectorName: "No Name", uniqueId: 0)
                 
                 if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
                     self.recievedRegistrations.removeAll(keepCapacity: true)
@@ -270,9 +270,8 @@ class FCUserNotificationHandler : NSObject {
         var exist = false
         for registration in self.recievedRegistrations {
             if  registration.identifier.uniqueId == publicationIdentifier.uniqueId &&
-                registration.identifier.version == publicationIdentifier.version &&
-                registration.dateOfOrder == publicationRegistration.dateOfOrder &&
-                registration.registrationMessage == publicationRegistration.registrationMessage {
+                registration.identifier.version == publicationIdentifier.version   &&
+                registration.dateOfOrder == publicationRegistration.dateOfOrder     {
                     exist = true
             }
         }
@@ -287,8 +286,8 @@ class FCUserNotificationHandler : NSObject {
     }
     
     func dateWithInfo(data: [NSObject: AnyObject?]) -> NSDate {
-        let timeInt = data[kRemoteNotificationPublicationReportDateKey] as! Int
-        let date = NSDate(timeIntervalSince1970: NSTimeInterval(timeInt))
+        let timeDouble = data[kRemoteNotificationPublicationReportDateKey] as? Double ?? NSDate().timeIntervalSince1970
+        let date = NSDate(timeIntervalSince1970: timeDouble)
         return date
     }
 }
