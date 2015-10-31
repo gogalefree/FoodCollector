@@ -24,6 +24,25 @@ class ContactCollectorPhonePickerVC: UIViewController, UITableViewDelegate, UITa
 
     //MARK: table view datasource
     
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let view = UIView()
+        view.backgroundColor = UIColor.whiteColor()
+        if section != 0 { view.backgroundColor = UIColor.clearColor()}
+        return view
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 1 {
+            let view = UIView()
+            view.backgroundColor = UIColor.whiteColor()
+            return view
+        }
+        
+        return nil
+    }
+
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }

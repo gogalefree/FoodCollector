@@ -41,6 +41,24 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
     
     //MARK: - TableView Data Source
     
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let view = UIView()
+        view.backgroundColor = UIColor.whiteColor()
+        if section != 0 { view.backgroundColor = UIColor.clearColor()}
+        return view
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 1 {
+            let view = UIView()
+            view.backgroundColor = UIColor.whiteColor()
+            return view
+        }
+        
+        return nil
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
     }
@@ -62,6 +80,8 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             let chosen = didSelectAll()
             cell.chosen = chosen
             cell.indexPath = indexPath
+            cell.layer.cornerRadius = 5
+
             return cell
             
         case 1:
@@ -69,11 +89,13 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             cell.chosen = userSelections[indexPath.row]
             cell.registration = registrations[indexPath.row]
             cell.indexPath = indexPath
+
             return cell
             
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("sendSmsToCollectorsCell", forIndexPath: indexPath) as! ContactCollectorsPickerSendSmsCell
             cell.mainLabel.text = String.localizedStringWithFormat("שלח הודעה", "")
+            cell.layer.cornerRadius = 5
             return cell
             
         default :
