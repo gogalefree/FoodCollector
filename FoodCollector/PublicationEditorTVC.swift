@@ -263,7 +263,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             phoneNumEditorCell.section = indexPath.section
             phoneNumEditorCell.delegate = self
             phoneNumEditorCell.selectionStyle = UITableViewCellSelectionStyle.None
-            
+
             return phoneNumEditorCell
 
         case 6: // More Info Section
@@ -330,7 +330,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     func updateData(data:PublicationEditorTVCCellData, section: Int){
         dataSource[section] = data
         
-        if section != 5 {tableView.reloadSections(NSIndexSet(index: section), withRowAnimation: .Automatic)}
+        // If it's not the image cell (section=0), reload section.
+        if section != 0 {tableView.reloadSections(NSIndexSet(index: section), withRowAnimation: .Automatic)}
         
         checkIfReadyForPublish()
     }
@@ -383,7 +384,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         let image = UIImage(named: "CameraIcon") as UIImage?
         let button   = UIButton(type: UIButtonType.Custom)
         button.frame = CGRectMake(40, pictureRowHeigt-25, 50, 50)
-        button.backgroundColor = UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
+        button.backgroundColor = kNavBarBlueColor //UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
         button.layer.cornerRadius = CGRectGetWidth(button.frame) / 2
         button.setImage(image, forState: .Normal)
         button.addTarget(self, action: "pictureButtonTouched:", forControlEvents:.TouchUpInside)
