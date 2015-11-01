@@ -14,7 +14,7 @@ class ContactCollectorPickerCollectorDetailsCell: UITableViewCell {
     @IBOutlet weak var mainLabel        : UILabel!
     @IBOutlet weak var seperatorView    : UIView!
     
-    let checkBoxImages = [UIImage(named: "pay_checkbox_regular")! , UIImage(named: "pay_checkbox_chosen")!]
+    let checkBoxImages = [UIImage(named: "Checkbox")! , UIImage(named: "Checkbox_Checked")!]
     var chosen = false
     var registration: FCRegistrationForPublication? 
 
@@ -64,9 +64,7 @@ class ContactCollectorPickerCollectorDetailsCell: UITableViewCell {
     }
     
     func reloadImage() {
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.checkBoxImageView.image = self.checkBoxImages[self.chosen.hashValue]
-            }, completion: nil)
+        
+        self.checkBoxImageView.image = self.checkBoxImages[self.chosen.hashValue]
     }
-
 }

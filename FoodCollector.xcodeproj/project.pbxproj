@@ -85,12 +85,6 @@
 		E4584B6E1BE4B901007D45E2 /* ContactCollectorsPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B6D1BE4B900007D45E2 /* ContactCollectorsPickerTVC.swift */; settings = {ASSET_TAGS = (); }; };
 		E4584B701BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B6F1BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift */; settings = {ASSET_TAGS = (); }; };
 		E4584B721BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */; settings = {ASSET_TAGS = (); }; };
-		E4584B791BE4D841007D45E2 /* pay_checkbox_chosen.png in Resources */ = {isa = PBXBuildFile; fileRef = E4584B731BE4D841007D45E2 /* pay_checkbox_chosen.png */; settings = {ASSET_TAGS = (); }; };
-		E4584B7A1BE4D841007D45E2 /* pay_checkbox_chosen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4584B741BE4D841007D45E2 /* pay_checkbox_chosen@2x.png */; settings = {ASSET_TAGS = (); }; };
-		E4584B7B1BE4D841007D45E2 /* pay_checkbox_chosen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4584B751BE4D841007D45E2 /* pay_checkbox_chosen@3x.png */; settings = {ASSET_TAGS = (); }; };
-		E4584B7C1BE4D841007D45E2 /* pay_checkbox_regular.png in Resources */ = {isa = PBXBuildFile; fileRef = E4584B761BE4D841007D45E2 /* pay_checkbox_regular.png */; settings = {ASSET_TAGS = (); }; };
-		E4584B7D1BE4D841007D45E2 /* pay_checkbox_regular@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4584B771BE4D841007D45E2 /* pay_checkbox_regular@2x.png */; settings = {ASSET_TAGS = (); }; };
-		E4584B7E1BE4D841007D45E2 /* pay_checkbox_regular@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4584B781BE4D841007D45E2 /* pay_checkbox_regular@3x.png */; settings = {ASSET_TAGS = (); }; };
 		E4584B801BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B7F1BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift */; settings = {ASSET_TAGS = (); }; };
 		E4584B821BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B811BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift */; settings = {ASSET_TAGS = (); }; };
 		E45DA7321A9DB89800F45C70 /* FCCollectorContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */; };
@@ -250,12 +244,6 @@
 		E4584B6D1BE4B900007D45E2 /* ContactCollectorsPickerTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorsPickerTVC.swift; sourceTree = "<group>"; };
 		E4584B6F1BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPickerCollectorDetailsCell.swift; sourceTree = "<group>"; };
 		E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorsPickerSendSmsCell.swift; sourceTree = "<group>"; };
-		E4584B731BE4D841007D45E2 /* pay_checkbox_chosen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_checkbox_chosen.png; sourceTree = "<group>"; };
-		E4584B741BE4D841007D45E2 /* pay_checkbox_chosen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_checkbox_chosen@2x.png"; sourceTree = "<group>"; };
-		E4584B751BE4D841007D45E2 /* pay_checkbox_chosen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_checkbox_chosen@3x.png"; sourceTree = "<group>"; };
-		E4584B761BE4D841007D45E2 /* pay_checkbox_regular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_checkbox_regular.png; sourceTree = "<group>"; };
-		E4584B771BE4D841007D45E2 /* pay_checkbox_regular@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_checkbox_regular@2x.png"; sourceTree = "<group>"; };
-		E4584B781BE4D841007D45E2 /* pay_checkbox_regular@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay_checkbox_regular@3x.png"; sourceTree = "<group>"; };
 		E4584B7F1BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPhonePickerVC.swift; sourceTree = "<group>"; };
 		E4584B811BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPhonePickerLabelCell.swift; sourceTree = "<group>"; };
 		E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorContainerController.swift; sourceTree = "<group>"; };
@@ -786,12 +774,6 @@
 			children = (
 				A16619A41A94E53C009D9EEA /* Scripts */,
 				E494DF161A0A980D004A369E /* Images.xcassets */,
-				E4584B731BE4D841007D45E2 /* pay_checkbox_chosen.png */,
-				E4584B741BE4D841007D45E2 /* pay_checkbox_chosen@2x.png */,
-				E4584B751BE4D841007D45E2 /* pay_checkbox_chosen@3x.png */,
-				E4584B761BE4D841007D45E2 /* pay_checkbox_regular.png */,
-				E4584B771BE4D841007D45E2 /* pay_checkbox_regular@2x.png */,
-				E4584B781BE4D841007D45E2 /* pay_checkbox_regular@3x.png */,
 				E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */,
 				E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */,
 				E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */,
@@ -940,22 +922,18 @@
 				E45DA7361A9FC1B700F45C70 /* FCActivityCenterTVSectionHeader.xib in Resources */,
 				A1248A891B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.xib in Resources */,
 				A1A7389E1B7F842E00CA2C5A /* PublicationEditorTVCDatePickerCustomCell.xib in Resources */,
-				E4584B7B1BE4D841007D45E2 /* pay_checkbox_chosen@3x.png in Resources */,
-				E4584B7C1BE4D841007D45E2 /* pay_checkbox_regular.png in Resources */,
 				E4545D8A1AD3210A0031CF8A /* Pin-Whole@3x.png in Resources */,
 				A1A738981B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */,
 				E4545D941AD322B20031CF8A /* Pin-Table-Few.png in Resources */,
 				E4DC5D5C1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib in Resources */,
 				E4545D971AD322B20031CF8A /* Pin-Table-Half.png in Resources */,
 				E4545D821AD320E60031CF8A /* Track-clear.png in Resources */,
-				E4584B7D1BE4D841007D45E2 /* pay_checkbox_regular@2x.png in Resources */,
 				E48263791BE21DB900526C7B /* FetchedDataNotificationView.xib in Resources */,
 				E4064D471B6BB29D00FB1669 /* NewReportMessageView.xib in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
 				E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */,
 				E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */,
 				E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */,
-				E4584B791BE4D841007D45E2 /* pay_checkbox_chosen.png in Resources */,
 				E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */,
 				A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */,
 				A1535BE81B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */,
@@ -973,10 +951,8 @@
 				E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */,
 				A1248A971B76822D001C5901 /* PublicationEditorTVCMoreInfoCustomCell.xib in Resources */,
 				E4A41D371B491AD0007A611E /* NewRegistrationBannerView.xib in Resources */,
-				E4584B7E1BE4D841007D45E2 /* pay_checkbox_regular@3x.png in Resources */,
 				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
 				E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */,
-				E4584B7A1BE4D841007D45E2 /* pay_checkbox_chosen@2x.png in Resources */,
 				A1B793251B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
 				A1248A7F1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */,

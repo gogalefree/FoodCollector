@@ -56,7 +56,6 @@ class FCPublicationRegistrationsFetcher: NSObject {
                     let registrationsArrayofDicts = (try? NSJSONSerialization.JSONObjectWithData(data!, options: [])) as? [[String : AnyObject]]
                     
                     if let registrations = registrationsArrayofDicts {
-                        
                         //if this is initiated by initial web fetch, we check if we should present a new registration notification
                         if checkNew && self.publication.didRegisterForCurrentPublication && self.publication.countOfRegisteredUsers < registrations.count {self.publication.didRecieveNewRegistration = true}
                         self.publication.countOfRegisteredUsers = registrations.count
@@ -94,16 +93,17 @@ class FCPublicationRegistrationsFetcher: NSObject {
     
     class func registrationsWithData(params: [[String: AnyObject]]) -> [FCRegistrationForPublication] {
     
-        //TODO: clean up
         var registrations = [FCRegistrationForPublication]()
         
         for registrationDict in params {
-        
+            print(registrationDict, separator: "================", terminator: "=======END=======")
+
             let id                      = registrationDict[kPublicationRegistrationUniqueIdKey]             as? Int ?? 0
             let publicationId           = registrationDict[kPublicationRegistrationPublicationIdKey]        as? Int ?? 0
             let publicationVersion      = registrationDict[kPublicationRegistrationPublicationVersionKey]   as? Int ?? 0
-            let collectorName           = registrationDict[kPublicationRegistrationCollectorNameKey]        as? String ?? "guy" //"No Name"
-            let collectorContactInfo    = registrationDict[kPublicationRegistrationContactInfoKey]          as? String ?? "0546684685" //"Unavilable"
+            var collectorName           = registrationDict[kPublicationRegistrationCollectorNameKey]        as? String ?? ""
+            collectorName = collectorName == "" ? String.localizedStringWithFormat("משתמש", "") : collectorName
+            let collectorContactInfo    = registrationDict[kPublicationRegistrationContactInfoKey]          as? String ?? "" //"Unavilable"
             let dateDouble              = registrationDict[kPublicationRegistrationDateOfRegistrationKey]   as? Double ?? NSDate().timeIntervalSince1970
             let dateOfRegistration      = NSDate(timeIntervalSince1970: dateDouble)
             let identifier = PublicationIdentifier(uniqueId: publicationId, version: publicationVersion)

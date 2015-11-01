@@ -125,6 +125,7 @@ extension FCModel {
             
             self.publications = self.fetchedPublications
             self.savePublications()
+            self.saveUserCreatedPublications()
         }
         
         //add fetch number of registered users for publication

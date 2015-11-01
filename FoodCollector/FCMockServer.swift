@@ -317,8 +317,8 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["publication_version"] = publication.version
         params["date_of_registration"] = Int(NSDate().timeIntervalSince1970)
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
-        params["contact_info_regi"] = User.sharedInstance.userPhoneNumber ?? ""
-        //TODO: add collector_name and collector_contact_info
+        params[kPublicationRegistrationContactInfoKey] = User.sharedInstance.userPhoneNumber ?? ""
+        params[kPublicationRegistrationCollectorNameKey] = User.sharedInstance.userName
         let dicToSend = ["registered_user_for_publication" : params]
         print(dicToSend)
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(params, options: [])

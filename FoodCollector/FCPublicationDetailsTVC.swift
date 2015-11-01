@@ -637,6 +637,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
         //present ContactCollectorPicker
         let contactCollectorPickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorsNavController") as! UINavigationController
         contactCollectorPickerNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        contactCollectorPickerNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         let contactCollectorPicker = contactCollectorPickerNavVC.viewControllers[0] as! ContactCollectorsPickerTVC
         contactCollectorPicker.publication = self.publication
         self.navigationController?.presentViewController(contactCollectorPickerNavVC, animated: true, completion: nil)
@@ -654,6 +655,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
         //present ContactCollectorPhonePicker
         let contactCollectorPhonePickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorPhonePickerNavVC") as! UINavigationController
         contactCollectorPhonePickerNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        contactCollectorPhonePickerNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         let contactCollectorPhonePicker = contactCollectorPhonePickerNavVC.viewControllers[0] as! ContactCollectorPhonePickerVC
         contactCollectorPhonePicker.registrations = self.publication!.registrationsForPublication
         self.navigationController?.presentViewController(contactCollectorPhonePickerNavVC, animated: true, completion: nil)
@@ -970,12 +972,13 @@ extension FCPublicationDetailsTVC {
 extension FCPublicationDetailsTVC {
     
     func didSelectEditPublicationAction(){
-        dismiss()
+     //   dismiss()
 
         let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
-        publicationEditorTVC?.setupWithState(.EditPublication, publication: publication)
+        let identifier = PublicationIdentifier(uniqueId: publication!.uniqueId , version: publication!.version)
+        guard let userCreatedPublication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier) else {return}
+        publicationEditorTVC?.setupWithState(.EditPublication, publication: userCreatedPublication)
         
-        //publicationEditorTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         
         let nav = UINavigationController(rootViewController: publicationEditorTVC!)
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)

@@ -42,6 +42,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeleteOldVersionOfUserCreatedPublication", name: kDidDeleteOldVersionsOfUserCreatedPublication, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload", name: kRecievedNewDataNotification, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -85,7 +86,10 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         self.userRegisteredPublications = FCModel.sharedInstance.userRegisteredPublications()
         self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications.filter {(publication: FCPublication) in
             return publication.isOnAir == true && publication.endingDate.timeIntervalSince1970 > NSDate().timeIntervalSince1970}
-        self.tableView.reloadData()
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.tableView.reloadData()
+        }
     }
     
     final func removeExpiredUserCreatedPublications() {

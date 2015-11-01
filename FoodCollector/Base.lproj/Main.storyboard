@@ -1222,6 +1222,7 @@
                                 <rect key="frame" x="20" y="85" width="560" height="495"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1233,12 +1234,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IdV-Nz-i9E">
-                                                    <rect key="frame" x="10" y="8" width="28" height="28"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IdV-Nz-i9E">
+                                                    <rect key="frame" x="10" y="10" width="24" height="24"/>
                                                     <animations/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="28" id="oP8-l8-PQq"/>
-                                                        <constraint firstAttribute="height" constant="28" id="sTC-hg-ToK"/>
+                                                        <constraint firstAttribute="width" constant="24" id="oP8-l8-PQq"/>
+                                                        <constraint firstAttribute="height" constant="24" id="sTC-hg-ToK"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am5-cN-1Jh">
@@ -1261,17 +1262,18 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="am5-cN-1Jh" secondAttribute="trailing" constant="7" id="CO6-65-SHx"/>
                                                 <constraint firstItem="am5-cN-1Jh" firstAttribute="centerY" secondItem="CiD-up-f36" secondAttribute="centerY" id="Dge-8a-dMT"/>
-                                                <constraint firstItem="am5-cN-1Jh" firstAttribute="leading" secondItem="IdV-Nz-i9E" secondAttribute="trailing" constant="17" id="K9h-kp-qUq"/>
+                                                <constraint firstItem="am5-cN-1Jh" firstAttribute="leading" secondItem="IdV-Nz-i9E" secondAttribute="trailing" constant="21" id="K9h-kp-qUq"/>
                                                 <constraint firstItem="IdV-Nz-i9E" firstAttribute="leading" secondItem="CiD-up-f36" secondAttribute="leadingMargin" constant="2" id="Uf4-Re-vRM"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="7S4-tj-1lh" secondAttribute="trailing" constant="-8" id="Xq8-VW-dT8"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="7S4-tj-1lh" secondAttribute="trailing" constant="-8" id="bk7-jV-zaB"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="7S4-tj-1lh" secondAttribute="bottom" constant="-8" id="fL9-h6-yTd"/>
-                                                <constraint firstItem="IdV-Nz-i9E" firstAttribute="top" secondItem="CiD-up-f36" secondAttribute="topMargin" id="jV3-cU-q4X"/>
+                                                <constraint firstItem="IdV-Nz-i9E" firstAttribute="top" secondItem="CiD-up-f36" secondAttribute="topMargin" constant="2" id="jV3-cU-q4X"/>
                                                 <constraint firstItem="7S4-tj-1lh" firstAttribute="leading" secondItem="CiD-up-f36" secondAttribute="leadingMargin" constant="-8" id="tPF-5E-hZu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="checkBoxImageView" destination="IdV-Nz-i9E" id="Bcp-mi-fAM"/>
                                             <outlet property="mainLabel" destination="am5-cN-1Jh" id="giK-8d-wWa"/>

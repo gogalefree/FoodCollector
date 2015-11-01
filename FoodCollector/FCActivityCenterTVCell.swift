@@ -42,6 +42,8 @@ class FCActivityCenterTVCell: UITableViewCell {
 
     final func fetchPhotoIfNeeded() {
     
+        self.iconImageView.image = placeholderImage
+        self.iconImageView.alpha = 1
         if self.publication.photoData.photo != nil {
             self.iconImageView.image = self.publication.photoData.photo
         }
@@ -51,7 +53,9 @@ class FCActivityCenterTVCell: UITableViewCell {
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(self.publication, completion: { (image) -> Void in
                 self.publication.photoData.didTryToDonwloadImage = true
-                self.iconImageView.image = image
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.iconImageView.image = self.publication.photoData.photo ?? self.placeholderImage
+                })
             })
         }
     }
@@ -62,6 +66,7 @@ class FCActivityCenterTVCell: UITableViewCell {
         self.titleLabel.text = ""
         self.iconImageView.image = placeholderImage
         self.userInteractionEnabled = true
+        self.iconImageView.alpha = 1
     }
     
     final func hideNotificationNumber() {
