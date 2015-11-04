@@ -12,20 +12,6 @@ protocol FCOnSpotPublicationReportDelegate {
     func dismiss()
 }
 
-public struct FCOnSpotPublicationReport {
-    
-    var onSpotPublicationReportMessage:FCOnSpotPublicationReportMessage
-    var date:NSDate
-}
-
-enum FCOnSpotPublicationReportMessage: Int {
-    
-    case NothingThere = 5
-    case TookAll = 3
-    case HasMore = 1
-    
-}
-
 
 class FCArrivedToPublicationSpotVC: UIViewController {
     
@@ -76,7 +62,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     
     func postOnSpotReportWithMessage(message: FCOnSpotPublicationReportMessage) {
         
-        let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: message, date: NSDate())
+        let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: message, date: NSDate() , reportContactInfo: User.sharedInstance.userPhoneNumber, reportPublicationId: publication!.uniqueId, reportPublicationVersion: publication!.version,reportId: 0 ,reportCollectorName: User.sharedInstance.userName)
         
         FCModel.sharedInstance.foodCollectorWebServer.reportArrivedPublication(self.publication!, withReport: report)
         self.delegate?.dismiss()

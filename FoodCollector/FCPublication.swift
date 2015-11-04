@@ -28,6 +28,9 @@ let kDidRegisterForCurrentPublicationKey = "did_Register_for_current_publication
 let kDidModifyCoordinatesKey = "did_modify_coords"
 let kReportsMessageArray = "reportsMessageArray"
 let kReportsDateArray = "reportsDateArray"
+let kReportContactInfoArray = "kReportContactInfoArray"
+let kReportCollectorNameArray = "kReportCollectorNameArray"
+let kReportIdArray = "kReportIdArray"
 let kPublicationCountOfRegisteredUsersKey = "pulbicationCountOfRegisteredUsersKey"
 let kReportMessageValueKey = "kReportMessageValueKey"
 
@@ -149,14 +152,24 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         
         var reportsMessageArray = [Int]()
         var reportsDateArray = [Int]()
+        var reportContactInfoArray = [String]()
+        var reportCollectorNameArray = [String]()
+        var reportIdArray = [Int]()
+        
         
         for onSporReport in self.reportsForPublication {
             reportsMessageArray.append(onSporReport.onSpotPublicationReportMessage.rawValue)
             reportsDateArray.append(Int(onSporReport.date.timeIntervalSince1970))
+            reportContactInfoArray.append(onSporReport.reportContactInfo)
+            reportCollectorNameArray.append(onSporReport.reportCollectorName)
+            reportIdArray.append(onSporReport.reportId)
         }
         
         aCoder.encodeObject(reportsMessageArray, forKey: kReportsMessageArray)
         aCoder.encodeObject(reportsDateArray, forKey: kReportsDateArray )
+        aCoder.encodeObject(reportContactInfoArray, forKey: kReportContactInfoArray)
+        aCoder.encodeObject(reportCollectorNameArray, forKey: kReportCollectorNameArray)
+        aCoder.encodeObject(reportIdArray, forKey: kReportIdArray)
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -184,14 +197,19 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         
         var reportsMessageArray : [Int]? = [Int]()
         var reportsDateArray : [Int]? = [Int]()
-
+        var reportContactInfoArray: [String]? = [String]()
+        var reportCollectorNameArray: [String]? = [String]()
+        var reportIdArray: [Int]? = [Int]()
         var publicationReports = [FCOnSpotPublicationReport]()
         
         reportsMessageArray = aDecoder.decodeObjectForKey(kReportsMessageArray) as? [Int]
         reportsDateArray = aDecoder.decodeObjectForKey(kReportsDateArray) as? [Int]
-
-        if let reportsMessageArray = reportsMessageArray {
-        if let reportsDateArray = reportsDateArray {
+        reportContactInfoArray = aDecoder.decodeObjectForKey(kReportContactInfoArray) as? [String]
+        reportCollectorNameArray = aDecoder.decodeObjectForKey(kReportCollectorNameArray) as? [String]
+        reportIdArray = aDecoder.decodeObjectForKey(kReportIdArray) as? [Int]
+        
+        if let reportsMessageArray = reportsMessageArray, reportsDateArray = reportsDateArray, reportContactInfoArray = reportContactInfoArray,  reportCollectorNameArray = reportCollectorNameArray, reportIdArray = reportIdArray {
+        
        
             let count = min(reportsMessageArray.count, reportsDateArray.count)
             
@@ -199,14 +217,17 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
                 
                 let message = reportsMessageArray[index]
                 let date = NSDate(timeIntervalSince1970: NSTimeInterval (reportsDateArray[index]))
+                let contactInfo = reportContactInfoArray[index] ?? ""
+                let collectorName = reportCollectorNameArray[index] ?? ""
+                let reportId = reportIdArray[index] ?? 0
                 
-                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: message)!, date: date)
+                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: message)!, date: date , reportContactInfo: contactInfo, reportPublicationId: self.uniqueId, reportPublicationVersion: self.version,reportId: reportId, reportCollectorName: collectorName)
+                
                 
                 publicationReports.append(report)
             }
             
             self.reportsForPublication = publicationReports
-        }
         }
         
         super.init()

@@ -43,14 +43,17 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
     
     func animateImage(publication: FCPublication) {
         
-        UIView.animateWithDuration(0.1, animations: { () -> Void in
-            
-            self.imageView.alpha = 0
-            }) { (_) -> Void in
-                self.imageView.image = publication.photoData.photo!
-                UIView.animateWithDuration(0.2, animations: { () -> Void in
-                    self.imageView.alpha = 1
-                    }, completion: nil)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+
+            UIView.animateWithDuration(0.1, animations: { () -> Void in
+                
+                self.imageView.alpha = 0
+                }) { (_) -> Void in
+                    self.imageView.image = publication.photoData.photo!
+                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                        self.imageView.alpha = 1
+                        }, completion: nil)
+            }
         }
     }
     

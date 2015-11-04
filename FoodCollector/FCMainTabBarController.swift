@@ -103,7 +103,9 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
             let dateInt = data[kRemoteNotificationPublicationReportDateKey] as! Int
             let timeInterval = NSTimeInterval(dateInt)
             let reportMessage = FCOnSpotPublicationReportMessage(rawValue: reportMessageRawValue)!
-            let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: reportMessage , date:NSDate(timeIntervalSince1970: timeInterval))
+            
+            let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: reportMessage, date: NSDate(timeIntervalSince1970: timeInterval) , reportContactInfo: "", reportPublicationId: uniqueId, reportPublicationVersion: version ,reportId: 0 , reportCollectorName: "")
+            
             FCUserNotificationHandler.sharedInstance.recivedReports.append((identifier , report))
             self.didRecievePublicationReport()
         }

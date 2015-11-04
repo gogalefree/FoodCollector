@@ -138,6 +138,7 @@
 		E4C1C1651A52AB3500A37E00 /* FCAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */; };
 		E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */; };
 		E4C1C16F1A52DC6A00A37E00 /* FCPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */; };
+		E4D8B3D31BE639F1003112E0 /* OnSpotPublicationReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8B3D21BE639F1003112E0 /* OnSpotPublicationReport.swift */; settings = {ASSET_TAGS = (); }; };
 		E4DB3A7D1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */; };
 		E4DC5D5C1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4DC5D5B1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib */; };
 		E4DC5D5E1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC5D5D1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift */; };
@@ -305,6 +306,7 @@
 		E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAnnotationView.swift; sourceTree = "<group>"; };
 		E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsTVCell.swift; sourceTree = "<group>"; };
 		E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoFetcher.swift; sourceTree = "<group>"; };
+		E4D8B3D21BE639F1003112E0 /* OnSpotPublicationReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSpotPublicationReport.swift; sourceTree = "<group>"; };
 		E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorNewDataMessageView.swift; sourceTree = "<group>"; };
 		E4DC5D5B1AA9D660002DB401 /* FCPublicationsTVCMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublicationsTVCMessageView.xib; sourceTree = "<group>"; };
 		E4DC5D5D1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsTVCMessageView.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 				E42ED5781A8BD175008FB618 /* FCModel+LocationManager.swift */,
 				E42ED5761A8BD007008FB618 /* FCModel+NewData.swift */,
 				E4737D721A10C01300A4AB81 /* FCPublication.swift */,
+				E4D8B3D21BE639F1003112E0 /* OnSpotPublicationReport.swift */,
 				A10832F61BADD81F00B81F57 /* User.swift */,
 			);
 			name = FCModel;
@@ -1067,6 +1070,7 @@
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				A1A7389D1B7F842E00CA2C5A /* PublicationEditorTVCDatePickerCustomCell.swift in Sources */,
 				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
+				E4D8B3D31BE639F1003112E0 /* OnSpotPublicationReport.swift in Sources */,
 				E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */,
 				E4584B701BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */,
 				A1A738971B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.swift in Sources */,

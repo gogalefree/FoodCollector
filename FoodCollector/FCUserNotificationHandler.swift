@@ -17,9 +17,9 @@ let kRemoteNotificationType = "type"
 let kRemoteNotificationTypeNewPublication = "new_publication"
 let kRemoteNotificationTypeDeletedPublication = "deleted_publication"
 let kRemoteNotificationTypePublicationReport = "publication_report"
-let kRemoteNotificationPublicationReportMessageKey = "report_message"
+let kRemoteNotificationPublicationReportMessageKey = "report"
 let kRemoteNotificationPublicationReportDateKey = "date"
-let kRemoteNotificationTypeUserRegisteredForPublication = "registeration_for_publication"
+let kRemoteNotificationTypeUserRegisteredForPublication = "registration_for_publication"
 let kRemoteNotificationRegistrationMessageForPublicationKey = "registration_message"
 let kRemoteNotificationDataKey = "data"
 let kShouldShowNewPublicationFromPushNotification = "kShouldShowNewPublicationFromPushNotification"
@@ -175,10 +175,14 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypePublicationReport:
                 
-                let publicationIdentifier = self.identifierForInfo(data)
+                let id = data["publication_id"] as? Int ?? 0
+                let pulicationVersion = data["publication_version"] as? Int ?? 0
+                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
                 let reportDate = self.dateWithInfo(data)
-                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey]! as! Int
-                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
+                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey] as? Int ?? 0
+                let contactInfo = ""
+                
+                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate , reportContactInfo: contactInfo, reportPublicationId: publicationIdentifier.uniqueId, reportPublicationVersion: publicationIdentifier.version,reportId: 0 , reportCollectorName: "")
                 
                 if !self.didHandlePublicationReport(report, publicationIdentifier: publicationIdentifier) {
                     self.recivedReports.removeAll(keepCapacity: true)
@@ -190,7 +194,9 @@ class FCUserNotificationHandler : NSObject {
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
                 let registrationDate = self.dateWithInfo(data)
-                 
+                let id = data["publication_id"] as? Int ?? 0
+                let pulicationVersion = data["publication_version"] as? Int ?? 0
+                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
                 let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, contactInfo: "Unavilable", collectorName: "No Name", uniqueId: 0)
                 
                 if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
@@ -279,8 +285,8 @@ class FCUserNotificationHandler : NSObject {
     }
     
     func identifierForInfo(data: [ NSObject: AnyObject?]) -> PublicationIdentifier {
-        let uniqueId = data[kPublicationUniqueIdKey] as! Int
-        let version = data[kPublicationVersionKey] as! Int
+        let uniqueId = data[kPublicationUniqueIdKey] as? Int ?? 0
+        let version = data[kPublicationVersionKey] as? Int ?? 0
         let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
         return publicationIdentifier
     }

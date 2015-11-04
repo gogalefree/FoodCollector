@@ -276,18 +276,24 @@ public class FCMockServer: NSObject , FCServerProtocol {
                         if let arrayOfReports = arrayOfReports {
                         
                             for publicationReportDict in arrayOfReports {
+                                print(publicationReportDict, separator: "=======", terminator: "=====REPORT=====")
+                                let reportMessage = publicationReportDict["report"] as? Int ?? 1
+                                let reportDateString = publicationReportDict["date_of_report"] as? NSString ?? ""
+                                let reportDateDouble = reportDateString.doubleValue
+                                //let timeInterval = NSTimeInterval(reportDateInt)
+                                let reportDate = NSDate(timeIntervalSince1970: reportDateDouble)
+                                let reportContactInfo = publicationReportDict["report_contact_info"] as? String ?? ""
+                                let reportPublicationId = publicationReportDict["publication_id"] as? Int ?? 0
+                                let reportPublicationVersion = publicationReportDict["publication_version"] as? Int ?? 0
+                                let reportId = publicationReportDict["id"] as? Int ?? 0
+                                let reportCollectorName = publicationReportDict["report_user_name"] as? String ?? ""
                                 
-                                let reportMessage = publicationReportDict["report"] as! Int
-                                let reportDateString = publicationReportDict["date_of_report"] as! NSString
-                                let reportDateInt = reportDateString.doubleValue
-                                let timeInterval = NSTimeInterval(reportDateInt)
-                                let reportDate = NSDate(timeIntervalSince1970: timeInterval)
                                 
                                 //prevent wrong data
                                 if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
                                 
-                                let publicationReport = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate)
-                                publicationReports.append(publicationReport)
+                                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate , reportContactInfo: reportContactInfo, reportPublicationId: reportPublicationId, reportPublicationVersion: reportPublicationVersion,reportId: reportId, reportCollectorName: reportCollectorName)
+                                publicationReports.append(report)
                             }
                             
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -398,12 +404,16 @@ public class FCMockServer: NSObject , FCServerProtocol {
         let urlString = reportArrivedToPublicationURL + "\(publication.uniqueId)/publication_reports.json"
 
         var params = [String: AnyObject]()
-        params["publication_id"] = publication.uniqueId
-        params["publication_version"] = publication.version
-        params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
-        params["date_of_report"] = report.date.timeIntervalSince1970
-        params["report"] = report.onSpotPublicationReportMessage.rawValue
-        //TODO: Add reporter_user_name and reporter_contact_info
+        params["publication_id"]            = publication.uniqueId
+        params["publication_version"]       = publication.version
+        params["active_device_dev_uuid"]    = FCModel.sharedInstance.deviceUUID
+        params["date_of_report"]            = report.date.timeIntervalSince1970
+        params["report"]                    = report.onSpotPublicationReportMessage.rawValue
+        params["report_contact_info"]       = report.reportContactInfo
+        params["report_user_name"]          = report.reportCollectorName
+        
+        
+        
         let dicToSend = ["publication_report" : params]
         print(dicToSend)
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(dicToSend, options: [])
