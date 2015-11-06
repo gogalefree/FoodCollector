@@ -31,3 +31,11 @@ Instructions for changing the type of build
 11. The example above will generate a Beta build. you wish to generate a Production build replace the argument “beta” with “prod” (without the commas).
 
 NOTE: If the script doesn’t work or you get error during the build process, contact me for help (Boris Tsigelman)
+
+
+Instructions for facebook sdk
+===========================================================
+1. download facebook sdk
+2. unzip it to /Documents
+3. change the folder name to /Documents?FacebookSDK
+4. in xcode - go to project setting and make sure this path is under Framework search paths
