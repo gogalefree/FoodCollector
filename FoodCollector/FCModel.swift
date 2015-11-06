@@ -98,11 +98,10 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func reportDeviceUUIDToServer() {
         
-        self.deviceUUID ?? {
+        if self.deviceUUID == nil {
             let uuid = NSUUID().UUIDString
             NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
-            return uuid
-            }()
+        }
         
         if !NSUserDefaults.standardUserDefaults().boolForKey(kDidReportDeviceUUIDToServer) && self.deviceUUID != nil {
             self.foodCollectorWebServer.reportDeviceUUID(self.deviceUUID!)
@@ -276,7 +275,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             userPublication.countOfRegisteredUsers += 1
             self.saveUserCreatedPublications()
         }
-        else {return}
         
         let possiblePublication: FCPublication? = self.publicationWithIdentifier(registration.identifier)
         

@@ -137,15 +137,18 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         //if a new publication was recived in a push notification - show the new publication message
         //this is initiated if the app was active
         
-        if NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowNewPublicationFromPushNotification) {
-            
-            let recivedPublication = FCModel.sharedInstance.publications.last!
-            self.showNewDataMessageView(recivedPublication)
-        }
+        //Dsiabled for now so it will not present twice.
+        //notifications controller presents the new one
+        
+//        if NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowNewPublicationFromPushNotification) {
+//            
+//            let recivedPublication = FCModel.sharedInstance.publications.last!
+//            self.showNewDataMessageView(recivedPublication)
+//        }
         
         //if a new publication arrived through a remote notification while the app was inActive, and the user did not tap the banner
         
-        self.showNewPublicationMessageViewIfNeeded()
+      //  self.showNewPublicationMessageViewIfNeeded()
         
         
         //uncomment to present enable push notifications message

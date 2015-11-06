@@ -194,8 +194,8 @@ class FCUserNotificationHandler : NSObject {
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
                 let registrationDate = self.dateWithInfo(data)
-                let id = data["publication_id"] as? Int ?? 0
-                let pulicationVersion = data["publication_version"] as? Int ?? 0
+                let id = data["id"] as? Int ?? 0
+                let pulicationVersion = data["version"] as? Int ?? 0
                 let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
                 let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, contactInfo: "Unavilable", collectorName: "No Name", uniqueId: 0)
                 
