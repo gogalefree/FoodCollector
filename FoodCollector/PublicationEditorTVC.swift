@@ -607,8 +607,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         let typeOfCollectingDict = self.dataSource[5].userData as! [String : AnyObject]
         params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
         params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as! Int
-        params[kPublicationSubTitleKey] = self.dataSource[6].userData as! String
-        
+        var subtitle = self.dataSource[6].userData as? String ?? ""
+        if subtitle ==  "" { subtitle = " "}
+        params[kPublicationSubTitleKey] = subtitle
         return params
     }
 
