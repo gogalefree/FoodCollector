@@ -203,7 +203,9 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     func addUserCreatedPublication(publication: FCPublication) {
         if !userCreatedPublicationExists(publication){
             self.userCreatedPublications.append(publication)
-            self.postNewUserCreatedPublicationNotification()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.postNewUserCreatedPublicationNotification()
+            })
             self.saveUserCreatedPublications()
         }
     }

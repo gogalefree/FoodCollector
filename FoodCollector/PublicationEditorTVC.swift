@@ -531,26 +531,33 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 params[kPublicationUniqueIdKey] = self.publication!.uniqueId
                 params[kPublicationVersionKey] = version
                 let publication = FCPublication.userCreatedPublicationWithParams(params)
-                publication.photoData.photo = self.dataSource[5].userData as? UIImage
+                publication.photoData.photo = self.dataSource[0].userData as? UIImage
+                
+                FCModel.sharedInstance.addPublication(publication)
+                FCModel.sharedInstance.addUserCreatedPublication(publication)
+                FCModel.sharedInstance.deleteOldVersionsOfUserCreatedPublication(publication)
+                
+                if publication.photoData.photo != nil {
+                    //send the photo
+                    let uploader = FCPhotoFetcher()
+                    uploader.uploadPhotoForPublication(publication)
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     if self.state == .EditPublication{
+            
+                        let publicationDetailsNavigationController = self.navigationController?.presentingViewController as? UINavigationController
+                        let publicationDetailsTVC = publicationDetailsNavigationController?.viewControllers[0] as? FCPublicationDetailsTVC
+                        publicationDetailsTVC?.publication = publication
+                        publicationDetailsTVC?.reload()
+                        
                         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                        
+                        
+            
                     }
-                    //                    else if self.state == .ActivityCenter {
-                    //                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-                    //                    }
-                    
-                    FCModel.sharedInstance.addPublication(publication)
-                    FCModel.sharedInstance.addUserCreatedPublication(publication)
-                    FCModel.sharedInstance.deleteOldVersionsOfUserCreatedPublication(publication)
-                    
-                    if publication.photoData.photo != nil {
-                        //send the photo
-                        let uploader = FCPhotoFetcher()
-                        uploader.uploadPhotoForPublication(publication)
-                    }
+                
                 })
             }
                 

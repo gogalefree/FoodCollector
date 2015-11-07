@@ -151,7 +151,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeInteger(self.countOfRegisteredUsers, forKey: kPublicationCountOfRegisteredUsersKey)
         
         var reportsMessageArray = [Int]()
-        var reportsDateArray = [Int]()
+        var reportsDateArray = [Double]()
         var reportContactInfoArray = [String]()
         var reportCollectorNameArray = [String]()
         var reportIdArray = [Int]()
@@ -159,7 +159,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         
         for onSporReport in self.reportsForPublication {
             reportsMessageArray.append(onSporReport.onSpotPublicationReportMessage.rawValue)
-            reportsDateArray.append(Int(onSporReport.date.timeIntervalSince1970))
+            reportsDateArray.append(onSporReport.date.timeIntervalSince1970)
             reportContactInfoArray.append(onSporReport.reportContactInfo)
             reportCollectorNameArray.append(onSporReport.reportCollectorName)
             reportIdArray.append(onSporReport.reportId)
@@ -196,14 +196,14 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
       
         
         var reportsMessageArray : [Int]? = [Int]()
-        var reportsDateArray : [Int]? = [Int]()
+        var reportsDateArray : [Double]? = [Double]()
         var reportContactInfoArray: [String]? = [String]()
         var reportCollectorNameArray: [String]? = [String]()
         var reportIdArray: [Int]? = [Int]()
         var publicationReports = [FCOnSpotPublicationReport]()
         
         reportsMessageArray = aDecoder.decodeObjectForKey(kReportsMessageArray) as? [Int]
-        reportsDateArray = aDecoder.decodeObjectForKey(kReportsDateArray) as? [Int]
+        reportsDateArray = aDecoder.decodeObjectForKey(kReportsDateArray) as? [Double]
         reportContactInfoArray = aDecoder.decodeObjectForKey(kReportContactInfoArray) as? [String]
         reportCollectorNameArray = aDecoder.decodeObjectForKey(kReportCollectorNameArray) as? [String]
         reportIdArray = aDecoder.decodeObjectForKey(kReportIdArray) as? [Int]
@@ -274,11 +274,11 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aLongtitude = params[kPublicationLongtitudeKey] as! Double
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
         
-        let startingDateInt = params[kPublicationStartingDateKey] as! Int
-        let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(startingDateInt))
+        let startingDateDouble = params[kPublicationStartingDateKey] as! Double
+        let aStartingDate = NSDate(timeIntervalSince1970: startingDateDouble)
         
-        let endingDateInt = params[kPublicationEndingDateKey] as! Int
-        let aEndingDate = NSDate(timeIntervalSince1970: NSTimeInterval(endingDateInt))
+        let endingDateDouble = params[kPublicationEndingDateKey] as! Double
+        let aEndingDate = NSDate(timeIntervalSince1970: endingDateDouble)
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
         let aVersion = params[kPublicationVersionKey] as! Int
         //let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"

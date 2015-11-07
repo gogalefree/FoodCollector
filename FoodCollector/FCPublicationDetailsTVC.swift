@@ -977,6 +977,7 @@ extension FCPublicationDetailsTVC {
         let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
         let identifier = PublicationIdentifier(uniqueId: publication!.uniqueId , version: publication!.version)
         guard let userCreatedPublication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier) else {return}
+        userCreatedPublication.photoData.photo = publication?.photoData.photo
         publicationEditorTVC?.setupWithState(.EditPublication, publication: userCreatedPublication)
         
         
@@ -1024,6 +1025,10 @@ extension FCPublicationDetailsTVC {
 
     }
     
+    func reload() {
+        print("reload")
+        self.tableView.reloadData()
+    }
 }
 
 
