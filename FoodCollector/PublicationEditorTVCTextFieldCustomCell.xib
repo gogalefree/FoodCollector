@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -12,20 +12,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-6w-I38">
-                        <rect key="frame" x="8" y="7" width="297" height="30"/>
+                        <rect key="frame" x="34" y="7" width="271" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="iq1-6w-I38" secondAttribute="trailing" constant="7" id="G8p-4q-2SX"/>
-                    <constraint firstItem="iq1-6w-I38" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="gDJ-d9-hxE"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="iq1-6w-I38" secondAttribute="bottom" constant="-1.5" id="uhZ-B3-qP2"/>
-                    <constraint firstItem="iq1-6w-I38" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="uiC-Fb-sW7"/>
+                    <constraint firstItem="iq1-6w-I38" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="26" id="4aR-RF-kPG"/>
+                    <constraint firstItem="iq1-6w-I38" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="WN1-CC-czP"/>
+                    <constraint firstItem="iq1-6w-I38" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YwN-cw-PYg"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="iq1-6w-I38" secondAttribute="trailing" constant="7" id="bQZ-zN-6Ph"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
