@@ -1247,7 +1247,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
-				FRAMEWORK_SEARCH_PATHS = /Users/Guy/Documents/FacebookSDK;
+				FRAMEWORK_SEARCH_PATHS = "${HOME}/Documents/FacebookSDK";
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1267,7 +1267,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
-				FRAMEWORK_SEARCH_PATHS = /Users/Guy/Documents/FacebookSDK;
+				FRAMEWORK_SEARCH_PATHS = "${HOME}/Documents/FacebookSDK";
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)";
