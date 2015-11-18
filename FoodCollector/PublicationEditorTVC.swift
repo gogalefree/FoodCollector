@@ -37,11 +37,11 @@ enum PublicationEditorTVCState {
     case CreateNewPublication
 }
 
-enum CellState {
-    
-    case Edit
-    case Display
-}
+//enum CellState {
+//    
+//    case Edit
+//    case Display
+//}
 
 public enum TypeOfCollecting: Int {
     

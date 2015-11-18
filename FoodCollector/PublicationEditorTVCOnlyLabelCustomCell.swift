@@ -13,7 +13,9 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!
     
-    var cellState = CellState.Display
+    //var cellState = CellState.Display
+    
+    let cellLabelColor = UIColor(red: 0.74, green: 0.74, blue: 0.76, alpha: 1.00)
     
     var cellData: PublicationEditorTVCCellData? {
         
@@ -21,6 +23,13 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
             
             if let cellData = self.cellData {
                 
+                cellLabel.alpha = 1
+                self.cellLabel.text = cellData.cellTitle
+                if cellData.containsUserData == true {
+                    self.cellLabel.textColor = UIColor.blackColor()
+                }
+                
+                /*
                 switch cellState {
                 case .Display:
                     cellLabel.alpha = 1
@@ -35,13 +44,14 @@ class PublicationEditorTVCOnlyLabelCustomCell: UITableViewCell {
                     txtField.clearButtonMode = UITextFieldViewMode.WhileEditing
                     txtField.text = cellData.userData as? String
                     self.addSubview(txtField)
-                }
+                } */
             }
         }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        cellLabel.textColor = cellLabelColor
         
     }
 
