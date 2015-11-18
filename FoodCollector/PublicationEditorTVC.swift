@@ -825,6 +825,7 @@ extension PublicationEditorTVC {
         cellData.cellTitle = kPublishedImage
         //let section = self.selectedIndexPath!.section
         self.dataSource[0] = cellData
+        checkIfReadyForPublish()
         self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
     }
     
