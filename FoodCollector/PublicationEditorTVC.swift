@@ -248,8 +248,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             }
             else {
                 let datePickerCell = tableView.dequeueReusableCellWithIdentifier("datePickerCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCDatePickerCustomCell
-                datePickerCell.cellData = self.dataSource[indexPath.section]
+                datePickerCell.minimumDate = self.dataSource[3]
                 datePickerCell.section = indexPath.section
+                datePickerCell.cellData = self.dataSource[indexPath.section]
                 datePickerCell.delegate = self
                 datePickerCell.selectionStyle = UITableViewCellSelectionStyle.None
                 
