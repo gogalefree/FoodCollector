@@ -11,7 +11,7 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var publications = FCModel.sharedInstance.publications
+    var publications = FCPublicationsSorter.sortPublicationsByEndingDate(FCModel.sharedInstance.publications)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
     //MARK: New data notification
     func didRecieveNewData() {
     
-        self.publications = FCModel.sharedInstance.publications
+        self.publications = FCPublicationsSorter.sortPublicationsByEndingDate(FCModel.sharedInstance.publications)
         self.collectionView.reloadData()
     }
     
