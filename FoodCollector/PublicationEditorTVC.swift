@@ -284,16 +284,22 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         self.view.endEditing(true)
-
         
         switch indexPath.section {
             
         case 2: // Address
+            closeDatePicker()
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
             
         case 3: // Start date
+            // Close the End date picker
+            if (showEndDatePickerCell) {
+                showEndDatePickerCell = false
+                tableView.reloadSections(NSIndexSet(index: indexPath.section+1), withRowAnimation: .Automatic)
+            }
             if (showStartDatePickerCell) {
                 showStartDatePickerCell = false
             }
@@ -303,6 +309,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
             
         case 4: // End date
+            // Close the Start date picker
+            if (showStartDatePickerCell) {
+                showStartDatePickerCell = false
+                tableView.reloadSections(NSIndexSet(index: indexPath.section-1), withRowAnimation: .Automatic)
+            }
             if (showEndDatePickerCell) {
                 showEndDatePickerCell = false
             }
@@ -324,6 +335,18 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             return nil
         default:
             return indexPath
+        }
+    }
+    
+    func closeDatePicker() {
+        // If the user clicked a cell that is not the start or end date cell, and one of the date pickers is visible, then close it.
+        if (showStartDatePickerCell) {
+            showStartDatePickerCell = false
+            tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
+        }
+        if (showEndDatePickerCell) {
+            showEndDatePickerCell = false
+            tableView.reloadSections(NSIndexSet(index: 4), withRowAnimation: .Automatic)
         }
     }
 
@@ -847,6 +870,7 @@ extension PublicationEditorTVC {
 //===========================================================================
 protocol CellInfoDelegate :NSObjectProtocol{
     func updateData(data:PublicationEditorTVCCellData, section: Int)
+    func closeDatePicker()
 }
 
 

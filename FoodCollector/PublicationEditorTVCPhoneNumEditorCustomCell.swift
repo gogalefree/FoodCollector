@@ -135,6 +135,15 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         
         return true
     }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        print("\(__FUNCTION__): was called")
+        if let delegate = self.delegate {
+            delegate.closeDatePicker()
+        }
+        
+        return true
+    }
 
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         textField.resignFirstResponder()

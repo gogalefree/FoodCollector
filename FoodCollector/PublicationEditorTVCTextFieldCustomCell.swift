@@ -28,7 +28,7 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     
     var section: Int?
     
-    var delegate: CellInfoDelegate?
+    weak var delegate: CellInfoDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,6 +57,14 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
         // close the keyboard on Enter
         textField.resignFirstResponder()
         return false
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if let delegate = self.delegate {
+            delegate.closeDatePicker()
+        }
+        
+        return true
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
