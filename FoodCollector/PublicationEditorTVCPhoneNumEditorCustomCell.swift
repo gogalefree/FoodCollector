@@ -160,4 +160,16 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         // Configure the view for the selected state
     }
     
+//    func dismissKeyboard(){
+//         cellPhoneField.resignFirstResponder()
+//    }
+    
 }
+
+//===========================================================================
+//   MARK: - Protocols
+//===========================================================================
+//protocol PhoneNumEditorDelegate :NSObjectProtocol{
+//    func dismissKeyboard()
+//}
+

@@ -1017,6 +1017,8 @@ extension FCPublicationDetailsTVC {
             FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
             
                 self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
+            
+            //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
         }))
         
         deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))
