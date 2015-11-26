@@ -283,9 +283,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lng: Double) {
         let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
-        
         //https://maps.googleapis.com/maps/api/geocode/json?latlng=32.1499984,34.8939178&language=iw&key=API_KEY
-        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lng)&language-iw&key=\(key)")!)
+        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lng)&language=iw&key=\(key)")!)
         
         let session = NSURLSession.sharedSession()
         
