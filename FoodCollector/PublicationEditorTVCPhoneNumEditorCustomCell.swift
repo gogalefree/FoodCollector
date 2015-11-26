@@ -39,7 +39,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     weak var delegate: CellInfoDelegate?
     
     let phoneNumberValidator = Validator()
-    
+        
     var tempPasteString = ""
 
     override func awakeFromNib() {
@@ -71,7 +71,8 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     }
     
     func dismissNumberPad() {
-        cellPhoneField.text = ""
+        //cellPhoneField.text = ""
+        
         cellPhoneField?.resignFirstResponder()
     }
     
@@ -83,6 +84,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         }
         else {
             if let onlyDigitsPhoneString = phoneNumberValidator.getValidPhoneNumber(cellPhoneField.text!) {
+                
                 let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 2 , kPublicationContactInfoKey : onlyDigitsPhoneString]
                 cellData!.userData = typeOfCollectingDict
                 cellData!.containsUserData = true
@@ -128,16 +130,17 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
             return true
         }
         else { // Paste action
-            cellPhoneField.text = phoneNumberValidator.getValidPhoneNumber(string)
-            cellPhoneField.resignFirstResponder()
-            doneNumberPad()
+            if (cellPhoneField.text != "") {
+                cellPhoneField.text = phoneNumberValidator.getValidPhoneNumber(string)
+                cellPhoneField.resignFirstResponder()
+                doneNumberPad()
+            }
         }
         
         return true
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        print("\(__FUNCTION__): was called")
         if let delegate = self.delegate {
             delegate.closeDatePicker()
         }
@@ -147,7 +150,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
 
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        doneNumberPad()
+        //doneNumberPad()
         return true
     }
     
