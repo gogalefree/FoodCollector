@@ -71,7 +71,6 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     }
     
     func dismissNumberPad() {
-        //cellPhoneField.text = ""
         
         cellPhoneField?.resignFirstResponder()
     }
@@ -156,7 +155,18 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        // This method is called when a user clicks in a table outside this cell.
+        // In this case we need to hide the keyboard and check if the phone number
+        // has the correct format.
+        
+        //This method is called many times in response to changes in the table.
+        // We want to call doneNumberPad() from this method only if the
+        // phone number textfield is NOT empty!
+        //if !(cellPhoneField.text!.isEmpty) {
+        //    doneNumberPad()
+        //}
+        
+        
         // Configure the view for the selected state
     }
     
