@@ -87,8 +87,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
-        
-        
+
         let publication = userCreatedPublications[indexPath.item]
         let reusableId = "FCPublishCollectionViewCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as! FCPublishRootVCCustomCollectionViewCell
@@ -121,6 +120,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         
+        print("Index number selected: \(indexPath.item)")
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: userCreatedPublications[indexPath.item], publicationIndexPath: indexPath.item)
         
         publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
@@ -466,12 +466,15 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
 
 extension FCPublishRootVC: UserDidDeletePublicationProtocol {
     func didDeletePublication(publication: FCPublication,  collectionViewIndex: Int) {
+        print("Index number from didDeletePublication after alert: \(collectionViewIndex)")
         let delayTime = dispatch_time(DISPATCH_TIME_NOW,
             Int64(2 * Double(NSEC_PER_SEC)))
         
         dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
             let indexPath = NSIndexPath(forItem: collectionViewIndex, inSection: 0)
             self.collectionView.performBatchUpdates({ () -> Void in
+                print("Index number (indexPath) from didDeletePublication after alert: \(indexPath)")
+                print("Index number (indexPath.item) from didDeletePublication after alert: \(indexPath.item)")
                 self.userCreatedPublications.removeAtIndex(indexPath.item)
                 self.collectionView.deleteItemsAtIndexPaths([indexPath])
             }, completion: nil)

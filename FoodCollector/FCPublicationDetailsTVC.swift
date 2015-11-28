@@ -42,7 +42,7 @@ protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
 
 class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
-    var deleteDelgate: UserDidDeletePublicationProtocol?
+    weak var deleteDelgate: UserDidDeletePublicationProtocol?
     
     var publication: FCPublication?
     var state = PublicationDetailsTVCViewState.Collector
@@ -61,7 +61,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         self.publication = publication
         self.referral = caller
         self.publicationIndexNumber = publicationIndexPath
-        
+        print("Index number from setupWithState: \(publicationIndexNumber)")
         /*
         // This is for a future implementation (if needed)
         if self.state == PublicationDetailsTVCViewState.Collector {
@@ -1015,7 +1015,7 @@ extension FCPublicationDetailsTVC {
             
             //delete from model
             FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
-            
+                print("Index number from deletAlert: \(self.publicationIndexNumber)")
                 self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
             
             //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
