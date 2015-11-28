@@ -93,7 +93,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
         
-        
         let publication = userCreatedPublications[indexPath.item]
         let reusableId = "FCPublishCollectionViewCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reusableId, forIndexPath: indexPath) as! FCPublishRootVCCustomCollectionViewCell

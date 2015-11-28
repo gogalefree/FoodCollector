@@ -42,7 +42,7 @@ protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
 
 class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
-    var deleteDelgate: UserDidDeletePublicationProtocol?
+    weak var deleteDelgate: UserDidDeletePublicationProtocol?
     
     var publication: FCPublication?
     var state = PublicationDetailsTVCViewState.Collector
@@ -397,7 +397,6 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     
     func didRegisterForPublication(publication: FCPublication) {
-        //print("didRegisterForPublication")
         if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
             showPickupRegistrationAlert()
         }
@@ -486,7 +485,6 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     func showPickupRegistrationAlert() {
         // The user is prompt to register to the event as a picker using a name and a phone number
         // Set string labels for the alert
-        //print("showPickupRegistrationAlert")
         let alertTitle = String.localizedStringWithFormat("רישום לאיסוף", "Alert title: Pickup Registration")
         let alertMessage = String.localizedStringWithFormat("יש למלא פרטי התקשרות כדי להצטרף לאיסוף", "Alert message: Please fill in details to join this pickup")
         let alertRegisterButtonTitle = String.localizedStringWithFormat("הרשמה", "Alert button title: Register")
@@ -1010,8 +1008,9 @@ extension FCPublicationDetailsTVC {
             
             //delete from model
             FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
-            
                 self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
+            
+            //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
         }))
         
         deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))

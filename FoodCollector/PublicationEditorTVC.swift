@@ -37,11 +37,11 @@ enum PublicationEditorTVCState {
     case CreateNewPublication
 }
 
-enum CellState {
-    
-    case Edit
-    case Display
-}
+//enum CellState {
+//    
+//    case Edit
+//    case Display
+//}
 
 public enum TypeOfCollecting: Int {
     
@@ -253,8 +253,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             }
             else {
                 let datePickerCell = tableView.dequeueReusableCellWithIdentifier("datePickerCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCDatePickerCustomCell
-                datePickerCell.cellData = self.dataSource[indexPath.section]
+                datePickerCell.minimumDate = self.dataSource[3]
                 datePickerCell.section = indexPath.section
+                datePickerCell.cellData = self.dataSource[indexPath.section]
                 datePickerCell.delegate = self
                 datePickerCell.selectionStyle = UITableViewCellSelectionStyle.None
                 
@@ -288,16 +289,22 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         self.view.endEditing(true)
-
         
         switch indexPath.section {
             
         case 2: // Address
+            closeDatePicker()
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
             
         case 3: // Start date
+            // Close the End date picker
+            if (showEndDatePickerCell) {
+                showEndDatePickerCell = false
+                tableView.reloadSections(NSIndexSet(index: indexPath.section+1), withRowAnimation: .Automatic)
+            }
             if (showStartDatePickerCell) {
                 showStartDatePickerCell = false
             }
@@ -307,6 +314,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
             
         case 4: // End date
+            // Close the Start date picker
+            if (showStartDatePickerCell) {
+                showStartDatePickerCell = false
+                tableView.reloadSections(NSIndexSet(index: indexPath.section-1), withRowAnimation: .Automatic)
+            }
             if (showEndDatePickerCell) {
                 showEndDatePickerCell = false
             }
@@ -328,6 +340,18 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             return nil
         default:
             return indexPath
+        }
+    }
+    
+    func closeDatePicker() {
+        // If the user clicked a cell that is not the start or end date cell, and one of the date pickers is visible, then close it.
+        if (showStartDatePickerCell) {
+            showStartDatePickerCell = false
+            tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
+        }
+        if (showEndDatePickerCell) {
+            showEndDatePickerCell = false
+            tableView.reloadSections(NSIndexSet(index: 4), withRowAnimation: .Automatic)
         }
     }
 
@@ -834,6 +858,7 @@ extension PublicationEditorTVC {
         cellData.cellTitle = kPublishedImage
         //let section = self.selectedIndexPath!.section
         self.dataSource[0] = cellData
+        checkIfReadyForPublish()
         self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
     }
     
@@ -854,6 +879,7 @@ extension PublicationEditorTVC {
 //===========================================================================
 protocol CellInfoDelegate :NSObjectProtocol{
     func updateData(data:PublicationEditorTVCCellData, section: Int)
+    func closeDatePicker()
 }
 
 
