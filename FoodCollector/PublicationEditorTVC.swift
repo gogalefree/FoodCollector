@@ -798,10 +798,6 @@ extension  PublicationEditorTVC {
             self.dataSource.append(cellData)
         }
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print(segue.description)
-    }
 }
 
 //===========================================================================
