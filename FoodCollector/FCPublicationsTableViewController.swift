@@ -47,6 +47,11 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         self.registerForAppNotifications()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        GAController.reportsAnalyticsForScreen(kFAPublicationsTVCScreenName)
+    }
+    
     //MARK: - UISearchBar
     func addSearchBar() {
         
@@ -237,7 +242,6 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
-
     }
     
     func dismissDetailVC() {

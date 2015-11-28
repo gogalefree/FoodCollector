@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TRACKING_ID</key>
+	<string>UA-70440205-1</string>
+	<key>CLIENT_ID</key>
+	<string>863661704420-3i8i6342n0rped1ttm9c3ukvc6rald1g.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.863661704420-3i8i6342n0rped1ttm9c3ukvc6rald1g</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDTS8hpRraRNxBVi6Gb7Qr0ZnpZ4wf59LE</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gogalefree.FoodCollector</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<true/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<false/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<false/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:863661704420:ios:a2c91901b3bea437</string>
+</dict>
+</plist>

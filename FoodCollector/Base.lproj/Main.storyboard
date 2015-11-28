@@ -1428,9 +1428,9 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="checkBoxImageView" destination="IdV-Nz-i9E" id="Bcp-mi-fAM"/>
-                                            <outlet property="mainLabel" destination="am5-cN-1Jh" id="giK-8d-wWa"/>
-                                            <outlet property="seperatorView" destination="7S4-tj-1lh" id="kHS-Bu-i8C"/>
+                                            <outlet property="checkBoxImageView" destination="IdV-Nz-i9E" id="9TN-a6-1rD"/>
+                                            <outlet property="mainLabel" destination="am5-cN-1Jh" id="rRf-Qt-fhA"/>
+                                            <outlet property="seperatorView" destination="7S4-tj-1lh" id="5bk-vQ-WhC"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sendSmsToCollectorsCell" id="KDc-Up-DpV" customClass="ContactCollectorsPickerSendSmsCell" customModule="FoodCollector" customModuleProvider="target">
@@ -1462,6 +1462,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hFZ-3V-oEz" id="loe-1L-cju"/>
+                                    <outlet property="delegate" destination="hFZ-3V-oEz" id="C1z-Fi-J4Y"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <animations/>

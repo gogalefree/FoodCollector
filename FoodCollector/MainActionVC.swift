@@ -98,16 +98,19 @@ class MainActionVC: UIViewController {
   
     @IBAction func actionPressed(sender: UIButton!) {
         
+              
         if let delegate = self.delegate {
             
             switch sender {
                 
             case self.collectButton, self.collectTitleButton:
                 delegate.mainActionVCDidRequestAction(.Collect)
-            
+                GAController.sendAnalitics(kFAMainLanchScreenCategory, action: "Collect Button", label: "", value:0)
             
             case self.publishButton, self.publishTitleButton:
                 delegate.mainActionVCDidRequestAction(.Publish)
+                GAController.sendAnalitics(kFAMainLanchScreenCategory, action: "Publish Button", label: "", value:0)
+
             
             default:
                 break

@@ -39,6 +39,7 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
         
         let mapVC = self.parentViewController as? FCCollectorRootVC
         mapVC?.didSelectThumbnailForPublication(self.publications[indexPath.item])
+        GAController.sendAnalitics(kFAThumbNailsCategory, action: "Thumbnail Pressed", label: "", value: 0)
     }
    
     //MARK: New data notification

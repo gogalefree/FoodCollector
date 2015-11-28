@@ -70,6 +70,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     
     func cancelButtonAction(sender: AnyObject){
         self.delegate?.dismiss()
+        GAController.sendAnalitics(kFAPublicationReportScreenName, action: "canceled report action", label: "user did not report", value: 0)
     }
     
     override func viewDidLoad() {
@@ -85,6 +86,11 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         if let publication = self.publication {
             setup(publication)
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        GAController.reportsAnalyticsForScreen(kFAPublicationReportScreenName)
     }
     
     func configureButton(button: UIButton) {

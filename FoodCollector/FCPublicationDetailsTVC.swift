@@ -62,20 +62,15 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         self.referral = caller
         self.publicationIndexNumber = publicationIndexPath
         
-        /*
-        // This is for a future implementation (if needed)
-        if self.state == PublicationDetailsTVCViewState.Collector {
-            // Some code
-        }
-        else {
-            // Some code
-        }
+        switch self.state {
+            
+        case .Collector:
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "publication details", label: "collector state", value: 0)
+            
+        case .Publisher:
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "publication details", label: "publisher state", value: 0)
 
-        if self.state == PublicationDetailsTVCViewState.Publisher {
-            // Some code
         }
-        */
-        
     }
     
     override func viewDidLoad() {

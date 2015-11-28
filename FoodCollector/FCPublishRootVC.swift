@@ -75,6 +75,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        GAController.reportsAnalyticsForScreen(kFAPublisherRootVCScreenName)
+    }
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }

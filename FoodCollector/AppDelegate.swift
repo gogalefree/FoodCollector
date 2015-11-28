@@ -53,13 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()
         
- //       FCModel.sharedInstance.foodCollectorWebServer.reportDeviceUUID("web")
-        
         let userNotificationHandler = FCUserNotificationHandler.sharedInstance
         userNotificationHandler.setup()
         
         registerAWSS3()
-        
+        registreGoogleAnalytics()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true

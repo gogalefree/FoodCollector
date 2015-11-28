@@ -108,7 +108,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         addTopRightButton()
         addPictureButton()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "popViewController")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
         
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
         
@@ -128,6 +128,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
         
 
+    }
+    
+    func backButtonAction() {
+        self.popViewController()
+        GAController.sendAnalitics(kFAPublicationEditorTVCScreenName, action: "Back button action", label: "canceled publication creation or edit", value: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -768,6 +773,10 @@ extension  PublicationEditorTVC {
             }
             self.dataSource.append(cellData)
         }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print(segue.description)
     }
 }
 

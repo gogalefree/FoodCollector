@@ -14,6 +14,6 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-
+#import <Google/Analytics.h>
 
 #endif

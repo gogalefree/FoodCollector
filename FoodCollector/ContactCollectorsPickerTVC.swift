@@ -76,13 +76,13 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             
         case 0:
             //select all cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("collectorDetailsCell", forIndexPath: indexPath) as! ContactCollectorPickerCollectorDetailsCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("collectorDetailsCell", forIndexPath: indexPath) as? ContactCollectorPickerCollectorDetailsCell
             let chosen = didSelectAll()
-            cell.chosen = chosen
-            cell.indexPath = indexPath
-            cell.layer.cornerRadius = 5
+            cell!.chosen = chosen
+            cell?.indexPath = indexPath
+            cell?.layer.cornerRadius = 5
 
-            return cell
+            return cell!
             
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("collectorDetailsCell", forIndexPath: indexPath) as! ContactCollectorPickerCollectorDetailsCell

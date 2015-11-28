@@ -52,6 +52,11 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        GAController.reportsAnalyticsForScreen(kFAActivityCenterScreenName)
+    }
+    
     final override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         if size.height > size.width {

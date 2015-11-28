@@ -77,18 +77,24 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
                     delegate.didRequestNavigationForPublication(self.publication)
             }
             
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector navigation button", label: "", value: 0)
+            
         case smsButton:
 
             if let delegate = self.delegate {
                 delegate.didRequestSmsForPublication(self.publication)
             }
             
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector sms button", label: "", value: 0)
+
         case phoneCallButton:
 
             if let delegate = self.delegate {
                 delegate.didRequestPhoneCallForPublication(self.publication)
             }
             
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector phone call button", label: "", value: 0)
+
         default:
             print("publication details unknown button")
         }

@@ -61,21 +61,31 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
             if let delegate = self.delegate {
                 delegate.didRequestPostToFacebookForPublication()
             }
+            
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Pulbisher facebook post button", label: "", value: 0)
+
         case twitterButton:
             if let delegate = self.delegate {
                 delegate.didRequestPostToTwitterForPublication()
             }
             
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Pulbisher twitter post button", label: "", value: 0)
+
         case smsButton:
 
             print(__FUNCTION__ + "smsButton")
             delegate?.publisherDidRequestSmsCollectors()
             
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Pulbisher sms button", label: "", value: 0)
+
             
         case phoneCallButton:
 
             print(__FUNCTION__ + "phoneCallButton")
             delegate?.publisherDidRequestPhoneCall()
+            
+            GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Pulbisher phone call button", label: "", value: 0)
+
             
         default:
             print("publication details unknown button")
