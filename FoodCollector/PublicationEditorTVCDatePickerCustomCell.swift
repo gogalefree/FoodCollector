@@ -28,8 +28,6 @@ class PublicationEditorTVCDatePickerCustomCell: UITableViewCell {
     var cellData: PublicationEditorTVCCellData? {
         didSet {
             if self.cellData != nil {
-                print("DatePicker Date: \(cellData?.userData as! NSDate)")
-                print("DatePicker Minimum Date: \(minimumDate?.userData as? NSDate)")
                 self.cellDatePicker.setDate(cellData?.userData as! NSDate, animated: false)
                 self.cellDatePicker.minimumDate = minimumDate?.userData as? NSDate
             }
