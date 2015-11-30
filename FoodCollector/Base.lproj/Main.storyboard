@@ -104,7 +104,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="749" text="קפלן 14, תל אביב, ישראל" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXY-DR-x5V">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="749" text="Kaplan 14, Tel Aviv, Israel" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXY-DR-x5V">
                                             <rect key="frame" x="8" y="76" width="314" height="21"/>
                                             <animations/>
                                             <constraints>
@@ -168,7 +168,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="81"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="תיאור תיאור תיאור" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aT-Bo-4ND">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8aT-Bo-4ND">
                                             <rect key="frame" x="20" y="30" width="565" height="21"/>
                                             <animations/>
                                             <constraints>
@@ -309,7 +309,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="דיווחי משתמשים" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wf-Vp-s3T">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User reports" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wf-Vp-s3T">
                                             <rect key="frame" x="435" y="35" width="130" height="21"/>
                                             <animations/>
                                             <constraints>
@@ -841,7 +841,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="DkS-KZ-6DQ">
-                        <barButtonItem key="rightBarButtonItem" title="סיום" id="lWx-p4-UgB">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="lWx-p4-UgB">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="dissmiss" destination="6Rt-Iu-LwM" id="zg8-Vn-42H"/>
@@ -1440,7 +1440,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שלח הודעה" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTK-vj-Jbf">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTK-vj-Jbf">
                                                     <rect key="frame" x="8" y="12" width="544" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
@@ -1609,7 +1609,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All reports" id="X9g-Fl-nzX">
-                        <barButtonItem key="rightBarButtonItem" title="חזרה" id="fqk-Lk-drl">
+                        <barButtonItem key="rightBarButtonItem" title="Back" id="fqk-Lk-drl">
                             <connections>
                                 <action selector="dismiss" destination="Jy6-C0-m1v" id="qtN-tM-d4Y"/>
                             </connections>
@@ -2112,10 +2112,10 @@
             </objects>
             <point key="canvasLocation" x="1810" y="293"/>
         </scene>
-        <!--הארועים שלי-->
+        <!--My Shares-->
         <scene sceneID="TRz-H0-Ogd">
             <objects>
-                <viewController title="הארועים שלי" id="qaa-G1-Puy" customClass="FCPublishRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="My Shares" id="qaa-G1-Puy" customClass="FCPublishRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wYH-Xz-JC6"/>
                         <viewControllerLayoutGuide type="bottom" id="cW1-74-r4k"/>
@@ -2331,10 +2331,10 @@
             </objects>
             <point key="canvasLocation" x="2014" y="1252"/>
         </scene>
-        <!--מה תרצה לעשות?-->
+        <!--What would you like to do?-->
         <scene sceneID="emO-q2-foM">
             <objects>
-                <viewController title="מה תרצה לעשות?" id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="What would you like to do?" id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PLH-Tb-ElL"/>
                         <viewControllerLayoutGuide type="bottom" id="EsQ-Yy-vGY"/>
@@ -2343,7 +2343,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="מה תרצה לעשות?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-g5-7hP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What would you like to do?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0y-g5-7hP">
                                 <rect key="frame" x="168" y="164" width="256" height="21"/>
                                 <animations/>
                                 <constraints>
@@ -2392,7 +2392,7 @@
                                     <constraint firstAttribute="width" constant="151" id="qqm-s8-Oqq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
-                                <state key="normal" title="לאסוף מזון"/>
+                                <state key="normal" title="Pickup food"/>
                                 <connections>
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="FiU-zY-mbk"/>
                                 </connections>
@@ -2405,7 +2405,7 @@
                                     <constraint firstAttribute="height" constant="44" id="qeT-au-u1V"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
-                                <state key="normal" title="לשתף מזון"/>
+                                <state key="normal" title="Share food"/>
                                 <connections>
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="PzU-3M-qXq"/>
                                 </connections>
@@ -2519,7 +2519,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEc-tq-uHy">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" placeholder="הקלידו כתובת או ביחרו חיפוש קודם" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulr-E7-krT">
+                                    <searchBar contentMode="redraw" placeholder="Type address or select an earlier search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulr-E7-krT">
                                         <rect key="frame" x="0.0" y="0.0" width="592" height="44"/>
                                         <animations/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2911,13 +2911,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="התקשר" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrb-w8-fSW">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrb-w8-fSW">
                                                     <rect key="frame" x="8" y="9" width="544" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="האוסף לא השאיר מספר טלפון" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOB-cn-hbH">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Picker did not leave a phone number" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOB-cn-hbH">
                                                     <rect key="frame" x="8" y="25" width="544" height="21"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
