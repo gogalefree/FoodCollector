@@ -8,9 +8,9 @@
 
 import UIKit
 
-let kHasMoreTitle = String.localizedStringWithFormat("משתמש דיווח: נשאר עוד","the title of a user report which means that there is more food to pick up")
-let ktookAllTitle = String.localizedStringWithFormat("משתמש דיווח: אספתי הכל","the title of a user report which means that he took all the food")
-let kNothingThereTitle = String.localizedStringWithFormat("משתמש דיווח: לא מצאתי כלום","the title of a user report which means that he found nothing")
+let kHasMoreTitle = String.localizedStringWithFormat("User reported: More left to pickup","the title of a user report which means that there is more food to pickup")
+let ktookAllTitle = String.localizedStringWithFormat("User reported: Picked up everything","the title of a user report which means that he took all the food")
+let kNothingThereTitle = String.localizedStringWithFormat("User reported: Nothing left","the title of a user report which means that he found nothing")
 
 
 class PublicationDetailsReportCell: UITableViewCell {
@@ -50,7 +50,7 @@ class PublicationDetailsReportCell: UITableViewCell {
     
     func presentNoReportsMessage() {
         
-        self.reportLabel.text = String.localizedStringWithFormat("אין דיווחים", "the title in the table view cell displayed when a publication has no reports")
+        self.reportLabel.text = String.localizedStringWithFormat("No reports", "the title in the table view cell displayed when a publication has no reports")
         self.timeLabel.text = " "
         self.iconImageView.image = UIImage(named: "Pin-Table-Whole")!
     }

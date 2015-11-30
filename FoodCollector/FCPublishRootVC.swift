@@ -293,8 +293,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             label.textAlignment = NSTextAlignment.Center
             label.numberOfLines = 0
             label.font = UIFont.systemFontOfSize(fontSize)
-            //label.text = String.localizedStringWithFormat("Hi,\nYou haven't shared yet." , "No user created publications message")
-            label.text = String.localizedStringWithFormat("הי,\nמה תרצו לשתף?" , "No user created publications message")
+            label.text = String.localizedStringWithFormat("Hi,\nWhat would you like to share?" , "No user created publications message")
             self.view.addSubview(label)
         }
     }

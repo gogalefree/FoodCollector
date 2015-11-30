@@ -9,9 +9,9 @@
 import UIKit
 //import CoreLocation
 
-let addressEditorTitle = String.localizedStringWithFormat("הוספת כתובת", "the editor title for enter a publication address")
-let lastSearchesHeaderTitle = String.localizedStringWithFormat("חיפושים אחרונים", "the section header title for last searches history list")
-let currentLocationText = String.localizedStringWithFormat("מיקום נוכחי", "the string for current location table row")
+let addressEditorTitle = String.localizedStringWithFormat("Add address", "the editor title for enter a publication address")
+let lastSearchesHeaderTitle = String.localizedStringWithFormat("Last searches", "the section header title for last searches history list")
+let currentLocationText = String.localizedStringWithFormat("Current location", "the string for current location table row")
 
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -222,7 +222,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 }
             }
             else {
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("There's a communication issue", "Error title: a communication problem accord"), aMessage: String.localizedStringWithFormat("Try again", "Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 
             }
@@ -268,13 +268,13 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     print(error!.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("An error accord", "An error accord"), aMessage: String.localizedStringWithFormat("Try again", "Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
             }
             else {
                 // UIALERT
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("There's a communication issue", "Error title: a communication problem accord"), aMessage: String.localizedStringWithFormat("Try again", "Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
             
@@ -328,13 +328,13 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     print(error!.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("An error accord", "An error accord"), aMessage: String.localizedStringWithFormat("Try again", "Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
             }
             else {
                 // UIALERT
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("There's a communication issue", "Error title: a communication problem accord"), aMessage: String.localizedStringWithFormat("Try again", "Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
             

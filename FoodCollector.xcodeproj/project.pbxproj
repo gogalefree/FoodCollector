@@ -31,6 +31,7 @@
 		A1535BE81B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */; };
 		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
+		A183DC6E1C0CC76800E82D6C /* LocalizationNotes in Resources */ = {isa = PBXBuildFile; fileRef = A183DC6D1C0CC76800E82D6C /* LocalizationNotes */; };
 		A1992B281BB3246D002DDF4C /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1992B271BB3246D002DDF4C /* Validator.swift */; };
 		A1A738971B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A738951B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.swift */; };
 		A1A738981B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1A738961B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.xib */; };
@@ -193,6 +194,7 @@
 		A1535BE71B6A82FA0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCPublishAddressEditorAddressHistoryCustomHeaderView.xib; sourceTree = "<group>"; };
 		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		A183DC6D1C0CC76800E82D6C /* LocalizationNotes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocalizationNotes; sourceTree = "<group>"; };
 		A1992B271BB3246D002DDF4C /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		A1A738951B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCTextFieldCustomCell.swift; sourceTree = "<group>"; };
 		A1A738961B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCTextFieldCustomCell.xib; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 		E494DF0C1A0A980D004A369E /* FoodCollector */ = {
 			isa = PBXGroup;
 			children = (
+				A183DC6D1C0CC76800E82D6C /* LocalizationNotes */,
 				E469C6F01A2D15E80036038E /* FirstBuildInstructions */,
 				E494DF0F1A0A980D004A369E /* AppDelegate.swift */,
 				E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */,
@@ -896,7 +899,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 58NS37C8VA;
+						DevelopmentTeam = Z43P8YG44T;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -941,6 +944,7 @@
 				E48263791BE21DB900526C7B /* FetchedDataNotificationView.xib in Resources */,
 				E4064D471B6BB29D00FB1669 /* NewReportMessageView.xib in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
+				A183DC6E1C0CC76800E82D6C /* LocalizationNotes in Resources */,
 				E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */,
 				E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */,
 				E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */,
@@ -1036,7 +1040,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1274,7 +1278,8 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Guy/Documents/FacebookSDK, "${HOME}/Documents/FacebookSDK",
+					/Users/Guy/Documents/FacebookSDK,
+					"${HOME}/Documents/FacebookSDK",
 				);
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1298,7 +1303,8 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Guy/Documents/FacebookSDK, "${HOME}/Documents/FacebookSDK"
+					/Users/Guy/Documents/FacebookSDK,
+					"${HOME}/Documents/FacebookSDK",
 				);
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

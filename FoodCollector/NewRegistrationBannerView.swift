@@ -10,7 +10,7 @@ import UIKit
 
 class NewRegistrationBannerView: UIVisualEffectView {
     
-    let titleText = String.localizedStringWithFormat("משתמש נוסף בדרך לאסוף:", "new registration banner title text")
+    let titleText = String.localizedStringWithFormat("Another user is en route to pickup:", "new registration banner title text")
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!

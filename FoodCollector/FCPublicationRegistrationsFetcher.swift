@@ -102,7 +102,7 @@ class FCPublicationRegistrationsFetcher: NSObject {
             let publicationId           = registrationDict[kPublicationRegistrationPublicationIdKey]        as? Int ?? 0
             let publicationVersion      = registrationDict[kPublicationRegistrationPublicationVersionKey]   as? Int ?? 0
             var collectorName           = registrationDict[kPublicationRegistrationCollectorNameKey]        as? String ?? ""
-            collectorName = collectorName == "" ? String.localizedStringWithFormat("משתמש", "") : collectorName
+            collectorName = collectorName == "" ? String.localizedStringWithFormat("User", "") : collectorName
             let collectorContactInfo    = registrationDict[kPublicationRegistrationContactInfoKey]          as? String ?? "" //"Unavilable"
             let dateDouble              = registrationDict[kPublicationRegistrationDateOfRegistrationKey]   as? Double ?? NSDate().timeIntervalSince1970
             let dateOfRegistration      = NSDate(timeIntervalSince1970: dateDouble)

@@ -14,7 +14,7 @@ import Foundation
 /// responsible for all string validations and processing
 ///
 class FCStringFunctions : NSObject {
-    
+    // TODO: Add support for Miles distance unit (not just Kilometers)
     class func formmatedDistanceString (distance: Double) -> String{
         
         let km = distance / 1000
@@ -26,7 +26,7 @@ class FCStringFunctions : NSObject {
     }
     
     class func longDistanceString (publication: FCPublication) -> String {
-        let distanceText = String.localizedStringWithFormat("ק״מ ממקומך", "describes the number of km from the user's location")
+        let distanceText = String.localizedStringWithFormat("Km away", "describes the number of km from the user's location")
         let distanceNumbers = self.formmatedDistanceString(publication.distanceFromUserLocation)
         return  String(format: "%@ %@",distanceNumbers , distanceText)
         

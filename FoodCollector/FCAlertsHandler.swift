@@ -20,7 +20,7 @@ public class FCAlertsHandler : NSObject {
     public func alertWithDissmissButton(aTitle: String, aMessage: String) -> UIAlertController {
        
         let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: .Alert)
-        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("ביטול", "alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("Cancel", "alert dissmiss button title"), style: .Cancel) { (action) in
             alertController.dismissViewControllerAnimated(true , completion: nil)
         }
         alertController.addAction(dissmissAction)
@@ -31,11 +31,11 @@ public class FCAlertsHandler : NSObject {
     public func alertWithCallDissmissButton(aTitle: String, aMessage: String, phoneNumber: String) -> UIAlertController {
         
         let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("ביטול", "alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("Cancel", "alert dissmiss button title"), style: .Cancel) { (action) in
             alertController.dismissViewControllerAnimated(true , completion: nil)
         }
         
-        let callAction = UIAlertAction(title:String.localizedStringWithFormat("התקשר למשתף", "alert call to publisher button title"), style: UIAlertActionStyle.Default) { (action) in
+        let callAction = UIAlertAction(title:String.localizedStringWithFormat("Call publisher", "alert call to publisher button title"), style: UIAlertActionStyle.Default) { (action) in
             
             let url:NSURL = NSURL(string: "tel://\(phoneNumber)")!
             UIApplication.sharedApplication().openURL(url)
@@ -51,7 +51,7 @@ public class FCAlertsHandler : NSObject {
         
         let alertController = UIAlertController(title: aTitle, message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("ביטול", "alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("Cancel", "alert dissmiss button title"), style: .Cancel) { (action) in
             alertController.dismissViewControllerAnimated(true , completion: nil)
         }
         

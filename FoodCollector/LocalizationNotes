@@ -1,0 +1,13 @@
+Two strings in Info.plist:
+===========================================
+
+Source
+------------------------------------
+Privacy - Location Usage Description: "Display a message when arriving to pickup location"
+NSLocationWhenInUseUsageDescription: "Display a message when arriving to pickup location"
+
+
+Hebrew
+------------------------------------
+Privacy - Location Usage Description: "הצגת הודעה בזמן הגעה לנקודת שיתוף"
+NSLocationWhenInUseUsageDescription: "הצגת הודעה בזמן הגעה לנקודת שיתוף"

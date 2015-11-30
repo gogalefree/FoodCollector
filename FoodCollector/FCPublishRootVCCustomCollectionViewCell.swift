@@ -30,16 +30,16 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
                 
                 if FCDateFunctions.PublicationDidExpired(publication.endingDate){
-                    status = String.localizedStringWithFormat("הסתיים" , "the puclication is off the air")
+                    status = String.localizedStringWithFormat("Ended" , "the puclication has ended (it is off the air)")
                     statusImg = UIImage(named: "Red-dot")!
                     publication.isOnAir = false
                 }
                 else {
-                    status = String.localizedStringWithFormat("פעיל \(locDateString)" , "the publication is active untill this date")
+                    status = String.localizedStringWithFormat("Active \(locDateString)" , "the publication is active untill this date")
                     statusImg = UIImage(named: "Green-dot")!
                     
                     if  !publication.isOnAir {
-                        status = String.localizedStringWithFormat("לא פעיל" , "the publication is not active beacause it was taken off air")
+                        status = String.localizedStringWithFormat("Inactive" , "the publication is not active beacause it was taken off air")
                         statusImg = UIImage(named: "Red-dot")!
 
                     }

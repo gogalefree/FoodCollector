@@ -8,9 +8,9 @@
 
 import UIKit
 
-let collectorTitle = String.localizedStringWithFormat("בדרך לאסוף", "activity center table view collector section title. means collector")
-let publisherTitle = String.localizedStringWithFormat("השיתופים שלי", "activity center table view publisher section title. means contributer")
-let backButtonLabel = String.localizedStringWithFormat("חזרה", "The label of a back button")
+let collectorTitle = String.localizedStringWithFormat("My pickups", "activity center table view collector section title. This is a list of publications that I'm as a collector registered to pickup")
+let publisherTitle = String.localizedStringWithFormat("My shares", "activity center table view publisher section title. This is a list of publications that I've created as a contributer.")
+let backButtonLabel = String.localizedStringWithFormat("Back", "The label of a back button")
 let collectorIcon = UIImage(named: "CollectActivity")
 let publisherIcon = UIImage(named: "DonateActivity")
 
