@@ -487,7 +487,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         // Set string labels for the alert
         let alertTitle = String.localizedStringWithFormat("Pickup Registration", "Alert title: Pickup Registration")
         let alertMessage = String.localizedStringWithFormat("Please fill in details to join this pickup", "Alert message: Please fill in details to join this pickup")
-        let alertRegisterButtonTitle = String.localizedStringWithFormat("Registration", "Alert button title: Registration")
+        let alertRegisterButtonTitle = String.localizedStringWithFormat("Register", "Alert button title: Register")
         let alertCancelButtonTitle = String.localizedStringWithFormat("Cancel", "Alert button title: Cancel")
         let alertNameTextFieldLabel = String.localizedStringWithFormat("Name", "Alert text field label: Name")
         let alertPhoneTextFieldLabel = String.localizedStringWithFormat("Phone number", "Alert text field label: Phone number")
@@ -502,7 +502,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             else {
                 textField.placeholder = alertNameTextFieldLabel
             }
-            textField.textAlignment = NSTextAlignment.Right
+            textField.textAlignment = NSTextAlignment.Natural
         })
         
         alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
@@ -512,7 +512,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             else {
                 textField.placeholder = alertPhoneTextFieldLabel
             }
-            textField.textAlignment = NSTextAlignment.Right
+            textField.textAlignment = NSTextAlignment.Natural
             textField.keyboardType = UIKeyboardType.NumberPad
         })
         

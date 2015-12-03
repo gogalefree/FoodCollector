@@ -187,6 +187,8 @@
 		A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCMoreInfoCustomCell.swift; sourceTree = "<group>"; };
 		A1248A941B7681FD001C5901 /* PublicationEditorTVCImageCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCImageCustomCell.xib; sourceTree = "<group>"; };
 		A1248A961B76822D001C5901 /* PublicationEditorTVCMoreInfoCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCMoreInfoCustomCell.xib; sourceTree = "<group>"; };
+		A13CA1081C0CFD8400F5371D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A13CA1091C0CFD8400F5371D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A14F4D6E1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationOptionsMenuTVC.swift; sourceTree = "<group>"; };
 		A14F4D711B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationOptionsMenuItemCell.swift; sourceTree = "<group>"; };
 		A14F4D721B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationOptionsMenuItemCell.xib; sourceTree = "<group>"; };
@@ -289,9 +291,7 @@
 		E494DF0A1A0A980D004A369E /* FoodCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494DF0E1A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E494DF0F1A0A980D004A369E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E494DF141A0A980D004A369E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E494DF161A0A980D004A369E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E494DF191A0A980D004A369E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E494DF1F1A0A980D004A369E /* FoodCollectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodCollectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494DF241A0A980D004A369E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E494DF251A0A980D004A369E /* FoodCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectorTests.swift; sourceTree = "<group>"; };
@@ -1171,7 +1171,7 @@
 		E494DF131A0A980D004A369E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E494DF141A0A980D004A369E /* Base */,
+				A13CA1081C0CFD8400F5371D /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1179,7 +1179,7 @@
 		E494DF181A0A980D004A369E /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E494DF191A0A980D004A369E /* Base */,
+				A13CA1091C0CFD8400F5371D /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
