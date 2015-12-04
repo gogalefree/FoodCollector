@@ -189,11 +189,11 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             
         case MessageComposeResultCancelled.rawValue:
             print("Message was cancelled")
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            controller.dismissViewControllerAnimated(true, completion: nil)
             
         case MessageComposeResultFailed.rawValue:
             
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            controller.dismissViewControllerAnimated(true, completion: nil)
             
             
             let alert = UIAlertController(title: "שליחת ההודעה נכשלה", message: "לנסות שוב?", preferredStyle: .Alert)
@@ -208,10 +208,13 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             
         case MessageComposeResultSent.rawValue:
             print("Message was sent")
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            controller.dismissViewControllerAnimated(true, completion: nil)
+            
         default:
             break;
         }
+        
+        didCancelSMSVC()
     }
     
     @IBAction func didCancelSMSVC() {
