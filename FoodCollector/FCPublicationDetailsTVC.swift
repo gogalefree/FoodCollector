@@ -190,7 +190,6 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             }
             
         case 1:
-            
             switch indexPath.row {
             case 0:
                 //Subtitle cell
@@ -211,14 +210,14 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             }
             
         case 2:
-                //Reports cell
-                let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
+            //Reports cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
                 cell.indexPath = indexPath
                 cell.publication = self.publication
                 return cell
-            default:
-                break
-            }
+        default:
+            break
+        }
         
         return UITableViewCell()
     }
@@ -259,7 +258,6 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
     //MARK: - fetch data for publication
     func fetchPublicationReports() {
-        
         if let publication = self.publication {
             FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, completion: { (success: Bool, reports: [FCOnSpotPublicationReport]?) -> () in
                 
@@ -910,8 +908,10 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     }
     
     func dismiss() {
+        fetchPublicationReports()
         if self.presentedViewController != nil {
             self.dismissViewControllerAnimated(true, completion: nil)
+            self.tableView.reloadData()
         }
     }
 }

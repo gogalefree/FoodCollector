@@ -97,7 +97,7 @@ class FCPublicationRegistrationsFetcher: NSObject {
         
         for registrationDict in params {
             print(registrationDict, separator: "================", terminator: "=======END=======")
-
+            print("\n")
             let id                      = registrationDict[kPublicationRegistrationUniqueIdKey]             as? Int ?? 0
             let publicationId           = registrationDict[kPublicationRegistrationPublicationIdKey]        as? Int ?? 0
             let publicationVersion      = registrationDict[kPublicationRegistrationPublicationVersionKey]   as? Int ?? 0

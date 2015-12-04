@@ -277,6 +277,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                         
                             for publicationReportDict in arrayOfReports {
                                 print(publicationReportDict, separator: "=======", terminator: "=====REPORT=====")
+                                print("\n")
                                 let reportMessage = publicationReportDict["report"] as? Int ?? 1
                                 let reportDateString = publicationReportDict["date_of_report"] as? NSString ?? ""
                                 let reportDateDouble = reportDateString.doubleValue
