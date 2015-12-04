@@ -164,8 +164,6 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         
         if section == 0 {return 2}
         else if section == 1 {return 3}
-        print("START numberOfRowsInSection")
-        print("NUMBER: \(PublicationDetailsReportCell.numberOfReportsToPresent(self.publication))")
         return PublicationDetailsReportCell.numberOfReportsToPresent(self.publication)
     }
     
@@ -213,7 +211,6 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             
         case 2:
             //Reports cell
-            print("Section: \(indexPath.section) Row: \(indexPath.row)")
             let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
                 cell.indexPath = indexPath
                 cell.publication = self.publication
@@ -267,7 +264,6 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
                 if success {
                     if let incomingReports = reports {
                         publication.reportsForPublication = incomingReports
-                        print("publication.reportsForPublication count = \(publication.reportsForPublication.count)")
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .Automatic)
                         })
@@ -912,6 +908,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
         fetchPublicationReports()
         if self.presentedViewController != nil {
             self.dismissViewControllerAnimated(true, completion: nil)
+            self.tableView.reloadData()
         }
     }
 }
