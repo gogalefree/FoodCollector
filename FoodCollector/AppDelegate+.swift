@@ -19,7 +19,15 @@ extension AppDelegate {
         // Optional: configure GAI options.
         let gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
-        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+      //  gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+        
+        
+//        GINInvite.applicationDidFinishLaunching()
+//        
+//        if (kTrackingID != "YOUR_TRACKING_ID") {
+//            GINInvite.setGoogleAnalyticsTrackingId(kTrackingID)
+//        }
+//
     }
 
     

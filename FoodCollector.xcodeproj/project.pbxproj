@@ -1036,7 +1036,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1274,7 +1274,8 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Guy/Documents/FacebookSDK, "${HOME}/Documents/FacebookSDK",
+					/Users/Guy/Documents/FacebookSDK,
+					"${HOME}/Documents/FacebookSDK",
 				);
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1298,7 +1299,8 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Guy/Documents/FacebookSDK, "${HOME}/Documents/FacebookSDK"
+					/Users/Guy/Documents/FacebookSDK,
+					"${HOME}/Documents/FacebookSDK",
 				);
 				INFOPLIST_FILE = FoodCollector/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

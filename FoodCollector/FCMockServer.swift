@@ -317,14 +317,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
         //we are currently only registering the user. we should think of how to delete a registration. should it be through a delete service or add the registration message to this payload.
         
         let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId)/registered_user_for_publications.json"
-        
+        let registration = publication.registrationsForPublication.last!
         var params = [String : AnyObject]()
         params["publication_id"] = publication.uniqueId
         params["publication_version"] = publication.version
-        params["date_of_registration"] = Int(NSDate().timeIntervalSince1970)
+        params["date_of_registration"] = registration.dateOfOrder.timeIntervalSince1970
         params["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
-        params[kPublicationRegistrationContactInfoKey] = User.sharedInstance.userPhoneNumber ?? ""
-        params[kPublicationRegistrationCollectorNameKey] = User.sharedInstance.userName
+        params[kPublicationRegistrationContactInfoKey] = registration.contactInfo ?? ""
+        params[kPublicationRegistrationCollectorNameKey] = registration.collectorName
         let dicToSend = ["registered_user_for_publication" : params]
         print(dicToSend)
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(params, options: [])
@@ -360,20 +360,26 @@ public class FCMockServer: NSObject , FCServerProtocol {
 
         let uniqueId = publication.uniqueId
         let publicationVersion = publication.version
-        let deviceUUID = FCModel.sharedInstance.deviceUUID
-        
+        let customAllowedSet =  NSCharacterSet(charactersInString:"=\"#%/<>?@\\^`{|}-").invertedSet
+        let deviceUUID = FCModel.sharedInstance.deviceUUID?.stringByAddingPercentEncodingWithAllowedCharacters(customAllowedSet)!
+        print("device uuid escaped: \(deviceUUID)")
+        let uuid = deviceUUID ?? ""
+        print("uuid escaped: \(uuid)")
+
         var params = [String : AnyObject]()
         params["active_device_dev_uuid"] = deviceUUID
         params["publication_version"] = publicationVersion
         params["publication_id"] = uniqueId
         params["date_of_registration"] = 11243423
+        params["collector_contact_info"] = User.sharedInstance.userPhoneNumber ?? ""
+        params["collector_name"] = User.sharedInstance.userName ?? ""
         
         let dicToSend = ["registered_user_for_publication" : params]
         print("params: \(dicToSend)")
 
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(dicToSend, options: [])
 
-        let url = NSURL(string: unRegisterUserFromPublicationURL + "\(uniqueId)" + "/registered_user_for_publications/5")
+        let url = NSURL(string: unRegisterUserFromPublicationURL + "\(uniqueId)" + "/registered_user_for_publications/1?publication_version=\(publicationVersion)&active_device_dev_uuid=\(uuid)")
         print("url: \(url)")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"

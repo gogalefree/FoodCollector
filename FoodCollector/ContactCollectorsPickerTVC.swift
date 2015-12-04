@@ -209,6 +209,8 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
         case MessageComposeResultSent.rawValue:
             print("Message was sent")
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+
         default:
             break;
         }

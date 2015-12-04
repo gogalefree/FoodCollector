@@ -82,7 +82,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         self.title = publication?.title
         fetchPublicationReports()
         fetchPublicationPhoto()
-        fetchPublicationRegistrations()
+        //fetchPublicationRegistrations()
         registerForNotifications()
         addTopRightButton(self.state)
         configAdminIfNeeded()
@@ -286,9 +286,12 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     }
     
     func didFinishFetchingPublicationRegistrations() {
-        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
-        if let imageCell = cell {
-            imageCell.reloadRegisteredUserIconCounter()
+   
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+            if let imageCell = cell {
+                imageCell.reloadRegisteredUserIconCounter()
+            }
         }
     }
     
@@ -410,7 +413,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         publication.didRegisterForCurrentPublication = false
         publication.countOfRegisteredUsers -= 1
         FCModel.sharedInstance.foodCollectorWebServer.unRegisterUserFromComingToPickUpPublication(publication, completion: { (success) -> Void in})
-        FCModel.sharedInstance.savePublications()
+        FCModel.sharedInstance.removeRegistrationFor(publication)
         self.updateRegisteredUserIconCounter()
         animateRegistrationButton() 
     }
@@ -436,7 +439,8 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             if MFMessageComposeViewController.canSendText() {
                 
                 let messageVC = MFMessageComposeViewController()
-                messageVC.body = String.localizedStringWithFormat("רוצה לבוא לאסוף \(publication.title)", "sms message to be sent to the publisher sayin i want to come pick up")
+                let title = publication.title == nil ? "" : publication.title!
+                messageVC.body = String.localizedStringWithFormat("רוצה לבוא לאסוף \(title)", "sms message to be sent to the publisher sayin i want to come pick up")
                 messageVC.recipients = [phoneNumber]
                 messageVC.messageComposeDelegate = self
                 self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
@@ -461,9 +465,8 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     private func registerUserForPublication() {
         publication!.didRegisterForCurrentPublication = true
         publication!.countOfRegisteredUsers += 1
+        FCModel.sharedInstance.addRegisterationFor(publication!)
         FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication!)
-        FCModel.sharedInstance.savePublications()
-        
         self.updateRegisteredUserIconCounter()
         self.animateRegistrationButton()
     }

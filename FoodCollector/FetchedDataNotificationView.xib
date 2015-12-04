@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -48,6 +48,11 @@
                         <state key="normal" title="הצג פרטים">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cKO-zd-itB"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <action selector="presentPublicationAction" destination="mzR-9C-gRS" eventType="touchUpInside" id="Vbx-HM-gQr"/>
                         </connections>
@@ -63,6 +68,11 @@
                         <state key="normal" title="אחלה">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gf6-3s-D6z"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <action selector="dissmissAction" destination="mzR-9C-gRS" eventType="touchUpInside" id="h8o-aP-Y46"/>
                         </connections>
@@ -85,6 +95,7 @@
                     <constraint firstItem="Uai-CI-TPO" firstAttribute="leading" secondItem="hhP-qp-BpX" secondAttribute="leadingMargin" id="kCD-5H-rZ1"/>
                     <constraint firstAttribute="bottom" secondItem="qHt-Qp-RFf" secondAttribute="bottom" constant="8" id="ksL-oP-uDL"/>
                     <constraint firstAttribute="trailing" secondItem="qHt-Qp-RFf" secondAttribute="trailing" constant="5" id="qOg-FD-u9S"/>
+                    <constraint firstItem="qHt-Qp-RFf" firstAttribute="width" secondItem="ECp-AW-bDE" secondAttribute="width" id="tFP-kO-hGf"/>
                     <constraint firstAttribute="centerY" secondItem="6EV-oA-CNT" secondAttribute="centerY" constant="31.5" id="y0A-Dc-7pq"/>
                 </constraints>
                 <variation key="default">

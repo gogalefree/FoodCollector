@@ -324,6 +324,26 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
         return userRegisteredPublications
     }
+    
+    func addRegisterationFor(publication: FCPublication) {
+        
+        let identifier = PublicationIdentifier(uniqueId: publication.uniqueId, version: publication.version)
+        let registration = FCRegistrationForPublication(
+            identifier      :identifier,
+            dateOfOrder     :NSDate(),
+            contactInfo     :User.sharedInstance.userPhoneNumber ?? "",
+            collectorName   :User.sharedInstance.userName ?? "",
+            uniqueId        :0)
+        publication.registrationsForPublication.append(registration)
+        self.savePublications()
+    }
+    
+    func removeRegistrationFor(publication: FCPublication) {
+        if publication.registrationsForPublication.count > 0{
+            publication.registrationsForPublication.removeLast()
+            self.savePublications()
+        }
+    }
 }
 
 

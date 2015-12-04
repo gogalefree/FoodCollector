@@ -193,12 +193,12 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
+                
                 let registrationDate = self.dateWithInfo(data)
                 let id = data["id"] as? Int ?? 0
                 let pulicationVersion = data["version"] as? Int ?? 0
                 let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
                 let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, contactInfo: "Unavilable", collectorName: "No Name", uniqueId: 0)
-                
                 if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
                     self.recievedRegistrations.removeAll(keepCapacity: true)
                     self.recievedRegistrations.append(registration)
@@ -274,13 +274,21 @@ class FCUserNotificationHandler : NSObject {
     
     func didHandlePublicationRegistration(publicationRegistration: FCRegistrationForPublication, publicationIdentifier: PublicationIdentifier) -> Bool {
         var exist = false
-        for registration in self.recievedRegistrations {
+        guard let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier) else{return false}
+        
+        for registration in publication.registrationsForPublication {
+            
+            let secconds = Int((publicationRegistration.dateOfOrder.timeIntervalSince1970 - registration.dateOfOrder.timeIntervalSince1970) / 1000)
+            print("seccondes : \(secconds)")
+            
             if  registration.identifier.uniqueId == publicationIdentifier.uniqueId &&
                 registration.identifier.version == publicationIdentifier.version   &&
-                registration.dateOfOrder == publicationRegistration.dateOfOrder     {
+                secconds < 2{
                     exist = true
             }
         }
+        
+        print("exists \(exist)")
         return exist
     }
     

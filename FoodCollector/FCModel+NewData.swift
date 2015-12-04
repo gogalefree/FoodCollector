@@ -16,7 +16,6 @@ extension FCModel {
             { (thePublications: [FCPublication]) -> Void in
                 
                 self.fetchedPublications = thePublications
-
                 self.newPublications.removeAll()
                 self.publicationsToDelete.removeAll()
                 self.prepareNewData()
@@ -131,7 +130,11 @@ extension FCModel {
         //add fetch number of registered users for publication
         
         let prepareDataQue = NSOperationQueue.mainQueue()
-        prepareDataQue.qualityOfService = .Background
-        prepareDataQue.addOperations([prepareDataQperation,publicationsToDeleteOperation, newPublicationsOperation ,checkIfTwoPublicationsInTheSameCoordinatesOperation, fetchPublicationReportsOperation, fetchPublicationsRegistrationsOperation ], waitUntilFinished: false)
+        prepareDataQue.qualityOfService = .Utility
+  //      prepareDataQue.addOperations([prepareDataQperation,publicationsToDeleteOperation, newPublicationsOperation ,checkIfTwoPublicationsInTheSameCoordinatesOperation, fetchPublicationReportsOperation, fetchPublicationsRegistrationsOperation ], waitUntilFinished: false)
+        
+        prepareDataQue.addOperations([fetchPublicationsRegistrationsOperation,fetchPublicationReportsOperation, checkIfTwoPublicationsInTheSameCoordinatesOperation, newPublicationsOperation,publicationsToDeleteOperation, prepareDataQperation  ], waitUntilFinished: false)
+        
+        
     }
 }

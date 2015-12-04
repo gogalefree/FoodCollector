@@ -33,22 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = kNavBarBlueColor
         UINavigationBar.appearance().translucent = true
         
-        //check if there was a push notification while the app was inActive
         
-        let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject : AnyObject]
-        if userInfo != nil {
-            
-            //this is called if a push notification arrived and the user did not tap on it
-            //we save the identifier and type and handle it later when the app launches
-            handelRemoteNotificationsFromBackground(userInfo)
-        }
-        
-        
-       
-
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("abbbb")
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("apppp")
-       
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()
@@ -142,6 +127,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (userInfo[kRemoteNotificationType] as? String) != nil {
             
             if UIApplication.sharedApplication().applicationState != .Active {
+                var badgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber
+                badgeNumber++
+                UIApplication.sharedApplication().applicationIconBadgeNumber = badgeNumber
+                
                 self.handelRemoteNotificationsFromBackground(userInfo)
             }
             

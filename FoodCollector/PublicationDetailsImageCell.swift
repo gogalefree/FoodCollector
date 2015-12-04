@@ -66,7 +66,7 @@ class PublicationDetailsImageCell: UITableViewCell {
             
         }) { (finished) -> Void in
             
-            self.registeredUsersCounterlabel.text = "\(self.publication.countOfRegisteredUsers)"
+            self.registeredUsersCounterlabel.text = "\(self.publication.registrationsForPublication.count)"
             self.defineImageColorForUser()
             
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
