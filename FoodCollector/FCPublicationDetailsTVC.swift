@@ -210,8 +210,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             }
             
         case 2:
-            //Reports cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
+                //Reports cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
                 cell.indexPath = indexPath
                 cell.publication = self.publication
                 return cell
@@ -258,6 +258,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
     //MARK: - fetch data for publication
     func fetchPublicationReports() {
+        
         if let publication = self.publication {
             FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, completion: { (success: Bool, reports: [FCOnSpotPublicationReport]?) -> () in
                 
