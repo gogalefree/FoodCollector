@@ -1064,7 +1064,7 @@
                                     <action selector="tookSomeAction:" destination="F2c-2D-8p8" eventType="touchUpInside" id="3JJ-nt-dye"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-ZZ-j5x">
                                 <rect key="frame" x="175" y="102" width="250" height="246"/>
                                 <animations/>
                                 <constraints>
@@ -1708,7 +1708,7 @@
                                                 <fontDescription key="fontDescription" name="Arial-ItalicMT" family="Arial" pointSize="13"/>
                                             </variation>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-l9-AxA">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-l9-AxA">
                                             <rect key="frame" x="8" y="4" width="88" height="88"/>
                                             <animations/>
                                             <constraints>
