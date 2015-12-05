@@ -30,11 +30,11 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     let messageViewHidenY: CGFloat = -10
     let messageViewVisibleY: CGFloat = 62
     let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
-    let navBarTitle = String.localizedStringWithFormat("Nearby publications", "Nav Bar title - the publications near you")
-    let navBarSearchPlaceHolderText = String.localizedStringWithFormat("Search", "Search bar placeholder text")
-    let scopeButtonTitlesClosest = String.localizedStringWithFormat("Closest", "Search bar scope button titles")
-    let scopeButtonTitlesRecent = String.localizedStringWithFormat("Recent", "Search bar scope button titles")
-    let scopeButtonTitlesActive = String.localizedStringWithFormat("Active", "Search bar scope button titles")
+    let navBarTitle = NSLocalizedString("Nearby publications", comment:"Nav Bar title - the publications near you")
+    let navBarSearchPlaceHolderText = NSLocalizedString("Search", comment:"Search bar placeholder text")
+    let scopeButtonTitlesClosest = NSLocalizedString("Closest", comment:"Search bar scope button titles")
+    let scopeButtonTitlesRecent = NSLocalizedString("Recent", comment:"Search bar scope button titles")
+    let scopeButtonTitlesActive = NSLocalizedString("Active", comment:"Search bar scope button titles")
     
     
     override func viewDidLoad() {
@@ -94,7 +94,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         for subView in viewsArray {
             if subView.isKindOfClass(UIButton) {
                 if (subView as! UIButton).currentTitle != nil {
-                    (subView as! UIButton).setTitle(String.localizedStringWithFormat("Cancel", "alert dissmiss button title"), forState: .Normal)
+                    (subView as! UIButton).setTitle(NSLocalizedString("Cancel", comment:"alert dissmiss button title"), forState: .Normal)
                     return
                 }
             }

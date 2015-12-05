@@ -8,8 +8,8 @@
 
 import UIKit
 
-let kPhoneNumberPadDoneTitle = String.localizedStringWithFormat("Done", "Done lable for button")
-let kPhoneNumberPadDismissTitle = String.localizedStringWithFormat("Cancel", "Cancel lable for button")
+let kPhoneNumberPadDoneTitle = NSLocalizedString("Done", comment:"Done lable for button")
+let kPhoneNumberPadDismissTitle = NSLocalizedString("Cancel", comment:"Cancel lable for button")
 
 
 class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextFieldDelegate {
@@ -102,9 +102,9 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     func showPhoneNumberAllert() {
 
-        let alertTitle = String.localizedStringWithFormat("Oops...", "Alert title: Oops...")
-        let alertMessage = String.localizedStringWithFormat("It seems the phone number is incorrect. Please chaeck you have typed it correctly.", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed it correctly.")
-        let alertButtonTitle = String.localizedStringWithFormat("OK", "Alert button title: OK")
+        let alertTitle = NSLocalizedString("Oops...", comment:"Alert title: Oops...")
+        let alertMessage = NSLocalizedString("It seems the phone number is incorrect. Please chaeck you have typed it correctly.", comment:"Alert message: It seems the phone number is incorrect. Please chaeck you have typed it correctly.")
+        let alertButtonTitle = NSLocalizedString("OK", comment:"Alert button title: OK")
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
         

@@ -20,10 +20,10 @@ enum NewReportMessageViewState {
 
 class NewReportMessageView: UIVisualEffectView {
 
-    let actionButtonTitleForHasMoreState = String.localizedStringWithFormat("Details", "action button title show details")
-    let actionButtonTitleForNothingLeftState = String.localizedStringWithFormat("Remove publication", "action button title take off air")
+    let actionButtonTitleForHasMoreState = NSLocalizedString("Details", comment:"action button title show details")
+    let actionButtonTitleForNothingLeftState = NSLocalizedString("Remove publication", comment:"action button title take off air")
 
-    let titleText = String.localizedStringWithFormat("Another user is en route to pickup:", "new registration banner title text")
+    let titleText = NSLocalizedString("Another user is en route to pickup:", comment:"new registration banner title text")
     
     var panStartPoin: CGPoint!
     

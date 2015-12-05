@@ -18,9 +18,9 @@ class PublicationOptionsMenuTVC: UITableViewController {
     
     weak var delegate: PublicationDetailsOptionsMenuPopUpTVCDelegate!
     
-    let kMenuItem1 = String.localizedStringWithFormat("Edit", "Publisher top right menu item")
-    let kMenuItem2 = String.localizedStringWithFormat("Stop share", "Publisher top right menu item")
-    let kMenuItem3 = String.localizedStringWithFormat("Delete", "Publisher top right menu item")
+    let kMenuItem1 = NSLocalizedString("Edit", comment:"Publisher top right menu item")
+    let kMenuItem2 = NSLocalizedString("Stop share", comment:"Publisher top right menu item")
+    let kMenuItem3 = NSLocalizedString("Delete", comment:"Publisher top right menu item")
     
     let menuImage1 = UIImage(named: "EditButton")
     let menuImage2 = UIImage(named: "TakeOffAirButton")

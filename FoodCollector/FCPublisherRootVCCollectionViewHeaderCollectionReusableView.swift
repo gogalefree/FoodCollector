@@ -9,10 +9,10 @@
 import UIKit
 
 class FCPublisherRootVCCollectionViewHeaderCollectionReusableView: UICollectionReusableView {
-    let searchBarPlaceHolderText = String.localizedStringWithFormat("Search", "Search bar placeholder text")
-    let scopeButtonTitlesOnAir = String.localizedStringWithFormat("On Air", "Search bar scope button titles")
-    let scopeButtonTitlesOffAir = String.localizedStringWithFormat("Off Air", "Search bar scope button titles")
-    let scopeButtonTitlesEnds = String.localizedStringWithFormat("Ends", "Search bar scope button titles")
+    let searchBarPlaceHolderText = NSLocalizedString("Search", comment:"Search bar placeholder text")
+    let scopeButtonTitlesOnAir = NSLocalizedString("On Air", comment:"Search bar scope button titles")
+    let scopeButtonTitlesOffAir = NSLocalizedString("Off Air", comment:"Search bar scope button titles")
+    let scopeButtonTitlesEnds = NSLocalizedString("Ends", comment:"Search bar scope button titles")
 
     
     @IBOutlet weak var searchBar: UISearchBar!

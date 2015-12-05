@@ -8,20 +8,20 @@
 
 import UIKit
 
-let kPublishTitle = String.localizedStringWithFormat("What would you like to share?", "Add title for a new event")
+let kPublishTitle = NSLocalizedString("What would you like to share?", comment:"Add title for a new event")
 
-let kPublishAddress = String.localizedStringWithFormat("From were to pickup?", "Add address for a new event")
-let kPublishPhoneNumber = String.localizedStringWithFormat("What's your phone number?", "Add phone number for a new event")
-let kPublishStartDate = String.localizedStringWithFormat("Pickup can start from:", "Add start date for a new event")
-let kPublishEndDate = String.localizedStringWithFormat("And until:", "Add end date for a new event")
-let kPublishImage = String.localizedStringWithFormat("Want to add a picture?", "Add image for a new event")
+let kPublishAddress = NSLocalizedString("From were to pickup?", comment:"Add address for a new event")
+let kPublishPhoneNumber = NSLocalizedString("What's your phone number?", comment:"Add phone number for a new event")
+let kPublishStartDate = NSLocalizedString("Pickup can start from:", comment:"Add start date for a new event")
+let kPublishEndDate = NSLocalizedString("And until:", comment:"Add end date for a new event")
+let kPublishImage = NSLocalizedString("Want to add a picture?", comment:"Add image for a new event")
 // TODO: Check if kPublishedImage is still used and for what
-let kPublishedImage = String.localizedStringWithFormat("This is the picture you've chosen:", "This is the image you have selected label")
+let kPublishedImage = NSLocalizedString("This is the picture you've chosen:", comment:"This is the image you have selected label")
 // TODO: Check if kPublishPublishButtonLabel is still used and for what
-let kPublishPublishButtonLabel = String.localizedStringWithFormat("Publish", "Publish button to publish a new event")
-let kPublishSubtitle = String.localizedStringWithFormat("Want to add additional details?", "Add subitle for a new event")
+let kPublishPublishButtonLabel = NSLocalizedString("Publish", comment:"Publish button to publish a new event")
+let kPublishSubtitle = NSLocalizedString("Want to add additional details?", comment:"Add subitle for a new event")
 // TODO: kPublishtopRightBarButtonSaveTitle is nit used anymore
-let kPublishtopRightBarButtonSaveTitle = String.localizedStringWithFormat("Save", "'Save' title for top right bar button")
+let kPublishtopRightBarButtonSaveTitle = NSLocalizedString("Save", comment:"'Save' title for top right bar button")
 
 
 let kAddDefaultHoursToStartDate:Double = 72 // Amount of hours to add to the start date so that we will have an End date for new publication only!
@@ -812,16 +812,16 @@ extension PublicationEditorTVC {
         
         let actionSheet = UIAlertController(title: "", message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("Cancel", "alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:NSLocalizedString("Cancel", comment:"alert dissmiss button title"), style: .Cancel) { (action) in
             actionSheet.dismissViewControllerAnimated(true , completion: nil)
         }
         
-        let cameraAction = UIAlertAction(title:String.localizedStringWithFormat("Camera", "camera button title "), style: UIAlertActionStyle.Default) { (action) in
+        let cameraAction = UIAlertAction(title:NSLocalizedString("Camera", comment:"camera button title "), style: UIAlertActionStyle.Default) { (action) in
             self.presentImagePickerController(.Camera)
             actionSheet.dismissViewControllerAnimated(true , completion: nil)
         }
         
-        let photoLibraryAction = UIAlertAction(title:String.localizedStringWithFormat("Library", "photo library button title"), style: UIAlertActionStyle.Default) { (action) in
+        let photoLibraryAction = UIAlertAction(title:NSLocalizedString("Library", comment:"photo library button title"), style: UIAlertActionStyle.Default) { (action) in
             self.presentImagePickerController(.PhotoLibrary)
             actionSheet.dismissViewControllerAnimated(true , completion: nil)
         }

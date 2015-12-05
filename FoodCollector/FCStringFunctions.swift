@@ -26,9 +26,10 @@ class FCStringFunctions : NSObject {
     }
     
     class func longDistanceString (publication: FCPublication) -> String {
-        let distanceText = String.localizedStringWithFormat("Km away", "describes the number of km from the user's location")
+        //TODO: Use NSFormter for distance number formating and units nameing.
+        let distanceText = NSLocalizedString("Km", comment:"describes the number of km from the user's location")
         let distanceNumbers = self.formmatedDistanceString(publication.distanceFromUserLocation)
-        return  String(format: "%@ %@",distanceNumbers , distanceText)
+        return  String.localizedStringWithFormat(NSLocalizedString("%@ %@ away", comment: "Distance from location of sharing. the first place holder is a number, the second placeholder is the distance unit, e.g: '55 km away'"),distanceNumbers , distanceText)
         
     }
 

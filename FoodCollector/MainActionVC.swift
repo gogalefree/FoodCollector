@@ -20,10 +20,10 @@ protocol MainActionVCDelegate: NSObjectProtocol {
 
 class MainActionVC: UIViewController {
     
-    let mainActionVCTitle = String.localizedStringWithFormat("Welcome", "main action vc title: Welcome")
-    let mainLabelText = String.localizedStringWithFormat("What would you like to do?", "main action vc title: What would you like to do")
-    let collectLabelText = String.localizedStringWithFormat("Pickup food", "main action vc title: Pickup food")
-    let publishLabelText = String.localizedStringWithFormat("Share food", "main action vc title: Share food")
+    let mainActionVCTitle = NSLocalizedString("Welcome", comment:"main action vc title: Welcome")
+    let mainLabelText = NSLocalizedString("What would you like to do?", comment:"main action vc title: What would you like to do")
+    let collectLabelText = NSLocalizedString("Pickup food", comment:"main action vc title: Pickup food")
+    let publishLabelText = NSLocalizedString("Share food", comment:"main action vc title: Share food")
     let labelsTextColor = UIColor(red: 149/255, green: 149/255, blue: 149/255, alpha: 1)
 
     @IBOutlet weak var mainLabelTopConstraint: NSLayoutConstraint!

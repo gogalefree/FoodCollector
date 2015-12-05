@@ -12,9 +12,9 @@ import MapKit
 import CoreLocation
 
 let kShouldShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
-let kActivityCenterTitle = String.localizedStringWithFormat("Activity Center","Activity Center navigation bar title")
-let kCollctorTitle = String.localizedStringWithFormat("Pickup","Collector home page navigation bar title")
-let kBackTitle = String.localizedStringWithFormat("Back","Back navigation bar title")
+let kActivityCenterTitle = NSLocalizedString("Activity Center", comment:"Activity Center navigation bar title")
+let kCollctorTitle = NSLocalizedString("Pickup", comment:"Collector home page navigation bar title")
+let kBackTitle = NSLocalizedString("Back", comment:"Back navigation bar title")
 
 protocol CollectorVCSlideDelegate: NSObjectProtocol {
     func collectorVCWillSlide()
@@ -95,7 +95,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.title = String.localizedStringWithFormat("Pickup", "Collector map title")
+        self.title = NSLocalizedString("Pickup", comment:"Collector map title")
         self.publications = FCModel.sharedInstance.publications
         self.newPublicationMessageView.delegate = self
         registerForNSNotifications()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kpublicationDeletedAlertMessage = String.localizedStringWithFormat("Publication ended nearby:", "a message that informs the user that a publication ended")
+let kpublicationDeletedAlertMessage = NSLocalizedString("Publication ended nearby:", comment:"a message that informs the user that a publication ended")
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate , NewReportMessageViewDelegate{
     

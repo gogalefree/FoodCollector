@@ -34,7 +34,7 @@ class ContactCollectorPhonePickerLabelCell: UITableViewCell {
     
     func defineSubtitle() -> String {
     
-        guard let _ =  validator.getValidPhoneNumber(registration!.contactInfo) else {return String.localizedStringWithFormat("Incorrect phone number", "Message alert when phone number pattern is incorrect")}
+        guard let _ =  validator.getValidPhoneNumber(registration!.contactInfo) else {return NSLocalizedString("Incorrect phone number", comment: "Message alert when phone number pattern is incorrect")}
         return ""
     }
     

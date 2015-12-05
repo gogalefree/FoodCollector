@@ -11,14 +11,14 @@ import MessageUI
 import Social
 
 
-let kReportButtonTitle = String.localizedStringWithFormat("Report", "Report title for a button")
-let kOptionsButtonTitle = String.localizedStringWithFormat("Options", "Report title for a button")
-let kTakeOffAirlertTitle = String.localizedStringWithFormat("End publication confirmation", "End publication confirmation title for an alert controller")
-let kTakeOffAirAlertMessage = String.localizedStringWithFormat("You have chosen to end publication for this event. Are you sure?", "End publication confirmation message for an alert controller")
-let kDeleteAlertTitle = String.localizedStringWithFormat("Delete publication confirmation", "Delete confirmation title for an alert controller")
-let kDeleteAlertMessage = String.localizedStringWithFormat("You have chosen to delete this publication. Are you sure?", "Delete confirmation message for an alert controller")
-let kAlertOKButtonTitle = String.localizedStringWithFormat("Yes", "Yes title for an alert button")
-let kAlertCancelButtonTitle = String.localizedStringWithFormat("No", "No title for an alert button")
+let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a button")
+let kOptionsButtonTitle = NSLocalizedString("Options", comment:"Report title for a button")
+let kTakeOffAirlertTitle = NSLocalizedString("End publication confirmation", comment:"End publication confirmation title for an alert controller")
+let kTakeOffAirAlertMessage = NSLocalizedString("You have chosen to end publication for this event. Are you sure?", comment:"End publication confirmation message for an alert controller")
+let kDeleteAlertTitle = NSLocalizedString("Delete publication confirmation", comment:"Delete confirmation title for an alert controller")
+let kDeleteAlertMessage = NSLocalizedString("You have chosen to delete this publication. Are you sure?", comment:"Delete confirmation message for an alert controller")
+let kAlertOKButtonTitle = NSLocalizedString("Yes", comment:"Yes title for an alert button")
+let kAlertCancelButtonTitle = NSLocalizedString("No", comment:"No title for an alert button")
 
 
 
@@ -419,7 +419,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         
         
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-            let title = String.localizedStringWithFormat("Navigate with:", "an action sheet title meening chose app to navigate with")
+            let title = NSLocalizedString("Navigate with:", comment:"an action sheet title meening chose app to navigate with")
             let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }
@@ -436,7 +436,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             if MFMessageComposeViewController.canSendText() {
                 
                 let messageVC = MFMessageComposeViewController()
-                messageVC.body = String.localizedStringWithFormat("I want to pickup \(publication.title)", "sms message to be sent to the publisher sayin: I want to come and pickup")
+                messageVC.body = NSLocalizedString("I want to pickup \(publication.title)", comment:"sms message to be sent to the publisher sayin: I want to come and pickup")
                 messageVC.recipients = [phoneNumber]
                 messageVC.messageComposeDelegate = self
                 self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
@@ -485,12 +485,12 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     func showPickupRegistrationAlert() {
         // The user is prompt to register to the event as a picker using a name and a phone number
         // Set string labels for the alert
-        let alertTitle = String.localizedStringWithFormat("Pickup Registration", "Alert title: Pickup Registration")
-        let alertMessage = String.localizedStringWithFormat("Please fill in details to join this pickup", "Alert message: Please fill in details to join this pickup")
-        let alertRegisterButtonTitle = String.localizedStringWithFormat("Register", "Alert button title: Register")
-        let alertCancelButtonTitle = String.localizedStringWithFormat("Cancel", "Alert button title: Cancel")
-        let alertNameTextFieldLabel = String.localizedStringWithFormat("Name", "Alert text field label: Name")
-        let alertPhoneTextFieldLabel = String.localizedStringWithFormat("Phone number", "Alert text field label: Phone number")
+        let alertTitle = NSLocalizedString("Pickup Registration", comment:"Alert title: Pickup Registration")
+        let alertMessage = NSLocalizedString("Please fill in details to join this pickup", comment:"Alert message: Please fill in details to join this pickup")
+        let alertRegisterButtonTitle = NSLocalizedString("Register", comment:"Alert button title: Register")
+        let alertCancelButtonTitle = NSLocalizedString("Cancel", comment:"Alert button title: Cancel")
+        let alertNameTextFieldLabel = NSLocalizedString("Name", comment:"Alert text field label: Name")
+        let alertPhoneTextFieldLabel = NSLocalizedString("Phone number", comment:"Alert text field label: Phone number")
         
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -549,9 +549,9 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     private func showNoNameOrNumberAllert() {
         
-        let alertTitle = String.localizedStringWithFormat("Oops...", "Alert title: Oops...")
-        let alertMessage = String.localizedStringWithFormat("You have to fill in all the fields", "Alert message: You have to fill in all the fields")
-        let alertButtonTitle = String.localizedStringWithFormat("OK", "Alert button title: OK")
+        let alertTitle = NSLocalizedString("Oops...", comment:"Alert title: Oops...")
+        let alertMessage = NSLocalizedString("You have to fill in all the fields", comment:"Alert message: You have to fill in all the fields")
+        let alertButtonTitle = NSLocalizedString("OK", comment:"Alert button title: OK")
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
             self.showPickupRegistrationAlert()
@@ -562,9 +562,9 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     private func showPhoneNumberAllert() {
         
-        let alertTitle = String.localizedStringWithFormat("Oops...", "Alert title: Oops...")
-        let alertMessage = String.localizedStringWithFormat("It seems the phone number is incorrect. Please chaeck you have typed it correctly.", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed it correctly.")
-        let alertButtonTitle = String.localizedStringWithFormat("OK", "Alert button title: OK")
+        let alertTitle = NSLocalizedString("Oops...", comment:"Alert title: Oops...")
+        let alertMessage = NSLocalizedString("It seems the phone number is incorrect. Please chaeck you have typed it correctly.", comment:"Alert message: It seems the phone number is incorrect. Please chaeck you have typed it correctly.")
+        let alertButtonTitle = NSLocalizedString("OK", comment:"Alert button title: OK")
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
                 self.showPickupRegistrationAlert()
@@ -614,7 +614,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     func publisherDidRequestSmsCollectors() {
         
         if publication?.registrationsForPublication.count == 0 {
-            let title = String.localizedStringWithFormat("No one is registered for this pickup", "")
+            let title = NSLocalizedString("No one is registered for this pickup", comment:"")
             presentNoCollectorsAlert(title)
             return
         }
@@ -622,7 +622,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
         let validator = Validator()
         let trueNumbers = publication?.registrationsForPublication.filter {(registration) in validator.getValidPhoneNumber(registration.contactInfo) != nil}
         if trueNumbers == nil || trueNumbers?.count == 0 {
-            let title = String.localizedStringWithFormat("There are no legit phone numbers", "")
+            let title = NSLocalizedString("There are no legit phone numbers", comment:"")
             presentNoCollectorsAlert(title)
             return
         }
@@ -640,7 +640,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     
         if publication?.registrationsForPublication.count == 0 {
             
-            let title = String.localizedStringWithFormat("No one is registered for this pickup", "")
+            let title = NSLocalizedString("No one is registered for this pickup", comment:"")
             presentNoCollectorsAlert(title)
             return
         }
