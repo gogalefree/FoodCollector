@@ -2033,7 +2033,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fH-Ct-9fs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2943" y="1274"/>
+            <point key="canvasLocation" x="2943" y="1252"/>
         </scene>
         <!--Pickup-->
         <scene sceneID="87N-7M-znR">
@@ -2543,7 +2543,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fDE-GL-Iku" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Tae-sj-idE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2943" y="1814"/>
+            <point key="canvasLocation" x="2943" y="2084"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zE3-oX-fu8">

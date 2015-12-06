@@ -1278,7 +1278,6 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Guy/Documents/FacebookSDK,
 					"${HOME}/Documents/FacebookSDK",
 				);
 				INFOPLIST_FILE = FoodCollector/Info.plist;
@@ -1303,7 +1302,6 @@
 				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Guy/Documents/FacebookSDK,
 					"${HOME}/Documents/FacebookSDK",
 				);
 				INFOPLIST_FILE = FoodCollector/Info.plist;

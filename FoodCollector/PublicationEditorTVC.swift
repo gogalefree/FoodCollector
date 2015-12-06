@@ -415,9 +415,14 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     func addPictureButton(){
         let image = UIImage(named: "CameraIcon") as UIImage?
         let button   = UIButton(type: UIButtonType.Custom)
-        button.frame = CGRectMake(40, pictureRowHeigt-25, 50, 50)
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let buttonWidth = CGFloat(50)
+        let buttonHeight = CGFloat(50)
+        let paddingFromEdge = CGFloat(40)
+        let buttonXPosition = screenWidth - buttonWidth - paddingFromEdge
+        button.frame = CGRectMake(buttonXPosition, pictureRowHeigt-(buttonHeight/2), buttonWidth, buttonHeight)
         button.backgroundColor = kNavBarBlueColor //UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
-        button.layer.cornerRadius = CGRectGetWidth(button.frame) / 2
+        button.layer.cornerRadius = buttonWidth / 2
         button.setImage(image, forState: .Normal)
         button.addTarget(self, action: "pictureButtonTouched:", forControlEvents:.TouchUpInside)
         self.view.addSubview(button)
