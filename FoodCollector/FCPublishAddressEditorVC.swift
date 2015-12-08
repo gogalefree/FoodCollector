@@ -128,7 +128,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         if (indexPath.item == 0 && indexPath.section == 0 && !didSerchAndFindResults){
             self.selectedLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
             self.selectedLongtitude = FCModel.sharedInstance.userLocation.coordinate.longitude
-            self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lng: self.selectedLongtitude)
+            self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lon: self.selectedLongtitude)
         }
         else {
             let userSelectedAddress = self.initialData[indexPath.item] as String
@@ -281,11 +281,11 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         }).resume()
     }
     
-    func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lng: Double) {
+    func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lon: Double) {
         let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
         //https://maps.googleapis.com/maps/api/geocode/json?latlng=32.1499984,34.8939178&language=iw&key=API_KEY
         // TODO: add support for other laguages
-        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lng)&language=iw&key=\(key)")!)
+        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lon)&language=iw&key=\(key)")!)
         
         let session = NSURLSession.sharedSession()
         
