@@ -22,9 +22,9 @@ class PublicationEditorTVCStartEndDateCustomCell: UITableViewCell {
                 
                 self.cellLabel.text = cellData.cellTitle
                 
-                let dateString = FCDateFunctions.localizedDateStringShortStyle(cellData.userData as! NSDate)
-                let timeString = FCDateFunctions.timeStringEuroStyle(cellData.userData as! NSDate)
-                self.dateValueLabel.text = "\(timeString)  \(dateString)"
+                let dateString = FCDateFunctions.localizedDateAndTimeStringShortStyle(cellData.userData as! NSDate)
+                //let timeString = FCDateFunctions.localizedTimeStringShortStyle(cellData.userData as! NSDate)
+                self.dateValueLabel.text = dateString
             }
         }
     }

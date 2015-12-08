@@ -56,9 +56,8 @@ class PublicationDetailsReportCell: UITableViewCell {
     }
     
     func presentReport(report: FCOnSpotPublicationReport){
-        
         self.reportLabel.text = self.titleForReport(report)
-        self.timeLabel.text = FCDateFunctions.timeStringEuroStyle(report.date)
+        self.timeLabel.text = FCDateFunctions.localizedTimeStringShortStyle(report.date)
         self.iconImageView.image = FCIconFactory.publicationDetailsReportIcon(report)
     }
     

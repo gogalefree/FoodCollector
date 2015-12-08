@@ -8,20 +8,16 @@
 
 import UIKit
 
-let kPublishTitle = NSLocalizedString("What would you like to share?", comment:"Add title for a new event")
+let kPublishTitle = NSLocalizedString("What are you sharing?", comment:"Add title for a new event")
 
-let kPublishAddress = NSLocalizedString("From were to pickup?", comment:"Add address for a new event")
+let kPublishAddress = NSLocalizedString("From where to pickup?", comment:"Add address for a new event")
 let kPublishPhoneNumber = NSLocalizedString("What's your phone number?", comment:"Add phone number for a new event")
-let kPublishStartDate = NSLocalizedString("Pickup can start from:", comment:"Add start date for a new event")
-let kPublishEndDate = NSLocalizedString("And until:", comment:"Add end date for a new event")
+let kPublishStartDate = NSLocalizedString("Pickup starts:", comment:"Add start date for a new event")
+let kPublishEndDate = NSLocalizedString("Pickup ends:", comment:"Add end date for a new event")
 let kPublishImage = NSLocalizedString("Want to add a picture?", comment:"Add image for a new event")
 // TODO: Check if kPublishedImage is still used and for what
 let kPublishedImage = NSLocalizedString("This is the picture you've chosen:", comment:"This is the image you have selected label")
-// TODO: Check if kPublishPublishButtonLabel is still used and for what
-let kPublishPublishButtonLabel = NSLocalizedString("Publish", comment:"Publish button to publish a new event")
-let kPublishSubtitle = NSLocalizedString("Want to add additional details?", comment:"Add subitle for a new event")
-// TODO: kPublishtopRightBarButtonSaveTitle is nit used anymore
-let kPublishtopRightBarButtonSaveTitle = NSLocalizedString("Save", comment:"'Save' title for top right bar button")
+let kPublishSubtitle = NSLocalizedString("Add additional details?", comment:"Add subitle for a new event")
 
 
 let kAddDefaultHoursToStartDate:Double = 72 // Amount of hours to add to the start date so that we will have an End date for new publication only!
@@ -403,8 +399,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func addTopRightButton() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "V_Button"), style: UIBarButtonItemStyle.Done, target: self, action: "publish")
-            
-            //UIBarButtonItem(title: kPublishtopRightBarButtonSaveTitle, style: UIBarButtonItemStyle.Done, target: self, action: "publish")
         setTopRightButtonStatus()
     }
     

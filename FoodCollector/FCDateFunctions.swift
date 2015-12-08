@@ -33,8 +33,13 @@ class FCDateFunctions : NSObject {
         return NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
     }
     
+    class func localizedTimeStringShortStyle(date: NSDate) -> String {
+        return NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.NoStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
+    }
+    
     class func localizedDateAndTimeStringShortStyle(date: NSDate) -> String {
         return NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
+        
     }
     
     class func timeStringEuroStyle(date: NSDate) -> String {
