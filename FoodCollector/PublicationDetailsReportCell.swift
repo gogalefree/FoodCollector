@@ -8,9 +8,9 @@
 
 import UIKit
 
-let kHasMoreTitle = NSLocalizedString("User reported: More left to pickup", comment:"the title of a user report which means that there is more food to pickup")
-let ktookAllTitle = NSLocalizedString("User reported: Picked up everything", comment:"the title of a user report which means that he took all the food")
-let kNothingThereTitle = NSLocalizedString("User reported: Nothing left", comment:"the title of a user report which means that he found nothing")
+let kHasMoreTitle = NSLocalizedString("More left to pickup", comment:"the title of a user report which means that there is more food to pickup")
+let ktookAllTitle = NSLocalizedString("Picked up everything", comment:"the title of a user report which means that he took all the food")
+let kNothingThereTitle = NSLocalizedString("Nothing left", comment:"the title of a user report which means that he found nothing")
 
 
 class PublicationDetailsReportCell: UITableViewCell {

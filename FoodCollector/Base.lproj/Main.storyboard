@@ -1464,22 +1464,22 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rE1-yD-ReW">
-                                                                <rect key="frame" x="23" y="18" width="18" height="30"/>
+                                                                <rect key="frame" x="13" y="18" width="18" height="30"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="18" id="dhR-Sh-ny3"/>
                                                                     <constraint firstAttribute="height" constant="30" id="eNg-Qv-Z6y"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cq5-xF-fVk">
-                                                                <rect key="frame" x="69" y="16" width="507" height="20"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cq5-xF-fVk">
+                                                                <rect key="frame" x="46" y="16" width="507" height="20"/>
                                                                 <animations/>
                                                                 <fontDescription key="fontDescription" name="ArialHebrew-Bold" family="Arial Hebrew" pointSize="18"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbA-n8-YuS">
-                                                                <rect key="frame" x="69" y="36" width="507" height="19"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbA-n8-YuS">
+                                                                <rect key="frame" x="46" y="36" width="507" height="19"/>
                                                                 <animations/>
                                                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1488,15 +1488,15 @@
                                                         </subviews>
                                                         <animations/>
                                                         <constraints>
-                                                            <constraint firstItem="jbA-n8-YuS" firstAttribute="leading" secondItem="rE1-yD-ReW" secondAttribute="trailing" constant="28" id="1SY-fE-mys"/>
+                                                            <constraint firstItem="jbA-n8-YuS" firstAttribute="leading" secondItem="rE1-yD-ReW" secondAttribute="trailing" constant="15" id="1SY-fE-mys"/>
                                                             <constraint firstItem="Cq5-xF-fVk" firstAttribute="top" secondItem="Y9a-Ss-KFd" secondAttribute="topMargin" constant="8" id="44j-hn-YuS"/>
-                                                            <constraint firstItem="Cq5-xF-fVk" firstAttribute="leading" secondItem="rE1-yD-ReW" secondAttribute="trailing" constant="28" id="IPE-Hc-bJN"/>
-                                                            <constraint firstAttribute="trailingMargin" secondItem="Cq5-xF-fVk" secondAttribute="trailing" constant="16" id="JjB-ja-jak"/>
+                                                            <constraint firstItem="Cq5-xF-fVk" firstAttribute="leading" secondItem="rE1-yD-ReW" secondAttribute="trailing" constant="15" id="IPE-Hc-bJN"/>
+                                                            <constraint firstAttribute="trailingMargin" secondItem="Cq5-xF-fVk" secondAttribute="trailing" constant="39" id="JjB-ja-jak"/>
                                                             <constraint firstItem="Cq5-xF-fVk" firstAttribute="trailing" secondItem="jbA-n8-YuS" secondAttribute="trailing" id="Qcw-be-eE8"/>
                                                             <constraint firstAttribute="centerY" secondItem="rE1-yD-ReW" secondAttribute="centerY" constant="-0.5" id="Up6-Vx-apv"/>
                                                             <constraint firstItem="Cq5-xF-fVk" firstAttribute="leading" secondItem="jbA-n8-YuS" secondAttribute="leading" constant="-465" id="d3A-6d-xFs"/>
                                                             <constraint firstItem="jbA-n8-YuS" firstAttribute="top" secondItem="Cq5-xF-fVk" secondAttribute="bottom" id="mUf-eo-p3r"/>
-                                                            <constraint firstItem="rE1-yD-ReW" firstAttribute="leading" secondItem="Y9a-Ss-KFd" secondAttribute="leadingMargin" constant="15" id="nzc-fG-ny4"/>
+                                                            <constraint firstItem="rE1-yD-ReW" firstAttribute="leading" secondItem="Y9a-Ss-KFd" secondAttribute="leadingMargin" constant="5" id="nzc-fG-ny4"/>
                                                         </constraints>
                                                         <variation key="default">
                                                             <mask key="constraints">
@@ -1543,7 +1543,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All reports" id="X9g-Fl-nzX">
-                        <barButtonItem key="rightBarButtonItem" title="Back" id="fqk-Lk-drl">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="fqk-Lk-drl">
                             <connections>
                                 <action selector="dismiss" destination="Jy6-C0-m1v" id="qtN-tM-d4Y"/>
                             </connections>
@@ -1555,7 +1555,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EmV-qE-uAT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5948" y="-429"/>
+            <point key="canvasLocation" x="5952" y="-434"/>
         </scene>
         <!--Publications Table View Controller-->
         <scene sceneID="gIv-We-tlG">
