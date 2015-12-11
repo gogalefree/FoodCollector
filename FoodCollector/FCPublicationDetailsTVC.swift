@@ -960,6 +960,14 @@ extension FCPublicationDetailsTVC {
         
         FCModel.sharedInstance.foodCollectorWebServer.deletePublication(identifier, completion: { (success) -> () in
             
+            if success {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+            else {
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("Error deleting", aMessage: "publication id: \(identifier.uniqueId) version: \(identifier.version) ")
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
         })
     }
 }

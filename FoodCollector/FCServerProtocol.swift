@@ -81,5 +81,10 @@ protocol FCServerProtocol {
     /// Currently we dont implement persistency so if the service fails, we try again
     func deletePublication(publicationIdentifier: PublicationIdentifier , completion: (success: Bool) -> ())
     
+    ///
+    ///sends user feedback to server
+    func sendFeedback(report: String)
+
+    
 }
 

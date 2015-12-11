@@ -613,11 +613,11 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 if error != nil || serverResponse.statusCode != 200 {
                    
                     print("ERROR DELETING: \(error)")
-                 //   completion(success: false)
+                    completion(success: false)
                 }
             }
             else {
-              //  completion(success: false)
+                completion(success: false)
             }
         })
         

@@ -51,6 +51,7 @@
 		E407DEA51AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */; };
 		E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */; };
 		E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
+		E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */; };
 		E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
 		E41235D41ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */; };
 		E41729E81AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */; };
@@ -153,6 +154,7 @@
 		E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */; };
 		E4F839231ABB03460055A277 /* FCPublicationReportsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839221ABB03460055A277 /* FCPublicationReportsTVC.swift */; };
 		E4F839251ABB04A30055A277 /* FCPublicationReporetsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839241ABB04A30055A277 /* FCPublicationReporetsTVCell.swift */; };
+		E4FEDA4A1C142B9C00580630 /* FeedbacksVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */; };
 		E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */; };
 		E4FEFC201A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */; };
 /* End PBXBuildFile section */
@@ -213,6 +215,7 @@
 		E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorAnimator.swift; sourceTree = "<group>"; };
 		E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoPresentorNavigationController.swift; sourceTree = "<group>"; };
 		E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorDissmissAnimator.swift; sourceTree = "<group>"; };
+		E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCMockServer+.swift"; sourceTree = "<group>"; };
 		E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsDismissAnimator.swift; sourceTree = "<group>"; };
 		E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsNavigationController.swift; sourceTree = "<group>"; };
 		E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCellBadgeLabel.swift; sourceTree = "<group>"; };
@@ -323,6 +326,7 @@
 		E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsVCAnimator.swift; sourceTree = "<group>"; };
 		E4F839221ABB03460055A277 /* FCPublicationReportsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsTVC.swift; sourceTree = "<group>"; };
 		E4F839241ABB04A30055A277 /* FCPublicationReporetsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReporetsTVCell.swift; sourceTree = "<group>"; };
+		E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbacksVCViewController.swift; sourceTree = "<group>"; };
 		E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVC.swift; sourceTree = "<group>"; };
 		E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCell.swift; sourceTree = "<group>"; };
 		F1B2D1FD30AE3BB39FBEABBA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -611,6 +615,7 @@
 			children = (
 				E4737D7D1A10C01300A4AB81 /* FCServerProtocol.swift */,
 				E47F9C501A120C0B00079164 /* FCMockServer.swift */,
+				E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */,
 				E42ED5741A8B682C008FB618 /* DataUpdater.swift */,
 				E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */,
 			);
@@ -694,6 +699,7 @@
 		E4737DA91A10C21C00A4AB81 /* Collector */ = {
 			isa = PBXGroup;
 			children = (
+				E4FEDA481C142B6F00580630 /* Feedback */,
 				E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */,
 				E4EF49671BE26F40009A1A62 /* Thumbnails Collection View */,
 				E45499571AAA1BB8001B5E49 /* Map */,
@@ -830,6 +836,14 @@
 				E4EF49681BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift */,
 			);
 			name = "Thumbnails Collection View";
+			sourceTree = "<group>";
+		};
+		E4FEDA481C142B6F00580630 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */,
+			);
+			name = Feedback;
 			sourceTree = "<group>";
 		};
 		ECF6948C369831D557C51FAA /* Pods */ = {
@@ -1036,7 +1050,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1056,6 +1070,7 @@
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,
 				E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
+				E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */,
 				E41729E81AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */,
 				E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */,
 				E4737D9E1A10C01300A4AB81 /* FCServerProtocol.swift in Sources */,
@@ -1102,6 +1117,7 @@
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */,
 				A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */,
+				E4FEDA4A1C142B9C00580630 /* FeedbacksVCViewController.swift in Sources */,
 				E4FEFC201A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift in Sources */,
 				A123946B1B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,

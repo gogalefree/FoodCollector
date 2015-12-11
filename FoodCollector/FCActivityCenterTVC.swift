@@ -10,9 +10,8 @@ import UIKit
 
 let collectorTitle = String.localizedStringWithFormat("בדרך לאסוף", "activity center table view collector section title. means collector")
 let publisherTitle = String.localizedStringWithFormat("השיתופים שלי", "activity center table view publisher section title. means contributer")
+let feedbackTitle = String.localizedStringWithFormat("כתוב לנו", "")
 let backButtonLabel = String.localizedStringWithFormat("חזרה", "The label of a back button")
-let collectorIcon = UIImage(named: "CollectActivity")
-let publisherIcon = UIImage(named: "DonateActivity")
 
 
 class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDelegate, UIGestureRecognizerDelegate {
@@ -131,7 +130,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     // MARK: - Table view data source
 
     final override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     final override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -245,6 +244,8 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
             reloadUserRegisteredPublications()
         case 1:
             reloadUserCreayedPublications()
+        case 2:
+            presentFeddbackVC()
         default:
             break
         }
@@ -268,6 +269,13 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
         else { isPresentingUserCreatedPublications = false }
         
         self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .Automatic)
+    }
+    
+    private func presentFeddbackVC(){
+        let feedbackNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("feedbackvc") as! FeedbacksVCViewController
+        feedbackNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        feedbackNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        self.parentViewController?.parentViewController?.presentViewController(feedbackNavVC, animated: true, completion: nil)
     }
     
     final func didDeleteOldVersionOfUserCreatedPublication() {

@@ -9,10 +9,12 @@
 import UIKit
 
 protocol ActivityCenterHeaderViewDelegate : NSObjectProtocol, UIGestureRecognizerDelegate{
-    
     func headerTapped(section: Int)
 }
 
+let collectorIcon = UIImage(named: "CollectActivity")
+let publisherIcon = UIImage(named: "DonateActivity")
+let feedbackIcon  = UIImage(named: "Feedback")
 
 class FCActivityCenterTVCSectionHeader: UIView {
     
@@ -34,6 +36,9 @@ class FCActivityCenterTVCSectionHeader: UIView {
             case 1:
                 self.textLabel.text = publisherTitle
                 self.iconImageView.image = publisherIcon
+            case 2:
+                self.textLabel.text = feedbackTitle
+                self.iconImageView.image = feedbackIcon
             default:
                 break
             }
