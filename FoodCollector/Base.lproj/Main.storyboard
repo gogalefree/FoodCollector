@@ -2039,10 +2039,10 @@
             </objects>
             <point key="canvasLocation" x="2014" y="1252"/>
         </scene>
-        <!--What would you like to do?-->
+        <!--Welcome-->
         <scene sceneID="emO-q2-foM">
             <objects>
-                <viewController title="What would you like to do?" id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Welcome" id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PLH-Tb-ElL"/>
                         <viewControllerLayoutGuide type="bottom" id="EsQ-Yy-vGY"/>
@@ -2135,7 +2135,7 @@
                             <constraint firstItem="aup-wQ-Bfq" firstAttribute="top" secondItem="spz-xB-01E" secondAttribute="bottom" constant="42" id="fa6-5k-L1l"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="NtA-nJ-dYr"/>
+                    <navigationItem key="navigationItem" title="Welcome" id="NtA-nJ-dYr"/>
                     <connections>
                         <outlet property="collectButton" destination="eeo-fY-Bbv" id="g5A-a6-ax8"/>
                         <outlet property="collectTitleButton" destination="aup-wQ-Bfq" id="zL1-Qh-FJw"/>

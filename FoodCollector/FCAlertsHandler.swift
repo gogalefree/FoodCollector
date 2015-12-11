@@ -20,7 +20,7 @@ public class FCAlertsHandler : NSObject {
     public func alertWithDissmissButton(aTitle: String, aMessage: String) -> UIAlertController {
        
         let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: .Alert)
-        let dissmissAction = UIAlertAction(title:NSLocalizedString("Cancel", comment:"alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:kCancelButtonTitle, style: .Cancel) { (action) in
             alertController.dismissViewControllerAnimated(true , completion: nil)
         }
         alertController.addAction(dissmissAction)
@@ -31,7 +31,7 @@ public class FCAlertsHandler : NSObject {
     public func alertWithCallDissmissButton(aTitle: String, aMessage: String, phoneNumber: String) -> UIAlertController {
         
         let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        let dissmissAction = UIAlertAction(title:NSLocalizedString("Cancel", comment:"alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:kCancelButtonTitle, style: .Cancel) { (action) in
             alertController.dismissViewControllerAnimated(true , completion: nil)
         }
         
@@ -51,7 +51,7 @@ public class FCAlertsHandler : NSObject {
         
         let alertController = UIAlertController(title: aTitle, message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let dissmissAction = UIAlertAction(title:NSLocalizedString("Cancel", comment:"alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:kCancelButtonTitle, style: .Cancel) { (action) in
             alertController.dismissViewControllerAnimated(true , completion: nil)
         }
         

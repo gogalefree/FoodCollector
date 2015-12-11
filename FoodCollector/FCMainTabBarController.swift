@@ -290,7 +290,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
                     })
                 }
                 else{
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("בעיית תקשורת", aMessage: "נסה שוב")
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("Communication problem", comment:"Alert title"), aMessage: NSLocalizedString("Try again", comment:"Alert message body"))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             })
@@ -301,7 +301,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         publicationDetailsTVC?.title = publication.title
         publicationDetailsTVC?.publication = publication
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         let navController = UINavigationController(rootViewController: publicationDetailsTVC!)
         self.presentViewController(navController, animated: true, completion: nil)
     }

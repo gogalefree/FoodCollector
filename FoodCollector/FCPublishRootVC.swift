@@ -127,7 +127,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: userCreatedPublications[indexPath.item], publicationIndexPath: indexPath.item)
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         
         publicationDetailsTVC?.deleteDelgate = self
         

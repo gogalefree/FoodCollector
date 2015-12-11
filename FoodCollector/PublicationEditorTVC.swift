@@ -107,7 +107,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         addTopRightButton()
         addPictureButton()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
         
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
         
@@ -811,7 +811,7 @@ extension PublicationEditorTVC {
         
         let actionSheet = UIAlertController(title: "", message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let dissmissAction = UIAlertAction(title:NSLocalizedString("Cancel", comment:"alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:kCancelButtonTitle, style: .Cancel) { (action) in
             actionSheet.dismissViewControllerAnimated(true , completion: nil)
         }
         

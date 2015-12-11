@@ -94,7 +94,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         for subView in viewsArray {
             if subView.isKindOfClass(UIButton) {
                 if (subView as! UIButton).currentTitle != nil {
-                    (subView as! UIButton).setTitle(NSLocalizedString("Cancel", comment:"alert dissmiss button title"), forState: .Normal)
+                    (subView as! UIButton).setTitle(kCancelButtonTitle, forState: .Normal)
                     return
                 }
             }
@@ -238,7 +238,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         publicationDetailsTVC?.title = title
         publicationDetailsTVC?.publication = publication
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)

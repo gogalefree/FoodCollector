@@ -17,8 +17,6 @@ let kTakeOffAirlertTitle = NSLocalizedString("End publication confirmation", com
 let kTakeOffAirAlertMessage = NSLocalizedString("You have chosen to end publication for this event. Are you sure?", comment:"End publication confirmation message for an alert controller")
 let kDeleteAlertTitle = NSLocalizedString("Delete publication confirmation", comment:"Delete confirmation title for an alert controller")
 let kDeleteAlertMessage = NSLocalizedString("You have chosen to delete this publication. Are you sure?", comment:"Delete confirmation message for an alert controller")
-let kAlertOKButtonTitle = NSLocalizedString("Yes", comment:"Yes title for an alert button")
-let kAlertCancelButtonTitle = NSLocalizedString("No", comment:"No title for an alert button")
 
 
 
@@ -305,7 +303,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
                     
                     let alert = UIAlertController(title: publication.title, message: kpublicationDeletedAlertMessage, preferredStyle: .Alert)
                     // Localization: Original string = title: "okay"
-                    let action = UIAlertAction(title: "אישור", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    let action = UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         
                         alert.dismissViewControllerAnimated(true, completion: nil)
                         self.dismissViewControllerAnimated(true, completion: nil)
@@ -436,7 +434,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             if MFMessageComposeViewController.canSendText() {
                 
                 let messageVC = MFMessageComposeViewController()
-                messageVC.body = NSLocalizedString("I want to pickup \(publication.title)", comment:"sms message to be sent to the publisher sayin: I want to come and pickup")
+                messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
                 messageVC.recipients = [phoneNumber]
                 messageVC.messageComposeDelegate = self
                 self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
@@ -488,7 +486,6 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         let alertTitle = NSLocalizedString("Pickup Registration", comment:"Alert title: Pickup Registration")
         let alertMessage = NSLocalizedString("Please fill in details to join this pickup", comment:"Alert message: Please fill in details to join this pickup")
         let alertRegisterButtonTitle = NSLocalizedString("Register", comment:"Alert button title: Register")
-        let alertCancelButtonTitle = NSLocalizedString("Cancel", comment:"Alert button title: Cancel")
         let alertNameTextFieldLabel = NSLocalizedString("Name", comment:"Alert text field label: Name")
         let alertPhoneTextFieldLabel = NSLocalizedString("Phone number", comment:"Alert text field label: Phone number")
         
@@ -527,7 +524,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
                 self.registerUser(name!, number: number!, publication: self.publication!)
             }
         }))
-        alertController.addAction(UIAlertAction(title: alertCancelButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
         
@@ -549,11 +546,9 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     private func showNoNameOrNumberAllert() {
         
-        let alertTitle = NSLocalizedString("Oops...", comment:"Alert title: Oops...")
         let alertMessage = NSLocalizedString("You have to fill in all the fields", comment:"Alert message: You have to fill in all the fields")
-        let alertButtonTitle = NSLocalizedString("OK", comment:"Alert button title: OK")
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
+        let alertController = UIAlertController(title: kOopsAlertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
             self.showPickupRegistrationAlert()
             
         }))
@@ -562,11 +557,8 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     private func showPhoneNumberAllert() {
         
-        let alertTitle = NSLocalizedString("Oops...", comment:"Alert title: Oops...")
-        let alertMessage = NSLocalizedString("It seems the phone number is incorrect. Please chaeck you have typed it correctly.", comment:"Alert message: It seems the phone number is incorrect. Please chaeck you have typed it correctly.")
-        let alertButtonTitle = NSLocalizedString("OK", comment:"Alert button title: OK")
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
+        let alertController = UIAlertController(title: kOopsAlertTitle, message: kPhoneNumberIncorrectAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
                 self.showPickupRegistrationAlert()
         
         }))
@@ -808,11 +800,11 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
 
             
-            let alert = UIAlertController(title: "שליחת ההודעה נכשלה", message: "לנסות שוב?", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "כן", style: .Default , handler: { (action) -> Void in
+            let alert = UIAlertController(title: kSendSMSfailedAlertTitle, message: kSendSMSTryAgainAlertMessage, preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default , handler: { (action) -> Void in
                 self.didRequestSmsForPublication(self.publication!)
             }))
-            alert.addAction(UIAlertAction(title: "לא", style: .Cancel, handler: { (action) -> Void in
+            alert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Cancel, handler: { (action) -> Void in
                 self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
             }))
             
@@ -983,11 +975,11 @@ extension FCPublicationDetailsTVC {
         
         let takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kTakeOffAirAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
-        takeOffAirAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+        takeOffAirAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
             self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
         }))
         
-        takeOffAirAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
+        takeOffAirAlert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
         }))
         
         presentViewController(takeOffAirAlert, animated: true, completion: nil)
@@ -998,7 +990,7 @@ extension FCPublicationDetailsTVC {
         
         let deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kDeleteAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
-        deleteAlert.addAction(UIAlertAction(title: kAlertOKButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
+        deleteAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
             
             let pubicationToDelete = self.publication!
             // make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
@@ -1013,7 +1005,7 @@ extension FCPublicationDetailsTVC {
             //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
         }))
         
-        deleteAlert.addAction(UIAlertAction(title: kAlertCancelButtonTitle, style: .Default, handler: nil))
+        deleteAlert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Default, handler: nil))
         
         self.presentViewController(deleteAlert, animated: true, completion: nil)
 

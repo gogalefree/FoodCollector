@@ -12,9 +12,8 @@ import MapKit
 import CoreLocation
 
 let kShouldShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
-let kActivityCenterTitle = NSLocalizedString("Activity Center", comment:"Activity Center navigation bar title")
+let kActivityCenterTitle = NSLocalizedString("Activity center", comment:"Activity center navigation bar title")
 let kCollctorTitle = NSLocalizedString("Pickup", comment:"Collector home page navigation bar title")
-let kBackTitle = NSLocalizedString("Back", comment:"Back navigation bar title")
 
 protocol CollectorVCSlideDelegate: NSObjectProtocol {
     func collectorVCWillSlide()
@@ -368,7 +367,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.publicationDetailsTVC?.publication = publication
         let state :PublicationDetailsTVCViewState = FCModel.sharedInstance.isUserCreaetedPublication(publication) ? .Publisher : .Collector
         self.publicationDetailsTVC?.setupWithState(state, caller: .MyPublications, publication: publication)
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         self.navigationController!.presentViewController(nav, animated: true, completion: nil)
     }

@@ -61,7 +61,7 @@ class ContactCollectorPhonePickerVC: UIViewController, UITableViewDelegate, UITa
             
         case 0:
             //title cell
-            cell.mainLabel.text = NSLocalizedString("Call collectore:", comment: "Title for a list of people registered to this event")
+            cell.mainLabel.text = NSLocalizedString("Call collector:", comment: "Title for a list of people registered to this event")
             cell.mainLabel.font = UIFont.boldSystemFontOfSize(17)
             cell.subtitleLabel.text = ""
             cell.userInteractionEnabled = false
