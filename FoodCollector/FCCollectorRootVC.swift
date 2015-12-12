@@ -104,7 +104,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         addPanRecognizer()
         if CLLocationManager.locationServicesEnabled() {
             self.setupLocationManager()
-        }        
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {

@@ -31,16 +31,16 @@ class FetchedDataNotification: NSObject {
         
         switch type {
         case .NewPublication:
-            title = NSLocalizedString("New publication nearby", comment:"fetched data notification text: New publication nearby")
+            title = kNewEventMessageTitle
             
         case .DeletePublication:
-            title = NSLocalizedString("An event ended nearby", comment:"fetched data notification text: An event ended nearby")
+            title = NSLocalizedString("Event Ended Near You", comment:"Title for a notification")
             
         case .Report:
-            title = NSLocalizedString("New event received", comment:"fetched data notification text: New event received")
+            title = NSLocalizedString("New Event Update", comment:"Title for a notification")
             
         case .Registration:
-            title = NSLocalizedString("Another user is en route to pickup:", comment:"fetched data notification text: Another user is en route to pickup:")
+            title = NSLocalizedString("User’s Coming To Pickup", comment:"fetched data notification text: Another user is en route to pickup:")
     
         }
         

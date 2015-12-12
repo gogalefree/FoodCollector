@@ -13,9 +13,9 @@ import Social
 
 let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a button")
 let kOptionsButtonTitle = NSLocalizedString("Options", comment:"Report title for a button")
-let kTakeOffAirlertTitle = NSLocalizedString("End publication confirmation", comment:"End publication confirmation title for an alert controller")
+let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End publication confirmation title for an alert controller")
 let kTakeOffAirAlertMessage = NSLocalizedString("You have chosen to end publication for this event. Are you sure?", comment:"End publication confirmation message for an alert controller")
-let kDeleteAlertTitle = NSLocalizedString("Delete publication confirmation", comment:"Delete confirmation title for an alert controller")
+let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
 let kDeleteAlertMessage = NSLocalizedString("You have chosen to delete this publication. Are you sure?", comment:"Delete confirmation message for an alert controller")
 
 

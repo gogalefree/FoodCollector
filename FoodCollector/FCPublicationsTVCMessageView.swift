@@ -8,7 +8,6 @@
 
 import UIKit
 
-let kNewPublicationMessage = NSLocalizedString("New event nearby", comment:"title of the message banner meaning that a new publication has started nearby")
 
 enum FCPublicationTVCMessageViewState {
     case DeleteMessage
@@ -31,7 +30,7 @@ class FCPublicationsTVCMessageView: UIVisualEffectView {
                 self.contentView.backgroundColor = color
             
             case .NewPublicationMessage:
-                self.titleLabel.text = kNewPublicationMessage
+                self.titleLabel.text = kNewEventMessageTitle
                 let color = UIColor.greenColor().colorWithAlphaComponent(0.1)
                 self.contentView.backgroundColor = color
             }

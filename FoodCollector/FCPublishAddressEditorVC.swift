@@ -9,7 +9,7 @@
 import UIKit
 //import CoreLocation
 
-let addressEditorTitle = NSLocalizedString("Add address", comment:"the editor title for enter a publication address")
+let addressEditorTitle = NSLocalizedString("Select Address", comment:"the editor title for enter a publication address")
 let lastSearchesHeaderTitle = NSLocalizedString("Last searches", comment:"the section header title for last searches history list")
 let currentLocationText = NSLocalizedString("Current location", comment:"the string for current location table row")
 
