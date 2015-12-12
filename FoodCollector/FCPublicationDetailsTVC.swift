@@ -301,7 +301,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
                 
                 if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version{
                     
-                    let alert = UIAlertController(title: publication.title, message: kpublicationDeletedAlertMessage, preferredStyle: .Alert)
+                    let alert = UIAlertController(title: publication.title, message: kPublicationDeletedAlertMessage, preferredStyle: .Alert)
                     // Localization: Original string = title: "okay"
                     let action = UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         

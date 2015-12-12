@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kp9-FN-pCP">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -516,14 +516,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9e-1d-Zhx">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9e-1d-Zhx">
                                             <rect key="frame" x="8" y="10" width="196" height="19"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmr-Qw-WMT">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmr-Qw-WMT">
                                             <rect key="frame" x="8" y="35" width="196" height="16"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
@@ -531,29 +531,19 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWY-aL-RAk">
-                                            <rect key="frame" x="8" y="135" width="84" height="57"/>
+                                            <rect key="frame" x="8" y="135" width="130" height="57"/>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="84" id="4yY-Qw-xXj"/>
+                                                <constraint firstAttribute="width" constant="130" id="4yY-Qw-xXj"/>
                                             </constraints>
-                                            <state key="normal" title="Show Publication">
+                                            <state key="normal" title="Show Details">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
                                                 <action selector="showNewPublicationDetailsAction:" destination="0ZZ-OS-eix" eventType="touchUpInside" id="zaU-a1-zVV"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6de-z3-7Uw">
-                                            <rect key="frame" x="120" y="135" width="84" height="57"/>
-                                            <animations/>
-                                            <state key="normal" title="Cool">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="dissmissNewPublicationViewAction:" destination="0ZZ-OS-eix" eventType="touchUpInside" id="rTd-IY-zDf"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New publication" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjY-js-UK8">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Event" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjY-js-UK8">
                                             <rect key="frame" x="212" y="104" width="80" height="17"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -568,10 +558,21 @@
                                                 <constraint firstAttribute="width" constant="80" id="2QM-CY-Zbp"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6de-z3-7Uw">
+                                            <rect key="frame" x="151" y="135" width="141" height="57"/>
+                                            <animations/>
+                                            <state key="normal" title="Cool">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="dissmissNewPublicationViewAction:" destination="0ZZ-OS-eix" eventType="touchUpInside" id="rTd-IY-zDf"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <animations/>
                                     <constraints>
                                         <constraint firstItem="bYi-G0-JPi" firstAttribute="centerX" secondItem="FjY-js-UK8" secondAttribute="centerX" id="0Yn-Sk-D6s"/>
+                                        <constraint firstItem="6de-z3-7Uw" firstAttribute="trailing" secondItem="FjY-js-UK8" secondAttribute="trailing" id="3eH-Iv-5MO"/>
                                         <constraint firstItem="6de-z3-7Uw" firstAttribute="baseline" secondItem="TWY-aL-RAk" secondAttribute="firstBaseline" id="3ew-lh-oiW"/>
                                         <constraint firstItem="bYi-G0-JPi" firstAttribute="top" secondItem="GDc-TM-bLR" secondAttribute="top" constant="10" id="3jB-pm-Etj"/>
                                         <constraint firstItem="bYi-G0-JPi" firstAttribute="leading" secondItem="j9e-1d-Zhx" secondAttribute="trailing" constant="8" symbolic="YES" id="4rQ-xv-hes"/>
@@ -587,9 +588,9 @@
                                         <constraint firstItem="6de-z3-7Uw" firstAttribute="firstBaseline" secondItem="TWY-aL-RAk" secondAttribute="baseline" id="Xbf-5D-s0y"/>
                                         <constraint firstItem="TWY-aL-RAk" firstAttribute="bottom" secondItem="GDc-TM-bLR" secondAttribute="bottomMargin" id="ZSr-Ml-7Pc"/>
                                         <constraint firstItem="Kmr-Qw-WMT" firstAttribute="top" secondItem="j9e-1d-Zhx" secondAttribute="bottom" constant="6" id="aEv-Wk-6OI"/>
-                                        <constraint firstItem="6de-z3-7Uw" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TWY-aL-RAk" secondAttribute="trailing" constant="28" id="abT-E6-oVN"/>
+                                        <constraint firstItem="6de-z3-7Uw" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TWY-aL-RAk" secondAttribute="trailing" constant="13" id="abT-E6-oVN"/>
                                         <constraint firstItem="Kmr-Qw-WMT" firstAttribute="leading" secondItem="j9e-1d-Zhx" secondAttribute="leading" id="au5-vi-PPn"/>
-                                        <constraint firstItem="bYi-G0-JPi" firstAttribute="leading" secondItem="6de-z3-7Uw" secondAttribute="trailing" constant="8" symbolic="YES" id="mA4-YX-Edt"/>
+                                        <constraint firstItem="bYi-G0-JPi" firstAttribute="leading" secondItem="6de-z3-7Uw" secondAttribute="trailing" id="mA4-YX-Edt"/>
                                         <constraint firstItem="bYi-G0-JPi" firstAttribute="width" secondItem="FjY-js-UK8" secondAttribute="width" id="nI6-yN-Ry6"/>
                                         <constraint firstAttribute="trailing" secondItem="bYi-G0-JPi" secondAttribute="trailing" constant="8" id="nhd-vc-FTe"/>
                                         <constraint firstItem="j9e-1d-Zhx" firstAttribute="leading" secondItem="GDc-TM-bLR" secondAttribute="leadingMargin" id="pbG-Qh-gqb"/>
@@ -602,6 +603,7 @@
                                             <exclude reference="9SM-3b-G95"/>
                                             <exclude reference="Bqo-z2-tgS"/>
                                             <exclude reference="Br7-m1-n9P"/>
+                                            <exclude reference="mA4-YX-Edt"/>
                                         </mask>
                                     </variation>
                                 </view>
@@ -2566,7 +2568,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZMV-45-HEi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2554" y="742"/>
+            <point key="canvasLocation" x="2554" y="765"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="F96-Qd-F4m">

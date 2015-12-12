@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kpublicationDeletedAlertMessage = NSLocalizedString("Publication ended nearby:", comment:"a message that informs the user that a publication ended")
+let kPublicationDeletedAlertMessage = NSLocalizedString("Event ended nearby", comment:"a message that informs the user that a publication ended")
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate , NewReportMessageViewDelegate{
     
@@ -156,7 +156,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         
             let publication = userInfo["publication"] as! FCPublication
             
-            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(publication.title!, aMessage: kpublicationDeletedAlertMessage)
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(publication.title!, aMessage: kPublicationDeletedAlertMessage)
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
