@@ -26,6 +26,8 @@ let kSendSMSTryAgainAlertMessage = NSLocalizedString("Try again?", comment:"Aler
 
 let kNewEventMessageTitle = NSLocalizedString("New Event Near you", comment:"Title of the message banner meaning that a new event has started nearby")
 
+let kConfirmationAlertMessage = NSLocalizedString("Are you sure?", comment:"Alert message body")
+
 class UICommonStrings: NSObject {
 
 }

@@ -31,7 +31,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
                 let distanceString = self.makeDistanceText(publication)
                 self.titleLabel.text = distanceString
                 self.fetchPhotoIfNeeded(publication)
-                self.typeLabel.text = kNewPublicationMessage
+                self.typeLabel.text = kNewEventMessageTitle
             }
         }
     }

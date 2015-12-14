@@ -107,7 +107,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         
         if distanceFromPublication != nil && distanceFromPublication > 2000 {
             
-            let title = NSLocalizedString("You are far from the publication location", comment:"")
+            let title = NSLocalizedString("You are far from the event's location", comment:"")
             let message = NSLocalizedString("Please report only after you have visited the pickup location", comment:"")
             
             let alertController = UIAlertController(title: title, message:message, preferredStyle: .Alert)

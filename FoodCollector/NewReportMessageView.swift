@@ -21,7 +21,7 @@ enum NewReportMessageViewState {
 class NewReportMessageView: UIVisualEffectView {
 
     let actionButtonTitleForHasMoreState = NSLocalizedString("Details", comment:"action button title show details")
-    let actionButtonTitleForNothingLeftState = NSLocalizedString("Remove publication", comment:"action button title take off air")
+    let actionButtonTitleForNothingLeftState = NSLocalizedString("Remove Event", comment:"action button title take off air")
 
     let titleText = NSLocalizedString("Another user is en route to pickup:", comment:"new registration banner title text")
     
