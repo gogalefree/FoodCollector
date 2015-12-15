@@ -356,10 +356,10 @@
             </objects>
             <point key="canvasLocation" x="4435" y="-440"/>
         </scene>
-        <!--Activity center-->
+        <!--Activity Center-->
         <scene sceneID="z6c-7A-Y3g">
             <objects>
-                <tableViewController storyboardIdentifier="FCActivityCenterTVC" title="Activity center" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FCActivityCenterTVC" title="Activity Center" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="55" sectionFooterHeight="1" id="fCA-8J-hlL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -469,7 +469,7 @@
                             <outletCollection property="gestureRecognizers" destination="nDA-uy-mwO" appends="YES" id="dhm-3s-VWn"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Activity center" id="tFN-0g-Una"/>
+                    <navigationItem key="navigationItem" title="Activity Center" id="tFN-0g-Una"/>
                     <connections>
                         <outlet property="leftSwipeGesture" destination="nDA-uy-mwO" id="gnh-Th-bt5"/>
                     </connections>
@@ -859,7 +859,7 @@
                                     <constraint firstAttribute="width" constant="250" id="ks7-Qg-XnN"/>
                                     <constraint firstAttribute="height" constant="30" id="s9a-DL-3eR"/>
                                 </constraints>
-                                <state key="normal" title="Nothing left">
+                                <state key="normal" title="Nothing Left">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -963,7 +963,7 @@
                                     <constraint firstAttribute="width" constant="250" id="kdF-od-7Tm"/>
                                     <constraint firstAttribute="height" constant="30" id="qX7-Fc-4Db"/>
                                 </constraints>
-                                <state key="normal" title="There’s more to pickup">
+                                <state key="normal" title="There’s More to Pickup">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1272,7 +1272,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="bny-KH-62t">
-                        <barButtonItem key="rightBarButtonItem" title="Not now" id="t1S-mK-RBz">
+                        <barButtonItem key="rightBarButtonItem" title="Not Now" id="t1S-mK-RBz">
                             <connections>
                                 <action selector="dissmissAction:" destination="F2c-2D-8p8" id="cvT-Nw-aLd"/>
                             </connections>
@@ -2102,7 +2102,7 @@
                                     <constraint firstAttribute="width" constant="151" id="qqm-s8-Oqq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
-                                <state key="normal" title="Pickup food"/>
+                                <state key="normal" title="Pickup Food"/>
                                 <connections>
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="FiU-zY-mbk"/>
                                 </connections>
@@ -2115,7 +2115,7 @@
                                     <constraint firstAttribute="height" constant="44" id="qeT-au-u1V"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
-                                <state key="normal" title="Share food"/>
+                                <state key="normal" title="Share Food"/>
                                 <connections>
                                     <action selector="actionPressed:" destination="yCW-nD-O9I" eventType="touchUpInside" id="PzU-3M-qXq"/>
                                 </connections>

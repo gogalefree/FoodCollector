@@ -8,8 +8,8 @@
 
 import UIKit
 
-let collectorTitle = NSLocalizedString("My pickups", comment:"activity center table view collector section title. This is a list of publications that I'm as a collector registered to pickup")
-let publisherTitle = NSLocalizedString("My shares", comment:"activity center table view publisher section title. This is a list of publications that I've created as a contributer.")
+let collectorTitle = NSLocalizedString("My Pickups", comment:"Activity center table view collector section title. This is a list of publications that I'm as a collector registered to pickup")
+let publisherTitle = NSLocalizedString("My Shares", comment:"Activity center table view publisher section title. This is a list of publications that I've created as a contributer.")
 let collectorIcon = UIImage(named: "CollectActivity")
 let publisherIcon = UIImage(named: "DonateActivity")
 
