@@ -290,7 +290,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
                     })
                 }
                 else{
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("Communication problem", comment:"Alert title"), aMessage: NSLocalizedString("Try again", comment:"Alert message body"))
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(kCommunicationIssueTitle, aMessage: kCommunicationIssueBody)
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             })

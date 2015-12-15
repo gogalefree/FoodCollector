@@ -28,6 +28,9 @@ let kNewEventMessageTitle = NSLocalizedString("New Event Near you", comment:"Tit
 
 let kConfirmationAlertMessage = NSLocalizedString("Are you sure?", comment:"Alert message body")
 
+let kCommunicationIssueTitle = NSLocalizedString("Communication Issue", comment:"Alert title")
+let kCommunicationIssueBody = NSLocalizedString("Try again", comment:"Alert message body")
+
 class UICommonStrings: NSObject {
 
 }

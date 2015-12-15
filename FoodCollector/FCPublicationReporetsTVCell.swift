@@ -37,7 +37,7 @@ class FCPublicationReporetsTVCell: UITableViewCell {
         case .HasMore:
             title = kHasMoreTitle
         case .TookAll:
-            title = ktookAllTitle
+            title = kTookAllTitle
         default:
             title = kNothingThereTitle
         }

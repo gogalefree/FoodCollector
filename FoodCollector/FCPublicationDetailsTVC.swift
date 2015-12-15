@@ -483,8 +483,8 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     func showPickupRegistrationAlert() {
         // The user is prompt to register to the event as a picker using a name and a phone number
         // Set string labels for the alert
-        let alertTitle = NSLocalizedString("Pickup Registration", comment:"Alert title: Pickup Registration")
-        let alertMessage = NSLocalizedString("Please fill in details to join this pickup", comment:"Alert message: Please fill in details to join this pickup")
+        let alertTitle = NSLocalizedString("Register For Pickup", comment:"Alert title")
+        let alertMessage = NSLocalizedString("Please fill in details to join this pickup", comment:"Alert message body")
         let alertRegisterButtonTitle = NSLocalizedString("Register", comment:"Alert button title: Register")
         let alertNameTextFieldLabel = NSLocalizedString("Name", comment:"Alert text field label: Name")
         let alertPhoneTextFieldLabel = NSLocalizedString("Phone number", comment:"Alert text field label: Phone number")
@@ -546,7 +546,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     private func showNoNameOrNumberAllert() {
         
-        let alertMessage = NSLocalizedString("You have to fill in all the fields", comment:"Alert message: You have to fill in all the fields")
+        let alertMessage = NSLocalizedString("All fields are required", comment:"Alert message body")
         let alertController = UIAlertController(title: kOopsAlertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
             self.showPickupRegistrationAlert()

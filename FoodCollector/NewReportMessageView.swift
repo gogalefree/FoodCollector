@@ -58,7 +58,7 @@ class NewReportMessageView: UIVisualEffectView {
         switch state {
         case .NothingLeft:
             self.actionButton.setTitle(self.actionButtonTitleForNothingLeftState, forState: .Normal)
-            self.messageLabel.text = ktookAllTitle
+            self.messageLabel.text = kTookAllTitle
 
         case .HasMore:
             self.actionButton.setTitle(self.actionButtonTitleForHasMoreState, forState: .Normal)
@@ -77,7 +77,7 @@ class NewReportMessageView: UIVisualEffectView {
             return kHasMoreTitle
             
         case .TookAll:
-            return ktookAllTitle
+            return kTookAllTitle
             
         case .NothingThere:
             return kNothingThereTitle

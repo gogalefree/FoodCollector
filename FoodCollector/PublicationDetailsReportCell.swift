@@ -9,7 +9,7 @@
 import UIKit
 
 let kHasMoreTitle = NSLocalizedString("There’s more to pickup", comment:"The title of a user report which means that there is more food to pickup")
-let ktookAllTitle = NSLocalizedString("Picked up everything", comment:"The title of a user report which means that he took all the food")
+let kTookAllTitle = NSLocalizedString("Took All", comment:"The title of a user report which means that he took all the food")
 let kNothingThereTitle = NSLocalizedString("Nothing left", comment:"The title of a user report which means that he found nothing")
 
 
@@ -70,7 +70,7 @@ class PublicationDetailsReportCell: UITableViewCell {
         case .HasMore:
             title = kHasMoreTitle
         case .TookAll:
-            title = ktookAllTitle
+            title = kTookAllTitle
         default:
             title = kNothingThereTitle
         }
