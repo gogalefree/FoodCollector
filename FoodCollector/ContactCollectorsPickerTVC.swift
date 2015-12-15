@@ -97,7 +97,7 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("sendSmsToCollectorsCell", forIndexPath: indexPath) as! ContactCollectorsPickerSendSmsCell
-            cell.mainLabel.text = NSLocalizedString("Send message", comment:"Send a message to a colllector")
+            cell.mainLabel.text = NSLocalizedString("Send Message", comment:"Send a message to a colllector")
             cell.layer.cornerRadius = 5
             return cell
             
