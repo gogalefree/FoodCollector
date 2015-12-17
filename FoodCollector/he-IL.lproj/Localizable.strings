@@ -99,8 +99,7 @@
 
 /* No user created publications message */
 "Hi,
-What would you like to share?" = "הי,
-מה תרצו לשתף?";
+What would you like to share?" = "הי,מה תרצו לשתף?";
 
 /* SMS message body: I want to pickup 'Publication name' */
 "I want to pickup %@" = "רוצה לבוא לאסוף %@";
@@ -206,7 +205,7 @@ What would you like to share?" = "הי,
 "Register for Pickup" = "רישום לאיסוף";
 
 /* action button title take off air */
-"Remove Event" = "אישור הפסקת פרסום אירוע";
+"Remove Event" = "הסרת פרסום";
 
 /* Report title for a button */
 "Report" = "דווח";
