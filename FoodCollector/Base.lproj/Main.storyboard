@@ -66,26 +66,38 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="COs-D9-pZR">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="COs-D9-pZR">
                                             <rect key="frame" x="179" y="34" width="20" height="20"/>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="4Fj-Da-5Zf"/>
+                                                <constraint firstAttribute="height" constant="20" id="TAV-h2-ier"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gwh-pG-GQl">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gwh-pG-GQl">
                                             <rect key="frame" x="195" y="37" width="30" height="21"/>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="7ds-bi-Gdc"/>
+                                                <constraint firstAttribute="height" constant="21" id="BwB-JV-HpJ"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="en route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAZ-p9-2DG">
-                                            <rect key="frame" x="224" y="37" width="76" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="en route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAZ-p9-2DG">
+                                            <rect key="frame" x="224" y="37" width="132" height="21"/>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="132" id="cum-O2-QWB"/>
+                                                <constraint firstAttribute="height" constant="21" id="wqQ-CS-j27"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="749" text="Kaplan 14, Tel Aviv, Israel" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXY-DR-x5V">
-                                            <rect key="frame" x="148" y="76" width="182" height="21"/>
+                                            <rect key="frame" x="148" y="76" width="182.5" height="21"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="OZZ-hu-KzT"/>
@@ -110,10 +122,16 @@
                                     </subviews>
                                     <animations/>
                                     <constraints>
+                                        <constraint firstItem="COs-D9-pZR" firstAttribute="leading" secondItem="5yV-r4-NMI" secondAttribute="trailing" constant="49" id="BOo-fw-guh"/>
+                                        <constraint firstItem="bAZ-p9-2DG" firstAttribute="top" secondItem="LLX-rZ-OuN" secondAttribute="topMargin" constant="29" id="IGJ-kM-YH8"/>
+                                        <constraint firstItem="Gwh-pG-GQl" firstAttribute="top" secondItem="LLX-rZ-OuN" secondAttribute="topMargin" constant="29" id="IPg-vE-t1X"/>
                                         <constraint firstItem="sXY-DR-x5V" firstAttribute="top" secondItem="LLX-rZ-OuN" secondAttribute="topMargin" constant="68" id="Mjg-GE-X19"/>
                                         <constraint firstItem="5yV-r4-NMI" firstAttribute="top" secondItem="LLX-rZ-OuN" secondAttribute="topMargin" constant="22" id="Q6i-a3-YHs"/>
                                         <constraint firstItem="5yV-r4-NMI" firstAttribute="centerY" secondItem="LLX-rZ-OuN" secondAttribute="centerY" id="QrS-pJ-Gfz"/>
+                                        <constraint firstItem="Gwh-pG-GQl" firstAttribute="leading" secondItem="COs-D9-pZR" secondAttribute="trailing" constant="-4" id="T29-rK-lEl"/>
+                                        <constraint firstItem="COs-D9-pZR" firstAttribute="top" secondItem="LLX-rZ-OuN" secondAttribute="topMargin" constant="26" id="VIU-uZ-zFk"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="sXY-DR-x5V" secondAttribute="trailing" constant="20" id="W3E-5X-3Ky"/>
+                                        <constraint firstItem="bAZ-p9-2DG" firstAttribute="leading" secondItem="Gwh-pG-GQl" secondAttribute="trailing" constant="-1" id="WAH-7Q-YHS"/>
                                         <constraint firstItem="U7J-v3-JAg" firstAttribute="leading" secondItem="LLX-rZ-OuN" secondAttribute="leadingMargin" constant="-16" id="Ynh-RE-FML"/>
                                         <constraint firstAttribute="bottom" secondItem="U7J-v3-JAg" secondAttribute="bottom" id="j9C-jQ-Ebz"/>
                                         <constraint firstItem="U7J-v3-JAg" firstAttribute="top" secondItem="5yV-r4-NMI" secondAttribute="bottom" constant="29" id="jIK-rE-CfZ"/>

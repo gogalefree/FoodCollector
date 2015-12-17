@@ -85,7 +85,7 @@
 "Ends" = "מסתיים";
 
 /* a label title meaning: will finish on date */
-"Ends:" = "מסתיים:";
+"Ends:" = "סיום:";
 
 /* A message that informs the user that a publication ended
    Title for a notification */
