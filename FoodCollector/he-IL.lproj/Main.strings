@@ -1,0 +1,183 @@
+/* Class = "UILabel"; text = "Label"; ObjectID = "0PR-vp-DHe"; */
+"0PR-vp-DHe.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "1Ad-Py-LgI"; */
+"1Ad-Py-LgI.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2Oa-A1-9fz"; */
+"2Oa-A1-9fz.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "There’s More to Pickup"; ObjectID = "4Fd-cF-kDE"; */
+"4Fd-cF-kDE.normalTitle" = "נשאר עוד";
+
+/* Class = "UILabel"; text = "User Reports"; ObjectID = "4wf-Vp-s3T"; */
+"4wf-Vp-s3T.text" = "דיווחי משתמשים";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "5OQ-bl-l9O"; */
+"5OQ-bl-l9O.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Took All"; ObjectID = "6XJ-iz-WDg"; */
+"6XJ-iz-WDg.normalTitle" = "אספתי הכל";
+
+/* Class = "UIButton"; normalTitle = "Cool"; ObjectID = "6de-z3-7Uw"; */
+"6de-z3-7Uw.normalTitle" = "אחלה";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6h8-2b-WKd"; */
+"6h8-2b-WKd.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7JS-sO-3EK"; */
+"7JS-sO-3EK.text" = "Label";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "8aT-Bo-4ND"; */
+"8aT-Bo-4ND.text" = "תיאור";
+
+/* Class = "UILabel"; text = "FOODONET"; ObjectID = "045-DL-8ac"; */
+"045-DL-8ac.text" = "FOODONET";
+
+/* Class = "UILabel"; text = "Build"; ObjectID = "B0i-6h-JMO"; */
+"B0i-6h-JMO.text" = "Build";
+
+/* Class = "UILabel"; text = "Send Message"; ObjectID = "BTK-vj-Jbf"; */
+"BTK-vj-Jbf.text" = "שלחיחת הודעה";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Cq5-xF-fVk"; */
+"Cq5-xF-fVk.text" = "Label";
+
+/* Class = "UILabel"; text = "No Phone Number"; ObjectID = "EOB-cn-hbH"; */
+"EOB-cn-hbH.text" = "האוסף לא השאיר מספר טלפון";
+
+/* Class = "UITabBarItem"; title = "About"; ObjectID = "FIq-wO-Qb8"; */
+"FIq-wO-Qb8.title" = "אודות";
+
+/* Class = "UILabel"; text = "New Event"; ObjectID = "FjY-js-UK8"; */
+"FjY-js-UK8.text" = "אירוע חדש";
+
+/* Class = "UILabel"; text = "25"; ObjectID = "Gwh-pG-GQl"; */
+"Gwh-pG-GQl.text" = "25";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Hf6-tK-AE0"; */
+"Hf6-tK-AE0.text" = "Label";
+
+/* Class = "UITableViewController"; title = "Activity Center"; ObjectID = "IOL-GY-9os"; */
+"IOL-GY-9os.title" = "מרכז הפעילות";
+
+/* Class = "UITabBarItem"; title = "Pickup"; ObjectID = "J8w-tF-wCB"; */
+"J8w-tF-wCB.title" = "איסוף";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Kmr-Qw-WMT"; */
+"Kmr-Qw-WMT.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Welcome"; ObjectID = "NtA-nJ-dYr"; */
+"NtA-nJ-dYr.title" = "ברוכים הבאים";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "TFN-ax-w6M"; */
+"TFN-ax-w6M.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Show Details"; ObjectID = "TWY-aL-RAk"; */
+"TWY-aL-RAk.normalTitle" = "הצגת פרטים";
+
+/* Class = "UILabel"; text = "1111"; ObjectID = "UAw-2m-dNE"; */
+"UAw-2m-dNE.text" = "1111";
+
+/* Class = "UILabel"; text = "1111"; ObjectID = "UOt-CZ-JFf"; */
+"UOt-CZ-JFf.text" = "1111";
+
+/* Class = "UINavigationController"; title = "Collect"; ObjectID = "V26-sE-fum"; */
+"V26-sE-fum.title" = "Collect";
+
+/* Class = "UINavigationItem"; title = "Reports"; ObjectID = "X9g-Fl-nzX"; */
+"X9g-Fl-nzX.title" = "דיווחים";
+
+/* Class = "UIButton"; normalTitle = "Nothing Left"; ObjectID = "XNA-Lc-Zrd"; */
+"XNA-Lc-Zrd.normalTitle" = "לא מצאתי כלום";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Z5c-Yd-PoJ"; */
+"Z5c-Yd-PoJ.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "ZBd-en-G6k"; */
+"ZBd-en-G6k.title" = "ביטול";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "am5-cN-1Jh"; */
+"am5-cN-1Jh.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Pickup Food"; ObjectID = "aup-wQ-Bfq"; */
+"aup-wQ-Bfq.normalTitle" = "לאסוף מזון";
+
+/* Class = "UILabel"; text = "en route"; ObjectID = "bAZ-p9-2DG"; */
+"bAZ-p9-2DG.text" = "בדרך";
+
+/* Class = "UINavigationItem"; title = "My Shares"; ObjectID = "bjZ-lv-Ao0"; */
+"bjZ-lv-Ao0.title" = "השיתופים שלי";
+
+/* Class = "UIViewController"; title = "About"; ObjectID = "eQz-g4-Jns"; */
+"eQz-g4-Jns.title" = "אודות";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fgF-vw-aeu"; */
+"fgF-vw-aeu.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "fqk-Lk-drl"; */
+"fqk-Lk-drl.title" = "חזרה";
+
+/* Class = "UIViewController"; title = "Adress Selector"; ObjectID = "hdu-mN-4y2"; */
+"hdu-mN-4y2.title" = "Adress Selector";
+
+/* Class = "UITabBarItem"; title = "Share"; ObjectID = "ho0-XI-XhJ"; */
+"ho0-XI-XhJ.title" = "שיתוף";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "j6R-pC-6PM"; */
+"j6R-pC-6PM.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "j9e-1d-Zhx"; */
+"j9e-1d-Zhx.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jbA-n8-YuS"; */
+"jbA-n8-YuS.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "lWx-p4-UgB"; */
+"lWx-p4-UgB.title" = "בוצע";
+
+/* Class = "UILabel"; text = "Call"; ObjectID = "lrb-w8-fSW"; */
+"lrb-w8-fSW.text" = "התקשר";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "og0-dB-9oW"; */
+"og0-dB-9oW.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "qFD-ld-5vp"; */
+"qFD-ld-5vp.text" = "Label";
+
+/* Class = "UIViewController"; title = "My Shares"; ObjectID = "qaa-G1-Puy"; */
+"qaa-G1-Puy.title" = "השיתופים שלי";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "rKp-0f-acV"; */
+"rKp-0f-acV.text" = "Version";
+
+/* Class = "UILabel"; text = "Kaplan 14, Tel Aviv, Israel"; ObjectID = "sXY-DR-x5V"; */
+"sXY-DR-x5V.text" = "Kaplan 14, Tel Aviv, Israel";
+
+/* Class = "UIButton"; normalTitle = "Share Food"; ObjectID = "spz-xB-01E"; */
+"spz-xB-01E.normalTitle" = "לשתף מזון";
+
+/* Class = "UIBarButtonItem"; title = "Not Now"; ObjectID = "t1S-mK-RBz"; */
+"t1S-mK-RBz.title" = "לא עכשיו";
+
+/* Class = "UINavigationItem"; title = "Activity Center"; ObjectID = "tFN-0g-Una"; */
+"tFN-0g-Una.title" = "מרכז הפעילות";
+
+/* Class = "UISearchBar"; placeholder = "Type address or select an earlier search"; ObjectID = "ulr-E7-krT"; */
+"ulr-E7-krT.placeholder" = "הקלידו כתובת או ביחרו חיפוש קודם";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "v1R-1J-UAm"; */
+"v1R-1J-UAm.title" = "ביטול";
+
+/* Class = "UIViewController"; title = "Collect"; ObjectID = "vXZ-lx-hvc"; */
+"vXZ-lx-hvc.title" = "Collect";
+
+/* Class = "UILabel"; text = "What would you like to do?"; ObjectID = "x0y-g5-7hP"; */
+"x0y-g5-7hP.text" = "מה תרצו לעשות?";
+
+/* Class = "UIViewController"; title = "Welcome"; ObjectID = "yCW-nD-O9I"; */
+"yCW-nD-O9I.title" = "ברוכים הבאים";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ze6-Vf-li4"; */
+"ze6-Vf-li4.text" = "Label";
+

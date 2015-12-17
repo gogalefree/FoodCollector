@@ -1,0 +1,279 @@
+/* Distance from location of sharing. the first place holder is a number, the second placeholder is the distance unit, e.g: '55 km away' */
+"%@ km away" = "%@ ק״מ ממקומך";
+
+/* Search bar scope button titles */
+"Active" = "פעילים";
+
+/* The publication is active untill this date, e.g: 'Active 23/11/2015' */
+"Active %@" = "פעיל";
+
+/* Activity center navigation bar title */
+"Activity Center" = "מרכז הפעילות";
+
+/* Add image for a new event */
+"Add a picture" = "הוספת תמונה";
+
+/* Add subitle for a new event */
+"Additional details" = "פרטים נוספים";
+
+/* Alert message body */
+"All fields are required" = "חובה למלא את כל השדות";
+
+/* An error accord */
+"An error accord" = "אירע שגיאה";
+
+/* new registration banner title text */
+"Another user is en route to pickup:" = "משתמש נוסף בדרך לאסוף:";
+
+/* navigation button in action sheet meening apple maps navigation */
+"Apple Maps" = "Apple Maps";
+
+/* Alert message body
+   Delete confirmation message for an alert controller
+   End publication confirmation message for an alert controller */
+"Are you sure?" = "האם אתם בטוחים?";
+
+/* Title for a navigation button */
+"Back" = "חזרה";
+
+/* Title for a list of people registered to this event */
+"Call collector:" = "התקשר לאוסף:";
+
+/* alert call to publisher button title */
+"Call publisher" = "התקשר למשתף";
+
+/* camera button title */
+"Camera" = "מצלמה";
+
+/* Title for an alert button */
+"Cancel" = "ביטול";
+
+/* Search bar scope button titles */
+"Closest" = "קרובים";
+
+/* Alert title */
+"Communication Issue" = "יש בעיית תקשורת";
+
+/* End publication confirmation title for an alert controller */
+"Confirm Event Ended" = "אישור הפסקת פרסום אירוע";
+
+/* alert dissmiss button title */
+"Cool" = "אחלה";
+
+/* the string for current location table row */
+"Current location" = "מיקום נוכחי";
+
+/* Publisher top right menu item */
+"Delete" = "מחיקה";
+
+/* Delete confirmation title for an alert controller */
+"Delete Event?" = "למחוק אירוע?";
+
+/* action button title show details */
+"Details" = "פרטים";
+
+/* Title for an alert button */
+"Done" = "בוצע";
+
+/* Publisher top right menu item */
+"Edit" = "עריכה";
+
+/* the puclication has ended (it is off the air) */
+"Ended" = "הסתיים";
+
+/* Search bar scope button titles */
+"Ends" = "מסתיים";
+
+/* a label title meaning: will finish on date */
+"Ends:" = "מסתיים:";
+
+/* A message that informs the user that a publication ended
+   Title for a notification */
+"Event Ended Near You" = "ארוע הסתיים באזורך";
+
+/* Add address for a new event */
+"Event location" = "מאיפה לאסוף?";
+
+/* Nav Bar title - the events near you */
+"Events Near You" = "אירועים בקירבתך";
+
+/* No user created publications message */
+"Hi,
+What would you like to share?" = "הי,
+מה תרצו לשתף?";
+
+/* SMS message body: I want to pickup 'Publication name' */
+"I want to pickup %@" = "רוצה לבוא לאסוף %@";
+
+/* the publication is not active beacause it was taken off air */
+"Inactive" = "לא פעיל";
+
+/* Message alert when phone number pattern is incorrect */
+"Incorrect phone number" = "מספר הטלפון לא חוקי";
+
+/* Alert message body */
+"It seems the phone number is incorrect. Please check you have typed it correctly." = "נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון.";
+
+/* the section header title for last searches history list */
+"Last searches" = "חיפושים אחרונים";
+
+/* photo library button title */
+"Library" = "גלריה";
+
+/* Alert title */
+"Message delivery failed" = "שליחת ההודעה נכשלה";
+
+/* Activity center table view collector section title. This is a list of publications that I'm as a collector registered to pickup */
+"My Pickups" = "בדרך לאסוף";
+
+/* Activity center table view publisher section title. This is a list of publications that I've created as a contributer. */
+"My Shares" = "השיתופים שלי";
+
+/* Alert text field label: Name */
+"Name" = "שם";
+
+/* an action sheet title meening chose app to navigate with */
+"Navigate with:" = "נווט בעזרת:";
+
+/* Title of the message banner meaning that a new event has started nearby */
+"New Event Near you" = "שיתוף חדש בקירבתך";
+
+/* Title for a notification */
+"New Event Update" = "התקבל דיווח חדש עבור";
+
+/* Title for an alert button */
+"No" = "לא";
+
+/* Display 'No Name' when there's no collector name */
+"No Name" = "ללא שם";
+
+/* Alert message title */
+"No collectors were selected" = "לא נבחרו אוספים";
+
+/* No comment provided by engineer. */
+"No one is registered for this pickup" = "אין משתמשים בדרך לאסוף";
+
+/* the title in the table view cell displayed when a publication has no reports */
+"No reports" = "אין דיווחים";
+
+/* Navigation bar button title */
+"Not Now" = "לא עכשיו";
+
+/* The title of a user report which means that he found nothing */
+"Nothing left" = "לא מצאתי כלום";
+
+/* Title for an alert button */
+"OK" = "אישור";
+
+/* Search bar scope button titles */
+"Off Air" = "לא פעיל";
+
+/* Search bar scope button titles */
+"On Air" = "פעיל";
+
+/* Title for an alert message */
+"Oops..." = "אופס...";
+
+/* Report title for a button */
+"Options" = "אפשרויות";
+
+/* Alert text field label: Phone number */
+"Phone number" = "מספר טלפון";
+
+/* Collector home page navigation bar title
+   Collector map title */
+"Pickup" = "איסוף";
+
+/* Add end date for a new event */
+"Pickup ends:" = "ועד-";
+
+/* Add start date for a new event */
+"Pickup starts:" = "אפשר לאסוף החל מ-";
+
+/* Alert message body */
+"Please fill in details to join this pickup" = "יש למלא פרטי התקשרות כדי להצטרף לאיסוף";
+
+/* No comment provided by engineer. */
+"Please report only after you have visited the event's location" = "אנא דווחו רק אחרי שהייתם במקום";
+
+/* Search bar scope button titles */
+"Recent" = "אחרונים";
+
+/* Alert button title: Register */
+"Register" = "הרשמה";
+
+/* Alert title */
+"Register for Pickup" = "רישום לאיסוף";
+
+/* action button title take off air */
+"Remove Event" = "אישור הפסקת פרסום אירוע";
+
+/* Report title for a button */
+"Report" = "דווח";
+
+/* Search bar placeholder text */
+"Search" = "חיפוש";
+
+/* the editor title for enter a publication address */
+"Select Address" = "הוספת כתובת";
+
+/* Choose all collectors */
+"Select All" = "בחר הכל";
+
+/* This is the image you have selected label */
+"Selected picture" = "זו התמונה שנבחרה";
+
+/* Send a message to a colllector */
+"Send Message" = "שליחת הודעה";
+
+/* Alert show event button title */
+"Show Event" = "הצגת אירוע";
+
+/* a label title meaning: publication start at date and time */
+"Started:" = "התחלה:";
+
+/* Publisher top right menu item */
+"Stop Event" = "הפסקת שיתוף";
+
+/* No comment provided by engineer. */
+"There are no legit phone numbers" = "אין מספרי טלפון חוקיים";
+
+/* The title of a user report which means that there is more food to pickup */
+"There’s more to pickup" = "נשאר עוד";
+
+/* The title of a user report which means that he took all the food */
+"Took all" = "אספתי הכל";
+
+/* Alert message body */
+"Try again" = "נסו שוב";
+
+/* Alert message body */
+"Try again?" = "לנסות שוב?";
+
+/* No comment provided by engineer. */
+"User" = "משתמש";
+
+/* Publication details reports title */
+"User Reports" = "דיווחי משתמשים";
+
+/* fetched data notification text: Another user is en route to pickup: */
+"User’s Coming To Pickup" = "משתמש נוסף בדרך לאסוף";
+
+/* navigation button in action sheet meening waze navigation */
+"Waze" = "Waze";
+
+/* Add title for a new event */
+"What are you sharing?" = "מה תרצה לשתף?";
+
+/* Add phone number for a new event */
+"What's your phone number?" = "מה מספר הטלפון?";
+
+/* Title for an alert button */
+"Yes" = "כן";
+
+/* No comment provided by engineer. */
+"You are far from the event's location" = "אתם רחוקים ממקום הפרסום";
+
+/* location notification body: You have arrived to... */
+"You have arrived to: %@" = "הגעת ל: %@";
+
