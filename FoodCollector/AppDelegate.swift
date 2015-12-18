@@ -44,7 +44,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerAWSS3()
         registreGoogleAnalytics()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        if (launchOptions?[UIApplicationLaunchOptionsURLKey] == nil) {
         
+            FBSDKAppLinkUtility.fetchDeferredAppLink { (url, error) -> Void in
+                
+                if (error != nil) {
+                    print("Received error while fetching deferred app link \(error)")
+                }
+                if (url != nil) {
+                    
+                    if UIApplication.sharedApplication().canOpenURL(url) {UIApplication.sharedApplication().openURL(url)}
+                }
+                
+            }
+
+        }
+
         return true
     }
     
