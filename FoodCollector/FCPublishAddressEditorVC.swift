@@ -9,9 +9,9 @@
 import UIKit
 //import CoreLocation
 
-let addressEditorTitle = String.localizedStringWithFormat("הוספת כתובת", "the editor title for enter a publication address")
-let lastSearchesHeaderTitle = String.localizedStringWithFormat("חיפושים אחרונים", "the section header title for last searches history list")
-let currentLocationText = String.localizedStringWithFormat("מיקום נוכחי", "the string for current location table row")
+let addressEditorTitle = NSLocalizedString("Add address", comment:"the editor title for enter a publication address")
+let lastSearchesHeaderTitle = NSLocalizedString("Last searches", comment:"the section header title for last searches history list")
+let currentLocationText = NSLocalizedString("Current location", comment:"the string for current location table row")
 
 
 class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -128,7 +128,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         if (indexPath.item == 0 && indexPath.section == 0 && !didSerchAndFindResults){
             self.selectedLatitude = FCModel.sharedInstance.userLocation.coordinate.latitude
             self.selectedLongtitude = FCModel.sharedInstance.userLocation.coordinate.longitude
-            self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lng: self.selectedLongtitude)
+            self.googleReverseGeoCodeForLatLngLocation(lat: self.selectedLatitude, lon: self.selectedLongtitude)
         }
         else {
             let userSelectedAddress = self.initialData[indexPath.item] as String
@@ -222,7 +222,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 }
             }
             else {
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("There's a communication issue", comment:"Error title: a communication problem accord"), aMessage: NSLocalizedString("Try again", comment:"Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 
             }
@@ -268,24 +268,24 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     print(error!.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error accord", comment:"An error accord"), aMessage: NSLocalizedString("Try again", comment:"Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
             }
             else {
                 // UIALERT
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("There's a communication issue", comment:"Error title: a communication problem accord"), aMessage: NSLocalizedString("Try again", comment:"Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
             
         }).resume()
     }
     
-    func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lng: Double) {
+    func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lon: Double) {
         let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
         //https://maps.googleapis.com/maps/api/geocode/json?latlng=32.1499984,34.8939178&language=iw&key=API_KEY
         // TODO: add support for other laguages
-        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lng)&language=iw&key=\(key)")!)
+        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lon)&language=iw&key=\(key)")!)
         
         let session = NSURLSession.sharedSession()
         
@@ -328,13 +328,13 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     print(error!.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("אירע שגיאה", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error accord", comment:"An error accord"), aMessage: NSLocalizedString("Try again", comment:"Try again"))
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
             }
             else {
                 // UIALERT
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(String.localizedStringWithFormat("יש בעייית תקשורת", "An error accord"), aMessage: String.localizedStringWithFormat("נסו שוב", "Try again"))
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("There's a communication issue", comment:"Error title: a communication problem accord"), aMessage: NSLocalizedString("Try again", comment:"Try again"))
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             }
             

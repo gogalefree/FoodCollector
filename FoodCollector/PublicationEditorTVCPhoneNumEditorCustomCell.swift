@@ -8,14 +8,7 @@
 
 import UIKit
 
-let kPhoneNumberPadDoneTitle = String.localizedStringWithFormat("סיום", "Done lable for button")
-let kPhoneNumberPadDismissTitle = String.localizedStringWithFormat("ביטול", "Cancel lable for button")
-
-
 class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextFieldDelegate {
-    
-    
-        
     
     @IBOutlet weak var cellPhoneField: UITextField!
     
@@ -55,12 +48,12 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         let buutonWidth = CGFloat(50)
         let numberPadAccessoryViewToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
         
-        let cancelButton = UIBarButtonItem(title: kPhoneNumberPadDismissTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissNumberPad")
+        let cancelButton = UIBarButtonItem(title: kCancelButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissNumberPad")
         cancelButton.width = buutonWidth
         
         let flexibleSpaceButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        let doneButton = UIBarButtonItem(title: kPhoneNumberPadDoneTitle, style: UIBarButtonItemStyle.Done, target: self, action: "doneNumberPad")
+        let doneButton = UIBarButtonItem(title: kDoneButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "doneNumberPad")
         doneButton.width = buutonWidth
         
         numberPadAccessoryViewToolbar.items = [cancelButton, flexibleSpaceButtonItem, doneButton]
@@ -102,11 +95,8 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     
     func showPhoneNumberAllert() {
 
-        let alertTitle = String.localizedStringWithFormat("אופס...", "Alert title: Ooops...")
-        let alertMessage = String.localizedStringWithFormat("נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון", "Alert message: It seems the phone number is incorrect. Please chaeck you have typed correctly.")
-        let alertButtonTitle = String.localizedStringWithFormat("אישור", "Alert button title: OK")
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: alertButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
+        let alertController = UIAlertController(title: kOopsAlertTitle, message: kPhoneNumberIncorrectAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
         
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
     }

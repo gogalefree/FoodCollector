@@ -127,7 +127,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: userCreatedPublications[indexPath.item], publicationIndexPath: indexPath.item)
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         
         publicationDetailsTVC?.deleteDelgate = self
         
@@ -293,8 +293,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             label.textAlignment = NSTextAlignment.Center
             label.numberOfLines = 0
             label.font = UIFont.systemFontOfSize(fontSize)
-            //label.text = String.localizedStringWithFormat("Hi,\nYou haven't shared yet." , "No user created publications message")
-            label.text = String.localizedStringWithFormat("הי,\nמה תרצו לשתף?" , "No user created publications message")
+            label.text = NSLocalizedString("Hi,\nWhat would you like to share?" , comment:"No user created publications message")
             self.view.addSubview(label)
         }
     }

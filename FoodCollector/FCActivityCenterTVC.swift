@@ -181,7 +181,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
             let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
             publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Collector, caller: PublicationDetailsTVCVReferral.ActivityCenter, publication: publication)
             
-            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
             let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
             self.navigationController?.presentViewController(nav, animated: true, completion: nil)
             
@@ -189,7 +189,7 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
             let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
             publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.ActivityCenter, publication: publication)
             
-            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+            publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
             publicationDetailsTVC?.deleteDelgate = self
             
             let nav = UINavigationController(rootViewController: publicationDetailsTVC!)

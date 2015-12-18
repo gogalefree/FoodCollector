@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kNewPublicationMessage = String.localizedStringWithFormat("שיתוף חדש בקירבתך", "title of the message banner meaning that there is nothing left at thepublication spot")
+let kNewPublicationMessage = NSLocalizedString("New publication nearby", comment:"title of the message banner meaning that a new publication has started nearby")
 
 enum FCPublicationTVCMessageViewState {
     case DeleteMessage

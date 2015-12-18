@@ -12,6 +12,9 @@ import MessageUI
 
 
 class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMessageComposeViewControllerDelegate {
+    
+    let kSendSMSNotSelectedAlertTitle = NSLocalizedString("No collectors were selected", comment:"Alert message title")
+    
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -94,7 +97,7 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("sendSmsToCollectorsCell", forIndexPath: indexPath) as! ContactCollectorsPickerSendSmsCell
-            cell.mainLabel.text = String.localizedStringWithFormat("שלח הודעה", "")
+            cell.mainLabel.text = NSLocalizedString("Send message", comment:"Send a message to a colllector")
             cell.layer.cornerRadius = 5
             return cell
             
@@ -135,7 +138,7 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
         
         if recipients.count == 0 {
         
-            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("לא נבחרו אוספים", aMessage: "")
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(kSendSMSNotSelectedAlertTitle, aMessage: "")
             self.navigationController?.presentViewController(alert, animated: true, completion: nil)
             return
         }
@@ -196,11 +199,11 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
             
             
-            let alert = UIAlertController(title: "שליחת ההודעה נכשלה", message: "לנסות שוב?", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "כן", style: .Default , handler: { (action) -> Void in
+            let alert = UIAlertController(title: kSendSMSfailedAlertTitle, message: kSendSMSTryAgainAlertMessage, preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default , handler: { (action) -> Void in
                 self.sendSms()
             }))
-            alert.addAction(UIAlertAction(title: "לא", style: .Cancel, handler: { (action) -> Void in
+            alert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Cancel, handler: { (action) -> Void in
                 self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
             }))
             

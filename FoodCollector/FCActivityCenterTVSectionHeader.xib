@@ -39,24 +39,18 @@
             <constraints>
                 <constraint firstItem="9sI-xM-EMM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1v3-SD-rId"/>
                 <constraint firstItem="Rs4-0y-2GW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="2Ta-MT-zGF"/>
-                <constraint firstItem="Rs4-0y-2GW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="3q8-tu-bac"/>
-                <constraint firstAttribute="trailing" secondItem="fcQ-ic-icR" secondAttribute="trailing" constant="25" id="5YZ-z8-Iv8"/>
+                <constraint firstItem="fcQ-ic-icR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="25" id="NX1-9I-xeh"/>
                 <constraint firstItem="9sI-xM-EMM" firstAttribute="centerY" secondItem="fcQ-ic-icR" secondAttribute="centerY" id="RgK-6j-cyb"/>
                 <constraint firstItem="9sI-xM-EMM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="W3M-nW-rla"/>
-                <constraint firstItem="fcQ-ic-icR" firstAttribute="leading" secondItem="Rs4-0y-2GW" secondAttribute="trailing" constant="8" symbolic="YES" id="fhI-1B-EAZ"/>
+                <constraint firstItem="Rs4-0y-2GW" firstAttribute="leading" secondItem="fcQ-ic-icR" secondAttribute="trailing" constant="8" id="fEz-VC-Pa9"/>
                 <constraint firstItem="9sI-xM-EMM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jU3-Vh-QEE"/>
-                <constraint firstItem="fcQ-ic-icR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="22" id="ook-pL-jOO"/>
                 <constraint firstItem="fcQ-ic-icR" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="v0F-tf-dMG"/>
+                <constraint firstAttribute="trailing" secondItem="Rs4-0y-2GW" secondAttribute="trailing" constant="8" id="x63-IK-2qj"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="ook-pL-jOO"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="blackBackgroundView" destination="9sI-xM-EMM" id="Ktd-ui-OFV"/>
                 <outlet property="iconImageView" destination="fcQ-ic-icR" id="zeX-Ui-otW"/>

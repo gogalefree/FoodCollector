@@ -15,8 +15,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-6w-I38">
-                        <rect key="frame" x="87" y="7" width="218" height="30"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-6w-I38">
+                        <rect key="frame" x="8" y="7" width="218" height="30"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -24,10 +24,10 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstItem="iq1-6w-I38" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="79" id="4aR-RF-kPG"/>
+                    <constraint firstItem="iq1-6w-I38" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0xT-kT-AF6"/>
                     <constraint firstItem="iq1-6w-I38" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="WN1-CC-czP"/>
                     <constraint firstItem="iq1-6w-I38" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="YwN-cw-PYg"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="iq1-6w-I38" secondAttribute="trailing" constant="7" id="bQZ-zN-6Ph"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="iq1-6w-I38" secondAttribute="trailing" constant="86" id="iMu-Ey-xIJ"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>

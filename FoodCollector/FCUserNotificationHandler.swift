@@ -122,9 +122,7 @@ class FCUserNotificationHandler : NSObject {
         let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
         let localNotification = UILocalNotification()
         localNotification.userInfo = userInfo
-        localNotification.alertBody =
-            String.localizedStringWithFormat("הגעת ל: \(publication.title)",
-            "location notification body")
+        localNotification.alertBody = String.localizedStringWithFormat(NSLocalizedString("You have arrived to: %@", comment: "location notification body: You have arrived to..."), publication.title!)
         localNotification.soundName = UILocalNotificationDefaultSoundName
         localNotification.regionTriggersOnce = true
         localNotification.region = CLCircularRegion(center: publication.coordinate, radius: CLLocationDistance(kRegionRadiusForLocationNotification), identifier: publication.title!)
@@ -319,7 +317,7 @@ extension FCUserNotificationHandler {
         let showAction = UIMutableUserNotificationAction()
         showAction.identifier = "SHOW_IDENTIFIER"
         // Localized string displayed in the action button
-        showAction.title = "הצגת שיתוף"
+        showAction.title = NSLocalizedString("Show publication", comment:"alert show publication button title")
         // If you need to show UI, choose foreground
         showAction.activationMode = UIUserNotificationActivationMode.Foreground
         // Destructive actions display in red
@@ -330,7 +328,7 @@ extension FCUserNotificationHandler {
         let cancelAction = UIMutableUserNotificationAction()
         cancelAction.identifier = "DISSMISS_IDENTIFIER"
         // Localized string displayed in the action button
-        cancelAction.title = "ביטול"
+        cancelAction.title = kCancelButtonTitle
         // If you need to show UI, choose foreground
         cancelAction.activationMode = UIUserNotificationActivationMode.Background
         // Destructive actions display in red

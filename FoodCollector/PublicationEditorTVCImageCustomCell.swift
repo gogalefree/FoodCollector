@@ -14,7 +14,7 @@ class PublicationEditorTVCImageCustomCell: UITableViewCell {
     
     @IBOutlet weak var publicationImage: UIImageView!
     
-    @IBOutlet weak var pictureButton: UIButton!
+    //@IBOutlet weak var pictureButton: UIButton!
     
     var section: Int?
     

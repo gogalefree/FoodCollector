@@ -12,19 +12,25 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cF-9F-VqL">
-                        <rect key="frame" x="169" y="12" width="136" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cF-9F-VqL">
+                        <rect key="frame" x="8" y="12" width="136" height="21"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="136" id="eP2-3y-9Qq"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5FF-2X-AjN">
-                        <rect key="frame" x="8" y="12" width="130" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5FF-2X-AjN">
+                        <rect key="frame" x="175" y="12" width="130" height="21"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="130" id="Ucl-po-7tR"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -32,15 +38,14 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="8cF-9F-VqL" secondAttribute="trailing" constant="7" id="0i7-6d-D6N"/>
-                    <constraint firstItem="8cF-9F-VqL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="1hM-l1-nNM"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="8cF-9F-VqL" secondAttribute="leading" id="04Y-sF-QM2"/>
+                    <constraint firstItem="5FF-2X-AjN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8cF-9F-VqL" secondAttribute="trailing" constant="31" id="ELm-xl-YDF"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="5FF-2X-AjN" secondAttribute="trailing" constant="7" id="IZV-d8-gXY"/>
                     <constraint firstAttribute="centerY" secondItem="8cF-9F-VqL" secondAttribute="centerY" id="ItC-CE-Uft"/>
-                    <constraint firstItem="5FF-2X-AjN" firstAttribute="top" secondItem="8cF-9F-VqL" secondAttribute="top" id="Ne0-yt-WRr"/>
-                    <constraint firstItem="8cF-9F-VqL" firstAttribute="leading" secondItem="5FF-2X-AjN" secondAttribute="trailing" constant="31" id="i8A-kK-7ev"/>
-                    <constraint firstItem="8cF-9F-VqL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="161" id="kaI-jn-zcr"/>
-                    <constraint firstItem="5FF-2X-AjN" firstAttribute="bottom" secondItem="8cF-9F-VqL" secondAttribute="bottom" id="pzI-sG-Upf"/>
+                    <constraint firstItem="5FF-2X-AjN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="ibb-N4-S5O"/>
+                    <constraint firstItem="8cF-9F-VqL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="teu-1S-9gE"/>
                     <constraint firstItem="8cF-9F-VqL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uX5-fn-2tB"/>
-                    <constraint firstItem="5FF-2X-AjN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="zfT-37-W1u"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="5FF-2X-AjN" secondAttribute="bottom" constant="3.5" id="v32-rl-Umx"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>

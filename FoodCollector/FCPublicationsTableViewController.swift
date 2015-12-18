@@ -30,7 +30,11 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     let messageViewHidenY: CGFloat = -10
     let messageViewVisibleY: CGFloat = 62
     let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
-    let navBarTitle = String.localizedStringWithFormat("אירועים בקירבתך", "Nav Bar title - the publications near you")
+    let navBarTitle = NSLocalizedString("Nearby publications", comment:"Nav Bar title - the publications near you")
+    let navBarSearchPlaceHolderText = NSLocalizedString("Search", comment:"Search bar placeholder text")
+    let scopeButtonTitlesClosest = NSLocalizedString("Closest", comment:"Search bar scope button titles")
+    let scopeButtonTitlesRecent = NSLocalizedString("Recent", comment:"Search bar scope button titles")
+    let scopeButtonTitlesActive = NSLocalizedString("Active", comment:"Search bar scope button titles")
     
     
     override func viewDidLoad() {
@@ -58,20 +62,16 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let searchBar = UISearchBar(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44))
         self.searchBar = searchBar
         searchBar.delegate = self
-        // English String
-        // searchBar.placeholder = "Search"
-        searchBar.placeholder = "חיפוש" // Localized String
+        searchBar.placeholder = navBarSearchPlaceHolderText
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
-        // English String
-        // searchBar.scopeButtonTitles = ["Closest" , "Recent" , "Active"]
-        searchBar.scopeButtonTitles = ["קרובים" , "אחרונים" , "פעילים"]  // Localized String
+        searchBar.scopeButtonTitles = [scopeButtonTitlesClosest, scopeButtonTitlesRecent, scopeButtonTitlesActive]
         searchBar.showsScopeBar = true
         searchBar.selectedScopeButtonIndex = 0
         searchBar.sizeToFit()
         
-        //println("SUBVIEWS Count: \(searchBar.subviews[0].subviews[0].subviews.count)")
-        //println("SUBVIEWS 0: \(searchBar.subviews[0].subviews[0].subviews[0].description)")
-        //println("SUBVIEWS 1: \(searchBar.subviews[0].subviews[0].subviews[1].description)")
+        //print("SUBVIEWS Count: \(searchBar.subviews[0].subviews[0].subviews.count)")
+        //print("SUBVIEWS 0: \(searchBar.subviews[0].subviews[0].subviews[0].description)")
+        //print("SUBVIEWS 1: \(searchBar.subviews[0].subviews[0].subviews[1].description)")
         
         let white = UIColor.whiteColor()
         searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(white, view: self.view), forState: .Normal)
@@ -94,7 +94,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         for subView in viewsArray {
             if subView.isKindOfClass(UIButton) {
                 if (subView as! UIButton).currentTitle != nil {
-                    (subView as! UIButton).setTitle("ביטול", forState: .Normal)
+                    (subView as! UIButton).setTitle(kCancelButtonTitle, forState: .Normal)
                     return
                 }
             }
@@ -238,7 +238,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         publicationDetailsTVC?.title = title
         publicationDetailsTVC?.publication = publication
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "חזור", style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)

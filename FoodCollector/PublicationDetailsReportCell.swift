@@ -8,9 +8,9 @@
 
 import UIKit
 
-let kHasMoreTitle = String.localizedStringWithFormat("משתמש דיווח: נשאר עוד","the title of a user report which means that there is more food to pick up")
-let ktookAllTitle = String.localizedStringWithFormat("משתמש דיווח: אספתי הכל","the title of a user report which means that he took all the food")
-let kNothingThereTitle = String.localizedStringWithFormat("משתמש דיווח: לא מצאתי כלום","the title of a user report which means that he found nothing")
+let kHasMoreTitle = NSLocalizedString("More left to pickup", comment:"the title of a user report which means that there is more food to pickup")
+let ktookAllTitle = NSLocalizedString("Picked up everything", comment:"the title of a user report which means that he took all the food")
+let kNothingThereTitle = NSLocalizedString("Nothing left", comment:"the title of a user report which means that he found nothing")
 
 
 class PublicationDetailsReportCell: UITableViewCell {
@@ -50,15 +50,14 @@ class PublicationDetailsReportCell: UITableViewCell {
     
     func presentNoReportsMessage() {
         
-        self.reportLabel.text = String.localizedStringWithFormat("אין דיווחים", "the title in the table view cell displayed when a publication has no reports")
+        self.reportLabel.text = NSLocalizedString("No reports", comment:"the title in the table view cell displayed when a publication has no reports")
         self.timeLabel.text = " "
         self.iconImageView.image = UIImage(named: "Pin-Table-Whole")!
     }
     
     func presentReport(report: FCOnSpotPublicationReport){
-        
         self.reportLabel.text = self.titleForReport(report)
-        self.timeLabel.text = FCDateFunctions.timeStringEuroStyle(report.date)
+        self.timeLabel.text = FCDateFunctions.localizedTimeStringShortStyle(report.date)
         self.iconImageView.image = FCIconFactory.publicationDetailsReportIcon(report)
     }
     

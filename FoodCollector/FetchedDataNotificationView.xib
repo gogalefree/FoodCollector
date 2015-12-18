@@ -45,7 +45,7 @@
                             <constraint firstAttribute="width" constant="150" id="cKO-zd-itB"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <state key="normal" title="הצג פרטים">
+                        <state key="normal" title="Show details">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <variation key="default">
@@ -65,7 +65,7 @@
                             <constraint firstAttribute="width" constant="150" id="gf6-3s-D6z"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <state key="normal" title="אחלה">
+                        <state key="normal" title="Cool">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <variation key="default">

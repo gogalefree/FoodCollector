@@ -20,10 +20,7 @@ protocol MainActionVCDelegate: NSObjectProtocol {
 
 class MainActionVC: UIViewController {
     
-    let mainActionVCTitle = String.localizedStringWithFormat("ברוכים הבאים", "main action vc title")
-    let mainLabelText = String.localizedStringWithFormat("מה תרצו לעשות?", "main action vc title")
-    let collectLabelText = String.localizedStringWithFormat("לאסוף מזון", "main action vc title")
-    let publishLabelText = String.localizedStringWithFormat("לשתף מזון", "main action vc title")
+
     let labelsTextColor = UIColor(red: 149/255, green: 149/255, blue: 149/255, alpha: 1)
 
     @IBOutlet weak var mainLabelTopConstraint: NSLayoutConstraint!
@@ -47,19 +44,14 @@ class MainActionVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = mainActionVCTitle
         configureLabels()
         configureButtons()
-        configureLabels()
 
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : UIFont.boldSystemFontOfSize(24) , NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func configureLabels() {
         
-        collectTitleButton.setTitle(self.collectLabelText, forState: .Normal)
-        publishTitleButton.setTitle(self.publishLabelText, forState: .Normal)
-        mainTitleLabel.text = self.mainLabelText
         let buttons = [collectTitleButton, publishTitleButton]
         for button in buttons {
             button.setTitleColor(self.labelsTextColor, forState: .Normal)

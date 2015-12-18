@@ -9,6 +9,11 @@
 import UIKit
 
 class FCPublisherRootVCCollectionViewHeaderCollectionReusableView: UICollectionReusableView {
+    let searchBarPlaceHolderText = NSLocalizedString("Search", comment:"Search bar placeholder text")
+    let scopeButtonTitlesOnAir = NSLocalizedString("On Air", comment:"Search bar scope button titles")
+    let scopeButtonTitlesOffAir = NSLocalizedString("Off Air", comment:"Search bar scope button titles")
+    let scopeButtonTitlesEnds = NSLocalizedString("Ends", comment:"Search bar scope button titles")
+
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -17,13 +22,9 @@ class FCPublisherRootVCCollectionViewHeaderCollectionReusableView: UICollectionR
         
         super.awakeFromNib()
 
-        // English String
-        // searchBar.placeholder = "Search"
-        searchBar.placeholder = "חיפוש" // Localized String
+        searchBar.placeholder = searchBarPlaceHolderText
         searchBar.searchBarStyle = UISearchBarStyle.Prominent
-        // English String
-        // searchBar.scopeButtonTitles = ["On Air" , "Off Air" , "Ends"]
-        searchBar.scopeButtonTitles = ["פעיל" , "לא פעיל" , "מסתיים"] // Localized String
+        searchBar.scopeButtonTitles = [scopeButtonTitlesOnAir, scopeButtonTitlesOffAir, scopeButtonTitlesEnds]
         searchBar.showsScopeBar = true
         searchBar.selectedScopeButtonIndex = 0
         searchBar.sizeToFit()

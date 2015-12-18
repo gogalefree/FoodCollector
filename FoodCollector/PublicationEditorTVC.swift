@@ -8,17 +8,16 @@
 
 import UIKit
 
-let kPublishTitle = String.localizedStringWithFormat("מה תרצה לשתף?", "Add title for a new event")
+let kPublishTitle = NSLocalizedString("What are you sharing?", comment:"Add title for a new event")
 
-let kPublishAddress = String.localizedStringWithFormat("מאיפה לאסוף?", "Add address for a new event")
-let kPublishPhoneNumber = String.localizedStringWithFormat("מה מספר הטלפון?", "Add phone number for a new event")
-let kPublishStartDate = String.localizedStringWithFormat("אפשר לאסוף החל מ-", "Add start date for a new event")
-let kPublishEndDate = String.localizedStringWithFormat("ועד-", "Add ebd date for a new event")
-let kPublishImage = String.localizedStringWithFormat("רוצה להוסיף תמונה?", "Add image for a new event")
-let kPublishedImage = String.localizedStringWithFormat("זו התמונה שבחרת:", "This is the image you have selected label")
-let kPublishPublishButtonLabel = String.localizedStringWithFormat("פרסום", "Publish button to publish a new event")
-let kPublishSubtitle = String.localizedStringWithFormat("רוצה לתת פרטים נוספים?", "Add subitle for a new event")
-let kPublishtopRightBarButtonSaveTitle = String.localizedStringWithFormat("שמירה", "'Save' title for top right bar button")
+let kPublishAddress = NSLocalizedString("From where to pickup?", comment:"Add address for a new event")
+let kPublishPhoneNumber = NSLocalizedString("What's your phone number?", comment:"Add phone number for a new event")
+let kPublishStartDate = NSLocalizedString("Pickup starts:", comment:"Add start date for a new event")
+let kPublishEndDate = NSLocalizedString("Pickup ends:", comment:"Add end date for a new event")
+let kPublishImage = NSLocalizedString("Want to add a picture?", comment:"Add image for a new event")
+// TODO: Check if kPublishedImage is still used and for what
+let kPublishedImage = NSLocalizedString("This is the picture you've chosen:", comment:"This is the image you have selected label")
+let kPublishSubtitle = NSLocalizedString("Add additional details?", comment:"Add subitle for a new event")
 
 
 let kAddDefaultHoursToStartDate:Double = 72 // Amount of hours to add to the start date so that we will have an End date for new publication only!
@@ -108,7 +107,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         addTopRightButton()
         addPictureButton()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButtonLabel, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
         
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
         
@@ -400,8 +399,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func addTopRightButton() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "V_Button"), style: UIBarButtonItemStyle.Done, target: self, action: "publish")
-            
-            //UIBarButtonItem(title: kPublishtopRightBarButtonSaveTitle, style: UIBarButtonItemStyle.Done, target: self, action: "publish")
         setTopRightButtonStatus()
     }
     
@@ -412,9 +409,14 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     func addPictureButton(){
         let image = UIImage(named: "CameraIcon") as UIImage?
         let button   = UIButton(type: UIButtonType.Custom)
-        button.frame = CGRectMake(40, pictureRowHeigt-25, 50, 50)
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let buttonWidth = CGFloat(50)
+        let buttonHeight = CGFloat(50)
+        let paddingFromEdge = CGFloat(40)
+        let buttonXPosition = screenWidth - buttonWidth - paddingFromEdge
+        button.frame = CGRectMake(buttonXPosition, pictureRowHeigt-(buttonHeight/2), buttonWidth, buttonHeight)
         button.backgroundColor = kNavBarBlueColor //UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
-        button.layer.cornerRadius = CGRectGetWidth(button.frame) / 2
+        button.layer.cornerRadius = buttonWidth / 2
         button.setImage(image, forState: .Normal)
         button.addTarget(self, action: "pictureButtonTouched:", forControlEvents:.TouchUpInside)
         self.view.addSubview(button)
@@ -809,16 +811,16 @@ extension PublicationEditorTVC {
         
         let actionSheet = UIAlertController(title: "", message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        let dissmissAction = UIAlertAction(title:String.localizedStringWithFormat("ביטול", "alert dissmiss button title"), style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:kCancelButtonTitle, style: .Cancel) { (action) in
             actionSheet.dismissViewControllerAnimated(true , completion: nil)
         }
         
-        let cameraAction = UIAlertAction(title:String.localizedStringWithFormat("מצלמה", "camera button title "), style: UIAlertActionStyle.Default) { (action) in
+        let cameraAction = UIAlertAction(title:NSLocalizedString("Camera", comment:"camera button title "), style: UIAlertActionStyle.Default) { (action) in
             self.presentImagePickerController(.Camera)
             actionSheet.dismissViewControllerAnimated(true , completion: nil)
         }
         
-        let photoLibraryAction = UIAlertAction(title:String.localizedStringWithFormat("גלריה", "photo galery button title"), style: UIAlertActionStyle.Default) { (action) in
+        let photoLibraryAction = UIAlertAction(title:NSLocalizedString("Library", comment:"photo library button title"), style: UIAlertActionStyle.Default) { (action) in
             self.presentImagePickerController(.PhotoLibrary)
             actionSheet.dismissViewControllerAnimated(true , completion: nil)
         }
