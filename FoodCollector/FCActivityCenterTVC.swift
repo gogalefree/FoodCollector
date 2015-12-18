@@ -8,11 +8,9 @@
 
 import UIKit
 
-let collectorTitle = String.localizedStringWithFormat("בדרך לאסוף", "activity center table view collector section title. means collector")
-let publisherTitle = String.localizedStringWithFormat("השיתופים שלי", "activity center table view publisher section title. means contributer")
-let feedbackTitle = String.localizedStringWithFormat("כתוב לנו", "")
-let backButtonLabel = String.localizedStringWithFormat("חזרה", "The label of a back button")
-
+let collectorTitle = NSLocalizedString("My pickups", comment:"activity center table view collector section title. This is a list of publications that I'm as a collector registered to pickup")
+let publisherTitle = NSLocalizedString("My shares", comment:"activity center table view publisher section title. This is a list of publications that I've created as a contributer.")
+let feedbackTitle = NSLocalizedString("Send Feedback", comment: "activity center table view feedback section title")
 
 class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDelegate, UIGestureRecognizerDelegate {
     

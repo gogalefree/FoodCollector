@@ -436,8 +436,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             if MFMessageComposeViewController.canSendText() {
                 
                 let messageVC = MFMessageComposeViewController()
-                let title = publication.title == nil ? "" : publication.title!
-                messageVC.body = String.localizedStringWithFormat("רוצה לבוא לאסוף \(title)", "sms message to be sent to the publisher sayin i want to come pick up")
+                messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
                 messageVC.recipients = [phoneNumber]
                 messageVC.messageComposeDelegate = self
                 self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)

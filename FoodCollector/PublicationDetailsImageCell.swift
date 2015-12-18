@@ -65,6 +65,7 @@ class PublicationDetailsImageCell: UITableViewCell {
             self.registeredUsersIconImageView.alpha = 0
             
         }) { (finished) -> Void in
+            // TODO: Add support for localized number format (for non european language)
             
             self.registeredUsersCounterlabel.text = "\(self.publication.registrationsForPublication.count)"
             self.defineImageColorForUser()

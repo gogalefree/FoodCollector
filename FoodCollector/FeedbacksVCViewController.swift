@@ -13,11 +13,10 @@ class FeedbacksVCViewController: UIViewController , UITextViewDelegate{
     @IBOutlet weak var titleLabel               : UILabel!
     @IBOutlet weak var reportTextView           : UITextView!
     @IBOutlet weak var sendButton               : UIButton!
-    @IBOutlet weak var backroundView            : UIView!
     @IBOutlet weak var popupBackroundView       : UIView!
 
     
-    let placeHolderMessage = String.localizedStringWithFormat("שתפו אותנו במחשבות, הצעות ובכל דבר אחר", "")
+    let placeHolderMessage = NSLocalizedString("Share your thoughts or anythong else", comment: "feedback text view place holder")
     
  
     override func viewDidLoad() {
