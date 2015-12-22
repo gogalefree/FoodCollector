@@ -245,7 +245,8 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aTitle = params[kPublicationTitleKey] as! String
         let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
         let anAddress = params[kPublicationAddressKey] as? String ?? ""
-        let aTypeOfCollecting = TypeOfCollecting(rawValue: params[kPublicationTypeOfCollectingKey] as! Int)
+        //var typeOfCollectingRawValue =  params[kPublicationTypeOfCollectingKey] as? Int
+        let aTypeOfCollecting = TypeOfCollecting(rawValue: 2)
         let aLatitude =  (params[kPublicationlatitudeKey] as! NSString).doubleValue
         let aLongtitude = (params[kPublicationLongtitudeKey] as! NSString).doubleValue
         let aCoordinateds = CLLocationCoordinate2D(latitude: aLatitude, longitude: aLongtitude)
