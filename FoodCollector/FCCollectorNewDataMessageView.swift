@@ -31,7 +31,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
                 let distanceString = self.makeDistanceText(publication)
                 self.titleLabel.text = distanceString
                 self.fetchPhotoIfNeeded(publication)
-                self.typeLabel.text = kNewPublicationMessage
+                self.typeLabel.text = kNewEventMessageTitle
             }
         }
     }
@@ -108,7 +108,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
         self.layer.cornerRadius = 10
         self.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.layer.borderWidth = 1
-        self.titleLabel.textAlignment = .Right
-        self.messageLabel.textAlignment = .Right
+        //self.titleLabel.textAlignment = .Right
+        //self.messageLabel.textAlignment = .Right
     }
 }

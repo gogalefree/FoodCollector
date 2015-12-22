@@ -76,7 +76,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let buttonTitle = NSLocalizedString("Not now",comment:"Back navigation bar title")
+        let buttonTitle = NSLocalizedString("Not Now",comment:"Navigation bar button title")
         let rightButton = UIBarButtonItem(title: buttonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "cancelButtonAction:")
         self.navigationItem.rightBarButtonItem = rightButton
         configureButton(self.tookAllButton)
@@ -107,8 +107,8 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         
         if distanceFromPublication != nil && distanceFromPublication > 2000 {
             
-            let title = NSLocalizedString("You are far from the publication location", comment:"")
-            let message = NSLocalizedString("Please report only after you have visited the pickup location", comment:"")
+            let title = NSLocalizedString("You are far from the event's location", comment:"")
+            let message = NSLocalizedString("Please report only after you have visited the event's location", comment:"")
             
             let alertController = UIAlertController(title: title, message:message, preferredStyle: .Alert)
             let dissmissAction = UIAlertAction(title:NSLocalizedString("Cool", comment:"alert dissmiss button title"), style: .Cancel) { (action) in

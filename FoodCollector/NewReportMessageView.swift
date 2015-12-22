@@ -21,7 +21,7 @@ enum NewReportMessageViewState {
 class NewReportMessageView: UIVisualEffectView {
 
     let actionButtonTitleForHasMoreState = NSLocalizedString("Details", comment:"action button title show details")
-    let actionButtonTitleForNothingLeftState = NSLocalizedString("Remove publication", comment:"action button title take off air")
+    let actionButtonTitleForNothingLeftState = NSLocalizedString("Remove Event", comment:"action button title take off air")
 
     let titleText = NSLocalizedString("Another user is en route to pickup:", comment:"new registration banner title text")
     
@@ -58,7 +58,7 @@ class NewReportMessageView: UIVisualEffectView {
         switch state {
         case .NothingLeft:
             self.actionButton.setTitle(self.actionButtonTitleForNothingLeftState, forState: .Normal)
-            self.messageLabel.text = ktookAllTitle
+            self.messageLabel.text = kTookAllTitle
 
         case .HasMore:
             self.actionButton.setTitle(self.actionButtonTitleForHasMoreState, forState: .Normal)
@@ -77,7 +77,7 @@ class NewReportMessageView: UIVisualEffectView {
             return kHasMoreTitle
             
         case .TookAll:
-            return ktookAllTitle
+            return kTookAllTitle
             
         case .NothingThere:
             return kNothingThereTitle

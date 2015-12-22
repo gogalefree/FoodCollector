@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 let kShouldShowFailedToRegisterForPushAlertKey = "didShowFailedToRegisterForPushMessage"
-let kActivityCenterTitle = NSLocalizedString("Activity center", comment:"Activity center navigation bar title")
+let kActivityCenterTitle = NSLocalizedString("Activity Center", comment:"Activity center navigation bar title")
 let kCollctorTitle = NSLocalizedString("Pickup", comment:"Collector home page navigation bar title")
 
 protocol CollectorVCSlideDelegate: NSObjectProtocol {
@@ -104,7 +104,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         addPanRecognizer()
         if CLLocationManager.locationServicesEnabled() {
             self.setupLocationManager()
-        }        
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {

@@ -33,12 +33,12 @@ class ContactCollectorPickerCollectorDetailsCell: UITableViewCell {
         switch indexPath!.section {
             
         case 0:
-            title = NSLocalizedString("Select all", comment:"Choose all collectors")
+            title = NSLocalizedString("Select All", comment:"Choose all collectors")
             self.mainLabel.font = UIFont.boldSystemFontOfSize(17)
             self.seperatorView.backgroundColor = UIColor.blackColor()
             
         case 1:
-            title = registration?.collectorName ?? NSLocalizedString("No name", comment:"Display 'NoName' when there's no collector name")
+            title = registration?.collectorName ?? NSLocalizedString("No Name", comment:"Display 'No Name' when there's no collector name")
             self.seperatorView.backgroundColor = UIColor.lightGrayColor()
             self.mainLabel.font = UIFont.systemFontOfSize(17)
             

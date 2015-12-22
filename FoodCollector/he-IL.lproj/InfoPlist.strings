@@ -1,0 +1,9 @@
+/* (No Commment) */
+"CFBundleDisplayName" = "FDN Dev";
+
+/* (No Commment) */
+"CFBundleName" = "dev.$(PRODUCT_NAME)";
+
+/* (No Commment) */
+"CFBundleShortVersionString" = "1.0.8";
+

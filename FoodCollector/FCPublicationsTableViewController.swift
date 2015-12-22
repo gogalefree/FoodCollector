@@ -30,7 +30,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     let messageViewHidenY: CGFloat = -10
     let messageViewVisibleY: CGFloat = 62
     let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
-    let navBarTitle = NSLocalizedString("Nearby publications", comment:"Nav Bar title - the publications near you")
+    let navBarTitle = NSLocalizedString("Events Near You", comment:"Nav Bar title - the events near you")
     let navBarSearchPlaceHolderText = NSLocalizedString("Search", comment:"Search bar placeholder text")
     let scopeButtonTitlesClosest = NSLocalizedString("Closest", comment:"Search bar scope button titles")
     let scopeButtonTitlesRecent = NSLocalizedString("Recent", comment:"Search bar scope button titles")

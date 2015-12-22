@@ -11,7 +11,7 @@ import UIKit
 class PublicationDetailsReportsTitleCell: UITableViewCell {
     
     let cellIdentifier = "PublicationDetailsReportsTitleCell"
-    let reportsTitle = NSLocalizedString("User reports", comment:"Publication details reports title")
+    let reportsTitle = NSLocalizedString("User Reports", comment:"Publication details reports title")
     
     @IBOutlet weak var reportsTitleLabel: UILabel!
 

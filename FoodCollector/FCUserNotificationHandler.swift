@@ -317,7 +317,7 @@ extension FCUserNotificationHandler {
         let showAction = UIMutableUserNotificationAction()
         showAction.identifier = "SHOW_IDENTIFIER"
         // Localized string displayed in the action button
-        showAction.title = NSLocalizedString("Show publication", comment:"alert show publication button title")
+        showAction.title = NSLocalizedString("Show Event", comment:"Alert show event button title")
         // If you need to show UI, choose foreground
         showAction.activationMode = UIUserNotificationActivationMode.Foreground
         // Destructive actions display in red

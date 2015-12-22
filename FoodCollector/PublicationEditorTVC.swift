@@ -10,14 +10,14 @@ import UIKit
 
 let kPublishTitle = NSLocalizedString("What are you sharing?", comment:"Add title for a new event")
 
-let kPublishAddress = NSLocalizedString("From where to pickup?", comment:"Add address for a new event")
+let kPublishAddress = NSLocalizedString("Event location", comment:"Add address for a new event")
 let kPublishPhoneNumber = NSLocalizedString("What's your phone number?", comment:"Add phone number for a new event")
 let kPublishStartDate = NSLocalizedString("Pickup starts:", comment:"Add start date for a new event")
 let kPublishEndDate = NSLocalizedString("Pickup ends:", comment:"Add end date for a new event")
-let kPublishImage = NSLocalizedString("Want to add a picture?", comment:"Add image for a new event")
+let kPublishImage = NSLocalizedString("Add a picture", comment:"Add image for a new event")
 // TODO: Check if kPublishedImage is still used and for what
-let kPublishedImage = NSLocalizedString("This is the picture you've chosen:", comment:"This is the image you have selected label")
-let kPublishSubtitle = NSLocalizedString("Add additional details?", comment:"Add subitle for a new event")
+let kPublishedImage = NSLocalizedString("Selected picture", comment:"This is the image you have selected label")
+let kPublishSubtitle = NSLocalizedString("Additional details", comment:"Add subitle for a new event")
 
 
 let kAddDefaultHoursToStartDate:Double = 72 // Amount of hours to add to the start date so that we will have an End date for new publication only!
@@ -407,26 +407,69 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func addPictureButton(){
-        let image = UIImage(named: "CameraIcon") as UIImage?
-        let button   = UIButton(type: UIButtonType.Custom)
         let screenWidth = UIScreen.mainScreen().bounds.width
         let buttonWidth = CGFloat(50)
         let buttonHeight = CGFloat(50)
         let paddingFromEdge = CGFloat(40)
-        let buttonXPosition = screenWidth - buttonWidth - paddingFromEdge
-        button.frame = CGRectMake(buttonXPosition, pictureRowHeigt-(buttonHeight/2), buttonWidth, buttonHeight)
+        
+        let image = UIImage(named: "CameraIcon") as UIImage?
+        let auxiliaryView = UIView(frame: CGRectMake(0, 0, screenWidth, pictureRowHeigt))
+        
+        // When I try to position the button (using constraints) relative to it’s superview (UITableView),
+        // the trailing position is not in the place it should be. After some investigation, I still don’t
+        // know why. Therefore, I created an auxiliary view to act as the container for the button.
+        // The auxiliaryView helps to position the button using the proper constraints.
+        
+        let button   = UIButton(type: UIButtonType.Custom)
         button.backgroundColor = kNavBarBlueColor //UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
         button.layer.cornerRadius = buttonWidth / 2
         button.setImage(image, forState: .Normal)
         button.addTarget(self, action: "pictureButtonTouched:", forControlEvents:.TouchUpInside)
-        self.view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        let widthConstraint = NSLayoutConstraint(
+            item: button,
+            attribute: .Width,
+            relatedBy: .Equal,
+            toItem: nil,
+            attribute: .Width,
+            multiplier: 1.0,
+            constant: buttonWidth)
+        
+        let heightConstraint = NSLayoutConstraint(
+            item: button,
+            attribute: .Height,
+            relatedBy: .Equal,
+            toItem: nil,
+            attribute: .Height,
+            multiplier: 1.0,
+            constant: buttonHeight)
+        
+        let trailingConstraint = NSLayoutConstraint(
+            item: auxiliaryView,
+            attribute: .Trailing,
+            relatedBy: .Equal,
+            toItem: button,
+            attribute: .Trailing,
+            multiplier: 1.0,
+            constant: paddingFromEdge)
+        
+        let topConstraint = NSLayoutConstraint(
+            item: button,
+            attribute: .Top,
+            relatedBy: .Equal,
+            toItem: auxiliaryView,
+            attribute: .Top,
+            multiplier: 1.0,
+            constant: CGFloat(pictureRowHeigt-(buttonHeight/2)))
+        
+        auxiliaryView.addSubview(button)
+        auxiliaryView.addConstraints([widthConstraint, heightConstraint, trailingConstraint, topConstraint])
+        self.view.addSubview(auxiliaryView)
     }
     
     func pictureButtonTouched(object : UIButton) {
-        
-        print("Picture button pressed!!!")
         presentImagePickerActionSheet()
-        
     }
     
 

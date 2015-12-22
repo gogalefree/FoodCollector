@@ -12,3 +12,7 @@ Hebrew
 Privacy - Location Usage Description: "הצגת הודעה בזמן הגעה לנקודת שיתוף"
 NSLocationWhenInUseUsageDescription: "הצגת הודעה בזמן הגעה לנקודת שיתוף"
 
+
+Use UICommonStrings class for strings that are used more than once in the code.
+
+
