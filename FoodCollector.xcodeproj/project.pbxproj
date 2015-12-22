@@ -92,6 +92,7 @@
 		E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */; };
 		E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */; };
 		E4545D9C1AD322B20031CF8A /* Pin-Table-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */; };
+		E45762621C29C0F7001124B4 /* CollectorMapVCNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45762611C29C0F7001124B4 /* CollectorMapVCNavController.swift */; };
 		E4584B6E1BE4B901007D45E2 /* ContactCollectorsPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B6D1BE4B900007D45E2 /* ContactCollectorsPickerTVC.swift */; };
 		E4584B701BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B6F1BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift */; };
 		E4584B721BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */; };
@@ -284,6 +285,7 @@
 		E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole.png"; sourceTree = "<group>"; };
 		E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole@2x.png"; sourceTree = "<group>"; };
 		E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole@3x.png"; sourceTree = "<group>"; };
+		E45762611C29C0F7001124B4 /* CollectorMapVCNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectorMapVCNavController.swift; sourceTree = "<group>"; };
 		E4584B6D1BE4B900007D45E2 /* ContactCollectorsPickerTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorsPickerTVC.swift; sourceTree = "<group>"; };
 		E4584B6F1BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPickerCollectorDetailsCell.swift; sourceTree = "<group>"; };
 		E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorsPickerSendSmsCell.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 		E45499571AAA1BB8001B5E49 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				E45762611C29C0F7001124B4 /* CollectorMapVCNavController.swift */,
 				E4737D681A10C01300A4AB81 /* FCCollectorRootVC.swift */,
 				E482637A1BE22A8400526C7B /* FCCollectorRootVC+.swift */,
 				E4607B041BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift */,
@@ -1169,6 +1172,7 @@
 				E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */,
 				E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */,
 				A1535BE41B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */,
+				E45762621C29C0F7001124B4 /* CollectorMapVCNavController.swift in Sources */,
 				E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */,
 				E477AE4E1BFF41430055FCB0 /* GAController.swift in Sources */,
 				E4DC5D5E1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift in Sources */,

@@ -618,11 +618,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-ic-60V">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OgJ-ic-60V" secondAttribute="height" multiplier="1:1" id="Grs-K2-HBY"/>
@@ -757,7 +757,7 @@
                                 </connections>
                             </visualEffectView>
                             <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iar-eB-Wi1">
-                                <rect key="frame" x="0.0" y="484" width="600" height="116"/>
+                                <rect key="frame" x="0.0" y="435" width="600" height="116"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="116" id="x48-GI-4iR"/>
@@ -767,7 +767,7 @@
                                 </connections>
                             </containerView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0e-IL-u3L">
-                                <rect key="frame" x="20" y="416" width="60" height="60"/>
+                                <rect key="frame" x="20" y="367" width="60" height="60"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vFd-fs-WSC">
                                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -815,7 +815,7 @@
                             <constraint firstItem="n0e-IL-u3L" firstAttribute="top" secondItem="OgJ-ic-60V" secondAttribute="bottom" constant="-147" id="SzU-zc-1qY"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="n0e-IL-u3L" secondAttribute="bottom" constant="57" id="TGa-dl-eFG"/>
                             <constraint firstItem="Iar-eB-Wi1" firstAttribute="top" secondItem="n0e-IL-u3L" secondAttribute="bottom" constant="8" id="WLj-xR-FQT"/>
-                            <constraint firstItem="0ZZ-OS-eix" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="13" id="ihl-jo-ASa"/>
+                            <constraint firstItem="0ZZ-OS-eix" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="33" id="ihl-jo-ASa"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="0ZZ-OS-eix" secondAttribute="bottom" constant="395" id="m5q-8V-k4F"/>
                             <constraint firstItem="OgJ-ic-60V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="pZW-G8-9Lp"/>
                             <constraint firstItem="OgJ-ic-60V" firstAttribute="leading" secondItem="0ZZ-OS-eix" secondAttribute="trailing" constant="-450" id="qXM-dl-E4M"/>
@@ -1694,13 +1694,13 @@
             <objects>
                 <tableViewController storyboardIdentifier="FCPublicationsTableViewController" id="f4d-b5-Oid" customClass="FCPublicationsTableViewController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Ra-ij-bsg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="publicationTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="publicationTableViewCell" id="nOK-Hd-C35" customClass="FCPublicationsTVCell" customModule="FoodCollector" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="600" height="96"/>
+                                <rect key="frame" x="0.0" y="66" width="600" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nOK-Hd-C35" id="aNs-u4-V9a">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
@@ -1968,10 +1968,29 @@
                     <view key="view" contentMode="scaleToFill" id="3Lh-SD-S61">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCL-Pv-k4t">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="V26-sE-fum" kind="embed" id="E2c-II-YAb"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MCL-Pv-k4t" firstAttribute="top" secondItem="3Lh-SD-S61" secondAttribute="topMargin" id="1Uz-8c-baR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MCL-Pv-k4t" secondAttribute="trailing" constant="-20" id="3cX-ne-1x8"/>
+                            <constraint firstItem="r3R-ka-qWs" firstAttribute="top" secondItem="MCL-Pv-k4t" secondAttribute="bottom" id="VyB-8P-BND"/>
+                            <constraint firstItem="MCL-Pv-k4t" firstAttribute="leading" secondItem="3Lh-SD-S61" secondAttribute="leadingMargin" constant="-20" id="by1-qt-eyp"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Pickup" image="Collect_v5" id="J8w-tF-wCB"/>
+                    <connections>
+                        <outlet property="mapNavigationControllerLeadingConstraint" destination="by1-qt-eyp" id="0V6-39-OUM"/>
+                        <outlet property="mapNavigationControllerTrailingConstraint" destination="3cX-ne-1x8" id="tHQ-n5-xaB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htA-Ht-Vb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1980,7 +1999,7 @@
         <!--Collect-->
         <scene sceneID="VED-7b-aGp">
             <objects>
-                <navigationController storyboardIdentifier="collectorRootNavController" title="Collect" automaticallyAdjustsScrollViewInsets="NO" id="V26-sE-fum" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="collectorRootNavController" title="Collect" automaticallyAdjustsScrollViewInsets="NO" id="V26-sE-fum" customClass="CollectorMapVCNavController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="Collect-off" id="h0a-Jz-DGL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L1Q-lq-Uh3">
