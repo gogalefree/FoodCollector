@@ -107,10 +107,12 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
         collectorRootVC.isPresentingActivityCenter = false
         
+        self.mapNavigationControllerLeadingConstraint.constant = -kConstraintsTotalPadding
+        self.mapNavigationControllerTrailingConstraint.constant = -kConstraintsTotalPadding
+        
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             
-            self.mapNavigationControllerLeadingConstraint.constant = -self.kConstraintsTotalPadding
-            self.mapNavigationControllerTrailingConstraint.constant = -self.kConstraintsTotalPadding
+            
             self.view.layoutIfNeeded()
             self.tabBarController?.tabBar.frame.origin.x = 0
             
