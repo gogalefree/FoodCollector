@@ -486,7 +486,7 @@
             </objects>
             <point key="canvasLocation" x="3344" y="-1394"/>
         </scene>
-        <!--Activity center-->
+        <!--Activity Center-->
         <scene sceneID="z6c-7A-Y3g">
             <objects>
                 <tableViewController storyboardIdentifier="FCActivityCenterTVC" title="Activity Center" id="IOL-GY-9os" customClass="FCActivityCenterTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
@@ -673,18 +673,8 @@
                                                 <action selector="showNewPublicationDetailsAction:" destination="0ZZ-OS-eix" eventType="touchUpInside" id="zaU-a1-zVV"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6de-z3-7Uw">
-                                            <rect key="frame" x="120" y="135" width="84" height="57"/>
-                                            <animations/>
-                                            <state key="normal" title="Cool">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="dissmissNewPublicationViewAction:" destination="0ZZ-OS-eix" eventType="touchUpInside" id="rTd-IY-zDf"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New publication" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjY-js-UK8">
-                                            <rect key="frame" x="212" y="104" width="80" height="34"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Event" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjY-js-UK8">
+                                            <rect key="frame" x="212" y="104" width="80" height="17"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.96470594409999999" green="0.43921571970000001" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
@@ -2833,7 +2823,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rbk-Kt-TwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8557" y="-1972"/>
+            <point key="canvasLocation" x="6933" y="-1994"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="91r-Kk-YFj">
@@ -2852,7 +2842,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hci-LB-vlB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7745" y="-1972"/>
+            <point key="canvasLocation" x="6262" y="-1994"/>
         </scene>
     </scenes>
     <resources>
