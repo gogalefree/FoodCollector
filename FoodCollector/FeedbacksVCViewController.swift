@@ -16,7 +16,7 @@ class FeedbacksVCViewController: UIViewController , UITextViewDelegate{
     @IBOutlet weak var popupBackroundView       : UIView!
 
     
-    let placeHolderMessage = NSLocalizedString("Share your thoughts or anythong else", comment: "feedback text view place holder")
+    let placeHolderMessage = NSLocalizedString("Share your thoughts or anything else", comment: "Feedback text place holder")
     
  
     override func viewDidLoad() {

@@ -43,6 +43,9 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "Cq5-xF-fVk"; */
 "Cq5-xF-fVk.text" = "Label";
 
+/* Class = "UILabel"; text = "Feedback"; ObjectID = "DtI-jc-HPg"; */
+"DtI-jc-HPg.text" = "משוב";
+
 /* Class = "UILabel"; text = "No Phone Number"; ObjectID = "EOB-cn-hbH"; */
 "EOB-cn-hbH.text" = "האוסף לא השאיר מספר טלפון";
 
@@ -51,6 +54,9 @@
 
 /* Class = "UILabel"; text = "New Event"; ObjectID = "FjY-js-UK8"; */
 "FjY-js-UK8.text" = "אירוע חדש";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "GpR-lN-AMc"; */
+"GpR-lN-AMc.normalTitle" = "ביטול";
 
 /* Class = "UILabel"; text = "25"; ObjectID = "Gwh-pG-GQl"; */
 "Gwh-pG-GQl.text" = "25";
@@ -138,6 +144,9 @@
 
 /* Class = "UILabel"; text = "Call"; ObjectID = "lrb-w8-fSW"; */
 "lrb-w8-fSW.text" = "התקשר";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "mSz-8f-fLS"; */
+"mSz-8f-fLS.normalTitle" = "שליחה";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "og0-dB-9oW"; */
 "og0-dB-9oW.text" = "Label";

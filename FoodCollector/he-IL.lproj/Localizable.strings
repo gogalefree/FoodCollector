@@ -122,11 +122,11 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* Alert title */
 "Message delivery failed" = "שליחת ההודעה נכשלה";
 
-/* Activity center table view collector section title. This is a list of publications that I'm as a collector registered to pickup */
-"My Pickups" = "בדרך לאסוף";
+/* Activity center table section title. This is a list of publications that I'm as a collector registered to pickup */
+"My pickups" = "בדרך לאסוף";
 
-/* Activity center table view publisher section title. This is a list of publications that I've created as a contributer. */
-"My Shares" = "השיתופים שלי";
+/* Activity center table section title. This is a list of publications that I've created as a contributer. */
+"My shares" = "השיתופים שלי";
 
 /* Alert text field label: Name */
 "Name" = "שם";
@@ -222,8 +222,14 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* This is the image you have selected label */
 "Selected picture" = "זו התמונה שנבחרה";
 
+/* Activity center button title. */
+"Send Feedback" = "שליחת משוב";
+
 /* Send a message to a colllector */
 "Send Message" = "שליחת הודעה";
+
+/* Feedback text place holder */
+"Share your thoughts or anything else" = "שתפו אותנו במחשבות, הצעות או כל דבר אחר";
 
 /* Alert show event button title */
 "Show Event" = "הצגת אירוע";
