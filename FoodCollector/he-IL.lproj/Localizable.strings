@@ -4,8 +4,8 @@
 /* Search bar scope button titles */
 "Active" = "פעילים";
 
-/* The publication is active untill this date, e.g: 'Active 23/11/2015' */
-"Active %@" = "פעיל";
+/* The publication is active */
+"Active" = "פעיל";
 
 /* Activity center navigation bar title */
 "Activity Center" = "מרכז הפעילות";
@@ -104,7 +104,7 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* SMS message body: I want to pickup 'Publication name' */
 "I want to pickup %@" = "רוצה לבוא לאסוף %@";
 
-/* the publication is not active beacause it was taken off air */
+/* The publication is not active */
 "Inactive" = "לא פעיל";
 
 /* Message alert when phone number pattern is incorrect */
@@ -205,7 +205,7 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 "Register for Pickup" = "רישום לאיסוף";
 
 /* action button title take off air */
-"Remove Event" = "הסרת פרסום";
+"Remove Event" = "הסרת שיתוף";
 
 /* Report title for a button */
 "Report" = "דווח";

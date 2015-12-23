@@ -27,7 +27,6 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 var status = ""
                 var statusImg : UIImage
                 self.FCPublisherEventImage.layer.cornerRadius = self.FCPublisherEventImage.frame.height/2
-                let locDateString = FCDateFunctions.localizedDateStringShortStyle(publication.endingDate)
                 
                 if FCDateFunctions.PublicationDidExpired(publication.endingDate){
                     status = NSLocalizedString("Ended", comment:"the puclication has ended (it is off the air)")
@@ -35,11 +34,11 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                     publication.isOnAir = false
                 }
                 else {
-                    status = String.localizedStringWithFormat(NSLocalizedString("Active %@", comment:"The publication is active untill this date, e.g: 'Active 23/11/2015'"), locDateString)
+                    status = NSLocalizedString("Active", comment:"The publication is active")
                     statusImg = UIImage(named: "Green-dot")!
                     
                     if  !publication.isOnAir {
-                        status = NSLocalizedString("Inactive", comment:"the publication is not active beacause it was taken off air")
+                        status = NSLocalizedString("Inactive", comment:"The publication is not active")
                         statusImg = UIImage(named: "Red-dot")!
 
                     }

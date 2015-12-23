@@ -9,10 +9,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Publication DetailsTVC-->
+        <!--Event Details-->
         <scene sceneID="5TR-Nj-Kev">
             <objects>
-                <tableViewController storyboardIdentifier="FCPublicationDetailsTVC" id="D9e-pN-89Q" customClass="FCPublicationDetailsTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FCPublicationDetailsTVC" title="Event Details" id="D9e-pN-89Q" customClass="FCPublicationDetailsTVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="116" sectionHeaderHeight="1" sectionFooterHeight="1" id="W65-he-Gdg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

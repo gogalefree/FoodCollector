@@ -77,7 +77,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 65
-        self.title = publication?.title
+        //self.title = publication?.title
         fetchPublicationReports()
         fetchPublicationPhoto()
         //fetchPublicationRegistrations()
