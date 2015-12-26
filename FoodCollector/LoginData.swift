@@ -8,14 +8,14 @@
 
 import Foundation
 
-class LoginData: NSObject {
+enum LoginIdentityProvider: String {
+    case Facebook = "facebook", Google = "google", Foodonet   = "foodonet"
+}
 
-    enum IdentityProvider: String {
-        case Facebook = "facebook", Google = "google", Foodonet   = "foodonet"
-    }
+class LoginData: NSObject {    
     
     var userId                  :Int?
-    var identityProvider        :IdentityProvider
+    var identityProvider        :LoginIdentityProvider
     var identityProviderUserID  :String?
     var identityProviderUserName:String?
     var identityProviderToken   :String?
@@ -25,7 +25,7 @@ class LoginData: NSObject {
     var active_device_dev_uuid  :String? = FCModel.sharedInstance.deviceUUID
     
     
-    init(_ identityProvider: IdentityProvider) {
+    init(_ identityProvider: LoginIdentityProvider) {
         
         self.identityProvider   = identityProvider
         self.phoneNumber        = User.sharedInstance.userPhoneNumber
