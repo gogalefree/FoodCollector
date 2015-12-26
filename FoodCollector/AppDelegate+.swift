@@ -30,5 +30,31 @@ extension AppDelegate {
 //
     }
 
+    func setupFacebook(application: UIApplication,launchOptions: [NSObject: AnyObject]?) {
     
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        if (launchOptions?[UIApplicationLaunchOptionsURLKey] == nil) {
+            
+            FBSDKAppLinkUtility.fetchDeferredAppLink { (url, error) -> Void in
+                
+                if (error != nil) {
+                    print("Received error while fetching deferred app link \(error)")
+                }
+                if (url != nil) {
+                    
+                    if UIApplication.sharedApplication().canOpenURL(url) {UIApplication.sharedApplication().openURL(url)}
+                }
+            }
+        }
+    }
+    
+    func setupUI() {
+        
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
+        // Nav bar color hex string: #3197d3
+        UINavigationBar.appearance().barTintColor = kNavBarBlueColor
+        UINavigationBar.appearance().translucent = true
+    }
 }

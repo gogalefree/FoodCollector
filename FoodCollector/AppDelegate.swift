@@ -26,46 +26,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-     
-        // Nav bar color hex string: #3197d3
-        UINavigationBar.appearance().barTintColor = kNavBarBlueColor
-        UINavigationBar.appearance().translucent = true
-        
-        
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()
         
         let userNotificationHandler = FCUserNotificationHandler.sharedInstance
         userNotificationHandler.setup()
-        
+
+        setupUI()
         registerAWSS3()
         registreGoogleAnalytics()
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        if (launchOptions?[UIApplicationLaunchOptionsURLKey] == nil) {
+        setupFacebook(application, launchOptions: launchOptions)
         
-            FBSDKAppLinkUtility.fetchDeferredAppLink { (url, error) -> Void in
-                
-                if (error != nil) {
-                    print("Received error while fetching deferred app link \(error)")
-                }
-                if (url != nil) {
-                    
-                    if UIApplication.sharedApplication().canOpenURL(url) {UIApplication.sharedApplication().openURL(url)}
-                }
-                
-            }
-
-        }
-
         return true
     }
     
     func registerAWSS3() {
 
-    
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityId: nil, accountId:  "458352772906", identityPoolId: "us-east-1:ec4b269f-88a9-471d-b548-7886e1f9f2d7", unauthRoleArn: "arn:aws:iam::458352772906:role/Cognito_food_collector_poolUnauth_DefaultRole", authRoleArn:  "arn:aws:iam::458352772906:role/Cognito_food_collector_poolAuth_DefaultRole", logins: nil)
     
         let defaultServiceConfiguration = AWSServiceConfiguration(
