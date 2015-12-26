@@ -15,6 +15,7 @@ class User {
     private let pListName = "UserData.plist"
     private var userData = [String: AnyObject]()
     
+    // TODO: Add userImage key for the User image from the identity provider
     // User data key names
     enum UserDataKey: String {
         case ID =                       "id"
