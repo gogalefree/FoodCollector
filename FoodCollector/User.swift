@@ -106,6 +106,11 @@ class User {
         //print(NSDictionary(contentsOfFile: path))
     }
     
-    
+    func updateWithLoginData(loginData :LoginData){
+        
+        //update user properties after login - we only need to update the userId property after we recieve it from the server
+        
+        //self.userId = loginData.userId
+    }
 }
 

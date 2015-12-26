@@ -84,7 +84,16 @@ protocol FCServerProtocol {
     ///
     ///sends user feedback to server
     func sendFeedback(report: String)
-
     
-}
+    ///
+    ///LogIn with facebook
+    ///
+    func didRequestFacebookLogin(completion: (success: Bool) -> Void)
+    
+    ///
+    ///LogIn with google
+    ///
+    func didRequestGoogleLogin(completion: (success: Bool) -> Void)
+
+   }
 
