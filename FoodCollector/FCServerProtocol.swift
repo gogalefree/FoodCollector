@@ -21,6 +21,7 @@ protocol FCServerProtocol {
     ///
     func reportDeviceTokenForPushWithDeviceNewToken(newtoken:String)
     
+        
     func reportDeviceUUID(uuid: String)
     
     

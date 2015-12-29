@@ -16,6 +16,8 @@
 
 #import <Google/Analytics.h>
 
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 //#import <GINInvite/GINInvite.h>
 
 

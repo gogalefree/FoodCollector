@@ -67,6 +67,7 @@
 		E417FEE41B296AE0000341C7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E417FEE31B296AE0000341C7 /* MessageUI.framework */; };
 		E41BCE091C2EB6BC0018E771 /* FDServer+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */; };
 		E41BCE0B1C2EBB100018E771 /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0A1C2EBB100018E771 /* LoginData.swift */; };
+		E41BCE0D1C2ECEEA0018E771 /* FDFacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0C1C2ECEEA0018E771 /* FDFacebookLogin.swift */; };
 		E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */; };
 		E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */; };
 		E42C9E231A55D311000E0FB1 /* FCIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */; };
@@ -262,6 +263,7 @@
 		E417FEE31B296AE0000341C7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+Login.swift"; sourceTree = "<group>"; };
 		E41BCE0A1C2EBB100018E771 /* LoginData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
+		E41BCE0C1C2ECEEA0018E771 /* FDFacebookLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDFacebookLogin.swift; sourceTree = "<group>"; };
 		E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorVC.swift; sourceTree = "<group>"; };
 		E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FCPublicationDetailsTVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCIconFactory.swift; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 				E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */,
 				A1E04A371C22A7E900709B0A /* NewReportMessageView.xib */,
 				E4A41D321B490321007A611E /* MainActionVC.swift */,
+				E41BCE0C1C2ECEEA0018E771 /* FDFacebookLogin.swift */,
 				A163391D1C1ADD260065BC70 /* UICommonStrings.swift */,
 			);
 			name = Main;
@@ -1131,6 +1134,7 @@
 				E4584B801BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift in Sources */,
 				A10832F71BADD81F00B81F57 /* User.swift in Sources */,
 				E41BCE0B1C2EBB100018E771 /* LoginData.swift in Sources */,
+				E41BCE0D1C2ECEEA0018E771 /* FDFacebookLogin.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
 				A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */,

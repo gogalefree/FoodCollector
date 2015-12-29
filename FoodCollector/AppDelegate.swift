@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //show UIAlert informing users to enable push from settings
         //the alert is presented in collector root vc
         print("FAILED TO REGISTER PUSH NOTIFICATIONS: \(error.description)")
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportPushNotificationToServerKey)
+        FCUserNotificationHandler.sharedInstance.registerForPushNotificationWithToken("no")
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: kShouldShowFailedToRegisterForPushAlertKey)
     }
     

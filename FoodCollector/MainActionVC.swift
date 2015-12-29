@@ -18,7 +18,7 @@ protocol MainActionVCDelegate: NSObjectProtocol {
 }
 
 
-class MainActionVC: UIViewController {
+class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
     
 
     let labelsTextColor = UIColor(red: 149/255, green: 149/255, blue: 149/255, alpha: 1)
@@ -63,10 +63,15 @@ class MainActionVC: UIViewController {
         super.viewWillLayoutSubviews()
         if self.statusBarView == nil {
             
+            print("facebook sdk: " + FBSDKSettings.sdkVersion())
+
             self.statusBarView =  UIView(frame: CGRectMake(0, -20, CGRectGetWidth(self.view.bounds), 22))
             statusBarView.backgroundColor = UIColor.whiteColor()
             statusBarView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
             self.navigationController?.navigationBar.addSubview(statusBarView)
+            
+            //add facebook button
+            //self.addFacebookLoginButtonIfNeeded()
         }
     }
     
@@ -121,15 +126,48 @@ class MainActionVC: UIViewController {
         }
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        if size.height > size.width {
-            self.mainLabelTopConstraint.constant = self.topConstraintPortraitConstant
+    func addFacebookLoginButtonIfNeeded() {
+        
+        if (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            // User is already logged in, do work such as go to next view controller.
+            self.returnUserData({ (image) -> Void in
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    let view = UIImageView(image: image)
+                    view.frame = CGRectMake(159, 159, 100, 100)
+                    view.center = self.view.center
+                    self.view.addSubview(view)
+                    self.view.bringSubviewToFront(view)
+                    
+                    
+                })
+            })
         }
-        else {
-            self.mainLabelTopConstraint.constant = self.topConstraintLandscapeConstant
+        else
+        {
+            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+            self.view.addSubview(loginView)
+            loginView.center = self.view.center
+            loginView.center.y += 100
+            
+            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+            loginView.delegate = self
             
         }
-        self.view.layoutIfNeeded()
+
     }
+    
+//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//        if size.height > size.width {
+//            self.mainLabelTopConstraint.constant = self.topConstraintPortraitConstant
+//        }
+//        else {
+//            self.mainLabelTopConstraint.constant = self.topConstraintLandscapeConstant
+//            
+//        }
+//        self.view.layoutIfNeeded()
+//    }
 }
