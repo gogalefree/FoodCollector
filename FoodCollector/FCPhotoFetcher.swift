@@ -68,7 +68,7 @@ class FCPhotoFetcher: NSObject {
         
         let uploadRequest = AWSS3TransferManagerUploadRequest()
         uploadRequest.bucket = self.bucketNameForBundle() //"foodcollector"
-        uploadRequest.key = publication.photoUrl;
+        uploadRequest.key = publication.photoUrl
         uploadRequest.body = uploadFileURL
         
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
@@ -87,6 +87,19 @@ class FCPhotoFetcher: NSObject {
             return nil
         })
         
+    }
+    
+    func deletePhotoForPublication(publication: FCPublication) {
+        
+        
+        //Delete Object
+        let deletePhotoRequest      = AWSS3DeleteObjectRequest()
+        deletePhotoRequest.bucket   = self.bucketNameForBundle()
+        deletePhotoRequest.key      = publication.photoUrl
+       
+        let s3 = AWSS3()
+        let task = s3.deleteObject(deletePhotoRequest)
+        print(task.result)
     }
     
     func bucketNameForBundle() -> String {

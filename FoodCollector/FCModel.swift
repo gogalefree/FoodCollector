@@ -139,10 +139,14 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             }
         }
         //delete the publication from user created publications
+        
+        var publicationToDeletePhoto: FCPublication? = nil
+        
         if deleteUserCreatedPublication {
             for (index , publication) in self.userCreatedPublications.enumerate() {
                 if publication.uniqueId == publicationIdentifier.uniqueId &&
                     publication.version == publicationIdentifier.version{
+                        publicationToDeletePhoto = publication
                         self.userCreatedPublications.removeAtIndex(index)
                         self.saveUserCreatedPublications()
                         break
@@ -151,14 +155,24 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
 
         if deleteFromServer {
-        self.foodCollectorWebServer.deletePublication(publicationIdentifier, completion: { (success) -> () in
+            
+            //delete from aws
+            if let publication = publicationToDeletePhoto {
+                let photofetcher = FCPhotoFetcher()
+                photofetcher.deletePhotoForPublication(publication)
+            }
+           
+            //delete from server
+            self.foodCollectorWebServer.deletePublication(publicationIdentifier, completion: { (success) -> () in
           
             //TODO: implement persistency so we'll save the identifier and try again
 //            if !success {
 //                self.deletePublication(publicationIdentifier)
 //            }
-        })
-        //TODO: Delete photo from AWS
+            
+            
+            })
+            
         }
     }
     
