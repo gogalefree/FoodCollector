@@ -25,6 +25,7 @@
 		A1535BE41B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */; };
 		A163391E1C1ADD260065BC70 /* UICommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A163391D1C1ADD260065BC70 /* UICommonStrings.swift */; };
 		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
+		A167202F1C31E29F00A22415 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A167202E1C31E29F00A22415 /* DeviceData.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
 		A183DC6E1C0CC76800E82D6C /* LocalizationNotes in Resources */ = {isa = PBXBuildFile; fileRef = A183DC6D1C0CC76800E82D6C /* LocalizationNotes */; };
 		A1992B281BB3246D002DDF4C /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1992B271BB3246D002DDF4C /* Validator.swift */; };
@@ -52,7 +53,6 @@
 		A1E04A801C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A821C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib */; };
 		A1E04A851C22A8F100709B0A /* FCActivityCenterTVSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A871C22A8F100709B0A /* FCActivityCenterTVSectionHeader.xib */; };
 		A1E04A8A1C22A90600709B0A /* FetchedDataNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A8C1C22A90600709B0A /* FetchedDataNotificationView.xib */; };
-		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */; };
 		E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */; };
@@ -201,6 +201,7 @@
 		A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorAddressHistoryCustomHeaderView.swift; sourceTree = "<group>"; };
 		A163391D1C1ADD260065BC70 /* UICommonStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICommonStrings.swift; sourceTree = "<group>"; };
 		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
+		A167202E1C31E29F00A22415 /* DeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		A183DC6D1C0CC76800E82D6C /* LocalizationNotes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocalizationNotes; sourceTree = "<group>"; };
 		A1992B271BB3246D002DDF4C /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
@@ -247,7 +248,6 @@
 		A1E04A891C22A8F300709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/FCActivityCenterTVSectionHeader.strings"; sourceTree = "<group>"; };
 		A1E04A8B1C22A90600709B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FetchedDataNotificationView.xib; sourceTree = "<group>"; };
 		A1E04A8E1C22A90800709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/FetchedDataNotificationView.strings"; sourceTree = "<group>"; };
-		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReportMessageView.swift; sourceTree = "<group>"; };
 		E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorVC.swift; sourceTree = "<group>"; };
@@ -731,7 +731,7 @@
 				E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */,
 				E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */,
 				E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */,
-				A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */,
+				A167202E1C31E29F00A22415 /* DeviceData.swift */,
 			);
 			name = Functions;
 			sourceTree = "<group>";
@@ -1159,7 +1159,6 @@
 				E48263751BE20B6C00526C7B /* FetchedDataNotification.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				A1A7389D1B7F842E00CA2C5A /* PublicationEditorTVCDatePickerCustomCell.swift in Sources */,
-				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
 				E4D8B3D31BE639F1003112E0 /* OnSpotPublicationReport.swift in Sources */,
 				E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */,
 				E4584B701BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */,
@@ -1174,6 +1173,7 @@
 				A123946B1B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift in Sources */,
 				E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */,
 				E4A41D331B490321007A611E /* MainActionVC.swift in Sources */,
+				A167202F1C31E29F00A22415 /* DeviceData.swift in Sources */,
 				E49B93281A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift in Sources */,
 				E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */,
 				E4FEFC1E1A5E85B300AB0F43 /* FCActivityCenterTVC.swift in Sources */,

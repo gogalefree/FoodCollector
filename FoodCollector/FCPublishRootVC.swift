@@ -279,11 +279,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     func displayNoPublicatiosMessage(){
-        let recWidth = FCDeviceData.screenWidth()/1.4
-        let recHight = FCDeviceData.screenHight()/1.4
-        let recCenterX = FCDeviceData.screenWidth()/2
-        let recCenterY = FCDeviceData.screenHight()/2
-        let fontSize = FCDeviceData.screenWidth()/10 - 9
+        let recWidth = DeviceData.screenWidth()/1.4
+        let recHight = DeviceData.screenHight()/1.4
+        let recCenterX = DeviceData.screenWidth()/2
+        let recCenterY = DeviceData.screenHight()/2
+        let fontSize = DeviceData.screenWidth()/10 - 9
         
         self.noUserCreatedPublicationMessageLabel = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
         

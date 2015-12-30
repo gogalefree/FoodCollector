@@ -86,6 +86,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     public func setUp () {
         
         //we start with loading the current data
+        User.sharedInstance
         loadPublications()
         loadUserCreatedPublications()
         reportDeviceUUIDToServer()
@@ -332,7 +333,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             identifier      :identifier,
             dateOfOrder     :NSDate(),
             contactInfo     :User.sharedInstance.userPhoneNumber ?? "",
-            collectorName   :User.sharedInstance.userName ?? "",
+            collectorName   :User.sharedInstance.userIdentityProviderUserName ?? "",
             uniqueId        :0)
         publication.registrationsForPublication.append(registration)
         self.savePublications()
@@ -347,7 +348,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
 }
 
 
-// MARK - singleTone
+// MARK: SingleTone
 
 public extension FCModel {
     
@@ -367,7 +368,7 @@ public extension FCModel {
     }
 }
 
-// MARK - documents directory
+// MARK: Documents directory
 
 public extension FCModel {
     

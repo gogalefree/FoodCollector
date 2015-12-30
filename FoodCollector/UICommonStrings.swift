@@ -24,7 +24,7 @@ let kPhoneNumberIncorrectAlertMessage = NSLocalizedString("It seems the phone nu
 let kSendSMSfailedAlertTitle = NSLocalizedString("Message delivery failed", comment:"Alert title")
 let kSendSMSTryAgainAlertMessage = NSLocalizedString("Try again?", comment:"Alert message body")
 
-let kNewEventMessageTitle = NSLocalizedString("New Event Near you", comment:"Title of the message banner meaning that a new event has started nearby")
+let kNewEventMessageTitle = NSLocalizedString("New Event Near You", comment:"Title of the message banner meaning that a new event has started nearby")
 
 let kConfirmationAlertMessage = NSLocalizedString("Are you sure?", comment:"Alert message body")
 

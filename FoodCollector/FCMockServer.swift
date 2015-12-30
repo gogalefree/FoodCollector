@@ -373,7 +373,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         params["publication_id"] = uniqueId
         params["date_of_registration"] = 11243423
         params["collector_contact_info"] = User.sharedInstance.userPhoneNumber ?? ""
-        params["collector_name"] = User.sharedInstance.userName ?? ""
+        params["collector_name"] = User.sharedInstance.userIdentityProviderUserName ?? ""
         
         let dicToSend = ["registered_user_for_publication" : params]
         print("params: \(dicToSend)")
