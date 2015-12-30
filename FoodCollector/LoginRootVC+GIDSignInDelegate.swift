@@ -11,6 +11,7 @@ import Foundation
 extension LoginRootVC: GIDSignInDelegate {
     
     //MARK: - GIDSigninDelegate
+    //Google Sign in Process
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
         withError error: NSError!) {
@@ -29,34 +30,8 @@ extension LoginRootVC: GIDSignInDelegate {
                 // Perform any operations on signed in user here.
                 
                 let loginData = LoginData(.Google)
-                
-                let userId  = user.userID                  // For client-side use only!
-                let idToken = user.authentication.idToken  // Safe to send to the server
-                let name    = user.profile.name
-                let email   = user.profile.email
-                
-                loginData.identityProviderEmail    = email
-                loginData.identityProviderToken    = idToken
-                loginData.identityProviderUserName = name
-                loginData.identityProviderUserID   = "needs_verification"
-                
-                
-                if GIDSignIn.sharedInstance().currentUser.profile.hasImage {
-                    
-                    let imageURL = user.profile.imageURLWithDimension(100)
-                    print(imageURL)
-                    
-                    if let imageUrl = imageURL {
-                        
-                        if let data = NSData(contentsOfURL: imageUrl){
-                            
-                            let image =  UIImage(data: data)
-                            loginData.userImage = image
-                        }
-                    }
-                }
-                
-                print("userid: " + userId + "\n" + "token: " + idToken  + "\n" + "name: " + name + "\n" + "email: " + email)
+                loginData.updateWithGoogleUser(user)
+                               
                 
                 FCModel.sharedInstance.foodCollectorWebServer.didRequestGoogleLogin(loginData, completion: { (success) -> Void in
                   

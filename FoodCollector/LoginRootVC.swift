@@ -31,7 +31,7 @@ class LoginRootVC: UIViewController {
         
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             
-            // User is already logged in, do work such as go to next view controller.
+            // User is already logged in
             
         }
         else {
@@ -51,7 +51,7 @@ class LoginRootVC: UIViewController {
                     FCModel.sharedInstance.foodCollectorWebServer.didRequestFacebookLogin({ (success: Bool) -> Void in
                     
                         if success {
-                            //stop sctivity indicator
+                            //stop activity indicator
                             //perform segue to next vc
                         }
                         
