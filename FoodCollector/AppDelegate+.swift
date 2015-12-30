@@ -29,6 +29,16 @@ extension AppDelegate {
 //        }
 //
     }
+    
+    func initGoogleSignin() {
+        
+        // Initialize sign-in
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        GIDSignIn.sharedInstance().shouldFetchBasicProfile = true
+
+    }
 
     func setupFacebook(application: UIApplication,launchOptions: [NSObject: AnyObject]?) {
     
@@ -57,4 +67,5 @@ extension AppDelegate {
         UINavigationBar.appearance().barTintColor = kNavBarBlueColor
         UINavigationBar.appearance().translucent = true
     }
+    
 }

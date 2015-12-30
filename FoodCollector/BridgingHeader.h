@@ -18,6 +18,8 @@
 
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
+#import <Google/SignIn.h>
+
 //#import <GINInvite/GINInvite.h>
 
 

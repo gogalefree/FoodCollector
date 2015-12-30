@@ -46,6 +46,10 @@ class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         configureLabels()
         configureButtons()
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+
+
 
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : UIFont.boldSystemFontOfSize(24) , NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
@@ -71,7 +75,8 @@ class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
             self.navigationController?.navigationBar.addSubview(statusBarView)
             
             //add facebook button
-            //self.addFacebookLoginButtonIfNeeded()
+            self.addFacebookLoginButtonIfNeeded()
+            self.addGoogleSignInButtonIfNeeded()
         }
     }
     
@@ -159,6 +164,13 @@ class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
 
     }
     
+    func addGoogleSignInButtonIfNeeded() {
+        
+        let loginButton = GIDSignInButton()
+        self.view.addSubview(loginButton)
+        loginButton.center = self.view.center
+        loginButton.center.y += 150
+    }
 //    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
 //        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 //        if size.height > size.width {

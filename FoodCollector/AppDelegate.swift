@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupUI()
         registerAWSS3()
         registreGoogleAnalytics()
+        initGoogleSignin()
         setupFacebook(application, launchOptions: launchOptions)
         
         return true
@@ -148,9 +149,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
-        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)        
-    }
+        print("url: \(url.scheme)" + " " + __FUNCTION__)
+        
+        if url.scheme == "fb694275220709803" {
+        
+            return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        }
+        
+        else if url.scheme == "com.googleusercontent.apps.863661704420-3i8i6342n0rped1ttm9c3ukvc6rald1g" {
+            
+            return GIDSignIn.sharedInstance().handleURL(url,
+                sourceApplication: sourceApplication,
+                annotation: annotation)
+            
 
+        }
+//        if #available(iOS 9.0, *) {
+//            let options: [String: AnyObject] = [UIApplicationOpenURLOptionsSourceApplicationKey: sourceApplication!,
+//                UIApplicationOpenURLOptionsAnnotationKey: annotation]
+//       
+//            
+//        return self.application(application,
+//            openURL: url,
+//            options: options)
+//        }
+//       
+        return true
+    }
+    
+//    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+//        
+//            print("url: \(url.scheme)" + " " + __FUNCTION__)
+//
+//            if #available(iOS 9.0, *) {
+//                return GIDSignIn.sharedInstance().handleURL(url,
+//                    sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String,
+//                    annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//        
+//        
+//        return false
+//    }
+//
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -177,6 +219,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
+        //TODO: delete before release
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        GIDSignIn.sharedInstance().signOut()
+
         
         //delete all photos
         let fm = NSFileManager.defaultManager()

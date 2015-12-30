@@ -101,6 +101,7 @@
 		E4584B721BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */; };
 		E4584B801BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B7F1BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift */; };
 		E4584B821BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B811BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift */; };
+		E45A5FB61C32B86C0031F136 /* FDGoogleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45A5FB51C32B86C0031F136 /* FDGoogleLogin.swift */; };
 		E45DA7321A9DB89800F45C70 /* FCCollectorContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */; };
 		E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */; };
 		E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */; };
@@ -297,6 +298,7 @@
 		E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorsPickerSendSmsCell.swift; sourceTree = "<group>"; };
 		E4584B7F1BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPhonePickerVC.swift; sourceTree = "<group>"; };
 		E4584B811BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPhonePickerLabelCell.swift; sourceTree = "<group>"; };
+		E45A5FB51C32B86C0031F136 /* FDGoogleLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDGoogleLogin.swift; sourceTree = "<group>"; };
 		E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorContainerController.swift; sourceTree = "<group>"; };
 		E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCSectionHeader.swift; sourceTree = "<group>"; };
 		E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCLaunchScreenView.swift; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 				A1E04A371C22A7E900709B0A /* NewReportMessageView.xib */,
 				E4A41D321B490321007A611E /* MainActionVC.swift */,
 				E41BCE0C1C2ECEEA0018E771 /* FDFacebookLogin.swift */,
+				E45A5FB51C32B86C0031F136 /* FDGoogleLogin.swift */,
 				A163391D1C1ADD260065BC70 /* UICommonStrings.swift */,
 			);
 			name = Main;
@@ -1103,7 +1106,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1164,6 +1167,7 @@
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				A1A7389D1B7F842E00CA2C5A /* PublicationEditorTVCDatePickerCustomCell.swift in Sources */,
 				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
+				E45A5FB61C32B86C0031F136 /* FDGoogleLogin.swift in Sources */,
 				E4D8B3D31BE639F1003112E0 /* OnSpotPublicationReport.swift in Sources */,
 				E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */,
 				E4584B701BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */,
