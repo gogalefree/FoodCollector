@@ -6,12 +6,6 @@
 //  Copyright © 2015 Foodonet. All rights reserved.
 //
 
-/*
-      To Simulate login:
-
-      FCModel.sharedInstance.foodCollectorWebServer.didRequestFacebookLogin(<#T##completion: (success: Bool) -> Void##(success: Bool) -> Void#>)
-      FCModel.sharedInstance.foodCollectorWebServer.didRequestGoogleLogin(<#T##completion: (success: Bool) -> Void##(success: Bool) -> Void#>)
-*/
 
 import Foundation
 

@@ -91,6 +91,8 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         reportDeviceUUIDToServer()
         self.dataUpdater.startUpdates()
         
+        //TODO: Load User class
+        
         if CLLocationManager.locationServicesEnabled() {
            self.setupLocationManager()
         }
