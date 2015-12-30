@@ -54,6 +54,9 @@
 		A1E04A8A1C22A90600709B0A /* FetchedDataNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A8C1C22A90600709B0A /* FetchedDataNotificationView.xib */; };
 		A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
+		E405444F1C33EBCF007F7C24 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E405444E1C33EBCF007F7C24 /* Login.storyboard */; };
+		E40544511C33ED0D007F7C24 /* LoginRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40544501C33ED0D007F7C24 /* LoginRootVC.swift */; };
+		E40544531C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40544521C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift */; };
 		E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */; };
 		E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */; };
 		E407DEA31AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */; };
@@ -67,7 +70,7 @@
 		E417FEE41B296AE0000341C7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E417FEE31B296AE0000341C7 /* MessageUI.framework */; };
 		E41BCE091C2EB6BC0018E771 /* FDServer+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */; };
 		E41BCE0B1C2EBB100018E771 /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0A1C2EBB100018E771 /* LoginData.swift */; };
-		E41BCE0D1C2ECEEA0018E771 /* FDFacebookLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0C1C2ECEEA0018E771 /* FDFacebookLogin.swift */; };
+		E41BCE0D1C2ECEEA0018E771 /* FacebookLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */; };
 		E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */; };
 		E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */; };
 		E42C9E231A55D311000E0FB1 /* FCIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */; };
@@ -101,7 +104,6 @@
 		E4584B721BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */; };
 		E4584B801BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B7F1BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift */; };
 		E4584B821BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B811BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift */; };
-		E45A5FB61C32B86C0031F136 /* FDGoogleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45A5FB51C32B86C0031F136 /* FDGoogleLogin.swift */; };
 		E45DA7321A9DB89800F45C70 /* FCCollectorContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */; };
 		E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */; };
 		E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */; };
@@ -251,6 +253,9 @@
 		A1E04A8E1C22A90800709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/FetchedDataNotificationView.strings"; sourceTree = "<group>"; };
 		A1EEEFB81A2332C70086BFB7 /* FCDeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCDeviceData.swift; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E405444E1C33EBCF007F7C24 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		E40544501C33ED0D007F7C24 /* LoginRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRootVC.swift; sourceTree = "<group>"; };
+		E40544521C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginRootVC+GIDSignInDelegate.swift"; sourceTree = "<group>"; };
 		E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReportMessageView.swift; sourceTree = "<group>"; };
 		E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorVC.swift; sourceTree = "<group>"; };
 		E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorPresentationController.swift; sourceTree = "<group>"; };
@@ -264,7 +269,7 @@
 		E417FEE31B296AE0000341C7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+Login.swift"; sourceTree = "<group>"; };
 		E41BCE0A1C2EBB100018E771 /* LoginData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
-		E41BCE0C1C2ECEEA0018E771 /* FDFacebookLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDFacebookLogin.swift; sourceTree = "<group>"; };
+		E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginManager.swift; sourceTree = "<group>"; };
 		E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorVC.swift; sourceTree = "<group>"; };
 		E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FCPublicationDetailsTVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCIconFactory.swift; sourceTree = "<group>"; };
@@ -298,7 +303,6 @@
 		E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorsPickerSendSmsCell.swift; sourceTree = "<group>"; };
 		E4584B7F1BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPhonePickerVC.swift; sourceTree = "<group>"; };
 		E4584B811BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorPhonePickerLabelCell.swift; sourceTree = "<group>"; };
-		E45A5FB51C32B86C0031F136 /* FDGoogleLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDGoogleLogin.swift; sourceTree = "<group>"; };
 		E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorContainerController.swift; sourceTree = "<group>"; };
 		E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCSectionHeader.swift; sourceTree = "<group>"; };
 		E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCLaunchScreenView.swift; sourceTree = "<group>"; };
@@ -546,6 +550,17 @@
 			name = "Sub Views";
 			sourceTree = "<group>";
 		};
+		E405444D1C33EB6C007F7C24 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E405444E1C33EBCF007F7C24 /* Login.storyboard */,
+				E40544501C33ED0D007F7C24 /* LoginRootVC.swift */,
+				E40544521C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift */,
+				E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		E41235CB1ABC18B30016FE5F /* Photo Presentor */ = {
 			isa = PBXGroup;
 			children = (
@@ -716,6 +731,7 @@
 			children = (
 				E4F1A8601ADB9D5600973C51 /* AboutVC.swift */,
 				E4737DAB1A10C24A00A4AB81 /* Main */,
+				E405444D1C33EB6C007F7C24 /* Login */,
 				E4737DAA1A10C23200A4AB81 /* Publisher */,
 				E4737DA91A10C21C00A4AB81 /* Collector */,
 			);
@@ -778,8 +794,6 @@
 				E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */,
 				A1E04A371C22A7E900709B0A /* NewReportMessageView.xib */,
 				E4A41D321B490321007A611E /* MainActionVC.swift */,
-				E41BCE0C1C2ECEEA0018E771 /* FDFacebookLogin.swift */,
-				E45A5FB51C32B86C0031F136 /* FDGoogleLogin.swift */,
 				A163391D1C1ADD260065BC70 /* UICommonStrings.swift */,
 			);
 			name = Main;
@@ -1025,6 +1039,7 @@
 				E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */,
 				A1E04A801C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
+				E405444F1C33EBCF007F7C24 /* Login.storyboard in Resources */,
 				A15307361C20BE1A00FE43AA /* Localizable.strings in Resources */,
 				E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */,
 				A1E04A761C22A8CD00709B0A /* PublicationDetsilsCollectorActionsHeaderView.xib in Resources */,
@@ -1121,9 +1136,11 @@
 				E4C1C1651A52AB3500A37E00 /* FCAnnotationView.swift in Sources */,
 				E4AEDE5E1B257E9D00431F9B /* PublicationDetailsImageCell.swift in Sources */,
 				E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */,
+				E40544511C33ED0D007F7C24 /* LoginRootVC.swift in Sources */,
 				E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */,
 				E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */,
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,
+				E40544531C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift in Sources */,
 				E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
 				E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */,
@@ -1137,7 +1154,7 @@
 				E4584B801BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift in Sources */,
 				A10832F71BADD81F00B81F57 /* User.swift in Sources */,
 				E41BCE0B1C2EBB100018E771 /* LoginData.swift in Sources */,
-				E41BCE0D1C2ECEEA0018E771 /* FDFacebookLogin.swift in Sources */,
+				E41BCE0D1C2ECEEA0018E771 /* FacebookLoginManager.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
 				A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */,
@@ -1167,7 +1184,6 @@
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				A1A7389D1B7F842E00CA2C5A /* PublicationEditorTVCDatePickerCustomCell.swift in Sources */,
 				A1EEEFB91A2332C70086BFB7 /* FCDeviceData.swift in Sources */,
-				E45A5FB61C32B86C0031F136 /* FDGoogleLogin.swift in Sources */,
 				E4D8B3D31BE639F1003112E0 /* OnSpotPublicationReport.swift in Sources */,
 				E4064D451B6BB27E00FB1669 /* NewReportMessageView.swift in Sources */,
 				E4584B701BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */,

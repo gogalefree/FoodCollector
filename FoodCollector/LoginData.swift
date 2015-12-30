@@ -23,6 +23,7 @@ class LoginData: NSObject {
     var identityProviderEmail   :String?
     var isLoggedIn              :Bool = false
     var active_device_dev_uuid  :String? = FCModel.sharedInstance.deviceUUID
+    var userImage               :UIImage?
     
     
     init(_ identityProvider: IdentityProvider) {

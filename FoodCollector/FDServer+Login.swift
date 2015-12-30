@@ -20,17 +20,25 @@ extension FCMockServer {
     func didRequestFacebookLogin(completion: (success: Bool) -> Void) {
         
         let loginData = LoginData(.Facebook)
+        //TODO: disable when we have a login
         loginData.prepareMockData()
         
-        self.login(loginData) { (success) -> () in
+        FaceBookLoginManager.fetchUserData(loginData) { (success) -> Void in
         
-            completion(success: success)
+            if !success {
+                completion(success: false)
+                return
+            }
+            
+            self.login(loginData, completion: { (success) -> () in
+                completion(success: success)
+            })
         }
     }
 
-    func didRequestGoogleLogin(completion: (success: Bool) -> Void) {
+    func didRequestGoogleLogin(loginData: LoginData , completion: (success: Bool) -> Void) {
         
-        let loginData = LoginData(.Google)
+        //TODO: disable when we have a login
         loginData.prepareMockData()
         
         self.login(loginData) { (success) -> () in

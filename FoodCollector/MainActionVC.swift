@@ -18,7 +18,7 @@ protocol MainActionVCDelegate: NSObjectProtocol {
 }
 
 
-class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
+class MainActionVC: UIViewController {
     
 
     let labelsTextColor = UIColor(red: 149/255, green: 149/255, blue: 149/255, alpha: 1)
@@ -46,9 +46,6 @@ class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         configureLabels()
         configureButtons()
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
-
 
 
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : UIFont.boldSystemFontOfSize(24) , NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -73,10 +70,6 @@ class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
             statusBarView.backgroundColor = UIColor.whiteColor()
             statusBarView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
             self.navigationController?.navigationBar.addSubview(statusBarView)
-            
-            //add facebook button
-            self.addFacebookLoginButtonIfNeeded()
-            self.addGoogleSignInButtonIfNeeded()
         }
     }
     
@@ -131,46 +124,6 @@ class MainActionVC: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
     
-    func addFacebookLoginButtonIfNeeded() {
-        
-        if (FBSDKAccessToken.currentAccessToken() != nil)
-        {
-            // User is already logged in, do work such as go to next view controller.
-            self.returnUserData({ (image) -> Void in
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    
-                    let view = UIImageView(image: image)
-                    view.frame = CGRectMake(159, 159, 100, 100)
-                    view.center = self.view.center
-                    self.view.addSubview(view)
-                    self.view.bringSubviewToFront(view)
-                    
-                    
-                })
-            })
-        }
-        else
-        {
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.center.y += 100
-            
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
-            
-        }
-
-    }
-    
-    func addGoogleSignInButtonIfNeeded() {
-        
-        let loginButton = GIDSignInButton()
-        self.view.addSubview(loginButton)
-        loginButton.center = self.view.center
-        loginButton.center.y += 150
-    }
 //    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
 //        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 //        if size.height > size.width {

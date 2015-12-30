@@ -94,7 +94,7 @@ protocol FCServerProtocol {
     ///
     ///LogIn with google
     ///
-    func didRequestGoogleLogin(completion: (success: Bool) -> Void)
+    func didRequestGoogleLogin(loginData: LoginData, completion: (success: Bool) -> Void)
 
    }
 
