@@ -62,7 +62,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     
     func postOnSpotReportWithMessage(message: FCOnSpotPublicationReportMessage) {
         
-        let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: message, date: NSDate() , reportContactInfo: User.sharedInstance.userPhoneNumber, reportPublicationId: publication!.uniqueId, reportPublicationVersion: publication!.version,reportId: 0 ,reportCollectorName: User.sharedInstance.userName)
+        let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: message, date: NSDate() , reportContactInfo: User.sharedInstance.userPhoneNumber, reportPublicationId: publication!.uniqueId, reportPublicationVersion: publication!.version,reportId: 0 ,reportCollectorName: User.sharedInstance.userIdentityProviderUserName)
         
         FCModel.sharedInstance.foodCollectorWebServer.reportArrivedPublication(self.publication!, withReport: report)
         self.delegate?.dismiss()

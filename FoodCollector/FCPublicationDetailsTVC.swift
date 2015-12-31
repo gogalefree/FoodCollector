@@ -494,8 +494,8 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         
         // Add text fields
         alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-            if User.sharedInstance.userName != "" {
-                textField.text = User.sharedInstance.userName
+            if User.sharedInstance.userIdentityProviderUserName != "" {
+                textField.text = User.sharedInstance.userIdentityProviderUserName
             }
             else {
                 textField.placeholder = alertNameTextFieldLabel

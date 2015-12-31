@@ -19,7 +19,7 @@ extension FCMockServer {
         
         var params = [String : AnyObject]()
         
-        params["reporter_name"]             = User.sharedInstance.userName
+        params["reporter_name"]             = User.sharedInstance.userIdentityProviderUserName
         params["report"]                    = report
         params["active_device_dev_uuid"]    = FCModel.sharedInstance.deviceUUID
 

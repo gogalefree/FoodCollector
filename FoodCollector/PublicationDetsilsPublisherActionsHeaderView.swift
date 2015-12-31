@@ -180,7 +180,7 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
     private func updateButtonsConstraints() {
 
         let buttonTotalWidth: CGFloat = 230
-        let viewWidth = FCDeviceData.screenWidth()
+        let viewWidth = DeviceData.screenWidth()
         let margin = floor((viewWidth - buttonTotalWidth) / 3)
         let middleMargin = viewWidth - buttonTotalWidth - 2*margin
         

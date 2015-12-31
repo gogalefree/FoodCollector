@@ -27,7 +27,7 @@ extension FCCollectorRootVC: FetchedDataNotificationViewDelegate {
             for notificationView in views {
              
                 var size = notificationView.frame.size
-                size.width = FCDeviceData.screenWidth()
+                size.width = DeviceData.screenWidth()
                 notificationView.frame.size = size
                 notificationView.frame.origin = hiddenOrigin
                 notificationView.delegate = self

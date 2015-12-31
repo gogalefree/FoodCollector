@@ -532,7 +532,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         self.activityIndicatorBlureView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150))
         let offset = self.tableView.contentOffset.y
-        let center = CGPointMake(FCDeviceData.screenWidth() / 2, FCDeviceData.screenHight() / 2 + offset )
+        let center = CGPointMake(DeviceData.screenWidth() / 2, DeviceData.screenHight() / 2 + offset )
         self.activityIndicatorBlureView.frame = CGRectMake(0, 0, 150, 150)
         self.activityIndicatorBlureView.center = center
         self.activityIndicatorBlureView.alpha = 0
