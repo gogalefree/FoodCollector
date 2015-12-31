@@ -33,7 +33,7 @@ extension FCMockServer {
     func didRequestGoogleLogin(loginData: LoginData , completion: (success: Bool) -> Void) {
         
         //TODO: disable when we have a login
-        loginData.prepareMockData()
+        //loginData.prepareMockData()
         
         self.login(loginData) { (success) -> () in
             
@@ -42,13 +42,17 @@ extension FCMockServer {
     }
     
     func login(loginData: LoginData , completion: (success: Bool) -> ()) -> Void {
-        
+
+        struct staticId {
+            static var id = 0
+        }
+        ++staticId.id
 
         // let data = loginData.jsonToSend()
         // send data to server
         
         //add the id from the server
-        loginData.userId = 1
+        loginData.userId = staticId.id
         
         //update User Class with id
         User.sharedInstance.updateWithLoginData(loginData)
