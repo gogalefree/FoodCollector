@@ -14,7 +14,8 @@ class FCUserPhotoFetcher: NSObject {
     let foodCollectorDevelopmentBucketName = "foodonetusersdev"
     
     func userPhotoForPublication(publication: FCPublication , completion: (image: UIImage?)->Void) {
-        
+        //TODO: get the user from the current publication and set the photo url for user
+
         var photo: UIImage? = nil
         
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
@@ -53,6 +54,7 @@ class FCUserPhotoFetcher: NSObject {
     
     func uploadUserPhoto() {
         
+        //TODO: get the user and set the photo url for user
         let photo = UIImage(named: "UserGreen")
 
         let imageToUpload = photo!

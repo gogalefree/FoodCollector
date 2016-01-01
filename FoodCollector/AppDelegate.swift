@@ -38,8 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registreGoogleAnalytics()
         initGoogleSignin()
         setupFacebook(application, launchOptions: launchOptions)
-        let fecther = FCUserPhotoFetcher()
-        fecther.uploadUserPhoto()
         return true
     }
     
