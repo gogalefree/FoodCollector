@@ -260,6 +260,9 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 if publication.uniqueId == userCreatedPublication.uniqueId &&
                     publication.version < userCreatedPublication.version {
                        indexesToRemove.append(index)
+                        //delete photo from aws
+                        let fetcher = FCPhotoFetcher()
+                        fetcher.deletePhotoForPublication(publication)
                 }
             }
            

@@ -1,20 +1,19 @@
 //
-//  FCPhotoFetcher.swift
+//  FCUserPhotoFetcher.swift
 //  FoodCollector
 //
-//  Created by Guy Freedman on 12/29/14.
-//  Copyright (c) 2014 Guy Freeman. All rights reserved.
+//  Created by Guy Freedman on 01/01/2016.
+//  Copyright © 2016 Foodonet. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
-class FCPhotoFetcher: NSObject {
+class FCUserPhotoFetcher: NSObject {
+
+    let foodCollectorProductionBucketName  = "foodonetusers"
+    let foodCollectorDevelopmentBucketName = "foodonetusersdev"
     
-    let foodCollectorProductionBucketName  = "foodcollector"
-    let foodCollectorDevelopmentBucketName = "foodcollectordev"
-    
-    func fetchPhotoForPublication(publication: FCPublication , completion: (image: UIImage?)->Void) {
+    func userPhotoForPublication(publication: FCPublication , completion: (image: UIImage?)->Void) {
         
         var photo: UIImage? = nil
         
@@ -23,10 +22,10 @@ class FCPhotoFetcher: NSObject {
         let downloadedFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(publication.photoUrl)")
         let downloadedFileUrl = NSURL.fileURLWithPath(downloadedFilePath.path!)
         
-        let downloadRequest = AWSS3TransferManagerDownloadRequest()
-        downloadRequest.bucket = self.bucketNameForBundle()//"foodcollector"
-        downloadRequest.key = publication.photoUrl
-        downloadRequest.downloadingFileURL = downloadedFileUrl
+        let downloadRequest                 = AWSS3TransferManagerDownloadRequest()
+        downloadRequest.bucket              = self.bucketNameForBundle()//"foodcollector"
+        downloadRequest.key                 = publication.photoUrl
+        downloadRequest.downloadingFileURL  = downloadedFileUrl
         
         transferManager.download(downloadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
             
@@ -40,10 +39,10 @@ class FCPhotoFetcher: NSObject {
                 
                 //let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
-                publication.photoData.didTryToDonwloadImage = true
-                if let publicationPhoto = photo {
-                    publication.photoData.photo = publicationPhoto
-                }
+//                publication.photoData.didTryToDonwloadImage = true
+//                if let publicationPhoto = photo {
+//                    publication.photoData.photo = publicationPhoto
+//                }
                 completion(image: photo)
             }
             
@@ -52,23 +51,23 @@ class FCPhotoFetcher: NSObject {
         })
     }
     
-    func uploadPhotoForPublication(publication : FCPublication) {
+    func uploadUserPhoto() {
         
-        //print("uploadPhotoForPublication:\n------------------------")
-        
-        let imageToUpload = publication.photoData.photo!
-        let uploadFilePath = NSTemporaryDirectory().stringByAppendingString(publication.photoUrl)
+        let photo = UIImage(named: "UserGreen")
+
+        let imageToUpload = photo!
+        let uploadFilePath = NSTemporaryDirectory().stringByAppendingString("usertry1.jpg") //user.userID
         let uploadFileURL = NSURL.fileURLWithPath(uploadFilePath)
-        //print("uploadFilePath:\(uploadFilePath)")
+
         
-        UIImageJPEGRepresentation(imageToUpload,0)!.writeToURL(uploadFileURL, atomically: true)
+        UIImageJPEGRepresentation(imageToUpload,1)!.writeToURL(uploadFileURL, atomically: true)
         
         // return image as JPEG. May return nil if image has no CGImageRef or invalid bitmap format. compression is 0(most)..1(least)
         // the more it's compressed the smaller the file is
         
         let uploadRequest = AWSS3TransferManagerUploadRequest()
         uploadRequest.bucket = self.bucketNameForBundle() //"foodcollector"
-        uploadRequest.key = publication.photoUrl
+        uploadRequest.key = "usertry1.jpg"
         uploadRequest.body = uploadFileURL
         
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
@@ -76,12 +75,12 @@ class FCPhotoFetcher: NSObject {
             
             if task.error != nil {
                 
-             //   println("task error: \(task.error)")
+                //   println("task error: \(task.error)")
             }
             
             if task.result != nil {
                 
-            //    println("success: \(task.result)")
+                //    println("success: \(task.result)")
             }
             
             return nil
@@ -89,17 +88,18 @@ class FCPhotoFetcher: NSObject {
         
     }
     
-    func deletePhotoForPublication(publication: FCPublication) {
+    func deleteUserPhotoForPublication() {
         
-        
+/*
         //Delete Object
         let deletePhotoRequest      = AWSS3DeleteObjectRequest()
         deletePhotoRequest.bucket   = self.bucketNameForBundle()
         deletePhotoRequest.key      = publication.photoUrl
-       
+        
         let s3 = AWSS3.defaultS3()
         let task = s3.deleteObject(deletePhotoRequest)
         print(task.description)
+*/
     }
     
     func bucketNameForBundle() -> String {
@@ -125,4 +125,6 @@ class FCPhotoFetcher: NSObject {
         print("prod or beta - bucket is \(self.foodCollectorProductionBucketName)")
         return self.foodCollectorProductionBucketName
     }
+
+    
 }
