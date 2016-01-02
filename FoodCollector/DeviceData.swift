@@ -76,7 +76,7 @@ public extension DeviceData {
         if (fileNameExtention != (fileName as NSString).pathExtension) {
             fileName = fileName + "." + fileNameExtention
         }
-        fileName = "\\" + fileName
+        fileName = "/" + fileName
         
         if FCModel.documentsDirectory() == "" {
             return false
@@ -87,9 +87,9 @@ public extension DeviceData {
         
         switch data {
         case is NSArray:
-            (data as! NSArray).writeToFile(fileName, atomically: true)
+            (data as! NSArray).writeToFile(path, atomically: true)
         case is NSDictionary:
-            (data as! NSDictionary).writeToFile(fileName, atomically: true)
+            (data as! NSDictionary).writeToFile(path, atomically: true)
         default:
             return false
         }
