@@ -17,6 +17,8 @@ class User {
     //===========================================================================
     
     private let plistFileName = "UserData.plist"
+    private let userImageFileName = "usaer"
+    private let userImageFileNameSuffix = ".jpg"
     private var userData = [String: AnyObject]()
     
     // TODO: Add userImage key for the User image from the identity provider
@@ -34,6 +36,7 @@ class User {
         case Ratings =                  "ratings"
         case Credits =                  "credits"
         case Foodies =                  "foodies"
+        case ImagePath =                "user_image_path"
     }
     
     // User class Properties with default values
@@ -49,7 +52,9 @@ class User {
     private(set) var userRatings =                   [0]
     private(set) var userCredits =                   0.0
     private(set) var userFoodies =                   0
-    
+    private(set) var userImagePath =        ""
+    private(set) var userImage =            UIImage()
+    private(set) var fullUserIamgeName =    "genericUserImage.jpg"
     private(set) var calculatedUserRating = 0.0
     
     // 'private' prevents other classes from using the default '()' initializer for this class.
@@ -72,10 +77,13 @@ class User {
         // In this case, user data already has default values
         if ((plistResult.data != nil) && (plistResult.dataType == .Dictionary)) {
             setUserClassPropertiesFromPlistData(plistResult.data as! NSDictionary)
+            
         }
         else {
             print("No user plist was found. Using default values.")
         }
+        
+        setUserImage()
     }
     
     private func setUserClassPropertiesFromPlistData(data: NSDictionary) {
@@ -90,6 +98,7 @@ class User {
         setValueInUserClassProperty(getValue(data, forKey: .Ratings), forKey: .Ratings)
         setValueInUserClassProperty(getValue(data, forKey: .Credits), forKey: .Credits)
         setValueInUserClassProperty(getValue(data, forKey: .Foodies), forKey: .Foodies)
+        setValueInUserClassProperty(getValue(data, forKey: .ImagePath), forKey: .ImagePath)
     }
     
     func updateWithLoginData(loginData :LoginData){
@@ -106,46 +115,58 @@ class User {
         setValueInUserClassProperty(loginData.isLoggedIn, forKey: .IsLoggedIn)
         setValueInUserClassProperty(loginData.active_device_dev_uuid!, forKey: .UUID)
         
+        // Image data from loging identity provider
+        if let image = loginData.userImage {
+            self.userImage = image
+            self.fullUserIamgeName = self.userImageFileName + String(self.userUniqueID) + self.userImageFileNameSuffix
+            let path = FCModel.documentsDirectory().stringByAppendingString("/" + self.fullUserIamgeName)
+            let url = NSURL(string: path)
+            DeviceData.writeImage(self.userImage, imageURL: url!)
+        }
+        
         writeUserData()
     }
     
     func setValueInUserClassProperty(value: AnyObject, forKey key: UserDataKey) {
         switch key {
         case .ID:
-            self.userUniqueID = value as! Int
+            self.userUniqueID = value as? Int ?? 0
             
         case .IdentityProvider:
-            self.userIdentityProvider = value as! String
+            self.userIdentityProvider = value as? String ?? ""
             
         case .IdentityProviderUserID:
-            self.userIdentityProviderUserID = value as! String
+            self.userIdentityProviderUserID = value as? String ?? ""
             
         case .IdentityProviderToken:
-            self.userIdentityProviderToken = value as! String
+            self.userIdentityProviderToken = value as? String ?? ""
             
         case .PhoneNumber:
-            self.userPhoneNumber = value as! String
+            self.userPhoneNumber = value as? String ?? ""
             
         case .IdentityProviderEmail:
-            self.userIdentityProviderEmail = value as! String
+            self.userIdentityProviderEmail = value as? String ?? ""
             
         case .IdentityProviderUserName:
-            self.userIdentityProviderUserName = value as! String
+            self.userIdentityProviderUserName = value as? String ?? ""
             
         case .IsLoggedIn:
-            userData[key.rawValue] = value as! Bool
+            userData[key.rawValue] = value as? Bool ?? false
             
         case .UUID:
-            self.userActiveDeviceDevUUID = value as! String
+            self.userActiveDeviceDevUUID = value as? String ?? ""
             
         case .Ratings:
-            userData[key.rawValue] = value as! Array<Int>
+            userData[key.rawValue] = value as? Array<Int> ?? [0]
             
         case .Credits:
-            userData[key.rawValue] = value as! Double
+            userData[key.rawValue] = value as? Double ?? 0.0
             
         case .Foodies:
-            userData[key.rawValue] = value as! Int
+            userData[key.rawValue] = value as? Int ?? 0
+        
+        case .ImagePath:
+            userData[key.rawValue] = value as? String ?? ""
         }
     }
     
@@ -156,6 +177,23 @@ class User {
         self.calculatedUserRating = (count > 0) ? Double(sum/count) : 0
         // Round to the nearest half (format: 1.0, 1.5)
         self.calculatedUserRating = Double(round(self.calculatedUserRating*2)/2)
+    }
+    
+    private func setUserImage() {
+        if (self.userImagePath == "") {
+            // use generic foodonet image
+            self.userImage = UIImage(named: fullUserIamgeName)!
+        }
+        else {
+            // use an existing image from documents diretory
+            self.fullUserIamgeName = self.userImageFileName + String(self.userUniqueID) + self.userImageFileNameSuffix
+            let path = FCModel.documentsDirectory().stringByAppendingString("/" + fullUserIamgeName)
+            loadImageFromPath(path)
+        }
+    }
+    
+    private func loadImageFromPath(path: String) {
+        self.userImage = UIImage(contentsOfFile: path)!
     }
     
     //===========================================================================
@@ -174,6 +212,7 @@ class User {
         userData[UserDataKey.Ratings.rawValue] = self.userRatings
         userData[UserDataKey.Credits.rawValue] = self.userCredits
         userData[UserDataKey.Foodies.rawValue] = self.userFoodies
+        userData[UserDataKey.ImagePath.rawValue] = self.userImagePath
     }
     
     private func getValue(data: NSDictionary, forKey key: UserDataKey) -> AnyObject {

@@ -97,4 +97,8 @@ public extension DeviceData {
         
         return true
     }
+    
+    public class func writeImage(image: UIImage, imageURL: NSURL) {
+        UIImageJPEGRepresentation(image,1)!.writeToURL(imageURL, atomically: true)
+    }
 }
