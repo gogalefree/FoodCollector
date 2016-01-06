@@ -42,19 +42,16 @@ public class DeviceData {
 public extension DeviceData {
     
     public class func readPlist(var fileName: String) -> (data: AnyObject?, dataType: PlistDataType){
-        // Check if fileName has a .plist suffix. If it has, remove it.
-        var fileNameExtention = ""
-        fileNameExtention = (fileName as NSString).pathExtension
-        if (fileNameExtention != "") {
-            fileNameExtention = "." + fileNameExtention
-            fileName = (fileName as NSString).stringByDeletingPathExtension
-        }
-        else {
-            fileNameExtention = ".plist"
+        // Check if fileName has a pathExtension. If it doesn't, add it.
+        if ((fileName as NSString).pathExtension == "") {
+            fileName = fileName + ".plist"
         }
         
-        // Check if resource exists. If not, return nil.
-        if let plistFilePath = NSBundle.mainBundle().pathForResource(fileName, ofType: fileNameExtention) {
+        fileName = "/" + fileName
+        print("filename: \(fileName)")
+        if FCModel.documentsDirectory() != "" {
+            let plistFilePath = FCModel.documentsDirectory().stringByAppendingString(fileName)
+            print("plistFilePath: \(plistFilePath)")
             let plistData = NSDictionary(contentsOfFile: plistFilePath)
             // If plistData == nil it's not a dictionary - It's an array
             if plistData == nil {

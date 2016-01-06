@@ -17,6 +17,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     var isPresentingOnSpotReportVC = false
     var firstLaunch = true
     var mainActionNavVC: UINavigationController!
+    var loginNavVC: UINavigationController!
     var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView    
     
     lazy var newReportMessageView: NewReportMessageView = NewReportMessageView.loadFromNibNamed("NewReportMessageView", bundle: nil) as! NewReportMessageView
@@ -25,24 +26,40 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.itemPositioning = UITabBarItemPositioning.Fill
+        
+        // Main Action view
         registerNSNotifications()
         self.mainActionNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainActionNavVC") as! UINavigationController
         let mainActionVC = self.mainActionNavVC.viewControllers[0] as! MainActionVC
         mainActionVC.delegate = self
         
+        // Loging view
+        let logingView = UIStoryboard(name: "Login", bundle: nil)
+        self.loginNavVC = logingView.instantiateViewControllerWithIdentifier("LoginNavVC") as! UINavigationController
     }
     
     override func viewDidLayoutSubviews() {
         
         super.viewDidLayoutSubviews()
-        if firstLaunch {
-            //self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
-            self.addChildViewController(self.mainActionNavVC)
-            self.mainActionNavVC.view.frame = self.view.bounds
-            self.view.addSubview(self.mainActionNavVC.view)
-            self.mainActionNavVC.didMoveToParentViewController(self)
-            firstLaunch = false
+        
+        if (User.sharedInstance.userIsLoggedIn) {
+            print("User is loged in")
+            showActionView()
+            
         }
+        else {
+            if (User.sharedInstance.userSkippedLogin) {
+                print("User is skipped")
+                showActionView()
+                
+            }
+            else {
+                print("User is not Loged-in and not skipped")
+                showLoginView()
+            }
+            
+        }
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -62,6 +79,26 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     func appWillEnterForeground() {
         self.showUserRegistrationNotificationIfNeeded(1.5)
+    }
+    
+    private func showActionView() {
+        print("showActionView()")
+        if firstLaunch {
+            //self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
+            self.addChildViewController(self.mainActionNavVC)
+            self.mainActionNavVC.view.frame = self.view.bounds
+            self.view.addSubview(self.mainActionNavVC.view)
+            self.mainActionNavVC.didMoveToParentViewController(self)
+            firstLaunch = false
+        }
+    }
+    
+    private func showLoginView() {
+        print("showLoginView()")
+        self.addChildViewController(self.loginNavVC)
+        self.loginNavVC.view.frame = self.view.bounds
+        self.view.addSubview(self.loginNavVC.view)
+        self.loginNavVC.didMoveToParentViewController(self)
     }
     
     final func showUserRegistrationNotificationIfNeeded(dealey: NSTimeInterval) {

@@ -37,6 +37,7 @@ class User {
         case Credits =                  "credits"
         case Foodies =                  "foodies"
         case ImagePath =                "user_image_path"
+        case SkippedLogin =             "skipped_login"
     }
     
     // User class Properties with default values
@@ -52,10 +53,12 @@ class User {
     private(set) var userRatings =                   [0]
     private(set) var userCredits =                   0.0
     private(set) var userFoodies =                   0
+    
     private(set) var userImagePath =        ""
     private(set) var userImage =            UIImage()
     private(set) var fullUserIamgeName =    "genericUserImage.jpg"
     private(set) var calculatedUserRating = 0.0
+    private(set) var userSkippedLogin =            false
     
     // 'private' prevents other classes from using the default '()' initializer for this class.
     private init() {
@@ -72,7 +75,8 @@ class User {
     
     private func setInitialUserData() {
         let plistResult = DeviceData.readPlist(plistFileName)
-        
+        print("plist detailes:")
+        print(plistResult)
         // If the data type is not Dictionary or it is nil, there's no data to work with.
         // In this case, user data already has default values
         if ((plistResult.data != nil) && (plistResult.dataType == .Dictionary)) {
@@ -99,6 +103,7 @@ class User {
         setValueInUserClassProperty(getValue(data, forKey: .Credits), forKey: .Credits)
         setValueInUserClassProperty(getValue(data, forKey: .Foodies), forKey: .Foodies)
         setValueInUserClassProperty(getValue(data, forKey: .ImagePath), forKey: .ImagePath)
+        setValueInUserClassProperty(getValue(data, forKey: .SkippedLogin), forKey: .SkippedLogin)
     }
     
     func updateWithLoginData(loginData :LoginData){
@@ -106,14 +111,27 @@ class User {
         //update user properties after login - we only need to update the userId property after we recieve it from the server
         
         // Data recieved from loging identity provider
-        setValueInUserClassProperty(loginData.userId!, forKey: .ID)
+        if let id = loginData.userId {
+            setValueInUserClassProperty(id, forKey: .ID)
+        }
+        if let userID = loginData.identityProviderUserID {
+            setValueInUserClassProperty(userID, forKey: .IdentityProviderUserID)
+        }
+        if let token = loginData.identityProviderToken {
+            setValueInUserClassProperty(token, forKey: .IdentityProviderToken)
+        }
+        if let email = loginData.identityProviderEmail {
+            setValueInUserClassProperty(email, forKey: .IdentityProviderEmail)
+        }
+        if let name = loginData.identityProviderUserName {
+            setValueInUserClassProperty(name, forKey: .IdentityProviderUserName)
+        }
+        if let uuid = loginData.active_device_dev_uuid {
+            setValueInUserClassProperty(uuid, forKey: .UUID)
+        }
+        
         setValueInUserClassProperty(loginData.identityProvider.rawValue, forKey: .IdentityProvider)
-        setValueInUserClassProperty(loginData.identityProviderUserID!, forKey: .IdentityProviderUserID)
-        setValueInUserClassProperty(loginData.identityProviderToken!, forKey: .IdentityProviderToken)
-        setValueInUserClassProperty(loginData.identityProviderEmail!, forKey: .IdentityProviderEmail)
-        setValueInUserClassProperty(loginData.identityProviderUserName!, forKey: .IdentityProviderUserName)
         setValueInUserClassProperty(loginData.isLoggedIn, forKey: .IsLoggedIn)
-        setValueInUserClassProperty(loginData.active_device_dev_uuid!, forKey: .UUID)
         
         // Image data from loging identity provider
         if let image = loginData.userImage {
@@ -124,10 +142,13 @@ class User {
             DeviceData.writeImage(self.userImage, imageURL: url!)
         }
         
+        self.userSkippedLogin = true
+        
         writeUserData()
     }
     
     func setValueInUserClassProperty(value: AnyObject, forKey key: UserDataKey) {
+        print("Key: \(key) ->  Value: \(value)")
         switch key {
         case .ID:
             self.userUniqueID = value as? Int ?? 0
@@ -151,22 +172,34 @@ class User {
             self.userIdentityProviderUserName = value as? String ?? ""
             
         case .IsLoggedIn:
-            userData[key.rawValue] = value as? Bool ?? false
-            
+            if (value as! Bool) {
+                print("isLoggedIn = TRUE")
+            }
+            else {
+                print("isLoggedIn = FALSE")
+            }
+            print("self.userIsLoggedIn \(self.userIsLoggedIn.description)")
+            print("userData[key.rawValue]: \(userData[key.rawValue])")
+            self.userIsLoggedIn = value as? Bool ?? false
+            print("userData[key.rawValue]: \(userData[key.rawValue])")
+            print("self.userIsLoggedIn \(self.userIsLoggedIn.description)")
         case .UUID:
             self.userActiveDeviceDevUUID = value as? String ?? ""
             
         case .Ratings:
-            userData[key.rawValue] = value as? Array<Int> ?? [0]
+            self.userRatings = value as? Array<Int> ?? [0]
             
         case .Credits:
-            userData[key.rawValue] = value as? Double ?? 0.0
+            self.userCredits = value as? Double ?? 0.0
             
         case .Foodies:
-            userData[key.rawValue] = value as? Int ?? 0
+            self.userFoodies = value as? Int ?? 0
         
         case .ImagePath:
-            userData[key.rawValue] = value as? String ?? ""
+            self.userImagePath = value as? String ?? ""
+        
+        case .SkippedLogin:
+            self.userSkippedLogin = value as? Bool ?? false
         }
     }
     
@@ -213,6 +246,7 @@ class User {
         userData[UserDataKey.Credits.rawValue] = self.userCredits
         userData[UserDataKey.Foodies.rawValue] = self.userFoodies
         userData[UserDataKey.ImagePath.rawValue] = self.userImagePath
+        userData[UserDataKey.SkippedLogin.rawValue] = self.userSkippedLogin
     }
     
     private func getValue(data: NSDictionary, forKey key: UserDataKey) -> AnyObject {
