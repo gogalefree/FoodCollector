@@ -22,6 +22,7 @@ class LoginRootVC: UIViewController {
     
     //MARK: - UI setup
     
+    //TODO: add viewdidlayoutsubviews and set the button to be at top layer.
    
     //MARK: - Button Actions
     
@@ -53,11 +54,13 @@ class LoginRootVC: UIViewController {
                         if success {
                             //stop activity indicator
                             //perform segue to next vc
+                            //TODO: Add segue to phone number VC
                         }
                         
                         else {
                             //handle unsuccessful login
                             //present alert
+                            //TODO: add alert to user and set islogin = false.
                         }
                    })
                 }

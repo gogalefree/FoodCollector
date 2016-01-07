@@ -53,7 +53,7 @@ extension FCMockServer {
         
         //add the id from the server
         loginData.userId = staticId.id
-        
+        loginData.isLoggedIn = true
         //update User Class with id
         User.sharedInstance.updateWithLoginData(loginData)
         

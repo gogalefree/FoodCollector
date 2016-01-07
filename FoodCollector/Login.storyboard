@@ -14,39 +14,32 @@
                         <viewControllerLayoutGuide type="bottom" id="5Gi-4C-RSc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1SK-Rh-Kec">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWc-ab-uxN" customClass="GIDSignInButton">
-                                <rect key="frame" x="118" y="463" width="138" height="56"/>
-                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="googleLoginButtonClicked" destination="FU2-10-QdK" eventType="touchUpInside" id="JUu-cr-QjL"/>
-                                </connections>
-                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="fUZ-7T-g8V">
-                                <rect key="frame" x="120" y="81" width="145" height="109"/>
+                                <rect key="frame" x="104" y="78" width="112" height="112"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Sharing food changing society" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZn-e1-m8L">
-                                <rect key="frame" x="20" y="198" width="335" height="21"/>
+                                <rect key="frame" x="20" y="198" width="280" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica-LightOblique" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Ready to get started?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7J-IC-nLf">
-                                <rect key="frame" x="20" y="301" width="335" height="21"/>
+                                <rect key="frame" x="20" y="285" width="280" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="18"/>
                                 <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="—  Sign in with  —" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxJ-SW-BD5">
-                                <rect key="frame" x="20" y="345" width="335" height="21"/>
+                                <rect key="frame" x="20" y="345" width="280" height="21"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzY-7R-UwU">
-                                <rect key="frame" x="49" y="617" width="277" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzY-7R-UwU">
+                                <rect key="frame" x="20" y="518" width="280" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="277" id="BIJ-Ex-0ro"/>
                                     <constraint firstAttribute="height" constant="30" id="cB9-d4-aU0"/>
@@ -64,7 +57,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QM-sm-Zzm">
-                                <rect key="frame" x="124" y="385" width="137" height="22"/>
+                                <rect key="frame" x="24" y="468" width="270" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="137" id="9S5-XA-ZaO"/>
                                     <constraint firstAttribute="height" constant="22" id="xeA-wW-aMa"/>
@@ -74,6 +67,18 @@
                                     <action selector="facebookButtonClicked" destination="FU2-10-QdK" eventType="touchUpInside" id="PHm-kJ-Sy6"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWc-ab-uxN" customClass="GIDSignInButton">
+                                <rect key="frame" x="24" y="402" width="272" height="44"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="GoogleLogin" translatesAutoresizingMaskIntoConstraints="NO" id="NpS-8i-6No">
+                                        <rect key="frame" x="3" y="1" width="270" height="42"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="googleLoginButtonClicked" destination="FU2-10-QdK" eventType="touchUpInside" id="JUu-cr-QjL"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -81,12 +86,14 @@
                             <constraint firstItem="fUZ-7T-g8V" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="F0l-Oj-GKm"/>
                             <constraint firstItem="5Gi-4C-RSc" firstAttribute="top" secondItem="FzY-7R-UwU" secondAttribute="bottom" constant="20" id="GKn-jG-EYX"/>
                             <constraint firstItem="0QM-sm-Zzm" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="fm1-kl-391"/>
+                            <constraint firstItem="TWc-ab-uxN" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="gfG-Wq-dt0"/>
                             <constraint firstItem="RxJ-SW-BD5" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="suA-qf-IOH"/>
                             <constraint firstItem="FzY-7R-UwU" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="uNs-Mk-whu"/>
                             <constraint firstItem="LZn-e1-m8L" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="zwt-zy-I2g"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cGH-Xx-5Hk"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="facebookLoginButton" destination="0QM-sm-Zzm" id="n2m-0v-9IF"/>
                         <outlet property="googleLoginButton" destination="TWc-ab-uxN" id="Eyd-Q5-21M"/>
@@ -94,7 +101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vWK-8o-3Rz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1365.5" y="439.5"/>
+            <point key="canvasLocation" x="1365" y="439"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ay5-O1-gzJ">
@@ -117,7 +124,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FacebookLogin" width="135" height="21"/>
+        <image name="FacebookLogin" width="270" height="42"/>
+        <image name="GoogleLogin" width="270" height="42"/>
         <image name="NoPhotoPlaceholder" width="87" height="80"/>
     </resources>
 </document>

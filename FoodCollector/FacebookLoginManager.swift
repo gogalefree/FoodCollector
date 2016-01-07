@@ -48,7 +48,7 @@ class FaceBookLoginManager {
                 loginData.identityProviderToken    = token
                 loginData.identityProviderUserID   = userId
                 loginData.identityProviderEmail    = aUserEmail
-                loginData.isLoggedIn = true
+                //loginData.isLoggedIn = true
                 
                 print("User Name is: \(userName)")
                 print("User Email is: \(userEmail)")
