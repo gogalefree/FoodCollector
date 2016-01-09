@@ -9,7 +9,7 @@
 import Foundation
 
 class FCUserPhotoFetcher: NSObject {
-
+    let kUserPhotoKeyPrefix                = "fduser"
     let foodCollectorProductionBucketName  = "foodonetusers"
     let foodCollectorDevelopmentBucketName = "foodonetusersdev"
     
@@ -55,11 +55,11 @@ class FCUserPhotoFetcher: NSObject {
     func uploadUserPhoto() {
         
         //TODO: get the user and set the photo url for user
-        let photo = UIImage(named: "UserGreen")
-
-        let imageToUpload = photo!
-        let uploadFilePath = NSTemporaryDirectory().stringByAppendingString("usertry1.jpg") //user.userID
-        let uploadFileURL = NSURL.fileURLWithPath(uploadFilePath)
+        let photo           = UIImage(named: "UserGreen")
+        let photoKey        = kUserPhotoKeyPrefix + "\(User.sharedInstance.userUniqueID)" + ".jpg"
+        let imageToUpload   = photo!
+        let uploadFilePath  = NSTemporaryDirectory().stringByAppendingString(photoKey)
+        let uploadFileURL   = NSURL.fileURLWithPath(uploadFilePath)
 
         
         UIImageJPEGRepresentation(imageToUpload,1)!.writeToURL(uploadFileURL, atomically: true)
@@ -67,22 +67,22 @@ class FCUserPhotoFetcher: NSObject {
         // return image as JPEG. May return nil if image has no CGImageRef or invalid bitmap format. compression is 0(most)..1(least)
         // the more it's compressed the smaller the file is
         
-        let uploadRequest = AWSS3TransferManagerUploadRequest()
-        uploadRequest.bucket = self.bucketNameForBundle() //"foodcollector"
-        uploadRequest.key = "usertry1.jpg"
-        uploadRequest.body = uploadFileURL
+        let uploadRequest       = AWSS3TransferManagerUploadRequest()
+        uploadRequest.bucket    = self.bucketNameForBundle() //"foodcollector"
+        uploadRequest.key       = photoKey
+        uploadRequest.body      = uploadFileURL
         
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         transferManager.upload(uploadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
             
             if task.error != nil {
                 
-                //   println("task error: \(task.error)")
+                //   print("task error: \(task.error)")
             }
             
             if task.result != nil {
                 
-                //    println("success: \(task.result)")
+                //    print("success: \(task.result)")
             }
             
             return nil
@@ -127,6 +127,4 @@ class FCUserPhotoFetcher: NSObject {
         print("prod or beta - bucket is \(self.foodCollectorProductionBucketName)")
         return self.foodCollectorProductionBucketName
     }
-
-    
 }

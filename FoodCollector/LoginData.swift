@@ -8,6 +8,17 @@
 
 import Foundation
 
+let userKey                     = "user"
+let userIdKey                   = "id"
+let indentityProviderKey        = "identity_provider"
+let identityProviderUserIdKey   = "identity_provider_user_id"
+let identityProviderTokenKey    = "identity_provider_token"
+let phoneNumberKey              = "phone_number"
+let identityProviderEmailKey    = "identity_provider_email"
+let identityProviderUserNameKey = "identity_provider_user_name"
+let isLoggedInKey               = "is_logged_in"
+let activeDeviceDevUuidKey      = "active_device_dev_uuid"
+
 enum LoginIdentityProvider: String {
     case Facebook = "facebook", Google = "google", Foodonet   = "foodonet"
 }
@@ -42,17 +53,20 @@ class LoginData: NSObject {
             identityProviderUserName = identityProviderUserName,
             active_device_dev_uuid = active_device_dev_uuid else { return nil }
         
-        let
-        params : [String: AnyObject] = ["user" :[
-            "identity_provider"             : identityProvider.rawValue,
-            "identity_provider_user_id"     : identityProviderUserID,
-            "identity_provider_token"       : identityProviderToken,
-            "phone_number"                  : phoneNumber,
-            "identity_provider_email"       : identityProviderEmail,
-            "identity_provider_user_name"   : identityProviderUserName,
-            "is_logged_in"                  : isLoggedIn,
-            "active_device_dev_uuid"        : active_device_dev_uuid]]
+        var
+        params : [String: AnyObject] = [userKey :[
+            indentityProviderKey            : identityProvider.rawValue,
+            identityProviderUserIdKey       : identityProviderUserID,
+            identityProviderTokenKey        : identityProviderToken,
+            phoneNumberKey                  : phoneNumber,
+            identityProviderEmailKey        : identityProviderEmail,
+            identityProviderUserNameKey     : identityProviderUserName,
+            isLoggedInKey                   : true,
+            activeDeviceDevUuidKey          : active_device_dev_uuid]]
         
+        //if the identity provider is google we dont sent the identity provider user id
+        //the server should extract it from the token
+        if self.identityProvider == .Google { params[identityProviderUserIdKey] = "needs_verification_by_server"}
         return try? NSJSONSerialization.dataWithJSONObject(params, options: [])
         
     }
@@ -67,7 +81,7 @@ class LoginData: NSObject {
         self.identityProviderEmail    = email
         self.identityProviderToken    = idToken
         self.identityProviderUserName = name
-        self.identityProviderUserID   = "needs_verification"
+        self.identityProviderUserID   = userId
         
         print("userid: " + userId + "\n" + "token: " + idToken  + "\n" + "name: " + name + "\n" + "email: " + email)
         

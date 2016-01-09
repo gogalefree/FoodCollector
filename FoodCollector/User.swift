@@ -201,8 +201,12 @@ class User {
         setValueInInternalUserData(self.userRatings, forKey: .Ratings)
         setValueInInternalUserData(self.userCredits, forKey: .Credits)
         setValueInInternalUserData(self.userFoodies, forKey: .Foodies)
-        
+    
         writeData()
+        
+        //upload user photo to aws
+        let userPhotoUploader = FCUserPhotoFetcher()
+        userPhotoUploader.uploadUserPhoto()
     }
 }
 

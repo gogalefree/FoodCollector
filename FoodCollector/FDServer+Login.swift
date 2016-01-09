@@ -43,22 +43,50 @@ extension FCMockServer {
     
     func login(loginData: LoginData , completion: (success: Bool) -> ()) -> Void {
 
-        struct staticId {
-            static var id = 0
-        }
-        ++staticId.id
-
-        // let data = loginData.jsonToSend()
+        let jsonData = loginData.jsonToSend()
+        guard let data = jsonData else { completion(success: false) ; return}
+      
         // send data to server
-        
-        //add the id from the server
-        loginData.userId = staticId.id
-        
-        //update User Class with id
-        User.sharedInstance.updateWithLoginData(loginData)
-        
-        completion(success: true)
-        
+        //TODO: change the url
+        let url = NSURL(string: "http://ofer-fd-server.herokuapp.com/users")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod  = "POST"
+        request.HTTPBody    = data
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
+            taskData, response, error -> () in
+
+            if error != nil {
+            
+                self.handleFailure(loginData, completion: completion)
+                return
+            }
+            
+            guard let response = response as? NSHTTPURLResponse , incomingData = taskData else {self.handleFailure(loginData, completion: completion) ; return}
+           
+            if response.statusCode == 200 || response.statusCode == 201 {
+                
+                let responseParams = try? NSJSONSerialization.JSONObjectWithData(incomingData, options: [])
+                guard let params = responseParams else {self.handleFailure(loginData, completion: completion) ; return}
+                
+                loginData.userId = params[userIdKey] as? Int
+                User.sharedInstance.updateWithLoginData(loginData)
+                completion(success: true)
+            }
+            
+            else {
+                
+                self.handleFailure(loginData, completion: completion)
+            }
+            
+        }).resume()
     }
     
+    func handleFailure(loginData: LoginData , completion: (success: Bool) -> ()){
+        
+        loginData.isLoggedIn = false
+        completion(success: false)
+    }
 }
