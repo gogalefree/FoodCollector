@@ -215,6 +215,27 @@
 		A1A738A01B7FA22800CA2C5A /* PublicationEditorTVCPhoneNumEditorCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCPhoneNumEditorCustomCell.swift; sourceTree = "<group>"; };
 		A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorMyLocationCustomCell.swift; sourceTree = "<group>"; };
 		A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorAddressHistoryCustomCell.swift; sourceTree = "<group>"; };
+		A1CEEF4A1C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		A1CEEF4B1C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A1CEEF4C1C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NewRegistrationBannerView.strings; sourceTree = "<group>"; };
+		A1CEEF4D1C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NewReportMessageView.strings; sourceTree = "<group>"; };
+		A1CEEF4E1C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCImageCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF4F1C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCTextFieldCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF501C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCOnlyLabelCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF511C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FCPublishAddressEditorAddressHistoryCustomHeaderView.strings; sourceTree = "<group>"; };
+		A1CEEF521C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FCPublishAddressEditorAddressHistoryCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF531C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FCPublishAddressEditorMyLocationCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF541C4254FE00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCStartEndDateCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF551C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCDatePickerCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF561C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCContactPublisherCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF571C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCPhoneNumEditorCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF581C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationEditorTVCMoreInfoCustomCell.strings; sourceTree = "<group>"; };
+		A1CEEF591C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FCPublicationsTVCMessageView.strings; sourceTree = "<group>"; };
+		A1CEEF5A1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationDetsilsCollectorActionsHeaderView.strings; sourceTree = "<group>"; };
+		A1CEEF5B1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationDetsilsPublisherActionsHeaderView.strings; sourceTree = "<group>"; };
+		A1CEEF5C1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationOptionsMenuItemCell.strings; sourceTree = "<group>"; };
+		A1CEEF5D1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FCActivityCenterTVSectionHeader.strings; sourceTree = "<group>"; };
+		A1CEEF5E1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FetchedDataNotificationView.strings; sourceTree = "<group>"; };
 		A1E04A311C22A7D500709B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NewRegistrationBannerView.xib; sourceTree = "<group>"; };
 		A1E04A341C22A7D800709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/NewRegistrationBannerView.strings"; sourceTree = "<group>"; };
 		A1E04A361C22A7E900709B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NewReportMessageView.xib; sourceTree = "<group>"; };
@@ -1291,6 +1312,7 @@
 			children = (
 				A1E04A311C22A7D500709B0A /* Base */,
 				A1E04A341C22A7D800709B0A /* he-IL */,
+				A1CEEF4C1C4254FE00A0339D /* de */,
 			);
 			name = NewRegistrationBannerView.xib;
 			sourceTree = "<group>";
@@ -1300,6 +1322,7 @@
 			children = (
 				A1E04A361C22A7E900709B0A /* Base */,
 				A1E04A391C22A7EC00709B0A /* he-IL */,
+				A1CEEF4D1C4254FE00A0339D /* de */,
 			);
 			name = NewReportMessageView.xib;
 			sourceTree = "<group>";
@@ -1309,6 +1332,7 @@
 			children = (
 				A1E04A3B1C22A7FB00709B0A /* Base */,
 				A1E04A3E1C22A7FD00709B0A /* he-IL */,
+				A1CEEF4E1C4254FE00A0339D /* de */,
 			);
 			name = PublicationEditorTVCImageCustomCell.xib;
 			sourceTree = "<group>";
@@ -1318,6 +1342,7 @@
 			children = (
 				A1E04A401C22A81F00709B0A /* Base */,
 				A1E04A431C22A82200709B0A /* he-IL */,
+				A1CEEF4F1C4254FE00A0339D /* de */,
 			);
 			name = PublicationEditorTVCTextFieldCustomCell.xib;
 			sourceTree = "<group>";
@@ -1327,6 +1352,7 @@
 			children = (
 				A1E04A451C22A82E00709B0A /* Base */,
 				A1E04A481C22A83000709B0A /* he-IL */,
+				A1CEEF501C4254FE00A0339D /* de */,
 			);
 			name = PublicationEditorTVCOnlyLabelCustomCell.xib;
 			sourceTree = "<group>";
@@ -1336,6 +1362,7 @@
 			children = (
 				A1E04A4A1C22A83B00709B0A /* Base */,
 				A1E04A4D1C22A83E00709B0A /* he-IL */,
+				A1CEEF511C4254FE00A0339D /* de */,
 			);
 			name = FCPublishAddressEditorAddressHistoryCustomHeaderView.xib;
 			sourceTree = "<group>";
@@ -1345,6 +1372,7 @@
 			children = (
 				A1E04A4F1C22A84500709B0A /* Base */,
 				A1E04A521C22A84700709B0A /* he-IL */,
+				A1CEEF521C4254FE00A0339D /* de */,
 			);
 			name = FCPublishAddressEditorAddressHistoryCustomCell.xib;
 			sourceTree = "<group>";
@@ -1354,6 +1382,7 @@
 			children = (
 				A1E04A541C22A85400709B0A /* Base */,
 				A1E04A571C22A85600709B0A /* he-IL */,
+				A1CEEF531C4254FE00A0339D /* de */,
 			);
 			name = FCPublishAddressEditorMyLocationCustomCell.xib;
 			sourceTree = "<group>";
@@ -1363,6 +1392,7 @@
 			children = (
 				A1E04A591C22A85F00709B0A /* Base */,
 				A1E04A5C1C22A86200709B0A /* he-IL */,
+				A1CEEF541C4254FE00A0339D /* de */,
 			);
 			name = PublicationEditorTVCStartEndDateCustomCell.xib;
 			sourceTree = "<group>";
@@ -1372,6 +1402,7 @@
 			children = (
 				A1E04A5E1C22A86C00709B0A /* Base */,
 				A1E04A611C22A86F00709B0A /* he-IL */,
+				A1CEEF551C4254FF00A0339D /* de */,
 			);
 			name = PublicationEditorTVCDatePickerCustomCell.xib;
 			sourceTree = "<group>";
@@ -1381,6 +1412,7 @@
 			children = (
 				A1E04A631C22A88000709B0A /* Base */,
 				A1E04A661C22A88200709B0A /* he-IL */,
+				A1CEEF561C4254FF00A0339D /* de */,
 			);
 			name = PublicationEditorTVCContactPublisherCustomCell.xib;
 			sourceTree = "<group>";
@@ -1390,6 +1422,7 @@
 			children = (
 				A1E04A681C22A88A00709B0A /* Base */,
 				A1E04A6B1C22A88C00709B0A /* he-IL */,
+				A1CEEF571C4254FF00A0339D /* de */,
 			);
 			name = PublicationEditorTVCPhoneNumEditorCustomCell.xib;
 			sourceTree = "<group>";
@@ -1399,6 +1432,7 @@
 			children = (
 				A1E04A6D1C22A89400709B0A /* Base */,
 				A1E04A701C22A89600709B0A /* he-IL */,
+				A1CEEF581C4254FF00A0339D /* de */,
 			);
 			name = PublicationEditorTVCMoreInfoCustomCell.xib;
 			sourceTree = "<group>";
@@ -1408,6 +1442,7 @@
 			children = (
 				A1E04A721C22A8B800709B0A /* Base */,
 				A1E04A751C22A8BB00709B0A /* he-IL */,
+				A1CEEF591C4254FF00A0339D /* de */,
 			);
 			name = FCPublicationsTVCMessageView.xib;
 			sourceTree = "<group>";
@@ -1417,6 +1452,7 @@
 			children = (
 				A1E04A771C22A8CD00709B0A /* Base */,
 				A1E04A7A1C22A8CF00709B0A /* he-IL */,
+				A1CEEF5A1C4254FF00A0339D /* de */,
 			);
 			name = PublicationDetsilsCollectorActionsHeaderView.xib;
 			sourceTree = "<group>";
@@ -1426,6 +1462,7 @@
 			children = (
 				A1E04A7C1C22A8D500709B0A /* Base */,
 				A1E04A7F1C22A8D700709B0A /* he-IL */,
+				A1CEEF5B1C4254FF00A0339D /* de */,
 			);
 			name = PublicationDetsilsPublisherActionsHeaderView.xib;
 			sourceTree = "<group>";
@@ -1435,6 +1472,7 @@
 			children = (
 				A1E04A811C22A8E400709B0A /* Base */,
 				A1E04A841C22A8E600709B0A /* he-IL */,
+				A1CEEF5C1C4254FF00A0339D /* de */,
 			);
 			name = PublicationOptionsMenuItemCell.xib;
 			sourceTree = "<group>";
@@ -1444,6 +1482,7 @@
 			children = (
 				A1E04A861C22A8F100709B0A /* Base */,
 				A1E04A891C22A8F300709B0A /* he-IL */,
+				A1CEEF5D1C4254FF00A0339D /* de */,
 			);
 			name = FCActivityCenterTVSectionHeader.xib;
 			sourceTree = "<group>";
@@ -1453,6 +1492,7 @@
 			children = (
 				A1E04A8B1C22A90600709B0A /* Base */,
 				A1E04A8E1C22A90800709B0A /* he-IL */,
+				A1CEEF5E1C4254FF00A0339D /* de */,
 			);
 			name = FetchedDataNotificationView.xib;
 			sourceTree = "<group>";
@@ -1462,6 +1502,7 @@
 			children = (
 				A13CA1081C0CFD8400F5371D /* Base */,
 				A153073E1C20BE1B00FE43AA /* he-IL */,
+				A1CEEF4A1C4254FE00A0339D /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1471,6 +1512,7 @@
 			children = (
 				A13CA1091C0CFD8400F5371D /* Base */,
 				A15307331C20BE1900FE43AA /* he-IL */,
+				A1CEEF4B1C4254FE00A0339D /* de */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
