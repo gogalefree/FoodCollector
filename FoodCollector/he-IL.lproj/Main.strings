@@ -124,8 +124,8 @@
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "fqk-Lk-drl"; */
 "fqk-Lk-drl.title" = "חזרה";
 
-/* Class = "UIViewController"; title = "Adress Selector"; ObjectID = "hdu-mN-4y2"; */
-"hdu-mN-4y2.title" = "Adress Selector";
+/* Class = "UIViewController"; title = "Address Selector"; ObjectID = "hdu-mN-4y2"; */
+"hdu-mN-4y2.title" = "בחר כתובת";
 
 /* Class = "UITabBarItem"; title = "Share"; ObjectID = "ho0-XI-XhJ"; */
 "ho0-XI-XhJ.title" = "שיתוף";

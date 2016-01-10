@@ -2237,10 +2237,10 @@
             </objects>
             <point key="canvasLocation" x="2527" y="-670"/>
         </scene>
-        <!--Adress Selector-->
+        <!--Address Selector-->
         <scene sceneID="x9I-Df-6XD">
             <objects>
-                <viewController title="Adress Selector" id="hdu-mN-4y2" customClass="FCPublishAddressEditorVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Address Selector" id="hdu-mN-4y2" customClass="FCPublishAddressEditorVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dHY-W6-YIs"/>
                         <viewControllerLayoutGuide type="bottom" id="poQ-FG-MHB"/>
