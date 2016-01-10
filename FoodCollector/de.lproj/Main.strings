@@ -59,7 +59,7 @@
 "FjY-js-UK8.text" = "neue Mitnahmegelegenheit";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "GpR-lN-AMc"; */
-"GpR-lN-AMc.normalTitle" = "Abbruch";
+"GpR-lN-AMc.normalTitle" = "Abbrechen";
 
 /* Class = "UILabel"; text = "25"; ObjectID = "Gwh-pG-GQl"; */
 "Gwh-pG-GQl.text" = "25";
@@ -104,7 +104,7 @@
 "Z5c-Yd-PoJ.text" = "Label";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "ZBd-en-G6k"; */
-"ZBd-en-G6k.title" = "Abbruch";
+"ZBd-en-G6k.title" = "Abbrechen";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "am5-cN-1Jh"; */
 "am5-cN-1Jh.text" = "Label";
@@ -179,7 +179,7 @@
 "ulr-E7-krT.placeholder" = "Gibt die Adresse ein oder wähle eine frühere Mitnahme aus";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "v1R-1J-UAm"; */
-"v1R-1J-UAm.title" = "Abbruch";
+"v1R-1J-UAm.title" = "Abbrechen";
 
 /* Class = "UIViewController"; title = "Collect"; ObjectID = "vXZ-lx-hvc"; */
 "vXZ-lx-hvc.title" = "";

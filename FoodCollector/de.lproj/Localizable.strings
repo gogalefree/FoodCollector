@@ -24,7 +24,7 @@
 "Another user is en route to pickup:" = "Jemand anders ist ebenfalls auf dem Weg, es abzuholen";
 
 /* navigation button in action sheet meening apple maps navigation */
-"Apple Maps" = "Apple Maps";
+"Apple Maps" = "Apple Karten";
 
 /* Alert message body
    Delete confirmation message for an alert controller
@@ -44,7 +44,7 @@
 "Camera" = "Kamera";
 
 /* Title for an alert button */
-"Cancel" = "Abbruch";
+"Cancel" = "Abbrechen";
 
 /* Search bar scope button titles */
 "Closest" = "am Nächsten";
@@ -59,7 +59,7 @@
 "Cool" = "sehr gut!";
 
 /* the string for current location table row */
-"Current location" = "aktueller Standort";
+"Current location" = "Aktueller Ort";
 
 /* Publisher top right menu item */
 "Delete" = "löschen";
@@ -96,8 +96,7 @@
 "Events Near You" = "Gelegenheiten in Deiner Nähe";
 
 /* No user created publications message */
-"Hi,
-What would you like to share?" = "Hallo. Was möchtest Du anbieten";
+"Hi,\nWhat would you like to share?" = "Hallo\nWas möchtest Du anbieten";
 
 /* SMS message body: I want to pickup 'Publication name' */
 "I want to pickup %@" = "Ich möchte %@ mitnehmen";
