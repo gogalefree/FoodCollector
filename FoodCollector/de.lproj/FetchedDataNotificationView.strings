@@ -1,6 +1,5 @@
-
 /* Class = "UIButton"; normalTitle = "Cool"; ObjectID = "ECp-AW-bDE"; */
-"ECp-AW-bDE.normalTitle" = "Cool";
+"ECp-AW-bDE.normalTitle" = "sehr gut!";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Uai-CI-TPO"; */
 "Uai-CI-TPO.text" = "Label";
@@ -9,4 +8,5 @@
 "b8k-VU-qr9.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Show Details"; ObjectID = "qHt-Qp-RFf"; */
-"qHt-Qp-RFf.normalTitle" = "Show Details";
+"qHt-Qp-RFf.normalTitle" = "Details anzeigen";
+

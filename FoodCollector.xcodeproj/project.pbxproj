@@ -236,6 +236,9 @@
 		A1CEEF5C1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PublicationOptionsMenuItemCell.strings; sourceTree = "<group>"; };
 		A1CEEF5D1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FCActivityCenterTVSectionHeader.strings; sourceTree = "<group>"; };
 		A1CEEF5E1C4254FF00A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FetchedDataNotificationView.strings; sourceTree = "<group>"; };
+		A1CEEF5F1C42D44500A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1CEEF601C42D44500A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1CEEF611C42D44600A0339D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A1E04A311C22A7D500709B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NewRegistrationBannerView.xib; sourceTree = "<group>"; };
 		A1E04A341C22A7D800709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/NewRegistrationBannerView.strings"; sourceTree = "<group>"; };
 		A1E04A361C22A7E900709B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NewReportMessageView.xib; sourceTree = "<group>"; };
@@ -1287,6 +1290,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A15307311C20BE1900FE43AA /* he-IL */,
+				A1CEEF611C42D44600A0339D /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1295,6 +1299,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A15307371C20BE1A00FE43AA /* he-IL */,
+				A1CEEF5F1C42D44500A0339D /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1303,6 +1308,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A153073C1C20BE1A00FE43AA /* he-IL */,
+				A1CEEF601C42D44500A0339D /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

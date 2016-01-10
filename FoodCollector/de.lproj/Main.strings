@@ -1,7 +1,3 @@
-
-/* Class = "UILabel"; text = "FOODONET"; ObjectID = "045-DL-8ac"; */
-"045-DL-8ac.text" = "FOODONET";
-
 /* Class = "UILabel"; text = "Label"; ObjectID = "0PR-vp-DHe"; */
 "0PR-vp-DHe.text" = "Label";
 
@@ -12,19 +8,19 @@
 "2Oa-A1-9fz.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "There’s More to Pickup"; ObjectID = "4Fd-cF-kDE"; */
-"4Fd-cF-kDE.normalTitle" = "There’s More to Pickup";
+"4Fd-cF-kDE.normalTitle" = "Es gibt mehr mitzunehmen";
 
 /* Class = "UILabel"; text = "User Reports"; ObjectID = "4wf-Vp-s3T"; */
-"4wf-Vp-s3T.text" = "User Reports";
+"4wf-Vp-s3T.text" = "Nutzerberichte";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "5OQ-bl-l9O"; */
 "5OQ-bl-l9O.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Took All"; ObjectID = "6XJ-iz-WDg"; */
-"6XJ-iz-WDg.normalTitle" = "Took All";
+"6XJ-iz-WDg.normalTitle" = "alles mitgenommen";
 
 /* Class = "UIButton"; normalTitle = "Cool"; ObjectID = "6de-z3-7Uw"; */
-"6de-z3-7Uw.normalTitle" = "Cool";
+"6de-z3-7Uw.normalTitle" = "sehr gut!";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "6h8-2b-WKd"; */
 "6h8-2b-WKd.text" = "Label";
@@ -33,34 +29,37 @@
 "7JS-sO-3EK.text" = "Label";
 
 /* Class = "UILabel"; text = "Description"; ObjectID = "8aT-Bo-4ND"; */
-"8aT-Bo-4ND.text" = "Description";
+"8aT-Bo-4ND.text" = "Beschreibung";
+
+/* Class = "UILabel"; text = "FOODONET"; ObjectID = "045-DL-8ac"; */
+"045-DL-8ac.text" = "FOODONET";
 
 /* Class = "UILabel"; text = "Build"; ObjectID = "B0i-6h-JMO"; */
 "B0i-6h-JMO.text" = "Build";
 
 /* Class = "UILabel"; text = "Send Message"; ObjectID = "BTK-vj-Jbf"; */
-"BTK-vj-Jbf.text" = "Send Message";
+"BTK-vj-Jbf.text" = "Nachricht senden";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Cq5-xF-fVk"; */
 "Cq5-xF-fVk.text" = "Label";
 
 /* Class = "UITableViewController"; title = "Event Details"; ObjectID = "D9e-pN-89Q"; */
-"D9e-pN-89Q.title" = "Event Details";
+"D9e-pN-89Q.title" = "";
 
 /* Class = "UILabel"; text = "Feedback"; ObjectID = "DtI-jc-HPg"; */
 "DtI-jc-HPg.text" = "Feedback";
 
 /* Class = "UILabel"; text = "No Phone Number"; ObjectID = "EOB-cn-hbH"; */
-"EOB-cn-hbH.text" = "No Phone Number";
+"EOB-cn-hbH.text" = "keine Telefonnummer";
 
 /* Class = "UITabBarItem"; title = "About"; ObjectID = "FIq-wO-Qb8"; */
-"FIq-wO-Qb8.title" = "About";
+"FIq-wO-Qb8.title" = "über uns";
 
 /* Class = "UILabel"; text = "New Event"; ObjectID = "FjY-js-UK8"; */
-"FjY-js-UK8.text" = "New Event";
+"FjY-js-UK8.text" = "neue Mitnahmegelegenheit";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "GpR-lN-AMc"; */
-"GpR-lN-AMc.normalTitle" = "Cancel";
+"GpR-lN-AMc.normalTitle" = "Abbruch";
 
 /* Class = "UILabel"; text = "25"; ObjectID = "Gwh-pG-GQl"; */
 "Gwh-pG-GQl.text" = "25";
@@ -69,22 +68,22 @@
 "Hf6-tK-AE0.text" = "Label";
 
 /* Class = "UITableViewController"; title = "Activity Center"; ObjectID = "IOL-GY-9os"; */
-"IOL-GY-9os.title" = "Activity Center";
+"IOL-GY-9os.title" = "Aktivitäten";
 
 /* Class = "UITabBarItem"; title = "Pickup"; ObjectID = "J8w-tF-wCB"; */
-"J8w-tF-wCB.title" = "Pickup";
+"J8w-tF-wCB.title" = "mitnehmen";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Kmr-Qw-WMT"; */
 "Kmr-Qw-WMT.text" = "Label";
 
 /* Class = "UINavigationItem"; title = "Welcome"; ObjectID = "NtA-nJ-dYr"; */
-"NtA-nJ-dYr.title" = "Welcome";
+"NtA-nJ-dYr.title" = "Willkommen";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "TFN-ax-w6M"; */
 "TFN-ax-w6M.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Show Details"; ObjectID = "TWY-aL-RAk"; */
-"TWY-aL-RAk.normalTitle" = "Show Details";
+"TWY-aL-RAk.normalTitle" = "Details anzeigen";
 
 /* Class = "UILabel"; text = "1111"; ObjectID = "UAw-2m-dNE"; */
 "UAw-2m-dNE.text" = "1111";
@@ -93,46 +92,46 @@
 "UOt-CZ-JFf.text" = "1111";
 
 /* Class = "UINavigationController"; title = "Collect"; ObjectID = "V26-sE-fum"; */
-"V26-sE-fum.title" = "Collect";
+"V26-sE-fum.title" = "";
 
 /* Class = "UINavigationItem"; title = "Reports"; ObjectID = "X9g-Fl-nzX"; */
-"X9g-Fl-nzX.title" = "Reports";
+"X9g-Fl-nzX.title" = "Berichte";
 
 /* Class = "UIButton"; normalTitle = "Nothing Left"; ObjectID = "XNA-Lc-Zrd"; */
-"XNA-Lc-Zrd.normalTitle" = "Nothing Left";
+"XNA-Lc-Zrd.normalTitle" = "nichts übrig";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Z5c-Yd-PoJ"; */
 "Z5c-Yd-PoJ.text" = "Label";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "ZBd-en-G6k"; */
-"ZBd-en-G6k.title" = "Cancel";
+"ZBd-en-G6k.title" = "Abbruch";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "am5-cN-1Jh"; */
 "am5-cN-1Jh.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Pickup Food"; ObjectID = "aup-wQ-Bfq"; */
-"aup-wQ-Bfq.normalTitle" = "Pickup Food";
+"aup-wQ-Bfq.normalTitle" = "Essen mitnehmen";
 
 /* Class = "UILabel"; text = "en route"; ObjectID = "bAZ-p9-2DG"; */
-"bAZ-p9-2DG.text" = "en route";
+"bAZ-p9-2DG.text" = "unterwegs";
 
 /* Class = "UINavigationItem"; title = "My Shares"; ObjectID = "bjZ-lv-Ao0"; */
-"bjZ-lv-Ao0.title" = "My Shares";
+"bjZ-lv-Ao0.title" = "meine Angebote";
 
 /* Class = "UIViewController"; title = "About"; ObjectID = "eQz-g4-Jns"; */
-"eQz-g4-Jns.title" = "About";
+"eQz-g4-Jns.title" = "über uns";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "fgF-vw-aeu"; */
 "fgF-vw-aeu.text" = "Label";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "fqk-Lk-drl"; */
-"fqk-Lk-drl.title" = "Back";
+"fqk-Lk-drl.title" = "zurück";
 
 /* Class = "UIViewController"; title = "Adress Selector"; ObjectID = "hdu-mN-4y2"; */
-"hdu-mN-4y2.title" = "Adress Selector";
+"hdu-mN-4y2.title" = "";
 
 /* Class = "UITabBarItem"; title = "Share"; ObjectID = "ho0-XI-XhJ"; */
-"ho0-XI-XhJ.title" = "Share";
+"ho0-XI-XhJ.title" = "Anbieten";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "j6R-pC-6PM"; */
 "j6R-pC-6PM.text" = "Label";
@@ -144,13 +143,13 @@
 "jbA-n8-YuS.text" = "Label";
 
 /* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "lWx-p4-UgB"; */
-"lWx-p4-UgB.title" = "Done";
+"lWx-p4-UgB.title" = "fertig";
 
 /* Class = "UILabel"; text = "Call"; ObjectID = "lrb-w8-fSW"; */
-"lrb-w8-fSW.text" = "Call";
+"lrb-w8-fSW.text" = "anrufen";
 
 /* Class = "UIButton"; normalTitle = "Send"; ObjectID = "mSz-8f-fLS"; */
-"mSz-8f-fLS.normalTitle" = "Send";
+"mSz-8f-fLS.normalTitle" = "absenden";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "og0-dB-9oW"; */
 "og0-dB-9oW.text" = "Label";
@@ -159,7 +158,7 @@
 "qFD-ld-5vp.text" = "Label";
 
 /* Class = "UIViewController"; title = "My Shares"; ObjectID = "qaa-G1-Puy"; */
-"qaa-G1-Puy.title" = "My Shares";
+"qaa-G1-Puy.title" = "meine Angebote";
 
 /* Class = "UILabel"; text = "Version"; ObjectID = "rKp-0f-acV"; */
 "rKp-0f-acV.text" = "Version";
@@ -168,28 +167,29 @@
 "sXY-DR-x5V.text" = "Kaplan 14, Tel Aviv, Israel";
 
 /* Class = "UIButton"; normalTitle = "Share Food"; ObjectID = "spz-xB-01E"; */
-"spz-xB-01E.normalTitle" = "Share Food";
+"spz-xB-01E.normalTitle" = "Essen anbieten";
 
 /* Class = "UIBarButtonItem"; title = "Not Now"; ObjectID = "t1S-mK-RBz"; */
-"t1S-mK-RBz.title" = "Not Now";
+"t1S-mK-RBz.title" = "nicht jetzt";
 
 /* Class = "UINavigationItem"; title = "Activity Center"; ObjectID = "tFN-0g-Una"; */
-"tFN-0g-Una.title" = "Activity Center";
+"tFN-0g-Una.title" = "Aktivitäten";
 
 /* Class = "UISearchBar"; placeholder = "Type address or select an earlier search"; ObjectID = "ulr-E7-krT"; */
-"ulr-E7-krT.placeholder" = "Type address or select an earlier search";
+"ulr-E7-krT.placeholder" = "Gibt die Adresse ein oder wähle eine frühere Mitnahme aus";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "v1R-1J-UAm"; */
-"v1R-1J-UAm.title" = "Cancel";
+"v1R-1J-UAm.title" = "Abbruch";
 
 /* Class = "UIViewController"; title = "Collect"; ObjectID = "vXZ-lx-hvc"; */
-"vXZ-lx-hvc.title" = "Collect";
+"vXZ-lx-hvc.title" = "";
 
 /* Class = "UILabel"; text = "What would you like to do?"; ObjectID = "x0y-g5-7hP"; */
-"x0y-g5-7hP.text" = "What would you like to do?";
+"x0y-g5-7hP.text" = "Was möchtest Du tun?";
 
 /* Class = "UIViewController"; title = "Welcome"; ObjectID = "yCW-nD-O9I"; */
-"yCW-nD-O9I.title" = "Welcome";
+"yCW-nD-O9I.title" = "Willkommen";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "ze6-Vf-li4"; */
 "ze6-Vf-li4.text" = "Label";
+

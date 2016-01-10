@@ -1,12 +1,12 @@
-
 /* Class = "UIButton"; normalTitle = "Remove Event"; ObjectID = "QY9-Fb-u4C"; */
-"QY9-Fb-u4C.normalTitle" = "Remove Event";
+"QY9-Fb-u4C.normalTitle" = "Gelegenheit entfernen";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "hOC-iL-5zf"; */
 "hOC-iL-5zf.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Cool"; ObjectID = "nZj-b5-lMC"; */
-"nZj-b5-lMC.normalTitle" = "Cool";
+"nZj-b5-lMC.normalTitle" = "sehr gut!";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "oHm-1q-uWK"; */
 "oHm-1q-uWK.text" = "Label";
+

@@ -1,0 +1,282 @@
+/* Distance from location of sharing. the first place holder is a number, the second placeholder is the distance unit, e.g: '55 km away' */
+"%@ km away" = "%@ km entfernt";
+
+/* Search bar scope button titles
+   The publication is active */
+"Active" = "aktiv";
+
+/* Activity center navigation bar title */
+"Activity Center" = "Aktivitäten";
+
+/* Add image for a new event */
+"Add a picture" = "Bild hinzufügen";
+
+/* Add subitle for a new event */
+"Additional details" = "weitere Details";
+
+/* Alert message body */
+"All fields are required" = "Bitte alle Felder ausfüllen";
+
+/* An error accord */
+"An error accord" = "ein Fehler ist aufgetreten";
+
+/* new registration banner title text */
+"Another user is en route to pickup:" = "Jemand anders ist ebenfalls auf dem Weg, es abzuholen";
+
+/* navigation button in action sheet meening apple maps navigation */
+"Apple Maps" = "Apple Maps";
+
+/* Alert message body
+   Delete confirmation message for an alert controller
+   End publication confirmation message for an alert controller */
+"Are you sure?" = "Bist Du sicher?";
+
+/* Title for a navigation button */
+"Back" = "zurück";
+
+/* Title for a list of people registered to this event */
+"Call collector:" = "Abholer anrufen";
+
+/* alert call to publisher button title */
+"Call publisher" = "Anbieter anrufen";
+
+/* camera button title */
+"Camera" = "Kamera";
+
+/* Title for an alert button */
+"Cancel" = "Abbruch";
+
+/* Search bar scope button titles */
+"Closest" = "am Nächsten";
+
+/* Alert title */
+"Communication Issue" = "Kommunikations-Probleme (Verbindung etc.)";
+
+/* End publication confirmation title for an alert controller */
+"Confirm Event Ended" = "Bestätige, dass die Gelegenheit beendet ist";
+
+/* alert dissmiss button title */
+"Cool" = "sehr gut!";
+
+/* the string for current location table row */
+"Current location" = "aktueller Standort";
+
+/* Publisher top right menu item */
+"Delete" = "löschen";
+
+/* Delete confirmation title for an alert controller */
+"Delete Event?" = "Gelegenheit löschen?";
+
+/* action button title show details */
+"Details" = "Details";
+
+/* Title for an alert button */
+"Done" = "fertig";
+
+/* Publisher top right menu item */
+"Edit" = "bearbeiten";
+
+/* the puclication has ended (it is off the air) */
+"Ended" = "beendet";
+
+/* Search bar scope button titles */
+"Ends" = "endet";
+
+/* a label title meaning: will finish on date */
+"Ends:" = "endet:";
+
+/* A message that informs the user that a publication ended
+   Title for a notification */
+"Event Ended Near You" = "Eine Gelegenheit in Deiner Nähe ist zu Ende";
+
+/* Add address for a new event */
+"Event location" = "Ort der Gelegenheit";
+
+/* Nav Bar title - the events near you */
+"Events Near You" = "Gelegenheiten in Deiner Nähe";
+
+/* No user created publications message */
+"Hi,
+What would you like to share?" = "Hallo. Was möchtest Du anbieten";
+
+/* SMS message body: I want to pickup 'Publication name' */
+"I want to pickup %@" = "Ich möchte %@ mitnehmen";
+
+/* The publication is not active */
+"Inactive" = "inaktiv";
+
+/* Message alert when phone number pattern is incorrect */
+"Incorrect phone number" = "inkorrekte Telefonnummer";
+
+/* Alert message body */
+"It seems the phone number is incorrect. Please check you have typed it correctly." = "Die Telefonnummer scheint nicht zu stimmen. Bitte überprüfe sie.";
+
+/* the section header title for last searches history list */
+"Last searches" = "letzte Suchanfragen";
+
+/* photo library button title */
+"Library" = "Galerie";
+
+/* Alert title */
+"Message delivery failed" = "Nachricht konnte nicht gesendet werden";
+
+/* Activity center table section title. This is a list of publications that I'm as a collector registered to pickup */
+"My pickups" = "meine Abholungen";
+
+/* Activity center table section title. This is a list of publications that I've created as a contributer. */
+"My shares" = "meine Angebote";
+
+/* Alert text field label: Name */
+"Name" = "Name";
+
+/* an action sheet title meening chose app to navigate with */
+"Navigate with:" = "Navigieren mit:";
+
+/* Title of the message banner meaning that a new event has started nearby */
+"New Event Near You" = "neue Mitnahmegelegenheit in Deiner Nähe";
+
+/* Title for a notification */
+"New Event Update" = "Eine neue Gelegenheit wurde aktualisiert";
+
+/* Title for an alert button */
+"No" = "nein";
+
+/* Display 'No Name' when there's no collector name */
+"No Name" = "kein Name";
+
+/* Alert message title */
+"No collectors were selected" = "Keine Mitnehmer wurden ausgewählt.";
+
+/* No comment provided by engineer. */
+"No one is registered for this pickup" = "Es ist noch niemand zur Mitnahme eingetragen";
+
+/* the title in the table view cell displayed when a publication has no reports */
+"No reports" = "keine Berichte";
+
+/* Navigation bar button title */
+"Not Now" = "nicht jetzt";
+
+/* The title of a user report which means that he found nothing */
+"Nothing left" = "nichts übrig";
+
+/* Title for an alert button */
+"OK" = "OK";
+
+/* Search bar scope button titles */
+"Off Air" = "nicht veröffentlicht";
+
+/* Search bar scope button titles */
+"On Air" = "veröffentlicht";
+
+/* Title for an alert message */
+"Oops..." = "Oops...";
+
+/* Report title for a button */
+"Options" = "Optionen";
+
+/* Alert text field label: Phone number */
+"Phone number" = "Telefonnummer";
+
+/* Collector home page navigation bar title
+   Collector map title */
+"Pickup" = "mitnehmen";
+
+/* Add end date for a new event */
+"Pickup ends:" = "Mitnahme endet:";
+
+/* Add start date for a new event */
+"Pickup starts:" = "Mitnahme beginnt:";
+
+/* Alert message body */
+"Please fill in details to join this pickup" = "Bitte ausfüllen um mitzumachen:";
+
+/* No comment provided by engineer. */
+"Please report only after you have visited the event's location" = "Bitte nur berichten, wenn Du vor Ort warst.";
+
+/* Search bar scope button titles */
+"Recent" = "zuletzt";
+
+/* Alert button title: Register */
+"Register" = "hierfür anmelden";
+
+/* Alert title */
+"Register for Pickup" = "mich für die Mitnahme anmelden";
+
+/* action button title take off air */
+"Remove Event" = "Gelegenheit entfernen";
+
+/* Report title for a button */
+"Report" = "Bericht";
+
+/* Search bar placeholder text */
+"Search" = "suchen";
+
+/* the editor title for enter a publication address */
+"Select Address" = "Adresse auswählen";
+
+/* Choose all collectors */
+"Select All" = "alles auswählen";
+
+/* This is the image you have selected label */
+"Selected picture" = "gewähltes Bild";
+
+/* Activity center button title. */
+"Send Feedback" = "Feedback senden";
+
+/* Send a message to a colllector */
+"Send Message" = "Nachricht senden";
+
+/* Feedback text place holder */
+"Share your thoughts or anything else" = "Teile Deine Gedanken oder irgendetwas mit";
+
+/* Alert show event button title */
+"Show Event" = "Gelegenheit zeigen";
+
+/* a label title meaning: publication start at date and time */
+"Started:" = "begonnen:";
+
+/* Publisher top right menu item */
+"Stop Event" = "Gelegenheit beenden";
+
+/* No comment provided by engineer. */
+"There are no legit phone numbers" = "Es gibt keine gültigen Telefonnummern";
+
+/* The title of a user report which means that there is more food to pickup */
+"There’s more to pickup" = "Es gibt mehr mitzunehmen";
+
+/* The title of a user report which means that he took all the food */
+"Took all" = "alles mitgenommen";
+
+/* Alert message body */
+"Try again" = "nochmal versuchen";
+
+/* Alert message body */
+"Try again?" = "nochmal versuchen?";
+
+/* No comment provided by engineer. */
+"User" = "Benutzer";
+
+/* Publication details reports title */
+"User Reports" = "Nutzerberichte";
+
+/* fetched data notification text: Another user is en route to pickup: */
+"User’s Coming To Pickup" = "Nutzer die zum Abholen vorbeikommen";
+
+/* navigation button in action sheet meening waze navigation */
+"Waze" = "Waze";
+
+/* Add title for a new event */
+"What are you sharing?" = "Was bietest Du an?";
+
+/* Add phone number for a new event */
+"What's your phone number?" = "Was ist Deine Telefonnummer?";
+
+/* Title for an alert button */
+"Yes" = "Ja";
+
+/* No comment provided by engineer. */
+"You are far from the event's location" = "Du bist weit von dem Ort der Gelegenheit entgernt.";
+
+/* location notification body: You have arrived to... */
+"You have arrived to: %@" = "Du bist bei %@ angekommen.";
+
