@@ -1,10 +1,8 @@
 /* Distance from location of sharing. the first place holder is a number, the second placeholder is the distance unit, e.g: '55 km away' */
 "%@ km away" = "%@ ק״מ ממקומך";
 
-/* Search bar scope button titles */
-"Active" = "פעילים";
-
-/* The publication is active */
+/* Search bar scope button titles
+   The publication is active */
 "Active" = "פעיל";
 
 /* Activity center navigation bar title */

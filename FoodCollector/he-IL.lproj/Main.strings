@@ -43,6 +43,9 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "Cq5-xF-fVk"; */
 "Cq5-xF-fVk.text" = "Label";
 
+/* Class = "UITableViewController"; title = "Event Details"; ObjectID = "D9e-pN-89Q"; */
+"D9e-pN-89Q.title" = "פרטי שיתוף";
+
 /* Class = "UILabel"; text = "Feedback"; ObjectID = "DtI-jc-HPg"; */
 "DtI-jc-HPg.text" = "משוב";
 
