@@ -89,7 +89,7 @@
 "UOt-CZ-JFf.text" = "1111";
 
 /* Class = "UINavigationController"; title = "Collect"; ObjectID = "V26-sE-fum"; */
-"V26-sE-fum.title" = "Collect";
+"V26-sE-fum.title" = "איסוף";
 
 /* Class = "UINavigationItem"; title = "Reports"; ObjectID = "X9g-Fl-nzX"; */
 "X9g-Fl-nzX.title" = "דיווחים";
@@ -179,7 +179,7 @@
 "v1R-1J-UAm.title" = "ביטול";
 
 /* Class = "UIViewController"; title = "Collect"; ObjectID = "vXZ-lx-hvc"; */
-"vXZ-lx-hvc.title" = "Collect";
+"vXZ-lx-hvc.title" = "איסוף";
 
 /* Class = "UILabel"; text = "What would you like to do?"; ObjectID = "x0y-g5-7hP"; */
 "x0y-g5-7hP.text" = "מה תרצו לעשות?";
