@@ -2124,10 +2124,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aup-wQ-Bfq">
-                                <rect key="frame" x="168" y="331" width="151" height="44"/>
+                                <rect key="frame" x="148" y="331" width="171" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="mfX-hz-95J"/>
-                                    <constraint firstAttribute="width" constant="151" id="qqm-s8-Oqq"/>
+                                    <constraint firstAttribute="width" constant="171" id="qqm-s8-Oqq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
                                 <state key="normal" title="Pickup Food"/>
@@ -2136,9 +2136,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spz-xB-01E">
-                                <rect key="frame" x="168" y="245" width="151" height="44"/>
+                                <rect key="frame" x="148" y="245" width="171" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="151" id="d1r-1f-mgO"/>
+                                    <constraint firstAttribute="width" constant="171" id="d1r-1f-mgO"/>
                                     <constraint firstAttribute="height" constant="44" id="qeT-au-u1V"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="20"/>
@@ -2157,7 +2157,7 @@
                             <constraint firstItem="eeo-fY-Bbv" firstAttribute="trailing" secondItem="x0y-g5-7hP" secondAttribute="trailing" constant="-193" id="MHA-FW-xLK"/>
                             <constraint firstItem="aup-wQ-Bfq" firstAttribute="top" secondItem="spz-xB-01E" secondAttribute="bottom" constant="42" id="Trd-QD-vBj"/>
                             <constraint firstItem="spz-xB-01E" firstAttribute="top" secondItem="x0y-g5-7hP" secondAttribute="bottom" constant="42" id="Ul5-V2-udW"/>
-                            <constraint firstItem="spz-xB-01E" firstAttribute="leading" secondItem="x0y-g5-7hP" secondAttribute="leading" constant="148" id="Zeh-vh-Ri4"/>
+                            <constraint firstItem="spz-xB-01E" firstAttribute="leading" secondItem="x0y-g5-7hP" secondAttribute="leading" constant="128" id="Zeh-vh-Ri4"/>
                             <constraint firstItem="x0y-g5-7hP" firstAttribute="top" secondItem="PLH-Tb-ElL" secondAttribute="bottom" constant="96" id="ah2-or-N2O"/>
                             <constraint firstItem="spz-xB-01E" firstAttribute="leading" secondItem="aup-wQ-Bfq" secondAttribute="leading" id="eH3-Id-0U5"/>
                             <constraint firstItem="aup-wQ-Bfq" firstAttribute="top" secondItem="spz-xB-01E" secondAttribute="bottom" constant="42" id="fa6-5k-L1l"/>

@@ -45,7 +45,7 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
     }
     
     private func createNumberPadAccessoryViewToolbar(){
-        let buutonWidth = CGFloat(50)
+        let buutonWidth = CGFloat(70)
         let numberPadAccessoryViewToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
         
         let cancelButton = UIBarButtonItem(title: kCancelButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissNumberPad")
