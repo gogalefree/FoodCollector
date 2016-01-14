@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import CoreLocation
+import CoreLocation
 
 
 
@@ -39,6 +39,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     var selectedAddress = ""
     var selectedLatitude = 0.0
     var selectedLongtitude = 0.0
+    var googleLanguageCode = "en"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,8 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             loadContentOfSearchHistory()
             self.tableView.reloadData()
         }
+        
+        setGoogleCountryCode()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -287,8 +290,9 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lon: Double) {
         let key = "AIzaSyBo3ImqNe1wOkq3r3z4S9YRVp3SIlaXlJY"
         //https://maps.googleapis.com/maps/api/geocode/json?latlng=32.1499984,34.8939178&language=iw&key=API_KEY
-        // TODO: add support for other laguages
-        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lon)&language=iw&key=\(key)")!)
+        //print("https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lon)&language=\(googleLanguageCode)&key=\(key)")
+        let request = NSURLRequest(URL: NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(lon)&language=\(googleLanguageCode)&key=\(key)")!)
+        
         
         let session = NSURLSession.sharedSession()
         
@@ -342,6 +346,37 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             }
             
         }).resume()
+    }
+    
+    func setGoogleCountryCode() {
+        let userLocation = FCModel.sharedInstance.userLocation
+        var geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(userLocation, completionHandler: {(clPlacemarks, error)->Void in
+
+            // The type Optional is an enumeration with two cases, None and Some(T), which are used to represent values that may or may not be present.
+            //So under the hood an optional type looks like this:
+            //enum Optional<T> {
+            //    case None
+            //    case Some(T)
+            //}
+            if let placemarks = clPlacemarks {
+                if error == nil {
+                    let placemark = placemarks[0] as CLPlacemark
+                    switch placemark.ISOcountryCode {
+                    case .Some("IL"): // Israel
+                        self.googleLanguageCode = "iw" // Hebrew
+                    case .Some("DE"): // Germany (Deutschland)
+                        self.googleLanguageCode = "de" // German (Deutsch)
+                    case .None:
+                        self.googleLanguageCode = "en" // English
+                    default:
+                        self.googleLanguageCode = "en" // English
+                    }
+                }
+            }
+        })
+        
     }
     
     
