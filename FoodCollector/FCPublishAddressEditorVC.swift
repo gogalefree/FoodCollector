@@ -350,7 +350,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     
     func setGoogleCountryCode() {
         let userLocation = FCModel.sharedInstance.userLocation
-        var geocoder = CLGeocoder()
+        let geocoder = CLGeocoder()
         
         geocoder.reverseGeocodeLocation(userLocation, completionHandler: {(clPlacemarks, error)->Void in
 
