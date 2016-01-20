@@ -94,6 +94,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     }
     
     private func showLoginView() {
+        showActionView()
         print("showLoginView()")
         self.addChildViewController(self.loginNavVC)
         self.loginNavVC.view.frame = self.view.bounds

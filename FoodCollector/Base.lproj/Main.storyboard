@@ -2076,7 +2076,7 @@
         <!--Welcome-->
         <scene sceneID="emO-q2-foM">
             <objects>
-                <viewController title="Welcome" id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PLH-Tb-ElL"/>
                         <viewControllerLayoutGuide type="bottom" id="EsQ-Yy-vGY"/>
@@ -2466,10 +2466,10 @@
             </objects>
             <point key="canvasLocation" x="295" y="1036"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Welcom Navigation Controller-->
         <scene sceneID="Shl-yE-iQX">
             <objects>
-                <navigationController storyboardIdentifier="MainActionNavVC" automaticallyAdjustsScrollViewInsets="NO" id="bhS-jO-ntX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainActionNavVC" automaticallyAdjustsScrollViewInsets="NO" id="bhS-jO-ntX" userLabel="Welcom Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fx6-Q5-XKm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

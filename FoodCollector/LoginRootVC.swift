@@ -78,6 +78,11 @@ class LoginRootVC: UIViewController {
     
     
     
+    @IBAction func cancelRegistration(sender: UIButton) {
+        print("cancelRegistration clicked")
+        self.navigationController?.popViewControllerAnimated(true)
+        //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     
     override func didReceiveMemoryWarning() {

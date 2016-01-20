@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A10832F71BADD81F00B81F57 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10832F61BADD81F00B81F57 /* User.swift */; };
 		A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
+		A114717A1C4F989500813D8C /* LoginPhoneNumberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11471791C4F989500813D8C /* LoginPhoneNumberVC.swift */; };
 		A12394691B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12394651B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift */; };
 		A123946B1B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12394671B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift */; };
 		A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */; };
@@ -185,6 +186,7 @@
 		4C0F0BBFA42B094D8A074F35 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10832F61BADD81F00B81F57 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A108F5C41A94732A00816EFA /* BaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURL.plist; sourceTree = "<group>"; };
+		A11471791C4F989500813D8C /* LoginPhoneNumberVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPhoneNumberVC.swift; sourceTree = "<group>"; };
 		A12394651B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetsilsCollectorActionsHeaderView.swift; sourceTree = "<group>"; };
 		A12394671B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetsilsPublisherActionsHeaderView.swift; sourceTree = "<group>"; };
 		A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVC.swift; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				E40544501C33ED0D007F7C24 /* LoginRootVC.swift */,
 				E40544521C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift */,
 				E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */,
+				A11471791C4F989500813D8C /* LoginPhoneNumberVC.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1210,6 +1213,7 @@
 				A1248A7E1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */,
 				E43F8A021BDEBACE007991E6 /* AppDelegate+.swift in Sources */,
 				E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */,
+				A114717A1C4F989500813D8C /* LoginPhoneNumberVC.swift in Sources */,
 				E41BCE091C2EB6BC0018E771 /* FDServer+Login.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
 				E482637B1BE22A8400526C7B /* FCCollectorRootVC+.swift in Sources */,
