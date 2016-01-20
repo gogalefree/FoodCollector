@@ -8,6 +8,24 @@
 
 import UIKit
 
+// User data key names
+enum UserDataKey: String {
+    case ID =                       "id"
+    case IdentityProvider =         "identity_provider"
+    case IdentityProviderUserID =   "identity_provider_user_id"
+    case IdentityProviderToken =    "identity_provider_token"
+    case PhoneNumber =              "phone_number"
+    case IdentityProviderEmail =    "identity_provider_email"
+    case IdentityProviderUserName = "identity_provider_user_name"
+    case IsLoggedIn =               "is_logged_in"
+    case UUID =                     "active_device_dev_uuid"
+    case Ratings =                  "ratings"
+    case Credits =                  "credits"
+    case Foodies =                  "foodies"
+    case ImagePath =                "user_image_path"
+    case SkippedLogin =             "skipped_login"
+}
+
 class User {
     // Singleton
     static let sharedInstance = User()
@@ -22,23 +40,7 @@ class User {
     private var userData = [String: AnyObject]()
     
     // TODO: Add userImage key for the User image from the identity provider
-    // User data key names
-    enum UserDataKey: String {
-        case ID =                       "id"
-        case IdentityProvider =         "identity_provider"
-        case IdentityProviderUserID =   "identity_provider_user_id"
-        case IdentityProviderToken =    "identity_provider_token"
-        case PhoneNumber =              "phone_number"
-        case IdentityProviderEmail =    "identity_provider_email"
-        case IdentityProviderUserName = "identity_provider_user_name"
-        case IsLoggedIn =               "is_logged_in"
-        case UUID =                     "active_device_dev_uuid"
-        case Ratings =                  "ratings"
-        case Credits =                  "credits"
-        case Foodies =                  "foodies"
-        case ImagePath =                "user_image_path"
-        case SkippedLogin =             "skipped_login"
-    }
+    
     
     // User class Properties with default values
     private(set) var userUniqueID =                  0
@@ -58,7 +60,7 @@ class User {
     private(set) var userImage =            UIImage()
     private(set) var fullUserIamgeName =    "genericUserImage.jpg"
     private(set) var calculatedUserRating = 0.0
-    private(set) var userSkippedLogin =            false
+    private(set) var userSkippedLogin =     false
     
     // 'private' prevents other classes from using the default '()' initializer for this class.
     private init() {

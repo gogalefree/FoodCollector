@@ -41,22 +41,11 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     override func viewDidLayoutSubviews() {
         
         super.viewDidLayoutSubviews()
+        showActionView()
         
-        if (User.sharedInstance.userIsLoggedIn) {
-            print("User is loged in")
-            showActionView()
-            
-        }
-        else {
-            if (User.sharedInstance.userSkippedLogin) {
-                print("User is skipped")
-                showActionView()
-                
-            }
-            else {
-                print("User is not Loged-in and not skipped")
-                showLoginView()
-            }
+        if (!User.sharedInstance.userIsLoggedIn && !User.sharedInstance.userSkippedLogin) {
+            print("User is not Loged-in and not skipped")
+            showLoginView()
             
         }
         
@@ -94,7 +83,6 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     }
     
     private func showLoginView() {
-        showActionView()
         print("showLoginView()")
         self.addChildViewController(self.loginNavVC)
         self.loginNavVC.view.frame = self.view.bounds

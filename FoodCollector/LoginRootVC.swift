@@ -80,8 +80,11 @@ class LoginRootVC: UIViewController {
     
     @IBAction func cancelRegistration(sender: UIButton) {
         print("cancelRegistration clicked")
-        self.navigationController?.popViewControllerAnimated(true)
-        //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.SkippedLogin)
+        UIView.animateWithDuration(0.4) { () -> Void in
+            self.navigationController?.view.removeFromSuperview()
+            self.navigationController?.removeFromParentViewController()
+        }
     }
     
     
