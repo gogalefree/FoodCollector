@@ -338,7 +338,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error accord", comment:"An error accord"), aMessage: kCommunicationIssueBody)
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
-            }
+            }                   
             else {
                 // UIALERT
                 let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(kCommunicationIssueTitle, aMessage: kCommunicationIssueBody)
