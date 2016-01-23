@@ -2076,7 +2076,7 @@
         <!--Welcome-->
         <scene sceneID="emO-q2-foM">
             <objects>
-                <viewController id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Welcome" id="yCW-nD-O9I" customClass="MainActionVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PLH-Tb-ElL"/>
                         <viewControllerLayoutGuide type="bottom" id="EsQ-Yy-vGY"/>
