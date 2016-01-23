@@ -271,7 +271,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     print(error!.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error accord", comment:"An error accord"), aMessage: kCommunicationIssueBody)
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error occurred", comment:"An error occurred"), aMessage: kCommunicationIssueBody)
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
             }
@@ -331,7 +331,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     print(error!.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error accord", comment:"An error accord"), aMessage: kCommunicationIssueBody)
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error occurred", comment:"An error occurred"), aMessage: kCommunicationIssueBody)
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
                 }
             }
