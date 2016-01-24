@@ -12,12 +12,20 @@ class LoginRootVC: UIViewController {
     
     @IBOutlet weak var facebookLoginButton  : UIButton!
     @IBOutlet weak var googleLoginButton    : GIDSignInButton!
+    
+    var phoneNumberLogingViewNavVC: UINavigationController!
+    
+    
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance().delegate = self
+        
+        // Phone Number Loging view
+        let phoneNumberLogingView = UIStoryboard(name: "Login", bundle: nil)
+        self.phoneNumberLogingViewNavVC = phoneNumberLogingView.instantiateViewControllerWithIdentifier("PhoneNumberLoginNavVC") as! UINavigationController
     }
     
     //MARK: - UI setup
@@ -55,6 +63,12 @@ class LoginRootVC: UIViewController {
                             //stop activity indicator
                             //perform segue to next vc
                             //TODO: Add segue to phone number VC
+                            
+                            //self.showPhoneNumberLoginView()
+                            UIView.animateWithDuration(0.4) { () -> Void in
+                                self.navigationController?.view.removeFromSuperview()
+                                self.navigationController?.removeFromParentViewController()
+                            }
                         }
                         
                         else {
@@ -80,8 +94,11 @@ class LoginRootVC: UIViewController {
     
     @IBAction func cancelRegistration(sender: UIButton) {
         print("cancelRegistration clicked")
-        self.navigationController?.popViewControllerAnimated(true)
-        //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.SkippedLogin)
+        UIView.animateWithDuration(0.4) { () -> Void in
+            self.navigationController?.view.removeFromSuperview()
+            self.navigationController?.removeFromParentViewController()
+        }
     }
     
     
@@ -100,5 +117,20 @@ class LoginRootVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    private func showPhoneNumberLoginView() {
+        print("showPhoneNumberLoginView()")
+        let frameX = self.view.bounds.origin.x
+        let frameY = self.view.bounds.origin.y + kStatusBarHeight
+        let frameWidth = self.view.bounds.size.width
+        let frameHeight = self.view.bounds.size.height - kStatusBarHeight
+        
+        self.addChildViewController(self.phoneNumberLogingViewNavVC)
+        self.phoneNumberLogingViewNavVC.view.frame = self.view.bounds
+        self.phoneNumberLogingViewNavVC.view.frame = CGRectMake(frameX, frameY, frameWidth, frameHeight)
+        self.view.addSubview(self.phoneNumberLogingViewNavVC.view)
+        self.phoneNumberLogingViewNavVC.didMoveToParentViewController(self)
+        
+    }
 
 }

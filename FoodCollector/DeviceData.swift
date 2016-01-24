@@ -95,7 +95,25 @@ public extension DeviceData {
         return true
     }
     
-    public class func writeImage(image: UIImage, imageURL: NSURL) {
-        UIImageJPEGRepresentation(image,1)!.writeToURL(imageURL, atomically: true)
+    public class func writeImage(image: UIImage, imageName: String) {
+        print("writeImage")
+        print("imageName: \(imageName)")
+        print("image:\n\(image)")
+        
+        do {
+            let fileManager = NSFileManager.defaultManager()
+            let documentsURL = try fileManager.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
+            let imageURL = documentsURL.URLByAppendingPathComponent(imageName)
+            
+            print("documentsURL: \(documentsURL)")
+            
+            if (!UIImageJPEGRepresentation(image,1)!.writeToURL(imageURL, atomically: true)){
+                print("Image was NOT writen to URL!!!")
+            }
+        } catch {
+            print(error)
+        }
+        
+        
     }
 }

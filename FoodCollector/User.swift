@@ -8,6 +8,26 @@
 
 import UIKit
 
+// User data key names
+enum UserDataKey: String {
+    case ID =                               "id"
+    case IdentityProvider =                 "identity_provider"
+    case IdentityProviderUserID =           "identity_provider_user_id"
+    case IdentityProviderToken =            "identity_provider_token"
+    case PhoneNumber =                      "phone_number"
+    case IdentityProviderEmail =            "identity_provider_email"
+    case IdentityProviderUserName =         "identity_provider_user_name"
+    case IsLoggedIn =                       "is_logged_in"
+    case UUID =                             "active_device_dev_uuid"
+    case Ratings =                          "ratings"
+    case Credits =                          "credits"
+    case Foodies =                          "foodies"
+    case ImagePath =                        "user_image_path"
+    case SkippedLogin =                     "skipped_login"
+    case CompletedIdentityProviderLogin =   "completed_identity_provider_login"
+    case Image =                            "user_image"
+}
+
 class User {
     // Singleton
     static let sharedInstance = User()
@@ -17,28 +37,12 @@ class User {
     //===========================================================================
     
     private let plistFileName = "UserData.plist"
-    private let userImageFileName = "usaer"
+    private let userImageFileName = "user"
     private let userImageFileNameSuffix = ".jpg"
     private var userData = [String: AnyObject]()
     
     // TODO: Add userImage key for the User image from the identity provider
-    // User data key names
-    enum UserDataKey: String {
-        case ID =                       "id"
-        case IdentityProvider =         "identity_provider"
-        case IdentityProviderUserID =   "identity_provider_user_id"
-        case IdentityProviderToken =    "identity_provider_token"
-        case PhoneNumber =              "phone_number"
-        case IdentityProviderEmail =    "identity_provider_email"
-        case IdentityProviderUserName = "identity_provider_user_name"
-        case IsLoggedIn =               "is_logged_in"
-        case UUID =                     "active_device_dev_uuid"
-        case Ratings =                  "ratings"
-        case Credits =                  "credits"
-        case Foodies =                  "foodies"
-        case ImagePath =                "user_image_path"
-        case SkippedLogin =             "skipped_login"
-    }
+    
     
     // User class Properties with default values
     private(set) var userUniqueID =                  0
@@ -55,14 +59,15 @@ class User {
     private(set) var userFoodies =                   0
     
     private(set) var userImagePath =        ""
-    private(set) var userImage =            UIImage()
-    private(set) var fullUserIamgeName =    "genericUserImage.jpg"
+    private(set) var userImage =            UIImage(named: "ProfilePic")!
+    private(set) var fullUserIamgeName =    ""
     private(set) var calculatedUserRating = 0.0
-    private(set) var userSkippedLogin =            false
+    private(set) var userSkippedLogin =     false
+    private(set) var userCompletedIdentityProviderLogin = false
+    
     
     // 'private' prevents other classes from using the default '()' initializer for this class.
     private init() {
-        //createInternalUserDataBase()
         setInitialUserData()
         calculateUserRating()
         print("userData:\n\(userData.debugDescription)")
@@ -107,7 +112,10 @@ class User {
     }
     
     func updateWithLoginData(loginData :LoginData){
-        
+        print("start updateWithLoginData")
+        print("self.userIsLoggedIn: \(self.userIsLoggedIn)")
+        print("self.userSkippedLogin: \(self.userSkippedLogin)")
+        print("self.userCompletedIdentityProviderLogin: \(self.userCompletedIdentityProviderLogin)")
         //update user properties after login - we only need to update the userId property after we recieve it from the server
         
         // Data recieved from loging identity provider
@@ -131,20 +139,33 @@ class User {
         }
         
         setValueInUserClassProperty(loginData.identityProvider.rawValue, forKey: .IdentityProvider)
-        setValueInUserClassProperty(loginData.isLoggedIn, forKey: .IsLoggedIn)
+        if (loginData.isLoggedIn) {
+            // If loginData.isLoggedIn == true, it means the user has successfully completed the
+            // Identity Provider login. It DOES NOT mean that the entire login process was successful!
+            // Only after the user registered his phone number, the login is successful.
+            print("loginData.isLoggedIn: \(loginData.isLoggedIn)")
+            setValueInUserClassProperty(true, forKey: .CompletedIdentityProviderLogin)
+            print("")
+        }
+        
         
         // Image data from loging identity provider
         if let image = loginData.userImage {
+            print("Image user is present!!!!")
             self.userImage = image
             self.fullUserIamgeName = self.userImageFileName + String(self.userUniqueID) + self.userImageFileNameSuffix
-            let path = FCModel.documentsDirectory().stringByAppendingString("/" + self.fullUserIamgeName)
-            let url = NSURL(string: path)
-            DeviceData.writeImage(self.userImage, imageURL: url!)
+            DeviceData.writeImage(self.userImage, imageName: self.fullUserIamgeName)
+        }
+        else {
+            print("No User Image!!!!")
         }
         
-        self.userSkippedLogin = true
-        
         writeUserData()
+        
+        print("end updateWithLoginData")
+        print("self.userIsLoggedIn: \(self.userIsLoggedIn)")
+        print("self.userSkippedLogin: \(self.userSkippedLogin)")
+        print("self.userCompletedIdentityProviderLogin: \(self.userCompletedIdentityProviderLogin)")
     }
     
     func setValueInUserClassProperty(value: AnyObject, forKey key: UserDataKey) {
@@ -172,17 +193,7 @@ class User {
             self.userIdentityProviderUserName = value as? String ?? ""
             
         case .IsLoggedIn:
-            if (value as! Bool) {
-                print("isLoggedIn = TRUE")
-            }
-            else {
-                print("isLoggedIn = FALSE")
-            }
-            print("self.userIsLoggedIn \(self.userIsLoggedIn.description)")
-            print("userData[key.rawValue]: \(userData[key.rawValue])")
             self.userIsLoggedIn = value as? Bool ?? false
-            print("userData[key.rawValue]: \(userData[key.rawValue])")
-            print("self.userIsLoggedIn \(self.userIsLoggedIn.description)")
         case .UUID:
             self.userActiveDeviceDevUUID = value as? String ?? ""
             
@@ -200,9 +211,18 @@ class User {
         
         case .SkippedLogin:
             self.userSkippedLogin = value as? Bool ?? false
+        
+        case .CompletedIdentityProviderLogin:
+            self.userCompletedIdentityProviderLogin = value as? Bool ?? false
+            
+        case .Image:
+            self.userImage = value as? UIImage ?? UIImage(named: "ProfilePic")!
         }
+        
+        
+        writeUserData()
     }
-    
+
     private func calculateUserRating() {
         let sum = Double(self.userRatings.reduce(0,combine: +))
         let count = Double(self.userRatings.count)
@@ -213,11 +233,7 @@ class User {
     }
     
     private func setUserImage() {
-        if (self.userImagePath == "") {
-            // use generic foodonet image
-            self.userImage = UIImage(named: fullUserIamgeName)!
-        }
-        else {
+        if (self.userImagePath != "") {
             // use an existing image from documents diretory
             self.fullUserIamgeName = self.userImageFileName + String(self.userUniqueID) + self.userImageFileNameSuffix
             let path = FCModel.documentsDirectory().stringByAppendingString("/" + fullUserIamgeName)
@@ -247,6 +263,7 @@ class User {
         userData[UserDataKey.Foodies.rawValue] = self.userFoodies
         userData[UserDataKey.ImagePath.rawValue] = self.userImagePath
         userData[UserDataKey.SkippedLogin.rawValue] = self.userSkippedLogin
+        userData[UserDataKey.CompletedIdentityProviderLogin.rawValue] = self.userCompletedIdentityProviderLogin
     }
     
     private func getValue(data: NSDictionary, forKey key: UserDataKey) -> AnyObject {
