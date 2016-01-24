@@ -24,6 +24,7 @@ extension FCMockServer {
                 return
             }
             
+            //TODO: Move this call to LoginPhoneNumberVC
             self.login(loginData, completion: { (success) -> () in
                 completion(success: success)
             })
@@ -32,9 +33,7 @@ extension FCMockServer {
 
     func didRequestGoogleLogin(loginData: LoginData , completion: (success: Bool) -> Void) {
         
-        //TODO: disable when we have a login
-        //loginData.prepareMockData()
-        
+        //TODO: Move this call to LoginPhoneNumberVC
         self.login(loginData) { (success) -> () in
             
             completion(success: success)
