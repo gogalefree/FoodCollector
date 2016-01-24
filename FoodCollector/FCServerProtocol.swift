@@ -92,9 +92,9 @@ protocol FCServerProtocol {
     func didRequestFacebookLogin(completion: (success: Bool) -> Void)
     
     ///
-    ///LogIn with google
+    ///LogIn to Foodonet Server
     ///
-    func didRequestGoogleLogin(loginData: LoginData, completion: (success: Bool) -> Void)
+    func login(completion: (success: Bool) -> ()) -> Void
 
    }
 

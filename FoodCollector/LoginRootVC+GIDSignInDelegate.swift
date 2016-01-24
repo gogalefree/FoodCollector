@@ -31,22 +31,7 @@ extension LoginRootVC: GIDSignInDelegate {
                 
                 let loginData = LoginData(.Google)
                 loginData.updateWithGoogleUser(user)
-                               
-                
-                FCModel.sharedInstance.foodCollectorWebServer.didRequestGoogleLogin(loginData, completion: { (success) -> Void in
-                  
-                    if !success {
-                        //login failed
-                        //present alert
-                        
-                        return
-                    }
-                    
-                    //successful login
-                    //stop activity indicator
-                    //perform segue to next vc
-                    
-                })
+                User.sharedInstance.loginData = loginData
             }
     }
     

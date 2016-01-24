@@ -121,23 +121,39 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
     func processPhoneNumberAndFinishLogin() {
         
         if(cellPhoneField.text!.isEmpty) {
-            showPhoneNumberAllert()
+            
             cellPhoneField?.resignFirstResponder()
+            showPhoneNumberAllert()
+            return
         }
-        else {
-            if let onlyDigitsPhoneString = phoneNumberValidator.getValidPhoneNumber(cellPhoneField.text!) {
+        
+        guard let onlyDigitsPhoneString = phoneNumberValidator.getValidPhoneNumber(cellPhoneField.text!) else {
+            
+            showPhoneNumberAllert()
+            return
+        }
+
+        //TODO: Move this call to LoginPhoneNumberVC
+        FCModel.sharedInstance.foodCollectorWebServer.login { (success) -> () in
+
+            if !success {
                 
-                User.sharedInstance.setValueInUserClassProperty(onlyDigitsPhoneString, forKey: UserDataKey.PhoneNumber)
-                User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.IsLoggedIn)
-                UIView.animateWithDuration(0.6) { () -> Void in
-                    self.navigationController?.view.removeFromSuperview()
-                    self.navigationController?.removeFromParentViewController()
-                }
-            }
-            else {
-                showPhoneNumberAllert()
+                //TODO: show alert for unsuccessul login due to server error (try again and do not dissmiss)
+                
+                return
             }
             
+            User.sharedInstance.setValueInUserClassProperty(onlyDigitsPhoneString, forKey: UserDataKey.PhoneNumber)
+            User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.IsLoggedIn)
+            
+            //TODO:
+            //change presentation from LogInRootVC
+            //it should be pushed or presented and not add as a child View Controller
+            //if it was pushed to the LoginRootVCNavigationController, you can use this here to remove them both after a successful login
+            UIView.animateWithDuration(0.6) { () -> Void in
+                self.navigationController?.view.removeFromSuperview()
+                self.navigationController?.removeFromParentViewController()
+            }
         }
     }
     

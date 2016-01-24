@@ -55,14 +55,13 @@ class FCUserPhotoFetcher: NSObject {
     func uploadUserPhoto() {
         
         //TODO: get the user and set the photo url for user
-        let photo           = UIImage(named: "UserGreen")
+        let photo           = User.sharedInstance.userImage
         let photoKey        = kUserPhotoKeyPrefix + "\(User.sharedInstance.userUniqueID)" + ".jpg"
-        let imageToUpload   = photo!
         let uploadFilePath  = NSTemporaryDirectory().stringByAppendingString(photoKey)
         let uploadFileURL   = NSURL.fileURLWithPath(uploadFilePath)
 
         
-        UIImageJPEGRepresentation(imageToUpload,1)!.writeToURL(uploadFileURL, atomically: true)
+        UIImageJPEGRepresentation(photo,1)!.writeToURL(uploadFileURL, atomically: true)
         
         // return image as JPEG. May return nil if image has no CGImageRef or invalid bitmap format. compression is 0(most)..1(least)
         // the more it's compressed the smaller the file is

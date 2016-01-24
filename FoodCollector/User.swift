@@ -40,7 +40,7 @@ class User {
     private let userImageFileName = "user"
     private let userImageFileNameSuffix = ".jpg"
     private var userData = [String: AnyObject]()
-    
+    var loginData: LoginData?
     // TODO: Add userImage key for the User image from the identity provider
     
     
@@ -111,7 +111,10 @@ class User {
         setValueInUserClassProperty(getValue(data, forKey: .SkippedLogin), forKey: .SkippedLogin)
     }
     
-    func updateWithLoginData(loginData :LoginData){
+    func updateWithLoginData(){
+        
+        guard let loginData = self.loginData else {return}
+        
         print("start updateWithLoginData")
         print("self.userIsLoggedIn: \(self.userIsLoggedIn)")
         print("self.userSkippedLogin: \(self.userSkippedLogin)")
@@ -155,7 +158,12 @@ class User {
             self.userImage = image
             self.fullUserIamgeName = self.userImageFileName + String(self.userUniqueID) + self.userImageFileNameSuffix
             DeviceData.writeImage(self.userImage, imageName: self.fullUserIamgeName)
+            
+            //upload user photo to amazon
+            let userPhotoUploader = FCUserPhotoFetcher()
+            userPhotoUploader.uploadUserPhoto() 
         }
+            
         else {
             print("No User Image!!!!")
         }
@@ -312,34 +320,6 @@ class User {
         }
         
         return false
-    }
-    
-    private func writeData() {
-        DeviceData.writePlist(plistFileName, data: userData)
-    }
-    
-    func updateWithLoginData(loginData :LoginData){
-        
-        //update user properties after login - we only need to update the userId property after we recieve it from the server
-        
-        setValueInInternalUserData(loginData.userId!, forKey: .ID)
-        setValueInInternalUserData(loginData.identityProvider.rawValue, forKey: .IdentityProvider)
-        setValueInInternalUserData(loginData.identityProviderUserID!, forKey: .IdentityProviderUserID)
-        setValueInInternalUserData(loginData.identityProviderToken!, forKey: .IdentityProviderToken)
-        setValueInInternalUserData(loginData.identityProviderEmail!, forKey: .IdentityProviderEmail)
-        setValueInInternalUserData(loginData.identityProviderUserName!, forKey: .IdentityProviderUserName)
-        setValueInInternalUserData(loginData.isLoggedIn, forKey: .IsLoggedIn)
-        setValueInInternalUserData(loginData.active_device_dev_uuid!, forKey: .UUID)
-        
-        setValueInInternalUserData(self.userRatings, forKey: .Ratings)
-        setValueInInternalUserData(self.userCredits, forKey: .Credits)
-        setValueInInternalUserData(self.userFoodies, forKey: .Foodies)
-    
-        writeData()
-        
-        //upload user photo to aws
-        let userPhotoUploader = FCUserPhotoFetcher()
-        userPhotoUploader.uploadUserPhoto()
     }
 }
 

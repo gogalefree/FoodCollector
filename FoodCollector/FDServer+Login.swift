@@ -14,36 +14,24 @@ extension FCMockServer {
     func didRequestFacebookLogin(completion: (success: Bool) -> Void) {
         
         let loginData = LoginData(.Facebook)
-        //TODO: disable when we have a login
-        loginData.prepareMockData()
-        
+        User.sharedInstance.loginData = loginData
         FaceBookLoginManager.fetchUserData(loginData) { (success) -> Void in
         
-            if !success {
-                completion(success: false)
-                return
-            }
-            
-            //TODO: Move this call to LoginPhoneNumberVC
-            self.login(loginData, completion: { (success) -> () in
-                completion(success: success)
-            })
-        }
-    }
-
-    func didRequestGoogleLogin(loginData: LoginData , completion: (success: Bool) -> Void) {
-        
-        //TODO: Move this call to LoginPhoneNumberVC
-        self.login(loginData) { (success) -> () in
-            
             completion(success: success)
         }
     }
-    
-    func login(loginData: LoginData , completion: (success: Bool) -> ()) -> Void {
 
-        let jsonData = loginData.jsonToSend()
-        guard let data = jsonData else { completion(success: false) ; return}
+    func login(completion: (success: Bool) -> ()) -> Void {
+
+        guard let loginData = User.sharedInstance.loginData else {
+            completion(success: false)
+            return
+        }
+        
+        guard let data = loginData.jsonToSend() else {
+            completion(success: false)
+            return
+        }
       
         // send data to server
         //TODO: change the url
@@ -71,7 +59,7 @@ extension FCMockServer {
                 guard let params = responseParams else {self.handleFailure(loginData, completion: completion) ; return}
                 
                 loginData.userId = params[userIdKey] as? Int
-                User.sharedInstance.updateWithLoginData(loginData)
+                User.sharedInstance.updateWithLoginData()
                 completion(success: true)
             }
             

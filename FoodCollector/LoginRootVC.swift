@@ -65,6 +65,8 @@ class LoginRootVC: UIViewController {
                             //TODO: Add segue to phone number VC
                             
                             //self.showPhoneNumberLoginView()
+                            //BORIS: Why do you remove this VC now?
+                            //you shoukd push the next vc to the navigation controller
                             UIView.animateWithDuration(0.4) { () -> Void in
                                 self.navigationController?.view.removeFromSuperview()
                                 self.navigationController?.removeFromParentViewController()
@@ -119,6 +121,9 @@ class LoginRootVC: UIViewController {
     */
     
     private func showPhoneNumberLoginView() {
+        //why do you add the phone number vc as a child vc?
+        //just push it to the nav controller
+        
         print("showPhoneNumberLoginView()")
         let frameX = self.view.bounds.origin.x
         let frameY = self.view.bounds.origin.y + kStatusBarHeight
