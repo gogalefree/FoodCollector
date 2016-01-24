@@ -81,7 +81,7 @@ print("arg value \(argValue)")
 
 // Change Info.plist dictionary values based on argument value
 switch argValue {
-case "prod": // Production URL
+case "prod" , "user": // Production URL
     plistDict!.setObject(kBundleIDProdVal,         forKey: kBundleIDKey)
     plistDict!.setObject(kBundleNameProdVal,       forKey: kBundleNameKey)
     plistDict!.setObject(kBundleDispNameProdVal,    forKey: kBundleDispNameKey)
