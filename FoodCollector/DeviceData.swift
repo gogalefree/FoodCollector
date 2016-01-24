@@ -42,19 +42,16 @@ public class DeviceData {
 public extension DeviceData {
     
     public class func readPlist(var fileName: String) -> (data: AnyObject?, dataType: PlistDataType){
-        // Check if fileName has a .plist suffix. If it has, remove it.
-        var fileNameExtention = ""
-        fileNameExtention = (fileName as NSString).pathExtension
-        if (fileNameExtention != "") {
-            fileNameExtention = "." + fileNameExtention
-            fileName = (fileName as NSString).stringByDeletingPathExtension
-        }
-        else {
-            fileNameExtention = ".plist"
+        // Check if fileName has a pathExtension. If it doesn't, add it.
+        if ((fileName as NSString).pathExtension == "") {
+            fileName = fileName + ".plist"
         }
         
-        // Check if resource exists. If not, return nil.
-        if let plistFilePath = NSBundle.mainBundle().pathForResource(fileName, ofType: fileNameExtention) {
+        fileName = "/" + fileName
+        print("filename: \(fileName)")
+        if FCModel.documentsDirectory() != "" {
+            let plistFilePath = FCModel.documentsDirectory().stringByAppendingString(fileName)
+            print("plistFilePath: \(plistFilePath)")
             let plistData = NSDictionary(contentsOfFile: plistFilePath)
             // If plistData == nil it's not a dictionary - It's an array
             if plistData == nil {
@@ -76,7 +73,7 @@ public extension DeviceData {
         if (fileNameExtention != (fileName as NSString).pathExtension) {
             fileName = fileName + "." + fileNameExtention
         }
-        fileName = "\\" + fileName
+        fileName = "/" + fileName
         
         if FCModel.documentsDirectory() == "" {
             return false
@@ -87,14 +84,36 @@ public extension DeviceData {
         
         switch data {
         case is NSArray:
-            (data as! NSArray).writeToFile(fileName, atomically: true)
+            (data as! NSArray).writeToFile(path, atomically: true)
         case is NSDictionary:
-            (data as! NSDictionary).writeToFile(fileName, atomically: true)
+            (data as! NSDictionary).writeToFile(path, atomically: true)
         default:
             return false
         }
         print("Saved plist file in --> \(path)")
         
         return true
+    }
+    
+    public class func writeImage(image: UIImage, imageName: String) {
+        print("writeImage")
+        print("imageName: \(imageName)")
+        print("image:\n\(image)")
+        
+        do {
+            let fileManager = NSFileManager.defaultManager()
+            let documentsURL = try fileManager.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
+            let imageURL = documentsURL.URLByAppendingPathComponent(imageName)
+            
+            print("documentsURL: \(documentsURL)")
+            
+            if (!UIImageJPEGRepresentation(image,1)!.writeToURL(imageURL, atomically: true)){
+                print("Image was NOT writen to URL!!!")
+            }
+        } catch {
+            print(error)
+        }
+        
+        
     }
 }

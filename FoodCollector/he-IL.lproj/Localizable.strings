@@ -17,8 +17,8 @@
 /* Alert message body */
 "All fields are required" = "חובה למלא את כל השדות";
 
-/* An error accord */
-"An error accord" = "אירע שגיאה";
+/* An error occurred */
+"An error occurred" = "אירע שגיאה";
 
 /* new registration banner title text */
 "Another user is en route to pickup:" = "משתמש נוסף בדרך לאסוף:";

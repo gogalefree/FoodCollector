@@ -9,6 +9,7 @@
 import UIKit
 
 let kPublicationDeletedAlertMessage = NSLocalizedString("Event Ended Near You", comment:"A message that informs the user that a publication ended")
+let kStatusBarHeight: CGFloat = 20
 
 class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDelegate , NewReportMessageViewDelegate{
     
@@ -17,6 +18,8 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     var isPresentingOnSpotReportVC = false
     var firstLaunch = true
     var mainActionNavVC: UINavigationController!
+    var identityProviderLogingViewNavVC: UINavigationController!
+    var phoneNumberLogingViewNavVC: UINavigationController!
     var newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView    
     
     lazy var newReportMessageView: NewReportMessageView = NewReportMessageView.loadFromNibNamed("NewReportMessageView", bundle: nil) as! NewReportMessageView
@@ -25,23 +28,45 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.itemPositioning = UITabBarItemPositioning.Fill
+        
+        // Main Action view
         registerNSNotifications()
         self.mainActionNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainActionNavVC") as! UINavigationController
         let mainActionVC = self.mainActionNavVC.viewControllers[0] as! MainActionVC
         mainActionVC.delegate = self
         
+        // Identity Provider Loging view
+        let identityProviderLogingView = UIStoryboard(name: "Login", bundle: nil)
+        self.identityProviderLogingViewNavVC = identityProviderLogingView.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+        
+        // Phone Number Loging view
+        let phoneNumberLogingView = UIStoryboard(name: "Login", bundle: nil)
+        self.phoneNumberLogingViewNavVC = phoneNumberLogingView.instantiateViewControllerWithIdentifier("PhoneNumberLoginNavVC") as! UINavigationController
     }
     
     override func viewDidLayoutSubviews() {
         
         super.viewDidLayoutSubviews()
-        if firstLaunch {
-            //self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
-            self.addChildViewController(self.mainActionNavVC)
-            self.mainActionNavVC.view.frame = self.view.bounds
-            self.view.addSubview(self.mainActionNavVC.view)
-            self.mainActionNavVC.didMoveToParentViewController(self)
-            firstLaunch = false
+        showActionView()
+        
+        print("User.sharedInstance.userIsLoggedIn = \(User.sharedInstance.userIsLoggedIn)")
+        print("User.sharedInstance.userSkippedLogin = \(User.sharedInstance.userSkippedLogin)")
+        print("User.sharedInstance.userCompletedIdentityProviderLogin = \(User.sharedInstance.userCompletedIdentityProviderLogin)")
+
+        
+        if (!User.sharedInstance.userIsLoggedIn && !User.sharedInstance.userSkippedLogin) {
+            print("User is not Loged-in and didn't skip Login")
+            // Check if user completed Identity Provider Login
+            if (User.sharedInstance.userCompletedIdentityProviderLogin) {
+                print("User completed facebook or google Login")
+                showPhoneNumberLoginView()
+            }
+            else {
+                showIdentityProviderLoginView()
+            }
+        }
+        else {
+            print("User is Loged-in or skipped Login")
         }
     }
     
@@ -62,6 +87,46 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     func appWillEnterForeground() {
         self.showUserRegistrationNotificationIfNeeded(1.5)
+    }
+    
+    private func showActionView() {
+        print("showActionView()")
+        if firstLaunch {
+            //self.presentViewController(self.mainActionNavVC, animated: false, completion: nil)
+            self.addChildViewController(self.mainActionNavVC)
+            self.mainActionNavVC.view.frame = self.view.bounds
+            self.view.addSubview(self.mainActionNavVC.view)
+            self.mainActionNavVC.didMoveToParentViewController(self)
+            firstLaunch = false
+        }
+    }
+    
+    private func showIdentityProviderLoginView() {
+        print("showIdentityProviderLoginView()")
+        let frameX = self.view.bounds.origin.x
+        let frameY = self.view.bounds.origin.y + kStatusBarHeight
+        let frameWidth = self.view.bounds.size.width
+        let frameHeight = self.view.bounds.size.height - kStatusBarHeight
+        
+        self.addChildViewController(self.identityProviderLogingViewNavVC)
+        self.identityProviderLogingViewNavVC.view.frame = self.view.bounds
+        self.identityProviderLogingViewNavVC.view.frame = CGRectMake(frameX, frameY, frameWidth, frameHeight)
+        self.view.addSubview(self.identityProviderLogingViewNavVC.view)
+        self.identityProviderLogingViewNavVC.didMoveToParentViewController(self)
+    }
+    
+    private func showPhoneNumberLoginView() {
+        print("showPhoneNumberLoginView()")
+        let frameX = self.view.bounds.origin.x
+        let frameY = self.view.bounds.origin.y + kStatusBarHeight
+        let frameWidth = self.view.bounds.size.width
+        let frameHeight = self.view.bounds.size.height - kStatusBarHeight
+        
+        self.addChildViewController(self.phoneNumberLogingViewNavVC)
+        self.phoneNumberLogingViewNavVC.view.frame = self.view.bounds
+        self.phoneNumberLogingViewNavVC.view.frame = CGRectMake(frameX, frameY, frameWidth, frameHeight)
+        self.view.addSubview(self.phoneNumberLogingViewNavVC.view)
+        self.phoneNumberLogingViewNavVC.didMoveToParentViewController(self)
     }
     
     final func showUserRegistrationNotificationIfNeeded(dealey: NSTimeInterval) {

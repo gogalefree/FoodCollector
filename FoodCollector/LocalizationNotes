@@ -6,6 +6,10 @@ Source
 Privacy - Location Usage Description: "Display a message when arriving to pickup location"
 NSLocationWhenInUseUsageDescription: "Display a message when arriving to pickup location"
 
+<key>NSLocationUsageDescription</key>
+<string>Display a message when arriving to pickup location</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Display a message when arriving to pickup location</string>
 
 Hebrew
 ------------------------------------
