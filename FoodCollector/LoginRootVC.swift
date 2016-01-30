@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginRootVC: UIViewController {
+class LoginRootVC: UIViewController, GIDSignInUIDelegate {
     
     @IBOutlet weak var facebookLoginButton  : UIButton!
     @IBOutlet weak var googleLoginButton    : GIDSignInButton!
@@ -22,7 +22,11 @@ class LoginRootVC: UIViewController {
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance().delegate = self
-        
+        GIDSignIn.sharedInstance().uiDelegate = self
+
+        GIDSignIn.sharedInstance().shouldFetchBasicProfile = true
+
+        googleLoginButton.delegate = self
         // Phone Number Loging view
         let phoneNumberLogingView = UIStoryboard(name: "Login", bundle: nil)
         self.phoneNumberLogingViewNavVC = phoneNumberLogingView.instantiateViewControllerWithIdentifier("PhoneNumberLoginNavVC") as! UINavigationController

@@ -162,6 +162,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
 
         }
+        else if url.scheme == "com.gogalefree.foodoneteu" {
+            
+            return GIDSignIn.sharedInstance().handleURL(url,
+                sourceApplication: sourceApplication,
+                annotation: annotation)
+            
+            
+        }
 //        if #available(iOS 9.0, *) {
 //            let options: [String: AnyObject] = [UIApplicationOpenURLOptionsSourceApplicationKey: sourceApplication!,
 //                UIApplicationOpenURLOptionsAnnotationKey: annotation]

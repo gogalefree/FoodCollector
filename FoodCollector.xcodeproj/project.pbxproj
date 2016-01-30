@@ -65,7 +65,7 @@
 		E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */; };
 		E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
 		E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */; };
-		E411EF981C5CCF48003F290A /* EUPreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411EF971C5CCF48003F290A /* EUPreBuildScript.swift */; };
+		E411EF981C5CCF48003F290A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411EF971C5CCF48003F290A /* main.swift */; };
 		E411EF9A1C5CD599003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E411EF991C5CD599003F290A /* GoogleService-Info.plist */; };
 		E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
 		E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
@@ -454,7 +454,7 @@
 		E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoPresentorNavigationController.swift; sourceTree = "<group>"; };
 		E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorDissmissAnimator.swift; sourceTree = "<group>"; };
 		E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCMockServer+.swift"; sourceTree = "<group>"; };
-		E411EF971C5CCF48003F290A /* EUPreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EUPreBuildScript.swift; path = FoodCollector/EUScripts/EUPreBuildScript.swift; sourceTree = "<group>"; };
+		E411EF971C5CCF48003F290A /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = FoodCollector/EUScripts/main.swift; sourceTree = "<group>"; };
 		E411EF991C5CD599003F290A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleFoodonetEU/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsDismissAnimator.swift; sourceTree = "<group>"; };
 		E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsNavigationController.swift; sourceTree = "<group>"; };
@@ -715,7 +715,7 @@
 			isa = PBXGroup;
 			children = (
 				A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */,
-				E411EF971C5CCF48003F290A /* EUPreBuildScript.swift */,
+				E411EF971C5CCF48003F290A /* main.swift */,
 			);
 			name = Scripts;
 			path = ..;
@@ -1426,7 +1426,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/EUScripts/EUPreBuildScript.swift user";
+			shellScript = "${SRCROOT}/FoodCollector/EUScripts/main.swift";
 		};
 		E44FDDA11C5CB5F9000D5F97 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1607,7 +1607,7 @@
 				E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */,
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,
 				E40544531C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift in Sources */,
-				E411EF981C5CCF48003F290A /* EUPreBuildScript.swift in Sources */,
+				E411EF981C5CCF48003F290A /* main.swift in Sources */,
 				E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
 				E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */,
