@@ -16,7 +16,6 @@ let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificati
 
 let kNavBarBlueColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
