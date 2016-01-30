@@ -169,7 +169,7 @@ class User {
         print("self.userCompletedIdentityProviderLogin: \(self.userCompletedIdentityProviderLogin)")
     }
     
-    func setValueInUserClassProperty(value: AnyObject, forKey key: UserDataKey) {
+    func setValueInUserClassProperty(value: AnyObject?, forKey key: UserDataKey) {
         print("Key: \(key) ->  Value: \(value)")
         switch key {
         case .ID:
@@ -275,9 +275,9 @@ class User {
         userData[UserDataKey.CompletedIdentityProviderLogin.rawValue] = self.userCompletedIdentityProviderLogin
     }
     
-    private func getValue(data: NSDictionary, forKey key: UserDataKey) -> AnyObject {
+    private func getValue(data: NSDictionary, forKey key: UserDataKey) -> AnyObject? {
         
-        return data[key.rawValue]!
+        return data[key.rawValue]
     }
     
     

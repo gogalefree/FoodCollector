@@ -45,6 +45,10 @@ extension LoginRootVC: GIDSignInDelegate {
                     //successful login
                     //stop activity indicator
                     //perform segue to next vc
+                    UIView.animateWithDuration(0.4) { () -> Void in
+                        self.navigationController?.view.removeFromSuperview()
+                        self.navigationController?.removeFromParentViewController()
+                    }
                     
                 })
             }
