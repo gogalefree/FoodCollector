@@ -104,21 +104,44 @@ class FCPhotoFetcher: NSObject {
     
     func bucketNameForBundle() -> String {
         
-        var infoPlist: NSDictionary?
+        var infoPlist   : NSDictionary?
+        var baseURLPlist: NSDictionary?
         
         if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
             
             infoPlist = NSDictionary(contentsOfFile: path)
         }
         
+        if let path = NSBundle.mainBundle().pathForResource("BaseURL", ofType:"plist") {
+            
+            baseURLPlist = NSDictionary(contentsOfFile: path)
+        }
+        
+        
+        
         if let infoPlist = infoPlist {
             
             let bundleName = infoPlist["CFBundleName"] as! String
+            let serverUrl  = baseURLPlist?["Server URL"] as? String
+
             print("bundle: \(bundleName)")
-            if bundleName.hasPrefix("dev") {
+            print("server: \(serverUrl)")
+            
+            //GERMANY
+            if bundleName == "FoodonetEU" {
+              
+                //TODO: Change bucket name german bucket
+                print("EU Version. bucket is \(self.foodCollectorDevelopmentBucketName)")
+                return self.foodCollectorDevelopmentBucketName
+
+            }
+            
+            //DEV
+            else if serverUrl == "https://prv-fd-server.herokuapp.com/" {
                 
                 print("dev Version. buck is \(self.foodCollectorDevelopmentBucketName)")
                 return self.foodCollectorDevelopmentBucketName
+
             }
         }
         

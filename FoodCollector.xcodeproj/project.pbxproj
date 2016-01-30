@@ -65,6 +65,9 @@
 		E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */; };
 		E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
 		E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */; };
+		E411EF981C5CCF48003F290A /* EUPreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411EF971C5CCF48003F290A /* EUPreBuildScript.swift */; };
+		E411EF9A1C5CD599003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E411EF991C5CD599003F290A /* GoogleService-Info.plist */; };
+		E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
 		E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
 		E41235D41ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */; };
 		E41729E81AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */; };
@@ -221,7 +224,6 @@
 		E44FDE2B1C5CB5F9000D5F97 /* Pin-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D851AD3210A0031CF8A /* Pin-Whole.png */; };
 		E44FDE2C1C5CB5F9000D5F97 /* Pin-Table-Half@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */; };
 		E44FDE2D1C5CB5F9000D5F97 /* Pin-Table-Few@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */; };
-		E44FDE2E1C5CB5F9000D5F97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
 		E44FDE2F1C5CB5F9000D5F97 /* Track-clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D811AD320E60031CF8A /* Track-clear@3x.png */; };
 		E44FDE301C5CB5F9000D5F97 /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
 		E44FDE311C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A4B1C22A83B00709B0A /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */; };
@@ -291,7 +293,6 @@
 		E476114A1B570EC000042D8F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E47611491B570EC000042D8F /* libsqlite3.dylib */; };
 		E476114C1B570ED400042D8F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114B1B570ED400042D8F /* libz.dylib */; };
 		E476114E1B570EE700042D8F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114D1B570EE700042D8F /* SystemConfiguration.framework */; };
-		E477AE4C1BFF3D500055FCB0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
 		E477AE4E1BFF41430055FCB0 /* GAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E477AE4D1BFF41430055FCB0 /* GAController.swift */; };
 		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
 		E48263731BE20AE100526C7B /* FetchedDataNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263721BE20AE100526C7B /* FetchedDataNotificationsController.swift */; };
@@ -453,6 +454,8 @@
 		E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoPresentorNavigationController.swift; sourceTree = "<group>"; };
 		E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorDissmissAnimator.swift; sourceTree = "<group>"; };
 		E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCMockServer+.swift"; sourceTree = "<group>"; };
+		E411EF971C5CCF48003F290A /* EUPreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EUPreBuildScript.swift; path = FoodCollector/EUScripts/EUPreBuildScript.swift; sourceTree = "<group>"; };
+		E411EF991C5CD599003F290A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleFoodonetEU/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsDismissAnimator.swift; sourceTree = "<group>"; };
 		E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsNavigationController.swift; sourceTree = "<group>"; };
 		E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCellBadgeLabel.swift; sourceTree = "<group>"; };
@@ -519,7 +522,7 @@
 		E47611491B570EC000042D8F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		E476114B1B570ED400042D8F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		E476114D1B570EE700042D8F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleFoodonet/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E477AE4D1BFF41430055FCB0 /* GAController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAController.swift; sourceTree = "<group>"; };
 		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
 		E47F9C521A12184200079164 /* ModelInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInitTests.swift; sourceTree = "<group>"; };
@@ -712,6 +715,7 @@
 			isa = PBXGroup;
 			children = (
 				A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */,
+				E411EF971C5CCF48003F290A /* EUPreBuildScript.swift */,
 			);
 			name = Scripts;
 			path = ..;
@@ -1064,6 +1068,7 @@
 				A153073D1C20BE1A00FE43AA /* InfoPlist.strings */,
 				A15307381C20BE1A00FE43AA /* Localizable.strings */,
 				E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */,
+				E411EF991C5CD599003F290A /* GoogleService-Info.plist */,
 				A16619A41A94E53C009D9EEA /* Scripts */,
 				E494DF161A0A980D004A369E /* Images.xcassets */,
 				E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */,
@@ -1248,6 +1253,7 @@
 				E44FDE1E1C5CB5F9000D5F97 /* FCActivityCenterTVSectionHeader.xib in Resources */,
 				E44FDE1F1C5CB5F9000D5F97 /* PublicationEditorTVCContactPublisherCustomCell.xib in Resources */,
 				E44FDE201C5CB5F9000D5F97 /* PublicationEditorTVCDatePickerCustomCell.xib in Resources */,
+				E411EF9A1C5CD599003F290A /* GoogleService-Info.plist in Resources */,
 				E44FDE211C5CB5F9000D5F97 /* Pin-Whole@3x.png in Resources */,
 				E44FDE221C5CB5F9000D5F97 /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */,
 				E44FDE231C5CB5F9000D5F97 /* Pin-Table-Few.png in Resources */,
@@ -1261,7 +1267,6 @@
 				E44FDE2B1C5CB5F9000D5F97 /* Pin-Whole.png in Resources */,
 				E44FDE2C1C5CB5F9000D5F97 /* Pin-Table-Half@3x.png in Resources */,
 				E44FDE2D1C5CB5F9000D5F97 /* Pin-Table-Few@2x.png in Resources */,
-				E44FDE2E1C5CB5F9000D5F97 /* GoogleService-Info.plist in Resources */,
 				E44FDE2F1C5CB5F9000D5F97 /* Track-clear@3x.png in Resources */,
 				E44FDE301C5CB5F9000D5F97 /* BaseURL.plist in Resources */,
 				E44FDE311C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */,
@@ -1312,7 +1317,6 @@
 				E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */,
 				E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */,
 				E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */,
-				E477AE4C1BFF3D500055FCB0 /* GoogleService-Info.plist in Resources */,
 				E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */,
 				A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */,
 				A1E04A491C22A83B00709B0A /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */,
@@ -1336,6 +1340,7 @@
 				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
 				E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */,
 				A1E04A531C22A85400709B0A /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
+				E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */,
 				A1E04A441C22A82E00709B0A /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */,
 			);
@@ -1408,7 +1413,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift user";
 		};
 		E44FDDA01C5CB5F9000D5F97 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1421,7 +1426,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "${SRCROOT}/FoodCollector/EUScripts/EUPreBuildScript.swift user";
 		};
 		E44FDDA11C5CB5F9000D5F97 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1602,6 +1607,7 @@
 				E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */,
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,
 				E40544531C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift in Sources */,
+				E411EF981C5CCF48003F290A /* EUPreBuildScript.swift in Sources */,
 				E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
 				E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */,

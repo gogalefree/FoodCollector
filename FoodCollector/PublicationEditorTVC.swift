@@ -590,9 +590,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 })
             }
             else {
-                self.removeActivityIndicator()
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
-                self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.removeActivityIndicator()
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                })
             }
         })
     }
