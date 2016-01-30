@@ -95,7 +95,7 @@ public extension DeviceData {
         return true
     }
     
-    public class func writeImage(image: UIImage, imageName: String) {
+    public class func writeImage(image: UIImage, imageName: String) -> Bool {
         print("writeImage")
         print("imageName: \(imageName)")
         print("image:\n\(image)")
@@ -109,11 +109,13 @@ public extension DeviceData {
             
             if (!UIImageJPEGRepresentation(image,1)!.writeToURL(imageURL, atomically: true)){
                 print("Image was NOT writen to URL!!!")
+                return false
             }
         } catch {
             print(error)
+            return false
         }
         
-        
+        return true
     }
 }
