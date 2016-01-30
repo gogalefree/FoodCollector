@@ -84,6 +84,169 @@
 		E43F89FF1BDEB9D5007991E6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */; };
 		E43F8A001BDEB9D5007991E6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */; };
 		E43F8A021BDEBACE007991E6 /* AppDelegate+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */; };
+		E44FDDA31C5CB5F9000D5F97 /* FCIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */; };
+		E44FDDA41C5CB5F9000D5F97 /* FCModel+LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED5781A8BD175008FB618 /* FCModel+LocationManager.swift */; };
+		E44FDDA51C5CB5F9000D5F97 /* PublicationPhotoPresentorPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */; };
+		E44FDDA61C5CB5F9000D5F97 /* FCAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */; };
+		E44FDDA71C5CB5F9000D5F97 /* PublicationDetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */; };
+		E44FDDA81C5CB5F9000D5F97 /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
+		E44FDDA91C5CB5F9000D5F97 /* LoginRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40544501C33ED0D007F7C24 /* LoginRootVC.swift */; };
+		E44FDDAA1C5CB5F9000D5F97 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
+		E44FDDAB1C5CB5F9000D5F97 /* NewRegistrationBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A41D341B491AA1007A611E /* NewRegistrationBannerView.swift */; };
+		E44FDDAC1C5CB5F9000D5F97 /* FCPublicationReportsVCAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */; };
+		E44FDDAD1C5CB5F9000D5F97 /* LoginRootVC+GIDSignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40544521C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift */; };
+		E44FDDAE1C5CB5F9000D5F97 /* FetchedDataNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263761BE21CAD00526C7B /* FetchedDataNotificationView.swift */; };
+		E44FDDAF1C5CB5F9000D5F97 /* FCNavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D6C1A10C01300A4AB81 /* FCNavigationHandler.swift */; };
+		E44FDDB01C5CB5F9000D5F97 /* FCMockServer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */; };
+		E44FDDB11C5CB5F9000D5F97 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */; };
+		E44FDDB21C5CB5F9000D5F97 /* FCArrivedToPublicationSpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */; };
+		E44FDDB31C5CB5F9000D5F97 /* FCServerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D7D1A10C01300A4AB81 /* FCServerProtocol.swift */; };
+		E44FDDB41C5CB5F9000D5F97 /* FCPublishAddressEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */; };
+		E44FDDB51C5CB5F9000D5F97 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1992B271BB3246D002DDF4C /* Validator.swift */; };
+		E44FDDB61C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A8B1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift */; };
+		E44FDDB71C5CB5F9000D5F97 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BF44F21A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift */; };
+		E44FDDB81C5CB5F9000D5F97 /* ContactCollectorPhonePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B7F1BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift */; };
+		E44FDDB91C5CB5F9000D5F97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10832F61BADD81F00B81F57 /* User.swift */; };
+		E44FDDBA1C5CB5F9000D5F97 /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0A1C2EBB100018E771 /* LoginData.swift */; };
+		E44FDDBB1C5CB5F9000D5F97 /* FacebookLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */; };
+		E44FDDBC1C5CB5F9000D5F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF0F1A0A980D004A369E /* AppDelegate.swift */; };
+		E44FDDBD1C5CB5F9000D5F97 /* FCDateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */; };
+		E44FDDBE1C5CB5F9000D5F97 /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
+		E44FDDBF1C5CB5F9000D5F97 /* PublicationDetailsReportsTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE611B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift */; };
+		E44FDDC01C5CB5F9000D5F97 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */; };
+		E44FDDC11C5CB5F9000D5F97 /* PublicationDetailsReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE691B26FE1000431F9B /* PublicationDetailsReportCell.swift */; };
+		E44FDDC21C5CB5F9000D5F97 /* FCPublicationReportsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839221ABB03460055A277 /* FCPublicationReportsTVC.swift */; };
+		E44FDDC31C5CB5F9000D5F97 /* FCTableViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */; };
+		E44FDDC41C5CB5F9000D5F97 /* FCPublicationDetailsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */; };
+		E44FDDC51C5CB5F9000D5F97 /* UICommonStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A163391D1C1ADD260065BC70 /* UICommonStrings.swift */; };
+		E44FDDC61C5CB5F9000D5F97 /* ContactCollectorsPickerSendSmsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B711BE4BDC4007D45E2 /* ContactCollectorsPickerSendSmsCell.swift */; };
+		E44FDDC71C5CB5F9000D5F97 /* ContactCollectorsPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B6D1BE4B900007D45E2 /* ContactCollectorsPickerTVC.swift */; };
+		E44FDDC81C5CB5F9000D5F97 /* FCPublishRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D7C1A10C01300A4AB81 /* FCPublishRootVC.swift */; };
+		E44FDDC91C5CB5F9000D5F97 /* PublicationsThumbnailsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E462F9BC1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift */; };
+		E44FDDCA1C5CB5F9000D5F97 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A811B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift */; };
+		E44FDDCB1C5CB5F9000D5F97 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A861B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift */; };
+		E44FDDCC1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F4D711B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift */; };
+		E44FDDCD1C5CB5F9000D5F97 /* FCPublicationRegistrationsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */; };
+		E44FDDCE1C5CB5F9000D5F97 /* FCPublicationReportsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */; };
+		E44FDDCF1C5CB5F9000D5F97 /* FCModel+NewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED5761A8BD007008FB618 /* FCModel+NewData.swift */; };
+		E44FDDD01C5CB5F9000D5F97 /* PublicationDetsilsCollectorActionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12394651B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift */; };
+		E44FDDD11C5CB5F9000D5F97 /* FCCollectorRootVC+Thumbnails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4607B041BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift */; };
+		E44FDDD21C5CB5F9000D5F97 /* FCPublicationReporetsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839241ABB04A30055A277 /* FCPublicationReporetsTVCell.swift */; };
+		E44FDDD31C5CB5F9000D5F97 /* FCUserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D831A10C01300A4AB81 /* FCUserNotificationHandler.swift */; };
+		E44FDDD41C5CB5F9000D5F97 /* FCModel+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED57A1A8BD2B9008FB618 /* FCModel+Store.swift */; };
+		E44FDDD51C5CB5F9000D5F97 /* FetchedDataNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263741BE20B6C00526C7B /* FetchedDataNotification.swift */; };
+		E44FDDD61C5CB5F9000D5F97 /* FCPublicationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D7A1A10C01300A4AB81 /* FCPublicationsTableViewController.swift */; };
+		E44FDDD71C5CB5F9000D5F97 /* PublicationEditorTVCDatePickerCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A7389B1B7F842E00CA2C5A /* PublicationEditorTVCDatePickerCustomCell.swift */; };
+		E44FDDD81C5CB5F9000D5F97 /* OnSpotPublicationReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8B3D21BE639F1003112E0 /* OnSpotPublicationReport.swift */; };
+		E44FDDD91C5CB5F9000D5F97 /* NewReportMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4064D441B6BB27E00FB1669 /* NewReportMessageView.swift */; };
+		E44FDDDA1C5CB5F9000D5F97 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B6F1BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift */; };
+		E44FDDDB1C5CB5F9000D5F97 /* PublicationEditorTVCTextFieldCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A738951B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.swift */; };
+		E44FDDDC1C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B793221B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift */; };
+		E44FDDDD1C5CB5F9000D5F97 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E473A6281A8DEF4100CB8C44 /* UIView+Extensions.swift */; };
+		E44FDDDE1C5CB5F9000D5F97 /* FCFetchedDataSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E488473F1A19E055000E98DA /* FCFetchedDataSorter.swift */; };
+		E44FDDDF1C5CB5F9000D5F97 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */; };
+		E44FDDE01C5CB5F9000D5F97 /* PublicationEditorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A771B73C435001C5901 /* PublicationEditorTVC.swift */; };
+		E44FDDE11C5CB5F9000D5F97 /* FeedbacksVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */; };
+		E44FDDE21C5CB5F9000D5F97 /* FCActivityCenterTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */; };
+		E44FDDE31C5CB5F9000D5F97 /* PublicationDetsilsPublisherActionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12394671B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift */; };
+		E44FDDE41C5CB5F9000D5F97 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
+		E44FDDE51C5CB5F9000D5F97 /* MainActionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A41D321B490321007A611E /* MainActionVC.swift */; };
+		E44FDDE61C5CB5F9000D5F97 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A167202E1C31E29F00A22415 /* DeviceData.swift */; };
+		E44FDDE71C5CB5F9000D5F97 /* FCPublicationDetailsDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */; };
+		E44FDDE81C5CB5F9000D5F97 /* FCPublicationsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */; };
+		E44FDDE91C5CB5F9000D5F97 /* FCActivityCenterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */; };
+		E44FDDEA1C5CB5F9000D5F97 /* FCActivityCenterTVCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */; };
+		E44FDDEB1C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1535BE31B6A814B0043D4C9 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift */; };
+		E44FDDEC1C5CB5F9000D5F97 /* CollectorMapVCNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45762611C29C0F7001124B4 /* CollectorMapVCNavController.swift */; };
+		E44FDDED1C5CB5F9000D5F97 /* FCPhotoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */; };
+		E44FDDEE1C5CB5F9000D5F97 /* GAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E477AE4D1BFF41430055FCB0 /* GAController.swift */; };
+		E44FDDEF1C5CB5F9000D5F97 /* FCPublicationsTVCMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DC5D5D1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift */; };
+		E44FDDF01C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A7C1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift */; };
+		E44FDDF11C5CB5F9000D5F97 /* AppDelegate+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */; };
+		E44FDDF21C5CB5F9000D5F97 /* PublicationPhotoPresentorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA01AB0713000FC8415 /* PublicationPhotoPresentorVC.swift */; };
+		E44FDDF31C5CB5F9000D5F97 /* LoginPhoneNumberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11471791C4F989500813D8C /* LoginPhoneNumberVC.swift */; };
+		E44FDDF41C5CB5F9000D5F97 /* FDServer+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */; };
+		E44FDDF51C5CB5F9000D5F97 /* FCPublication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D721A10C01300A4AB81 /* FCPublication.swift */; };
+		E44FDDF61C5CB5F9000D5F97 /* FCCollectorRootVC+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E482637A1BE22A8400526C7B /* FCCollectorRootVC+.swift */; };
+		E44FDDF71C5CB5F9000D5F97 /* FCPublicationReportsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F8391E1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift */; };
+		E44FDDF81C5CB5F9000D5F97 /* FCMainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B932D1A5DC2C300D48C52 /* FCMainTabBarController.swift */; };
+		E44FDDF91C5CB5F9000D5F97 /* FCLaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */; };
+		E44FDDFA1C5CB5F9000D5F97 /* FCCollectorRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D681A10C01300A4AB81 /* FCCollectorRootVC.swift */; };
+		E44FDDFB1C5CB5F9000D5F97 /* FCCollectorContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7311A9DB89800F45C70 /* FCCollectorContainerController.swift */; };
+		E44FDDFC1C5CB5F9000D5F97 /* FCCollectorNewDataMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */; };
+		E44FDDFD1C5CB5F9000D5F97 /* DataUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED5741A8B682C008FB618 /* DataUpdater.swift */; };
+		E44FDDFE1C5CB5F9000D5F97 /* PublicationEditorTVCPhoneNumEditorCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A738A01B7FA22800CA2C5A /* PublicationEditorTVCPhoneNumEditorCustomCell.swift */; };
+		E44FDDFF1C5CB5F9000D5F97 /* ContactCollectorPhonePickerLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4584B811BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift */; };
+		E44FDE001C5CB5F9000D5F97 /* FCModel+PostNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED57C1A8BD380008FB618 /* FCModel+PostNotifications.swift */; };
+		E44FDE011C5CB5F9000D5F97 /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
+		E44FDE021C5CB5F9000D5F97 /* FCUserPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D11FDD1C36A8E100A426B6 /* FCUserPhotoFetcher.swift */; };
+		E44FDE031C5CB5F9000D5F97 /* FetchedDataNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263721BE20AE100526C7B /* FetchedDataNotificationsController.swift */; };
+		E44FDE041C5CB5F9000D5F97 /* FCPublicationsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */; };
+		E44FDE051C5CB5F9000D5F97 /* FCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D6B1A10C01300A4AB81 /* FCModel.swift */; };
+		E44FDE061C5CB5F9000D5F97 /* FCPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C16E1A52DC6A00A37E00 /* FCPhotoFetcher.swift */; };
+		E44FDE071C5CB5F9000D5F97 /* PublicationDetailsTitleCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5B1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift */; };
+		E44FDE081C5CB5F9000D5F97 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1A8601ADB9D5600973C51 /* AboutVC.swift */; };
+		E44FDE091C5CB5F9000D5F97 /* ThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EF49681BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift */; };
+		E44FDE0A1C5CB5F9000D5F97 /* PublicationPhotoPresentorAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */; };
+		E44FDE0B1C5CB5F9000D5F97 /* PublicationDetailsSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5F1B258D1100431F9B /* PublicationDetailsSubtitleCell.swift */; };
+		E44FDE0C1C5CB5F9000D5F97 /* FCStringFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D7E1A10C01300A4AB81 /* FCStringFunctions.swift */; };
+		E44FDE0D1C5CB5F9000D5F97 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
+		E44FDE0E1C5CB5F9000D5F97 /* PublicationOptionsMenuTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F4D6E1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift */; };
+		E44FDE0F1C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B793261B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift */; };
+		E44FDE111C5CB5F9000D5F97 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114D1B570EE700042D8F /* SystemConfiguration.framework */; };
+		E44FDE121C5CB5F9000D5F97 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114B1B570ED400042D8F /* libz.dylib */; };
+		E44FDE131C5CB5F9000D5F97 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */; };
+		E44FDE141C5CB5F9000D5F97 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */; };
+		E44FDE151C5CB5F9000D5F97 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E47611491B570EC000042D8F /* libsqlite3.dylib */; };
+		E44FDE161C5CB5F9000D5F97 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E417FEE31B296AE0000341C7 /* MessageUI.framework */; };
+		E44FDE171C5CB5F9000D5F97 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAE1A10CD6200A4AB81 /* CoreLocation.framework */; };
+		E44FDE181C5CB5F9000D5F97 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FB1BDEB9D5007991E6 /* FBSDKCoreKit.framework */; };
+		E44FDE191C5CB5F9000D5F97 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4737DAC1A10CD5800A4AB81 /* MapKit.framework */; };
+		E44FDE1A1C5CB5F9000D5F97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
+		E44FDE1C1C5CB5F9000D5F97 /* PublicationDetsilsPublisherActionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A7D1C22A8D500709B0A /* PublicationDetsilsPublisherActionsHeaderView.xib */; };
+		E44FDE1D1C5CB5F9000D5F97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494DF131A0A980D004A369E /* Main.storyboard */; };
+		E44FDE1E1C5CB5F9000D5F97 /* FCActivityCenterTVSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A871C22A8F100709B0A /* FCActivityCenterTVSectionHeader.xib */; };
+		E44FDE1F1C5CB5F9000D5F97 /* PublicationEditorTVCContactPublisherCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A641C22A88000709B0A /* PublicationEditorTVCContactPublisherCustomCell.xib */; };
+		E44FDE201C5CB5F9000D5F97 /* PublicationEditorTVCDatePickerCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A5F1C22A86C00709B0A /* PublicationEditorTVCDatePickerCustomCell.xib */; };
+		E44FDE211C5CB5F9000D5F97 /* Pin-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */; };
+		E44FDE221C5CB5F9000D5F97 /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A411C22A81F00709B0A /* PublicationEditorTVCTextFieldCustomCell.xib */; };
+		E44FDE231C5CB5F9000D5F97 /* Pin-Table-Few.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */; };
+		E44FDE241C5CB5F9000D5F97 /* FCPublicationsTVCMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A731C22A8B800709B0A /* FCPublicationsTVCMessageView.xib */; };
+		E44FDE251C5CB5F9000D5F97 /* Pin-Table-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */; };
+		E44FDE261C5CB5F9000D5F97 /* Track-clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D7F1AD320E60031CF8A /* Track-clear.png */; };
+		E44FDE271C5CB5F9000D5F97 /* FetchedDataNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A8C1C22A90600709B0A /* FetchedDataNotificationView.xib */; };
+		E44FDE281C5CB5F9000D5F97 /* NewReportMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A371C22A7E900709B0A /* NewReportMessageView.xib */; };
+		E44FDE291C5CB5F9000D5F97 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E494DF181A0A980D004A369E /* LaunchScreen.xib */; };
+		E44FDE2A1C5CB5F9000D5F97 /* LocalizationNotes in Resources */ = {isa = PBXBuildFile; fileRef = A183DC6D1C0CC76800E82D6C /* LocalizationNotes */; };
+		E44FDE2B1C5CB5F9000D5F97 /* Pin-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D851AD3210A0031CF8A /* Pin-Whole.png */; };
+		E44FDE2C1C5CB5F9000D5F97 /* Pin-Table-Half@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */; };
+		E44FDE2D1C5CB5F9000D5F97 /* Pin-Table-Few@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */; };
+		E44FDE2E1C5CB5F9000D5F97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
+		E44FDE2F1C5CB5F9000D5F97 /* Track-clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D811AD320E60031CF8A /* Track-clear@3x.png */; };
+		E44FDE301C5CB5F9000D5F97 /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
+		E44FDE311C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A4B1C22A83B00709B0A /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */; };
+		E44FDE321C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A3C1C22A7FB00709B0A /* PublicationEditorTVCImageCustomCell.xib */; };
+		E44FDE331C5CB5F9000D5F97 /* PublicationEditorTVCPhoneNumEditorCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A691C22A88A00709B0A /* PublicationEditorTVCPhoneNumEditorCustomCell.xib */; };
+		E44FDE341C5CB5F9000D5F97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A153073D1C20BE1A00FE43AA /* InfoPlist.strings */; };
+		E44FDE351C5CB5F9000D5F97 /* PublicationEditorTVCStartEndDateCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A5A1C22A85F00709B0A /* PublicationEditorTVCStartEndDateCustomCell.xib */; };
+		E44FDE361C5CB5F9000D5F97 /* Pin-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */; };
+		E44FDE371C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A501C22A84500709B0A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */; };
+		E44FDE381C5CB5F9000D5F97 /* Pin-Table-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */; };
+		E44FDE391C5CB5F9000D5F97 /* Pin-Table-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */; };
+		E44FDE3A1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A821C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib */; };
+		E44FDE3B1C5CB5F9000D5F97 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494DF161A0A980D004A369E /* Images.xcassets */; };
+		E44FDE3C1C5CB5F9000D5F97 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E405444E1C33EBCF007F7C24 /* Login.storyboard */; };
+		E44FDE3D1C5CB5F9000D5F97 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A15307381C20BE1A00FE43AA /* Localizable.strings */; };
+		E44FDE3E1C5CB5F9000D5F97 /* Pin-Table-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */; };
+		E44FDE3F1C5CB5F9000D5F97 /* PublicationDetsilsCollectorActionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A781C22A8CD00709B0A /* PublicationDetsilsCollectorActionsHeaderView.xib */; };
+		E44FDE401C5CB5F9000D5F97 /* Pin-Table-Few@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */; };
+		E44FDE411C5CB5F9000D5F97 /* PublicationEditorTVCMoreInfoCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A6E1C22A89400709B0A /* PublicationEditorTVCMoreInfoCustomCell.xib */; };
+		E44FDE421C5CB5F9000D5F97 /* NewRegistrationBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A321C22A7D500709B0A /* NewRegistrationBannerView.xib */; };
+		E44FDE431C5CB5F9000D5F97 /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
+		E44FDE441C5CB5F9000D5F97 /* Pin-Table-Half@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */; };
+		E44FDE451C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A551C22A85400709B0A /* FCPublishAddressEditorMyLocationCustomCell.xib */; };
+		E44FDE461C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A461C22A82E00709B0A /* PublicationEditorTVCOnlyLabelCustomCell.xib */; };
+		E44FDE471C5CB5F9000D5F97 /* Track-clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D801AD320E60031CF8A /* Track-clear@2x.png */; };
 		E4545D821AD320E60031CF8A /* Track-clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D7F1AD320E60031CF8A /* Track-clear.png */; };
 		E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D801AD320E60031CF8A /* Track-clear@2x.png */; };
 		E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D811AD320E60031CF8A /* Track-clear@3x.png */; };
@@ -309,6 +472,8 @@
 		E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+.swift"; sourceTree = "<group>"; };
+		E44FDE4D1C5CB5F9000D5F97 /* FoodonetEU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodonetEU.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E44FDE4E1C5CB5FA000D5F97 /* FoodonetEU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = FoodonetEU.plist; path = /Users/Guy/iosProjects/foodCollector_oldREPO/FoodCollector/FoodonetEU.plist; sourceTree = "<absolute>"; };
 		E4545D7F1AD320E60031CF8A /* Track-clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear.png"; sourceTree = "<group>"; };
 		E4545D801AD320E60031CF8A /* Track-clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear@2x.png"; sourceTree = "<group>"; };
 		E4545D811AD320E60031CF8A /* Track-clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear@3x.png"; sourceTree = "<group>"; };
@@ -406,6 +571,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E44FDE101C5CB5F9000D5F97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E44FDE111C5CB5F9000D5F97 /* SystemConfiguration.framework in Frameworks */,
+				E44FDE121C5CB5F9000D5F97 /* libz.dylib in Frameworks */,
+				E44FDE131C5CB5F9000D5F97 /* FBSDKShareKit.framework in Frameworks */,
+				E44FDE141C5CB5F9000D5F97 /* FBSDKLoginKit.framework in Frameworks */,
+				E44FDE151C5CB5F9000D5F97 /* libsqlite3.dylib in Frameworks */,
+				E44FDE161C5CB5F9000D5F97 /* MessageUI.framework in Frameworks */,
+				E44FDE171C5CB5F9000D5F97 /* CoreLocation.framework in Frameworks */,
+				E44FDE181C5CB5F9000D5F97 /* FBSDKCoreKit.framework in Frameworks */,
+				E44FDE191C5CB5F9000D5F97 /* MapKit.framework in Frameworks */,
+				E44FDE1A1C5CB5F9000D5F97 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E494DF071A0A980D004A369E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -854,6 +1036,7 @@
 			children = (
 				E494DF0A1A0A980D004A369E /* FoodCollector.app */,
 				E494DF1F1A0A980D004A369E /* FoodCollectorTests.xctest */,
+				E44FDE4D1C5CB5F9000D5F97 /* FoodonetEU.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -899,6 +1082,7 @@
 				E4545D801AD320E60031CF8A /* Track-clear@2x.png */,
 				E4545D811AD320E60031CF8A /* Track-clear@3x.png */,
 				E494DF0E1A0A980D004A369E /* Info.plist */,
+				E44FDE4E1C5CB5FA000D5F97 /* FoodonetEU.plist */,
 				A108F5C41A94732A00816EFA /* BaseURL.plist */,
 			);
 			name = "Supporting Files";
@@ -953,6 +1137,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E44FDD9F1C5CB5F9000D5F97 /* FoodonetEU */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E44FDE4A1C5CB5F9000D5F97 /* Build configuration list for PBXNativeTarget "FoodonetEU" */;
+			buildPhases = (
+				E44FDDA01C5CB5F9000D5F97 /* ShellScript */,
+				E44FDDA11C5CB5F9000D5F97 /* Check Pods Manifest.lock */,
+				E44FDDA21C5CB5F9000D5F97 /* Sources */,
+				E44FDE101C5CB5F9000D5F97 /* Frameworks */,
+				E44FDE1B1C5CB5F9000D5F97 /* Resources */,
+				E44FDE481C5CB5F9000D5F97 /* Copy Pods Resources */,
+				E44FDE491C5CB5F9000D5F97 /* Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FoodonetEU;
+			productName = FoodCollector;
+			productReference = E44FDE4D1C5CB5F9000D5F97 /* FoodonetEU.app */;
+			productType = "com.apple.product-type.application";
+		};
 		E494DF091A0A980D004A369E /* FoodCollector */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E494DF291A0A980D004A369E /* Build configuration list for PBXNativeTarget "FoodCollector" */;
@@ -1027,12 +1232,64 @@
 			projectRoot = "";
 			targets = (
 				E494DF091A0A980D004A369E /* FoodCollector */,
+				E44FDD9F1C5CB5F9000D5F97 /* FoodonetEU */,
 				E494DF1E1A0A980D004A369E /* FoodCollectorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E44FDE1B1C5CB5F9000D5F97 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E44FDE1C1C5CB5F9000D5F97 /* PublicationDetsilsPublisherActionsHeaderView.xib in Resources */,
+				E44FDE1D1C5CB5F9000D5F97 /* Main.storyboard in Resources */,
+				E44FDE1E1C5CB5F9000D5F97 /* FCActivityCenterTVSectionHeader.xib in Resources */,
+				E44FDE1F1C5CB5F9000D5F97 /* PublicationEditorTVCContactPublisherCustomCell.xib in Resources */,
+				E44FDE201C5CB5F9000D5F97 /* PublicationEditorTVCDatePickerCustomCell.xib in Resources */,
+				E44FDE211C5CB5F9000D5F97 /* Pin-Whole@3x.png in Resources */,
+				E44FDE221C5CB5F9000D5F97 /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */,
+				E44FDE231C5CB5F9000D5F97 /* Pin-Table-Few.png in Resources */,
+				E44FDE241C5CB5F9000D5F97 /* FCPublicationsTVCMessageView.xib in Resources */,
+				E44FDE251C5CB5F9000D5F97 /* Pin-Table-Half.png in Resources */,
+				E44FDE261C5CB5F9000D5F97 /* Track-clear.png in Resources */,
+				E44FDE271C5CB5F9000D5F97 /* FetchedDataNotificationView.xib in Resources */,
+				E44FDE281C5CB5F9000D5F97 /* NewReportMessageView.xib in Resources */,
+				E44FDE291C5CB5F9000D5F97 /* LaunchScreen.xib in Resources */,
+				E44FDE2A1C5CB5F9000D5F97 /* LocalizationNotes in Resources */,
+				E44FDE2B1C5CB5F9000D5F97 /* Pin-Whole.png in Resources */,
+				E44FDE2C1C5CB5F9000D5F97 /* Pin-Table-Half@3x.png in Resources */,
+				E44FDE2D1C5CB5F9000D5F97 /* Pin-Table-Few@2x.png in Resources */,
+				E44FDE2E1C5CB5F9000D5F97 /* GoogleService-Info.plist in Resources */,
+				E44FDE2F1C5CB5F9000D5F97 /* Track-clear@3x.png in Resources */,
+				E44FDE301C5CB5F9000D5F97 /* BaseURL.plist in Resources */,
+				E44FDE311C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */,
+				E44FDE321C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.xib in Resources */,
+				E44FDE331C5CB5F9000D5F97 /* PublicationEditorTVCPhoneNumEditorCustomCell.xib in Resources */,
+				E44FDE341C5CB5F9000D5F97 /* InfoPlist.strings in Resources */,
+				E44FDE351C5CB5F9000D5F97 /* PublicationEditorTVCStartEndDateCustomCell.xib in Resources */,
+				E44FDE361C5CB5F9000D5F97 /* Pin-Whole@2x.png in Resources */,
+				E44FDE371C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
+				E44FDE381C5CB5F9000D5F97 /* Pin-Table-Whole@3x.png in Resources */,
+				E44FDE391C5CB5F9000D5F97 /* Pin-Table-Whole.png in Resources */,
+				E44FDE3A1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.xib in Resources */,
+				E44FDE3B1C5CB5F9000D5F97 /* Images.xcassets in Resources */,
+				E44FDE3C1C5CB5F9000D5F97 /* Login.storyboard in Resources */,
+				E44FDE3D1C5CB5F9000D5F97 /* Localizable.strings in Resources */,
+				E44FDE3E1C5CB5F9000D5F97 /* Pin-Table-Whole@2x.png in Resources */,
+				E44FDE3F1C5CB5F9000D5F97 /* PublicationDetsilsCollectorActionsHeaderView.xib in Resources */,
+				E44FDE401C5CB5F9000D5F97 /* Pin-Table-Few@3x.png in Resources */,
+				E44FDE411C5CB5F9000D5F97 /* PublicationEditorTVCMoreInfoCustomCell.xib in Resources */,
+				E44FDE421C5CB5F9000D5F97 /* NewRegistrationBannerView.xib in Resources */,
+				E44FDE431C5CB5F9000D5F97 /* FirstBuildInstructions in Resources */,
+				E44FDE441C5CB5F9000D5F97 /* Pin-Table-Half@2x.png in Resources */,
+				E44FDE451C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
+				E44FDE461C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
+				E44FDE471C5CB5F9000D5F97 /* Track-clear@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E494DF081A0A980D004A369E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1153,9 +1410,183 @@
 			shellPath = /bin/sh;
 			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
 		};
+		E44FDDA01C5CB5F9000D5F97 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		E44FDDA11C5CB5F9000D5F97 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E44FDE481C5CB5F9000D5F97 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E44FDE491C5CB5F9000D5F97 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E44FDDA21C5CB5F9000D5F97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E44FDDA31C5CB5F9000D5F97 /* FCIconFactory.swift in Sources */,
+				E44FDDA41C5CB5F9000D5F97 /* FCModel+LocationManager.swift in Sources */,
+				E44FDDA51C5CB5F9000D5F97 /* PublicationPhotoPresentorPresentationController.swift in Sources */,
+				E44FDDA61C5CB5F9000D5F97 /* FCAnnotationView.swift in Sources */,
+				E44FDDA71C5CB5F9000D5F97 /* PublicationDetailsImageCell.swift in Sources */,
+				E44FDDA81C5CB5F9000D5F97 /* FCPublicationReportsDismissAnimator.swift in Sources */,
+				E44FDDA91C5CB5F9000D5F97 /* LoginRootVC.swift in Sources */,
+				E44FDDAA1C5CB5F9000D5F97 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */,
+				E44FDDAB1C5CB5F9000D5F97 /* NewRegistrationBannerView.swift in Sources */,
+				E44FDDAC1C5CB5F9000D5F97 /* FCPublicationReportsVCAnimator.swift in Sources */,
+				E44FDDAD1C5CB5F9000D5F97 /* LoginRootVC+GIDSignInDelegate.swift in Sources */,
+				E44FDDAE1C5CB5F9000D5F97 /* FetchedDataNotificationView.swift in Sources */,
+				E44FDDAF1C5CB5F9000D5F97 /* FCNavigationHandler.swift in Sources */,
+				E44FDDB01C5CB5F9000D5F97 /* FCMockServer+.swift in Sources */,
+				E44FDDB11C5CB5F9000D5F97 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */,
+				E44FDDB21C5CB5F9000D5F97 /* FCArrivedToPublicationSpotVC.swift in Sources */,
+				E44FDDB31C5CB5F9000D5F97 /* FCServerProtocol.swift in Sources */,
+				E44FDDB41C5CB5F9000D5F97 /* FCPublishAddressEditorVC.swift in Sources */,
+				E44FDDB51C5CB5F9000D5F97 /* Validator.swift in Sources */,
+				E44FDDB61C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.swift in Sources */,
+				E44FDDB71C5CB5F9000D5F97 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */,
+				E44FDDB81C5CB5F9000D5F97 /* ContactCollectorPhonePickerVC.swift in Sources */,
+				E44FDDB91C5CB5F9000D5F97 /* User.swift in Sources */,
+				E44FDDBA1C5CB5F9000D5F97 /* LoginData.swift in Sources */,
+				E44FDDBB1C5CB5F9000D5F97 /* FacebookLoginManager.swift in Sources */,
+				E44FDDBC1C5CB5F9000D5F97 /* AppDelegate.swift in Sources */,
+				E44FDDBD1C5CB5F9000D5F97 /* FCDateFunctions.swift in Sources */,
+				E44FDDBE1C5CB5F9000D5F97 /* PreBuildScript.swift in Sources */,
+				E44FDDBF1C5CB5F9000D5F97 /* PublicationDetailsReportsTitleCell.swift in Sources */,
+				E44FDDC01C5CB5F9000D5F97 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */,
+				E44FDDC11C5CB5F9000D5F97 /* PublicationDetailsReportCell.swift in Sources */,
+				E44FDDC21C5CB5F9000D5F97 /* FCPublicationReportsTVC.swift in Sources */,
+				E44FDDC31C5CB5F9000D5F97 /* FCTableViewAnimator.swift in Sources */,
+				E44FDDC41C5CB5F9000D5F97 /* FCPublicationDetailsTVC.swift in Sources */,
+				E44FDDC51C5CB5F9000D5F97 /* UICommonStrings.swift in Sources */,
+				E44FDDC61C5CB5F9000D5F97 /* ContactCollectorsPickerSendSmsCell.swift in Sources */,
+				E44FDDC71C5CB5F9000D5F97 /* ContactCollectorsPickerTVC.swift in Sources */,
+				E44FDDC81C5CB5F9000D5F97 /* FCPublishRootVC.swift in Sources */,
+				E44FDDC91C5CB5F9000D5F97 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
+				E44FDDCA1C5CB5F9000D5F97 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
+				E44FDDCB1C5CB5F9000D5F97 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */,
+				E44FDDCC1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.swift in Sources */,
+				E44FDDCD1C5CB5F9000D5F97 /* FCPublicationRegistrationsFetcher.swift in Sources */,
+				E44FDDCE1C5CB5F9000D5F97 /* FCPublicationReportsNavigationController.swift in Sources */,
+				E44FDDCF1C5CB5F9000D5F97 /* FCModel+NewData.swift in Sources */,
+				E44FDDD01C5CB5F9000D5F97 /* PublicationDetsilsCollectorActionsHeaderView.swift in Sources */,
+				E44FDDD11C5CB5F9000D5F97 /* FCCollectorRootVC+Thumbnails.swift in Sources */,
+				E44FDDD21C5CB5F9000D5F97 /* FCPublicationReporetsTVCell.swift in Sources */,
+				E44FDDD31C5CB5F9000D5F97 /* FCUserNotificationHandler.swift in Sources */,
+				E44FDDD41C5CB5F9000D5F97 /* FCModel+Store.swift in Sources */,
+				E44FDDD51C5CB5F9000D5F97 /* FetchedDataNotification.swift in Sources */,
+				E44FDDD61C5CB5F9000D5F97 /* FCPublicationsTableViewController.swift in Sources */,
+				E44FDDD71C5CB5F9000D5F97 /* PublicationEditorTVCDatePickerCustomCell.swift in Sources */,
+				E44FDDD81C5CB5F9000D5F97 /* OnSpotPublicationReport.swift in Sources */,
+				E44FDDD91C5CB5F9000D5F97 /* NewReportMessageView.swift in Sources */,
+				E44FDDDA1C5CB5F9000D5F97 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */,
+				E44FDDDB1C5CB5F9000D5F97 /* PublicationEditorTVCTextFieldCustomCell.swift in Sources */,
+				E44FDDDC1C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.swift in Sources */,
+				E44FDDDD1C5CB5F9000D5F97 /* UIView+Extensions.swift in Sources */,
+				E44FDDDE1C5CB5F9000D5F97 /* FCFetchedDataSorter.swift in Sources */,
+				E44FDDDF1C5CB5F9000D5F97 /* UIImage+Extensions.swift in Sources */,
+				E44FDDE01C5CB5F9000D5F97 /* PublicationEditorTVC.swift in Sources */,
+				E44FDDE11C5CB5F9000D5F97 /* FeedbacksVCViewController.swift in Sources */,
+				E44FDDE21C5CB5F9000D5F97 /* FCActivityCenterTVCell.swift in Sources */,
+				E44FDDE31C5CB5F9000D5F97 /* PublicationDetsilsPublisherActionsHeaderView.swift in Sources */,
+				E44FDDE41C5CB5F9000D5F97 /* FCMockServer.swift in Sources */,
+				E44FDDE51C5CB5F9000D5F97 /* MainActionVC.swift in Sources */,
+				E44FDDE61C5CB5F9000D5F97 /* DeviceData.swift in Sources */,
+				E44FDDE71C5CB5F9000D5F97 /* FCPublicationDetailsDatesCell.swift in Sources */,
+				E44FDDE81C5CB5F9000D5F97 /* FCPublicationsTVCell.swift in Sources */,
+				E44FDDE91C5CB5F9000D5F97 /* FCActivityCenterTVC.swift in Sources */,
+				E44FDDEA1C5CB5F9000D5F97 /* FCActivityCenterTVCSectionHeader.swift in Sources */,
+				E44FDDEB1C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.swift in Sources */,
+				E44FDDEC1C5CB5F9000D5F97 /* CollectorMapVCNavController.swift in Sources */,
+				E44FDDED1C5CB5F9000D5F97 /* FCPhotoPresentorNavigationController.swift in Sources */,
+				E44FDDEE1C5CB5F9000D5F97 /* GAController.swift in Sources */,
+				E44FDDEF1C5CB5F9000D5F97 /* FCPublicationsTVCMessageView.swift in Sources */,
+				E44FDDF01C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */,
+				E44FDDF11C5CB5F9000D5F97 /* AppDelegate+.swift in Sources */,
+				E44FDDF21C5CB5F9000D5F97 /* PublicationPhotoPresentorVC.swift in Sources */,
+				E44FDDF31C5CB5F9000D5F97 /* LoginPhoneNumberVC.swift in Sources */,
+				E44FDDF41C5CB5F9000D5F97 /* FDServer+Login.swift in Sources */,
+				E44FDDF51C5CB5F9000D5F97 /* FCPublication.swift in Sources */,
+				E44FDDF61C5CB5F9000D5F97 /* FCCollectorRootVC+.swift in Sources */,
+				E44FDDF71C5CB5F9000D5F97 /* FCPublicationReportsPresentationController.swift in Sources */,
+				E44FDDF81C5CB5F9000D5F97 /* FCMainTabBarController.swift in Sources */,
+				E44FDDF91C5CB5F9000D5F97 /* FCLaunchScreenView.swift in Sources */,
+				E44FDDFA1C5CB5F9000D5F97 /* FCCollectorRootVC.swift in Sources */,
+				E44FDDFB1C5CB5F9000D5F97 /* FCCollectorContainerController.swift in Sources */,
+				E44FDDFC1C5CB5F9000D5F97 /* FCCollectorNewDataMessageView.swift in Sources */,
+				E44FDDFD1C5CB5F9000D5F97 /* DataUpdater.swift in Sources */,
+				E44FDDFE1C5CB5F9000D5F97 /* PublicationEditorTVCPhoneNumEditorCustomCell.swift in Sources */,
+				E44FDDFF1C5CB5F9000D5F97 /* ContactCollectorPhonePickerLabelCell.swift in Sources */,
+				E44FDE001C5CB5F9000D5F97 /* FCModel+PostNotifications.swift in Sources */,
+				E44FDE011C5CB5F9000D5F97 /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */,
+				E44FDE021C5CB5F9000D5F97 /* FCUserPhotoFetcher.swift in Sources */,
+				E44FDE031C5CB5F9000D5F97 /* FetchedDataNotificationsController.swift in Sources */,
+				E44FDE041C5CB5F9000D5F97 /* FCPublicationsSorter.swift in Sources */,
+				E44FDE051C5CB5F9000D5F97 /* FCModel.swift in Sources */,
+				E44FDE061C5CB5F9000D5F97 /* FCPhotoFetcher.swift in Sources */,
+				E44FDE071C5CB5F9000D5F97 /* PublicationDetailsTitleCellTableViewCell.swift in Sources */,
+				E44FDE081C5CB5F9000D5F97 /* AboutVC.swift in Sources */,
+				E44FDE091C5CB5F9000D5F97 /* ThumbnailCollectionViewCell.swift in Sources */,
+				E44FDE0A1C5CB5F9000D5F97 /* PublicationPhotoPresentorAnimator.swift in Sources */,
+				E44FDE0B1C5CB5F9000D5F97 /* PublicationDetailsSubtitleCell.swift in Sources */,
+				E44FDE0C1C5CB5F9000D5F97 /* FCStringFunctions.swift in Sources */,
+				E44FDE0D1C5CB5F9000D5F97 /* FCAlertsHandler.swift in Sources */,
+				E44FDE0E1C5CB5F9000D5F97 /* PublicationOptionsMenuTVC.swift in Sources */,
+				E44FDE0F1C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E494DF061A0A980D004A369E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1530,6 +1961,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E44FDE4B1C5CB5F9000D5F97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1B2D1FD30AE3BB39FBEABBA /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULE_DEBUGGING = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${HOME}/Documents/FacebookSDK",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/FoodonetEU.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = FoodCollector/BridgingHeader.h;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E44FDE4C1C5CB5F9000D5F97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULE_DEBUGGING = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ENABLE_BITCODE = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = PreBuildScript.swift;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${HOME}/Documents/FacebookSDK",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/FoodonetEU.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gogalefree.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = FoodCollector/BridgingHeader.h;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		E494DF271A0A980D004A369E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1688,6 +2167,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E44FDE4A1C5CB5F9000D5F97 /* Build configuration list for PBXNativeTarget "FoodonetEU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E44FDE4B1C5CB5F9000D5F97 /* Debug */,
+				E44FDE4C1C5CB5F9000D5F97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E494DF051A0A980D004A369E /* Build configuration list for PBXProject "FoodCollector" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
