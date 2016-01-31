@@ -155,16 +155,11 @@ class User {
         if let image = loginData.userImage {
             print("Image user is present!!!!")
             self.userImage = image
-            self.fullUserIamgeName = self.userImageFileName + String(self.userUniqueID) + self.userImageFileNameSuffix
-            DeviceData.writeImage(self.userImage, imageName: self.fullUserIamgeName)
+            DeviceData.writeImage(image, imageName: self.getFullUserIamgeName())
             
             //upload user photo to amazon
             let userPhotoUploader = FCUserPhotoFetcher()
             userPhotoUploader.uploadUserPhoto() 
-        }
-            
-        else {
-            print("No User Image!!!!")
         }
         //else {
         //    print("No User Image!!!!")

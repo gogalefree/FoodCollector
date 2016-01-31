@@ -145,7 +145,6 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
             return
         }
 
-        //TODO: Move this call to LoginPhoneNumberVC
         FCModel.sharedInstance.foodCollectorWebServer.login { (success) -> () in
 
             if !success {

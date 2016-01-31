@@ -32,6 +32,9 @@ extension LoginRootVC: GIDSignInDelegate {
                 let loginData = LoginData(.Google)
                 loginData.updateWithGoogleUser(user)
                 User.sharedInstance.loginData = loginData
+                
+                //TODO: Present PhoneNumberVC
+                self.showPhoneNumberLoginView()
             }
     }
     

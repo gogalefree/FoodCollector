@@ -55,7 +55,7 @@ class FCUserPhotoFetcher: NSObject {
     func uploadUserPhoto() {
         
         //TODO: get the user and set the photo url for user
-        let photo           = User.sharedInstance.userImage
+        guard let photo     = User.sharedInstance.userImage else {return}
         let photoKey        = kUserPhotoKeyPrefix + "\(User.sharedInstance.userUniqueID)" + ".jpg"
         let uploadFilePath  = NSTemporaryDirectory().stringByAppendingString(photoKey)
         let uploadFileURL   = NSURL.fileURLWithPath(uploadFilePath)

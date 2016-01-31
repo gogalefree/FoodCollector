@@ -65,7 +65,6 @@
 		E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */; };
 		E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
 		E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */; };
-		E411EF981C5CCF48003F290A /* euPreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411EF971C5CCF48003F290A /* euPreBuildScript.swift */; };
 		E411EF9A1C5CD599003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E411EF991C5CD599003F290A /* GoogleService-Info.plist */; };
 		E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
 		E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
@@ -114,7 +113,6 @@
 		E44FDDBB1C5CB5F9000D5F97 /* FacebookLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */; };
 		E44FDDBC1C5CB5F9000D5F97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E494DF0F1A0A980D004A369E /* AppDelegate.swift */; };
 		E44FDDBD1C5CB5F9000D5F97 /* FCDateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D6A1A10C01300A4AB81 /* FCDateFunctions.swift */; };
-		E44FDDBE1C5CB5F9000D5F97 /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
 		E44FDDBF1C5CB5F9000D5F97 /* PublicationDetailsReportsTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE611B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift */; };
 		E44FDDC01C5CB5F9000D5F97 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */; };
 		E44FDDC11C5CB5F9000D5F97 /* PublicationDetailsReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE691B26FE1000431F9B /* PublicationDetailsReportCell.swift */; };
@@ -274,6 +272,7 @@
 		E45DA7381A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */; };
 		E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DA73D1AA0ABD000F45C70 /* FCLaunchScreenView.swift */; };
 		E4607B051BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4607B041BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift */; };
+		E4627FC71C5E306300146587 /* euPreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411EF971C5CCF48003F290A /* euPreBuildScript.swift */; };
 		E462F9BD1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E462F9BC1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift */; };
 		E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
 		E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4737D641A10C01300A4AB81 /* FCAlertsHandler.swift */; };
@@ -1413,7 +1412,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift prod";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift user";
 		};
 		E44FDDA01C5CB5F9000D5F97 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1507,7 +1506,6 @@
 				E44FDDBB1C5CB5F9000D5F97 /* FacebookLoginManager.swift in Sources */,
 				E44FDDBC1C5CB5F9000D5F97 /* AppDelegate.swift in Sources */,
 				E44FDDBD1C5CB5F9000D5F97 /* FCDateFunctions.swift in Sources */,
-				E44FDDBE1C5CB5F9000D5F97 /* PreBuildScript.swift in Sources */,
 				E44FDDBF1C5CB5F9000D5F97 /* PublicationDetailsReportsTitleCell.swift in Sources */,
 				E44FDDC01C5CB5F9000D5F97 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */,
 				E44FDDC11C5CB5F9000D5F97 /* PublicationDetailsReportCell.swift in Sources */,
@@ -1579,6 +1577,7 @@
 				E44FDE031C5CB5F9000D5F97 /* FetchedDataNotificationsController.swift in Sources */,
 				E44FDE041C5CB5F9000D5F97 /* FCPublicationsSorter.swift in Sources */,
 				E44FDE051C5CB5F9000D5F97 /* FCModel.swift in Sources */,
+				E4627FC71C5E306300146587 /* euPreBuildScript.swift in Sources */,
 				E44FDE061C5CB5F9000D5F97 /* FCPhotoFetcher.swift in Sources */,
 				E44FDE071C5CB5F9000D5F97 /* PublicationDetailsTitleCellTableViewCell.swift in Sources */,
 				E44FDE081C5CB5F9000D5F97 /* AboutVC.swift in Sources */,
@@ -1607,7 +1606,6 @@
 				E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */,
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,
 				E40544531C3426E2007F7C24 /* LoginRootVC+GIDSignInDelegate.swift in Sources */,
-				E411EF981C5CCF48003F290A /* euPreBuildScript.swift in Sources */,
 				E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
 				E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */,

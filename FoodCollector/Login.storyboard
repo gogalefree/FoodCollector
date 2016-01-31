@@ -68,25 +68,6 @@
                                     <action selector="facebookButtonClicked" destination="FU2-10-QdK" eventType="touchUpInside" id="PHm-kJ-Sy6"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWc-ab-uxN" customClass="GIDSignInButton">
-                                <rect key="frame" x="163" y="402" width="272" height="44"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GoogleLogin" translatesAutoresizingMaskIntoConstraints="NO" id="NpS-8i-6No">
-                                        <rect key="frame" x="3" y="1" width="270" height="42"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="42" id="QCX-61-xTz"/>
-                                            <constraint firstAttribute="width" constant="270" id="amQ-vr-s8s"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="NpS-8i-6No" firstAttribute="centerX" secondItem="TWc-ab-uxN" secondAttribute="centerX" constant="2" id="05v-Kj-k6O"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="googleLoginButtonClicked" destination="FU2-10-QdK" eventType="touchUpInside" id="JUu-cr-QjL"/>
-                                </connections>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzY-7R-UwU">
                                 <rect key="frame" x="160" y="544" width="280" height="30"/>
                                 <constraints>
@@ -124,8 +105,6 @@
                             <constraint firstItem="0QM-sm-Zzm" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="OHs-pb-MPT"/>
                             <constraint firstItem="5Gi-4C-RSc" firstAttribute="top" secondItem="FzY-7R-UwU" secondAttribute="bottom" constant="26" id="W1N-qK-FDs"/>
                             <constraint firstItem="LZn-e1-m8L" firstAttribute="leading" secondItem="Y7J-IC-nLf" secondAttribute="leading" id="aUc-lt-Vlq"/>
-                            <constraint firstItem="0QM-sm-Zzm" firstAttribute="top" secondItem="TWc-ab-uxN" secondAttribute="bottom" constant="34" id="eqz-Zj-H9q"/>
-                            <constraint firstItem="NpS-8i-6No" firstAttribute="top" secondItem="RxJ-SW-BD5" secondAttribute="bottom" constant="47" id="h8n-YH-Zgg"/>
                             <constraint firstItem="fUZ-7T-g8V" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="qMq-PU-8jo"/>
                             <constraint firstItem="4dY-Jp-n6A" firstAttribute="centerX" secondItem="1SK-Rh-Kec" secondAttribute="centerX" id="qcv-AJ-BTs"/>
                             <constraint firstItem="FzY-7R-UwU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0QM-sm-Zzm" secondAttribute="bottom" constant="22" id="vRZ-nL-mw8"/>
@@ -135,7 +114,6 @@
                     <navigationItem key="navigationItem" title="Login" id="cGH-Xx-5Hk"/>
                     <connections>
                         <outlet property="facebookLoginButton" destination="0QM-sm-Zzm" id="n2m-0v-9IF"/>
-                        <outlet property="googleLoginButton" destination="TWc-ab-uxN" id="WYH-DC-pBp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vWK-8o-3Rz" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,7 +10,7 @@ import UIKit
 
 class LoginRootVC: UIViewController, GIDSignInUIDelegate {
     
-    //@IBOutlet weak var facebookLoginButton  : UIButton!
+    @IBOutlet weak var facebookLoginButton  : UIButton!
     //@IBOutlet weak var googleLoginButton    : GIDSignInButton!
     
     var phoneNumberLogingViewNavVC: UINavigationController!
@@ -23,10 +23,8 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-
-        GIDSignIn.sharedInstance().shouldFetchBasicProfile = true
-
-        googleLoginButton.delegate = self
+        //googleLoginButton.delegate = self
+        
         // Phone Number Loging view
         let phoneNumberLogingView = UIStoryboard(name: "Login", bundle: nil)
         self.phoneNumberLogingViewNavVC = phoneNumberLogingView.instantiateViewControllerWithIdentifier("PhoneNumberLoginNavVC") as! UINavigationController
@@ -45,6 +43,7 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             
             // User is already logged in
+            
             
         }
         else {
@@ -127,7 +126,7 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
     }
     */
     
-    private func showPhoneNumberLoginView() {
+    func showPhoneNumberLoginView() {
         //why do you add the phone number vc as a child vc?
         //just push it to the nav controller
         
