@@ -8,12 +8,13 @@
 
 import UIKit
 
-class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var cellPhoneField: UITextField!
     @IBOutlet weak var profilePic: UIImageView!
     @IBOutlet weak var profilePicShadowView: UIView!
     @IBOutlet weak var userIdentityProviderName: UILabel!
+    @IBOutlet weak var infoButton: UIButton!
     
     let phoneNumberValidator = Validator()
     var tempPasteString = ""
@@ -59,11 +60,22 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         presentImagePickerActionSheet()
     }
     @IBAction func infoButtonClicked(sender: UIButton) {
+        print("Info clicked!!!!!")
+        presentInfoPopover()
     }
     
     @IBAction func startButtonClicked(sender: UIButton) {
         print("startButtonClicked")
         processPhoneNumberAndFinishLogin()
+    }
+    
+    @IBAction func cancelRegistration(sender: UIButton) {
+        print("cancelRegistration clicked")
+        User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.SkippedLogin)
+        UIView.animateWithDuration(0.4) { () -> Void in
+            self.navigationController?.view.removeFromSuperview()
+            self.navigationController?.removeFromParentViewController()
+        }
     }
 
     /*
@@ -237,6 +249,40 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
     func updateUserClassWithImage(userImage: UIImage) {
         User.sharedInstance.setValueInUserClassProperty(userImage, forKey: UserDataKey.Image)
         profilePic.image = User.sharedInstance.userImage
+        let fullImageName = User.sharedInstance.getFullUserIamgeName()
+        if (DeviceData.writeImage(userImage, imageName: fullImageName)) {
+            User.sharedInstance.setValueInUserClassProperty(fullImageName, forKey: .ImageName)
+        }
+    }
+    
+    
+    //===========================================================================
+    //   MARK: - Info Pop Over
+    //===========================================================================
+    
+    
+    func presentInfoPopover(){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let infoPopoverVC = storyboard.instantiateViewControllerWithIdentifier("InfoPopoverVC")
+        let infoPopoverVCWidth =  CGFloat(222)
+        let infoPopoverVCHeight = CGFloat(120)
+        
+        infoPopoverVC.popoverPresentationController?.delegate = self
+        infoPopoverVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+        infoPopoverVC.preferredContentSize = CGSizeMake(infoPopoverVCWidth, infoPopoverVCHeight)
+        
+        let infoPopoverPC = infoPopoverVC.popoverPresentationController
+        infoPopoverPC?.delegate = self
+        infoPopoverPC?.sourceView = infoButton
+        infoPopoverPC?.sourceRect = infoButton.bounds
+        infoPopoverPC?.permittedArrowDirections = UIPopoverArrowDirection.Down
+        
+        self.presentViewController(infoPopoverVC, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyleForPresentationController(
+        controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .None
     }
     
 

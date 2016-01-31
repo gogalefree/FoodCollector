@@ -8,10 +8,10 @@
 
 import UIKit
 
-class LoginRootVC: UIViewController {
+class LoginRootVC: UIViewController, GIDSignInUIDelegate {
     
-    @IBOutlet weak var facebookLoginButton  : UIButton!
-    @IBOutlet weak var googleLoginButton    : GIDSignInButton!
+    //@IBOutlet weak var facebookLoginButton  : UIButton!
+    //@IBOutlet weak var googleLoginButton    : GIDSignInButton!
     
     var phoneNumberLogingViewNavVC: UINavigationController!
     
@@ -22,6 +22,8 @@ class LoginRootVC: UIViewController {
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
+        //googleLoginButton.delegate = self
         
         // Phone Number Loging view
         let phoneNumberLogingView = UIStoryboard(name: "Login", bundle: nil)
@@ -83,11 +85,14 @@ class LoginRootVC: UIViewController {
     }
     
     @IBAction func googleLoginButtonClicked() {
+        GIDSignIn.sharedInstance().signIn()
+        
         //add activity indicator
         //disable buttons
         
         //the login starts automatically and handled in
         //LoginRootVC+GIDSigninDelegate
+        
     }
     
     
