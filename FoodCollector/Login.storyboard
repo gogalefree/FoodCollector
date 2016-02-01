@@ -8,7 +8,7 @@
         <!--Login-->
         <scene sceneID="j7e-DK-SDE">
             <objects>
-                <viewController storyboardIdentifier="LoginRootVC" id="FU2-10-QdK" customClass="LoginRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FU2-10-QdK" customClass="LoginRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ej1-yY-rei"/>
                         <viewControllerLayoutGuide type="bottom" id="5Gi-4C-RSc"/>
@@ -112,9 +112,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="cGH-Xx-5Hk"/>
-                    <connections>
-                        <outlet property="facebookLoginButton" destination="0QM-sm-Zzm" id="n2m-0v-9IF"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vWK-8o-3Rz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,7 +120,7 @@
         <!--Phone Number-->
         <scene sceneID="dL2-FO-IH6">
             <objects>
-                <viewController storyboardIdentifier="LoginPhoneNumberVC" id="dMW-7T-n7P" customClass="LoginPhoneNumberVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dMW-7T-n7P" customClass="LoginPhoneNumberVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iLg-tS-DPx"/>
                         <viewControllerLayoutGuide type="bottom" id="4Jx-64-mlK"/>
@@ -329,6 +326,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXk-PH-u57" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="922" y="1167"/>
+        </scene>
+        <!--Info Text-->
+        <scene sceneID="ZxE-Dv-7Q3">
+            <objects>
+                <viewController storyboardIdentifier="InfoPopoverVC" id="T7A-O2-ddR" userLabel="Info Text" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MJg-Ou-GYx"/>
+                        <viewControllerLayoutGuide type="bottom" id="v2j-YM-lK1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yrq-BT-jTT">
+                        <rect key="frame" x="0.0" y="0.0" width="222" height="110"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Required for creating groups and finding friends. Your number is confidential and we will never expose it." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-kt-4rD">
+                                <rect key="frame" x="8" y="8" width="206" height="134"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="222" height="110"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XiF-Mg-8cA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2484" y="1138"/>
         </scene>
     </scenes>
     <resources>

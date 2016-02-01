@@ -280,7 +280,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         let storyboard : UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
         let infoPopoverVC = storyboard.instantiateViewControllerWithIdentifier("InfoPopoverVC")
         let infoPopoverVCWidth =  CGFloat(222)
-        let infoPopoverVCHeight = CGFloat(120)
+        let infoPopoverVCHeight = CGFloat(110)
         
         infoPopoverVC.popoverPresentationController?.delegate = self
         infoPopoverVC.modalPresentationStyle = UIModalPresentationStyle.Popover
