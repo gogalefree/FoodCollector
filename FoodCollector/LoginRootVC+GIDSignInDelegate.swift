@@ -33,8 +33,9 @@ extension LoginRootVC: GIDSignInDelegate {
                 loginData.updateWithGoogleUser(user)
                 User.sharedInstance.loginData = loginData
                 
-                //TODO: Present PhoneNumberVC
-                self.showPhoneNumberLoginView()
+                UIView.animateWithDuration(0.4) { () -> Void in
+                    self.navigationController?.pushViewController(self.phoneNumberLogingViewNavVC, animated: true)
+                }
             }
     }
     

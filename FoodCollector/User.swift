@@ -156,6 +156,10 @@ class User {
             print("Image user is present!!!!")
             self.userImage = image
             DeviceData.writeImage(image, imageName: self.getFullUserIamgeName())
+            let fullImageName = getFullUserIamgeName()
+            if (DeviceData.writeImage(self.userImage!, imageName: fullImageName)) {
+                setValueInUserClassProperty(fullImageName, forKey: .ImageName)
+            }
             
             //upload user photo to amazon
             let userPhotoUploader = FCUserPhotoFetcher()
