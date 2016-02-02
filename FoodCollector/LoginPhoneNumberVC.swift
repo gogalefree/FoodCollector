@@ -25,7 +25,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName
+        userIdentityProviderName.text = User.sharedInstance.loginData?.identityProviderUserName
         displayUserProfileImage()
         
         // Hide the back button
@@ -33,21 +33,40 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveUserImage", name: "IdentityProviderUserImageDownloaded", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         cellPhoneField.resignFirstResponder()
-        cellPhoneField.text?.removeAll()
+        //cellPhoneField.text?.removeAll()
         self.view.endEditing(true)
     }
     
+    func didRecieveUserImage() {
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.profilePic.alpha = 0
+            }) { (finish) -> Void in
+                self.profilePic.image = User.sharedInstance.loginData?.userImage
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    self.profilePic.alpha = 1
+                    }, completion: nil)
+        }
+    }
+    
     func displayUserProfileImage() {
-        profilePic.image = User.sharedInstance.userImage
+        
+        profilePic.image = User.sharedInstance.loginData?.userImage ?? User.sharedInstance.userImage
         profilePic.layer.cornerRadius = CGRectGetWidth(profilePic.frame)/2
         profilePic.layer.masksToBounds = true
         
@@ -104,29 +123,6 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         }
     }
     
-    private func createNumberPadAccessoryViewToolbar(){
-        let buutonWidth = CGFloat(50)
-        let numberPadAccessoryViewToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-        
-        let cancelButton = UIBarButtonItem(title: kCancelButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissNumberPad")
-        cancelButton.width = buutonWidth
-        
-        let flexibleSpaceButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        
-        let doneButton = UIBarButtonItem(title: kDoneButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "doneNumberPad")
-        doneButton.width = buutonWidth
-        
-        numberPadAccessoryViewToolbar.items = [cancelButton, flexibleSpaceButtonItem, doneButton]
-        numberPadAccessoryViewToolbar.sizeToFit()
-        
-        cellPhoneField?.inputAccessoryView = numberPadAccessoryViewToolbar
-        
-    }
-    
-    func dismissNumberPad() {
-        
-        cellPhoneField?.resignFirstResponder()
-    }
     
     func processPhoneNumberAndFinishLogin() {
         
@@ -147,18 +143,14 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
 
             if !success {
                 
-                //TODO: show alert for unsuccessul login due to server error (try again and do not dissmiss)
-                
+                //TODO: show alert for unsuccessul login due to server error (try again and do not dissmiss). (Boris) Dismiss alert but do not dismiss phone view, so that the user will be able to try again.
+                print("NO SUCCESS!!!")
                 return
             }
             
             User.sharedInstance.setValueInUserClassProperty(onlyDigitsPhoneString, forKey: UserDataKey.PhoneNumber)
             User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.IsLoggedIn)
             
-            //TODO:
-            //change presentation from LogInRootVC
-            //it should be pushed or presented and not add as a child View Controller
-            //if it was pushed to the LoginRootVCNavigationController, you can use this here to remove them both after a successful login
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -169,7 +161,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         let alertController = UIAlertController(title: kOopsAlertTitle, message: kPhoneNumberIncorrectAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default,handler: nil))
         
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func paste(sender: AnyObject?) {

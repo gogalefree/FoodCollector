@@ -96,6 +96,7 @@ class LoginData: NSObject {
                     
                     let image =  UIImage(data: data)
                     self.userImage = image
+                NSNotificationCenter.defaultCenter().postNotificationName("IdentityProviderUserImageDownloaded", object: nil)
                 }
             }
         }

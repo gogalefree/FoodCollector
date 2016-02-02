@@ -40,13 +40,13 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
         //add activity indicator
         //disable buttons
         
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
+        //if (FBSDKAccessToken.currentAccessToken() != nil) {
             
             // User is already logged in
             
             
-        }
-        else {
+        //}
+        //else {
             
             
             let fbLoginManager = FBSDKLoginManager()
@@ -63,13 +63,7 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
                     FCModel.sharedInstance.foodCollectorWebServer.didRequestFacebookLogin({ (success: Bool) -> Void in
                     
                         if success {
-                            //stop activity indicator
-                            //perform segue to next vc
-                            //TODO: Add segue to phone number VC
                             
-                            //self.showPhoneNumberLoginView()
-                            //BORIS: Why do you remove this VC now?
-                            //you shoukd push the next vc to the navigation controller
                             UIView.animateWithDuration(0.4) { () -> Void in
                                 self.navigationController?.pushViewController(self.phoneNumberLogingViewNavVC, animated: true)
                             }
@@ -78,12 +72,12 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
                         else {
                             //handle unsuccessful login
                             //present alert
-                            //TODO: add alert to user and set islogin = false.
+                            //TODO: (Boris) add alert to user and set islogin = false, skippedLogin=true, close presented view.
                         }
                    })
                 }
             })
-        }
+        //}
     }
     
     @IBAction func googleLoginButtonClicked() {

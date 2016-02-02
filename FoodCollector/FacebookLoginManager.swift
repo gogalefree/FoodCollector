@@ -39,6 +39,7 @@ class FaceBookLoginManager {
                     if let data = NSData(contentsOfURL: url!){
                         let image =  UIImage(data: data)
                         loginData.userImage = image
+                        NSNotificationCenter.defaultCenter().postNotificationName("IdentityProviderUserImageDownloaded", object: nil)
                     }
                 }
 
