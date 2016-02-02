@@ -72,10 +72,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBAction func cancelRegistration(sender: UIButton) {
         print("cancelRegistration clicked")
         User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.SkippedLogin)
-        UIView.animateWithDuration(0.4) { () -> Void in
-            self.navigationController?.view.removeFromSuperview()
-            self.navigationController?.removeFromParentViewController()
-        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
     /*
@@ -161,10 +158,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
             //change presentation from LogInRootVC
             //it should be pushed or presented and not add as a child View Controller
             //if it was pushed to the LoginRootVCNavigationController, you can use this here to remove them both after a successful login
-            UIView.animateWithDuration(0.6) { () -> Void in
-                self.navigationController?.view.removeFromSuperview()
-                self.navigationController?.removeFromParentViewController()
-            }
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
@@ -277,8 +271,8 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
     
     
     func presentInfoPopover(){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        let infoPopoverVC = storyboard.instantiateViewControllerWithIdentifier("InfoPopoverVC")
+        let loginStoryboard : UIStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let infoPopoverVC = loginStoryboard.instantiateViewControllerWithIdentifier("InfoPopoverVC")
         let infoPopoverVCWidth =  CGFloat(222)
         let infoPopoverVCHeight = CGFloat(110)
         

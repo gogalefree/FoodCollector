@@ -120,7 +120,7 @@
         <!--Phone Number-->
         <scene sceneID="dL2-FO-IH6">
             <objects>
-                <viewController id="dMW-7T-n7P" customClass="LoginPhoneNumberVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhoneNumberLoginVC" id="dMW-7T-n7P" customClass="LoginPhoneNumberVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iLg-tS-DPx"/>
                         <viewControllerLayoutGuide type="bottom" id="4Jx-64-mlK"/>
@@ -129,7 +129,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Foodonet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W74-CB-TCi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome to Foodonet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W74-CB-TCi">
                                 <rect key="frame" x="140" y="147" width="320" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="7bw-3F-Eqx"/>
@@ -139,7 +139,7 @@
                                 <color key="textColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User's Alias Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1q-kn-co8" userLabel="User Identity Provided Name">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="User's Alias Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1q-kn-co8" userLabel="User Identity Provided Name">
                                 <rect key="frame" x="140" y="184" width="320" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="qwl-lx-v4S"/>
@@ -289,7 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dS3-fZ-Dbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1645" y="1167"/>
+            <point key="canvasLocation" x="2389" y="439"/>
         </scene>
         <!--Identity Provider Login Navigation Controller-->
         <scene sceneID="Ay5-O1-gzJ">
@@ -309,24 +309,6 @@
             </objects>
             <point key="canvasLocation" x="922.5" y="439.5"/>
         </scene>
-        <!--Phone Number Login Navigation Controller-->
-        <scene sceneID="Ged-WE-YKM">
-            <objects>
-                <navigationController storyboardIdentifier="PhoneNumberLoginNavVC" automaticallyAdjustsScrollViewInsets="NO" id="Nbc-C9-NWa" userLabel="Phone Number Login Navigation Controller" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BsZ-Vg-1Sv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="dMW-7T-n7P" kind="relationship" relationship="rootViewController" id="fjO-ly-F7x"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yXk-PH-u57" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="922" y="1167"/>
-        </scene>
         <!--Info Text-->
         <scene sceneID="ZxE-Dv-7Q3">
             <objects>
@@ -340,8 +322,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Required for creating groups and finding friends. Your number is confidential and we will never expose it." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-kt-4rD">
-                                <rect key="frame" x="8" y="8" width="206" height="134"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="8" y="8" width="206" height="94"/>
                                 <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -354,7 +335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XiF-Mg-8cA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2484" y="1138"/>
+            <point key="canvasLocation" x="2920" y="464"/>
         </scene>
     </scenes>
     <resources>

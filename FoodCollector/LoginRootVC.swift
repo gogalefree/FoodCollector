@@ -13,7 +13,7 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
     @IBOutlet weak var facebookLoginButton  : UIButton!
     //@IBOutlet weak var googleLoginButton    : GIDSignInButton!
     
-    var phoneNumberLogingViewNavVC: UINavigationController!
+    var phoneNumberLogingViewNavVC: UIViewController!
     
     
 
@@ -26,8 +26,8 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
         //googleLoginButton.delegate = self
         
         // Phone Number Loging view
-        let phoneNumberLogingView = UIStoryboard(name: "Login", bundle: nil)
-        self.phoneNumberLogingViewNavVC = phoneNumberLogingView.instantiateViewControllerWithIdentifier("PhoneNumberLoginNavVC") as! UINavigationController
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        phoneNumberLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("PhoneNumberLoginVC")
     }
     
     //MARK: - UI setup
@@ -71,8 +71,7 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
                             //BORIS: Why do you remove this VC now?
                             //you shoukd push the next vc to the navigation controller
                             UIView.animateWithDuration(0.4) { () -> Void in
-                                self.navigationController?.view.removeFromSuperview()
-                                self.navigationController?.removeFromParentViewController()
+                                self.navigationController?.pushViewController(self.phoneNumberLogingViewNavVC, animated: true)
                             }
                         }
                         
@@ -104,8 +103,7 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
         print("cancelRegistration clicked")
         User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.SkippedLogin)
         UIView.animateWithDuration(0.4) { () -> Void in
-            self.navigationController?.view.removeFromSuperview()
-            self.navigationController?.removeFromParentViewController()
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
@@ -131,16 +129,8 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
         //just push it to the nav controller
         
         print("showPhoneNumberLoginView()")
-        let frameX = self.view.bounds.origin.x
-        let frameY = self.view.bounds.origin.y + kStatusBarHeight
-        let frameWidth = self.view.bounds.size.width
-        let frameHeight = self.view.bounds.size.height - kStatusBarHeight
         
-        self.addChildViewController(self.phoneNumberLogingViewNavVC)
-        self.phoneNumberLogingViewNavVC.view.frame = self.view.bounds
-        self.phoneNumberLogingViewNavVC.view.frame = CGRectMake(frameX, frameY, frameWidth, frameHeight)
-        self.view.addSubview(self.phoneNumberLogingViewNavVC.view)
-        self.phoneNumberLogingViewNavVC.didMoveToParentViewController(self)
+        
         
     }
 
