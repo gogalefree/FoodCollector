@@ -33,9 +33,7 @@ extension FCMockServer {
             return
         }
       
-        // send data to server
-        //TODO: change the url
-        let url = NSURL(string: "http://ofer-fd-server.herokuapp.com/users")
+        let url = NSURL(string: baseUrlString + "users.json")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod  = "POST"
         request.HTTPBody    = data
@@ -53,6 +51,7 @@ extension FCMockServer {
             
             guard let response = response as? NSHTTPURLResponse , incomingData = taskData else {self.handleFailure(loginData, completion: completion) ; return}
            
+            print("response: \(response)")
             if response.statusCode == 200 || response.statusCode == 201 {
                 
                 let responseParams = try? NSJSONSerialization.JSONObjectWithData(incomingData, options: [])

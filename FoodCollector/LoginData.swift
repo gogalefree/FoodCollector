@@ -53,8 +53,8 @@ class LoginData: NSObject {
             identityProviderUserName = identityProviderUserName,
             active_device_dev_uuid = active_device_dev_uuid else { return nil }
         
-        var
-        params : [String: AnyObject] = [userKey :[
+        let
+        params = [
             indentityProviderKey            : identityProvider.rawValue,
             identityProviderUserIdKey       : identityProviderUserID,
             identityProviderTokenKey        : identityProviderToken,
@@ -62,12 +62,14 @@ class LoginData: NSObject {
             identityProviderEmailKey        : identityProviderEmail,
             identityProviderUserNameKey     : identityProviderUserName,
             isLoggedInKey                   : true,
-            activeDeviceDevUuidKey          : active_device_dev_uuid]]
+            activeDeviceDevUuidKey          : active_device_dev_uuid]
+        let userDict = [userKey : params]
         
         //if the identity provider is google we dont sent the identity provider user id
         //the server should extract it from the token
-        if self.identityProvider == .Google { params[identityProviderUserIdKey] = "needs_verification_by_server"}
-        return try? NSJSONSerialization.dataWithJSONObject(params, options: [])
+       // if self.identityProvider == .Google { params[identityProviderUserIdKey] = "needs_verification_by_server"}
+        print("jsonToSend:\n\(params)")
+        return try? NSJSONSerialization.dataWithJSONObject(userDict, options: [])
         
     }
     

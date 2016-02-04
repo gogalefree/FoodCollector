@@ -139,6 +139,9 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
             return
         }
 
+        User.sharedInstance.loginData?.phoneNumber = onlyDigitsPhoneString
+        User.sharedInstance.setValueInUserClassProperty(onlyDigitsPhoneString, forKey: UserDataKey.PhoneNumber)
+        
         FCModel.sharedInstance.foodCollectorWebServer.login { (success) -> () in
 
             if !success {
@@ -148,9 +151,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
                 return
             }
             
-            User.sharedInstance.setValueInUserClassProperty(onlyDigitsPhoneString, forKey: UserDataKey.PhoneNumber)
             User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.IsLoggedIn)
-            
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
