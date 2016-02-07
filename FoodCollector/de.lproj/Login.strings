@@ -1,0 +1,42 @@
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "0QM-sm-Zzm"; */
+"0QM-sm-Zzm.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Phone"; ObjectID = "3EE-Tz-mV3"; */
+"3EE-Tz-mV3.placeholder" = "Phone";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "4dY-Jp-n6A"; */
+"4dY-Jp-n6A.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Last step to start"; ObjectID = "C3i-Ho-WWH"; */
+"C3i-Ho-WWH.text" = "Last step to start";
+
+/* Class = "UINavigationItem"; title = "Phone Number"; ObjectID = "FW7-kE-C9u"; */
+"FW7-kE-C9u.title" = "Phone Number";
+
+/* Class = "UILabel"; text = "Sharing food changing society"; ObjectID = "LZn-e1-m8L"; */
+"LZn-e1-m8L.text" = "Sharing food changing society";
+
+/* Class = "UILabel"; text = "—  Sign in with  —"; ObjectID = "RxJ-SW-BD5"; */
+"RxJ-SW-BD5.text" = "—  Sign in with  —";
+
+/* Class = "UILabel"; text = "Welcome to Foodonet"; ObjectID = "W74-CB-TCi"; */
+"W74-CB-TCi.text" = "Welcome to Foodonet";
+
+/* Class = "UILabel"; text = "Ready to get started?"; ObjectID = "Y7J-IC-nLf"; */
+"Y7J-IC-nLf.text" = "Ready to get started?";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "afR-fK-UnF"; */
+"afR-fK-UnF.normalTitle" = "Button";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "cGH-Xx-5Hk"; */
+"cGH-Xx-5Hk.title" = "Login";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "glP-XC-z6n"; */
+"glP-XC-z6n.normalTitle" = "Button";
+
+/* Class = "UITextView"; text = "Required for creating groups and finding friends. Your number is confidential and we will never expose it."; ObjectID = "nCf-kt-4rD"; */
+"nCf-kt-4rD.text" = "Required for creating groups and finding friends. Your number is confidential and we will never expose it.";
+
+/* Class = "UILabel"; text = "User's Alias Name"; ObjectID = "t1q-kn-co8"; */
+"t1q-kn-co8.text" = "User's Alias Name";

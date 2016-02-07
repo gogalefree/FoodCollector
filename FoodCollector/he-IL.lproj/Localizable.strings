@@ -55,6 +55,9 @@
 /* End publication confirmation title for an alert controller */
 "Confirm Event Ended" = "אישור הפסקת פרסום אירוע";
 
+/* Title for a skip sign-in button */
+"Continue without Registration" = "המשך ללא רישום";
+
 /* alert dissmiss button title */
 "Cool" = "אחלה";
 

@@ -1,0 +1,48 @@
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "0QM-sm-Zzm"; */
+"0QM-sm-Zzm.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Phone"; ObjectID = "3EE-Tz-mV3"; */
+"3EE-Tz-mV3.placeholder" = "טלפון";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "4dY-Jp-n6A"; */
+"4dY-Jp-n6A.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Last step to start"; ObjectID = "C3i-Ho-WWH"; */
+"C3i-Ho-WWH.text" = "שלב אחרון להתחלה";
+
+/* Class = "UINavigationItem"; title = "Phone Number"; ObjectID = "FW7-kE-C9u"; */
+"FW7-kE-C9u.title" = "מספר טלפון";
+
+/* Class = "UIButton"; normalTitle = "Continue without Registration"; ObjectID = "FzY-7R-UwU"; */
+"FzY-7R-UwU.normalTitle" = "המשך ללא רישום";
+
+/* Class = "UILabel"; text = "Sharing food changing society"; ObjectID = "LZn-e1-m8L"; */
+"LZn-e1-m8L.text" = "Sharing food changing society";
+
+/* Class = "UILabel"; text = "—  Sign in with  —"; ObjectID = "RxJ-SW-BD5"; */
+"RxJ-SW-BD5.text" = "—  הכנס בעזרת  —";
+
+/* Class = "UIButton"; normalTitle = "Continue without Registration"; ObjectID = "VRI-d3-Rba"; */
+"VRI-d3-Rba.normalTitle" = "המשך ללא רישום";
+
+/* Class = "UILabel"; text = "Welcome to Foodonet"; ObjectID = "W74-CB-TCi"; */
+"W74-CB-TCi.text" = "ברוכים הבאים ל- Foodonet";
+
+/* Class = "UILabel"; text = "Ready to get started?"; ObjectID = "Y7J-IC-nLf"; */
+"Y7J-IC-nLf.text" = "מוכנים להתחיל?";
+
+/* Class = "UIButton"; normalTitle = "Start sharing"; ObjectID = "afR-fK-UnF"; */
+"afR-fK-UnF.normalTitle" = "התחילו לשתף";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "cGH-Xx-5Hk"; */
+"cGH-Xx-5Hk.title" = "התחברות";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "glP-XC-z6n"; */
+"glP-XC-z6n.normalTitle" = "Button";
+
+/* Class = "UITextView"; text = "Required for creating groups and finding friends. Your number is confidential and we will never expose it."; ObjectID = "nCf-kt-4rD"; */
+"nCf-kt-4rD.text" = "נדרש עבור יצירת קבוצות ואיתור חברים. המספר שלך סודי ואנו לעולם לא נחשוף אותו.";
+
+/* Class = "UILabel"; text = "User's Alias Name"; ObjectID = "t1q-kn-co8"; */
+"t1q-kn-co8.text" = "User's Alias Name";
+
