@@ -18,6 +18,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
     
     @IBOutlet weak var skipButton: UIButton!
     
+    
     let phoneNumberValidator = Validator()
     var tempPasteString = ""
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
@@ -31,8 +32,9 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         displayUserProfileImage()
         
         // Add underline to the skip button text
+        // Attributed text in Interface Builder is not exported to XLIFF! If we need this text
+        // to be localized into other languages, we need to set it using code.
         addAttributedTextToSkipButton()
-        
         
         // Hide the back button
         self.navigationItem.hidesBackButton = true

@@ -40,8 +40,8 @@
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "glP-XC-z6n"; */
 "glP-XC-z6n.normalTitle" = "Button";
 
-/* Class = "UITextView"; text = "Required for creating groups and finding friends. Your number is confidential and we will never expose it."; ObjectID = "nCf-kt-4rD"; */
-"nCf-kt-4rD.text" = "נדרש עבור יצירת קבוצות ואיתור חברים. המספר שלך סודי ואנו לעולם לא נחשוף אותו.";
+/* Class = "UITextView"; text = "Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text."; ObjectID = "nCf-kt-4rD"; */
+"nCf-kt-4rD.text" = "Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text.";
 
 /* Class = "UILabel"; text = "User's Alias Name"; ObjectID = "t1q-kn-co8"; */
 "t1q-kn-co8.text" = "User's Alias Name";

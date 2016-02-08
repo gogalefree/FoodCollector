@@ -434,7 +434,7 @@
         <!--Info Text-->
         <scene sceneID="ZxE-Dv-7Q3">
             <objects>
-                <viewController storyboardIdentifier="InfoPopoverVC" id="T7A-O2-ddR" userLabel="Info Text" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoPopoverVC" id="T7A-O2-ddR" userLabel="Info Text" customClass="InfoPopoverVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MJg-Ou-GYx"/>
                         <viewControllerLayoutGuide type="bottom" id="v2j-YM-lK1"/>
@@ -443,7 +443,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="222" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Required for creating groups and finding friends. Your number is confidential and we will never expose it." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-kt-4rD">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCf-kt-4rD">
                                 <rect key="frame" x="8" y="8" width="206" height="94"/>
                                 <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
@@ -452,8 +452,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="222" height="110"/>
+                    <connections>
+                        <outlet property="infoPopOverTextView" destination="nCf-kt-4rD" id="M1k-kD-oT5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XiF-Mg-8cA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
