@@ -26,11 +26,13 @@ let kSendSMSTryAgainAlertMessage = NSLocalizedString("Try again?", comment:"Aler
 
 let kNewEventMessageTitle = NSLocalizedString("New Event Near You", comment:"Title of the message banner meaning that a new event has started nearby")
 
-let kConfirmationAlertMessage = NSLocalizedString("Are you sure?", comment:"Alert message body")
-
 let kCommunicationIssueTitle = NSLocalizedString("Communication Issue", comment:"Alert title")
 let kCommunicationIssueBody = NSLocalizedString("Try again", comment:"Alert message body")
 let kOopsAlertTitle = NSLocalizedString("Oops...", comment:"Title for an alert message")
+
+// Unused strings
+//let kConfirmationAlertMessage = NSLocalizedString("Are you sure?", comment:"Alert message body")
+
 
 class UICommonStrings: NSObject {
 
