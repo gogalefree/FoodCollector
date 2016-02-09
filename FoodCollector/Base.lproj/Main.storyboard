@@ -562,10 +562,10 @@
             </objects>
             <point key="canvasLocation" x="3339" y="-670"/>
         </scene>
-        <!--Collect-->
+        <!--Pickup-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController title="Collect" id="vXZ-lx-hvc" customClass="FCCollectorRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Pickup" id="vXZ-lx-hvc" customClass="FCCollectorRootVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -1891,10 +1891,10 @@
             </objects>
             <point key="canvasLocation" x="1144" y="292"/>
         </scene>
-        <!--Collect-->
+        <!--Pickup-->
         <scene sceneID="VED-7b-aGp">
             <objects>
-                <navigationController storyboardIdentifier="collectorRootNavController" title="Collect" automaticallyAdjustsScrollViewInsets="NO" id="V26-sE-fum" customClass="CollectorMapVCNavController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="collectorRootNavController" title="Pickup" automaticallyAdjustsScrollViewInsets="NO" id="V26-sE-fum" customClass="CollectorMapVCNavController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="Collect-off" id="h0a-Jz-DGL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L1Q-lq-Uh3">
