@@ -50,24 +50,25 @@
                                 <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dY-Jp-n6A" userLabel="Google Login Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dY-Jp-n6A" userLabel="Google Login Button">
                                 <rect key="frame" x="25" y="308" width="270" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="270" id="EbO-OL-YPW"/>
                                     <constraint firstAttribute="height" constant="42" id="oaq-p1-i3f"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="GoogleLogin"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="2.2250738585072014e-308"/>
+                                <state key="normal" backgroundImage="GoogleLogin"/>
                                 <connections>
                                     <action selector="googleLoginButtonClicked" destination="FU2-10-QdK" eventType="touchUpInside" id="e2N-ht-lMu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QM-sm-Zzm">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QM-sm-Zzm" userLabel="Facebook Login Button">
                                 <rect key="frame" x="25" y="375" width="270" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="270" id="qPz-L4-obM"/>
                                     <constraint firstAttribute="height" constant="42" id="zwH-g2-YXm"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="FacebookLogin"/>
+                                <state key="normal" backgroundImage="FacebookLogin"/>
                                 <connections>
                                     <action selector="facebookButtonClicked" destination="FU2-10-QdK" eventType="touchUpInside" id="PHm-kJ-Sy6"/>
                                 </connections>
@@ -247,13 +248,13 @@
                                     </mask>
                                 </variation>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glP-XC-z6n" userLabel="Camera Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glP-XC-z6n" userLabel="Camera Button">
                                 <rect key="frame" x="220" y="184" width="25" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="9F0-la-afi"/>
                                     <constraint firstAttribute="width" constant="25" id="B0q-CP-ZH7"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="ProfileChangeImageIcon"/>
+                                <state key="normal" backgroundImage="ProfileChangeImageIcon"/>
                                 <connections>
                                     <action selector="chnageImageButtonClicked:" destination="dMW-7T-n7P" eventType="touchUpInside" id="U56-3Y-nD5"/>
                                 </connections>
