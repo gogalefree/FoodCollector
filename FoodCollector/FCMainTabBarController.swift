@@ -37,7 +37,7 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         let mainActionVC = self.mainActionNavVC.viewControllers[0] as! MainActionVC
         mainActionVC.delegate = self
         //for debug only
-      //    User.sharedInstance.setValueInUserClassProperty(false, forKey: UserDataKey.IsLoggedIn)
+        //  User.sharedInstance.setValueInUserClassProperty(false, forKey: UserDataKey.IsLoggedIn)
     }
     
     override func viewDidLayoutSubviews() {

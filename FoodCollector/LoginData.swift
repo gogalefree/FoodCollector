@@ -69,6 +69,7 @@ class LoginData: NSObject {
         //the server should extract it from the token
        // if self.identityProvider == .Google { params[identityProviderUserIdKey] = "needs_verification_by_server"}
         print("jsonToSend:\n\(params)")
+        print("identity token length: \(identityProviderToken.characters.count)")
         return try? NSJSONSerialization.dataWithJSONObject(userDict, options: [])
         
     }
