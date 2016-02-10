@@ -12,6 +12,8 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
     
     @IBOutlet weak var facebookLoginButton  : UIButton!
     //@IBOutlet weak var googleLoginButton    : GIDSignInButton!
+    @IBOutlet weak var skipButton: UIButton!
+    
     
     var phoneNumberLogingViewNavVC: UIViewController!
     
@@ -25,12 +27,28 @@ class LoginRootVC: UIViewController, GIDSignInUIDelegate {
         GIDSignIn.sharedInstance().uiDelegate = self
         //googleLoginButton.delegate = self
         
+        // Add underline to the skip button text
+        addAttributedTextToSkipButton()
+        
         // Phone Number Loging view
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
         phoneNumberLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("PhoneNumberLoginVC")
     }
     
     //MARK: - UI setup
+    func addAttributedTextToSkipButton() {
+        let textColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1.0)
+        var attrs = [NSForegroundColorAttributeName: textColor, NSUnderlineStyleAttributeName: 1]
+        
+        if let font = UIFont(name: "Helvetica-Light", size: 14.0) {
+            print("Helvetica-Light found")
+            attrs.updateValue(font, forKey: NSFontAttributeName)
+            //attrs.updateValue(textColor, forKey: NSForegroundColorAttributeName)
+        }
+        
+        let buttonTitleString = NSAttributedString(string:kSkipSignInButtonTitle, attributes:attrs)
+        skipButton.setAttributedTitle(buttonTitleString, forState: .Normal)
+    }
     
     //TODO: add viewdidlayoutsubviews and set the button to be at top layer.
    

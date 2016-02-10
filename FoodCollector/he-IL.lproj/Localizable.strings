@@ -55,6 +55,9 @@
 /* End publication confirmation title for an alert controller */
 "Confirm Event Ended" = "אישור הפסקת פרסום אירוע";
 
+/* Title for a skip sign-in button */
+"Continue without Registration" = "המשך ללא רישום";
+
 /* alert dissmiss button title */
 "Cool" = "אחלה";
 
@@ -207,6 +210,9 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 
 /* Report title for a button */
 "Report" = "דווח";
+
+/* A small pop up information message that informs the user why we ask for his phone number */
+"Required for creating groups and finding friends. Your number is confidential and we will never expose it." = "נדרש עבור יצירת קבוצות ואיתור חברים.\nהמספר שלך סודי ואנו לעולם לא נחשוף אותו.";
 
 /* Search bar placeholder text */
 "Search" = "חיפוש";

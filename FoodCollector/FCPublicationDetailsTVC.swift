@@ -14,9 +14,7 @@ import Social
 let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a button")
 let kOptionsButtonTitle = NSLocalizedString("Options", comment:"Report title for a button")
 let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End publication confirmation title for an alert controller")
-//let kTakeOffAirAlertMessage = NSLocalizedString("Are you sure?", comment:"End publication confirmation message for an alert controller")
 let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
-//let kDeleteAlertMessage = NSLocalizedString("Are you sure?", comment:"Delete confirmation message for an alert controller")
 
 
 
@@ -984,7 +982,7 @@ extension FCPublicationDetailsTVC {
     
     func didSelectTakOffAirPublicationAction() {
         
-        let takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: kConfirmationAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        let takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         
         takeOffAirAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
             self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
@@ -999,7 +997,7 @@ extension FCPublicationDetailsTVC {
     
     func didSelectDeletePublicationAction() {
         
-        let deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: kConfirmationAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        let deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         
         deleteAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
             

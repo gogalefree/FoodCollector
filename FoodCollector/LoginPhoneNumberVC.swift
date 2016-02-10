@@ -16,6 +16,9 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBOutlet weak var userIdentityProviderName: UILabel!
     @IBOutlet weak var infoButton: UIButton!
     
+    @IBOutlet weak var skipButton: UIButton!
+    
+    
     let phoneNumberValidator = Validator()
     var tempPasteString = ""
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
@@ -27,6 +30,11 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         // Do any additional setup after loading the view.
         userIdentityProviderName.text = User.sharedInstance.loginData?.identityProviderUserName
         displayUserProfileImage()
+        
+        // Add underline to the skip button text
+        // Attributed text in Interface Builder is not exported to XLIFF! If we need this text
+        // to be localized into other languages, we need to set it using code.
+        addAttributedTextToSkipButton()
         
         // Hide the back button
         self.navigationItem.hidesBackButton = true
@@ -93,6 +101,20 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         print("cancelRegistration clicked")
         User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.SkippedLogin)
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addAttributedTextToSkipButton() {
+        let textColor = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 1.0)
+        var attrs = [NSForegroundColorAttributeName: textColor, NSUnderlineStyleAttributeName: 1]
+        
+        if let font = UIFont(name: "Helvetica-Light", size: 14.0) {
+            print("Helvetica-Light found")
+            attrs.updateValue(font, forKey: NSFontAttributeName)
+            //attrs.updateValue(textColor, forKey: NSForegroundColorAttributeName)
+        }
+        
+        let buttonTitleString = NSAttributedString(string:kSkipSignInButtonTitle, attributes:attrs)
+        skipButton.setAttributedTitle(buttonTitleString, forState: .Normal)
     }
 
     /*
