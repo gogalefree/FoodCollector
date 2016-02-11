@@ -45,7 +45,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—  Sign in with  —" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxJ-SW-BD5">
-                                <rect key="frame" x="16" y="277" width="288" height="17"/>
+                                <rect key="frame" x="16" y="277" width="288" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -91,7 +91,7 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLQ-rb-Bsa" userLabel="Spacer View 2">
-                                <rect key="frame" x="88" y="191" width="144" height="14"/>
+                                <rect key="frame" x="88" y="191" width="144" height="14.5"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="hku-3S-ywV"/>
@@ -105,21 +105,21 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzU-iD-uRc" userLabel="Spacer View 4">
-                                <rect key="frame" x="88" y="262" width="144" height="15"/>
+                                <rect key="frame" x="88" y="262" width="144" height="14.5"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="vQ6-PX-RMN"/>
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXb-GA-3tv" userLabel="Spacer View 5">
-                                <rect key="frame" x="88" y="294" width="144" height="14"/>
+                                <rect key="frame" x="88" y="293.5" width="144" height="15"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="0Mq-5h-xtS"/>
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcz-Ur-CMX" userLabel="Spacer View 6">
-                                <rect key="frame" x="88" y="417" width="144" height="15"/>
+                                <rect key="frame" x="88" y="417" width="144" height="14.5"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="lLr-6Q-bwp"/>
