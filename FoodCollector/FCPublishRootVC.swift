@@ -134,36 +134,41 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
     }
-    
-    // Check which segue was used to go to the PublicationEditorTVC view.
-    //
-    // If the segue identifier is "showNewPublicationEditorTVC" - do nothing. In the
-    // PublicationEditorTVC class we will check to see if var publication is empty or nil
-    // and if it is, we will disply a new publication table.
-    //
-    // If the segue identifier is "showEditPublicationEditorTVC" we will pass on the
-    // publication object that corresponds to the clicked cell in the collection view
-    // and display the publication's content in the PublicationEditorTVC class.
 
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         if (segue.identifier == "showNewPublicationEditorTVC") {
-            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
-            publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
+            // If the user is logged in: let him create a new publication event.
+            // If the user is NOT logged in: start login process.
+            
+            if User.sharedInstance.userIsLoggedIn {
+                let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
+                publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
+            }
+            else {
+                showPickupRegistrationAlert()
+            }
+            
         }
-      
-//        if (segue.identifier == "showPublicationDetailsWithEditButtonTVC") {
-//            let publicationDetailsWithEditButtonTVC = segue!.destinationViewController as! FCPublicationDetailsTVC
-//            publicationDetailsWithEditButtonTVC.publication = userCreatedPublications[sender.tag]
-//            publicationDetailsWithEditButtonTVC.title = userCreatedPublications[sender.tag].title
-//            
-//        if (segue.identifier == "showEditPublicationEditorTVC") {
-//            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
-//            publicationEditorTVC.setupWithState(.EditPublication, publication: userCreatedPublications[sender.tag])
-//        }
-//        else if (segue.identifier == "showNewPublicationEditorTVC") {
-//            let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
-//            publicationEditorTVC.setupWithState(.CreateNewPublication, publication: nil)
-//        }
+    }
+    
+    func showPickupRegistrationAlert() {
+        let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Add buttons
+        alertController.addAction(UIAlertAction(title: kAlertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+            self.startLoginprocess()
+        }))
+        alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func startLoginprocess() {
+        print("startLoginprocess")
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+        
+        self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
     }
     
     func dismissDetailVC() {

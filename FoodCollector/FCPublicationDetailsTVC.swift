@@ -483,22 +483,15 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     }
     
     func showPickupRegistrationAlert() {
-        
-        let alertTitle = NSLocalizedString("You Are Not Logged-in", comment:"Alert title")
-        let alertMessage = NSLocalizedString("If you wish to create a new event or register for a pickup, please login-in.", comment:"Alert message body")
-        let alertLoginButtonTitle = NSLocalizedString("Login", comment:"Alert button title: Register")
-        
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        
+        let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
         // Add buttons
-        alertController.addAction(UIAlertAction(title: alertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: kAlertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
             self.startLoginprocess()
         }))
         alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
-        
     }
     
     func startLoginprocess() {
@@ -507,7 +500,6 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         let identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
         
         self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
-        
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
