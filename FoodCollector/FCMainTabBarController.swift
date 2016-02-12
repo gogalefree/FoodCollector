@@ -51,14 +51,6 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         
         if (!User.sharedInstance.userIsLoggedIn && !User.sharedInstance.userSkippedLogin) {
             print("User is not Loged-in and didn't skip Login")
-            // Check if user completed Identity Provider Login
-            //if (User.sharedInstance.userCompletedIdentityProviderLogin) {
-            //    print("User completed facebook or google Login")
-            //    showPhoneNumberLoginView()
-            //}
-            //else {
-            //    showIdentityProviderLoginView()
-            //}
             showIdentityProviderLoginView()
         }
         else {
