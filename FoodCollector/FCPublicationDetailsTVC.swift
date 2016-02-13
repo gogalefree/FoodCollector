@@ -402,7 +402,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
             registerUserForPublication()
         }
         else {
-            showPickupRegistrationAlert()
+            showNotLoggedInAlert()
         }
     }
     
@@ -482,7 +482,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         }
     }
     
-    func showPickupRegistrationAlert() {
+    func showNotLoggedInAlert() {
         let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
         // Add buttons
@@ -760,15 +760,6 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
 
 extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
-//    func addReportButton() {
-//     
-//        if !FCModel.sharedInstance.isUserCreaetedPublication(self.publication!){
-//            let title = kReportButtonTitle
-//            let reportButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "presentReportVC")
-//            self.navigationItem.setRightBarButtonItem(reportButton, animated: false)
-//        }
-//    }
-    
     func addTopRightButton(buttonType: PublicationDetailsTVCViewState) {
         var buttonValus = (kReportButtonTitle, "presentReportVC")
         
@@ -792,42 +783,53 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
     func presentReportVC() {
         
-        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
-        
-        arrivedToSpotReportVC.publication = self.publication
-        arrivedToSpotReportVC.delegate = self
-
-        let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
-        
-        self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+        if User.sharedInstance.userIsLoggedIn {
+            let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+            
+            arrivedToSpotReportVC.publication = self.publication
+            arrivedToSpotReportVC.delegate = self
+            
+            let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+            
+            self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+        }
+        else {
+            showNotLoggedInAlert()
+        }
     }
     
     func presentOptionsMenuVC(){
-        let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
-        optionsMenuPopUpVC.delegate = self
-        optionsMenuPopUpVC.publication = publication
         
-        optionsMenuPopUpVC.popoverPresentationController?.delegate = self
-        optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-        if publication!.isOnAir {
-            // 44 is the row height of each cell in the options menu table
-            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
+        if User.sharedInstance.userIsLoggedIn {
+            let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
+            optionsMenuPopUpVC.delegate = self
+            optionsMenuPopUpVC.publication = publication
+            
+            optionsMenuPopUpVC.popoverPresentationController?.delegate = self
+            optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+            if publication!.isOnAir {
+                // 44 is the row height of each cell in the options menu table
+                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
+            }
+            else {
+                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
+            }
+            
+            //get the popup presentation controller. it is a property on every
+            //View Controller subclass. there you set the arrows direction etc. take a look at
+            //it's properties, it's very flexible.
+            
+            let popUpPC = optionsMenuPopUpVC.popoverPresentationController
+            popUpPC?.delegate = self
+            popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
+            popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
+            
+            self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
+        
         }
         else {
-            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
+            showNotLoggedInAlert()
         }
-
-        //get the popup presentation controller. it is a property on every
-        //View Controller subclass. there you set the arrows direction etc. take a look at
-        //it's properties, it's very flexible.
-        
-        
-        let popUpPC = optionsMenuPopUpVC.popoverPresentationController
-        popUpPC?.delegate = self
-        popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
-        popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
-        
-        self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
     }
     
     func adaptivePresentationStyleForPresentationController(

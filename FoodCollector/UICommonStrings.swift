@@ -32,7 +32,7 @@ let kCommunicationIssueBody = NSLocalizedString("Try again", comment:"Alert mess
 let kOopsAlertTitle = NSLocalizedString("Oops...", comment:"Title for an alert message")
 
 let kAlertLoginTitle = NSLocalizedString("You Are Not Logged-in", comment:"Alert title")
-let kAlertLoginMessage = NSLocalizedString("If you wish to create a new event or register for a pickup, please login-in.", comment:"Alert message body")
+let kAlertLoginMessage = NSLocalizedString("If you wish register for a pickup or to create or edit an event, please login-in.", comment:"Alert message body")
 
 
 // Unused strings
