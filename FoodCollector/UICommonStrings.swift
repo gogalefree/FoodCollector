@@ -17,7 +17,7 @@ let kNoButtonTitle = NSLocalizedString("No", comment:"Title for an alert button"
 let kCancelButtonTitle = NSLocalizedString("Cancel", comment:"Title for an alert button")
 let kBackButtonTitle = NSLocalizedString("Back", comment:"Title for a navigation button")
 let kSkipSignInButtonTitle = NSLocalizedString("Continue without Registration", comment:"Title for a skip sign-in button")
-let kAlertLoginButtonTitle = NSLocalizedString("Login", comment:"Alert button title: Register")
+let kAlertLoginButtonTitle = NSLocalizedString("Login", comment:"Alert button title")
 
 
 //Alert Message Titles and Bodies
