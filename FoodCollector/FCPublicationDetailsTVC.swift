@@ -395,11 +395,14 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     
     func didRegisterForPublication(publication: FCPublication) {
-        if publication.typeOfCollecting == TypeOfCollecting.ContactPublisher {
-            showPickupRegistrationAlert()
+        // If the user is logged in: register him to this pickup.
+        // If the user is NOT logged in: start login process.
+        
+        if User.sharedInstance.userIsLoggedIn {
+            registerUserForPublication()
         }
         else {
-            registerUserForPublication()
+            showNotLoggedInAlert()
         }
     }
     
@@ -479,89 +482,24 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         }
     }
     
-    func showPickupRegistrationAlert() {
-        // The user is prompt to register to the event as a picker using a name and a phone number
-        // Set string labels for the alert
-        let alertTitle = NSLocalizedString("Register for Pickup", comment:"Alert title")
-        let alertMessage = NSLocalizedString("Please fill in details to join this pickup", comment:"Alert message body")
-        let alertRegisterButtonTitle = NSLocalizedString("Register", comment:"Alert button title: Register")
-        let alertNameTextFieldLabel = NSLocalizedString("Name", comment:"Alert text field label: Name")
-        let alertPhoneTextFieldLabel = NSLocalizedString("Phone number", comment:"Alert text field label: Phone number")
-        
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        // Add text fields
-        alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-            if User.sharedInstance.userIdentityProviderUserName != "" {
-                textField.text = User.sharedInstance.userIdentityProviderUserName
-            }
-            else {
-                textField.placeholder = alertNameTextFieldLabel
-            }
-            textField.textAlignment = NSTextAlignment.Natural
-        })
-        
-        alertController.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-            if User.sharedInstance.userPhoneNumber != "" {
-                textField.text = User.sharedInstance.userPhoneNumber
-            }
-            else {
-                textField.placeholder = alertPhoneTextFieldLabel
-            }
-            textField.textAlignment = NSTextAlignment.Natural
-            textField.keyboardType = UIKeyboardType.NumberPad
-        })
+    func showNotLoggedInAlert() {
+        let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
         
         // Add buttons
-        alertController.addAction(UIAlertAction(title: alertRegisterButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
-            let name = (alertController.textFields![0] as UITextField).text
-            let number = (alertController.textFields![1] as UITextField).text
-            if (name == "" ||  number == "") {
-                self.showNoNameOrNumberAllert()
-            }
-            else {
-                self.registerUser(name!, number: number!, publication: self.publication!)
-            }
+        alertController.addAction(UIAlertAction(title: kAlertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+            self.startLoginprocess()
         }))
         alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
-        
     }
     
-    private func registerUser(name: String, number: String, publication: FCPublication) {
-        User.sharedInstance.setUserName(name)
+    func startLoginprocess() {
+        print("startLoginprocess")
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
         
-        // Get and check if phone number is valid or a nil
-        if Validator().getValidPhoneNumber(number) == nil {
-            showPhoneNumberAllert()
-        }
-        else {
-            User.sharedInstance.setUserPhoneNumber(number)
-            
-            registerUserForPublication()
-        }
-    }
-    
-    private func showNoNameOrNumberAllert() {
-        
-        let alertMessage = NSLocalizedString("All fields are required", comment:"Alert message body")
-        let alertController = UIAlertController(title: kOopsAlertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
-            self.showPickupRegistrationAlert()
-            
-        }))
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    private func showPhoneNumberAllert() {
-        
-        let alertController = UIAlertController(title: kOopsAlertTitle, message: kPhoneNumberIncorrectAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default,handler: { (alertAction: UIAlertAction) -> Void in
-                self.showPickupRegistrationAlert()
-        
-        }))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -822,15 +760,6 @@ extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
 
 extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
-//    func addReportButton() {
-//     
-//        if !FCModel.sharedInstance.isUserCreaetedPublication(self.publication!){
-//            let title = kReportButtonTitle
-//            let reportButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "presentReportVC")
-//            self.navigationItem.setRightBarButtonItem(reportButton, animated: false)
-//        }
-//    }
-    
     func addTopRightButton(buttonType: PublicationDetailsTVCViewState) {
         var buttonValus = (kReportButtonTitle, "presentReportVC")
         
@@ -854,42 +783,53 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
     
     func presentReportVC() {
         
-        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
-        
-        arrivedToSpotReportVC.publication = self.publication
-        arrivedToSpotReportVC.delegate = self
-
-        let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
-        
-        self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+        if User.sharedInstance.userIsLoggedIn {
+            let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+            
+            arrivedToSpotReportVC.publication = self.publication
+            arrivedToSpotReportVC.delegate = self
+            
+            let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+            
+            self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+        }
+        else {
+            showNotLoggedInAlert()
+        }
     }
     
     func presentOptionsMenuVC(){
-        let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
-        optionsMenuPopUpVC.delegate = self
-        optionsMenuPopUpVC.publication = publication
         
-        optionsMenuPopUpVC.popoverPresentationController?.delegate = self
-        optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-        if publication!.isOnAir {
-            // 44 is the row height of each cell in the options menu table
-            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
+        if User.sharedInstance.userIsLoggedIn {
+            let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
+            optionsMenuPopUpVC.delegate = self
+            optionsMenuPopUpVC.publication = publication
+            
+            optionsMenuPopUpVC.popoverPresentationController?.delegate = self
+            optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+            if publication!.isOnAir {
+                // 44 is the row height of each cell in the options menu table
+                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
+            }
+            else {
+                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
+            }
+            
+            //get the popup presentation controller. it is a property on every
+            //View Controller subclass. there you set the arrows direction etc. take a look at
+            //it's properties, it's very flexible.
+            
+            let popUpPC = optionsMenuPopUpVC.popoverPresentationController
+            popUpPC?.delegate = self
+            popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
+            popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
+            
+            self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
+        
         }
         else {
-            optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
+            showNotLoggedInAlert()
         }
-
-        //get the popup presentation controller. it is a property on every
-        //View Controller subclass. there you set the arrows direction etc. take a look at
-        //it's properties, it's very flexible.
-        
-        
-        let popUpPC = optionsMenuPopUpVC.popoverPresentationController
-        popUpPC?.delegate = self
-        popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
-        popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
-        
-        self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
     }
     
     func adaptivePresentationStyleForPresentationController(

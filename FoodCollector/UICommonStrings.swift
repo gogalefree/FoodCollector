@@ -17,6 +17,7 @@ let kNoButtonTitle = NSLocalizedString("No", comment:"Title for an alert button"
 let kCancelButtonTitle = NSLocalizedString("Cancel", comment:"Title for an alert button")
 let kBackButtonTitle = NSLocalizedString("Back", comment:"Title for a navigation button")
 let kSkipSignInButtonTitle = NSLocalizedString("Continue without Registration", comment:"Title for a skip sign-in button")
+let kAlertLoginButtonTitle = NSLocalizedString("Login", comment:"Alert button title")
 
 
 //Alert Message Titles and Bodies
@@ -29,6 +30,10 @@ let kNewEventMessageTitle = NSLocalizedString("New Event Near You", comment:"Tit
 let kCommunicationIssueTitle = NSLocalizedString("Communication Issue", comment:"Alert title")
 let kCommunicationIssueBody = NSLocalizedString("Try again", comment:"Alert message body")
 let kOopsAlertTitle = NSLocalizedString("Oops...", comment:"Title for an alert message")
+
+let kAlertLoginTitle = NSLocalizedString("You Are Not Logged-in", comment:"Alert title")
+let kAlertLoginMessage = NSLocalizedString("If you wish register for a pickup or to create or edit an event, please login-in.", comment:"Alert message body")
+
 
 // Unused strings
 //let kConfirmationAlertMessage = NSLocalizedString("Are you sure?", comment:"Alert message body")
