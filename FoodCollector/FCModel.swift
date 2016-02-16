@@ -26,6 +26,8 @@ let kModifyCoordsToPresentOnMapView = 0.0004
 
 public class FCModel : NSObject, CLLocationManagerDelegate {
     
+    static let dataController = DataController()
+    
     var readyToLaunchUI:Bool = false
     var foodCollectorWebServer:FCServerProtocol!
     
