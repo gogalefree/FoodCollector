@@ -55,11 +55,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
-    var deviceUUID: String? = {
-        var uuid = NSUserDefaults.standardUserDefaults().objectForKey(kDeviceUUIDKey) as? String
-        print("has uuid already: \(uuid)")
-        return uuid
-        }()
+    var deviceUUID: String? = NSUserDefaults.standardUserDefaults().objectForKey(kDeviceUUIDKey) as? String
     
     var baseUrl: String = {
      
@@ -105,6 +101,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         
         if self.deviceUUID == nil {
             let uuid = NSUUID().UUIDString
+            self.deviceUUID = uuid
             NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: kDeviceUUIDKey)
         }
         

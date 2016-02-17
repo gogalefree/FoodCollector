@@ -95,6 +95,10 @@ protocol FCServerProtocol {
     ///LogIn to Foodonet Server
     ///
     func login(completion: (success: Bool) -> ()) -> Void
-
+    
+    ///
+    ///Post new group to Foodonet Server
+    ///
+    func postGroup(groupData: GroupData, completion: (success: Bool, groupData: GroupData?) -> Void)
    }
 

@@ -30,4 +30,22 @@ class GroupMember: NSManagedObject {
         }
         return groupMember
     }
+    
+    class func membersForLoginUser() -> [GroupMember]? {
+        
+        let memberId = User.sharedInstance.userUniqueID
+        let request  = NSFetchRequest(entityName: kGroupMemberEntity)
+        let predicate = NSPredicate(format: "userId == %@", memberId)
+        request.predicate = predicate
+        
+        do {
+            
+            let results = try moc.executeFetchRequest(request) as? [GroupMember]
+            return results
+        } catch {
+            print("error in membersForLoginUser \(error)")
+        }
+        
+        return nil
+    }
 }

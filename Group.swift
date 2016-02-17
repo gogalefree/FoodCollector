@@ -5,6 +5,12 @@
 //  Created by Guy Freedman on 14/02/2016.
 //  Copyright © 2016 Foodonet. All rights reserved.
 //
+struct GroupData {
+    
+    var creatorId   : Int       = 0
+    var name        : String    = ""
+    var id          : Int       = 0
+}
 
 import Foundation
 import CoreData
@@ -21,10 +27,11 @@ class Group: NSManagedObject {
         group.name = name
         group.id = id
         group.adminUserId = adminId
+        //after the group is created, logedin User is added as a group Member
         return group
     }
 
-    class func fetchGorupsForLogedinUser() -> [Group]? {
+    class func adminGroupsForLogedinUser() -> [Group]? {
     
         let adminId = User.sharedInstance.userUniqueID
         let predicate = NSPredicate(format: "adminUserId == %@", adminId)
@@ -39,6 +46,22 @@ class Group: NSManagedObject {
         } catch { print("error fetching groups for logedin user \(error)")}
         
         return nil
+    }
+    
+    class func groupMemberGroupsForloginUser() -> [Group]? {
+        
+        var groups = [Group]()
+        let groupMembers = GroupMember.membersForLoginUser()
+        guard let members = groupMembers else {return nil}
+        
+        for member in members {
+        
+            if let group = member.belongToGroup {
+                groups.append(group)
+            }
+        }
+        
+        return groups
     }
     
     class func fetchGroupWithId(groupId: Int) -> Group? {
@@ -56,6 +79,7 @@ class Group: NSManagedObject {
         
         return nil
     }
+    
     
     
     

@@ -341,12 +341,18 @@
 		E4F40CF71C70B0270094E455 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40CF11C70B0270094E455 /* Group.swift */; };
 		E4F40CFA1C70B0270094E455 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40CF31C70B0270094E455 /* GroupMember.swift */; };
 		E4F40CFB1C70B0270094E455 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40CF31C70B0270094E455 /* GroupMember.swift */; };
-		E4F40D031C7317C90094E455 /* GroupMember+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D021C7317C90094E455 /* GroupMember+CoreDataProperties.swift */; };
-		E4F40D041C7317C90094E455 /* GroupMember+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D021C7317C90094E455 /* GroupMember+CoreDataProperties.swift */; };
 		E4F40D071C73191E0094E455 /* Groups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F40D061C73191E0094E455 /* Groups.storyboard */; };
 		E4F40D081C73191E0094E455 /* Groups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4F40D061C73191E0094E455 /* Groups.storyboard */; };
 		E4F40D0A1C7319560094E455 /* GroupsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D091C7319560094E455 /* GroupsRootVC.swift */; };
 		E4F40D0B1C7319560094E455 /* GroupsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D091C7319560094E455 /* GroupsRootVC.swift */; };
+		E4F40D0D1C744F990094E455 /* FDServer+Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D0C1C744F980094E455 /* FDServer+Groups.swift */; };
+		E4F40D0E1C744F990094E455 /* FDServer+Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D0C1C744F980094E455 /* FDServer+Groups.swift */; };
+		E4F40D101C7460210094E455 /* GroupMembersEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D0F1C7460210094E455 /* GroupMembersEditorVC.swift */; };
+		E4F40D111C7460210094E455 /* GroupMembersEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D0F1C7460210094E455 /* GroupMembersEditorVC.swift */; };
+		E4F40D131C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D121C747B680094E455 /* GroupsRootVC+TableView.swift */; };
+		E4F40D141C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D121C747B680094E455 /* GroupsRootVC+TableView.swift */; };
+		E4F40D191C74837B0094E455 /* GroupMember+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D181C74837A0094E455 /* GroupMember+CoreDataProperties.swift */; };
+		E4F40D1A1C74837B0094E455 /* GroupMember+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F40D181C74837A0094E455 /* GroupMember+CoreDataProperties.swift */; };
 		E4F8391F1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F8391E1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift */; };
 		E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */; };
 		E4F839231ABB03460055A277 /* FCPublicationReportsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F839221ABB03460055A277 /* FCPublicationReportsTVC.swift */; };
@@ -591,9 +597,12 @@
 		E4F40CF01C70B0270094E455 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Group+CoreDataProperties.swift"; path = "../Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4F40CF11C70B0270094E455 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Group.swift; path = ../Group.swift; sourceTree = "<group>"; };
 		E4F40CF31C70B0270094E455 /* GroupMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupMember.swift; path = ../GroupMember.swift; sourceTree = "<group>"; };
-		E4F40D021C7317C90094E455 /* GroupMember+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GroupMember+CoreDataProperties.swift"; path = "../GroupMember+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4F40D061C73191E0094E455 /* Groups.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Groups.storyboard; sourceTree = "<group>"; };
 		E4F40D091C7319560094E455 /* GroupsRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsRootVC.swift; sourceTree = "<group>"; };
+		E4F40D0C1C744F980094E455 /* FDServer+Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+Groups.swift"; sourceTree = "<group>"; };
+		E4F40D0F1C7460210094E455 /* GroupMembersEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersEditorVC.swift; sourceTree = "<group>"; };
+		E4F40D121C747B680094E455 /* GroupsRootVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GroupsRootVC+TableView.swift"; sourceTree = "<group>"; };
+		E4F40D181C74837A0094E455 /* GroupMember+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GroupMember+CoreDataProperties.swift"; path = "../GroupMember+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4F8391E1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsPresentationController.swift; sourceTree = "<group>"; };
 		E4F839201ABB03000055A277 /* FCPublicationReportsVCAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsVCAnimator.swift; sourceTree = "<group>"; };
 		E4F839221ABB03460055A277 /* FCPublicationReportsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsTVC.swift; sourceTree = "<group>"; };
@@ -922,6 +931,7 @@
 				E47F9C501A120C0B00079164 /* FCMockServer.swift */,
 				E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */,
 				E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */,
+				E4F40D0C1C744F980094E455 /* FDServer+Groups.swift */,
 				E42ED5741A8B682C008FB618 /* DataUpdater.swift */,
 				E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */,
 			);
@@ -1180,7 +1190,7 @@
 		E4F40CCB1C70AD2E0094E455 /* GroupMembers */ = {
 			isa = PBXGroup;
 			children = (
-				E4F40D021C7317C90094E455 /* GroupMember+CoreDataProperties.swift */,
+				E4F40D181C74837A0094E455 /* GroupMember+CoreDataProperties.swift */,
 				E4F40CF31C70B0270094E455 /* GroupMember.swift */,
 			);
 			name = GroupMembers;
@@ -1191,6 +1201,8 @@
 			children = (
 				E4F40D061C73191E0094E455 /* Groups.storyboard */,
 				E4F40D091C7319560094E455 /* GroupsRootVC.swift */,
+				E4F40D121C747B680094E455 /* GroupsRootVC+TableView.swift */,
+				E4F40D0F1C7460210094E455 /* GroupMembersEditorVC.swift */,
 			);
 			name = Groups;
 			sourceTree = "<group>";
@@ -1570,6 +1582,7 @@
 				E44FDDAE1C5CB5F9000D5F97 /* FetchedDataNotificationView.swift in Sources */,
 				E44FDDAF1C5CB5F9000D5F97 /* FCNavigationHandler.swift in Sources */,
 				E44FDDB01C5CB5F9000D5F97 /* FCMockServer+.swift in Sources */,
+				E4F40D1A1C74837B0094E455 /* GroupMember+CoreDataProperties.swift in Sources */,
 				E44FDDB11C5CB5F9000D5F97 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */,
 				E44FDDB21C5CB5F9000D5F97 /* FCArrivedToPublicationSpotVC.swift in Sources */,
 				E44FDDB31C5CB5F9000D5F97 /* FCServerProtocol.swift in Sources */,
@@ -1597,6 +1610,7 @@
 				E44FDDC91C5CB5F9000D5F97 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
 				E44FDDCA1C5CB5F9000D5F97 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
 				E44FDDCB1C5CB5F9000D5F97 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */,
+				E4F40D141C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */,
 				E44FDDCC1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.swift in Sources */,
 				E44FDDCD1C5CB5F9000D5F97 /* FCPublicationRegistrationsFetcher.swift in Sources */,
 				E44FDDCE1C5CB5F9000D5F97 /* FCPublicationReportsNavigationController.swift in Sources */,
@@ -1639,9 +1653,9 @@
 				E4F40CC81C70A9BB0094E455 /* CoreDataConstants.swift in Sources */,
 				E44FDDF01C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */,
 				E44FDDF11C5CB5F9000D5F97 /* AppDelegate+.swift in Sources */,
-				E4F40D041C7317C90094E455 /* GroupMember+CoreDataProperties.swift in Sources */,
 				E44FDDF21C5CB5F9000D5F97 /* PublicationPhotoPresentorVC.swift in Sources */,
 				E44FDDF31C5CB5F9000D5F97 /* LoginPhoneNumberVC.swift in Sources */,
+				E4F40D0E1C744F990094E455 /* FDServer+Groups.swift in Sources */,
 				E44FDDF41C5CB5F9000D5F97 /* FDServer+Login.swift in Sources */,
 				E44FDDF51C5CB5F9000D5F97 /* FCPublication.swift in Sources */,
 				E44FDDF61C5CB5F9000D5F97 /* FCCollectorRootVC+.swift in Sources */,
@@ -1672,6 +1686,7 @@
 				E44FDE0B1C5CB5F9000D5F97 /* PublicationDetailsSubtitleCell.swift in Sources */,
 				E44FDE0C1C5CB5F9000D5F97 /* FCStringFunctions.swift in Sources */,
 				E44FDE0D1C5CB5F9000D5F97 /* FCAlertsHandler.swift in Sources */,
+				E4F40D111C7460210094E455 /* GroupMembersEditorVC.swift in Sources */,
 				E44FDE0E1C5CB5F9000D5F97 /* PublicationOptionsMenuTVC.swift in Sources */,
 				E44FDE0F1C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */,
 			);
@@ -1695,6 +1710,7 @@
 				E48263771BE21CAD00526C7B /* FetchedDataNotificationView.swift in Sources */,
 				E4737D8D1A10C01300A4AB81 /* FCNavigationHandler.swift in Sources */,
 				E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */,
+				E4F40D191C74837B0094E455 /* GroupMember+CoreDataProperties.swift in Sources */,
 				E41729E81AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */,
 				E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */,
 				E4737D9E1A10C01300A4AB81 /* FCServerProtocol.swift in Sources */,
@@ -1722,6 +1738,7 @@
 				E4737D9D1A10C01300A4AB81 /* FCPublishRootVC.swift in Sources */,
 				E462F9BD1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
 				A1248A831B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
+				E4F40D131C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */,
 				A1248A881B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */,
 				A14F4D731B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift in Sources */,
 				E4AEDE551B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift in Sources */,
@@ -1764,9 +1781,9 @@
 				E4F40CC71C70A9BB0094E455 /* CoreDataConstants.swift in Sources */,
 				E4DC5D5E1AA9D819002DB401 /* FCPublicationsTVCMessageView.swift in Sources */,
 				A1248A7E1B76453A001C5901 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */,
-				E4F40D031C7317C90094E455 /* GroupMember+CoreDataProperties.swift in Sources */,
 				E43F8A021BDEBACE007991E6 /* AppDelegate+.swift in Sources */,
 				E407DEA11AB0713000FC8415 /* PublicationPhotoPresentorVC.swift in Sources */,
+				E4F40D0D1C744F990094E455 /* FDServer+Groups.swift in Sources */,
 				A114717A1C4F989500813D8C /* LoginPhoneNumberVC.swift in Sources */,
 				E41BCE091C2EB6BC0018E771 /* FDServer+Login.swift in Sources */,
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
@@ -1797,6 +1814,7 @@
 				E4AEDE601B258D1100431F9B /* PublicationDetailsSubtitleCell.swift in Sources */,
 				E4737D9F1A10C01300A4AB81 /* FCStringFunctions.swift in Sources */,
 				E4737D851A10C01300A4AB81 /* FCAlertsHandler.swift in Sources */,
+				E4F40D101C7460210094E455 /* GroupMembersEditorVC.swift in Sources */,
 				A14F4D6F1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift in Sources */,
 				A1B793281B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */,
 			);
