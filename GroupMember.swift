@@ -51,7 +51,8 @@ class GroupMember: NSManagedObject {
         var membersToSend = [GroupMember]()
         
         //create admin
-        let admin = GroupMember.initWith(User.sharedInstance.userIdentityProviderUserName,
+        let admin =
+        GroupMember.initWith(User.sharedInstance.userIdentityProviderUserName,
             id: 0,
             phoneNumber: User.sharedInstance.userPhoneNumber,
             userId: User.sharedInstance.userUniqueID,
