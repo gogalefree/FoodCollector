@@ -2,7 +2,7 @@
 //  GroupMember+CoreDataProperties.swift
 //  FoodCollector
 //
-//  Created by Guy Freedman on 17/02/2016.
+//  Created by Guy Freedman on 18/02/2016.
 //  Copyright © 2016 Foodonet. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -20,6 +20,7 @@ extension GroupMember {
     @NSManaged var phoneNumber: String?
     @NSManaged var userId: NSNumber?
     @NSManaged var isAdmin: NSNumber?
+    @NSManaged var didInformServer: NSNumber?
     @NSManaged var belongToGroup: Group?
 
 }

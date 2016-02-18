@@ -7,6 +7,7 @@
         <relationship name="members" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GroupMember" inverseName="belongToGroup" inverseEntity="GroupMember" syncable="YES"/>
     </entity>
     <entity name="GroupMember" representedClassName=".GroupMember" syncable="YES">
+        <attribute name="didInformServer" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="isAdmin" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isFoodonetUser" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -17,6 +18,6 @@
     </entity>
     <elements>
         <element name="Group" positionX="-317" positionY="9" width="128" height="103"/>
-        <element name="GroupMember" positionX="-54" positionY="9" width="128" height="150"/>
+        <element name="GroupMember" positionX="-54" positionY="9" width="128" height="165"/>
     </elements>
 </model>

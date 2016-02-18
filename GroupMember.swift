@@ -14,20 +14,17 @@ class GroupMember: NSManagedObject {
 
     static let moc = FCModel.dataController.managedObjectContext
 
-    class func initWith(name: String, id: Int, phoneNumber: String, userId: Int, isFoodonetUser: Bool, groupId: Int) -> GroupMember? {
+    class func initWith(name: String, id: Int, phoneNumber: String, userId: Int, isFoodonetUser: Bool, groupId: Int, isAdmin: Bool, belongsToGroup: Group) -> GroupMember? {
         
         let newGroupMember = NSEntityDescription.insertNewObjectForEntityForName(kGroupMemberEntity, inManagedObjectContext: moc) as? GroupMember
-        guard let groupMember = newGroupMember else {return nil}
-        groupMember.name = name
-        groupMember.id = id
-        groupMember.userId = userId
-        groupMember.phoneNumber = phoneNumber
-        groupMember.isFoodonetUser = isFoodonetUser
-        let group = Group.fetchGroupWithId(groupId)
-        if let belongsToGroup = group {
-            
-            groupMember.belongToGroup = belongsToGroup
-        }
+        guard let groupMember       = newGroupMember else {return nil}
+        groupMember.name            = name
+        groupMember.id              = id
+        groupMember.userId          = userId
+        groupMember.phoneNumber     = phoneNumber
+        groupMember.isFoodonetUser  = isFoodonetUser
+        groupMember.isAdmin         = isAdmin
+        groupMember.belongToGroup   = belongsToGroup
         return groupMember
     }
     
@@ -48,4 +45,44 @@ class GroupMember: NSManagedObject {
         
         return nil
     }
+    
+    class func createInitialMembers(members: [GroupMemberData] ,ForGroup group: Group) {
+        
+        var membersToSend = [GroupMember]()
+        
+        //create admin
+        let admin = GroupMember.initWith(User.sharedInstance.userIdentityProviderUserName,
+            id: 0,
+            phoneNumber: User.sharedInstance.userPhoneNumber,
+            userId: User.sharedInstance.userUniqueID,
+            isFoodonetUser: true,
+            groupId: group.id!.integerValue,
+            isAdmin: true,
+            belongsToGroup: group)
+        
+        if let groupAdmin = admin {membersToSend.append(groupAdmin)}
+        
+        //create members
+        for member in members {
+            
+            let aMember =
+            GroupMember.initWith(member.name,
+                id: 0,
+                phoneNumber: member.phoneNumber,
+                userId: 0,
+                isFoodonetUser: false,
+                groupId: group.id!.integerValue,
+                isAdmin: false,
+                belongsToGroup: group)
+        
+            if let newMember = aMember {membersToSend.append(newMember)}
+        }
+        
+        //save
+        //FCModel.dataController.save()
+        
+        //post to server
+    }
+    
+    
 }
