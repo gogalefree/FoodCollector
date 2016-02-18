@@ -56,6 +56,12 @@ class GroupsRootVC: UIViewController {
                 let text = field.text
                 guard let groupName = text else {return}
                 if !groupName.isEmpty {
+                    //dismiss group name alert
+                    alertController.dismissViewControllerAnimated(true) { () -> Void in
+                        
+                        //present blocking view
+                       // self.presentActivityIndicatorView()
+                    }
                     self.beginGroupCreation(groupName)
                 }
             }
@@ -73,12 +79,7 @@ class GroupsRootVC: UIViewController {
         groupData.name = groupName
         groupData.creatorId = User.sharedInstance.userUniqueID
         
-        //dismiss group name alert
-        self.dismissViewControllerAnimated(true) { () -> Void in
-            
-            //present blocking view
-            self.presentActivityIndicatorView()
-        }
+        
         
         //create the group on the server
         FCModel.sharedInstance.foodCollectorWebServer.postGroup(groupData) { (success, groupData) -> Void in
@@ -86,7 +87,7 @@ class GroupsRootVC: UIViewController {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                
                 //dissmiss blocking view
-                self.hideActivityIndicatorView()
+          //      self.hideActivityIndicatorView()
                 
                 if !success {
                     //show alert
@@ -97,7 +98,9 @@ class GroupsRootVC: UIViewController {
 
                 //create group
                 guard let group = Group.initWith((groupData?.name)!, id: (groupData?.id)!, adminId: (groupData?.creatorId)!) else {return}
-                
+                //update tableview
+                self.dataSource.insert(group, atIndex: 0)
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 //push next vc
                 self.group = group
                 self.performSegueWithIdentifier("showGroupMembersEditorVC", sender: nil)
@@ -136,6 +139,9 @@ class GroupsRootVC: UIViewController {
     
     // MARK: - Navigation
 
+    @IBAction func backButtonTapped(sender: AnyObject) {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     

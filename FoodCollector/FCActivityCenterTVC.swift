@@ -270,10 +270,16 @@ class FCActivityCenterTVC: UITableViewController , ActivityCenterHeaderViewDeleg
     }
     
     private func presentFeddbackVC(){
-        let feedbackNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("feedbackvc") as! FeedbacksVCViewController
-        feedbackNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        feedbackNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-        self.parentViewController?.parentViewController?.presentViewController(feedbackNavVC, animated: true, completion: nil)
+//        let feedbackNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("feedbackvc") as! FeedbacksVCViewController
+//        feedbackNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+//        feedbackNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+//        self.parentViewController?.parentViewController?.presentViewController(feedbackNavVC, animated: true, completion: nil)
+        
+        if User.sharedInstance.userIsLoggedIn {
+            let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)
+            let groupsNavVC = groupsStoryBoard.instantiateInitialViewController() as? UINavigationController
+            self.presentViewController(groupsNavVC!, animated: true, completion: nil)
+        }
     }
     
     final func didDeleteOldVersionOfUserCreatedPublication() {

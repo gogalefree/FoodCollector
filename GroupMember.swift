@@ -35,7 +35,7 @@ class GroupMember: NSManagedObject {
         
         let memberId = User.sharedInstance.userUniqueID
         let request  = NSFetchRequest(entityName: kGroupMemberEntity)
-        let predicate = NSPredicate(format: "userId == %@", memberId)
+        let predicate = NSPredicate(format: "userId = %@", NSNumber(long: memberId))
         request.predicate = predicate
         
         do {

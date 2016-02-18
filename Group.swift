@@ -34,7 +34,7 @@ class Group: NSManagedObject {
     class func adminGroupsForLogedinUser() -> [Group]? {
     
         let adminId = User.sharedInstance.userUniqueID
-        let predicate = NSPredicate(format: "adminUserId == %@", adminId)
+        let predicate = NSPredicate(format: "adminUserId = %@", NSNumber(long: adminId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
         
@@ -66,7 +66,7 @@ class Group: NSManagedObject {
     
     class func fetchGroupWithId(groupId: Int) -> Group? {
        
-        let predicate = NSPredicate(format: "id == %@", groupId)
+        let predicate = NSPredicate(format: "id = %@",NSNumber(long: groupId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
         
