@@ -37,7 +37,8 @@ class Group: NSManagedObject {
         let predicate = NSPredicate(format: "adminUserId = %@", NSNumber(long: adminId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
-        
+        request.returnsObjectsAsFaults = false
+
         do {
             
             let results = try moc.executeFetchRequest(request) as? [Group]
@@ -69,6 +70,8 @@ class Group: NSManagedObject {
         let predicate = NSPredicate(format: "id = %@",NSNumber(long: groupId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
+        request.returnsObjectsAsFaults = false
+
         
         do {
             
@@ -80,7 +83,20 @@ class Group: NSManagedObject {
         return nil
     }
     
-    
-    
+    class func groupJsonWithGroupData(groupData: GroupData) -> NSData? {
+        
+        let groupDict   = ["user_id" : groupData.creatorId , "name" : groupData.name]
+        let groupToSend = ["group" : groupDict]
+        print("group to send: \(groupToSend)")
+        
+        do {
+            let data = try NSJSONSerialization.dataWithJSONObject(groupToSend, options: [])
+            return data
+        } catch {
+            print("error creating group json \(error)")
+        }
+
+        return nil
+    }
     
 }

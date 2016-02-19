@@ -16,8 +16,30 @@
         <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="belongToGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="members" inverseEntity="Group" syncable="YES"/>
     </entity>
+    <entity name="Publication" syncable="YES">
+        <attribute name="address" attributeType="String" defaultValueString="no" syncable="YES"/>
+        <attribute name="contactInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="didModifyCoords" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="didRecieveNewRegistration" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="didRecieveNewReport" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="didRegisterForCurrentPublication" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="didTryToDownloadImage" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="endingData" attributeType="Date" defaultDateTimeInterval="-749227800" syncable="YES"/>
+        <attribute name="isOnAir" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="isUserCreatedPublication" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="latitude" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitutde" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="startingData" attributeType="Date" defaultDateTimeInterval="-749209740" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" defaultValueString="no" syncable="YES"/>
+        <attribute name="typeOfCollecting" attributeType="Integer 32" defaultValueString="2" syncable="YES"/>
+        <attribute name="uniqueId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="version" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Group" positionX="-317" positionY="9" width="128" height="103"/>
         <element name="GroupMember" positionX="-54" positionY="9" width="128" height="165"/>
+        <element name="Publication" positionX="-162" positionY="108" width="128" height="330"/>
     </elements>
 </model>

@@ -56,20 +56,20 @@ struct PhotoData {
 
 public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     
-    public var uniqueId: Int
-    public var version: Int
-    public var title:String?
-    public var subtitle:String?
-    public var address:String
-    public var typeOfCollecting: TypeOfCollecting
-    public var coordinate:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-    public var startingDate:NSDate
-    public var endingDate:NSDate
-    public var contactInfo:String?
-    public var isOnAir: Bool
-    public var didModifyCoords : Bool
+    public var uniqueId         : Int       //managed
+    public var version          : Int       //managed
+    public var title            :String?    //managed
+    public var subtitle         :String?    //managed
+    public var address          :String     //managed
+    public var typeOfCollecting : TypeOfCollecting //managed
+    public var coordinate:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0) //managed
+    public var startingDate     :NSDate     //managed
+    public var endingDate       :NSDate     //managed
+    public var contactInfo      :String?    //managed
+    public var isOnAir          : Bool      //managed
+    public var didModifyCoords  : Bool      //managed
     public var photoUrl:String
-    var photoData = PhotoData()
+    var photoData = PhotoData()             //managed
     public var  distanceFromUserLocation:Double {
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         return location.distanceFromLocation(FCModel.sharedInstance.userLocation)
@@ -77,7 +77,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     var reportsForPublication = [FCOnSpotPublicationReport]()
     
     // True if the current user registered for this publication
-    var didRegisterForCurrentPublication:Bool = false {
+    var didRegisterForCurrentPublication:Bool = false {  //managed
         didSet{
             if didRegisterForCurrentPublication {
                 FCUserNotificationHandler.sharedInstance.removeLocationNotification(self)
@@ -100,8 +100,8 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     //These properties chnage to true if the publication recieved new report ot new registration
     //while the app was in the background. then it's used to determine wheteher a notification message is 
     //presented to the user.
-    var didRecieveNewReport         = false
-    var didRecieveNewRegistration   = false
+    var didRecieveNewReport         = false     //managed
+    var didRecieveNewRegistration   = false     //managed
     
     
     

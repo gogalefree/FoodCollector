@@ -13,7 +13,7 @@ import CoreData
 class GroupMember: NSManagedObject {
 
     static let moc = FCModel.dataController.managedObjectContext
-
+    
     class func initWith(name: String, id: Int, phoneNumber: String, userId: Int, isFoodonetUser: Bool, groupId: Int, isAdmin: Bool, belongsToGroup: Group) -> GroupMember? {
         
         let newGroupMember = NSEntityDescription.insertNewObjectForEntityForName(kGroupMemberEntity, inManagedObjectContext: moc) as? GroupMember
@@ -34,6 +34,7 @@ class GroupMember: NSManagedObject {
         let request  = NSFetchRequest(entityName: kGroupMemberEntity)
         let predicate = NSPredicate(format: "userId = %@", NSNumber(long: memberId))
         request.predicate = predicate
+        request.returnsObjectsAsFaults = false
         
         do {
             

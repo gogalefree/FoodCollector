@@ -128,7 +128,6 @@
         <!--Group Members EditorVC-->
         <scene sceneID="Gxy-ok-vDm">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fwv-oR-rSz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="RHt-OT-vO6" customClass="GroupMembersEditorVC" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Z5S-TV-iFs"/>
@@ -261,6 +260,7 @@
                         <outlet property="tableView" destination="bDP-hF-Stz" id="Dad-Z5-7T8"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fwv-oR-rSz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1731.5" y="389.5"/>
         </scene>
