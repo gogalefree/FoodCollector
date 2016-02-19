@@ -13,9 +13,7 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var leftSwipeGesture: UISwipeGestureRecognizer!
     
     @IBOutlet weak var profilePic: UIImageView!
-    
     @IBOutlet weak var userIdentityProviderName: UILabel!
-    
     
 
     override func viewDidLoad() {
@@ -38,6 +36,18 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
         
         let container = self.navigationController?.parentViewController as! FCCollectorContainerController
         container.collectorVCWillSlide()
+    }
+    
+    @IBAction func mySharesTapAction() {
+        print("mySharesTapAction")
+    }
+    
+    @IBAction func myPickupsTapAction() {
+        print("myPickupsTapAction")
+    }
+    
+    @IBAction func groupsTapAction() {
+        print("groupsTapAction")
     }
     
     func displayUserProfileImage() {

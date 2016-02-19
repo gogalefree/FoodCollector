@@ -1862,6 +1862,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="7Qh-P8-avS" firstAttribute="leading" secondItem="eTc-zU-rms" secondAttribute="trailing" constant="20" id="BnC-9n-CI6"/>
                                     <constraint firstAttribute="trailing" secondItem="7Qh-P8-avS" secondAttribute="trailing" constant="8" id="FrH-rr-j3s"/>
@@ -1870,6 +1871,9 @@
                                     <constraint firstItem="7Qh-P8-avS" firstAttribute="centerY" secondItem="sPB-zE-Vba" secondAttribute="centerY" id="lTK-jE-Cdf"/>
                                     <constraint firstItem="eTc-zU-rms" firstAttribute="centerY" secondItem="sPB-zE-Vba" secondAttribute="centerY" id="md8-k0-1pO"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="BPR-Yt-fvA" appends="YES" id="IAV-4k-LVv"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11u-Cs-TfA" userLabel="My Pickups View">
                                 <rect key="frame" x="0.0" y="198" width="320" height="42"/>
@@ -1892,6 +1896,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Xrj-dl-5gb" secondAttribute="trailing" constant="8" id="5bx-tX-hGw"/>
                                     <constraint firstItem="Xrj-dl-5gb" firstAttribute="leading" secondItem="0ic-wx-7C4" secondAttribute="trailing" constant="20" id="7Px-40-fPX"/>
@@ -1900,6 +1905,9 @@
                                     <constraint firstAttribute="height" constant="42" id="frz-i9-T3c"/>
                                     <constraint firstItem="0ic-wx-7C4" firstAttribute="leading" secondItem="11u-Cs-TfA" secondAttribute="leading" constant="21" id="oPs-Kn-PgW"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="PAe-DR-nWD" appends="YES" id="v5s-7d-aWy"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecv-sq-5TG" userLabel="Groups View">
                                 <rect key="frame" x="0.0" y="248" width="320" height="42"/>
@@ -1922,6 +1930,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="Tyo-WE-vK2" firstAttribute="centerY" secondItem="ecv-sq-5TG" secondAttribute="centerY" id="23F-bk-WWv"/>
                                     <constraint firstItem="HiL-X8-jNA" firstAttribute="centerY" secondItem="ecv-sq-5TG" secondAttribute="centerY" id="81g-Xq-rDk"/>
@@ -1930,6 +1939,9 @@
                                     <constraint firstItem="Tyo-WE-vK2" firstAttribute="leading" secondItem="HiL-X8-jNA" secondAttribute="trailing" constant="20" id="jNo-MX-Qkr"/>
                                     <constraint firstAttribute="trailing" secondItem="Tyo-WE-vK2" secondAttribute="trailing" constant="8" id="pYH-lb-uR0"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="OKN-Fs-3YJ" appends="YES" id="4oj-X0-YXr"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1962,6 +1974,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMu-8q-m18" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="uZV-Gt-ep2"/>
+                <tapGestureRecognizer id="BPR-Yt-fvA" userLabel="My Sahres Tap Gesture">
+                    <connections>
+                        <action selector="mySharesTapAction" destination="47X-cz-Bsd" id="zQy-Bq-Zd2"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="PAe-DR-nWD" userLabel="My Pickups Tap Gesture">
+                    <connections>
+                        <action selector="myPickupsTapAction" destination="47X-cz-Bsd" id="E1l-GZ-Rpq"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="OKN-Fs-3YJ" userLabel="Groups Tap Gesture">
+                    <connections>
+                        <action selector="groupsTapAction" destination="47X-cz-Bsd" id="ZMS-pn-6xM"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3243" y="-422"/>
         </scene>
