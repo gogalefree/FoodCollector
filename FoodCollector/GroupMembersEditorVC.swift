@@ -75,8 +75,8 @@ class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableView
     
     func donePickingMembers() {
         
-        GroupMember.createInitialMembers(members, ForGroup: group)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        let membersToSend = GroupMember.createInitialMembers(members, ForGroup: group)
+        FCModel.sharedInstance.foodCollectorWebServer.postGroupMembers(membersToSend)
+        self.navigationController?.popViewControllerAnimated(true)
     }
-
 }

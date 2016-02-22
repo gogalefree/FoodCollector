@@ -14,19 +14,19 @@ extension FCMockServer {
      
       //TODO: Implement with fdserver
         var groupData = groupData
-        groupData.id = 1
+        //groupData.id = 1
         
         
         
-        completion(success: true, groupData: groupData)
+     //   completion(success: true, groupData: groupData)
         
         
-        /*
+        
                 
         guard let data = Group.groupJsonWithGroupData(groupData) else {return}
         
         //TODO: Change the url
-        let url = NSURL(string: baseUrlString + ".json")
+        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/groups.json")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod  = "POST"
         request.HTTPBody    = data
@@ -49,10 +49,17 @@ extension FCMockServer {
                 
                 let responseParams = try? NSJSONSerialization.JSONObjectWithData(incomingData, options: [])
                 guard let params = responseParams else {completion(success: false, groupData: groupData) ; return}
-                
-                //parse params
-                //set the group id in the group data object
-                completion(success: true, groupData: groupData)
+                print("params: \(params)")
+                let possibleId = params["id"] as? Int
+                if let id = possibleId {
+                    groupData.id = id
+                    completion(success: true, groupData: groupData)
+                }
+                else {
+                    //no valid id means failiure
+                    completion(success: false, groupData: groupData)
+
+                }
             }
                 
             else {
@@ -64,6 +71,6 @@ extension FCMockServer {
             
         }).resume()
 
-    */
+    
     }
 }

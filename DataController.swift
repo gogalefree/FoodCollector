@@ -11,6 +11,8 @@ import CoreData
 class DataController:  NSObject  {
 
     var managedObjectContext: NSManagedObjectContext
+    var managedObjectModel  : NSManagedObjectModel
+    var managedModelURL            : NSURL
     
     override init() {
     
@@ -20,10 +22,14 @@ class DataController:  NSObject  {
             fatalError("Error loading model from bundle")
         }
         
+        managedModelURL = modelURL
+        
         // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
         guard let mom = NSManagedObjectModel(contentsOfURL: modelURL) else {
             fatalError("Error initializing mom from: \(modelURL)")
         }
+        
+        managedObjectModel = mom
         
         let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)

@@ -28,4 +28,10 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
         cell?.textLabel?.text  = dataSource[indexPath.row].name
         return cell!
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.selectedIndexPath = indexPath
+        self.performSegueWithIdentifier("showGroupDetails", sender: nil)
+    }
 }

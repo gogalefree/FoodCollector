@@ -28,6 +28,7 @@ class Group: NSManagedObject {
         group.id = id
         group.adminUserId = adminId
         //after the group is created, logedin User is added as a group Member
+        FCModel.dataController.save()
         return group
     }
 

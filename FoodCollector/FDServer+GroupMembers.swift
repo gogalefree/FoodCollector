@@ -1,0 +1,80 @@
+//
+//  FDServer+GroupMembers.swift
+//  FoodCollector
+//
+//  Created by Guy Freedman on 21/02/2016.
+//  Copyright © 2016 Foodonet. All rights reserved.
+//
+
+import Foundation
+
+extension FCMockServer {
+
+    func postGroupMembers(members: [GroupMember]) -> Void {
+        
+        let myMembers = members
+        guard let data = GroupMember.groupMembersJson(myMembers) else {return}
+        
+        //TODO: Change the url
+        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/group_members.json")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod  = "POST"
+        request.HTTPBody    = data
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
+            taskData, response, error -> () in
+            
+            if error != nil {
+                
+                print("error sending group members \(error)")
+                return
+            }
+            
+            guard let response = response as? NSHTTPURLResponse , incomingData = taskData else {print("no response sending group members \(error)") ; return}
+            
+            print("response: \(response)")
+            if response.statusCode == 200 || response.statusCode == 201 {
+                
+                let responseParams = try? NSJSONSerialization.JSONObjectWithData(incomingData, options: []) as? [[String: AnyObject]]
+                guard let params = responseParams else {print("error parsing params from group members response \(error)") ; return}
+                print("params: \(params)")
+                
+                for memberDict in params! {
+                    
+                    print("member: \(memberDict)")
+                
+                    let id = memberDict["id"] as? Int ?? 0
+                    let userId = memberDict["Group_id"] as? Int ?? 0
+                    let name = memberDict["name"] as? String ?? ""
+                    
+                    let groupMember = myMembers.filter {(member) in member.name == name }
+                    print("group member count should be 1 and is: \(groupMember.count)")
+
+                    let foundMember = groupMember.first
+                    if let member = foundMember {
+                        
+                        member.userId = userId
+                        member.id     = id
+                        member.didInformServer = true
+                        print("member name: \(member.name)")
+                        print("member id: \(member.id)")
+                        print("member userid: \(member.userId)")
+                    }
+                }
+                
+                FCModel.dataController.save()
+            }
+                
+            else {
+                
+            
+                ("error with request. response is not 200 \(response)")
+            }
+            
+        }).resume()
+        
+        
+    }
+}

@@ -90,11 +90,12 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         reportDeviceUUIDToServer()
         self.dataUpdater.startUpdates()
         
-        //TODO: Load User class
-        
         if CLLocationManager.locationServicesEnabled() {
            self.setupLocationManager()
         }
+        
+        //FOR DEV ONLY
+        //createGroupasMember()
     }
     
     func reportDeviceUUIDToServer() {
@@ -362,6 +363,19 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             publication.registrationsForPublication.removeLast()
             self.savePublications()
         }
+    }
+    
+    func createGroupasMember() {
+     
+        let group = Group.initWith("someone else", id: 10, adminId: 10)
+        
+        let memberA = GroupMember.initWith("guy", id: 21, phoneNumber: "0546684685", userId: User.sharedInstance.userUniqueID, isFoodonetUser: true, isAdmin: false, belongsToGroup: group!)
+        group?.members?.setByAddingObject(memberA!)
+        
+        let memberB = GroupMember.initWith("yoni", id: 22, phoneNumber: "0528461070", userId: 0, isFoodonetUser: false, isAdmin: false, belongsToGroup: group!)
+        group?.members?.setByAddingObject(memberB!)
+        
+        FCModel.dataController.save()
     }
 }
 

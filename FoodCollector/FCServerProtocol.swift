@@ -100,5 +100,11 @@ protocol FCServerProtocol {
     ///Post new group to Foodonet Server
     ///
     func postGroup(groupData: GroupData, completion: (success: Bool, groupData: GroupData?) -> Void)
+    
+    ///
+    ///Post new group members to Foodonet Server
+    ///
+    func postGroupMembers(members: [GroupMember]) -> Void
+
    }
 

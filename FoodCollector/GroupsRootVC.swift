@@ -10,6 +10,7 @@ import UIKit
 
 class GroupsRootVC: UIViewController {
 
+    //TODO: add 
     
     @IBOutlet weak var activityIndicatorView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -21,6 +22,8 @@ class GroupsRootVC: UIViewController {
     var filteredDataSource  = [Group]()
     var isFiltered          = false
     var group: Group?       = nil
+    var selectedIndexPath: NSIndexPath?
+
 
     //MARK: - Life cycle
     
@@ -57,12 +60,11 @@ class GroupsRootVC: UIViewController {
                 guard let groupName = text else {return}
                 if !groupName.isEmpty {
                     //dismiss group name alert
-                    alertController.dismissViewControllerAnimated(true) { () -> Void in
-                        
-                        //present blocking view
-                       // self.presentActivityIndicatorView()
-                    }
+                    //present blocking view
+                    self.presentActivityIndicatorView()
                     self.beginGroupCreation(groupName)
+                    alertController.dismissViewControllerAnimated(true) { () -> Void in
+                    }
                 }
             }
         }
@@ -87,7 +89,7 @@ class GroupsRootVC: UIViewController {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                
                 //dissmiss blocking view
-          //      self.hideActivityIndicatorView()
+                self.hideActivityIndicatorView()
                 
                 if !success {
                     //show alert
@@ -103,7 +105,7 @@ class GroupsRootVC: UIViewController {
                 self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                 //push next vc
                 self.group = group
-                self.performSegueWithIdentifier("showGroupMembersEditorVC", sender: nil)
+                self.performSegueWithIdentifier("showGroupMembersEditorVC", sender: nil)                
                 
             })
         }
@@ -150,7 +152,12 @@ class GroupsRootVC: UIViewController {
             let groupMembersEditorVC = segue.destinationViewController as! GroupMembersEditorVC
             groupMembersEditorVC.group = group
         }
+        
+        else if segue.identifier == "showGroupDetails" {
+            guard let indexPath = selectedIndexPath else {return}
+            let groupDetailsVC = segue.destinationViewController as! GroupDetailsVC
+            groupDetailsVC.group = self.dataSource[indexPath.row]
+        }
+        
     }
-    
-
 }
