@@ -34,6 +34,8 @@ class Group: NSManagedObject {
 
     class func adminGroupsForLogedinUser() -> [Group]? {
     
+        
+        let moc = FCModel.dataController.managedObjectContext
         let adminId = User.sharedInstance.userUniqueID
         let predicate = NSPredicate(format: "adminUserId = %@", NSNumber(long: adminId))
         let request = NSFetchRequest(entityName: kGroupEntity)

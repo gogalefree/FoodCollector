@@ -50,6 +50,10 @@ class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableView
         return members.count
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return members.count > 0 ? 1 : 0
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = tableView.dequeueReusableCellWithIdentifier("cell")

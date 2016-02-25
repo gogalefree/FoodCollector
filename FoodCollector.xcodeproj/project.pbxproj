@@ -72,6 +72,7 @@
 		E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
 		E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
 		E41235D41ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */; };
+		E414F9EF1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414F9EE1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift */; };
 		E41729E81AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */; };
 		E417FEE41B296AE0000341C7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E417FEE31B296AE0000341C7 /* MessageUI.framework */; };
 		E41BCE091C2EB6BC0018E771 /* FDServer+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */; };
@@ -329,6 +330,8 @@
 		E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */; };
 		E4E83F501C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E83F4F1C7B0DE400E4A9F6 /* GroupDetailsVC.swift */; };
 		E4E83F511C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E83F4F1C7B0DE400E4A9F6 /* GroupDetailsVC.swift */; };
+		E4E83F531C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E83F521C7D80D400E4A9F6 /* GroupsRootvcTVCell.swift */; };
+		E4E83F541C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E83F521C7D80D400E4A9F6 /* GroupsRootvcTVCell.swift */; };
 		E4EF49691BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EF49681BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift */; };
 		E4F1A8611ADB9D5600973C51 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1A8601ADB9D5600973C51 /* AboutVC.swift */; };
 		E4F40CC11C7089970094E455 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E4F40CBF1C7089970094E455 /* Model.xcdatamodeld */; };
@@ -492,6 +495,7 @@
 		E411EF991C5CD599003F290A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleFoodonetEU/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsDismissAnimator.swift; sourceTree = "<group>"; };
 		E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsNavigationController.swift; sourceTree = "<group>"; };
+		E414F9EE1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDetailsMemberTVCell.swift; sourceTree = "<group>"; };
 		E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCellBadgeLabel.swift; sourceTree = "<group>"; };
 		E417FEE31B296AE0000341C7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+Login.swift"; sourceTree = "<group>"; };
@@ -596,6 +600,7 @@
 		E4E2EA961A8EAE1A00681B2E /* FCTableViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCTableViewAnimator.swift; sourceTree = "<group>"; };
 		E4E2EA9A1A8F1DF300681B2E /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		E4E83F4F1C7B0DE400E4A9F6 /* GroupDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDetailsVC.swift; sourceTree = "<group>"; };
+		E4E83F521C7D80D400E4A9F6 /* GroupsRootvcTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsRootvcTVCell.swift; sourceTree = "<group>"; };
 		E4EF49681BE26F8F009A1A62 /* ThumbnailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4F1A8601ADB9D5600973C51 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		E4F40CC01C7089970094E455 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -1212,9 +1217,11 @@
 				E4F40D061C73191E0094E455 /* Groups.storyboard */,
 				E4F40D091C7319560094E455 /* GroupsRootVC.swift */,
 				E4F40D121C747B680094E455 /* GroupsRootVC+TableView.swift */,
+				E4E83F521C7D80D400E4A9F6 /* GroupsRootvcTVCell.swift */,
 				E4F40D0F1C7460210094E455 /* GroupMembersEditorVC.swift */,
 				E4F40D1B1C7599A50094E455 /* GroupMembersEditorVC+AddressPicker.swift */,
 				E4E83F4F1C7B0DE400E4A9F6 /* GroupDetailsVC.swift */,
+				E414F9EE1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift */,
 			);
 			name = Groups;
 			sourceTree = "<group>";
@@ -1623,6 +1630,7 @@
 				E44FDDC91C5CB5F9000D5F97 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
 				E4F40D1D1C7599A50094E455 /* GroupMembersEditorVC+AddressPicker.swift in Sources */,
 				E44FDDCA1C5CB5F9000D5F97 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
+				E4E83F541C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */,
 				E4E83F511C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */,
 				E44FDDCB1C5CB5F9000D5F97 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */,
 				E4F40D141C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */,
@@ -1754,12 +1762,14 @@
 				E4737D9D1A10C01300A4AB81 /* FCPublishRootVC.swift in Sources */,
 				E4F40D1C1C7599A50094E455 /* GroupMembersEditorVC+AddressPicker.swift in Sources */,
 				E462F9BD1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
+				E4E83F531C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */,
 				E4E83F501C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */,
 				A1248A831B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
 				E4F40D131C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */,
 				A1248A881B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */,
 				A14F4D731B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift in Sources */,
 				E4AEDE551B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift in Sources */,
+				E414F9EF1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift in Sources */,
 				E4F40CFA1C70B0270094E455 /* GroupMember.swift in Sources */,
 				E41235D41ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift in Sources */,
 				E42ED5771A8BD007008FB618 /* FCModel+NewData.swift in Sources */,

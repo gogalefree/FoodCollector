@@ -17,15 +17,14 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
         return dataSource.count
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return dataSource.count > 0 ? 1 : 0
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell")
-        if cell == nil {
-            
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
-        }
-        
-        cell?.textLabel?.text  = dataSource[indexPath.row].name
+        let cell = tableView.dequeueReusableCellWithIdentifier("groupsRootvcCell", forIndexPath: indexPath) as? GroupsRootvcTVCell
+        cell?.group = self.dataSource[indexPath.row]
         return cell!
     }
     
@@ -34,4 +33,45 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
         self.selectedIndexPath = indexPath
         self.performSegueWithIdentifier("showGroupDetails", sender: nil)
     }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        switch editingStyle {
+        case .Delete:
+            
+            self.indexPathToDelete = indexPath
+            confirmDelete(indexPath)
+            
+        default:
+            break
+        }
+    }
+    
+    func confirmDelete(indexPath: NSIndexPath) {
+        
+        let groupToDelete = dataSource[indexPath.row]
+        let alert = UIAlertController(title: "Delete Group", message: "Are you sure you want to permanently delete \(groupToDelete.name)?", preferredStyle: .ActionSheet)
+        let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: handleDeleteGroup)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeletePlanet)
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func handleDeleteGroup(alertAction: UIAlertAction!) {
+        let groupToDelete = dataSource[indexPathToDelete!.row]
+
+        self.tableView.beginUpdates()
+        self.dataSource.removeAtIndex(indexPathToDelete!.row)
+        self.tableView.deleteRowsAtIndexPaths([indexPathToDelete!], withRowAnimation: .Fade)
+        tableView.endUpdates()
+        
+        print("deleted \(groupToDelete.name)")
+        //removeGroupToDelete and inform server
+    }
+    
+    func cancelDeletePlanet(alertAction: UIAlertAction!) {
+        
+    }
+
 }

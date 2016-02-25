@@ -23,15 +23,20 @@ class GroupsRootVC: UIViewController {
     var isFiltered          = false
     var group: Group?       = nil
     var selectedIndexPath: NSIndexPath?
-
+    var indexPathToDelete: NSIndexPath?
 
     //MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareDataSource()
         self.tableView.dataSource = self
         self.tableView.delegate   = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        prepareDataSource()
+        tableView.reloadData()
     }
 
     func prepareDataSource() {

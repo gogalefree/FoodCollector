@@ -106,5 +106,9 @@ protocol FCServerProtocol {
     ///
     func postGroupMembers(members: [GroupMember]) -> Void
 
+    ///
+    ///Delete group members to Foodonet Server
+    ///
+    func deleteGroup(groupToDelete: Group)
    }
 

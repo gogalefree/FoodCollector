@@ -12,17 +12,7 @@ extension FCMockServer {
     
     func postGroup(groupData: GroupData, completion: (success: Bool, groupData: GroupData?) -> Void) {
      
-      //TODO: Implement with fdserver
         var groupData = groupData
-        //groupData.id = 1
-        
-        
-        
-     //   completion(success: true, groupData: groupData)
-        
-        
-        
-                
         guard let data = Group.groupJsonWithGroupData(groupData) else {return}
         
         //TODO: Change the url
@@ -70,7 +60,52 @@ extension FCMockServer {
             }
             
         }).resume()
+    }
+    
+    func deleteGroup(groupToDelete: Group) {
+        
+        //TODO: Change the url
+        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/groups/\(groupToDelete.id!.integerValue).json")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "DELETE"
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
+            
+            if let response = response {
+                
+                let serverResponse = response as! NSHTTPURLResponse
+                
+                print("DELETE GROUP RESPONSE: \(serverResponse)")
+                
+                if error != nil || serverResponse.statusCode != 200 {
+                    
+                    print("ERROR DELETING GROUP: \(error)")
+                    return
+                }
+                
+                else if serverResponse.statusCode >= 200 && serverResponse.statusCode < 300 {
+                    
+                    //group was deleted from server.
+                    //delete from core data
+                    //group members are deleted automatically
+
+                    let moc = FCModel.dataController.managedObjectContext
+                    moc.deleteObject(groupToDelete)
+                    FCModel.dataController.save()
+                
+                }
+            }
+            else {
+
+                print("no response deleting group")
+            }
+        })
+        
+        
+        task.resume()
+    }
 
     
-    }
 }
