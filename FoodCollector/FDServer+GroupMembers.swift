@@ -52,19 +52,24 @@ extension FCMockServer {
                     let groupMember = myMembers.filter {(member) in member.name == name }
                     print("group member count should be 1 and is: \(groupMember.count)")
 
-                    let foundMember = groupMember.first
-                    if let member = foundMember {
+                    if groupMember.count > 0 {
                         
-                        member.userId = userId
-                        member.id     = id
-                        member.didInformServer = true
-                        print("member name: \(member.name)")
-                        print("member id: \(member.id)")
-                        print("member userid: \(member.userId)")
+                        let foundMember = groupMember.first
+                        if let member = foundMember {
+                            
+                            member.userId = userId
+                            member.id     = id
+                            member.didInformServer = true
+                            print("member name: \(member.name)")
+                            print("member id: \(member.id)")
+                            print("member userid: \(member.userId)")
+                        }
                     }
+                    
+                    FCModel.dataController.save()
+                        
+                        
                 }
-                
-                FCModel.dataController.save()
             }
                 
             else {

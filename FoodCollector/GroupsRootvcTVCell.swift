@@ -10,7 +10,7 @@ import UIKit
 
 let kGroupsRootvcTVCellTextColor    = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
 let kGroupsRootvcTVCellIsAdminColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
-
+let kAdminString = NSLocalizedString("Admin", comment: "label title indicating that the user is the group admin")
 
 class GroupsRootvcTVCell: UITableViewCell {
 
@@ -34,8 +34,8 @@ class GroupsRootvcTVCell: UITableViewCell {
         
         groupNameLabel.text = group.name
         groupMembersCountLabel.text = group.members != nil ? String(group.members!.count) : "0"
-        isAdminLabel.text = group.adminUserId == User.sharedInstance.userUniqueID ?
-            NSLocalizedString("Admin", comment: "label title indicating that the user is the group admin") : ""
+        isAdminLabel.text = group.adminUserId == User.sharedInstance.userUniqueID ? kAdminString : ""
+        
         
         
     }

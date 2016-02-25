@@ -52,7 +52,7 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
         let groupToDelete = dataSource[indexPath.row]
         let alert = UIAlertController(title: "Delete Group", message: "Are you sure you want to permanently delete \(groupToDelete.name)?", preferredStyle: .ActionSheet)
         let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: handleDeleteGroup)
-        let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeletePlanet)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteGroup)
         alert.addAction(DeleteAction)
         alert.addAction(CancelAction)
         self.presentViewController(alert, animated: true, completion: nil)
@@ -66,11 +66,12 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
         self.tableView.deleteRowsAtIndexPaths([indexPathToDelete!], withRowAnimation: .Fade)
         tableView.endUpdates()
         
-        print("deleted \(groupToDelete.name)")
+
         //removeGroupToDelete and inform server
+        FCModel.sharedInstance.foodCollectorWebServer.deleteGroup(groupToDelete)
     }
     
-    func cancelDeletePlanet(alertAction: UIAlertAction!) {
+    func cancelDeleteGroup(alertAction: UIAlertAction!) {
         
     }
 

@@ -17,10 +17,11 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var groupNameLabel           : UILabel!
     @IBOutlet weak var leaveGroupButton: UIButton!
     var onesToken = 0
-    
+    var isUserAdmin = false
     var group: Group!
     var dataSource = [GroupMember]()
 
+    
     func setup() {
  
         dataSource = Array(group.members! as! Set)
@@ -36,6 +37,7 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func setupForAdmin() {
     
         self.leaveGroupButton.alpha = 0
+        isUserAdmin = true
     }
     
     func setupForMember() {
@@ -59,22 +61,7 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
-    }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell")
-        if cell == nil {
-            
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
-        }
-        
-        cell?.textLabel?.text = dataSource[indexPath.row].name
-        return cell!
-    }
-
     @IBAction func addMemberTapped(sender: AnyObject) {
     }
     

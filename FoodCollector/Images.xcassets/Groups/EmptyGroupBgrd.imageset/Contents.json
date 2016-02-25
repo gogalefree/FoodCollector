@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Usericon@1x.png",
+      "filename" : "Empty group- Bgrd.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Empty group- Bgrd@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Empty group- Bgrd@3x.png",
       "scale" : "3x"
     }
   ],

@@ -73,6 +73,8 @@
 		E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
 		E41235D41ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */; };
 		E414F9EF1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414F9EE1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift */; };
+		E414F9F11C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414F9F01C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift */; };
+		E414F9F21C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414F9F01C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift */; };
 		E41729E81AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */; };
 		E417FEE41B296AE0000341C7 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E417FEE31B296AE0000341C7 /* MessageUI.framework */; };
 		E41BCE091C2EB6BC0018E771 /* FDServer+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */; };
@@ -496,6 +498,7 @@
 		E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsDismissAnimator.swift; sourceTree = "<group>"; };
 		E41235D31ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsNavigationController.swift; sourceTree = "<group>"; };
 		E414F9EE1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupDetailsMemberTVCell.swift; sourceTree = "<group>"; };
+		E414F9F01C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GroupDetailsVC+TableView.swift"; sourceTree = "<group>"; };
 		E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCActivityCenterTVCellBadgeLabel.swift; sourceTree = "<group>"; };
 		E417FEE31B296AE0000341C7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+Login.swift"; sourceTree = "<group>"; };
@@ -1221,6 +1224,7 @@
 				E4F40D0F1C7460210094E455 /* GroupMembersEditorVC.swift */,
 				E4F40D1B1C7599A50094E455 /* GroupMembersEditorVC+AddressPicker.swift */,
 				E4E83F4F1C7B0DE400E4A9F6 /* GroupDetailsVC.swift */,
+				E414F9F01C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift */,
 				E414F9EE1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift */,
 			);
 			name = Groups;
@@ -1696,6 +1700,7 @@
 				A1F44BEC1C6938C9000F132A /* InfoPopoverVC.swift in Sources */,
 				E44FDE001C5CB5F9000D5F97 /* FCModel+PostNotifications.swift in Sources */,
 				E44FDE011C5CB5F9000D5F97 /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */,
+				E414F9F21C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift in Sources */,
 				E44FDE021C5CB5F9000D5F97 /* FCUserPhotoFetcher.swift in Sources */,
 				E44FDE031C5CB5F9000D5F97 /* FetchedDataNotificationsController.swift in Sources */,
 				E44FDE041C5CB5F9000D5F97 /* FCPublicationsSorter.swift in Sources */,
@@ -1823,6 +1828,7 @@
 				E4F40D0A1C7319560094E455 /* GroupsRootVC.swift in Sources */,
 				E4737D891A10C01300A4AB81 /* FCCollectorRootVC.swift in Sources */,
 				E45DA7321A9DB89800F45C70 /* FCCollectorContainerController.swift in Sources */,
+				E414F9F11C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift in Sources */,
 				E4DB3A7D1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift in Sources */,
 				E42ED5751A8B682C008FB618 /* DataUpdater.swift in Sources */,
 				A1A738A21B7FA22800CA2C5A /* PublicationEditorTVCPhoneNumEditorCustomCell.swift in Sources */,
