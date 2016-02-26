@@ -68,6 +68,10 @@
 		E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */; };
 		E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
 		E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */; };
+		E40F198A1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40F19891C8035C8009C044E /* GroupDetailsVC+addressPicker.swift */; };
+		E40F198B1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40F19891C8035C8009C044E /* GroupDetailsVC+addressPicker.swift */; };
+		E40F198D1C803BF8009C044E /* GroupMembersEditorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40F198C1C803BF8009C044E /* GroupMembersEditorTVCell.swift */; };
+		E40F198E1C803BF8009C044E /* GroupMembersEditorTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40F198C1C803BF8009C044E /* GroupMembersEditorTVCell.swift */; };
 		E411EF9A1C5CD599003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E411EF991C5CD599003F290A /* GoogleService-Info.plist */; };
 		E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */; };
 		E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */; };
@@ -493,6 +497,8 @@
 		E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoPresentorNavigationController.swift; sourceTree = "<group>"; };
 		E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorDissmissAnimator.swift; sourceTree = "<group>"; };
 		E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCMockServer+.swift"; sourceTree = "<group>"; };
+		E40F19891C8035C8009C044E /* GroupDetailsVC+addressPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GroupDetailsVC+addressPicker.swift"; sourceTree = "<group>"; };
+		E40F198C1C803BF8009C044E /* GroupMembersEditorTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersEditorTVCell.swift; sourceTree = "<group>"; };
 		E411EF971C5CCF48003F290A /* euPreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = euPreBuildScript.swift; path = FoodCollector/EUScripts/euPreBuildScript.swift; sourceTree = "<group>"; };
 		E411EF991C5CD599003F290A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleFoodonetEU/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E41235C91ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationReportsDismissAnimator.swift; sourceTree = "<group>"; };
@@ -1222,8 +1228,10 @@
 				E4F40D121C747B680094E455 /* GroupsRootVC+TableView.swift */,
 				E4E83F521C7D80D400E4A9F6 /* GroupsRootvcTVCell.swift */,
 				E4F40D0F1C7460210094E455 /* GroupMembersEditorVC.swift */,
+				E40F198C1C803BF8009C044E /* GroupMembersEditorTVCell.swift */,
 				E4F40D1B1C7599A50094E455 /* GroupMembersEditorVC+AddressPicker.swift */,
 				E4E83F4F1C7B0DE400E4A9F6 /* GroupDetailsVC.swift */,
+				E40F19891C8035C8009C044E /* GroupDetailsVC+addressPicker.swift */,
 				E414F9F01C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift */,
 				E414F9EE1C7EF33C00618EC3 /* GroupDetailsMemberTVCell.swift */,
 			);
@@ -1632,6 +1640,7 @@
 				E44FDDC71C5CB5F9000D5F97 /* ContactCollectorsPickerTVC.swift in Sources */,
 				E44FDDC81C5CB5F9000D5F97 /* FCPublishRootVC.swift in Sources */,
 				E44FDDC91C5CB5F9000D5F97 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
+				E40F198B1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */,
 				E4F40D1D1C7599A50094E455 /* GroupMembersEditorVC+AddressPicker.swift in Sources */,
 				E44FDDCA1C5CB5F9000D5F97 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
 				E4E83F541C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */,
@@ -1688,6 +1697,7 @@
 				E44FDDF61C5CB5F9000D5F97 /* FCCollectorRootVC+.swift in Sources */,
 				E44FDDF71C5CB5F9000D5F97 /* FCPublicationReportsPresentationController.swift in Sources */,
 				E4F40CF71C70B0270094E455 /* Group.swift in Sources */,
+				E40F198E1C803BF8009C044E /* GroupMembersEditorTVCell.swift in Sources */,
 				E44FDDF81C5CB5F9000D5F97 /* FCMainTabBarController.swift in Sources */,
 				E44FDDF91C5CB5F9000D5F97 /* FCLaunchScreenView.swift in Sources */,
 				E44FDDFA1C5CB5F9000D5F97 /* FCCollectorRootVC.swift in Sources */,
@@ -1780,8 +1790,10 @@
 				E42ED5771A8BD007008FB618 /* FCModel+NewData.swift in Sources */,
 				A12394691B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift in Sources */,
 				E4607B051BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift in Sources */,
+				E40F198A1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */,
 				E4F839251ABB04A30055A277 /* FCPublicationReporetsTVCell.swift in Sources */,
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
+				E40F198D1C803BF8009C044E /* GroupMembersEditorTVCell.swift in Sources */,
 				E42ED57B1A8BD2B9008FB618 /* FCModel+Store.swift in Sources */,
 				E48263751BE20B6C00526C7B /* FetchedDataNotification.swift in Sources */,
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,

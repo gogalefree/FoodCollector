@@ -8,8 +8,11 @@
 
 import UIKit
 import CoreData
+import AddressBook
+import AddressBookUI
 
-class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelegate, ABPeoplePickerNavigationControllerDelegate {
     
     @IBOutlet weak var membersTableView         : UITableView!
     @IBOutlet weak var tableViewTopConstraint   : NSLayoutConstraint!
@@ -63,10 +66,31 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     @IBAction func addMemberTapped(sender: AnyObject) {
+    
+        //Show Adrress book
+        let addressBookController = ABPeoplePickerNavigationController()
+        addressBookController.peoplePickerDelegate = self
+        self.presentViewController(addressBookController, animated: true, completion: nil)
+    
     }
     
     @IBAction func leaveGroupTapped(sender: AnyObject) {
+    
+        //delete the gtoup
+        let groupToDelete = self.group
+        
+        let moc = FCModel.dataController.managedObjectContext
+        moc.deleteObject(groupToDelete)
+        FCModel.dataController.save()
+    
+
+        FCModel.sharedInstance.foodCollectorWebServer.deleteGroup(groupToDelete)
+        
+        //go back to groups vc
+        self.navigationController?.popViewControllerAnimated(true)
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -79,7 +79,46 @@ extension FCMockServer {
             }
             
         }).resume()
+    }
+    
+    func deleteGroupMember(memberToDelete: GroupMember) {
+        
+        //TODO: Change the url
+        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/group_members/\(memberToDelete.id!.integerValue)")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "DELETE"
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
+            
+            if let response = response {
+                
+                let serverResponse = response as! NSHTTPURLResponse
+                
+                print("DELETE GROUP RESPONSE: \(serverResponse)")
+                
+                if error != nil || serverResponse.statusCode != 200 {
+                    
+                    print("ERROR DELETING GROUP MEMBER \(memberToDelete.name): \(error)")
+                    return
+                }
+                    
+                else if serverResponse.statusCode >= 200 && serverResponse.statusCode < 300 {
+                    
+                    //group member was deleted from core data before this call.
+                    print("GROUP MEMBER DELETED \(memberToDelete.name)")
+                    
+                }
+            }
+            else {
+                
+                print("no response deleting group")
+            }
+        })
         
         
+        task.resume()
+
     }
 }

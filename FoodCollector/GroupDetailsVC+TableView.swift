@@ -48,6 +48,7 @@ extension GroupDetailsVC: GroupDetilsTVCellDelegate {
             
             //inform server and delete from core data
             print("deleted member: \(memberToDelete.name)")
+            GroupMember.deleteGroupMember(memberToDelete, group: group)
         default:
             break
         }

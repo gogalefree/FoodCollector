@@ -66,8 +66,12 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
         self.tableView.deleteRowsAtIndexPaths([indexPathToDelete!], withRowAnimation: .Fade)
         tableView.endUpdates()
         
+        let moc = FCModel.dataController.managedObjectContext
+        moc.deleteObject(groupToDelete)
+        FCModel.dataController.save()
+    
 
-        //removeGroupToDelete and inform server
+        //inform server
         FCModel.sharedInstance.foodCollectorWebServer.deleteGroup(groupToDelete)
     }
     

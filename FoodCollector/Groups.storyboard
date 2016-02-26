@@ -300,6 +300,46 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bDP-hF-Stz">
                                 <rect key="frame" x="-4" y="248" width="383" height="419"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="groupMemberEditorCell" rowHeight="44" id="C77-vR-0Ce" customClass="GroupMembersEditorTVCell" customModule="FoodCollector" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="383" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C77-vR-0Ce" id="XfX-in-fV1">
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1AY-he-WDs">
+                                                    <rect key="frame" x="20" y="11" width="281" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VkH-be-nY5">
+                                                    <rect key="frame" x="328" y="6" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="EjN-JS-9FY"/>
+                                                        <constraint firstAttribute="width" constant="30" id="GI1-lT-lIi"/>
+                                                    </constraints>
+                                                    <state key="normal" image="DeleteMember"/>
+                                                    <connections>
+                                                        <action selector="deleteButtonTapped:" destination="C77-vR-0Ce" eventType="touchUpInside" id="YRm-5M-uQ1"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="VkH-be-nY5" secondAttribute="trailing" constant="17" id="G1M-Ra-0TI"/>
+                                                <constraint firstItem="1AY-he-WDs" firstAttribute="leading" secondItem="XfX-in-fV1" secondAttribute="leadingMargin" constant="12" id="R8G-7e-Pdu"/>
+                                                <constraint firstItem="1AY-he-WDs" firstAttribute="centerY" secondItem="XfX-in-fV1" secondAttribute="centerY" id="Urf-YZ-ez0"/>
+                                                <constraint firstItem="VkH-be-nY5" firstAttribute="centerY" secondItem="XfX-in-fV1" secondAttribute="centerY" constant="-0.5" id="fbF-PF-KC5"/>
+                                                <constraint firstItem="VkH-be-nY5" firstAttribute="leading" secondItem="1AY-he-WDs" secondAttribute="trailing" constant="27" id="iW0-xT-KOt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="deleteButton" destination="VkH-be-nY5" id="EJA-Um-0iA"/>
+                                            <outlet property="memberNameLabel" destination="1AY-he-WDs" id="Dhm-Fu-CvB"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>

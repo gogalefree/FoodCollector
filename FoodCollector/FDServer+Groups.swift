@@ -65,7 +65,7 @@ extension FCMockServer {
     func deleteGroup(groupToDelete: Group) {
         
         //TODO: Change the url
-        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/groups/\(groupToDelete.id!.integerValue).json")
+        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/groups/\(groupToDelete.id!.integerValue)")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"
         
@@ -91,11 +91,7 @@ extension FCMockServer {
                     //delete from core data
                     //group members are deleted automatically
 
-                    let moc = FCModel.dataController.managedObjectContext
-                    moc.deleteObject(groupToDelete)
-                    FCModel.dataController.save()
-                
-                }
+                                   }
             }
             else {
 

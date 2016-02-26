@@ -22,7 +22,7 @@ import CoreData
 import AddressBook
 import AddressBookUI
 
-class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableViewDelegate, ABPeoplePickerNavigationControllerDelegate {
+class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableViewDelegate, ABPeoplePickerNavigationControllerDelegate, GroupDetilsTVCellDelegate {
 
     @IBOutlet weak var groupNameLabel   : UILabel!
     @IBOutlet weak var addMemberButton  : UIButton!
@@ -56,15 +56,24 @@ class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell")
-        if cell == nil {
-            
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("groupMemberEditorCell") as! GroupMembersEditorTVCell
+        cell.delegate = self
+        cell.groupMemberData = members[indexPath.row]
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        cell?.textLabel?.text = members[indexPath.row].name
-        return cell!
- 
+        switch editingStyle {
+        case .Delete:
+                        
+            tableView.beginUpdates()
+            self.members.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.endUpdates()
+        default:
+            break
+        }
     }
     
     //MARK: - Actions
@@ -79,8 +88,14 @@ class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableView
     
     func donePickingMembers() {
         
-        let membersToSend = GroupMember.createInitialMembers(members, ForGroup: group)
+        let membersToSend = GroupMember.createInitialMembers(members, ForGroup: group, createAdmin: true)
         FCModel.sharedInstance.foodCollectorWebServer.postGroupMembers(membersToSend)
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func didRequestCellDelete() {
+        
+        let editing = !self.tableView.editing
+        self.tableView.setEditing(editing, animated: true)
     }
 }

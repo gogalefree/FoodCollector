@@ -47,24 +47,26 @@ class GroupMember: NSManagedObject {
         return nil
     }
     
-    class func createInitialMembers(members: [GroupMemberData] ,ForGroup group: Group) -> [GroupMember] {
+    class func createInitialMembers(members: [GroupMemberData] ,ForGroup group: Group, createAdmin: Bool) -> [GroupMember] {
         
         var membersToSend = [GroupMember]()
         
         //create admin
-        let admin =
-        GroupMember.initWith(User.sharedInstance.userIdentityProviderUserName,
-            id: 0,
-            phoneNumber: User.sharedInstance.userPhoneNumber,
-            userId: User.sharedInstance.userUniqueID,
-            isFoodonetUser: true,
-            isAdmin: true,
-            belongsToGroup: group)
-        
-        if let groupAdmin = admin {
-            membersToSend.append(groupAdmin)
-            group.members?.setByAddingObject(groupAdmin)
-        
+        if createAdmin{
+            let admin =
+            GroupMember.initWith(User.sharedInstance.userIdentityProviderUserName,
+                id: 0,
+                phoneNumber: User.sharedInstance.userPhoneNumber,
+                userId: User.sharedInstance.userUniqueID,
+                isFoodonetUser: true,
+                isAdmin: true,
+                belongsToGroup: group)
+            
+            if let groupAdmin = admin {
+                membersToSend.append(groupAdmin)
+                group.members?.setByAddingObject(groupAdmin)
+            
+            }
         }
         
         //create members
@@ -114,5 +116,20 @@ class GroupMember: NSManagedObject {
         }
         
         return nil
+    }
+    
+    class func deleteGroupMember(memberToDelete: GroupMember, group: Group) {
+        
+        let memberToDelete = memberToDelete
+        
+        let members = NSMutableSet(set: group.members!)
+        members.removeObject(memberToDelete)
+        group.members = NSSet(set: members)
+        
+        GroupMember.moc.deleteObject(memberToDelete)
+
+        FCModel.sharedInstance.foodCollectorWebServer.deleteGroupMember(memberToDelete)
+        
+        
     }
 }
