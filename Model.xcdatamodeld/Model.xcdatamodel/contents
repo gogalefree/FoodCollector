@@ -4,7 +4,7 @@
         <attribute name="adminUserId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="groupName" syncable="YES"/>
-        <relationship name="members" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GroupMember" inverseName="belongToGroup" inverseEntity="GroupMember" syncable="YES"/>
+        <relationship name="members" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GroupMember" inverseName="belongToGroup" inverseEntity="GroupMember" syncable="YES"/>
     </entity>
     <entity name="GroupMember" representedClassName=".GroupMember" syncable="YES">
         <attribute name="didInformServer" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -19,7 +19,8 @@
     <entity name="Publication" syncable="YES">
         <attribute name="address" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="audiance" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="contactInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactInfo" attributeType="String" defaultValueString="no" syncable="YES"/>
+        <attribute name="didInformServer" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="didModifyCoords" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="didRecieveNewRegistration" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="didRecieveNewReport" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -31,6 +32,7 @@
         <attribute name="latitude" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitutde" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="photoBinaryData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="photoUrl" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="publisherId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="startingData" attributeType="Date" defaultDateTimeInterval="-749209740" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,8 +40,8 @@
         <attribute name="typeOfCollecting" attributeType="Integer 32" defaultValueString="2" syncable="YES"/>
         <attribute name="uniqueId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="version" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="registrations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PublicationRegistration" inverseName="publication" inverseEntity="PublicationRegistration" syncable="YES"/>
-        <relationship name="reports" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PublicationReport" inverseName="publication" inverseEntity="PublicationReport" syncable="YES"/>
+        <relationship name="registrations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PublicationRegistration" inverseName="publication" inverseEntity="PublicationRegistration" syncable="YES"/>
+        <relationship name="reports" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PublicationReport" inverseName="publication" inverseEntity="PublicationReport" syncable="YES"/>
     </entity>
     <entity name="PublicationRegistration" syncable="YES">
         <attribute name="activeDeviceUUID" attributeType="String" defaultValueString="no" syncable="YES"/>
@@ -67,7 +69,7 @@
     <elements>
         <element name="Group" positionX="-324" positionY="-180" width="128" height="103"/>
         <element name="GroupMember" positionX="-90" positionY="-180" width="128" height="165"/>
-        <element name="Publication" positionX="-351" positionY="99" width="128" height="388"/>
+        <element name="Publication" positionX="-351" positionY="99" width="128" height="418"/>
         <element name="PublicationRegistration" positionX="-108" positionY="389" width="128" height="178"/>
         <element name="PublicationReport" positionX="-101" positionY="99" width="128" height="193"/>
     </elements>
