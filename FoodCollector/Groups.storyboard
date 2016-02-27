@@ -161,6 +161,43 @@
                                     <action selector="createNewGroupTapped" destination="XmJ-qE-1Iu" eventType="touchUpInside" id="gWK-bL-cxV"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsH-43-hMX">
+                                <rect key="frame" x="-4" y="64" width="383" height="489"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyGroupBgrd" translatesAutoresizingMaskIntoConstraints="NO" id="SlF-Bb-lEf">
+                                        <rect key="frame" x="104" y="59" width="174" height="269"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="269" id="P9p-aT-XoZ"/>
+                                            <constraint firstAttribute="width" constant="174" id="zfY-fS-k2E"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't have any groups yet. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajL-46-oVK">
+                                        <rect key="frame" x="64" y="160" width="255" height="67"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="67" id="CpG-rP-09f"/>
+                                            <constraint firstAttribute="width" constant="255" id="TXJ-kN-leI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="SlF-Bb-lEf" firstAttribute="centerX" secondItem="zsH-43-hMX" secondAttribute="centerX" id="3IB-41-DOX"/>
+                                    <constraint firstItem="ajL-46-oVK" firstAttribute="centerX" secondItem="SlF-Bb-lEf" secondAttribute="centerX" id="fCM-Ro-c7v"/>
+                                    <constraint firstItem="SlF-Bb-lEf" firstAttribute="top" secondItem="zsH-43-hMX" secondAttribute="top" constant="59" id="fbO-yg-cO3"/>
+                                    <constraint firstItem="ajL-46-oVK" firstAttribute="centerY" secondItem="SlF-Bb-lEf" secondAttribute="centerY" id="jcP-j2-MiP"/>
+                                    <constraint firstItem="ajL-46-oVK" firstAttribute="centerX" secondItem="zsH-43-hMX" secondAttribute="centerX" id="mNf-5e-wnM"/>
+                                    <constraint firstItem="ajL-46-oVK" firstAttribute="centerY" secondItem="zsH-43-hMX" secondAttribute="centerY" constant="-51" id="zXh-xl-cSo"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="mNf-5e-wnM"/>
+                                        <exclude reference="zXh-xl-cSo"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -170,17 +207,27 @@
                             <constraint firstItem="w6e-7Z-2nr" firstAttribute="leading" secondItem="7QE-yd-Ut1" secondAttribute="leadingMargin" constant="-16" id="GMe-25-NYy"/>
                             <constraint firstItem="bAp-lJ-0bx" firstAttribute="top" secondItem="YDY-tK-R5G" secondAttribute="bottom" id="LLv-w8-KiR"/>
                             <constraint firstItem="V57-Oe-DBe" firstAttribute="top" secondItem="YDY-tK-R5G" secondAttribute="bottom" id="UZA-Eo-mRx"/>
+                            <constraint firstItem="zsH-43-hMX" firstAttribute="leading" secondItem="7QE-yd-Ut1" secondAttribute="leadingMargin" constant="-20" id="WVN-kV-O3a"/>
+                            <constraint firstItem="zsH-43-hMX" firstAttribute="top" secondItem="YDY-tK-R5G" secondAttribute="bottom" id="Wa2-XS-Tg2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bAp-lJ-0bx" secondAttribute="trailing" constant="-20" id="Wwp-d2-moL"/>
                             <constraint firstItem="w6e-7Z-2nr" firstAttribute="top" secondItem="YB7-sb-FGj" secondAttribute="bottom" id="ZLB-1b-42l"/>
                             <constraint firstItem="bAp-lJ-0bx" firstAttribute="leading" secondItem="7QE-yd-Ut1" secondAttribute="leadingMargin" constant="-20" id="aNy-wz-2UV"/>
                             <constraint firstItem="VLA-jf-hdE" firstAttribute="top" secondItem="V57-Oe-DBe" secondAttribute="bottom" id="aay-wT-CUM"/>
                             <constraint firstItem="VLA-jf-hdE" firstAttribute="top" secondItem="72p-HA-aUM" secondAttribute="bottom" constant="30" id="iTs-q5-SP3"/>
                             <constraint firstItem="YB7-sb-FGj" firstAttribute="leading" secondItem="7QE-yd-Ut1" secondAttribute="leadingMargin" constant="-20" id="oUc-nk-9L0"/>
+                            <constraint firstItem="72p-HA-aUM" firstAttribute="top" secondItem="zsH-43-hMX" secondAttribute="bottom" constant="2" id="puh-MT-eR2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V57-Oe-DBe" secondAttribute="trailing" constant="-16" id="shZ-aF-RRr"/>
                             <constraint firstItem="V57-Oe-DBe" firstAttribute="leading" secondItem="7QE-yd-Ut1" secondAttribute="leadingMargin" constant="-16" id="tAp-Xq-xbT"/>
                             <constraint firstItem="72p-HA-aUM" firstAttribute="centerX" secondItem="7QE-yd-Ut1" secondAttribute="centerX" id="v8U-h7-9Cn"/>
                             <constraint firstItem="YB7-sb-FGj" firstAttribute="top" secondItem="bAp-lJ-0bx" secondAttribute="bottom" id="vD2-ot-lPj"/>
+                            <constraint firstItem="VLA-jf-hdE" firstAttribute="top" secondItem="zsH-43-hMX" secondAttribute="bottom" id="wYH-Rb-AGd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zsH-43-hMX" secondAttribute="trailing" constant="-20" id="wbx-0w-LId"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="wYH-Rb-AGd"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="yPL-9d-bRa">
                         <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="VbQ-2R-Hmv">
@@ -192,6 +239,7 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="V57-Oe-DBe" id="16J-Ph-tID"/>
                         <outlet property="createGroupButton" destination="72p-HA-aUM" id="3u8-Cw-UcL"/>
+                        <outlet property="noGroupsMessageView" destination="zsH-43-hMX" id="2rl-dA-0la"/>
                         <outlet property="searchBar" destination="bAp-lJ-0bx" id="zMY-qF-NgF"/>
                         <outlet property="tableView" destination="w6e-7Z-2nr" id="CAh-gV-pZr"/>
                         <segue destination="RHt-OT-vO6" kind="show" identifier="showGroupMembersEditorVC" id="4kS-fH-hfi"/>
@@ -629,6 +677,7 @@
     <resources>
         <image name="AddGroup" width="56" height="56"/>
         <image name="DeleteMember" width="26" height="26"/>
+        <image name="EmptyGroupBgrd" width="174" height="269"/>
         <image name="Groupblueicon" width="21" height="20"/>
         <image name="Groupgrayicon" width="21" height="21"/>
         <image name="Leavegroup" width="56" height="56"/>

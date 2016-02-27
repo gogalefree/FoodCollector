@@ -28,6 +28,7 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func setup() {
  
         dataSource = Array(group.members! as! Set)
+        self.groupNameLabel.text = group.name
         if group.adminUserId?.integerValue == User.sharedInstance.userUniqueID {
             setupForAdmin()
         } else {

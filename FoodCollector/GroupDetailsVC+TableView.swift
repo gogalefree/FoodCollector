@@ -16,7 +16,7 @@ extension GroupDetailsVC: GroupDetilsTVCellDelegate {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return dataSource.count > 0 ? 1 : 0
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -45,7 +45,7 @@ extension GroupDetailsVC: GroupDetilsTVCellDelegate {
             self.dataSource.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             tableView.endUpdates()
-            
+            tableView.setEditing(false, animated: true)
             //inform server and delete from core data
             print("deleted member: \(memberToDelete.name)")
             GroupMember.deleteGroupMember(memberToDelete, group: group)

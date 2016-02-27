@@ -18,7 +18,7 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return dataSource.count > 0 ? 1 : 0
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -86,6 +86,7 @@ extension GroupMembersEditorVC {
         let groupMemberData = GroupMemberData(name: memberName, phoneNumber: memberPhoneNumber)
         self.members.insert(groupMemberData, atIndex: 0)
         self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+        self.tableView.setEditing(false, animated: true)
     }
     
     func showEmptyValuesAlert() {

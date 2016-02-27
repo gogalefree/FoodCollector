@@ -51,7 +51,7 @@ class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableView
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return members.count > 0 ? 1 : 0
+        return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

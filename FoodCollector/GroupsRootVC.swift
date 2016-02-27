@@ -12,6 +12,7 @@ class GroupsRootVC: UIViewController {
 
     //TODO: add 
     
+    @IBOutlet weak var noGroupsMessageView: UIView!
     @IBOutlet weak var activityIndicatorView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var createGroupButton: UIButton!
@@ -46,6 +47,8 @@ class GroupsRootVC: UIViewController {
         if let adminGroups = adminGroupsForUser , memberGroups = memberGroupsForUser {
             dataSource = adminGroups + memberGroups
         }
+        
+        self.noGroupsMessageView.alpha =  dataSource.count == 0 ? 1 : 0
     }
     
     //MARK: - Actions

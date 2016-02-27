@@ -46,7 +46,7 @@ extension FCMockServer {
                     print("member: \(memberDict)")
                 
                     let id = memberDict["id"] as? Int ?? 0
-                    let userId = memberDict["Group_id"] as? Int ?? 0
+                    let userId = memberDict["user_id"] as? Int ?? 0
                     let name = memberDict["name"] as? String ?? ""
                     
                     let groupMember = myMembers.filter {(member) in member.name == name }
@@ -98,7 +98,7 @@ extension FCMockServer {
                 
                 print("DELETE GROUP RESPONSE: \(serverResponse)")
                 
-                if error != nil || serverResponse.statusCode != 200 {
+                if error != nil {
                     
                     print("ERROR DELETING GROUP MEMBER \(memberToDelete.name): \(error)")
                     return
