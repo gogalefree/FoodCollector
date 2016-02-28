@@ -38,22 +38,47 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
         container.collectorVCWillSlide()
     }
     
-    @IBAction func mySharesTapAction() {
-        print("mySharesTapAction")
+    @IBAction func menuViewTapped(sender: UITapGestureRecognizer) {
+        
+        switch sender.view?.tag {
+        case .Some(10101):
+            // My Shares
+            self.tabBarController?.selectedIndex = 1
+        case .Some(10102):
+            print("My Picups was Taped")
+            let container = self.navigationController?.parentViewController as! FCCollectorContainerController
+            container.collectorVCWillSlide()
+            //performSegueWithIdentifier("presentPublicationsTVC", sender: nil)
+        case .Some(10103):
+            print("Groups was Taped")
+        case .Some(10104):
+            print("Settings was Taped")
+        case .Some(10105):
+            presentFeedbackVC()
+        case .Some(10106):
+            // About
+            if let aboutVC = self.storyboard?.instantiateViewControllerWithIdentifier("AboutVC") as? AboutVC {
+                print("AboutVC")
+                aboutVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissAboutVC")
+                let nav = UINavigationController(rootViewController: aboutVC)
+                self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
     }
     
-    @IBAction func myPickupsTapAction() {
-        print("myPickupsTapAction")
-    }
-    
-    @IBAction func groupsTapAction() {
-        print("groupsTapAction")
-    }
-    
-    func displayUserProfileImage() {
+    private func displayUserProfileImage() {
         profilePic.image = User.sharedInstance.loginData?.userImage ?? User.sharedInstance.userImage
         profilePic.layer.cornerRadius = CGRectGetWidth(profilePic.frame)/2
         profilePic.layer.masksToBounds = true
+    }
+    
+    private func presentFeedbackVC(){
+        let feedbackNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("feedbackvc") as! FeedbacksVCViewController
+        feedbackNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        feedbackNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        self.parentViewController?.parentViewController?.presentViewController(feedbackNavVC, animated: true, completion: nil)
     }
     
     /*
@@ -65,5 +90,9 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    final func dismissAboutVC() {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }
