@@ -32,6 +32,23 @@ class GroupsRootVC: UIViewController {
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate   = self
+        
+        //DEBUG ONLY
+        let moc = FCModel.dataController.managedObjectContext
+        let request = NSFetchRequest(entityName: "PublicationReport")
+        let results = try? moc.executeFetchRequest(request) as? [PublicationReport]
+        print("reports count \(results?!.count)")
+        
+        let request1 = NSFetchRequest(entityName: "Publication")
+        let results1 = try? moc.executeFetchRequest(request1) as? [Publication]
+        print("publications count \(results1?!.count)")
+
+        
+        let request2 = NSFetchRequest(entityName: "PublicationRegistration")
+        let results2 = try? moc.executeFetchRequest(request2) as? [PublicationRegistration]
+        print("registrations count \(results2?!.count)")
+
+        //END DEBUG
     }
     
     override func viewWillAppear(animated: Bool) {

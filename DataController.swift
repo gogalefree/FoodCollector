@@ -16,6 +16,7 @@ class DataController:  NSObject  {
     
     override init() {
     
+        
         // This resource is the same name as your xcdatamodeld contained in your project.
         
         guard let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension:"momd") else {
@@ -46,22 +47,60 @@ class DataController:  NSObject  {
             
             let storeURL = docURL.URLByAppendingPathComponent("Model.sqlite")
             
+            
             do {
                 try psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
             } catch {
                 fatalError("Error migrating store: \(error)")
                 }
             }
-		    
+        
+        
     }
-
+    
     func save() {
         
-        do {
-            try managedObjectContext.save()
-        } catch  {
-            print("Managed Object Context Save Error \(error)")
+            managedObjectContext.performBlock({ () -> Void in
+                do {
+    
+                try self.managedObjectContext.save()
+                }
+                catch  {
+                    print("Managed Object Context Save Error \(error)")
+                }
+            })
         }
-    }
 
+    func createPrivateQueueContext() -> NSManagedObjectContext {
+        // Stack uses the same store and model, but a new persistent store coordinator and context.
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        
+        /*
+        Attempting to add a persistent store may yield an error--pass it out of
+        the function for the caller to deal with.
+        */
+        do {
+         
+            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+            let docURL = urls[urls.endIndex-1]
+            
+            let storeURL = docURL.URLByAppendingPathComponent("Model.sqlite")
+            
+            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+            
+        } catch {
+            print("error creating private MOC in dataController")
+            abort()
+        }
+        
+        let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        
+        context.persistentStoreCoordinator = coordinator
+        
+        context.undoManager = nil
+        
+        return context
+    }
+    
+    
 }

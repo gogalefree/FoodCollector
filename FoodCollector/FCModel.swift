@@ -94,8 +94,18 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
            self.setupLocationManager()
         }
         
-        //FOR DEV ONLY
-        //createGroupasMember()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "mergeChanges:", name: NSManagedObjectContextDidSaveNotification, object: nil)
+        
+    }
+    
+    func mergeChanges(notification: NSNotification) {
+    
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            
+            let moc = FCModel.dataController.managedObjectContext
+            moc.mergeChangesFromContextDidSaveNotification(notification)
+        }
+        
     }
     
     func reportDeviceUUIDToServer() {
@@ -365,18 +375,18 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func createGroupasMember() {
-     
-        let group = Group.initWith("someone else", id: 10, adminId: 10)
-        
-        let memberA = GroupMember.initWith("guy", id: 21, phoneNumber: "0546684685", userId: User.sharedInstance.userUniqueID, isFoodonetUser: true, isAdmin: false, belongsToGroup: group!)
-        group?.members?.setByAddingObject(memberA!)
-        
-        let memberB = GroupMember.initWith("yoni", id: 22, phoneNumber: "0528461070", userId: 0, isFoodonetUser: false, isAdmin: false, belongsToGroup: group!)
-        group?.members?.setByAddingObject(memberB!)
-        
-        FCModel.dataController.save()
-    }
+//    func createGroupasMember() {
+//     
+//        let group = Group.initWith("someone else", id: 10, adminId: 10)
+//        
+//        let memberA = GroupMember.initWith("guy", id: 21, phoneNumber: "0546684685", userId: User.sharedInstance.userUniqueID, isFoodonetUser: true, isAdmin: false, belongsToGroup: group!)
+//        group?.members?.setByAddingObject(memberA!)
+//        
+//        let memberB = GroupMember.initWith("yoni", id: 22, phoneNumber: "0528461070", userId: 0, isFoodonetUser: false, isAdmin: false, belongsToGroup: group!)
+//        group?.members?.setByAddingObject(memberB!)
+//        
+//        FCModel.dataController.save()
+//    }
 }
 
 

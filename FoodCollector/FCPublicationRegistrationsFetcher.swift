@@ -7,18 +7,10 @@
 //
 
 import Foundation
-
-protocol FCPublicationRegistrationsFetcherDelegate: NSObjectProtocol {
-    func didFinishFetchingPublicationRegistrations()
-}
-
-let kPublicationRegistrationUniqueIdKey             = "id"
-let kPublicationRegistrationPublicationIdKey        = "publication_id"
-let kPublicationRegistrationPublicationVersionKey   = "publication_version"
-let kPublicationRegistrationContactInfoKey          = "collector_contact_info"
-let kPublicationRegistrationCollectorNameKey        = "collector_name"
-let kPublicationRegistrationDateOfRegistrationKey   = "date_of_registration"
-
+//*****************
+//DEPRECATED v1.0.9
+//USE CDPublicationRegistrationFetcher
+//*****************
 
 class FCPublicationRegistrationsFetcher: NSObject {
     
@@ -56,6 +48,9 @@ class FCPublicationRegistrationsFetcher: NSObject {
                     let registrationsArrayofDicts = (try? NSJSONSerialization.JSONObjectWithData(data!, options: [])) as? [[String : AnyObject]]
                     
                     if let registrations = registrationsArrayofDicts {
+                        
+                        print("registrations: \(registrations)", terminator: "=====end registration=====")
+
                         //if this is initiated by initial web fetch, we check if we should present a new registration notification
                         if checkNew && self.publication.didRegisterForCurrentPublication && self.publication.countOfRegisteredUsers < registrations.count {self.publication.didRecieveNewRegistration = true}
                         self.publication.countOfRegisteredUsers = registrations.count

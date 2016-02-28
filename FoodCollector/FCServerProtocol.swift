@@ -116,5 +116,9 @@ protocol FCServerProtocol {
     ///
     func deleteGroupMember(memberToDelete: GroupMember)
 
+    //core data fetch reports for publication
+    func reportsForPublication(publication:Publication,
+        context: NSManagedObjectContext,
+        completion: (success: Bool) -> Void )
 }
 

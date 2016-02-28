@@ -7,7 +7,9 @@
 //
 
 import Foundation
-
+//*****************
+//DEPRECATED v1.0.9
+//*****************
 extension FCModel {
     
     func downloadData() {
