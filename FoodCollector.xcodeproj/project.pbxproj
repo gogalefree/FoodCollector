@@ -56,6 +56,8 @@
 		A1E04A801C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A821C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib */; };
 		A1E04A851C22A8F100709B0A /* FCActivityCenterTVSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A871C22A8F100709B0A /* FCActivityCenterTVSectionHeader.xib */; };
 		A1E04A8A1C22A90600709B0A /* FetchedDataNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A8C1C22A90600709B0A /* FetchedDataNotificationView.xib */; };
+		A1EBCBB11C77777300B39BBE /* ActivityCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */; };
+		A1EBCBB21C77777300B39BBE /* ActivityCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */; };
 		A1F44BEB1C6938C9000F132A /* InfoPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */; };
 		A1F44BEC1C6938C9000F132A /* InfoPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
@@ -504,6 +506,7 @@
 		A1E04A891C22A8F300709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/FCActivityCenterTVSectionHeader.strings"; sourceTree = "<group>"; };
 		A1E04A8B1C22A90600709B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FetchedDataNotificationView.xib; sourceTree = "<group>"; };
 		A1E04A8E1C22A90800709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/FetchedDataNotificationView.strings"; sourceTree = "<group>"; };
+		A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterVC.swift; sourceTree = "<group>"; };
 		A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPopoverVC.swift; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E40544501C33ED0D007F7C24 /* LoginRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRootVC.swift; sourceTree = "<group>"; };
@@ -838,6 +841,18 @@
 			name = "Phone No. Field Cell";
 			sourceTree = "<group>";
 		};
+		A1EBCBAF1C77766300B39BBE /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */,
+				E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */,
+				A1E04A871C22A8F100709B0A /* FCActivityCenterTVSectionHeader.xib */,
+				E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */,
+				E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
 		E4030A701A63DD7B005D224E /* Sub Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -992,11 +1007,8 @@
 		E454995B1AAA1C7F001B5E49 /* Activity Center */ = {
 			isa = PBXGroup;
 			children = (
-				E4FEFC1D1A5E85B300AB0F43 /* FCActivityCenterTVC.swift */,
-				E4FEFC1F1A5E86FD00AB0F43 /* FCActivityCenterTVCell.swift */,
-				A1E04A871C22A8F100709B0A /* FCActivityCenterTVSectionHeader.xib */,
-				E45DA7371A9FC26C00F45C70 /* FCActivityCenterTVCSectionHeader.swift */,
-				E41729E71AEF5E94008ED6C6 /* FCActivityCenterTVCellBadgeLabel.swift */,
+				A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */,
+				A1EBCBAF1C77766300B39BBE /* Old */,
 			);
 			name = "Activity Center";
 			sourceTree = "<group>";
@@ -1071,6 +1083,7 @@
 				E4F1A8601ADB9D5600973C51 /* AboutVC.swift */,
 				E4737DAB1A10C24A00A4AB81 /* Main */,
 				E405444D1C33EB6C007F7C24 /* Login */,
+				E454995B1AAA1C7F001B5E49 /* Activity Center */,
 				E4737DAA1A10C23200A4AB81 /* Publisher */,
 				E4737DA91A10C21C00A4AB81 /* Collector */,
 				E4F40D051C7318E10094E455 /* Groups */,
@@ -1105,7 +1118,6 @@
 				E45499571AAA1BB8001B5E49 /* Map */,
 				E45499581AAA1BDE001B5E49 /* Publications TableView */,
 				E454995A1AAA1C43001B5E49 /* Publication Details */,
-				E454995B1AAA1C7F001B5E49 /* Activity Center */,
 				E45499591AAA1C16001B5E49 /* Arrived To Publication Spot */,
 			);
 			name = Collector;
@@ -1391,7 +1403,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 58NS37C8VA;
+						DevelopmentTeam = Z43P8YG44T;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -1668,6 +1680,7 @@
 				E44FDDA71C5CB5F9000D5F97 /* PublicationDetailsImageCell.swift in Sources */,
 				E44FDDA81C5CB5F9000D5F97 /* FCPublicationReportsDismissAnimator.swift in Sources */,
 				E44FDDA91C5CB5F9000D5F97 /* LoginRootVC.swift in Sources */,
+				A1EBCBB21C77777300B39BBE /* ActivityCenterVC.swift in Sources */,
 				E44FDDAA1C5CB5F9000D5F97 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */,
 				E44FDDAB1C5CB5F9000D5F97 /* NewRegistrationBannerView.swift in Sources */,
 				E44FDDAC1C5CB5F9000D5F97 /* FCPublicationReportsVCAnimator.swift in Sources */,
@@ -1810,6 +1823,7 @@
 				E4AEDE5E1B257E9D00431F9B /* PublicationDetailsImageCell.swift in Sources */,
 				E41235CA1ABC0C890016FE5F /* FCPublicationReportsDismissAnimator.swift in Sources */,
 				E40544511C33ED0D007F7C24 /* LoginRootVC.swift in Sources */,
+				A1EBCBB11C77777300B39BBE /* ActivityCenterVC.swift in Sources */,
 				E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */,
 				E4A41D351B491AA1007A611E /* NewRegistrationBannerView.swift in Sources */,
 				E4F839211ABB03000055A277 /* FCPublicationReportsVCAnimator.swift in Sources */,

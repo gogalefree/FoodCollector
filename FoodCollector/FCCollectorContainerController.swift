@@ -65,10 +65,10 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     
     func showActivityCenter() {
         
-        //reload data in activity center
+        ///reload data in activity center
         activityCenterPresented = true
-        let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! FCActivityCenterTVC
-        activityCenterVC.reload()
+        let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! ActivityCenterVC
+        //activityCenterVC.reload()
         
         //inform collector root vc that activity center is presented
         let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
@@ -95,7 +95,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
             }
             
             }) { (completion) -> Void in
-                activityCenterVC.displaySections()
+                //activityCenterVC.displaySections()
         }
     }
     

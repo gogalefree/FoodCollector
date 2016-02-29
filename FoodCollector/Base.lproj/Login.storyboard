@@ -220,7 +220,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="PJm-M2-67b">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="I" translatesAutoresizingMaskIntoConstraints="NO" id="PJm-M2-67b">
                                 <rect key="frame" x="100" y="84" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="KaS-Gl-kQu"/>
@@ -470,11 +470,11 @@
     <resources>
         <image name="FacebookLogin" width="270" height="42"/>
         <image name="GoogleLogin" width="270" height="42"/>
+        <image name="I" width="87" height="80"/>
         <image name="NoPhotoPlaceholder" width="87" height="80"/>
         <image name="PhoneFieldBG" width="270" height="42"/>
         <image name="PhoneIcon" width="27" height="24"/>
         <image name="ProfileChangeImageIcon" width="25" height="20"/>
-        <image name="ProfilePic" width="120" height="120"/>
         <image name="StartButtonBG" width="270" height="42"/>
     </resources>
 </document>
