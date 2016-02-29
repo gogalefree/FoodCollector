@@ -29,8 +29,6 @@ class Publication: NSManagedObject {
         return location.distanceFromLocation(FCModel.sharedInstance.userLocation)}
     }
     
-    
-    
 //    func setUserRegistration(registered: Bool) {
 //        
 //        self.didRegisterForCurrentPublication = registered
