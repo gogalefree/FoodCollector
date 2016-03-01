@@ -14,7 +14,7 @@ class FCPublicationReporetsTVCell: UITableViewCell {
     @IBOutlet weak var reportDate: UILabel!
     @IBOutlet weak var reportIcon: UIImageView!
 
-    var report: FCOnSpotPublicationReport! {
+    var report: PublicationReport! {
             didSet{
                 if let aReport = self.report {
                     setup(aReport)
@@ -22,17 +22,17 @@ class FCPublicationReporetsTVCell: UITableViewCell {
         }
     }
 
-    func setup(report: FCOnSpotPublicationReport){
+    func setup(report: PublicationReport){
         self.reportLabel.text = self.titleForReport(report)
-        self.reportDate.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(report.date)
+        self.reportDate.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(report.dateOfReport!)
         self.reportIcon.image = self.iconForReport(report)
     }
 
-    func titleForReport(report:FCOnSpotPublicationReport) -> String {
+    func titleForReport(report:PublicationReport) -> String {
         
         var title = ""
         
-        switch report.onSpotPublicationReportMessage {
+        switch FCOnSpotPublicationReportMessage(rawValue: report.report!.integerValue)! {
             
         case .HasMore:
             title = kHasMoreTitle
@@ -45,11 +45,11 @@ class FCPublicationReporetsTVCell: UITableViewCell {
         return title
     }
     
-    func iconForReport(report: FCOnSpotPublicationReport) -> UIImage {
+    func iconForReport(report: PublicationReport) -> UIImage {
         
         var icon: UIImage
         
-        switch report.onSpotPublicationReportMessage{
+        switch FCOnSpotPublicationReportMessage(rawValue: report.report!.integerValue)! {
         case .HasMore:
             icon = FCIconFactory.orangeImage()
             

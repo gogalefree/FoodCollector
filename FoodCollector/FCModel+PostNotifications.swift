@@ -21,7 +21,7 @@ extension FCModel {
     }
     
     //posts after the deleted publication from push was removed from the model
-    func postDeletedPublicationNotification(publicationIdentifier: PublicationIdentifier) {
+    func postDeletedPublicationNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(kDeletedPublicationNotification, object: self)
     }
     

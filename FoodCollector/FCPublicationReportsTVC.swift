@@ -12,7 +12,7 @@ class FCPublicationReportsTVC: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var tableView: UITableView!
 
-    var publication: FCPublication!
+    var publication: Publication!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class FCPublicationReportsTVC: UIViewController, UITableViewDataSource, UITableV
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.publication.reportsForPublication.count
+        return self.publication.reports?.count ?? 0
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -39,8 +39,8 @@ class FCPublicationReportsTVC: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
         let cell = tableView.dequeueReusableCellWithIdentifier("publicationReportsTVCell", forIndexPath: indexPath) as! FCPublicationReporetsTVCell
-
-        cell.report = self.publication.reportsForPublication[indexPath.row]
+        let reportsArray = Array(self.publication.reports!) as! [PublicationReport]
+        cell.report = reportsArray[indexPath.row]
         return cell
     }
     

@@ -10,8 +10,8 @@ import UIKit
 
 protocol NewReportMessageViewDelegate: NSObjectProtocol {
     func newReportMessageViewActionDissmiss()
-    func newReportMessageViewActionTakeOffAir(publication: FCPublication)
-    func newReportMessageViewActionShowDetails(publication: FCPublication)
+    func newReportMessageViewActionTakeOffAir(publication: Publication)
+    func newReportMessageViewActionShowDetails(publication: Publication)
 }
 
 enum NewReportMessageViewState {
@@ -36,7 +36,7 @@ class NewReportMessageView: UIVisualEffectView {
     var delegate: NewReportMessageViewDelegate!
     
     
-    var userCreatedPublication: FCPublication! {
+    var userCreatedPublication: Publication! {
         didSet {
             if let publication = userCreatedPublication {
                 self.fetchPhotoIfNeeded(publication)
@@ -133,26 +133,27 @@ class NewReportMessageView: UIVisualEffectView {
         }
     }
     
-    func fetchPhotoIfNeeded(publication: FCPublication) {
-        if publication.photoData.photo == nil {
-            if !publication.photoData.didTryToDonwloadImage {
+    func fetchPhotoIfNeeded(publication: Publication) {
+        if publication.photoBinaryData == nil {
+            if !publication.didTryToDownloadImage!.boolValue {
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
                     
                     if image != nil {
                         //present photo
-                        self.presentFetchedPhoto(publication)
+                        self.presentFetchedPhoto(image!)
                     }
                 })
             }
         }
         else {
             //presentThePhoto
-            self.presentFetchedPhoto(publication)
+            let image = UIImage(data: publication.photoBinaryData!)!
+            self.presentFetchedPhoto(image)
         }
     }
     
-    func presentFetchedPhoto(publication: FCPublication) {
+    func presentFetchedPhoto(image: UIImage) {
         
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
@@ -160,7 +161,7 @@ class NewReportMessageView: UIVisualEffectView {
             
             }) { (finished) -> Void in
                 
-                self.imageView.image = publication.photoData.photo
+                self.imageView.image = image
                 
                 UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     

@@ -14,7 +14,7 @@ class PublicationDetailsSubtitleCell: UITableViewCell {
     
     @IBOutlet weak var subtitleLabel: UILabel!
     
-    var publication: FCPublication! {
+    var publication: Publication! {
         didSet {
             if let publication = self.publication {
                 subtitleLabel.text = publication.subtitle

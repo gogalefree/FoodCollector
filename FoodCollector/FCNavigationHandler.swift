@@ -16,14 +16,14 @@ import MapKit
 ///
 class FCNavigationHandler : NSObject {
     
-    func wazeNavigation(publication: FCPublication){
+    func wazeNavigation(publication: Publication){
         
         if UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!){
             
             var latitude = publication.coordinate.latitude
             var longitude = publication.coordinate.longitude
             
-            if publication.didModifyCoords {
+            if publication.didModifyCoords!.boolValue {
                 latitude -= kModifyCoordsToPresentOnMapView
                 longitude -= kModifyCoordsToPresentOnMapView
             }
@@ -33,12 +33,12 @@ class FCNavigationHandler : NSObject {
         }
     }
     
-    func appleMapsNavigation(publication: FCPublication) {
+    func appleMapsNavigation(publication: Publication) {
         
         var latitude = publication.coordinate.latitude
         var longitude = publication.coordinate.longitude
         
-        if publication.didModifyCoords {
+        if publication.didModifyCoords!.boolValue {
             latitude -= kModifyCoordsToPresentOnMapView
             longitude -= kModifyCoordsToPresentOnMapView
         }

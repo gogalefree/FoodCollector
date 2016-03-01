@@ -19,27 +19,21 @@ class FCPublicationDetailsDatesCell: UITableViewCell {
     @IBOutlet weak var finishesTitleLabel: UILabel!
     @IBOutlet weak var finishesDateLabel: UILabel!
     
-    var publication: FCPublication? {
+    var publication: Publication? {
         didSet{
             
             if let publication = self.publication {
                 self.publishedTitleLabel.text = publishedTitle
-                self.publishedDateLabel.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.startingDate)
+                self.publishedDateLabel.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.startingData!)
                 self.finishesTitleLabel.text = endsTitle
-                self.finishesDateLabel.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.endingDate)
+                self.finishesDateLabel.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(publication.endingData!)
             }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
-//        self.publishedTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-//        self.publishedDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-//        self.finishesDateLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-//        self.finishesTitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-        
+
         self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:60 ))
     }
 

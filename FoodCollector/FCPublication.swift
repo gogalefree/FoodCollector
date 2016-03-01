@@ -80,11 +80,11 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     var didRegisterForCurrentPublication:Bool = false {  //managed
         didSet{
             if didRegisterForCurrentPublication {
-                FCUserNotificationHandler.sharedInstance.removeLocationNotification(self)
-                FCUserNotificationHandler.sharedInstance.registerLocalNotification(self)
+             //   FCUserNotificationHandler.sharedInstance.removeLocationNotification(self)
+             //   FCUserNotificationHandler.sharedInstance.registerLocalNotification(self)
             }
             else if !didRegisterForCurrentPublication{
-                FCUserNotificationHandler.sharedInstance.removeLocationNotification(self)
+            //    FCUserNotificationHandler.sharedInstance.removeLocationNotification(self)
             }
         }
     }

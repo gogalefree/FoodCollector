@@ -17,7 +17,7 @@ class PublicationDetailsTitleCellTableViewCell: UITableViewCell {
     
     let titleColor = UIColor(red: 149/255, green: 149/255, blue: 149/255, alpha: 1)
     
-    var publication: FCPublication! {
+    var publication: Publication! {
         didSet {
             if let publication = self.publication {
                 self.titleLabel.text = publication.title

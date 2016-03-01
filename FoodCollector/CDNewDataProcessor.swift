@@ -137,11 +137,11 @@ class CDNewDataProcessor: NSObject {
             
             publications = try! localContext.executeFetchRequest(request) as? [Publication]
             guard let currentPublications = publications else {return}
+
             for publication in currentPublications {
                 
                 FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: localContext, completion: { (success) -> Void in
-                    print("completed reports for \(publication.title) with Count \(publication.reports?.count) success \(success)")
-                    
+                  
                     do{
                         
                         try localContext.save()
@@ -159,10 +159,14 @@ class CDNewDataProcessor: NSObject {
             
             if let currentPublications = publications {
                 
-                for publication in currentPublications {
+                for (index, publication) in currentPublications.enumerate() {
                     
                     let registrationFetcher = CDPublicationRegistrationFetcher(publication: publication, context: localContext)
                     registrationFetcher.fetchRegistrationsForPublication(true)
+                    
+                    if index == currentPublications.count {
+                        FCModel.sharedInstance.postFetchedDataReadyNotification()
+                    }
                 }
             }
             

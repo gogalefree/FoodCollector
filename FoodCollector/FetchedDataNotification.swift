@@ -12,12 +12,12 @@ class FetchedDataNotification: NSObject {
     
     enum NotificationType {case NewPublication, DeletePublication, Report, Registration}
 
-    let publication :FCPublication
+    let publication :Publication
     let type: NotificationType
     let title: String
     
     
-    init(_ publication: FCPublication, type: NotificationType) {
+    init(_ publication: Publication, type: NotificationType) {
     
         self.publication = publication
         self.type = type

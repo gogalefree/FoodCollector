@@ -47,30 +47,30 @@ class FCIconFactory: NSObject {
         return icon
     }
     
-    class func publicationsTableIcon(publication: FCPublication) -> UIImage {
+    class func publicationsTableIcon() -> UIImage {
     
-        var icon: UIImage
+        let icon = UIImage(named: "Pin_Map_Marker")!
         
-        switch publication.countOfRegisteredUsers {
-            
-        case 0...1:
-            icon = UIImage(named: "Pin-Table-Whole")!
-            
-        case 2...4:
-            icon = UIImage(named: "Pin-Table-Half")!
-            
-        default:
-            icon = UIImage(named: "Pin-Table-Few")!
-        }
-        
+//        switch publication.countOfRegisteredUsers {
+//            
+//        case 0...1:
+//            icon = UIImage(named: "Pin-Table-Whole")!
+//            
+//        case 2...4:
+//            icon = UIImage(named: "Pin-Table-Half")!
+//            
+//        default:
+//            icon = UIImage(named: "Pin-Table-Few")!
+//        }
+//        
         return icon
     }
     
-    class func publicationDetailsReportIcon(report: FCOnSpotPublicationReport) -> UIImage {
+    class func publicationDetailsReportIcon(report: PublicationReport) -> UIImage {
         
         var icon: UIImage
         
-        switch report.onSpotPublicationReportMessage.rawValue {
+        switch report.report!.integerValue {
             
         case 1:
             icon = UIImage(named: "Pin-Table-Whole")!

@@ -10,7 +10,7 @@ import Foundation
 
 class FCPublicationsSorter: NSObject {
     
-    class func sortPublicationsByDistanceFromUser(publications: [FCPublication]) -> [FCPublication] {
+    class func sortPublicationsByDistanceFromUser(publications: [Publication]) -> [Publication] {
         
         var sortedPublications = publications
 
@@ -20,48 +20,40 @@ class FCPublicationsSorter: NSObject {
         
     }
 
-    class func sortPublicationReportsByDate(publication: FCPublication) {
-        publication.reportsForPublication.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedDescending })
+    class func sortPublicationReportsByDate(publication: Publication) -> [PublicationReport]{
+        let reports = publication.reports ?? Set<PublicationReport>()
+        let reportsArray = Array(reports) as? [PublicationReport]
+        guard var array = reportsArray else {return [PublicationReport]()}
+        array = array.sort { $0.dateOfReport!.compare($1.dateOfReport!) == NSComparisonResult.OrderedDescending }
+        return array
     }
     
-    class func sortPublicationsByEndingDate(publications: [FCPublication]) -> [FCPublication] {
+    class func sortPublicationsByEndingDate(publications: [Publication]) -> [Publication] {
         
         var publicationsToSort = publications
-        publicationsToSort.sortInPlace({ $0.endingDate.compare($1.endingDate) == NSComparisonResult.OrderedAscending })
-        
-        for publication in publicationsToSort {
-            print("\(publication.endingDate)")
-        }
+        publicationsToSort.sortInPlace { $0.endingData!.compare($1.endingData!) == NSComparisonResult.OrderedAscending }
         return publicationsToSort
     }
     
-    class func sortPublicationsByStartingDate(publications: [FCPublication]) -> [FCPublication] {
+    class func sortPublicationsByStartingDate(publications: [Publication]) -> [Publication] {
         var publicationsToSort = publications
-        publicationsToSort.sortInPlace({ $0.startingDate.compare($1.startingDate) == NSComparisonResult.OrderedDescending })
+        publicationsToSort = publicationsToSort.sort { $0.startingData!.compare($1.startingData!) == NSComparisonResult.OrderedDescending }
         return publicationsToSort
     }
     
-    class func sortPublicationsByCountOfRegisteredUsers(publications: [FCPublication]) -> [FCPublication] {
+    class func sortPublicationsByCountOfRegisteredUsers(publications: [Publication]) -> [Publication] {
+        
         var publicationsToSort = publications
         publicationsToSort.sortInPlace({ $0.countOfRegisteredUsers < $1.countOfRegisteredUsers })
         return publicationsToSort
     }
     
-    class func sortPublicationByIsOnAir(publications: [FCPublication]) -> [FCPublication] {
+    class func sortPublicationByIsOnAir(publications: [Publication]) -> [Publication] {
        
         var publicationsToSort = publications
 
-        publicationsToSort.sortInPlace({ $0.isOnAir != $1.isOnAir})
-        publicationsToSort.sortInPlace({ $0.isOnAir == $1.isOnAir && $0.endingDate.compare($1.endingDate) == NSComparisonResult.OrderedDescending })
+        publicationsToSort = publicationsToSort.sort {(pub1 , pub2) in pub1.isOnAir!.boolValue.hashValue > pub2.isOnAir!.boolValue.hashValue }
         return publicationsToSort
     }
-    
-    class func sortPublicationsByIsOffAir(publications: [FCPublication]) -> [FCPublication] {
-        
-        var publicationsToSort = publications
-        publicationsToSort.sortInPlace({ $0.isOnAir != $1.isOnAir})
-        return publicationsToSort
-    }
-
 
 }

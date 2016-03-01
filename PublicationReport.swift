@@ -70,6 +70,24 @@ class PublicationReport: NSManagedObject {
         
     }
     
+    class func reportForPublication(reportInt: Int ,publication: Publication, context: NSManagedObjectContext)  -> PublicationReport {
+        let report = NSEntityDescription.insertNewObjectForEntityForName("", inManagedObjectContext: context) as! PublicationReport
+        report.reporterContactInfo = User.sharedInstance.userPhoneNumber
+        report.activeDeviceDecUUID = FCModel.sharedInstance.deviceUUID
+        report.dateOfReport = NSDate()
+        report.publicationId = publication.uniqueId
+        report.publicationVersion = publication.version
+        report.reoprterUserName = User.sharedInstance.userIdentityProviderUserName
+        report.report = NSNumber(integer: reportInt)
+        report.reporterUserId = NSNumber(integer: User.sharedInstance.userUniqueID)
+        report.publication = publication
+        
+        if publication.reports == nil {publication.reports = Set<PublicationReport>()}
+        publication.reports = publication.reports?.setByAddingObject(report)
+        
+        return report        
+    }
+    
     func toString() {
         
         print("reporter name \(reoprterUserName) contact: \(reporterContactInfo) publicationID: \(publicationId) ")

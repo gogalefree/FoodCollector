@@ -8,6 +8,7 @@
 
 import UIKit
 
+//DEPRECATED v1.0.9
 let kPublicationDeletedAlertMessage = NSLocalizedString("Event Ended Near You", comment:"A message that informs the user that a publication ended")
 let kStatusBarHeight: CGFloat = 20
 
@@ -103,30 +104,30 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     
     final func showUserRegistrationNotificationIfNeeded(dealey: NSTimeInterval) {
         
-         if let data = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeUserRegisteredForPublication) as? [String : AnyObject]{
-            
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(dealey * Double(NSEC_PER_SEC)))
-            
-            dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-
-                
-                        let id = data[kPublicationUniqueIdKey] as! Int
-                        let version = data[kPublicationVersionKey] as! Int
-                        let identifier = PublicationIdentifier(uniqueId: id, version: version)
-                        let publication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier)
-                        if let publication = publication {
-                            self.newRgistrationBannerView.reset()
-                            self.newRgistrationBannerView.userCreatedPublication = publication
-                            self.presentNewRegistrationBanner()
-                        }
-                        NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeUserRegisteredForPublication)
-            })
-        }
-        else {
-         
-            showNewReportIfNeeded()
-        }
+//         if let data = NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeUserRegisteredForPublication) as? [String : AnyObject]{
+//            
+//            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                Int64(dealey * Double(NSEC_PER_SEC)))
+//            
+//            dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+//
+//                
+//                        let id = data[kPublicationUniqueIdKey] as! Int
+//                        let version = data[kPublicationVersionKey] as! Int
+//                        let identifier = PublicationIdentifier(uniqueId: id, version: version)
+//                        let publication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier)
+//                        if let publication = publication {
+//                            self.newRgistrationBannerView.reset()
+//                            self.newRgistrationBannerView.userCreatedPublication = publication
+//                            self.presentNewRegistrationBanner()
+//                        }
+//                        NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeUserRegisteredForPublication)
+//            })
+//        }
+//        else {
+//         
+//            showNewReportIfNeeded()
+//        }
     }
     
     func showNewReportIfNeeded() {
@@ -149,31 +150,31 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     }
     
     func didRecieveOnspotNotification(notification: NSNotification) {
-        
-        if isPresentingOnSpotReportVC{
-            dismiss()
-            didRecieveOnspotNotification(notification)
-        }
-        else {
-            
-            let info = notification.userInfo
-            if let userInfo = info {
-                
-                let publicationIdentifier = FCUserNotificationHandler.sharedInstance.identifierForInfo(userInfo)
-                
-                let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier)
-                
-                let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
-                
-                arrivedToSpotReportVC.publication = publication
-                arrivedToSpotReportVC.delegate = self
-            
-                let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
-                
-                self.presentViewController(navController, animated: true, completion: nil)
-                isPresentingOnSpotReportVC = true
-            }
-        }
+//        
+//        if isPresentingOnSpotReportVC{
+//            dismiss()
+//            didRecieveOnspotNotification(notification)
+//        }
+//        else {
+//            
+//            let info = notification.userInfo
+//            if let userInfo = info {
+//                
+//                let publicationIdentifier = FCUserNotificationHandler.sharedInstance.identifierForInfo(userInfo)
+//                
+//                let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier)
+//                
+//                let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+//                
+//                arrivedToSpotReportVC.publication = publication
+//                arrivedToSpotReportVC.delegate = self
+//            
+//                let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+//                
+//                self.presentViewController(navController, animated: true, completion: nil)
+//                isPresentingOnSpotReportVC = true
+//            }
+//        }
     }
     
     func dismiss() {
@@ -202,15 +203,15 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     //that means that a user is registered to come pick up a user created publication
     func didRecievePublicationRegistration(notification: NSNotification) {
         
-        let info = notification.userInfo as? [String : AnyObject]
-        
-        if let userInfo = info {
-            
-            let publication = userInfo["publication"] as! FCPublication
-            self.newRgistrationBannerView.reset()
-            self.newRgistrationBannerView.userCreatedPublication = publication
-            self.presentNewRegistrationBanner()
-        }
+//        let info = notification.userInfo as? [String : AnyObject]
+//        
+//        if let userInfo = info {
+//            
+//            let publication = userInfo["publication"] as! FCPublication
+//            self.newRgistrationBannerView.reset()
+//            self.newRgistrationBannerView.userCreatedPublication = publication
+//            self.presentNewRegistrationBanner()
+//        }
     }
     
     func presentNewRegistrationBanner() {
@@ -243,37 +244,37 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
     func didRecievePublicationReport() {
         
         //delete notification data
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypePublicationReport)
-        
-        self.newReportMessageView.delegate = self
-
-        let (identifier , report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
-        
-        //for the user who created the publication - if the report is took all or nothing there, we suggest taking the publication off air
-        //else we suggest to see the publication details tvc
-        if let publication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier) {
-       
-            self.newReportMessageView.userCreatedPublication = publication
-            
-            if report.onSpotPublicationReportMessage != FCOnSpotPublicationReportMessage.HasMore {
-            
-                self.newReportMessageView.state = .NothingLeft
-            }
-                
-            else {
-            //present message with show details button
-                self.newReportMessageView.state = .HasMore
-            }
-            
-            self.presentNewReportMessageView()
-        }
-        //for a registered user who did not create the publication
-        else if let publication = FCModel.sharedInstance.publicationWithIdentifier(identifier) {
-            
-            self.newReportMessageView.userCreatedPublication = publication
-            self.newReportMessageView.state = .RegisteredUser
-            self.presentNewReportMessageView()
-        }
+//        NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypePublicationReport)
+//        
+//        self.newReportMessageView.delegate = self
+//
+//        let (identifier , report ) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
+//        
+//        //for the user who created the publication - if the report is took all or nothing there, we suggest taking the publication off air
+//        //else we suggest to see the publication details tvc
+//        if let publication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier) {
+//       
+//        //    self.newReportMessageView.userCreatedPublication = publication
+//            
+//            if report.onSpotPublicationReportMessage != FCOnSpotPublicationReportMessage.HasMore {
+//            
+//                self.newReportMessageView.state = .NothingLeft
+//            }
+//                
+//            else {
+//            //present message with show details button
+//                self.newReportMessageView.state = .HasMore
+//            }
+//            
+//            self.presentNewReportMessageView()
+//        }
+//        //for a registered user who did not create the publication
+//        else if let publication = FCModel.sharedInstance.publicationWithIdentifier(identifier) {
+//            
+//   //         self.newReportMessageView.userCreatedPublication = publication
+//            self.newReportMessageView.state = .RegisteredUser
+//            self.presentNewReportMessageView()
+//        }
     }
     
     func presentNewReportMessageView() {
@@ -307,33 +308,33 @@ class FCMainTabBarController: UITabBarController, FCOnSpotPublicationReportDeleg
         self.hideNewReportMessageView()
     }
     
-    func newReportMessageViewActionTakeOffAir(publication: FCPublication) {
+    func newReportMessageViewActionTakeOffAir(publication: Publication) {
         
             //update model
             publication.isOnAir = false
-            FCModel.sharedInstance.saveUserCreatedPublications()
+         //   FCModel.sharedInstance.saveUserCreatedPublications()
         
             //inform server and model
-            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
-                
-                if success{
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        
-                        self.hideNewReportMessageView()
-                        let publicationIdentifier = PublicationIdentifier(uniqueId: publication.uniqueId, version: publication.version)
-                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
-                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
-                    })
-                }
-                else{
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(kCommunicationIssueTitle, aMessage: kCommunicationIssueBody)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            })
+//            FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+//                
+//                if success{
+//                    
+//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                        
+//                        self.hideNewReportMessageView()
+//                        let publicationIdentifier = PublicationIdentifier(uniqueId: publication.uniqueId, version: publication.version)
+//                        FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
+//                        FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: false, deleteUserCreatedPublication: false)
+//                    })
+//                }
+//                else{
+//                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(kCommunicationIssueTitle, aMessage: kCommunicationIssueBody)
+//                    self.presentViewController(alert, animated: true, completion: nil)
+//                }
+//            })
     }
     
-    func newReportMessageViewActionShowDetails(publication: FCPublication) {
+    func newReportMessageViewActionShowDetails(publication: Publication) {
         
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         publicationDetailsTVC?.title = publication.title

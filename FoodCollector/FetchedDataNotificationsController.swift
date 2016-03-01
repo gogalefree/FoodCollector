@@ -21,10 +21,10 @@ class FetchedDataNotificationsController: NSObject {
         self.notifications.removeAll()
         self.notificationViews.removeAll()
         
-        let deleted = FCModel.sharedInstance.publicationsToDelete
-        let newPublications = FCModel.sharedInstance.newPublications
-        let reports = FCModel.sharedInstance.fetchedPublications.filter {(publication: FCPublication) in publication.didRecieveNewReport}
-        let registrations = FCModel.sharedInstance.fetchedPublications.filter {(publication: FCPublication) in publication.didRecieveNewRegistration}
+        let deleted = FCModel.sharedInstance.publications //needs filtering
+        let newPublications = FCModel.sharedInstance.publications //needs filtering
+        let reports = FCModel.sharedInstance.publications.filter {(publication: Publication) in publication.didRecieveNewReport!.boolValue}
+        let registrations = FCModel.sharedInstance.publications.filter {(publication: Publication) in publication.didRecieveNewRegistration!.boolValue}
         
         for publication in registrations {
             notifications.insert(FetchedDataNotification(publication, type: .Registration), atIndex: 0)

@@ -47,7 +47,7 @@ public class FCAlertsHandler : NSObject {
         return alertController
     }
     
-    public func navigationActionSheet(aTitle: String, publication: FCPublication) -> UIAlertController {
+    func navigationActionSheet(aTitle: String, publication: Publication) -> UIAlertController {
         
         let alertController = UIAlertController(title: aTitle, message:"", preferredStyle: UIAlertControllerStyle.ActionSheet)
         

@@ -37,7 +37,7 @@ class FCPublicationsTVCMessageView: UIVisualEffectView {
         }
     }
 
-    var publication: FCPublication! {
+    var publication: Publication! {
 
         didSet {
             self.contentLabel.text = publication.title
@@ -49,9 +49,9 @@ class FCPublicationsTVCMessageView: UIVisualEffectView {
         }
     }
     
-    func fetchPhotoIfNeeded(publication: FCPublication) {
-        if publication.photoData.photo == nil {
-            if !publication.photoData.didTryToDonwloadImage {
+    func fetchPhotoIfNeeded(publication: Publication) {
+        if publication.photoBinaryData == nil {
+            if !publication.didTryToDownloadImage!.boolValue {
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
                     
@@ -68,10 +68,10 @@ class FCPublicationsTVCMessageView: UIVisualEffectView {
         }
     }
     
-    func presentFetchedPhoto(publication: FCPublication) {
-        
+    func presentFetchedPhoto(publication: Publication) {
+        let image = UIImage(data: publication.photoBinaryData!)!
         self.imageView.animateToAlphaWithSpring(0.2, alpha: 0)
-        self.imageView.image = publication.photoData.photo
+        self.imageView.image = image
         self.imageView.animateToAlphaWithSpring(0.4, alpha: 1)
     }
     

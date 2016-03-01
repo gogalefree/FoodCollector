@@ -18,15 +18,17 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
     let initialScrollViewTopConstartintConstant: CGFloat = 60.0 //0.0
 
     var scrollViewZoomed = false
-    var publication: FCPublication!
+    var publication: Publication!
     var myImageView: UIImageView!
+    var photo: UIImage!
     
     override func viewDidLoad() {
        
         super.viewDidLoad()
         self.modalPresentationStyle = .Custom
         self.scrollView.delegate = self
-        self.scrollView.contentSize = self.publication.photoData.photo!.size;
+        photo = UIImage(data: publication.photoBinaryData!)
+        self.scrollView.contentSize = photo.size
         self.upDateConstraints(self.view.frame.size)
     }
     
@@ -42,9 +44,8 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
 
         if self.myImageView == nil {
         
-            let image = publication.photoData.photo!
-            myImageView = UIImageView(image: image)
-            myImageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size:image.size)
+            myImageView = UIImageView(image: photo)
+            myImageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size:photo.size)
             scrollView.addSubview(myImageView)
         }
     }

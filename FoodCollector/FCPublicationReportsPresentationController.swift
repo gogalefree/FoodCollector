@@ -13,14 +13,7 @@ class FCPublicationReportsPresentationController: UIPresentationController {
     var dimmingView: UIView!
     
     override func presentationTransitionWillBegin() {
-//        
-//        self.prepareDimmingView()
-//        
-//        let containerView  = self.containerView
-//        let presentedVC    = self.presentedViewController as UINavigationController
-//        
-//        containerView.insertSubview(dimmingView, atIndex: 0)
-//        self.dimmingView.alpha = 1
+
     }
     
     override func shouldRemovePresentersView() -> Bool {
@@ -30,14 +23,14 @@ class FCPublicationReportsPresentationController: UIPresentationController {
     
     override func dismissalTransitionWillBegin() {
         self.presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (context) -> Void in
-//            self.dimmingView.alpha = 0
+
             }, completion: nil)
     }
     
 
     
     override func presentationTransitionDidEnd(completed: Bool) {
-  //      self.dimmingView.removeFromSuperview()
+
     }
     
     override func sizeForChildContentContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
@@ -53,7 +46,7 @@ class FCPublicationReportsPresentationController: UIPresentationController {
     override func containerViewWillLayoutSubviews() {
         
         //handle rotation
-    //    dimmingView.frame = containerView.bounds
+
         presentedView()!.frame = frameOfPresentedViewInContainerView()
     }
     

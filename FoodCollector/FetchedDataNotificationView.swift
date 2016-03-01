@@ -42,7 +42,7 @@ class FetchedDataNotificationView: UIVisualEffectView {
        // self.contentView.backgroundColor = color
 
         
-        if notification.publication.photoData.didTryToDonwloadImage {
+        if notification.publication.photoBinaryData != nil {
             presentPhoto()
         }
         
@@ -56,10 +56,7 @@ class FetchedDataNotificationView: UIVisualEffectView {
     
     func presentPhoto() {
         
-        if notification?.publication.photoData.photo != nil {
-            
-            self.imageView.image = notification?.publication.photoData.photo
-        }
+        self.imageView.image = UIImage(data: notification!.publication.photoBinaryData!)
     }
     
     @IBAction func presentPublicationAction() {

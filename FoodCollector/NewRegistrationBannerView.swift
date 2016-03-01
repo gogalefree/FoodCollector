@@ -16,7 +16,7 @@ class NewRegistrationBannerView: UIVisualEffectView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
-    var userCreatedPublication: FCPublication! {
+    var userCreatedPublication: Publication! {
         didSet {
             if let publication = userCreatedPublication {
                 self.messageLabel.text = publication.title
@@ -32,9 +32,9 @@ class NewRegistrationBannerView: UIVisualEffectView {
         self.contentView.backgroundColor = color
     }
     
-    func fetchPhotoIfNeeded(publication: FCPublication) {
-        if publication.photoData.photo == nil {
-            if !publication.photoData.didTryToDonwloadImage {
+    func fetchPhotoIfNeeded(publication: Publication) {
+        if publication.photoBinaryData == nil {
+            if !publication.didTryToDownloadImage!.boolValue {
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
                     
@@ -51,7 +51,9 @@ class NewRegistrationBannerView: UIVisualEffectView {
         }
     }
     
-    func presentFetchedPhoto(publication: FCPublication) {
+    func presentFetchedPhoto(publication: Publication) {
+        
+        let image = UIImage(data: publication.photoBinaryData!)
         
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
@@ -59,7 +61,7 @@ class NewRegistrationBannerView: UIVisualEffectView {
             
         }) { (finished) -> Void in
                 
-                self.imageView.image = publication.photoData.photo
+                self.imageView.image = image
                 
                 UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     
