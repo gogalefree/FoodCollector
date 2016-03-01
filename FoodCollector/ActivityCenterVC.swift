@@ -51,12 +51,16 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
             //performSegueWithIdentifier("presentPublicationsTVC", sender: nil)
         case .Some(10103):
             print("Groups was Taped")
+            let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)
+            let groupsNavVC = groupsStoryBoard.instantiateInitialViewController() as? UINavigationController
+            self.presentViewController(groupsNavVC!, animated: true, completion: nil)
         case .Some(10104):
             print("Settings was Taped")
         case .Some(10105):
             presentFeedbackVC()
         case .Some(10106):
             // About
+            
             if let aboutVC = self.storyboard?.instantiateViewControllerWithIdentifier("AboutVC") as? AboutVC {
                 print("AboutVC")
                 aboutVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissAboutVC")
