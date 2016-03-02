@@ -10,7 +10,7 @@ import Foundation
 
 extension FCMockServer {
     
-    func registerUserForPublication(registration: PublicationRegistration) {
+    func registerUserForPublication(registration: PublicationRegistration, completion: (success:Bool) -> Void) {
         
         
         let id = registration.publication!.uniqueId!.integerValue
@@ -48,6 +48,7 @@ extension FCMockServer {
                 
                 if error != nil || serverResponse.statusCode > 300 {
                     //we currently implement as best effort. nothing is done with an error
+                    completion(success: false)
                     return
                 }
                 
@@ -62,11 +63,17 @@ extension FCMockServer {
                         registration.managedObjectContext?.performBlock({ () -> Void in
                             
                             registration.id = registrationDict["id"] as? Int ?? 0
+                            completion(success: true)
                         })
                         
                     } catch {
                         print("error parsing post registration response data \(error)")
+                        completion(success: false)
+
                     }
+                }
+                else {
+                    completion(success: false)
                 }
             }
         })
@@ -98,9 +105,15 @@ extension FCMockServer {
             
             if let serverResponse = response as? NSHTTPURLResponse {
                 print("respons: \(serverResponse.description)", terminator: "")
-                if error != nil || serverResponse.statusCode != 200 {
+                if error != nil || serverResponse.statusCode > 300 {
                     //we currently implement as best effort. nothing is done with an error
                     print("Unregister for publication error: \(error)")
+                    completion(success: false)
+                    
+                }
+                
+                else {
+                    completion(success: true)
                 }
             }
         })

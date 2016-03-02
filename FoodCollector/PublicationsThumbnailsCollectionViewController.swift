@@ -50,7 +50,7 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
     }
     
     func registerAppNotifications() {
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kReloadDataNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kRecievedNewDataNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kRecievedNewPublicationNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kDeletedPublicationNotification, object: nil)

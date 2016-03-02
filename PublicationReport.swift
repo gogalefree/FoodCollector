@@ -71,7 +71,7 @@ class PublicationReport: NSManagedObject {
     }
     
     class func reportForPublication(reportInt: Int ,publication: Publication, context: NSManagedObjectContext)  -> PublicationReport {
-        let report = NSEntityDescription.insertNewObjectForEntityForName("", inManagedObjectContext: context) as! PublicationReport
+        let report = NSEntityDescription.insertNewObjectForEntityForName("PublicationReport", inManagedObjectContext: context) as! PublicationReport
         report.reporterContactInfo = User.sharedInstance.userPhoneNumber
         report.activeDeviceDecUUID = FCModel.sharedInstance.deviceUUID
         report.dateOfReport = NSDate()

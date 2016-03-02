@@ -67,7 +67,17 @@ class CDNewDataProcessor: NSObject {
         let deleteFetchRequest   = NSFetchRequest(entityName: "Publication")
         deleteFetchRequest.predicate = toDeletePredicate
         
-        localContext.performBlock { () -> Void in
+        localContext.performBlockAndWait { () -> Void in
+            
+            defer {
+                
+                do {
+                    try localContext.save()
+
+                } catch {
+                    print("error deleting old publications \(error)" + __FUNCTION__)
+                }
+            }
             
             let publicationsToDelete = try! localContext.executeFetchRequest(deleteFetchRequest) as? [Publication]
             if let toDelete = publicationsToDelete {
@@ -83,7 +93,17 @@ class CDNewDataProcessor: NSObject {
         let existingFetchRequest   = NSFetchRequest(entityName: "Publication")
         existingFetchRequest.predicate = existingPredicate
         
-        localContext.performBlock { () -> Void in
+        localContext.performBlockAndWait { () -> Void in
+            
+            defer {
+                
+                do {
+                    try localContext.save()
+                    
+                } catch {
+                    print("error deleting old publications \(error)" + __FUNCTION__)
+                }
+            }
             
             let existingPublications =  try! localContext.executeFetchRequest(existingFetchRequest) as? [Publication]
             if let toUpdate = existingPublications {
@@ -103,6 +123,16 @@ class CDNewDataProcessor: NSObject {
         //create new
         for dict in results {
             
+            defer {
+                
+                do {
+                    try localContext.save()
+                    
+                } catch {
+                    print("error deleting old publications \(error)" + __FUNCTION__)
+                }
+            }
+            
             guard let unique = dict[kPublicationUniqueIdKey] as? Int else {continue}
             let id =  NSNumber(integer: unique)
             //fetch with id
@@ -110,7 +140,7 @@ class CDNewDataProcessor: NSObject {
             let existingFetchRequest   = NSFetchRequest(entityName: "Publication")
             existingFetchRequest.predicate = existingPredicate
             
-            localContext.performBlock({ () -> Void in
+            localContext.performBlockAndWait({ () -> Void in
                 
                 let existingPublications =  try! localContext.executeFetchRequest(existingFetchRequest) as? [Publication]
                 if let founds = existingPublications {
@@ -133,45 +163,36 @@ class CDNewDataProcessor: NSObject {
         
         var publications: [Publication]?
         
-        localContext.performBlock { () -> Void in
+        localContext.performBlockAndWait { () -> Void in
             
             publications = try! localContext.executeFetchRequest(request) as? [Publication]
             guard let currentPublications = publications else {return}
 
             for publication in currentPublications {
                 
-                FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: localContext, completion: { (success) -> Void in
-                  
-                    do{
-                        
-                        try localContext.save()
-                    } catch {
-                        print("error \(error)")
-                    }
-                })
+                FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: localContext, completion: { (success) -> Void in})
             }
             
         }
         
         //fetchRegistration
         
-        localContext.performBlock { () -> Void in
-            
-            if let currentPublications = publications {
+        
+            localContext.performBlockAndWait { () -> Void in
                 
-                for (index, publication) in currentPublications.enumerate() {
+                defer {
+                    FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+                }
+                
+                if let currentPublications = publications {
                     
-                    let registrationFetcher = CDPublicationRegistrationFetcher(publication: publication, context: localContext)
-                    registrationFetcher.fetchRegistrationsForPublication(true)
-                    
-                    if index == currentPublications.count {
-                        FCModel.sharedInstance.postFetchedDataReadyNotification()
+                    for (publication) in currentPublications {
+                        
+                        let registrationFetcher = CDPublicationRegistrationFetcher(publication: publication, context: localContext)
+                        registrationFetcher.fetchRegistrationsForPublication(true)
                     }
                 }
             }
-            
-            
-        }
         
         //fetch groups
     }

@@ -42,4 +42,11 @@ extension FCModel {
         NSNotificationCenter.defaultCenter().postNotificationName(kDidDeleteOldVersionsOfUserCreatedPublication, object: self)
         
     }
+    
+    func postReloadDataNotificationOnMainThread(){
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName(kReloadDataNotification, object: nil)
+        }
+    }
 }

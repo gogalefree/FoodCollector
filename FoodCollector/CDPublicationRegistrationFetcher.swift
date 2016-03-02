@@ -59,17 +59,21 @@ class CDPublicationRegistrationFetcher: NSObject {
                         
                         print("registrations: \(registrations)", terminator: "=====end registration=====")
                         
-                        //if this is initiated by initial web fetch, we check if we should present a new registration notification
-                        if markNew && self.publication.didRegisterForCurrentPublication!.boolValue && self.publication.registrations?.count < registrations.count {
+                        self.context.performBlock({ () -> Void in
+                          
+                            //if this is initiated by initial web fetch, we check if we should present a new registration notification
+                            if markNew && self.publication.didRegisterForCurrentPublication!.boolValue && self.publication.registrations?.count < registrations.count {
+                                
+                                publication.didRecieveNewRegistration = true
+                            }
                             
-                            publication.didRecieveNewRegistration = true
-                        }
-                       
-                        self.processRegistrationsJsonArray(registrations)
+                            self.processRegistrationsJsonArray(registrations)
+                            
+                            if let delegate = self.delegate {
+                                delegate.didFinishFetchingPublicationRegistrations()
+                            }
+                        })
                         
-                        if let delegate = self.delegate {
-                            delegate.didFinishFetchingPublicationRegistrations()
-                        }
                     }
                 }
             }

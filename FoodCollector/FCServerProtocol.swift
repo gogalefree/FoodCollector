@@ -68,7 +68,7 @@ protocol FCServerProtocol {
    
     
     //register user for publication
-    func registerUserForPublication(registration: PublicationRegistration)
+    func registerUserForPublication(registration: PublicationRegistration, completion: (success:Bool) -> Void)
     
     ///
     /// unRegister or unregister the current user to a publication

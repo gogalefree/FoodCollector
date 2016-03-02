@@ -464,6 +464,8 @@ extension FCCollectorRootVC {
         
        // NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: "didFetchNewPublicationReportNotification", object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: kReloadDataNotification, object: nil)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData:", name: kRecievedNewDataNotification, object: nil)
         
       //  NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)

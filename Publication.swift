@@ -86,6 +86,7 @@ class Publication: NSManagedObject {
         self.contactInfo = aContactInfo
         self.version = aVersion
         self.publisherId = publisherId
+        self.isOnAir = true
         
     }    
 }

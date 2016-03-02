@@ -52,6 +52,9 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
             //performSegueWithIdentifier("presentPublicationsTVC", sender: nil)
         case .Some(10103):
             print("Groups was Taped")
+            let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)
+            let groupsNavVC = groupsStoryBoard.instantiateInitialViewController() as? UINavigationController
+            self.presentViewController(groupsNavVC!, animated: true, completion: nil)
         case .Some(10104):
             print("Settings was Taped")
         case .Some(10105):

@@ -26,7 +26,32 @@ public extension FCModel {
                 do {
                     
                     let results = try moc.executeFetchRequest(request) as? [Publication]
-                    if let publications = results { self.publications = publications}
+                    if let currentPublications = results {
+                        self.publications = currentPublications
+                    
+                        self.postReloadDataNotificationOnMainThread()
+                    
+                        for publication in self.publications {
+                            
+                            print("Publication before fetch")
+                            print("title: \(publication.title!)")
+                            print("starting date: \(publication.startingData!.description)")
+                            print("ending date: \(publication.endingData!.description)")
+                            print("on air: \(publication.isOnAir?.description)")
+                            print("longitude : \(publication.coordinate.longitude)")
+                            print("latitude : \(publication.coordinate.latitude)")
+
+
+                            print("=====END=====")
+
+
+
+                        }
+                    
+                        
+                    }
+                    
+                    
                 } catch {
                     print("error fetching publications in: " + __FUNCTION__ + "\nerror: \(error)")
                 }

@@ -19,7 +19,7 @@ let kNewUserCreatedPublicationNotification        = "newUserCreatedPublicationNo
 let kDidDeleteOldVersionsOfUserCreatedPublication = "DidDeleteOldVersionsOfUserCreatedPublication"
 let kDidReportDeviceUUIDToServer                  = "kDidReportDeviceUUIDToServer"
 let kDeviceUUIDKey                                = "seviceUUIDString"
-   
+let kReloadDataNotification                       = "kReloadDataNotification"
    
 let kDistanceFilter = 5.0
 let kModifyCoordsToPresentOnMapView = 0.0004
@@ -41,8 +41,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     var userLocation = CLLocation()
     let locationManager = CLLocationManager()
-    //let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("/publications")
-    //let userCreatedPublicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("/userCreatedPublications")
     var photosDirectoryUrl : NSURL = FCModel.preparePhotosDirectory()
     var dataUpdater = DataUpdater()
     var uiReadyForNewData: Bool = false {
@@ -177,17 +175,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             })
     }
     
-//    func publicationExists(publication: FCPublication) -> Bool{
-//        var exists = false
-//        for existingPublication in self.publications {
-//            if publication.uniqueId == existingPublication.uniqueId &&
-//                publication.version == existingPublication.version {
-//                    exists = true
-//                    break
-//            }
-//        }
-//        return exists
-//    }
     
     func addUserCreatedPublication(publication: Publication) {
        
@@ -199,100 +186,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     
 
-//    final func deleteOldVersionsOfUserCreatedPublication(userCreatedPublication: FCPublication) {
-//        
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-//            
-//            var indexesToRemove = [Int]()
-//            for (index, publication) in self.userCreatedPublications.enumerate() {
-//                
-//                if publication.uniqueId == userCreatedPublication.uniqueId &&
-//                    publication.version < userCreatedPublication.version {
-//                       indexesToRemove.append(index)
-//                        //delete photo from aws
-//                        let fetcher = FCPhotoFetcher()
-//                        fetcher.deletePhotoForPublication(publication)
-//                }
-//            }
-//           
-//            for (i ,index) in indexesToRemove.enumerate() {
-//                
-//                self.userCreatedPublications.removeAtIndex(index - i)
-//            }
-//            
-//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                self.saveUserCreatedPublications()
-//                self.postDeleteOldVersionOfUserCreatedPublications()
-//            })
-//        })
-//    }
-    
-//    func addPublicationReport(report: FCOnSpotPublicationReport, identifier: PublicationIdentifier) {
-//        
-//        let possiblePublication = self.publicationWithIdentifier(identifier)
-//        if possiblePublication != nil {
-//            
-//            possiblePublication!.reportsForPublication.append(report)
-//            self.postRecivedPublicationReportNotification()
-//        }
-//    }
-    
-//    func didRecievePublicationRegistration(registration: FCRegistrationForPublication) {
-//        
-//        let userCreatedPublication = self.userCreatedPublicationWithIdentifier(registration.identifier)
-//
-//        if let userPublication = userCreatedPublication {
-//            userPublication.registrationsForPublication.append(registration)
-//            userPublication.countOfRegisteredUsers += 1
-//         //   self.saveUserCreatedPublications()
-//        }
-//        
-//        let possiblePublication: FCPublication? = self.publicationWithIdentifier(registration.identifier)
-//        
-//        if let publication = possiblePublication {
-//        
-//            publication.registrationsForPublication.append(registration)
-//            publication.countOfRegisteredUsers += 1
-//            self.postRecivedPublicationRegistrationNotification(publication)
-//         //   self.savePublications()
-//        }
- //   }
-    
-//    func userCreatedPublicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
-//        
-//        for publication in self.userCreatedPublications {
-//            if publication.uniqueId == identifier.uniqueId &&
-//                publication.version == identifier.version{
-//                    return publication
-//            }
-//        }
-//
-//        return nil
-//    }
-    
-//    func publicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
-//        var requestedPublication: FCPublication?
-//        for publication in self.publications {
-//            if publication.uniqueId == identifier.uniqueId &&
-//                publication.version == identifier.version{
-//                    requestedPublication = publication
-//            }
-//        }
-//        return requestedPublication
-//    }
-    
-       //MARK: - User registered publications
-//    func userRegisteredPublications() -> [FCPublication] {
-//        
-//        var userRegisteredPublications = [FCPublication]()
-//        
-//        for publication in self.publications {
-//            if publication.didRegisterForCurrentPublication {
-//                userRegisteredPublications.append(publication)
-//            }
-//        }
-//        return userRegisteredPublications
-//    }
+
     
     func addRegisterationFor(publication: Publication) {
         
@@ -300,15 +194,21 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         context.performBlock { () -> Void in
             
             guard let registration = PublicationRegistration.registrationForPublication(publication, context: context) else {return}
-            FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(registration)
+            FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(registration , completion: {(success) in
+            
+                if success {
+                    
+                    FCModel.dataController.save()
+                }
+            
+            })
 
-            
-            
         }
     }
     
     func removeRegistrationFor(publication: Publication) {
         
+        FCModel.sharedInstance.foodCollectorWebServer.unRegisterUserFromComingToPickUpPublication(publication, completion: { (success) -> Void in})
         guard let registrations = publication.registrations else {return}
         let predicate = NSPredicate(format: "collectorUserId = %@", NSNumber(integer: User.sharedInstance.userUniqueID))
         let userRegistrations = registrations.filteredSetUsingPredicate(predicate)
@@ -321,6 +221,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             let context = FCModel.dataController.managedObjectContext
             context.performBlock({ () -> Void in
                 context.deleteObject(registration)
+                FCModel.dataController.save()
             })
             
         }
