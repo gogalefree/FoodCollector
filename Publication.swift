@@ -65,7 +65,7 @@ class Publication: NSManagedObject {
         let audiance = params["audience"] as? Int ?? 0
         let publisherId = params["publisher_id"] as? Int ?? 0
         //let activeDevice = params["active_device_dev_uuid"] as? String ?? ""
-        
+        //add publisher user name
         
         self.uniqueId = aUniquId
         self.title = aTitle
@@ -79,6 +79,6 @@ class Publication: NSManagedObject {
         self.contactInfo = aContactInfo
         self.version = aVersion
         self.publisherId = publisherId
-        
+        //add publisher user name
     }    
 }
