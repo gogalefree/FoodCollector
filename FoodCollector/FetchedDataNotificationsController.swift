@@ -14,12 +14,10 @@ class FetchedDataNotificationsController: NSObject {
 
     let numberOfNotificationsToPresent = 5
     var notifications = [FetchedDataNotification]()
-    var notificationViews = [FetchedDataNotificationView]()
     
     func prepareNotificationsFromWebFetch() {
         
         self.notifications.removeAll()
-        self.notificationViews.removeAll()
         
         let deleted = FCModel.sharedInstance.publications //needs filtering
         let newPublications = FCModel.sharedInstance.publications //needs filtering
@@ -55,9 +53,9 @@ class FetchedDataNotificationsController: NSObject {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
 
             for notification in self.notifications {
-                let view = FetchedDataNotificationView.loadFromNibNamed("FetchedDataNotificationView", bundle: nil) as! FetchedDataNotificationView
-                view.notification = notification
-                self.notificationViews.append(view)
+               
+                print("notification controller:\n\(notification.toString())")
+                //do something
             }
             
             NSNotificationCenter.defaultCenter().postNotificationName(kDidPrepareNotificationsFromWebFetchNotification, object: nil)

@@ -151,27 +151,37 @@ class FCUserNotificationHandler : NSObject {
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
 
             let data = userInfo[kRemoteNotificationDataKey]! as! [String : AnyObject]
-            let publicationIdentifier = self.identifierForInfo(data)
+//            let publicationIdentifier = self.identifierForInfo(data)
+            print("Notifications Handler data recieved:\n\(data) ")
+
             
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
+                print("Notifications Handler kRemoteNotificationTypeNewPublication ")
                 
-                self.handleNewPublicationFromPushNotification(publicationIdentifier)
+
+                
+//                self.handleNewPublicationFromPushNotification(publicationIdentifier)
             
             case kRemoteNotificationTypeDeletedPublication:
                 
-                if !self.didHandlePublicationToDelete(publicationIdentifier){
-                    self.recivedtoDelete.removeAll(keepCapacity: true)
-                    self.recivedtoDelete.append(publicationIdentifier)
+                print("Notifications Handler kRemoteNotificationTypeDeletedPublication ")
+
+                
+//                if !self.didHandlePublicationToDelete(publicationIdentifier){
+//                    self.recivedtoDelete.removeAll(keepCapacity: true)
+//                    self.recivedtoDelete.append(publicationIdentifier)
                  //   FCModel.sharedInstance.prepareToDeletePublication(publicationIdentifier)
-                }
+                //}
                 
             case kRemoteNotificationTypePublicationReport:
                 
-                let id = data["publication_id"] as? Int ?? 0
-                let pulicationVersion = data["publication_version"] as? Int ?? 0
-                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
+                print("Notifications Handler kRemoteNotificationTypePublicationReport ")
+
+//                let id = data["publication_id"] as? Int ?? 0
+//                let pulicationVersion = data["publication_version"] as? Int ?? 0
+//                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
 //                let reportDate = self.dateWithInfo(data)
 //                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey] as? Int ?? 0
 //                let contactInfo = ""
@@ -187,10 +197,10 @@ class FCUserNotificationHandler : NSObject {
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
-                
-                let registrationDate = self.dateWithInfo(data)
-                let id = data["id"] as? Int ?? 0
-                let pulicationVersion = data["version"] as? Int ?? 0
+                    print("Notifications Handler kRemoteNotificationTypeUserRegisteredForPublication ")
+//                let registrationDate = self.dateWithInfo(data)
+//                let id = data["id"] as? Int ?? 0
+//                let pulicationVersion = data["version"] as? Int ?? 0
 //                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
 //                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, contactInfo: "Unavilable", collectorName: "No Name", uniqueId: 0)
 //                if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
@@ -267,7 +277,7 @@ class FCUserNotificationHandler : NSObject {
     }
     
     func didHandlePublicationRegistration(publicationRegistration: FCRegistrationForPublication, publicationIdentifier: PublicationIdentifier) -> Bool {
-        var exist = false
+        let exist = false
 //        guard let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier) else{return false}
 //        
 //        for registration in publication.registrationsForPublication {

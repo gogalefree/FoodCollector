@@ -21,8 +21,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     var collectorRootNavigationController: UINavigationController!
     var activityCenterPresented = false
     
-    var tabBarVisibleOrigin: CGPoint!
-    var tabBarHiddenOrigin: CGPoint!
+
     var collectorMapVisibleOrigin: CGPoint!
     var collectorMapHiddenOrigin: CGPoint!
     
@@ -67,7 +66,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         
         ///reload data in activity center
         activityCenterPresented = true
-        let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! ActivityCenterVC
+        //let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! ActivityCenterVC
         //activityCenterVC.reload()
         
         //inform collector root vc that activity center is presented
@@ -75,28 +74,13 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         collectorRootVC.isPresentingActivityCenter = true
         self.mapNavigationControllerLeadingConstraint.constant = self.collectorMapHiddenOrigin.x - kConstraintsTotalPadding
         self.mapNavigationControllerTrailingConstraint.constant = -(self.collectorMapHiddenOrigin.x - kConstraintsTotalPadding)
-        let leading = self.mapNavigationControllerLeadingConstraint.constant
         
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             
             
             self.view.layoutIfNeeded()
-            
-            if #available(iOS 9.0, *) {
-                if UIView.userInterfaceLayoutDirectionForSemanticContentAttribute(self.view.semanticContentAttribute) == .LeftToRight {
-                    self.tabBarController?.tabBar.frame.origin.x = leading + self.kViewsTotalPaddind
-                    
-                } else {
-                    self.tabBarController?.tabBar.frame.origin.x = -leading - self.kViewsTotalPaddind
-
-                }
-            } else {
-                // Fallback on earlier versions
-            }
-            
-            }) { (completion) -> Void in
-                //activityCenterVC.displaySections()
-        }
+    
+            }) { (completion) -> Void in}
     }
     
     func hideActivityCenter() {
@@ -114,7 +98,6 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
             
             
             self.view.layoutIfNeeded()
-            self.tabBarController?.tabBar.frame.origin.x = 0
             
             }){ (completion) -> Void in
         }
@@ -127,12 +110,6 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         let collectorMapHiddenOriginy = CGRectGetMinY(containerBounds)
         collectorMapHiddenOrigin = CGPointMake(collectorMapHiddenOriginX, collectorMapHiddenOriginy)
         collectorMapVisibleOrigin = containerBounds.origin
-        
-        tabBarVisibleOrigin = CGPointMake(0, containerBounds.height - self.tabBarController!.tabBar.frame.size.height)
-        
-        let tabBarHiddenOriginX = collectorMapHiddenOriginX
-        let tabBarHiddenOriginY = containerBounds.size.height - self.tabBarController!.tabBar.frame.size.height
-        tabBarHiddenOrigin = CGPointMake(tabBarHiddenOriginX, tabBarHiddenOriginY)
     }
     
     override func didReceiveMemoryWarning() {

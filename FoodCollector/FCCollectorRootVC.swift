@@ -26,20 +26,14 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     @IBOutlet weak var trackUserButton: UIButton!
     
     @IBOutlet weak var blureView: UIView!
-    @IBOutlet weak var newPublicationMessageViewTopConstraint: NSLayoutConstraint!  //consider Deprecation
-    @IBOutlet weak var newPublicationMessageView: FCCollectorNewDataMessageView!    //consider Deprecation
-    
     weak var delegate: CollectorVCSlideDelegate!
 
     var publications = [Publication]()
     var annotations = [FDAnnotation]()
     var isPresentingNewDataMessageView = false
     var panStartingPoint: CGPoint!
-    let kNewDataMessageViewTopConstant: CGFloat = 13
     var publicationDetailsTVC: FCPublicationDetailsTVC?
     var isPresentingActivityCenter = false
-  //  var tabbarVisibleCenter = CGPointZero
-  //  var tabbarDragCenter = CGPointZero
     var trackingUserLocation = false
     var locationManager = CLLocationManager()
     var initialLaunch = true

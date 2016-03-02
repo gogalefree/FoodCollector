@@ -43,9 +43,10 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
         switch sender.view?.tag {
         case .Some(10101):
             // My Shares
-            self.tabBarController?.selectedIndex = 1
+            //self.tabBarController?.selectedIndex = 1
+            print("my shares clicked: " + __FUNCTION__ )
         case .Some(10102):
-            print("My Picups was Taped")
+            print("My Picups was Taped" + __FUNCTION__)
             let container = self.navigationController?.parentViewController as! FCCollectorContainerController
             container.collectorVCWillSlide()
             //performSegueWithIdentifier("presentPublicationsTVC", sender: nil)

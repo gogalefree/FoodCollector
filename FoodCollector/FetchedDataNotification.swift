@@ -46,4 +46,8 @@ class FetchedDataNotification: NSObject {
         
         return title
     }
+    
+    func toString() -> String {
+        return String("title: \(title)\ntype: \(type)\npublication title: \(publication.title!)")
+    }
 }
