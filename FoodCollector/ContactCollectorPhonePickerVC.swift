@@ -13,7 +13,7 @@ class ContactCollectorPhonePickerVC: UIViewController, UITableViewDelegate, UITa
 
     @IBOutlet weak var tableView: UITableView!
     
-    var registrations = [FCRegistrationForPublication]()
+    var registrations = [PublicationRegistration]()
     let validator = Validator()
     
     override func viewDidLoad() {
@@ -93,7 +93,7 @@ class ContactCollectorPhonePickerVC: UIViewController, UITableViewDelegate, UITa
         
         let registration = registrations[indexpath.row]
         
-        if let phoneNumber = validator.getValidPhoneNumber(registration.contactInfo) {
+        if let phoneNumber = validator.getValidPhoneNumber(registration.collectorContactInfo!) {
             
             let telUrl = NSURL(string: "tel://\(phoneNumber)")!
             

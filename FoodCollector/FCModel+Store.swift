@@ -12,49 +12,73 @@ import Foundation
 
 public extension FCModel {
     
-    func savePublications() {
-        
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            NSKeyedArchiver.archiveRootObject(self.publications, toFile: self.publicationsFilePath)
-        }
-    }
-    
+
     func loadPublications() {
         
-        print("load publications from path: \(self.publicationsFilePath)")
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            
-            if NSFileManager.defaultManager().fileExistsAtPath(self.publicationsFilePath){
-                let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.publicationsFilePath) as! [FCPublication]
-                self.publications = array                
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+
+            let request = NSFetchRequest(entityName: "Publication")
+            let predicate = NSPredicate(format: "startingData < %@ && endingData > %@ && isOnAir = %@", NSDate(), NSDate() , NSNumber(bool: true) )
+            request.predicate = predicate
+            let moc = FCModel.dataController.managedObjectContext
+            moc.performBlock { () -> Void in
+                
+                do {
+                    
+                    let results = try moc.executeFetchRequest(request) as? [Publication]
+                    if let currentPublications = results {
+                        self.publications = currentPublications
+                    
+                        self.postReloadDataNotificationOnMainThread()
+                    
+                        for publication in self.publications {
+                            
+                            print("Publication before fetch")
+                            print("title: \(publication.title!)")
+                            print("starting date: \(publication.startingData!.description)")
+                            print("ending date: \(publication.endingData!.description)")
+                            print("on air: \(publication.isOnAir?.description)")
+                            print("longitude : \(publication.coordinate.longitude)")
+                            print("latitude : \(publication.coordinate.latitude)")
+
+
+                            print("=====END=====")
+
+
+
+                        }
+                    
+                        
+                    }
+                    
+                    
+                } catch {
+                    print("error fetching publications in: " + __FUNCTION__ + "\nerror: \(error)")
+                }
             }
         }
     }
-    
-    func saveUserCreatedPublications() {
-        
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            NSKeyedArchiver.archiveRootObject(self.userCreatedPublications, toFile: self.userCreatedPublicationsFilePath)
-        }
-    }
-    
+
     func loadUserCreatedPublications() {
         
-        print("load user created publications from path: \(self.userCreatedPublicationsFilePath)")
-
-        
-        if NSFileManager.defaultManager().fileExistsAtPath(self.userCreatedPublicationsFilePath){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
-            let array = NSKeyedUnarchiver.unarchiveObjectWithFile(self.userCreatedPublicationsFilePath) as! [FCPublication]
-            self.userCreatedPublications = array
-            for publi in self.userCreatedPublications {
-                print("id of user: \(publi.uniqueId)")
-                print("version of user: \(publi.version)")
+            let request = NSFetchRequest(entityName: "Publication")
+            let predicate = NSPredicate(format: "isUserCreatedPublication = %@", NSNumber(bool: true) )
+            request.predicate = predicate
+            let moc = FCModel.dataController.managedObjectContext
+            moc.performBlock { () -> Void in
+                
+                do {
+                    
+                    let results = try moc.executeFetchRequest(request) as? [Publication]
+                    if let publications = results { self.userCreatedPublications = publications}
+                } catch {
+                    print("error fetching publications in: " + __FUNCTION__ + "\nerror: \(error)")
+                }
 
             }
+        
         }
     }
 }

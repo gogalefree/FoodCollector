@@ -22,7 +22,7 @@ class PublicationDetailsReportCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     
     var indexPath: NSIndexPath!
-    var publication: FCPublication! {
+    var publication: Publication! {
         didSet {
             if self.publication != nil {
                 setUp()
@@ -31,11 +31,13 @@ class PublicationDetailsReportCell: UITableViewCell {
     }
 
     private func setUp() {
-                
-        if publication.reportsForPublication.count != 0 {
+        
+        guard let reports = publication?.reports else {return}
+        
+        if reports.count != 0 {
 
-            FCPublicationsSorter.sortPublicationReportsByDate(publication)
-            let report = reportForIndexPath()
+            let reportsArray = FCPublicationsSorter.sortPublicationReportsByDate(publication)
+            let report = reportForIndexPath(reportsArray)
             if let aReport = report {
                 presentReport(aReport)
             }
@@ -55,17 +57,17 @@ class PublicationDetailsReportCell: UITableViewCell {
         self.iconImageView.image = UIImage(named: "Pin-Table-Whole")!
     }
     
-    func presentReport(report: FCOnSpotPublicationReport){
+    func presentReport(report: PublicationReport){
         self.reportLabel.text = self.titleForReport(report)
-        self.timeLabel.text = FCDateFunctions.localizedTimeStringShortStyle(report.date)
+        self.timeLabel.text = FCDateFunctions.localizedTimeStringShortStyle(report.dateOfReport!)
         self.iconImageView.image = FCIconFactory.publicationDetailsReportIcon(report)
     }
     
-    func titleForReport(report:FCOnSpotPublicationReport) -> String {
+    func titleForReport(report:PublicationReport) -> String {
         
         var title = ""
         
-        switch report.onSpotPublicationReportMessage {
+        switch FCOnSpotPublicationReportMessage(rawValue: report.report!.integerValue)! {
             
         case .HasMore:
             title = kHasMoreTitle
@@ -79,12 +81,15 @@ class PublicationDetailsReportCell: UITableViewCell {
     }
 
     
-    func reportForIndexPath() -> FCOnSpotPublicationReport? {
+    func reportForIndexPath(reportsArray: [PublicationReport]) -> PublicationReport? {
     
         if let indexPath = self.indexPath {
             
             let reportIndex = indexPath.row
-            return self.publication.reportsForPublication[reportIndex]
+            if reportIndex < reportsArray.count {
+                
+                return reportsArray[reportIndex]
+            }
         }
         
         return nil
@@ -97,10 +102,10 @@ class PublicationDetailsReportCell: UITableViewCell {
     
     
 
-    class func numberOfReportsToPresent(publication: FCPublication?) -> Int {
+    class func numberOfReportsToPresent(publication: Publication?) -> Int {
         
-        if let publication = publication {
-        let num = publication.reportsForPublication.count
+        if let publication = publication , reports = publication.reports {
+        let num = reports.count
             if num < 3 {
                 //if there are no reports - return 1
                 //if reports.count > 3 return 3

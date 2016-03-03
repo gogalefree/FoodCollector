@@ -15,12 +15,12 @@ class DataUpdater: NSObject {
     
     func startUpdates() {
         
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(60 * 5 , target: self, selector: "fetchData:", userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(60 * 15 , target: self, selector: "fetchData:", userInfo: nil, repeats: true)
     }
     
     func fetchData(timer: NSTimer) {
      
-        FCModel.sharedInstance.downloadData()
+        FCModel.sharedInstance.foodCollectorWebServer.downloadAllPublications()
     }
     
     deinit {

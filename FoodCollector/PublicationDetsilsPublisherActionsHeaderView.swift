@@ -22,8 +22,6 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
     
     let buttonPressColor = UIColor(red: 32/255, green: 137/255, blue: 75/255, alpha: 1)
     let normalColor = kNavBarBlueColor
-//    let registeredButtonImage = UIImage(named: "rishum")!
-//    let unRegisteredButtonImage = UIImage(named: "CancelRishum")!
     
     @IBOutlet weak var button1to2widthConstraint : NSLayoutConstraint!
     @IBOutlet weak var button2to3widthConstraint : NSLayoutConstraint!
@@ -40,7 +38,7 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
     
     var buttons = [UIButton]()
     
-    var publication: FCPublication! {
+    var publication: Publication! {
         didSet {
             if let publication = self.publication {
                 configureInitialState(publication)
@@ -92,9 +90,9 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         }
     }
     
-    func configureInitialState(publication: FCPublication) {
+    func configureInitialState(publication: Publication) {
         //User created publication
-        if !publication.isOnAir {
+        if !publication.isOnAir!.boolValue {
             self.disableAllButtons()
             return
         }
@@ -133,17 +131,6 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
             button.backgroundColor = normalColor
             button.enabled = true
         }
-//        for var i=0; i<self.buttons.count; i++ {
-//            let button = self.buttons[i]
-//            switch i {
-//            case 0, 1 , 2: // Facebook and Twitter buttons
-//                button.backgroundColor = normalColor
-//                button.enabled = true
-//            default:
-//                button.backgroundColor = UIColor.lightGrayColor()
-//                button.enabled = false
-//            }
-//        }
     }
     
     private func animateButton(button: UIButton) {
@@ -160,14 +147,10 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
                 UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                     
                     button.transform = CGAffineTransformIdentity
-                    //if button != self.registerButton {
-                        button.backgroundColor = self.normalColor
-                    //}
-
-
+                    button.backgroundColor = self.normalColor
+                    
                 }) { (finished) -> Void in
                     
-                    //self.configureRegisterButton()
             }
         }
     }

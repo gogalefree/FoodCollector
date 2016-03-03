@@ -18,10 +18,10 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
 
     @IBOutlet weak var tableView: UITableView!
     
-    var registrations  = [FCRegistrationForPublication]()
+    var registrations  = [PublicationRegistration]()
     var userSelections = [Bool]()
     
-    var publication: FCPublication? {
+    var publication: Publication? {
         didSet {
             if let publication = publication {setup(publication)}
         }
@@ -34,12 +34,13 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
         
     }
     
-    func setup(publication: FCPublication) {
+    func setup(publication: Publication) {
     
+        guard let registrations = publication.registrations else {return}
         let validator = Validator()
-        self.registrations = publication.registrationsForPublication.filter {(registration) in validator.getValidPhoneNumber(registration.contactInfo) != nil}
-        for _ in registrations  {userSelections.append(Bool(false))}
-        //tableView.reloadData()
+        let registrationsArray = Array(registrations) as! [PublicationRegistration]
+        self.registrations = registrationsArray.filter {(registration) in validator.getValidPhoneNumber(registration.collectorContactInfo!) != nil}
+        for _ in self.registrations  {userSelections.append(Bool(false))}
     }
     
     //MARK: - TableView Data Source
@@ -90,7 +91,7 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("collectorDetailsCell", forIndexPath: indexPath) as! ContactCollectorPickerCollectorDetailsCell
             cell.chosen = userSelections[indexPath.row]
-            cell.registration = registrations[indexPath.row]
+            cell.registration = self.registrations[indexPath.row]
             cell.indexPath = indexPath
 
             return cell
@@ -133,7 +134,7 @@ class ContactCollectorsPickerTVC: UIViewController, UITableViewDataSource, UITab
         
         var recipients = [String]()
         for (index ,selected) in userSelections.enumerate() {
-            if selected {recipients.append(registrations[index].contactInfo)}
+            if selected {recipients.append(registrations[index].collectorContactInfo!)}
         }
         
         if recipients.count == 0 {

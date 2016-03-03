@@ -147,6 +147,6 @@
         <image name="Navigate" width="30" height="30"/>
         <image name="call" width="26" height="26"/>
         <image name="rishum" width="34" height="24"/>
-        <image name="sms" width="30" height="30"/>
+        <image name="sms" width="49" height="45"/>
     </resources>
 </document>

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FCOnSpotPublicationReportDelegate {
-    func dismiss()
+    func dismiss(report: PublicationReport?)
 }
 
 
@@ -21,23 +21,23 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     @IBOutlet weak var tookSomeButton: UIButton!
     @IBOutlet weak var nothingThereButton: UIButton!
     
-    var publication: FCPublication?
+    var publication: Publication?
     var delegate: FCOnSpotPublicationReportDelegate?    //FCMainTabBar
     
-    func setup(aPublication: FCPublication) {
+    func setup(aPublication: Publication) {
         
         self.publicationTitleLable.text = aPublication.title
         
-        if aPublication.photoData.photo != nil {
-            self.imageView.image = aPublication.photoData.photo!
+        if aPublication.photoBinaryData != nil {
+            self.imageView.image = UIImage(data: aPublication.photoBinaryData!)
         }
-        else if !aPublication.photoData.didTryToDonwloadImage {
+        else if aPublication.didTryToDownloadImage?.boolValue == false {
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(aPublication, completion: { (image) -> Void in
                
-                if aPublication.photoData.photo != nil {
+                if image != nil {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.imageView.image = aPublication.photoData.photo
+                        self.imageView.image = image
                         self.view.reloadInputViews()
                         self.view.setNeedsDisplay()
                     })
@@ -62,14 +62,20 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     
     func postOnSpotReportWithMessage(message: FCOnSpotPublicationReportMessage) {
         
-        let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: message, date: NSDate() , reportContactInfo: User.sharedInstance.userPhoneNumber, reportPublicationId: publication!.uniqueId, reportPublicationVersion: publication!.version,reportId: 0 ,reportCollectorName: User.sharedInstance.userIdentityProviderUserName)
+        //make the report
+        let moc = FCModel.dataController.managedObjectContext
+        let reportMessage = message.rawValue
+        let report = PublicationReport.reportForPublication(reportMessage, publication: publication!, context: moc)
         
-        FCModel.sharedInstance.foodCollectorWebServer.reportArrivedPublication(self.publication!, withReport: report)
-        self.delegate?.dismiss()
+        //pass it back to publication details tvc
+        self.delegate?.dismiss(report)
+        
+        //inform server
+        FCModel.sharedInstance.foodCollectorWebServer.postReportforPublication(report)
     }
     
     func cancelButtonAction(sender: AnyObject){
-        self.delegate?.dismiss()
+        self.delegate?.dismiss(nil)
         GAController.sendAnalitics(kFAPublicationReportScreenName, action: "canceled report action", label: "user did not report", value: 0)
     }
     

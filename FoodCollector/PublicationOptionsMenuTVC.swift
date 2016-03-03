@@ -29,7 +29,7 @@ class PublicationOptionsMenuTVC: UITableViewController {
     var menuTitlesArray: [String] = []
     var menuImagesArray: [UIImage?] = []
     
-    var publication: FCPublication?
+    var publication: Publication?
 
 
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ class PublicationOptionsMenuTVC: UITableViewController {
     }
     
     func createTableData(){
-        if (publication!.isOnAir) {
+        if (publication?.isOnAir?.boolValue == true) {
             menuTitlesArray = [kMenuItem1, kMenuItem2, kMenuItem3]
             menuImagesArray = [menuImage1, menuImage2, menuImage3]
         }
@@ -97,10 +97,10 @@ class PublicationOptionsMenuTVC: UITableViewController {
         case 0: // Edit publication
             self.delegate.didSelectEditPublicationAction()
             
-        case 1 where (publication!.isOnAir): // Take publication of air
+        case 1 where (publication!.isOnAir!.boolValue): // Take publication of air
             self.delegate.didSelectTakOffAirPublicationAction()
             
-        case 1 where !(publication!.isOnAir): // Delete publication
+        case 1 where !(publication!.isOnAir!.boolValue): // Delete publication
             //deletePublication()
             self.delegate.didSelectDeletePublicationAction()
             
@@ -113,50 +113,4 @@ class PublicationOptionsMenuTVC: UITableViewController {
         }
         
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

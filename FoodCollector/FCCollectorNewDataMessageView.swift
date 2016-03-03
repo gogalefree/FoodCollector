@@ -9,8 +9,10 @@
 import UIKit
 import Foundation
 
+//ConsiderDeprecation
+
 protocol FCNewDataMessageViewDelegate: NSObjectProtocol {
-    func showNewPublicationDetails(publication: FCPublication)
+    func showNewPublicationDetails(publication: Publication)
     func dissmissNewPublicationMessageView()
 }
 
@@ -24,7 +26,7 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
     let defaultImage = UIImage(named: "NoPhotoPlaceholder")!
     
     weak var delegate: FCNewDataMessageViewDelegate!
-    var publication: FCPublication! {
+    var publication: Publication! {
         didSet{
             if let publication = self.publication {
                 self.messageLabel.text = publication.title
@@ -44,17 +46,17 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
         self.delegate.dissmissNewPublicationMessageView()
     }
 
-    func makeDistanceText(publication: FCPublication) -> String {
+    func makeDistanceText(publication: Publication) -> String {
         
-        let addressString = publication.address
+        let addressString = publication.address!
         let distanceString = FCStringFunctions.longDistanceString(publication)
         let displayedString = addressString + "\n" + distanceString
         return displayedString
     }
     
-    func fetchPhotoIfNeeded(publication: FCPublication) {
-        if publication.photoData.photo == nil {
-            if !publication.photoData.didTryToDonwloadImage {
+    func fetchPhotoIfNeeded(publication: Publication) {
+        if publication.photoBinaryData == nil {
+            if !publication.didTryToDownloadImage!.boolValue {
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
                     
@@ -71,13 +73,15 @@ class FCCollectorNewDataMessageView: UIVisualEffectView {
         }
     }
     
-    func presentFetchedPhoto(publication: FCPublication) {
+    func presentFetchedPhoto(publication: Publication) {
+        
+        let photo = UIImage(data: publication.photoBinaryData!)
         
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.imageView.alpha = 0
             }) { (finished) -> Void in
                 
-                self.imageView.image = publication.photoData.photo
+                self.imageView.image = photo
                 UIView.animateWithDuration(0.2, animations: { () -> Void in
                     self.imageView.alpha = 1
                     }, completion: nil)

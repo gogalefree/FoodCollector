@@ -19,26 +19,21 @@ protocol CollectorVCSlideDelegate: NSObjectProtocol {
     func collectorVCWillSlide()
 }
 
-class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate, FCPublicationsTVCDelegate, FCNewDataMessageViewDelegate{
+class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate, FCPublicationsTVCDelegate{
     
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
     @IBOutlet weak var trackUserButton: UIButton!
     
     @IBOutlet weak var blureView: UIView!
-    @IBOutlet weak var newPublicationMessageViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var newPublicationMessageView: FCCollectorNewDataMessageView!
-    
     weak var delegate: CollectorVCSlideDelegate!
 
-    var publications = [FCPublication]()
+    var publications = [Publication]()
+    var annotations = [FDAnnotation]()
     var isPresentingNewDataMessageView = false
     var panStartingPoint: CGPoint!
-    let kNewDataMessageViewTopConstant: CGFloat = 13
     var publicationDetailsTVC: FCPublicationDetailsTVC?
     var isPresentingActivityCenter = false
-    var tabbarVisibleCenter = CGPointZero
-    var tabbarDragCenter = CGPointZero
     var trackingUserLocation = false
     var locationManager = CLLocationManager()
     var initialLaunch = true
@@ -96,11 +91,11 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         super.viewDidLoad()
         self.title = NSLocalizedString("Pickup", comment:"Collector map title")
         self.publications = FCModel.sharedInstance.publications
-        self.newPublicationMessageView.delegate = self
+  //      self.newPublicationMessageView.delegate = self
         registerForNSNotifications()
         configureMapView()
         configureTrackButton()
-        hideNewDataMessageView()
+ //       hideNewDataMessageView()
         addPanRecognizer()
         if CLLocationManager.locationServicesEnabled() {
             self.setupLocationManager()
@@ -108,19 +103,12 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if tabbarVisibleCenter == CGPointZero {
-            self.defineBarsCenterPoints()
-            FCModel.sharedInstance.uiReadyForNewData = true
-        }
-
-    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if initialLaunch {
-            
+     
+
             //we set the map to center on user's location. if the location manager has no location, we set the map's center to Tel-Aviv
             var userCoordinadets = FCModel.sharedInstance.userLocation.coordinate
             if Int(userCoordinadets.longitude) == 0 || Int(userCoordinadets.latitude) == 0 {
@@ -133,62 +121,30 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             let region = MKCoordinateRegion(center: userCoordinadets, span: span)
             mapView.setRegion(region, animated: false)
             initialLaunch = false
+            
+            FCModel.sharedInstance.uiReadyForNewData = true
         }
-        
-        //if a new publication was recived in a push notification - show the new publication message
-        //this is initiated if the app was active
-        
-        //Dsiabled for now so it will not present twice.
-        //notifications controller presents the new one
-        
-//        if NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowNewPublicationFromPushNotification) {
-//            
-//            let recivedPublication = FCModel.sharedInstance.publications.last!
-//            self.showNewDataMessageView(recivedPublication)
-//        }
-        
-        //if a new publication arrived through a remote notification while the app was inActive, and the user did not tap the banner
-        
-      //  self.showNewPublicationMessageViewIfNeeded()
-        
-        
-        //uncomment to present enable push notifications message
-
-//        let registeredForRemoteNotifications = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
-//        
-//        if !registeredForRemoteNotifications &&
-//            NSUserDefaults.standardUserDefaults().boolForKey(kShouldShowFailedToRegisterForPushAlertKey){
-//                
-//                let alertController = FCAlertsHandler.sharedInstance.alertWithDissmissButton("we can't inform you with new publications", aMessage: "to enable notifications: go to settings -> notifications -> food collector and enable push notifications")
-//                self.presentViewController(alertController, animated: true, completion: nil)
-//                
-//                //comment to show this message every time
-//                NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowFailedToRegisterForPushAlertKey)
-//        }
-//
-//        showNewDataMessageView(self.publications[3])
-        
     }
     
-    func showNewPublicationMessageViewIfNeeded() {
-        
-        if let data =  NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeNewPublication) as? [NSObject : AnyObject] {
-            
-            let id = data[kPublicationUniqueIdKey] as! Int
-            let version = data[kPublicationVersionKey] as! Int
-            let identifier = PublicationIdentifier(uniqueId: id, version: version)
-            FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(identifier, completion: { (publication) -> Void in
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    
-                    self.showNewDataMessageView(publication)
-                })
-                
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeNewPublication)
-                
-            })
-        }
-    }
+//    func showNewPublicationMessageViewIfNeeded() {
+//        
+//        if let data =  NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeNewPublication) as? [NSObject : AnyObject] {
+//            
+//            let id = data[kPublicationUniqueIdKey] as! Int
+//            let version = data[kPublicationVersionKey] as! Int
+//            let identifier = PublicationIdentifier(uniqueId: id, version: version)
+//            FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(identifier, completion: { (publication) -> Void in
+//                
+//                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                    
+//                    self.showNewDataMessageView(publication)
+//                })
+//                
+//                NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeNewPublication)
+//                
+//            })
+//        }
+//    }
     
     //MARK: - UI configuration
     
@@ -207,56 +163,56 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.blureView.layer.borderColor = UIColor.grayColor().CGColor
     }
     
-    func hideNewDataMessageView() {
-        
-        let topConstraintValue = CGRectGetHeight(self.newPublicationMessageView.bounds)
-        
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-            
-            self.newPublicationMessageViewTopConstraint.constant = -topConstraintValue
-            self.view.layoutIfNeeded()
-            
-            }) { (completion) -> Void in
-                
-                self.isPresentingNewDataMessageView = false
-        }
-    }
+//    func hideNewDataMessageView() {
+//        
+//        let topConstraintValue = CGRectGetHeight(self.newPublicationMessageView.bounds)
+//        
+//        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+//            
+//            self.newPublicationMessageViewTopConstraint.constant = -topConstraintValue
+//            self.view.layoutIfNeeded()
+//            
+//            }) { (completion) -> Void in
+//                
+//                self.isPresentingNewDataMessageView = false
+//        }
+//    }
     
-    func showNewDataMessageView(publication:FCPublication) {
-        
-        if self.isPresentingNewDataMessageView {hideNewDataMessageView()}
-        self.newPublicationMessageView.publication = publication
-        
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-            
-            self.newPublicationMessageViewTopConstraint.constant = self.kNewDataMessageViewTopConstant
-            self.view.layoutIfNeeded()
-            
-        }) { (completion) -> Void in
-         
-            self.isPresentingNewDataMessageView = true
-            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowNewPublicationFromPushNotification)
-        }
-    }
+//    func showNewDataMessageView(publication:FCPublication) {
+//        
+//        if self.isPresentingNewDataMessageView {hideNewDataMessageView()}
+//        self.newPublicationMessageView.publication = publication
+//        
+//        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+//            
+//            self.newPublicationMessageViewTopConstraint.constant = self.kNewDataMessageViewTopConstant
+//            self.view.layoutIfNeeded()
+//            
+//        }) { (completion) -> Void in
+//         
+//            self.isPresentingNewDataMessageView = true
+//            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowNewPublicationFromPushNotification)
+//        }
+//    }
     
-    func defineBarsCenterPoints() {
-        
-        tabbarDragCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y + self.tabBarController!.tabBar.frame.size.height)
-        
-        tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
-    }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        self.AdjustBarsCenterPointsTosize(size)
-    }
-    
-    func AdjustBarsCenterPointsTosize(size: CGSize) {
-        
-        tabbarVisibleCenter = CGPointMake(size.width/2, size.height - self.tabBarController!.tabBar.frame.size.height / 2)
-        tabbarDragCenter = CGPointMake(tabbarVisibleCenter.x, size.height + self.tabBarController!.tabBar.frame.size.height)
-    }
+//    func defineBarsCenterPoints() {
+//        
+//        tabbarDragCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y + self.tabBarController!.tabBar.frame.size.height)
+//        
+//        tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
+//    }
+//    
+//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        
+//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//        self.AdjustBarsCenterPointsTosize(size)
+//    }
+//    
+//    func AdjustBarsCenterPointsTosize(size: CGSize) {
+//        
+//        tabbarVisibleCenter = CGPointMake(size.width/2, size.height - self.tabBarController!.tabBar.frame.size.height / 2)
+//        tabbarDragCenter = CGPointMake(tabbarVisibleCenter.x, size.height + self.tabBarController!.tabBar.frame.size.height)
+//    }
     
     func didDragMap(gestureRecognizer: UIPanGestureRecognizer) {
        
@@ -265,14 +221,12 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
             self.panStartingPoint = gestureRecognizer.translationInView(self.mapView)
             if !isPresentingActivityCenter {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
-                self.hideTabbar()
             }
         }
         else if (gestureRecognizer.state == UIGestureRecognizerState.Ended) {
             
             if !isPresentingActivityCenter {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
-                self.showTabbar()
                 self.trackingUserLocation = false
                 self.blureView.animateToAlphaWithSpring(0.4, alpha: 1)
             }
@@ -284,15 +238,15 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }
     }
     
-    func hideTabbar() {
-        
-        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarDragCenter)
-    }
-    
-    func showTabbar() {
-        
-        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarVisibleCenter)
-    }
+//    func hideTabbar() {
+//        
+//        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarDragCenter)
+//    }
+//    
+//    func showTabbar() {
+//        
+//        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarVisibleCenter)
+//    }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -322,9 +276,22 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     func configureMapView() {
         
         self.mapView.delegate = self
-        self.mapView.addAnnotations(self.publications)
+        let annotations = self.makeAnnotations()
+        self.mapView.addAnnotations(annotations)
         self.mapView.showsUserLocation = true
         self.mapView.setUserTrackingMode(MKUserTrackingMode.Follow, animated: true)
+    }
+    
+    func makeAnnotations() -> [FDAnnotation] {
+       
+        var annotations = [FDAnnotation]()
+        
+        for publication in self.publications {
+            let annotation =  FDAnnotation(publication: publication)
+            annotations.append(annotation)
+        }
+        self.annotations = annotations
+        return annotations
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -339,7 +306,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         if annotationView == nil {
             annotationView = FCAnnotationView(annotation: annotation, reuseIdentifier: reusableIdentifier)
         }
-        annotationView!.image = FCIconFactory.smallIconForPublication(annotation as! FCPublication)
+        annotationView?.image = UIImage(named: "Pin_Map_Marker") // FCIconFactory.smallIconForPublication(annotation as! FCPublication)
         annotationView?.canShowCallout = true
         annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
         annotationView?.calloutOffset = CGPoint(x: 0, y: -5)
@@ -358,15 +325,16 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        let publication = view.annotation as! FCPublication
+        let annotation = view.annotation as? FDAnnotation
+        guard let publication = annotation?.publication else {return}
         self.presentPublicationDetailsTVC(publication)
     }
     
-    func presentPublicationDetailsTVC(publication:FCPublication) {
+    func presentPublicationDetailsTVC(publication:Publication) {
         
         self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
         self.publicationDetailsTVC?.publication = publication
-        let state :PublicationDetailsTVCViewState = FCModel.sharedInstance.isUserCreaetedPublication(publication) ? .Publisher : .Collector
+        let state :PublicationDetailsTVCViewState = publication.isUserCreatedPublication!.boolValue ? .Publisher : .Collector
         self.publicationDetailsTVC?.setupWithState(state, caller: .MyPublications, publication: publication)
         publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
@@ -423,87 +391,90 @@ extension FCCollectorRootVC {
     //MARK - new data from push notification.
     //these notifications are posted ny FCModel after handling remote notification events
     
-    func didRecieveNewPublication(notification: NSNotification) {
-        
-        let recivedPublication = FCModel.sharedInstance.publications.last!
-        self.reloadAnnotations()
-        
-        //display new publication view
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.showNewDataMessageView(recivedPublication)
-        })
-    }
+//    func didRecieveNewPublication(notification: NSNotification) {
+//        
+//        let recivedPublication = FCModel.sharedInstance.publications.last!
+//        self.reloadAnnotations()
+//        
+//        //display new publication view
+//        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//            self.showNewDataMessageView(recivedPublication)
+//        })
+//    }
     
     //MARK: - newDataMessageViewDelegate
     //called when a user tapped show action in newDataMessageView
-    func showNewPublicationDetails(publication: FCPublication) {
+    func showNewPublicationDetails(publication: Publication) {
 
-        self.hideNewDataMessageView()
+       // self.hideNewDataMessageView()
         self.presentPublicationDetailsTVC(publication)
     }
     
-    func dissmissNewPublicationMessageView() {
-        self.hideNewDataMessageView()
-    }
+//    func dissmissNewPublicationMessageView() {
+//        self.hideNewDataMessageView()
+//    }
     
     func didDeletePublication(notification: NSNotification) {
 
         self.reloadAnnotations()
     }
     
-    func didRecievePublicationReport(notification: NSNotification) {
-        let (identifier, _) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
-        
-        //we need to check if the report belongs to the presented publication to refresh it
-        //change this to the presented publication
-        let presentedPublication = self.publications[0]
-        
-        if self.isPresentingNewDataMessageView &&
-            presentedPublication.uniqueId == identifier.uniqueId &&
-            presentedPublication.version == identifier.version {
-                
-                //self.publicationDetailsView.reloadReports
-        }
-    }
+//    func didRecievePublicationReport(notification: NSNotification) {
+//        let (identifier, _) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
+//        
+//        //we need to check if the report belongs to the presented publication to refresh it
+//        //change this to the presented publication
+//        let presentedPublication = self.publications[0]
+//        
+//        if self.isPresentingNewDataMessageView &&
+//            presentedPublication.uniqueId == identifier.uniqueId &&
+//            presentedPublication.version == identifier.version {
+//                
+//                //self.publicationDetailsView.reloadReports
+//        }
+//    }
+//    
     
-    
-    func publicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
-        var requestedPublication: FCPublication?
-        for publication in self.publications {
-            if publication.uniqueId == identifier.uniqueId &&
-                publication.version == identifier.version{
-                    requestedPublication = publication
-            }
-        }
-        return requestedPublication
-    }
+//    func publicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
+//        var requestedPublication: FCPublication?
+//        for publication in self.publications {
+//            if publication.uniqueId == identifier.uniqueId &&
+//                publication.version == identifier.version{
+//                    requestedPublication = publication
+//            }
+//        }
+//        return requestedPublication
+//    }
     
     func reloadAnnotations() {
     
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.mapView.removeAnnotations(self.publications)
+            self.mapView.removeAnnotations(self.annotations)
             self.publications = FCModel.sharedInstance.publications
-            self.mapView.addAnnotations(self.publications)
+            let annotations = self.makeAnnotations()
+            self.mapView.addAnnotations(annotations)
         })
     }
     
-    func appWillEnterForeground() {
-        self.showNewPublicationMessageViewIfNeeded()
-    }
+//    func appWillEnterForeground() {
+//        self.showNewPublicationMessageViewIfNeeded()
+//    }
     
     func registerForNSNotifications() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: "didFetchNewPublicationReportNotification", object: nil)
+       // NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: "didFetchNewPublicationReportNotification", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: kReloadDataNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData:", name: kRecievedNewDataNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
+      //  NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
                 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
+    //    NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentNotificationsFromWebFetch", name: kDidPrepareNotificationsFromWebFetchNotification, object: nil)
+   //     NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentNotificationsFromWebFetch", name: kDidPrepareNotificationsFromWebFetchNotification, object: nil)
     }
     
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {

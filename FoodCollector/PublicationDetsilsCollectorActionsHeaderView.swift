@@ -11,11 +11,11 @@ import Foundation
 
 protocol PublicationDetsilsCollectorActionsHeaderDelegate: NSObjectProtocol {
     
-    func didRegisterForPublication(publication: FCPublication)
-    func didUnRegisterForPublication(publication: FCPublication)
-    func didRequestNavigationForPublication(publication: FCPublication)
-    func didRequestPhoneCallForPublication(publication: FCPublication)
-    func didRequestSmsForPublication(publication: FCPublication)
+    func didRegisterForPublication(publication: Publication)
+    func didUnRegisterForPublication(publication: Publication)
+    func didRequestNavigationForPublication(publication: Publication)
+    func didRequestPhoneCallForPublication(publication: Publication)
+    func didRequestSmsForPublication(publication: Publication)
 }
 
 class PublicationDetsilsCollectorActionsHeaderView: UIView {
@@ -40,7 +40,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
     
     var buttons = [UIButton]()
     
-    var publication: FCPublication! {
+    var publication: Publication! {
         didSet {
             if let publication = self.publication {
                 configureInitialState(publication)
@@ -58,7 +58,7 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
 
         case registerButton:
             if let delegate = self.delegate {
-                switch self.publication.didRegisterForCurrentPublication {
+                switch self.publication.didRegisterForCurrentPublication!.boolValue {
                 case true:
                     delegate.didUnRegisterForPublication(self.publication)
                 case false:
@@ -68,9 +68,9 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
             
         case navigateButton:
             
-            if !self.publication.didRegisterForCurrentPublication {
+            if !self.publication.didRegisterForCurrentPublication!.boolValue{
                 self.delegate.didRegisterForPublication(self.publication)
-                if self.publication.typeOfCollecting == .ContactPublisher {return}
+//                if self.publication.typeOfCollecting == .ContactPublisher {return}
             }
 
             if let delegate = self.delegate {
@@ -100,21 +100,15 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         }
     }
     
-    func configureInitialState(publication: FCPublication) {
+    func configureInitialState(publication: Publication) {
         //User created publication
-        if FCModel.sharedInstance.isUserCreaetedPublication(publication){
+        if publication.isUserCreatedPublication!.boolValue {
             self.disableAllButtons()
             return
         }
         
         configureButtonsForNormalState()
         configureRegisterButton()
-
-        
-        if publication.typeOfCollecting != .ContactPublisher {
-    
-            configureButtonsForFreePickup()
-        }
     }
 
     override func awakeFromNib() {
@@ -152,21 +146,21 @@ class PublicationDetsilsCollectorActionsHeaderView: UIView {
         }
     }
     
-    private func configureButtonsForFreePickup() {
-        
-        let contactButtons = [smsButton , phoneCallButton]
-        for button in contactButtons {
-            
-            let buttonColor = UIColor.lightGrayColor()
-            button.backgroundColor = buttonColor
-            button.enabled = false
-        }
-    }
+//    private func configureButtonsForFreePickup() {
+//        
+//        let contactButtons = [smsButton , phoneCallButton]
+//        for button in contactButtons {
+//            
+//            let buttonColor = UIColor.lightGrayColor()
+//            button.backgroundColor = buttonColor
+//            button.enabled = false
+//        }
+//    }
     
     func configureRegisterButton() {
         
         if let publication = publication {
-            switch publication.didRegisterForCurrentPublication {
+            switch publication.didRegisterForCurrentPublication!.boolValue {
             case true:
                 self.registerButton.backgroundColor = self.buttonPressColor
                 self.registerButton.setImage(unRegisteredButtonImage, forState: .Normal)

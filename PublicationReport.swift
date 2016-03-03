@@ -65,9 +65,37 @@ class PublicationReport: NSManagedObject {
                     if publication.reports == nil {publication.reports = NSSet()}
                     publication.reports = publication.reports?.setByAddingObject(newReport)
                     publication.didRecieveNewReport = true
+                    
+                    //we only add new report log from web fetch and not for the User's report
+                    let newReportLog = ActivityLog.LogType.Report.rawValue
+                    ActivityLog.activityLog(publication, type: newReportLog, context: context)
                 }
         }
         
+    }
+    
+    class func reportForPublication(reportInt: Int ,publication: Publication, context: NSManagedObjectContext)  -> PublicationReport {
+        let report = NSEntityDescription.insertNewObjectForEntityForName("PublicationReport", inManagedObjectContext: context) as! PublicationReport
+        report.reporterContactInfo = User.sharedInstance.userPhoneNumber
+        report.activeDeviceDecUUID = FCModel.sharedInstance.deviceUUID
+        report.dateOfReport = NSDate()
+        report.publicationId = publication.uniqueId
+        report.publicationVersion = publication.version
+        report.reoprterUserName = User.sharedInstance.userIdentityProviderUserName
+        report.report = NSNumber(integer: reportInt)
+        report.reporterUserId = NSNumber(integer: User.sharedInstance.userUniqueID)
+        report.publication = publication
+        
+        if publication.reports == nil {publication.reports = Set<PublicationReport>()}
+        publication.reports = publication.reports?.setByAddingObject(report)
+        
+        do {
+            try context.save()
+        }catch {
+            print("error saving new report \(error) " + __FUNCTION__)
+        }
+        
+        return report        
     }
     
     func toString() {

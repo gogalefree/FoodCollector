@@ -12,6 +12,48 @@ import CoreData
 
 class PublicationRegistration: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
 
+    class func registrationForPublication(publication: Publication, context: NSManagedObjectContext) -> PublicationRegistration?
+    {
+        
+        var aRegistration: PublicationRegistration? = nil
+        let newRegistration = NSEntityDescription.insertNewObjectForEntityForName("PublicationRegistration", inManagedObjectContext: context) as? PublicationRegistration
+        
+        if let registration = newRegistration {
+            
+            
+            registration.activeDeviceUUID = FCModel.sharedInstance.deviceUUID
+            registration.collectorContactInfo = User.sharedInstance.userPhoneNumber
+            registration.collectorName = User.sharedInstance.userIdentityProviderUserName
+            registration.collectorUserId = User.sharedInstance.userUniqueID
+            registration.dateOfRegistration = NSDate()
+            registration.publicationId = publication.uniqueId
+            registration.publicationVersion = publication.version
+            registration.publication = publication
+            
+            publication.registrations = publication.registrations?.setByAddingObject(registration)
+            
+            aRegistration = registration
+            
+            //we only add new report log from web fetch and not for the User's report
+            let newRegistrationLog = ActivityLog.LogType.Registration.rawValue
+            ActivityLog.activityLog(publication, type: newRegistrationLog, context: context)
+            
+            
+                print("registration created:\n\(registration.toString())")
+                
+                do {
+                    try context.save()
+                }catch {
+                    print("error saving registration \(error)")
+                }
+
+            
+        }
+        return aRegistration
+    }
+    
+    func toString() -> String {
+        return String("collector name: \(collectorName)\ncollectorId: \(collectorUserId)\nid: \(id)\npublication id: \(publicationId)\n publication version: \(publicationVersion)")
+    }
 }

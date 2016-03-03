@@ -9,6 +9,7 @@
 import UIKit
 import MessageUI
 import Social
+import CoreData
 
 
 let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a button")
@@ -32,15 +33,15 @@ enum PublicationDetailsTVCVReferral {
 }
 
 protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
-    func didDeletePublication(publication: FCPublication, collectionViewIndex: Int)
-    func didTakeOffAirPublication(publication: FCPublication)
+    func didDeletePublication(publication: Publication, collectionViewIndex: Int)
+    func didTakeOffAirPublication(publication: Publication)
 }
 
 class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
     weak var deleteDelgate: UserDidDeletePublicationProtocol?
     
-    var publication: FCPublication?
+    var publication: Publication?
     var state = PublicationDetailsTVCViewState.Collector
     var referral = PublicationDetailsTVCVReferral.MyPublications
     var publicationIndexNumber = 0
@@ -50,7 +51,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
     weak var actionsHeaderView: PublicationDetsilsCollectorActionsHeaderView?
     
-    func setupWithState(initialState: PublicationDetailsTVCViewState, caller: PublicationDetailsTVCVReferral, publication: FCPublication?, publicationIndexPath:Int = 0) {
+    func setupWithState(initialState: PublicationDetailsTVCViewState, caller: PublicationDetailsTVCVReferral, publication: Publication?, publicationIndexPath:Int = 0) {
         // This function is executed before viewDidLoad()
 
         self.state = initialState
@@ -86,16 +87,16 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     }
     
     //tests only
-    func showOnSpotReport() {
-    
-        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
-        
-        arrivedToSpotReportVC.publication = self.publication
-        
-        let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
-        
-        self.navigationController?.presentViewController(navController, animated: true, completion: nil)
-    }
+//    func showOnSpotReport() {
+//    
+//        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+//        
+//        arrivedToSpotReportVC.publication = self.publication
+//        
+//        let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+//        
+//        self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+//    }
     //end tests
     
     //MARK: - Table view Headers
@@ -232,12 +233,13 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
     func fetchPublicationPhoto() {
         if let publication = self.publication {
-            if publication.photoData.photo == nil && !publication.photoData.didTryToDonwloadImage {
+            if publication.photoBinaryData == nil && !publication.didTryToDownloadImage!.boolValue {
                 
                 
                 let fetcher = FCPhotoFetcher()
                 fetcher.fetchPhotoForPublication(publication, completion: { (image: UIImage?) -> Void in
-                    if publication.photoData.photo != nil {
+                    
+                    if image != nil {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                    
                             let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
@@ -256,16 +258,20 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     func fetchPublicationReports() {
         
         if let publication = self.publication {
-            FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, completion: { (success: Bool, reports: [FCOnSpotPublicationReport]?) -> () in
+            
+            let localContext = FCModel.dataController.createPrivateQueueContext()
+            
+            localContext.performBlock({ () -> Void in
                 
-                if success {
-                    if let incomingReports = reports {
-                        publication.reportsForPublication = incomingReports
+                FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: localContext, completion: { (success) -> Void in
+                    
+                    if success {
+                        
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .Automatic)
                         })
                     }
-                }
+                })
             })
         }
     }
@@ -274,9 +280,13 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
         if let publication = self.publication {
             
-            let fetcher = FCPublicationRegistrationsFetcher(publication: publication)
-            fetcher.delegate = self
-            fetcher.fetchPublicationRegistration(false)
+            let context = FCModel.dataController.managedObjectContext
+            context.performBlock({ () -> Void in
+                
+                let fetcher = CDPublicationRegistrationFetcher(publication: publication, context: context)
+                fetcher.delegate = self
+                fetcher.fetchRegistrationsForPublication(false)
+            })
         }
     }
     
@@ -299,9 +309,9 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             
             if let publication = self.publication {
                 
-                if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version{
+                if identifier.uniqueId == publication.uniqueId?.integerValue && identifier.version == publication.version?.integerValue {
                     
-                    let alert = UIAlertController(title: publication.title, message: kPublicationDeletedAlertMessage, preferredStyle: .Alert)
+                    let alert = UIAlertController(title: publication.title, message: kDeleteAlertTitle, preferredStyle: .Alert)
                     // Localization: Original string = title: "okay"
                     let action = UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         
@@ -316,64 +326,64 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         }
     }
     
-    func didRecievePublicationRegistration(notification: NSNotification) {
-        
-        let info = notification.userInfo as? [String : AnyObject]
-        
-        if let userInfo = info {
-            
-            let publication = userInfo["publication"] as! FCPublication
-            if let presentedPublication = self.publication {
-                
-                if  presentedPublication.uniqueId == publication.uniqueId &&
-                    presentedPublication.version == publication.version {
-                        
-                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
-                        if let cell = imageCell {
-                         
-                            cell.reloadRegisteredUserIconCounter()
-                            self.showNewRegistrationBanner()
-                        }
-                }
-            }
-        }
-    }
+//    func didRecievePublicationRegistration(notification: NSNotification) {
+//        
+//        let info = notification.userInfo as? [String : AnyObject]
+//        
+//        if let userInfo = info {
+//            
+//            let publication = userInfo["publication"] as! FCPublication
+//            if let presentedPublication = self.publication {
+//                
+//                if  presentedPublication.uniqueId == publication.uniqueId &&
+//                    presentedPublication.version == publication.version {
+//                        
+//                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+//                        if let cell = imageCell {
+//                         
+//                            cell.reloadRegisteredUserIconCounter()
+//                            self.showNewRegistrationBanner()
+//                        }
+//                }
+//            }
+//        }
+//    }
     
-    func showNewRegistrationBanner() {
-        
-        let newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
-        newRgistrationBannerView.userCreatedPublication = self.publication
-        
-        let kNewRegistrationBannerHiddenY: CGFloat = -80
-        
-        newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
-        self.view.addSubview(newRgistrationBannerView)
-        
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-            
-            newRgistrationBannerView.alpha = 1
-            newRgistrationBannerView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 66)
-            
-            }) { (finished) -> Void in
-                
-                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-                    
-                    newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
-                    newRgistrationBannerView.alpha = 0
-                    
-                    
-                    }){ (finished) -> Void in
-                        
-                        newRgistrationBannerView.removeFromSuperview()
-                }
-        }
-    }
+//    func showNewRegistrationBanner() {
+//        
+//        let newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
+//        newRgistrationBannerView.userCreatedPublication = self.publication
+//        
+//        let kNewRegistrationBannerHiddenY: CGFloat = -80
+//        
+//        newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
+//        self.view.addSubview(newRgistrationBannerView)
+//        
+//        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+//            
+//            newRgistrationBannerView.alpha = 1
+//            newRgistrationBannerView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 66)
+//            
+//            }) { (finished) -> Void in
+//                
+//                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+//                    
+//                    newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
+//                    newRgistrationBannerView.alpha = 0
+//                    
+//                    
+//                    }){ (finished) -> Void in
+//                        
+//                        newRgistrationBannerView.removeFromSuperview()
+//                }
+//        }
+//    }
     
     //MARK: - NSNotifications
     func registerForNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+       // NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
         
     }
     
@@ -394,7 +404,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
 extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDelegate {
     
     
-    func didRegisterForPublication(publication: FCPublication) {
+    func didRegisterForPublication(publication: Publication) {
         // If the user is logged in: register him to this pickup.
         // If the user is NOT logged in: start login process.
         
@@ -406,17 +416,15 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         }
     }
     
-    func didUnRegisterForPublication(publication: FCPublication) {
+    func didUnRegisterForPublication(publication: Publication) {
         
         publication.didRegisterForCurrentPublication = false
-        publication.countOfRegisteredUsers -= 1
-        FCModel.sharedInstance.foodCollectorWebServer.unRegisterUserFromComingToPickUpPublication(publication, completion: { (success) -> Void in})
         FCModel.sharedInstance.removeRegistrationFor(publication)
         self.updateRegisteredUserIconCounter()
         animateRegistrationButton() 
     }
     
-    func didRequestNavigationForPublication(publication: FCPublication) {
+    func didRequestNavigationForPublication(publication: Publication) {
         
         
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
@@ -430,7 +438,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         }
     }
     
-    func didRequestSmsForPublication(publication: FCPublication) {
+    func didRequestSmsForPublication(publication: Publication) {
         
         if let phoneNumber = self.publication?.contactInfo {
             
@@ -446,7 +454,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
         }
     }
     
-    func didRequestPhoneCallForPublication(publication: FCPublication) {
+    func didRequestPhoneCallForPublication(publication: Publication) {
         
         if let phoneNumber = self.publication?.contactInfo {
             
@@ -461,9 +469,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDeleg
     
     private func registerUserForPublication() {
         publication!.didRegisterForCurrentPublication = true
-        publication!.countOfRegisteredUsers += 1
         FCModel.sharedInstance.addRegisterationFor(publication!)
-        FCModel.sharedInstance.foodCollectorWebServer.registerUserForPublication(publication!)
         self.updateRegisteredUserIconCounter()
         self.animateRegistrationButton()
     }
@@ -520,7 +526,10 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
             let facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             
             facebookPostController.setInitialText(publication?.title)
-            facebookPostController.addImage(publication?.photoData.photo)
+            if let data = publication?.photoBinaryData {
+                facebookPostController.addImage(UIImage(data: data))
+
+            }
             facebookPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
             self.presentViewController(facebookPostController, animated:true, completion:nil)
         }
@@ -534,7 +543,11 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
             let hashTagString = "#FooDoNet: "
             let title = publication?.title
             twiiterPostController.setInitialText(hashTagString + title!)
-            twiiterPostController.addImage(publication?.photoData.photo)
+            
+            if let data = publication?.photoBinaryData {
+                twiiterPostController.addImage(UIImage(data: data))
+                
+            }
             twiiterPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
             self.presentViewController(twiiterPostController, animated:true, completion:nil)
         }
@@ -542,19 +555,25 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     
     func publisherDidRequestSmsCollectors() {
         
-        if publication?.registrationsForPublication.count == 0 {
+        let registrations = publication?.registrations
+        
+        if registrations == nil || registrations?.count == 0 {
             let title = NSLocalizedString("No one is registered for this pickup", comment:"")
             presentNoCollectorsAlert(title)
             return
         }
         
+        
         let validator = Validator()
-        let trueNumbers = publication?.registrationsForPublication.filter {(registration) in validator.getValidPhoneNumber(registration.contactInfo) != nil}
-        if trueNumbers == nil || trueNumbers?.count == 0 {
+        let array = Array(registrations!) as! [PublicationRegistration]
+        let trueNumbers = array.filter { (registration) in validator.getValidPhoneNumber(registration.collectorContactInfo!) != nil }
+        if trueNumbers.count == 0 {
+            
             let title = NSLocalizedString("There are no legit phone numbers", comment:"")
             presentNoCollectorsAlert(title)
             return
         }
+        
         
         //present ContactCollectorPicker
         let contactCollectorPickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorsNavController") as! UINavigationController
@@ -567,19 +586,22 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
     
     func publisherDidRequestPhoneCall() {
     
-        if publication?.registrationsForPublication.count == 0 {
-            
+        let registrations = publication?.registrations
+        
+        if registrations == nil || registrations?.count == 0 {
+        
             let title = NSLocalizedString("No one is registered for this pickup", comment:"")
             presentNoCollectorsAlert(title)
             return
         }
         
+        let registrationsArray = Array(publication!.registrations!) as! [PublicationRegistration]
         //present ContactCollectorPhonePicker
         let contactCollectorPhonePickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorPhonePickerNavVC") as! UINavigationController
         contactCollectorPhonePickerNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         contactCollectorPhonePickerNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         let contactCollectorPhonePicker = contactCollectorPhonePickerNavVC.viewControllers[0] as! ContactCollectorPhonePickerVC
-        contactCollectorPhonePicker.registrations = self.publication!.registrationsForPublication
+        contactCollectorPhonePicker.registrations = registrationsArray
         self.navigationController?.presentViewController(contactCollectorPhonePickerNavVC, animated: true, completion: nil)
     }
     
@@ -603,7 +625,7 @@ extension FCPublicationDetailsTVC : PublicationDetailsImageCellDelegate {
     func presentPhotoPresentor() {
         
         //add if to check whether there's a photo or default
-        if self.publication?.photoData.photo == nil {return}
+        if self.publication?.photoBinaryData == nil {return}
         
         self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as! FCPhotoPresentorNavigationController
 
@@ -702,8 +724,12 @@ extension FCPublicationDetailsTVC {
     
 
     func displayReportsWithFullScreen() {
+        
+        let reports = publication?.reports
+        
+        if reports == nil || reports?.count == 0 {return}
 
-        if self.publication!.reportsForPublication.count != 0 {
+       
             let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as! FCPublicationReportsNavigationController
             self.publicationReportsNavController = publicationReportsNavController
             
@@ -715,8 +741,8 @@ extension FCPublicationDetailsTVC {
             publicationReportsTVC.publication = self.publication
             
             self.navigationController?.presentViewController(publicationReportsNavController, animated: true, completion: { () -> Void in})
+        
         }
-    }
 
 }
 
@@ -798,6 +824,17 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
         }
     }
     
+    //MARK: - Reports delegate
+
+    func dismiss(report: PublicationReport?) {
+
+        if self.presentedViewController != nil {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.tableView.reloadData()
+        }
+    }
+    
+    //MARK: - Options menue
     func presentOptionsMenuVC(){
         
         if User.sharedInstance.userIsLoggedIn {
@@ -807,7 +844,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
             
             optionsMenuPopUpVC.popoverPresentationController?.delegate = self
             optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-            if publication!.isOnAir {
+            if publication!.isOnAir! == true {
                 // 44 is the row height of each cell in the options menu table
                 optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
             }
@@ -837,13 +874,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
             return .None
     }
     
-    func dismiss() {
-        fetchPublicationReports()
-        if self.presentedViewController != nil {
-            self.dismissViewControllerAnimated(true, completion: nil)
-            self.tableView.reloadData()
-        }
-    }
+    
 }
 
 //MARK: - Admin for beta bundle
@@ -885,19 +916,19 @@ extension FCPublicationDetailsTVC {
     func deletePublication() {
         print("deleting publication")
         
-        let identifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId , version: self.publication!.version)
-        
-        FCModel.sharedInstance.foodCollectorWebServer.deletePublication(identifier, completion: { (success) -> () in
-            
-            if success {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-            
-            else {
-                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("Error deleting", aMessage: "publication id: \(identifier.uniqueId) version: \(identifier.version) ")
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-        })
+//        let identifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId!.integerValue , version: self.publication!.version!.integerValue)
+//        
+//        FCModel.sharedInstance.foodCollectorWebServer.deletePublication(identifier, completion: { (success) -> () in
+//            
+//            if success {
+//                self.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//            
+//            else {
+//                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("Error deleting", aMessage: "publication id: \(identifier.uniqueId) version: \(identifier.version) ")
+//                self.presentViewController(alert, animated: true, completion: nil)
+//            }
+//        })
     }
 }
 
@@ -909,10 +940,7 @@ extension FCPublicationDetailsTVC {
      //   dismiss()
 
         let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
-        let identifier = PublicationIdentifier(uniqueId: publication!.uniqueId , version: publication!.version)
-        guard let userCreatedPublication = FCModel.sharedInstance.userCreatedPublicationWithIdentifier(identifier) else {return}
-        userCreatedPublication.photoData.photo = publication?.photoData.photo
-        publicationEditorTVC?.setupWithState(.EditPublication, publication: userCreatedPublication)
+        publicationEditorTVC?.setupWithState(.EditPublication, publication: publication!)
         
         
         let nav = UINavigationController(rootViewController: publicationEditorTVC!)
@@ -941,23 +969,13 @@ extension FCPublicationDetailsTVC {
         
         deleteAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
             
-            let pubicationToDelete = self.publication!
-            // make identifier. we append it to the notification handler since PublicationsTVC will fetch it from there
-            let publicationIdentifier = PublicationIdentifier(uniqueId: pubicationToDelete.uniqueId , version: pubicationToDelete.version)
-            FCUserNotificationHandler.sharedInstance.recivedtoDelete.append(publicationIdentifier)
-            
-            
             //delete from model
-            FCModel.sharedInstance.deletePublication(publicationIdentifier, deleteFromServer: true, deleteUserCreatedPublication: true)
-                self.deleteDelgate?.didDeletePublication(pubicationToDelete, collectionViewIndex: self.publicationIndexNumber)
-            
-            //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            FCModel.sharedInstance.deletePublication(self.publication!, deleteFromServer: true)
+            self.deleteDelgate?.didDeletePublication(self.publication!, collectionViewIndex: self.publicationIndexNumber)
         }))
         
         deleteAlert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Default, handler: nil))
-        
         self.presentViewController(deleteAlert, animated: true, completion: nil)
-
     }
     
     func reload() {

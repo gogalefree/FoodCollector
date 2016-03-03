@@ -31,3 +31,9 @@ Instructions for changing the type of build
 11. The example above will generate a Beta build. you wish to generate a Production build replace the argument “beta” with “prod” (without the commas).
 
 NOTE: If the script doesn’t work or you get error during the build process, contact me for help (Boris Tsigelman)
+
+//NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnspotNotification:", name: kDidArriveOnSpotNotification, object: nil)
+//NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentPrepareToDeleteMessage:", name: "prepareToDelete", object: nil)
+//NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+//NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
+//NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationReport", name: kRecivedPublicationReportNotification, object: nil)

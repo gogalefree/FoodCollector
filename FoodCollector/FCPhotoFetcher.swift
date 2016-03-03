@@ -14,7 +14,7 @@ class FCPhotoFetcher: NSObject {
     let foodCollectorProductionBucketName  = "foodcollector"
     let foodCollectorDevelopmentBucketName = "foodcollectordev"
     
-    func fetchPhotoForPublication(publication: FCPublication , completion: (image: UIImage?)->Void) {
+    func fetchPhotoForPublication(publication: Publication , completion: (image: UIImage?)->Void) {
         
         var photo: UIImage? = nil
         
@@ -40,23 +40,33 @@ class FCPhotoFetcher: NSObject {
                 
                 //let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
-                publication.photoData.didTryToDonwloadImage = true
+                publication.didTryToDownloadImage = true
+                
                 if let publicationPhoto = photo {
-                    publication.photoData.photo = publicationPhoto
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        FCModel.dataController.managedObjectContext.performBlock({ () -> Void in
+                            
+                            let data = UIImageJPEGRepresentation(publicationPhoto, 1)
+                            publication.photoBinaryData = data
+                            FCModel.dataController.save()
+                            completion(image: photo)
+                            
+                        })
+                    })
                 }
-                completion(image: photo)
             }
-            
             
             return nil
         })
     }
     
-    func uploadPhotoForPublication(publication : FCPublication) {
+    func uploadPhotoForPublication(publication : Publication) {
         
         //print("uploadPhotoForPublication:\n------------------------")
-        
-        let imageToUpload = publication.photoData.photo!
+        guard let data = publication.photoBinaryData else {return}
+        let imageToUpload = UIImage(data: data)!
         let uploadFilePath = NSTemporaryDirectory().stringByAppendingString(publication.photoUrl)
         let uploadFileURL = NSURL.fileURLWithPath(uploadFilePath)
         //print("uploadFilePath:\(uploadFilePath)")
@@ -89,7 +99,7 @@ class FCPhotoFetcher: NSObject {
         
     }
     
-    func deletePhotoForPublication(publication: FCPublication) {
+    func deletePhotoForPublication(publication: Publication) {
         
         
         //Delete Object

@@ -17,14 +17,14 @@ class ContactCollectorPhonePickerLabelCell: UITableViewCell {
 
     var validator = Validator()
     
-    var registration: FCRegistrationForPublication? {
+    var registration: PublicationRegistration? {
         didSet{
             guard let registration = registration else {return}
             setup(registration)
         }
     }
 
-    func setup(registration: FCRegistrationForPublication) {
+    func setup(registration: PublicationRegistration) {
         
         self.mainLabel.text = registration.collectorName
         self.subtitleLabel.text = defineSubtitle()
@@ -34,7 +34,7 @@ class ContactCollectorPhonePickerLabelCell: UITableViewCell {
     
     func defineSubtitle() -> String {
     
-        guard let _ =  validator.getValidPhoneNumber(registration!.contactInfo) else {return NSLocalizedString("Incorrect phone number", comment: "Message alert when phone number pattern is incorrect")}
+        guard let _ =  validator.getValidPhoneNumber(registration!.collectorContactInfo!) else {return NSLocalizedString("Incorrect phone number", comment: "Message alert when phone number pattern is incorrect")}
         return ""
     }
     

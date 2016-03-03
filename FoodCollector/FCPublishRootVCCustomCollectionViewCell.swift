@@ -19,7 +19,7 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var FCPublisherEventStatus: UILabel!
     
 
-    var publication: FCPublication? {
+    var publication: Publication? {
         didSet {
             
             if let publication = self.publication {
@@ -28,7 +28,7 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 var statusImg : UIImage
                 self.FCPublisherEventImage.layer.cornerRadius = self.FCPublisherEventImage.frame.height/2
                 
-                if FCDateFunctions.PublicationDidExpired(publication.endingDate){
+                if FCDateFunctions.PublicationDidExpired(publication.endingData!){
                     status = NSLocalizedString("Ended", comment:"the puclication has ended (it is off the air)")
                     statusImg = UIImage(named: "Red-dot")!
                     publication.isOnAir = false
@@ -37,7 +37,7 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                     status = NSLocalizedString("Active", comment:"The publication is active")
                     statusImg = UIImage(named: "Green-dot")!
                     
-                    if  !publication.isOnAir {
+                    if  !publication.isOnAir!.boolValue {
                         status = NSLocalizedString("Inactive", comment:"The publication is not active")
                         statusImg = UIImage(named: "Red-dot")!
 
@@ -48,10 +48,11 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                 self.FCPublisherEventStatus.text = status
                 self.FCPublisherEventStatusIcon.image = statusImg
                 
-                if publication.photoData.photo != nil {
-                    self.FCPublisherEventImage.image = publication.photoData.photo!
+                if publication.photoBinaryData != nil {
+                    self.FCPublisherEventImage.image = UIImage(data: publication.photoBinaryData!)
                 }
-                else if !publication.photoData.didTryToDonwloadImage {
+                    
+                else if !publication.didTryToDownloadImage!.boolValue {
                     
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
                         
@@ -59,13 +60,13 @@ class FCPublishRootVCCustomCollectionViewCell: UICollectionViewCell {
                         fetcher.fetchPhotoForPublication(publication,
                             completion: { (image) -> Void in
                                 
-                                if publication.photoData.photo != nil {
+                                if image != nil {
         
                                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                         
                                         UIView.animateWithDuration(0.2, animations: { () -> Void in
                                             self.FCPublisherEventImage.alpha = 0
-                                            self.FCPublisherEventImage.image = publication.photoData.photo
+                                            self.FCPublisherEventImage.image = image
                                             self.FCPublisherEventImage.alpha = 1
                                         })
                                     })

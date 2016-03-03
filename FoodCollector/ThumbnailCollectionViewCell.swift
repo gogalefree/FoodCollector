@@ -17,19 +17,21 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
 
     let defaultImage = UIImage(named: "NoPhotoPlaceholder")
     
-    var publication: FCPublication? {
+    var publication: Publication? {
         didSet {
             guard let publication = publication else {return}
             setup(publication)
         }
     }
     
-    func setup(publication:FCPublication) {
+    func setup(publication: Publication) {
         
         self.imageView.image = defaultImage
         self.shadowView.backgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.1)
-        if publication.photoData.photo != nil {animateImage(publication)}
-        else if !publication.photoData.didTryToDonwloadImage {
+        
+        if publication.photoBinaryData != nil {animateImage(publication)}
+            
+        else if !publication.didTryToDownloadImage!.boolValue {
             
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
@@ -41,7 +43,10 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func animateImage(publication: FCPublication) {
+    func animateImage(publication: Publication) {
+        
+        let photo = UIImage(data: publication.photoBinaryData!)
+        guard let aPhoto = photo else {return}
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
 
@@ -49,7 +54,7 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
                 
                 self.imageView.alpha = 0
                 }) { (_) -> Void in
-                    self.imageView.image = publication.photoData.photo!
+                    self.imageView.image = aPhoto
                     UIView.animateWithDuration(0.2, animations: { () -> Void in
                         self.imageView.alpha = 1
                         }, completion: nil)

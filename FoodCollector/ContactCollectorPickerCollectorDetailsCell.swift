@@ -16,7 +16,7 @@ class ContactCollectorPickerCollectorDetailsCell: UITableViewCell {
     
     let checkBoxImages = [UIImage(named: "Checkbox")! , UIImage(named: "Checkbox_Checked")!]
     var chosen = false
-    var registration: FCRegistrationForPublication? 
+    var registration: PublicationRegistration?
 
     var indexPath: NSIndexPath? {
     

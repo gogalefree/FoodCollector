@@ -35,7 +35,7 @@ protocol FCServerProtocol {
     ///
     /// fetch all publications from server.
     ///
-    func downloadAllPublicationsWithCompletion(completion: (thePublications: [FCPublication]) -> Void)
+    func downloadAllPublications()
     
     ///
     /// fetch publication with a certain identifier
@@ -43,45 +43,42 @@ protocol FCServerProtocol {
     func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: FCPublication) -> Void)
 
     
-    ///
-    /// fetch all reports to a certain Publication
-    ///
-    func reportsForPublication(publication:FCPublication,completion:(success: Bool, reports: [FCOnSpotPublicationReport]?)->())
-    
-    ///
+        ///
     /// reports a Report of a Publication by a user that arrived at a publication
     ///  spot
-    ///
-    func reportArrivedPublication(publication: FCPublication,withReport report:FCOnSpotPublicationReport)
+    
+    
+    func postReportforPublication(report: PublicationReport)
     
     ///
     /// informs the server that a user deleted his publication
     ///
-    func takePublicationOffAir(publication: FCPublication, completion: (success:Bool)->Void)
+    func takePublicationOffAir(publication: Publication, completion: (success:Bool)->Void)
     
     ///
     /// post a new Publication to the server
     ///
-    func postNewCreatedPublication(params:[String:AnyObject], completion:(success: Bool, uniqueID: Int, version: Int)->())
+    func postNewCreatedPublication(params:[String:AnyObject],completion:(success: Bool, params: [String: AnyObject])->())
     
     ///
     /// post an edited Publication to the server. the publication must be expired or taken off air before
     ///
-    func postEditedPublication(params:[String:AnyObject],publication: FCPublication, completion:(success: Bool,  version: Int)->())
+    func postEditedPublication(params:[String:AnyObject],publication: Publication,
+        completion:(success: Bool,  version: Int)->())
    
-    ///
-    /// register or unregister the current user to a publication
-    func registerUserForPublication(publication: FCPublication)
+    
+    //register user for publication
+    func registerUserForPublication(registration: PublicationRegistration, completion: (success:Bool) -> Void)
     
     ///
     /// unRegister or unregister the current user to a publication
-    func unRegisterUserFromComingToPickUpPublication(publication: FCPublication, completion: (success: Bool) -> Void)
-   
-    ///
-    /// Delete userCreatedPublication by the user
-    /// Currently we dont implement persistency so if the service fails, we try again
-    func deletePublication(publicationIdentifier: PublicationIdentifier , completion: (success: Bool) -> ())
     
+    func unRegisterUserFromComingToPickUpPublication(publication: Publication, completion: (success: Bool) -> Void)
+    
+   
+    
+    //delete Publication
+    func deletePublication(publication: Publication, completion: (success: Bool) -> ())
     ///
     ///sends user feedback to server
     func sendFeedback(report: String)

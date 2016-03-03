@@ -21,7 +21,7 @@ extension FCModel {
     }
     
     //posts after the deleted publication from push was removed from the model
-    func postDeletedPublicationNotification(publicationIdentifier: PublicationIdentifier) {
+    func postDeletedPublicationNotification() {
         NSNotificationCenter.defaultCenter().postNotificationName(kDeletedPublicationNotification, object: self)
     }
     
@@ -41,5 +41,12 @@ extension FCModel {
     func postDeleteOldVersionOfUserCreatedPublications() {
         NSNotificationCenter.defaultCenter().postNotificationName(kDidDeleteOldVersionsOfUserCreatedPublication, object: self)
         
+    }
+    
+    func postReloadDataNotificationOnMainThread(){
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName(kReloadDataNotification, object: nil)
+        }
     }
 }

@@ -39,7 +39,7 @@ class FCUserNotificationHandler : NSObject {
         return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? String
         }()
     
-    var registeredLocationNotification = [(UILocalNotification, FCPublication)]()
+    var registeredLocationNotification = [(UILocalNotification, Publication)]()
     var recievedPublications = [FCPublication]()
     var recivedtoDelete = [PublicationIdentifier]()
     var recivedReports = [(PublicationIdentifier, FCOnSpotPublicationReport)]()
@@ -100,11 +100,7 @@ class FCUserNotificationHandler : NSObject {
         }
     }
     
-    /// called when a user arrives to a publication spot.
-    /// called by the app as a result of user location notification
-    func didArriveToPublicationSpot(publication:FCPublication) {
-        
-    }
+    
     
     /// registers a location notification for all current Publications.
     /// this method is invoked by DidRecieveNewData Notification after fetching
@@ -117,9 +113,9 @@ class FCUserNotificationHandler : NSObject {
         }
     }
     
-    func registerLocalNotification(publication: FCPublication) {
+    func registerLocalNotification(publication: Publication) {
         //check if we handeled
-        let userInfo = [kPublicationUniqueIdKey : publication.uniqueId , kPublicationVersionKey : publication.version]
+        let userInfo = [kPublicationUniqueIdKey : publication.uniqueId!.integerValue , kPublicationVersionKey : publication.version!.integerValue]
         let localNotification = UILocalNotification()
         localNotification.userInfo = userInfo
         localNotification.alertBody = String.localizedStringWithFormat(NSLocalizedString("You have arrived to: %@", comment: "location notification body: You have arrived to..."), publication.title!)
@@ -155,53 +151,63 @@ class FCUserNotificationHandler : NSObject {
         if let notificationType = userInfo[kRemoteNotificationType] as? String {
 
             let data = userInfo[kRemoteNotificationDataKey]! as! [String : AnyObject]
-            let publicationIdentifier = self.identifierForInfo(data)
+//            let publicationIdentifier = self.identifierForInfo(data)
+            print("Notifications Handler data recieved:\n\(data) ")
+
             
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
+                print("Notifications Handler kRemoteNotificationTypeNewPublication ")
                 
-                self.handleNewPublicationFromPushNotification(publicationIdentifier)
+
+                
+//                self.handleNewPublicationFromPushNotification(publicationIdentifier)
             
             case kRemoteNotificationTypeDeletedPublication:
                 
-                if !self.didHandlePublicationToDelete(publicationIdentifier){
-                    self.recivedtoDelete.removeAll(keepCapacity: true)
-                    self.recivedtoDelete.append(publicationIdentifier)
-                    FCModel.sharedInstance.prepareToDeletePublication(publicationIdentifier)
-                }
+                print("Notifications Handler kRemoteNotificationTypeDeletedPublication ")
+
+                
+//                if !self.didHandlePublicationToDelete(publicationIdentifier){
+//                    self.recivedtoDelete.removeAll(keepCapacity: true)
+//                    self.recivedtoDelete.append(publicationIdentifier)
+                 //   FCModel.sharedInstance.prepareToDeletePublication(publicationIdentifier)
+                //}
                 
             case kRemoteNotificationTypePublicationReport:
                 
-                let id = data["publication_id"] as? Int ?? 0
-                let pulicationVersion = data["publication_version"] as? Int ?? 0
-                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
-                let reportDate = self.dateWithInfo(data)
-                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey] as? Int ?? 0
-                let contactInfo = ""
-                
-                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate , reportContactInfo: contactInfo, reportPublicationId: publicationIdentifier.uniqueId, reportPublicationVersion: publicationIdentifier.version,reportId: 0 , reportCollectorName: "")
-                
-                if !self.didHandlePublicationReport(report, publicationIdentifier: publicationIdentifier) {
-                    self.recivedReports.removeAll(keepCapacity: true)
-                    self.recivedReports.append((publicationIdentifier, report))
-                    FCModel.sharedInstance.addPublicationReport(report, identifier: publicationIdentifier)
-                }
+                print("Notifications Handler kRemoteNotificationTypePublicationReport ")
+
+//                let id = data["publication_id"] as? Int ?? 0
+//                let pulicationVersion = data["publication_version"] as? Int ?? 0
+//                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
+//                let reportDate = self.dateWithInfo(data)
+//                let reportMessage = data[kRemoteNotificationPublicationReportMessageKey] as? Int ?? 0
+//                let contactInfo = ""
+//                
+//                let report = FCOnSpotPublicationReport(onSpotPublicationReportMessage: FCOnSpotPublicationReportMessage(rawValue: reportMessage)!, date: reportDate , reportContactInfo: contactInfo, reportPublicationId: publicationIdentifier.uniqueId, reportPublicationVersion: publicationIdentifier.version,reportId: 0 , reportCollectorName: "")
+//                
+//                if !self.didHandlePublicationReport(report, publicationIdentifier: publicationIdentifier) {
+//                    self.recivedReports.removeAll(keepCapacity: true)
+//                    self.recivedReports.append((publicationIdentifier, report))
+//                    FCModel.sharedInstance.addPublicationReport(report, identifier: publicationIdentifier)
+//                }
                 
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
-                
-                let registrationDate = self.dateWithInfo(data)
-                let id = data["id"] as? Int ?? 0
-                let pulicationVersion = data["version"] as? Int ?? 0
-                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
-                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, contactInfo: "Unavilable", collectorName: "No Name", uniqueId: 0)
-                if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
-                    self.recievedRegistrations.removeAll(keepCapacity: true)
-                    self.recievedRegistrations.append(registration)
-                    FCModel.sharedInstance.didRecievePublicationRegistration(registration)
-                }
+                    print("Notifications Handler kRemoteNotificationTypeUserRegisteredForPublication ")
+//                let registrationDate = self.dateWithInfo(data)
+//                let id = data["id"] as? Int ?? 0
+//                let pulicationVersion = data["version"] as? Int ?? 0
+//                let publicationIdentifier = PublicationIdentifier(uniqueId: id , version: pulicationVersion)
+//                let registration = FCRegistrationForPublication(identifier: publicationIdentifier, dateOfOrder: registrationDate, contactInfo: "Unavilable", collectorName: "No Name", uniqueId: 0)
+//                if !self.didHandlePublicationRegistration(registration, publicationIdentifier: publicationIdentifier) {
+//                    self.recievedRegistrations.removeAll(keepCapacity: true)
+//                    self.recievedRegistrations.append(registration)
+//                    FCModel.sharedInstance.didRecievePublicationRegistration(registration)
+//                }
                 
             default:
                 break
@@ -211,25 +217,25 @@ class FCUserNotificationHandler : NSObject {
     
     func handleNewPublicationFromPushNotification(publicationIdentifier: PublicationIdentifier) {
         
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            
-            //check if publication exists
-            if FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier) == nil {
-                
-                //fetch the new publication from the server
-                FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(publicationIdentifier, completion: { (publication: FCPublication) -> Void in
-                    
-                    //handle the new publication
-                    let recivedPublication = publication
-                    if !self.didHandleNewPublicationNotification(recivedPublication) {
-                        NSUserDefaults.standardUserDefaults().setBool(true, forKey:kShouldShowNewPublicationFromPushNotification)
-                        self.recievedPublications.removeAll(keepCapacity: true)
-                        self.recievedPublications.append(recivedPublication)
-                        FCModel.sharedInstance.addPublication(recivedPublication)
-                    }
-                })
-            }
-        })
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+//            
+//            //check if publication exists
+//            if FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier) == nil {
+//                
+//                //fetch the new publication from the server
+//                FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(publicationIdentifier, completion: { (publication: FCPublication) -> Void in
+//                    
+//                    //handle the new publication
+//                    let recivedPublication = publication
+//                    if !self.didHandleNewPublicationNotification(recivedPublication) {
+//                        NSUserDefaults.standardUserDefaults().setBool(true, forKey:kShouldShowNewPublicationFromPushNotification)
+//                        self.recievedPublications.removeAll(keepCapacity: true)
+//                        self.recievedPublications.append(recivedPublication)
+//                        FCModel.sharedInstance.addPublication(recivedPublication)
+//                    }
+//                })
+//            }
+//        })
     }
     
     func didHandleNewPublicationNotification(incomingPublication: FCPublication) -> Bool {
@@ -271,22 +277,22 @@ class FCUserNotificationHandler : NSObject {
     }
     
     func didHandlePublicationRegistration(publicationRegistration: FCRegistrationForPublication, publicationIdentifier: PublicationIdentifier) -> Bool {
-        var exist = false
-        guard let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier) else{return false}
-        
-        for registration in publication.registrationsForPublication {
-            
-            let secconds = Int((publicationRegistration.dateOfOrder.timeIntervalSince1970 - registration.dateOfOrder.timeIntervalSince1970) / 1000)
-            print("seccondes : \(secconds)")
-            
-            if  registration.identifier.uniqueId == publicationIdentifier.uniqueId &&
-                registration.identifier.version == publicationIdentifier.version   &&
-                secconds < 2{
-                    exist = true
-            }
-        }
-        
-        print("exists \(exist)")
+        let exist = false
+//        guard let publication = FCModel.sharedInstance.publicationWithIdentifier(publicationIdentifier) else{return false}
+//        
+//        for registration in publication.registrationsForPublication {
+//            
+//            let secconds = Int((publicationRegistration.dateOfOrder.timeIntervalSince1970 - registration.dateOfOrder.timeIntervalSince1970) / 1000)
+//            print("seccondes : \(secconds)")
+//            
+//            if  registration.identifier.uniqueId == publicationIdentifier.uniqueId &&
+//                registration.identifier.version == publicationIdentifier.version   &&
+//                secconds < 2{
+//                    exist = true
+//            }
+//        }
+//        
+//        print("exists \(exist)")
         return exist
     }
     

@@ -52,7 +52,7 @@ public enum TypeOfCollecting: Int {
 
 class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CellInfoDelegate {
     
-    var publication:FCPublication?
+    var publication:Publication?
     var state = PublicationEditorTVCState.CreateNewPublication
     var dataSource = [PublicationEditorTVCCellData]()
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
@@ -68,7 +68,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     var showEndDatePickerCell = false
     //var contactPublisherSelected = true // For new publication it sets the default value of the contact publisher data and switch state. It also, reflects the state of the switch in contact publisher row.
 
-    func setupWithState(initialState: PublicationEditorTVCState, publication: FCPublication?) {
+    func setupWithState(initialState: PublicationEditorTVCState, publication: Publication?) {
         // This function is executed before viewDidLoad()
         self.state = initialState
         self.publication = publication
@@ -554,26 +554,25 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func publishNewCreatedPublication() {
         
-        var params = self.prepareParamsDictToSend()
+        let params = self.prepareParamsDictToSend()
+        
+        let context = FCModel.dataController.managedObjectContext
+        let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: context) as! Publication
+        let imageData = UIImageJPEGRepresentation(self.dataSource[0].userData as! UIImage, 1)
+        publication.photoBinaryData = imageData
         
         FCModel.sharedInstance.foodCollectorWebServer.postNewCreatedPublication(params, completion: {
-            (success: Bool, uniqueID: Int, version: Int) -> () in
+            (success: Bool, params: [String: AnyObject]) -> () in
+            
             if success {
-                params[kPublicationUniqueIdKey] = uniqueID
-                params[kPublicationVersionKey] = version
-                let publication = FCPublication.userCreatedPublicationWithParams(params)
-                publication.photoData.photo = self.dataSource[0].userData as? UIImage
-                /*
-                if publication.photoData.photo != nil {
-                //send the photo
-                let uploader = FCPhotoFetcher()
-                uploader.uploadPhotoForPublication(publication)
-                }
-                */
+            
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     self.navigationController?.popViewControllerAnimated(true)
-                    
+                    context.performBlock({ () -> Void in
+                        publication.isUserCreatedPublication = true
+                        publication.updateFromParams(params)
+                    })
                     
                     //add the new publication
                     FCModel.sharedInstance.addPublication(publication)
@@ -582,7 +581,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
                     
                     
-                    if publication.photoData.photo != nil {
+                    if publication.photoBinaryData != nil {
                         //send the photo
                         let uploader = FCPhotoFetcher()
                         uploader.uploadPhotoForPublication(publication)
@@ -600,40 +599,41 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func publishEdidtedPublication() {
-        var params = self.prepareParamsDictToSend()
+        
+        let context = FCModel.dataController.managedObjectContext
+        
+        let params = self.prepareParamsDictToSend()
+        
         FCModel.sharedInstance.foodCollectorWebServer.postEditedPublication(params, publication: self.publication!) { (success, version) -> () in
             
             if success {
-                params[kPublicationUniqueIdKey] = self.publication!.uniqueId
-                params[kPublicationVersionKey] = version
-                let publication = FCPublication.userCreatedPublicationWithParams(params)
-                publication.photoData.photo = self.dataSource[0].userData as? UIImage
                 
-                FCModel.sharedInstance.addPublication(publication)
-                FCModel.sharedInstance.addUserCreatedPublication(publication)
-                FCModel.sharedInstance.deleteOldVersionsOfUserCreatedPublication(publication)
-                
-                if publication.photoData.photo != nil {
-                    //send the photo
-                    let uploader = FCPhotoFetcher()
-                    uploader.uploadPhotoForPublication(publication)
-                }
+                let image = self.dataSource[0].userData as? UIImage
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    context.performBlock({ () -> Void in
+                    
+                        self.publication?.version = NSNumber(integer: version)
+                        self.publication?.isOnAir = true
+                        self.publication?.isUserCreatedPublication = true
+                        if image != nil {
+                          
+                            self.publication?.photoBinaryData = UIImageJPEGRepresentation(image!, 1)
+                            let uploader = FCPhotoFetcher()
+                            uploader.uploadPhotoForPublication(self.publication!)
+                            
+                        }
+                    })
                     
                     if self.state == .EditPublication{
             
                         let publicationDetailsNavigationController = self.navigationController?.presentingViewController as? UINavigationController
                         let publicationDetailsTVC = publicationDetailsNavigationController?.viewControllers[0] as? FCPublicationDetailsTVC
-                        publicationDetailsTVC?.publication = publication
+                        publicationDetailsTVC?.publication = self.publication
                         publicationDetailsTVC?.reload()
-                        
                         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-                        
-                        
-            
                     }
-                
                 })
             }
                 
@@ -682,7 +682,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         
         let typeOfCollectingDict = self.dataSource[5].userData as! [String : AnyObject]
         params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
-        params[kPublicationTypeOfCollectingKey] = typeOfCollectingDict[kPublicationTypeOfCollectingKey] as! Int
+        params[kPublicationTypeOfCollectingKey] = 2
         var subtitle = self.dataSource[6].userData as? String ?? ""
         if subtitle ==  "" { subtitle = " "}
         params[kPublicationSubTitleKey] = subtitle
@@ -693,16 +693,16 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     func fetchPhotoIfNeeded() {
         
         if let publication = self.publication {
-            if (publication.photoData.photo == nil) {
+            if (publication.photoBinaryData == nil) && !publication.didTryToDownloadImage!.boolValue {
                 let photoFetcher = FCPhotoFetcher()
                 photoFetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
-                    var cellData = self.dataSource[6]
+                    var cellData = self.dataSource[0]
                     if let photo = image {
                         cellData.userData = photo
                         cellData.containsUserData = true
-                        self.dataSource[6] = cellData
+                        self.dataSource[0] = cellData
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: .Automatic)
+                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
                         })
                     }
                 })
@@ -746,9 +746,9 @@ extension  PublicationEditorTVC {
                     
                     case 0:
                         //publication photo
-                        if let photo = publication.photoData.photo {
+                        if let data = publication.photoBinaryData {
                             
-                            cellData.userData = photo
+                            cellData.userData = UIImage(data: data)!
                             cellData.containsUserData = true
                             cellData.cellTitle = kPublishedImage
                         }
@@ -761,20 +761,20 @@ extension  PublicationEditorTVC {
                         
                     case 2:
                         //publication address
-                        let addressDict: [String: AnyObject] = ["adress":publication.address ,"Latitude":publication.coordinate.latitude, "longitude" : publication.coordinate.longitude]
+                        let addressDict: [String: AnyObject] = ["adress":publication.address! ,"Latitude":publication.coordinate.latitude, "longitude" : publication.coordinate.longitude]
                         cellData.userData = addressDict
                         cellData.containsUserData = true
-                        cellData.cellTitle = publication.address
+                        cellData.cellTitle = publication.address!
                         
                     case 3:
                         //publication starting date
-                        cellData.userData = publication.startingDate
+                        cellData.userData = publication.startingData!
                         cellData.containsUserData = true
                         cellData.cellTitle = kPublishStartDate
                         
                     case 4:
                         //publication ending date
-                        cellData.userData = publication.endingDate
+                        cellData.userData = publication.endingData!
                         cellData.containsUserData = true
                         cellData.cellTitle = kPublishEndDate
                         
@@ -783,14 +783,9 @@ extension  PublicationEditorTVC {
                         cellData.cellTitle = publication.contactInfo!
                         cellData.containsUserData = true
                         
-                        if publication.typeOfCollecting == .FreePickUp {
-                            cellData.containsUserData = false
-                            cellData.cellTitle = kPublishPhoneNumber
-                            publication.typeOfCollecting = .ContactPublisher // Every publication has to have a phone number
-                            
-                        }
+                       
                         
-                        let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : publication.typeOfCollecting.rawValue , kPublicationContactInfoKey : publication.contactInfo!]
+                        let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 2 , kPublicationContactInfoKey : publication.contactInfo!]
                         
                         cellData.userData = typeOfCollectingDict
                         

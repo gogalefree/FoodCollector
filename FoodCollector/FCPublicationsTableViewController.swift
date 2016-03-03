@@ -19,17 +19,17 @@ protocol FCPublicationsTVCDelegate: NSObjectProtocol{
 /// presents all Publication in a tableView.
 /// must be sorted by distance from user location. nearest is first.
 
+//TODO: chnage to NSFetchResultsController
+//TODO: Delete the new message view. we'll present it from the container controller
 
 class FCPublicationsTableViewController : UITableViewController, UISearchBarDelegate {
     
     weak var delegate: FCPublicationsTVCDelegate!
-    var publications = [FCPublication]()
-    var filteredPublicaitons = [FCPublication]()
+    var publications = [Publication]()
+    var filteredPublicaitons = [Publication]()
     var searchBar: UISearchBar!
     var isFiltered = false
-    let messageViewHidenY: CGFloat = -10
-    let messageViewVisibleY: CGFloat = 62
-    let messageView = FCPublicationsTVCMessageView.loadFromNibNamed("FCPublicationsTVCMessageView", bundle: nil) as! FCPublicationsTVCMessageView
+    
     let navBarTitle = NSLocalizedString("Events Near You", comment:"Nav Bar title - the events near you")
     let navBarSearchPlaceHolderText = NSLocalizedString("Search", comment:"Search bar placeholder text")
     let scopeButtonTitlesClosest = NSLocalizedString("Closest", comment:"Search bar scope button titles")
@@ -167,9 +167,9 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         self.searchBar.resignFirstResponder()
     }
     
-    func searchPublications(text: String) -> [FCPublication] {
+    func searchPublications(text: String) -> [Publication] {
         
-        var filtered = [FCPublication]()
+        var filtered = [Publication]()
         
         for publication in self.publications {
         
@@ -210,13 +210,13 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         
         let cell =  tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell", forIndexPath: indexPath)as! FCPublicationsTVCell
 
-        var publication: FCPublication
+        var publication: Publication
         
         if self.isFiltered {
-            publication = self.filteredPublicaitons[indexPath.row] as FCPublication
+            publication = self.filteredPublicaitons[indexPath.row]
         }
         else {
-            publication = self.publications[indexPath.row] as FCPublication
+            publication = self.publications[indexPath.row]
         }
         cell.publication = publication
         FCTableViewAnimator.animateCell(cell, sender: self)
@@ -225,17 +225,17 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        var publication: FCPublication
+        var publication: Publication
         
         if self.isFiltered {
-            publication = self.filteredPublicaitons[indexPath.row] as FCPublication
+            publication = self.filteredPublicaitons[indexPath.row] 
         }
         else {
-            publication = self.publications[indexPath.row] as FCPublication
+            publication = self.publications[indexPath.row]
         }
         
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
-        publicationDetailsTVC?.title = title
+        publicationDetailsTVC?.title = publication.title
         publicationDetailsTVC?.publication = publication
         
         publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
@@ -255,87 +255,87 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         }
     }
     
-    func didRecieveNewPublication(notification: NSNotification) {
-        
-        let recivedPublication = FCModel.sharedInstance.publications.last!
-        self.displayMessageView(recivedPublication, state: .NewPublicationMessage)
-       
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-            Int64(4 * Double(NSEC_PER_SEC)))
-        
-        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-            self.addNewRecivedPublication(recivedPublication)
-        })
-    }
+//    func didRecieveNewPublication(notification: NSNotification) {
+//        
+//        let recivedPublication = FCModel.sharedInstance.publications.last!
+//     //   self.displayMessageView(recivedPublication, state: .NewPublicationMessage)
+//       
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//            Int64(4 * Double(NSEC_PER_SEC)))
+//        
+//        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+//            self.addNewRecivedPublication(recivedPublication)
+//        })
+//    }
 
     func didDeletePublication(notification: NSNotification) {
         
-        let publicationIdentifier = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last
-        
-        if let identifier = publicationIdentifier {
-        
-            for (index, publication) in self.publications.enumerate() {
-                
-                if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version {
-                    
-                    self.displayMessageView(publication, state: .DeleteMessage)
-                    
-                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                        Int64(4 * Double(NSEC_PER_SEC)))
-                  
-                    dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-                        self.removePublicationAtIndex(index)
-                    })
-                    break
-                }
-            }
-        }
+//        let publicationIdentifier = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last
+//        
+//        if let identifier = publicationIdentifier {
+//        
+//            for (index, publication) in self.publications.enumerate() {
+//                
+//                if identifier.uniqueId == publication.uniqueId && identifier.version == publication.version {
+//                    
+//      //              self.displayMessageView(publication, state: .DeleteMessage)
+//                    
+//                    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//                        Int64(4 * Double(NSEC_PER_SEC)))
+//                  
+//                    dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+//     //                   self.removePublicationAtIndex(index)
+//                    })
+//                    break
+//                }
+//            }
+//        }
     }
     
-    func displayMessageView(publication: FCPublication, state: FCPublicationTVCMessageViewState)  {
+//    func displayMessageView(publication: FCPublication, state: FCPublicationTVCMessageViewState)  {
+//    
+//        self.messageView.frame = CGRectMake(0, self.messageViewHidenY , self.view.bounds.width, 66)
+//        self.navigationController?.view.addSubview(self.messageView)
+//        self.messageView.publication = publication
+//        self.messageView.state = state
+//        self.navigationController?.view.addSubview(self.messageView)
+//        self.messageView.animateToYWithSpring(0.8, Yvalue: self.messageViewVisibleY) { (completion) -> () in}
+//        
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//            Int64(3 * Double(NSEC_PER_SEC)))
+//        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+//                self.hideMessageView()
+//            })
+//        
+//    }
     
-        self.messageView.frame = CGRectMake(0, self.messageViewHidenY , self.view.bounds.width, 66)
-        self.navigationController?.view.addSubview(self.messageView)
-        self.messageView.publication = publication
-        self.messageView.state = state
-        self.navigationController?.view.addSubview(self.messageView)
-        self.messageView.animateToYWithSpring(0.8, Yvalue: self.messageViewVisibleY) { (completion) -> () in}
-        
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-            Int64(3 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-                self.hideMessageView()
-            })
-        
-    }
+//    func hideMessageView() {
+//        self.messageView.animateToYWithSpring(0.4, Yvalue: self.messageViewHidenY) { (completion) -> () in
+//            self.messageView.removeFromSuperview()
+//            self.messageView.reset()
+//
+//        }
+//    }
     
-    func hideMessageView() {
-        self.messageView.animateToYWithSpring(0.4, Yvalue: self.messageViewHidenY) { (completion) -> () in
-            self.messageView.removeFromSuperview()
-            self.messageView.reset()
-
-        }
-    }
-    
-    func removePublicationAtIndex(index: Int){
-        
-        self.tableView.beginUpdates()
-        self.publications.removeAtIndex(index)
-        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
-        self.tableView.endUpdates()
-    }
+//    func removePublicationAtIndex(index: Int){
+//        
+//        self.tableView.beginUpdates()
+//        self.publications.removeAtIndex(index)
+//        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)
+//        self.tableView.endUpdates()
+//    }
    
-    func addNewRecivedPublication(publication: FCPublication) {
-        self.tableView.beginUpdates()
-        self.publications.insert(publication, atIndex: 0)
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-        self.tableView.endUpdates()
-    }
+//    func addNewRecivedPublication(publication: Publication) {
+//        self.tableView.beginUpdates()
+//        self.publications.insert(publication, atIndex: 0)
+//        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+//        self.tableView.endUpdates()
+//    }
     
     func registerForAppNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
+   //     NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
     }
     
     deinit {

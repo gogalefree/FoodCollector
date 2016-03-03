@@ -30,7 +30,7 @@ class PublicationDetailsImageCell: UITableViewCell {
     
     weak var delegate: PublicationDetailsImageCellDelegate!
 
-    var publication: FCPublication! {
+    var publication: Publication! {
         didSet {
             if self.publication != nil {
                 setUp()
@@ -47,7 +47,11 @@ class PublicationDetailsImageCell: UITableViewCell {
     
     final func reloadPublicationImage() {
     
-        if let photo = publication.photoData.photo {
+        
+        if let data = publication.photoBinaryData{
+            
+            let photo = UIImage(data: data)
+            
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.publicationImageView.alpha = 0
             }, completion: { (finished) -> Void in
@@ -58,16 +62,19 @@ class PublicationDetailsImageCell: UITableViewCell {
     }
     
     final func reloadRegisteredUserIconCounter() {
+        
+        if let registrations = self.publication.registrations {
     
+            
         UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.registeredUsersCounterlabel.alpha = 0
             self.registeredUsersIconImageView.alpha = 0
             
         }) { (finished) -> Void in
-            // TODO: Add support for localized number format (for non european language)
+
             
-            self.registeredUsersCounterlabel.text = "\(self.publication.registrationsForPublication.count)"
+            self.registeredUsersCounterlabel.text = "\(registrations.count)"
             self.defineImageColorForUser()
             
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
@@ -77,11 +84,12 @@ class PublicationDetailsImageCell: UITableViewCell {
 
                 
             }, completion: nil)}
+        }
     }
     
     private func defineImageColorForUser() {
         
-        switch self.publication.didRegisterForCurrentPublication {
+        switch self.publication.didRegisterForCurrentPublication!.boolValue {
         
         case true:
             self.registeredUsersIconImageView.image = self.registeredUserGreenImage
@@ -93,9 +101,9 @@ class PublicationDetailsImageCell: UITableViewCell {
         }
     }
     
-    private func makeAddressText(publication: FCPublication) -> String {
+    private func makeAddressText(publication: Publication) -> String {
         
-        let addressString = publication.address
+        let addressString = publication.address!
         let distanceString = FCStringFunctions.longDistanceString(publication)
         let displayedString = addressString + "\n" + distanceString
         return displayedString

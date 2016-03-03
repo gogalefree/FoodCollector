@@ -17,7 +17,7 @@ class FCPublicationsTVCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
     
-    var publication: FCPublication? {
+    var publication: Publication? {
         
         didSet{
             if let thePublication = self.publication {
@@ -26,11 +26,11 @@ class FCPublicationsTVCell: UITableViewCell {
         }
     }
     
-    func setUp(publication: FCPublication) {
+    func setUp(publication: Publication) {
         self.titleLabel.text = publication.title
         self.addressLabel.text = publication.address
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
-        self.iconImageView.image = FCIconFactory.publicationsTableIcon(publication)
+        self.iconImageView.image = FCIconFactory.publicationsTableIcon()
         downloadImage()
     }
     
@@ -38,16 +38,14 @@ class FCPublicationsTVCell: UITableViewCell {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
             
-            if self.publication?.photoData.photo != nil {self.showImage()}
+            if self.publication?.photoBinaryData != nil {self.showImage()}
                 
-            else if (self.publication?.photoData.didTryToDonwloadImage == false) {
+            else if (self.publication?.didTryToDownloadImage == false) {
                 
                 let photoFetcher = FCPhotoFetcher()
                 photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
                     
-                    self.publication?.photoData.didTryToDonwloadImage = true
-                    
-                    if self.publication?.photoData.photo != nil {
+                    if image != nil {
                         self.showImage()
                     }
                 })
@@ -57,11 +55,13 @@ class FCPublicationsTVCell: UITableViewCell {
     
     func showImage() {
         
+        let photo = UIImage(data: (self.publication?.photoBinaryData)!)
+        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
             UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.photoImageView.alpha = 0
-                self.photoImageView.image = self.publication?.photoData.photo
+                self.photoImageView.image = photo
                 self.photoImageView.alpha = 1
             })
 
