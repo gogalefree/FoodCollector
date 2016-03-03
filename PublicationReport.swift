@@ -65,6 +65,10 @@ class PublicationReport: NSManagedObject {
                     if publication.reports == nil {publication.reports = NSSet()}
                     publication.reports = publication.reports?.setByAddingObject(newReport)
                     publication.didRecieveNewReport = true
+                    
+                    //we only add new report log from web fetch and not for the User's report
+                    let newReportLog = ActivityLog.LogType.Report.rawValue
+                    ActivityLog.activityLog(publication, type: newReportLog, context: context)
                 }
         }
         
@@ -84,6 +88,12 @@ class PublicationReport: NSManagedObject {
         
         if publication.reports == nil {publication.reports = Set<PublicationReport>()}
         publication.reports = publication.reports?.setByAddingObject(report)
+        
+        do {
+            try context.save()
+        }catch {
+            print("error saving new report \(error) " + __FUNCTION__)
+        }
         
         return report        
     }

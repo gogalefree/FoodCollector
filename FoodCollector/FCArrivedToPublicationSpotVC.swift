@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FCOnSpotPublicationReportDelegate {
-    func dismiss()
+    func dismiss(report: PublicationReport?)
 }
 
 
@@ -62,19 +62,20 @@ class FCArrivedToPublicationSpotVC: UIViewController {
     
     func postOnSpotReportWithMessage(message: FCOnSpotPublicationReportMessage) {
         
-        let context = FCModel.dataController.managedObjectContext
-        context.performBlock { () -> Void in
-            
-            let report = PublicationReport.reportForPublication(message.rawValue ,publication: self.publication!, context: context)
-            FCModel.sharedInstance.foodCollectorWebServer.postReportforPublication(report)
-            
-        }
+        //make the report
+        let moc = FCModel.dataController.managedObjectContext
+        let reportMessage = message.rawValue
+        let report = PublicationReport.reportForPublication(reportMessage, publication: publication!, context: moc)
         
-        self.delegate?.dismiss()
+        //pass it back to publication details tvc
+        self.delegate?.dismiss(report)
+        
+        //inform server
+        FCModel.sharedInstance.foodCollectorWebServer.postReportforPublication(report)
     }
     
     func cancelButtonAction(sender: AnyObject){
-        self.delegate?.dismiss()
+        self.delegate?.dismiss(nil)
         GAController.sendAnalitics(kFAPublicationReportScreenName, action: "canceled report action", label: "user did not report", value: 0)
     }
     

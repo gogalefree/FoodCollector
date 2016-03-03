@@ -117,6 +117,11 @@ class CDPublicationRegistrationFetcher: NSObject {
                 let activeDevice            = registrationDict["active_device_dev_uuid"] as? String ?? ""
                 let collectorUserId         = registrationDict["collector_user_id"] as? Int ?? 0
                 
+                self.context.performBlockAndWait({ () -> Void in
+                    
+               
+                
+                
                 let registration = NSEntityDescription.insertNewObjectForEntityForName("PublicationRegistration", inManagedObjectContext: self.context) as? PublicationRegistration
                 
                 if let newRegistration = registration {
@@ -131,8 +136,8 @@ class CDPublicationRegistrationFetcher: NSObject {
                     newRegistration.publicationVersion      = publicationVersion
                     newRegistration.publication             = self.publication
                     
-                    if publication.registrations == nil {publication.registrations = Set<PublicationRegistration>()}
-                    publication.registrations = publication.registrations?.setByAddingObject(newRegistration)
+                    if self.publication.registrations == nil {self.publication.registrations = Set<PublicationRegistration>()}
+                    self.publication.registrations = self.publication.registrations?.setByAddingObject(newRegistration)
                     
                     do {
                         try self.context.save()
@@ -141,6 +146,7 @@ class CDPublicationRegistrationFetcher: NSObject {
                         print("error saving local context in CDPublicationRegistrationFetcher \(error)")
                     }
                 }
+            })
 
             }
         }

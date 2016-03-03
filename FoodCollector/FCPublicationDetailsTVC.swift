@@ -824,6 +824,17 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
         }
     }
     
+    //MARK: - Reports delegate
+
+    func dismiss(report: PublicationReport?) {
+
+        if self.presentedViewController != nil {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.tableView.reloadData()
+        }
+    }
+    
+    //MARK: - Options menue
     func presentOptionsMenuVC(){
         
         if User.sharedInstance.userIsLoggedIn {
@@ -863,13 +874,7 @@ extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
             return .None
     }
     
-    func dismiss() {
-        fetchPublicationReports()
-        if self.presentedViewController != nil {
-            self.dismissViewControllerAnimated(true, completion: nil)
-            self.tableView.reloadData()
-        }
-    }
+    
 }
 
 //MARK: - Admin for beta bundle

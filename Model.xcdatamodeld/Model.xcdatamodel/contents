@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+    <entity name="ActivityLog" representedClassName=".ActivityLog" syncable="YES">
+        <attribute name="date" attributeType="Date" defaultDateTimeInterval="-749230260" syncable="YES"/>
+        <attribute name="title" attributeType="String" defaultValueString="no" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="Group" representedClassName=".Group" syncable="YES">
         <attribute name="adminUserId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -32,7 +37,9 @@
         <attribute name="latitude" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitutde" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="photoBinaryData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="publisherDevUUID" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="publisherId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="publisherUserName" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="startingData" attributeType="Date" defaultDateTimeInterval="-749209740" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" defaultValueString="no" syncable="YES"/>
@@ -68,8 +75,9 @@
     <elements>
         <element name="Group" positionX="-324" positionY="-180" width="128" height="103"/>
         <element name="GroupMember" positionX="-90" positionY="-180" width="128" height="165"/>
-        <element name="Publication" positionX="-351" positionY="99" width="128" height="403"/>
+        <element name="Publication" positionX="-351" positionY="99" width="128" height="435"/>
         <element name="PublicationRegistration" positionX="-108" positionY="389" width="128" height="178"/>
         <element name="PublicationReport" positionX="-101" positionY="99" width="128" height="193"/>
+        <element name="ActivityLog" positionX="-216" positionY="-27" width="128" height="90"/>
     </elements>
 </model>

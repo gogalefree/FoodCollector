@@ -71,8 +71,8 @@ class Publication: NSManagedObject {
         let aVersion = params[kPublicationVersionKey] as? Int ?? 0
         let audiance = params["audience"] as? Int ?? 0
         let publisherId = params["publisher_id"] as? Int ?? 0
-        //let activeDevice = params["active_device_dev_uuid"] as? String ?? ""
-        
+        let activeDevice = params["active_device_dev_uuid"] as? String ?? ""
+        let publisherUserName = params["identity_provider_user_name"] as? String ?? ""
         
         self.uniqueId = aUniquId
         self.title = aTitle
@@ -87,6 +87,7 @@ class Publication: NSManagedObject {
         self.version = aVersion
         self.publisherId = publisherId
         self.isOnAir = true
-        
+        self.publisherDevUUID = activeDevice
+        self.publisherUserName = publisherUserName
     }    
 }

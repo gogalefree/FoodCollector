@@ -82,6 +82,10 @@ class CDNewDataProcessor: NSObject {
             let publicationsToDelete = try! localContext.executeFetchRequest(deleteFetchRequest) as? [Publication]
             if let toDelete = publicationsToDelete {
                 for publication in toDelete {
+                    
+                    //make delete notification object
+                    let delete = ActivityLog.LogType.DeletePublication.rawValue
+                    ActivityLog.activityLog(publication, type: delete, context: localContext)
                     localContext.deleteObject(publication)
                 }
             }
@@ -151,6 +155,10 @@ class CDNewDataProcessor: NSObject {
                         let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: localContext) as? Publication
                         if let newPublication = publication {
                             newPublication.updateFromParams(dict)
+                            
+                            //create notification object
+                            let new = ActivityLog.LogType.NewPublication.rawValue
+                            ActivityLog.activityLog(newPublication, type: new, context: localContext)
                         }
                     }
                 }
@@ -158,7 +166,6 @@ class CDNewDataProcessor: NSObject {
         }
         //fetch Reports
         
-        //let reportContext = FCModel.dataController.createPrivateQueueContext()
         let request = NSFetchRequest(entityName: "Publication")
         
         var publications: [Publication]?

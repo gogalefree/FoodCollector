@@ -50,6 +50,11 @@ class ActivityCenterVC: UIViewController, UIGestureRecognizerDelegate {
             let container = self.navigationController?.parentViewController as! FCCollectorContainerController
             container.collectorVCWillSlide()
             //performSegueWithIdentifier("presentPublicationsTVC", sender: nil)
+            
+            let activityLogSB = UIStoryboard(name: "ActivityLog", bundle: nil)
+            let activityLogNav = activityLogSB.instantiateInitialViewController() as! UINavigationController
+            self.navigationController?.presentViewController(activityLogNav, animated: true, completion: nil)
+            
         case .Some(10103):
             print("Groups was Taped")
             let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)

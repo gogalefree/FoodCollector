@@ -22,18 +22,24 @@ class PublicationRegistration: NSManagedObject {
         if let registration = newRegistration {
             
             
-                registration.activeDeviceUUID = FCModel.sharedInstance.deviceUUID
-                registration.collectorContactInfo = User.sharedInstance.userPhoneNumber
-                registration.collectorName = User.sharedInstance.userIdentityProviderUserName
-                registration.collectorUserId = User.sharedInstance.userUniqueID
-                registration.dateOfRegistration = NSDate()
-                registration.publicationId = publication.uniqueId
-                registration.publicationVersion = publication.version
-                registration.publication = publication
-                
-                publication.registrations = publication.registrations?.setByAddingObject(registration)
-                
-                aRegistration = registration
+            registration.activeDeviceUUID = FCModel.sharedInstance.deviceUUID
+            registration.collectorContactInfo = User.sharedInstance.userPhoneNumber
+            registration.collectorName = User.sharedInstance.userIdentityProviderUserName
+            registration.collectorUserId = User.sharedInstance.userUniqueID
+            registration.dateOfRegistration = NSDate()
+            registration.publicationId = publication.uniqueId
+            registration.publicationVersion = publication.version
+            registration.publication = publication
+            
+            publication.registrations = publication.registrations?.setByAddingObject(registration)
+            
+            aRegistration = registration
+            
+            //we only add new report log from web fetch and not for the User's report
+            let newRegistrationLog = ActivityLog.LogType.Registration.rawValue
+            ActivityLog.activityLog(publication, type: newRegistrationLog, context: context)
+            
+            
                 print("registration created:\n\(registration.toString())")
                 
                 do {
