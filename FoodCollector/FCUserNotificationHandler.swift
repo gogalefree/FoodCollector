@@ -131,7 +131,7 @@ class FCUserNotificationHandler : NSObject {
     ///
     /// unregisters a location notification for a Publication.
     
-    func removeLocationNotification(publication: FCPublication) {
+    func removeLocationNotification(publication: Publication) {
         
         for (index, (notification , registeredPublication)) in self.registeredLocationNotification.enumerate() {
             if registeredPublication.uniqueId == publication.uniqueId &&
