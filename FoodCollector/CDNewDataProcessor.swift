@@ -12,10 +12,13 @@ class CDNewDataProcessor: NSObject {
 
     class func processDataFromWebFetch(jsonArray: [[String: AnyObject]]){
         
+     //   NSNotificationCenter.defaultCenter().addObserver(self, selector: "mergeChanges:", name: NSManagedObjectContextDidSaveNotification, object: nil)
         
         //Create a context on a private queue
         let localContext = FCModel.dataController.createPrivateQueueContext()
-        
+   //     let localContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+   //     localContext.parentContext = FCModel.dataController.createPrivateQueueContext()
+    
         
         //Sort the dictionaries by code so they can be compared in parallel
         let publicationDictionaries = jsonArray.sort { lhs, rhs in
@@ -113,13 +116,15 @@ class CDNewDataProcessor: NSObject {
             if let toUpdate = existingPublications {
                 
                 for publication in toUpdate {
+                   
                     let dictionaries = results.filter {(dictionary) in
-                        return dictionary[kPublicationUniqueIdKey] as? Int == publication.uniqueId?.integerValue}
+                        return dictionary[kPublicationUniqueIdKey] as? Int == publication.uniqueId?.integerValue
+                    }
                     
                     guard let dictionary = dictionaries.first else {continue}
                     
                     print("dictionary to update \(dictionary)")
-                    publication.updateFromParams(dictionary)
+                    publication.updateFromParams(dictionary, context: localContext)
                 }
             }
         }
@@ -154,7 +159,7 @@ class CDNewDataProcessor: NSObject {
                         //create the new one
                         let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: localContext) as? Publication
                         if let newPublication = publication {
-                            newPublication.updateFromParams(dict)
+                            newPublication.updateFromParams(dict, context: localContext)
                             
                             //create notification object
                             let new = ActivityLog.LogType.NewPublication.rawValue
@@ -198,11 +203,42 @@ class CDNewDataProcessor: NSObject {
                         let registrationFetcher = CDPublicationRegistrationFetcher(publication: publication, context: localContext)
                         registrationFetcher.fetchRegistrationsForPublication(true)
                     }
+                    
+                    FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+                    
                 }
             }
         
         //fetch groups
+        
+        localContext.performBlockAndWait { () -> Void in
+            
+            defer {
+            
+                do {
+                    try localContext.save()
+                    FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+                } catch {
+                    print("error saving context afetr groups fetch \(error)")
+                }
+            }
+            FCModel.sharedInstance.foodCollectorWebServer.fetchGroupsForUser(localContext)
+            FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+        }
+        
     }
     
+//    class func mergeChanges(notification: NSNotification) {
+//        
+//        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+//            
+//            FCModel.dataController.managedObjectContext.performBlockAndWait({ () -> Void in
+//                let moc = FCModel.dataController.managedObjectContext
+//                moc.mergeChangesFromContextDidSaveNotification(notification)
+//                FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+//                
+//            })
+//        }
+//    }
 
 }

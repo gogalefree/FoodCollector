@@ -117,5 +117,8 @@ protocol FCServerProtocol {
     func reportsForPublication(publication:Publication,
         context: NSManagedObjectContext,
         completion: (success: Bool) -> Void )
+    
+    //fetch groups
+    func fetchGroupsForUser(contecxt: NSManagedObjectContext)
 }
 

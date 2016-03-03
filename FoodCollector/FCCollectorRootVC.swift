@@ -57,6 +57,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.distanceFilter = 2.5
+        if !CLLocationManager.locationServicesEnabled() {
+            self.locationManager.requestWhenInUseAuthorization()
+        }
         self.locationManager.startUpdatingLocation()
         
         if CLLocationManager.headingAvailable() {
@@ -97,10 +100,12 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         configureTrackButton()
  //       hideNewDataMessageView()
         addPanRecognizer()
-        if CLLocationManager.locationServicesEnabled() {
-            self.setupLocationManager()
-        }
+
         
+//
+           self.setupLocationManager()
+//        }
+//        
     }
     
     
@@ -449,6 +454,7 @@ extension FCCollectorRootVC {
     func reloadAnnotations() {
     
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+   //         FCModel.sharedInstance.loadPublications()
             self.mapView.removeAnnotations(self.annotations)
             self.publications = FCModel.sharedInstance.publications
             let annotations = self.makeAnnotations()

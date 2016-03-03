@@ -29,7 +29,6 @@ public extension FCModel {
                     if let currentPublications = results {
                         self.publications = currentPublications
                     
-                        self.postReloadDataNotificationOnMainThread()
                     
                         for publication in self.publications {
                             

@@ -101,10 +101,13 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
-            let moc = FCModel.dataController.managedObjectContext
-            moc.mergeChangesFromContextDidSaveNotification(notification)
+            FCModel.dataController.managedObjectContext.performBlock({ () -> Void in
+                let moc = FCModel.dataController.managedObjectContext
+                moc.mergeChangesFromContextDidSaveNotification(notification)
+                FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+                
+            })
         }
-        
     }
     
     func reportDeviceUUIDToServer() {

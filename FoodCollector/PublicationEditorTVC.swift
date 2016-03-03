@@ -571,7 +571,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     self.navigationController?.popViewControllerAnimated(true)
                     context.performBlock({ () -> Void in
                         publication.isUserCreatedPublication = true
-                        publication.updateFromParams(params)
+                        publication.updateFromParams(params, context: context)
                     })
                     
                     //add the new publication

@@ -337,6 +337,8 @@
 		E4D16F1D1C8836B600EDFE69 /* ActivityLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */; };
 		E4D16F1F1C88373300EDFE69 /* ActivityLogTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F1E1C88373300EDFE69 /* ActivityLogTVC.swift */; };
 		E4D16F201C88373300EDFE69 /* ActivityLogTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F1E1C88373300EDFE69 /* ActivityLogTVC.swift */; };
+		E4D16F221C885B9600EDFE69 /* FDServer+GroupsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F211C885B9500EDFE69 /* FDServer+GroupsFetcher.swift */; };
+		E4D16F231C885B9600EDFE69 /* FDServer+GroupsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F211C885B9500EDFE69 /* FDServer+GroupsFetcher.swift */; };
 		E4D8B3D31BE639F1003112E0 /* OnSpotPublicationReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8B3D21BE639F1003112E0 /* OnSpotPublicationReport.swift */; };
 		E4DB3A7D1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */; };
 		E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */; };
@@ -604,6 +606,7 @@
 		E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ActivityLog+CoreDataProperties.swift"; path = "../ActivityLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActivityLog.storyboard; sourceTree = "<group>"; };
 		E4D16F1E1C88373300EDFE69 /* ActivityLogTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogTVC.swift; sourceTree = "<group>"; };
+		E4D16F211C885B9500EDFE69 /* FDServer+GroupsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+GroupsFetcher.swift"; sourceTree = "<group>"; };
 		E4D8B3D21BE639F1003112E0 /* OnSpotPublicationReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnSpotPublicationReport.swift; sourceTree = "<group>"; };
 		E4DB3A7C1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCCollectorNewDataMessageView.swift; sourceTree = "<group>"; };
 		E4E2EA941A8E70A100681B2E /* FCPublicationsSorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationsSorter.swift; sourceTree = "<group>"; };
@@ -977,6 +980,7 @@
 				E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */,
 				E4F40D0C1C744F980094E455 /* FDServer+Groups.swift */,
 				E4F40D211C79CB870094E455 /* FDServer+GroupMembers.swift */,
+				E4D16F211C885B9500EDFE69 /* FDServer+GroupsFetcher.swift */,
 				E40F19AA1C81D083009C044E /* FDServer+PublicationReports.swift */,
 				E404D63D1C8579A800469EC0 /* FDServer+DeletePublication.swift */,
 				E42ED5741A8B682C008FB618 /* DataUpdater.swift */,
@@ -1669,6 +1673,7 @@
 				E44FDDC11C5CB5F9000D5F97 /* PublicationDetailsReportCell.swift in Sources */,
 				E44FDDC21C5CB5F9000D5F97 /* FCPublicationReportsTVC.swift in Sources */,
 				E404D63C1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift in Sources */,
+				E4D16F231C885B9600EDFE69 /* FDServer+GroupsFetcher.swift in Sources */,
 				E4F40CF51C70B0270094E455 /* Group+CoreDataProperties.swift in Sources */,
 				E4F40D231C79CB870094E455 /* FDServer+GroupMembers.swift in Sources */,
 				E40F19AC1C81D083009C044E /* FDServer+PublicationReports.swift in Sources */,
@@ -1896,6 +1901,7 @@
 				E4584B821BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift in Sources */,
 				E42ED57D1A8BD380008FB618 /* FCModel+PostNotifications.swift in Sources */,
 				A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */,
+				E4D16F221C885B9600EDFE69 /* FDServer+GroupsFetcher.swift in Sources */,
 				E4D11FDE1C36A8E100A426B6 /* FCUserPhotoFetcher.swift in Sources */,
 				E48263731BE20AE100526C7B /* ActivityLogController.swift in Sources */,
 				E4E2EA951A8E70A100681B2E /* FCPublicationsSorter.swift in Sources */,

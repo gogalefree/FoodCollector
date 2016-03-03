@@ -13,7 +13,7 @@ class DataController:  NSObject  {
     var managedObjectContext: NSManagedObjectContext
     var managedObjectModel  : NSManagedObjectModel
     var managedModelURL            : NSURL
-    
+    var presistentStore: NSPersistentStoreCoordinator
     override init() {
     
         
@@ -33,6 +33,7 @@ class DataController:  NSObject  {
         managedObjectModel = mom
         
         let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
+        presistentStore = psc
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         self.managedObjectContext.persistentStoreCoordinator = psc
         
@@ -49,13 +50,16 @@ class DataController:  NSObject  {
             
             
             do {
-                try psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+                let options = [
+                    NSMigratePersistentStoresAutomaticallyOption: true,
+                    NSInferMappingModelAutomaticallyOption: true
+                ]
+                
+                try psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: options)
             } catch {
                 fatalError("Error migrating store: \(error)")
                 }
             }
-        
-        
     }
     
     func save() {
@@ -74,7 +78,7 @@ class DataController:  NSObject  {
     func createPrivateQueueContext() -> NSManagedObjectContext {
         // Stack uses the same store and model, but a new persistent store coordinator and context.
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        
+      //  let coordinator = FCModel.dataController.presistentStore
         /*
         Attempting to add a persistent store may yield an error--pass it out of
         the function for the caller to deal with.
@@ -98,6 +102,8 @@ class DataController:  NSObject  {
         context.persistentStoreCoordinator = coordinator
         
         context.undoManager = nil
+        
+       // FCModel.dataController.managedObjectContext.parentContext = context
         
         return context
     }
