@@ -30,7 +30,7 @@ class GroupMember: NSManagedObject {
     
     class func membersForLoginUser() -> [GroupMember]? {
         
-        let memberId = User.sharedInstance.userUniqueID
+        let memberId = 21 //User.sharedInstance.userUniqueID
         let request  = NSFetchRequest(entityName: kGroupMemberEntity)
         let predicate = NSPredicate(format: "userId = %@ && isAdmin = %@", NSNumber(long: memberId) , NSNumber(bool: false))
         request.predicate = predicate
@@ -129,7 +129,94 @@ class GroupMember: NSManagedObject {
         GroupMember.moc.deleteObject(memberToDelete)
 
         FCModel.sharedInstance.foodCollectorWebServer.deleteGroupMember(memberToDelete)
+    }
+    
+    class func createOrUpdateMembersForGroup(membersArray: [[String : AnyObject]],
+        group: Group, context: NSManagedObjectContext) {
+            
+            for memberParams in membersArray {
+                
+                let phoneNumber = memberParams["phone_number"] as? String ?? ""
+                let groupId = group.id!.integerValue
+                
+                let request = NSFetchRequest(entityName: "GroupMember")
+                let predicate = NSPredicate(format: "phoneNumber == %@ && belongToGroup.id = %@ ", phoneNumber , NSNumber(integer: groupId))
+                request.predicate = predicate
+                
+                context.performBlockAndWait({ () -> Void in
+                    
+                    do {
+                        let results = try context.executeFetchRequest(request) as? [GroupMember]
+                        if let groupMembers = results {
+                        
+                            if groupMembers.count == 0 {
+                                
+                                let member = NSEntityDescription.insertNewObjectForEntityForName("GroupMember", inManagedObjectContext: context) as? GroupMember
+                                
+                                if let newMember = member {
+                                
+                                    newMember.updateWithParams(memberParams, context: context, group: group)
+                                }
+                                
+                            }
+                            
+                            else if groupMembers.count == 1 {
+                                
+                                let aMember = groupMembers.last!
+                                aMember.updateWithParams(memberParams, context: context, group: group)
+
+                            }
+                            
+                            else {
+                                
+                                
+                                    //Handle Duplicates
+                                    let aMember = groupMembers.last!
+                                    aMember.updateWithParams(memberParams, context: context, group: group)
+                                   
+                                    
+                                    for var index = 0 ; index < groupMembers.count - 1 ; index++ {
+                                        let member = groupMembers.first!
+                                        context.deleteObject(member)
+                                    }
+                                }
+                            }
+                        }
+                    
+                     catch {
+                        print("error create or update Group Member \(error) " + __FUNCTION__)
+                    }
+                })
+            }
+    }
+    
+    func updateWithParams(params: [String : AnyObject], context: NSManagedObjectContext, group: Group) {
         
-        
+        context.performBlockAndWait { () -> Void in
+            
+            let memberId = params["id"] as? Int ?? 0
+            //let memberGroupId = params["Group_id"] as? Int ?? 0
+            let isAdimn = params["is_admin"] as? Int ?? 0
+            let memberName = params["name"] as? String ?? ""
+            let memberPhoneNumber = params["phone_number"] as? String ?? ""
+            let memberUserId = params["user_id"] as? Int ?? 0
+            
+            self.id = memberId
+            self.isFoodonetUser = memberUserId == 0 ? false : true
+            self.name = memberName
+            self.phoneNumber = memberPhoneNumber
+            self.userId = memberUserId
+            self.isAdmin = isAdimn == 0 ? false : true
+            self.didInformServer = true
+            self.belongToGroup = group
+            
+            group.members?.setByAddingObject(self)
+            
+            do {
+                try context.save()
+            } catch {
+                print ("error \(error) " + __FUNCTION__)
+            }
+        }
     }
 }

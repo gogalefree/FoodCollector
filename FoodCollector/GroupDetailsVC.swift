@@ -27,7 +27,9 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func setup() {
  
-        dataSource = Array(group.members! as! Set)
+        //sort with admin first
+        dataSource = Array(group.members! as! Set<GroupMember>).sort { (member1, member2) in member1.isAdmin?.boolValue.hashValue > member2.isAdmin?.boolValue.hashValue }
+        
         self.groupNameLabel.text = group.name
         if group.adminUserId?.integerValue == User.sharedInstance.userUniqueID {
             setupForAdmin()

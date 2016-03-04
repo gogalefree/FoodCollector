@@ -94,4 +94,17 @@ class Publication: NSManagedObject {
             self.publisherUserName = publisherUserName
         }
     }
+    
+    func toString() {
+        
+            print("Publication before fetch")
+            print("title: \(self.title!)")
+            print("starting date: \(self.startingData!.description)")
+            print("ending date: \(self.endingData!.description)")
+            print("on air: \(self.isOnAir?.description)")
+            print("longitude : \(self.coordinate.longitude)")
+            print("latitude : \(self.coordinate.latitude)")
+            print("=====END=====")
+        
+    }
 }

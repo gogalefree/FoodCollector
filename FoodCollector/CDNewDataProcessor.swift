@@ -11,15 +11,11 @@ import UIKit
 class CDNewDataProcessor: NSObject {
 
     class func processDataFromWebFetch(jsonArray: [[String: AnyObject]]){
-        
-     //   NSNotificationCenter.defaultCenter().addObserver(self, selector: "mergeChanges:", name: NSManagedObjectContextDidSaveNotification, object: nil)
+    
         
         //Create a context on a private queue
         let localContext = FCModel.dataController.createPrivateQueueContext()
-   //     let localContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-   //     localContext.parentContext = FCModel.dataController.createPrivateQueueContext()
-    
-        
+         
         //Sort the dictionaries by code so they can be compared in parallel
         let publicationDictionaries = jsonArray.sort { lhs, rhs in
             let lhsResult = lhs[kPublicationUniqueIdKey] as? Int ?? 0
@@ -223,22 +219,8 @@ class CDNewDataProcessor: NSObject {
                 }
             }
             FCModel.sharedInstance.foodCollectorWebServer.fetchGroupsForUser(localContext)
-            FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+//            FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
         }
         
     }
-    
-//    class func mergeChanges(notification: NSNotification) {
-//        
-//        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-//            
-//            FCModel.dataController.managedObjectContext.performBlockAndWait({ () -> Void in
-//                let moc = FCModel.dataController.managedObjectContext
-//                moc.mergeChangesFromContextDidSaveNotification(notification)
-//                FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
-//                
-//            })
-//        }
-//    }
-
 }

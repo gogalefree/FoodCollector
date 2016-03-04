@@ -28,26 +28,6 @@ public extension FCModel {
                     let results = try moc.executeFetchRequest(request) as? [Publication]
                     if let currentPublications = results {
                         self.publications = currentPublications
-                    
-                    
-                        for publication in self.publications {
-                            
-                            print("Publication before fetch")
-                            print("title: \(publication.title!)")
-                            print("starting date: \(publication.startingData!.description)")
-                            print("ending date: \(publication.endingData!.description)")
-                            print("on air: \(publication.isOnAir?.description)")
-                            print("longitude : \(publication.coordinate.longitude)")
-                            print("latitude : \(publication.coordinate.latitude)")
-
-
-                            print("=====END=====")
-
-
-
-                        }
-                    
-                        
                     }
                     
                     

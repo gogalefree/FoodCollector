@@ -11,7 +11,7 @@ import Foundation
 extension FCMockServer {
     
     
-    func fetchGroupsForUser(contecxt: NSManagedObjectContext) {
+    func fetchGroupsForUser(context: NSManagedObjectContext) {
         
         //TODO: Change url
         
@@ -39,24 +39,7 @@ extension FCMockServer {
                         for groupParams in groupsArray {
                             print("group:\n\(groupParams.description)")
                             
-                            let groupAdminId = groupParams["user_id"] as? Int ?? 0
-                            let groupId = groupParams["group_id"] as? Int ?? 0
-                            let groupName = groupParams["group_name"] as? String ?? ""
-                            let membersArray = groupParams["members"] as? [[String : AnyObject]]
-                            
-                            if let membersParams = membersArray {
-                                
-                                for member in membersParams {
-                                    
-                                    let memberGroupId = member["Group_id"] as? Int ?? 0
-                                    let memberId = member["id"] as? Int ?? 0
-                                    let isAdimn = member["is_admin"] as? Int ?? 0
-                                    let memberName = member["name"] as? String ?? ""
-                                    let memberPhoneNumber = member["phone_number"] as? String ?? ""
-                                    let memberUserId = member["user_id"] as? Int ?? 0
-                                }
-                            }
-                            
+                            Group.instatiateGroupWithParams(groupParams, context: context)
                         }
                     }
                     

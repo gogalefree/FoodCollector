@@ -36,7 +36,7 @@ class Group: NSManagedObject {
     
         
         let moc = FCModel.dataController.managedObjectContext
-        let adminId = User.sharedInstance.userUniqueID
+        let adminId = 21 //User.sharedInstance.userUniqueID
         let predicate = NSPredicate(format: "adminUserId = %@", NSNumber(long: adminId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
@@ -100,6 +100,82 @@ class Group: NSManagedObject {
         }
 
         return nil
+    }
+    
+    class func instatiateGroupWithParams(groupParams: [String : AnyObject], context: NSManagedObjectContext) {
+        
+        context.performBlockAndWait { () -> Void in
+            
+            let groupId = groupParams["group_id"] as? Int ?? 0
+            
+            if groupId == 0 {return}
+            
+            let request = NSFetchRequest(entityName: "Group")
+            let predicate = NSPredicate(format: "id = %@", NSNumber(integer: groupId))
+            request.predicate = predicate
+            
+            do {
+                let results = try context.executeFetchRequest(request) as? [Group]
+                guard let groups = results else {return}
+                
+                if groups.count == 0 {
+                    
+                    let group = NSEntityDescription.insertNewObjectForEntityForName("Group", inManagedObjectContext: context) as! Group
+                    group.updateWithParams(groupParams, context: context)
+                }
+                
+                else if groups.count == 1 {
+                    let group = groups.last!
+                    group.updateWithParams(groupParams, context: context)
+                }
+                
+                else {
+                    
+                    let group = groups.last!
+                    group.updateWithParams(groupParams, context: context)
+                    
+                    //delete duplicates
+                    for var index = 0 ; index < groups.count - 1 ; index++ {
+                        let groupToDelete = groups.first!
+                        context.delete(groupToDelete)
+                    }
+
+                }
+                
+            }catch  {
+                print("error fetching group \(error) " + __FUNCTION__)
+            }
+            
+        }
+        
+        
+    }
+    
+    func updateWithParams(groupParams: [String : AnyObject], context: NSManagedObjectContext) {
+        
+        let groupAdminId = 21 //TODO:Change//groupParams["user_id"] as? Int ?? 0
+        let groupId = groupParams["group_id"] as? Int ?? 0
+        let groupName = groupParams["group_name"] as? String ?? ""
+        
+        context.performBlockAndWait { () -> Void in
+            
+            self.id = groupId
+            self.name = groupName
+            self.adminUserId = groupAdminId
+            self.members = Set<GroupMember>()
+            
+         
+            let membersArray = groupParams["members"] as? [[String : AnyObject]]
+            guard let members = membersArray else {return}
+            
+            GroupMember.createOrUpdateMembersForGroup(members, group: self, context: context)
+            
+            do {
+                try context.save()
+            } catch {
+                print("error saving group \(error) " + __FUNCTION__ )
+            }
+        }
     }
     
 }
