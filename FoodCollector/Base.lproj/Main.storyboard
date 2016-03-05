@@ -1623,14 +1623,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyShares" translatesAutoresizingMaskIntoConstraints="NO" id="Ez8-Rp-6q6">
-                                                    <rect key="frame" x="13" y="8" width="28" height="28"/>
+                                                    <rect key="frame" x="13" y="11" width="22" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="28" id="4hC-cw-pl3"/>
-                                                        <constraint firstAttribute="height" constant="28" id="4hf-HZ-NMp"/>
+                                                        <constraint firstAttribute="width" constant="22" id="4hC-cw-pl3"/>
+                                                        <constraint firstAttribute="height" constant="22" id="4hf-HZ-NMp"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrd-P6-ha5">
-                                                    <rect key="frame" x="60" y="11" width="252" height="21"/>
+                                                    <rect key="frame" x="54" y="11" width="258" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="z2o-7J-qbd"/>
                                                     </constraints>

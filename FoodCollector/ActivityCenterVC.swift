@@ -10,8 +10,9 @@ import UIKit
 
 let sideMenuBtnTitleMyShares    = NSLocalizedString("My Shares", comment:"Title for a side menu button")
 let sideMenuBtnTitleAllEvents   = NSLocalizedString("All Events", comment:"Title for a side menu button")
-let sideMenuBtnTitleGroups      = NSLocalizedString("Groups", comment:"Title for a side menu button")
+let sideMenuBtnTitleMapView     = NSLocalizedString("Map View", comment:"Title for a side menu button")
 let sideMenuBtnTitleActivityLog = NSLocalizedString("Activity Log", comment:"Title for a side menu button")
+let sideMenuBtnTitleGroups      = NSLocalizedString("Groups", comment:"Title for a side menu button")
 let sideMenuBtnTitleSettings    = NSLocalizedString("Settings", comment:"Title for a side menu button")
 let sideMenuBtnTitleContactUs   = NSLocalizedString("Contact Us", comment:"Title for a side menu button")
 let sideMenuBtnTitleAbout       = NSLocalizedString("About", comment:"Title for a side menu button")
@@ -61,11 +62,11 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 4 {
+        if indexPath.row == 5 {
             return 1
         }
         
-        return 50
+        return 48
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -73,17 +74,18 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         /// Cells Structure
         // 0 - My Shares
         // 1 - All Events
-        // 2 - Groups
+        // 2 - Map View
         // 3 - Activity Log
-        // 4 - -- Separator --
-        // 5 - Settings
-        // 6 - Contact Us
-        // 7 - About
+        // 4 - Groups
+        // 5 - -- Separator --
+        // 6 - Settings
+        // 7 - Contact Us
+        // 8 - About
         
         let cell = tableView.dequeueReusableCellWithIdentifier("sideMenuItemCell") as! sideMenuItemTVCell
         cell.sideMenuIcon.image = buttunsImageArray[indexPath.row]
         cell.sideMenuTitle.text = buttunsTitleArray[indexPath.row]
-        if indexPath.row == 4 {
+        if indexPath.row == 5 {
             let separatorLineView = UIView()
             separatorLineView.frame = CGRectMake(10, 0, cell.frame.width-20, cell.frame.height)
             // color = HEX(C8C8C8) -> RGB(200,200,200)
@@ -108,24 +110,28 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
                 let container = self.navigationController?.parentViewController as! FCCollectorContainerController
                 container.collectorVCWillSlide()
             
-            case 2: // Groups
-                print("Groups was Taped")
-                let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)
-                let groupsNavVC = groupsStoryBoard.instantiateInitialViewController() as? UINavigationController
-                self.presentViewController(groupsNavVC!, animated: true, completion: nil)
+            case 2: // Map View
+                let container = self.navigationController?.parentViewController as! FCCollectorContainerController
+                container.collectorVCWillSlide()
             
             case 3: // Activity Log
                 let activityLogSB = UIStoryboard(name: "ActivityLog", bundle: nil)
                 let activityLogNav = activityLogSB.instantiateInitialViewController() as! UINavigationController
                 self.navigationController?.presentViewController(activityLogNav, animated: true, completion: nil)
             
-            case 5: // Settings
+            case 4: // Groups
+                print("Groups was Taped")
+                let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)
+                let groupsNavVC = groupsStoryBoard.instantiateInitialViewController() as? UINavigationController
+                self.presentViewController(groupsNavVC!, animated: true, completion: nil)
+            
+            case 6: // Settings
                 print("Settings was Taped")
             
-            case 6: // Send Feedback
+            case 7: // Send Feedback
                 presentFeedbackVC()
             
-            case 7: // About
+            case 8: // About
                 if let aboutVC = self.storyboard?.instantiateViewControllerWithIdentifier("AboutVC") as? AboutVC {
                     print("AboutVC")
                     aboutVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissAboutVC")
@@ -147,7 +153,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         // Without it, the index of the titles in the array will be off sync
         // with the index of the cells in the table.
         
-        buttunsTitleArray = [sideMenuBtnTitleMyShares, sideMenuBtnTitleAllEvents, sideMenuBtnTitleGroups, sideMenuBtnTitleActivityLog, "", sideMenuBtnTitleSettings, sideMenuBtnTitleContactUs, sideMenuBtnTitleAbout]
+        buttunsTitleArray = [sideMenuBtnTitleMyShares, sideMenuBtnTitleAllEvents, sideMenuBtnTitleMapView, sideMenuBtnTitleActivityLog, sideMenuBtnTitleGroups, "", sideMenuBtnTitleSettings, sideMenuBtnTitleContactUs, sideMenuBtnTitleAbout]
     }
     
     func createButtunsImageArray() {
@@ -157,8 +163,9 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         
         let sideMenuIconMyShares     = UIImage(named: "MyShares")
         let sideMenuIconAllEvents    = UIImage(named: "AllEvents")
+        let sideMenuIconMapView      = UIImage(named: "MapView")
+        let sideMenuIconActivityLog  = UIImage(named: "ActivityLog")
         let sideMenuIconGroups       = UIImage(named: "Groups")
-        let sideMenuIconActivityLog  = UIImage(named: "MyShares")
         let sideMenuIconEmptyImage   = UIImage()
         let sideMenuIconSettings     = UIImage(named: "Settings")
         let sideMenuIconContactUs    = UIImage(named: "ContactUs")
@@ -170,10 +177,13 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         if let image = sideMenuIconAllEvents {
             buttunsImageArray.append(image)
         }
-        if let image = sideMenuIconGroups {
+        if let image = sideMenuIconMapView {
             buttunsImageArray.append(image)
         }
         if let image = sideMenuIconActivityLog {
+            buttunsImageArray.append(image)
+        }
+        if let image = sideMenuIconGroups {
             buttunsImageArray.append(image)
         }
 
