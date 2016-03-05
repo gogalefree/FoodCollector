@@ -98,7 +98,11 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
             case 0: // My Shares
-                print("My Shares was Taped" + __FUNCTION__)
+                if let mySharesVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublishRootVC") as? FCPublishRootVC {
+                    mySharesVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissAboutVC")
+                    let nav = UINavigationController(rootViewController: mySharesVC)
+                    self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+                }
             
             case 1: // All Events
                 let container = self.navigationController?.parentViewController as! FCCollectorContainerController
@@ -127,7 +131,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
                     aboutVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissAboutVC")
                     let nav = UINavigationController(rootViewController: aboutVC)
                     self.navigationController?.presentViewController(nav, animated: true, completion: nil)
-            }
+                }
             
             default:
                 break

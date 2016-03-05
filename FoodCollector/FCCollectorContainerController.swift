@@ -17,6 +17,9 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     let kConstraintsTotalPadding: CGFloat = 20
     let kViewsTotalPaddind      : CGFloat = 16
     
+    var isLoginStarted = false
+    
+    var identityProviderLogingViewNavVC: UINavigationController!
     var activityCenterNavigationController: UINavigationController!
     var collectorRootNavigationController: UINavigationController!
     var activityCenterPresented = false
@@ -55,6 +58,35 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         
         self.definePointsWithRect(self.view.bounds)
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (!User.sharedInstance.userIsLoggedIn && !User.sharedInstance.userSkippedLogin) {
+            print("User is not Loged-in and didn't skip Login")
+            showIdentityProviderLoginView()
+        }
+        else {
+            print("User is Loged-in or skipped Login")
+        }
+        
+        
+        //let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+        //storyBoard.instantiateInitialViewController() as! UINavigationController
+        //self.presentViewController(viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?)
+    }
+    
+    private func showIdentityProviderLoginView() {
+        print("showIdentityProviderLoginView()")
+        
+        if !isLoginStarted {
+            let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+            identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+            
+            self.presentViewController(self.identityProviderLogingViewNavVC, animated: true, completion: nil)
+            isLoginStarted = true
+        }
     }
     
     func collectorVCWillSlide() {
