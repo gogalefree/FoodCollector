@@ -1622,19 +1622,33 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ez8-Rp-6q6">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyShares" translatesAutoresizingMaskIntoConstraints="NO" id="Ez8-Rp-6q6">
                                                     <rect key="frame" x="13" y="8" width="28" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="28" id="4hC-cw-pl3"/>
+                                                        <constraint firstAttribute="height" constant="28" id="4hf-HZ-NMp"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrd-P6-ha5">
-                                                    <rect key="frame" x="60" y="11" width="217" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrd-P6-ha5">
+                                                    <rect key="frame" x="60" y="11" width="252" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="z2o-7J-qbd"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ez8-Rp-6q6" firstAttribute="leading" secondItem="9TJ-aj-r0D" secondAttribute="leadingMargin" constant="5" id="ASn-kE-339"/>
+                                                <constraint firstItem="Ez8-Rp-6q6" firstAttribute="centerY" secondItem="9TJ-aj-r0D" secondAttribute="centerY" id="AVD-rj-7za"/>
+                                                <constraint firstItem="rrd-P6-ha5" firstAttribute="centerY" secondItem="9TJ-aj-r0D" secondAttribute="centerY" id="IsG-YJ-e2G"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rrd-P6-ha5" secondAttribute="trailing" id="grB-ma-L5s"/>
+                                                <constraint firstItem="rrd-P6-ha5" firstAttribute="leading" secondItem="Ez8-Rp-6q6" secondAttribute="trailing" constant="19" id="xjt-7q-sof"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="sideMenuIcon" destination="9TJ-aj-r0D" id="9kI-WY-EK4"/>
+                                            <outlet property="sideMenuIcon" destination="Ez8-Rp-6q6" id="T6f-EG-rZH"/>
                                             <outlet property="sideMenuTitle" destination="rrd-P6-ha5" id="ftC-xo-uv7"/>
                                         </connections>
                                     </tableViewCell>
@@ -2571,6 +2585,7 @@
         <image name="Donate_v5" width="35" height="40"/>
         <image name="Green-dot" width="7" height="7"/>
         <image name="Map-view" width="27" height="30"/>
+        <image name="MyShares" width="14" height="14"/>
         <image name="NoPhotoPlaceholder" width="87" height="80"/>
         <image name="ProfilePic" width="120" height="120"/>
         <image name="Table-view" width="27" height="30"/>

@@ -18,6 +18,7 @@ class sideMenuItemTVCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        //sideMenuIcon.image = UIImage()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

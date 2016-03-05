@@ -64,10 +64,11 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     
     func showActivityCenter() {
         
-        ///reload data in activity center
+        // Reload User Image and User Name string in activity center
         activityCenterPresented = true
-        //let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! ActivityCenterVC
-        //activityCenterVC.reload()
+        let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! ActivityCenterVC
+        activityCenterVC.profilePic.setNeedsDisplay()
+        activityCenterVC.userIdentityProviderName.setNeedsDisplay()
         
         //inform collector root vc that activity center is presented
         let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
