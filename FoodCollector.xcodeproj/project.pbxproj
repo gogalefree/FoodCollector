@@ -18,6 +18,8 @@
 		A1248A881B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A861B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift */; };
 		A1248A8D1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A8B1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift */; };
 		A1248A921B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */; };
+		A13FFB561C8AF1D500FA43A2 /* sideMenuItemTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FFB551C8AF1D500FA43A2 /* sideMenuItemTVCell.swift */; };
+		A13FFB571C8AF1D500FA43A2 /* sideMenuItemTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13FFB551C8AF1D500FA43A2 /* sideMenuItemTVCell.swift */; };
 		A14F4D6F1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F4D6E1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift */; };
 		A14F4D731B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14F4D711B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift */; };
 		A15307301C20BE1900FE43AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A15307321C20BE1900FE43AA /* InfoPlist.strings */; };
@@ -410,6 +412,7 @@
 		A1248A901B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCMoreInfoCustomCell.swift; sourceTree = "<group>"; };
 		A13CA1081C0CFD8400F5371D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A13CA1091C0CFD8400F5371D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		A13FFB551C8AF1D500FA43A2 /* sideMenuItemTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuItemTVCell.swift; sourceTree = "<group>"; };
 		A14F4D6E1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationOptionsMenuTVC.swift; sourceTree = "<group>"; };
 		A14F4D711B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationOptionsMenuItemCell.swift; sourceTree = "<group>"; };
 		A15307311C20BE1900FE43AA /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -963,12 +966,13 @@
 			name = "Publication Details";
 			sourceTree = "<group>";
 		};
-		E454995B1AAA1C7F001B5E49 /* Activity Center */ = {
+		E454995B1AAA1C7F001B5E49 /* Side Menu */ = {
 			isa = PBXGroup;
 			children = (
 				A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */,
+				A13FFB551C8AF1D500FA43A2 /* sideMenuItemTVCell.swift */,
 			);
-			name = "Activity Center";
+			name = "Side Menu";
 			sourceTree = "<group>";
 		};
 		E454995C1AAA1CCA001B5E49 /* Server */ = {
@@ -1043,7 +1047,7 @@
 				E4F1A8601ADB9D5600973C51 /* AboutVC.swift */,
 				E4737DAB1A10C24A00A4AB81 /* Main */,
 				E405444D1C33EB6C007F7C24 /* Login */,
-				E454995B1AAA1C7F001B5E49 /* Activity Center */,
+				E454995B1AAA1C7F001B5E49 /* Side Menu */,
 				E4737DAA1A10C23200A4AB81 /* Publisher */,
 				E4737DA91A10C21C00A4AB81 /* Collector */,
 				E4F40D051C7318E10094E455 /* Groups */,
@@ -1377,7 +1381,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 58NS37C8VA;
+						DevelopmentTeam = Z43P8YG44T;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -1683,6 +1687,7 @@
 				E44FDDC61C5CB5F9000D5F97 /* ContactCollectorsPickerSendSmsCell.swift in Sources */,
 				E44FDDC71C5CB5F9000D5F97 /* ContactCollectorsPickerTVC.swift in Sources */,
 				E44FDDC81C5CB5F9000D5F97 /* FCPublishRootVC.swift in Sources */,
+				A13FFB571C8AF1D500FA43A2 /* sideMenuItemTVCell.swift in Sources */,
 				E44FDDC91C5CB5F9000D5F97 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
 				E45689961C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift in Sources */,
 				E40F198B1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */,
@@ -1858,6 +1863,7 @@
 				E4D16F1F1C88373300EDFE69 /* ActivityLogTVC.swift in Sources */,
 				A1B793241B695CC30058198A /* FCPublishAddressEditorMyLocationCustomCell.swift in Sources */,
 				E473A6291A8DEF4100CB8C44 /* UIView+Extensions.swift in Sources */,
+				A13FFB561C8AF1D500FA43A2 /* sideMenuItemTVCell.swift in Sources */,
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */,
 				A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */,
