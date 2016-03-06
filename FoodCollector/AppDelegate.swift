@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registreGoogleAnalytics()
         initGoogleSignin()
         setupFacebook(application, launchOptions: launchOptions)
+       // User.sharedInstance.setValueInUserClassProperty(false, forKey: .IsLoggedIn)
         return true
     }
     
@@ -81,16 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if id == kUserNotificationShowActionId {
                 //Show ui for new notification
 
-                if let type = userInfo[kRemoteNotificationType] as? String {
+                if userInfo[kRemoteNotificationType] as? String  != nil {
                     
-                    if type == kRemoteNotificationTypeUserRegisteredForPublication {
-                        self.handelRemoteNotificationsFromBackground(userInfo)
-                        
-                    }
-                    else {
-                         
-                        FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
-                    }
+                    FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
+
                 }
             }
         }
@@ -114,31 +109,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //if the app is in background Mode and we recived a delete notification
         //we delete it from the publications array
         
+        if UIApplication.sharedApplication().applicationState != .Active {
+            
+            var badgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber
+            badgeNumber++
+            UIApplication.sharedApplication().applicationIconBadgeNumber = badgeNumber
         
-        if (userInfo[kRemoteNotificationType] as? String) != nil {
-            
-            if UIApplication.sharedApplication().applicationState != .Active {
-                var badgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber
-                badgeNumber++
-                UIApplication.sharedApplication().applicationIconBadgeNumber = badgeNumber
-                
-                self.handelRemoteNotificationsFromBackground(userInfo)
-            }
-            
-            else {
-                
-                UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-                FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
-            }
-            
-            completionHandler(UIBackgroundFetchResult.NewData)
+            NSUserDefaults.standardUserDefaults().setInteger(badgeNumber, forKey: kNotificationBadgeNumberKey)
         }
-            
+        
         else {
-            completionHandler(UIBackgroundFetchResult.NoData)
-
+            
+            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+            FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
         }
-     }
+        
+        completionHandler(UIBackgroundFetchResult.NewData)
+
+    }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         
@@ -246,73 +234,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Error deleting file: \(error)")
             }
         }
-    }
-    
-    func deletePublication(userInfo: [NSObject: AnyObject]) {
-        
-        let data = userInfo[kRemoteNotificationDataKey]! as! [NSObject : AnyObject]
-        let uniqueId = data[kPublicationUniqueIdKey]! as! Int
-        let version = data[kPublicationVersionKey]! as! Int
-
-        let publicationsFilePath = FCModel.documentsDirectory().stringByAppendingString("publications")
-        if NSFileManager.defaultManager().fileExistsAtPath(publicationsFilePath){
-            var publications = NSKeyedUnarchiver.unarchiveObjectWithFile(publicationsFilePath) as! [FCPublication]
-            for (index, publication) in publications.enumerate() {
-                
-                if version == publication.version && uniqueId == publication.uniqueId {
-                    publications.removeAtIndex(index)
-                    break
-                }
-            }
-            
-            NSKeyedArchiver.archiveRootObject(publications, toFile:publicationsFilePath)
-        }
-    }
-    
-    func handelRemoteNotificationsFromBackground(launchOptions: [NSObject: AnyObject]?) {
-        
-        if let userInfo = launchOptions{
-            
-            let data = userInfo[kRemoteNotificationDataKey]! as! [String : AnyObject]
-            let identifier = self.identifierForInfo(data)
-            
-            if let notificationType = userInfo[kRemoteNotificationType] as? String {
-            
-                switch notificationType {
-                    
-                case kRemoteNotificationTypeNewPublication:
-            
-                    let dictToSave = [kPublicationUniqueIdKey : identifier.uniqueId, kPublicationVersionKey : identifier.version]
-                    NSUserDefaults.standardUserDefaults().setObject(dictToSave, forKey: kRemoteNotificationTypeNewPublication)
-                    
-                case kRemoteNotificationTypeUserRegisteredForPublication:
-                    
-                    let dictToSave = [kPublicationUniqueIdKey : identifier.uniqueId, kPublicationVersionKey : identifier.version]
-                    NSUserDefaults.standardUserDefaults().setObject(dictToSave, forKey: kRemoteNotificationTypeUserRegisteredForPublication)
-                    
-                case kRemoteNotificationTypeDeletedPublication:
-                    self.deletePublication(userInfo)
-                    
-                case kRemoteNotificationTypePublicationReport:
-                
-                    if let reportMessageRawValue  = data[kRemoteNotificationPublicationReportMessageKey] as? Int {
-                    
-                        let dictToSave = [kPublicationUniqueIdKey : identifier.uniqueId, kPublicationVersionKey : identifier.version, kRemoteNotificationPublicationReportMessageKey :reportMessageRawValue, kRemoteNotificationPublicationReportDateKey: (data[kRemoteNotificationPublicationReportDateKey] as! Int)]
-                        NSUserDefaults.standardUserDefaults().setObject(dictToSave, forKey: kRemoteNotificationTypePublicationReport)
-                    }
-                    
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
-    func identifierForInfo(data: [String : AnyObject]) -> PublicationIdentifier {
-        let uniqueId =  data[kPublicationUniqueIdKey]! as! Int
-        let version = data[kPublicationVersionKey]! as! Int
-        let publicationIdentifier = PublicationIdentifier(uniqueId: uniqueId, version: version)
-        return publicationIdentifier
     }
 }
 

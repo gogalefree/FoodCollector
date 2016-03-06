@@ -26,7 +26,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
     //fetches a publication with a certain identifier
     //called when a newPublication remote notification has arrived
     
-    func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: FCPublication) ->  Void) {
+    func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: Publication?) ->  Void) {
         
         let uniqueId = identifier.uniqueId
         let session = NSURLSession.sharedSession()
@@ -38,20 +38,28 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 print("response: \(serverResponse.description)", terminator: "")
 
                 
-                if error == nil && aServerResponse.statusCode == 200{
+                if error == nil && aServerResponse.statusCode < 300{
                    
                     if let data = data {
-                    let publicationDict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
                     
-                    if let params = publicationDict {
+                        let publicationDict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
+                    
+                        if let params = publicationDict {
 
-                        let publication = FCPublication.publicationWithParams(params)
 
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            completion(publication: publication)
-                        })
-                        
-                    }
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                              
+                                let moc = FCModel.dataController.managedObjectContext
+                                moc.performBlock({ () -> Void in
+                                    
+                                    let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: moc) as! Publication
+                                    publication.updateFromParams(params, context: moc)
+                                    FCModel.sharedInstance.publications.append(publication)
+                                    completion(publication: publication)
+                                    
+                                })
+                            })
+                        }
                     }
                 }
             }

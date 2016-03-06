@@ -94,18 +94,11 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         super.viewDidLoad()
         self.title = NSLocalizedString("Pickup", comment:"Collector map title")
         self.publications = FCModel.sharedInstance.publications
-  //      self.newPublicationMessageView.delegate = self
         registerForNSNotifications()
         configureMapView()
         configureTrackButton()
- //       hideNewDataMessageView()
         addPanRecognizer()
-
-        
-//
-           self.setupLocationManager()
-//        }
-//        
+        self.setupLocationManager()
     }
     
     
@@ -131,25 +124,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }
     }
     
-//    func showNewPublicationMessageViewIfNeeded() {
-//        
-//        if let data =  NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTypeNewPublication) as? [NSObject : AnyObject] {
-//            
-//            let id = data[kPublicationUniqueIdKey] as! Int
-//            let version = data[kPublicationVersionKey] as! Int
-//            let identifier = PublicationIdentifier(uniqueId: id, version: version)
-//            FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(identifier, completion: { (publication) -> Void in
-//                
-//                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                    
-//                    self.showNewDataMessageView(publication)
-//                })
-//                
-//                NSUserDefaults.standardUserDefaults().removeObjectForKey(kRemoteNotificationTypeNewPublication)
-//                
-//            })
-//        }
-//    }
     
     //MARK: - UI configuration
     
@@ -168,56 +142,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.blureView.layer.borderColor = UIColor.grayColor().CGColor
     }
     
-//    func hideNewDataMessageView() {
-//        
-//        let topConstraintValue = CGRectGetHeight(self.newPublicationMessageView.bounds)
-//        
-//        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-//            
-//            self.newPublicationMessageViewTopConstraint.constant = -topConstraintValue
-//            self.view.layoutIfNeeded()
-//            
-//            }) { (completion) -> Void in
-//                
-//                self.isPresentingNewDataMessageView = false
-//        }
-//    }
-    
-//    func showNewDataMessageView(publication:FCPublication) {
-//        
-//        if self.isPresentingNewDataMessageView {hideNewDataMessageView()}
-//        self.newPublicationMessageView.publication = publication
-//        
-//        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-//            
-//            self.newPublicationMessageViewTopConstraint.constant = self.kNewDataMessageViewTopConstant
-//            self.view.layoutIfNeeded()
-//            
-//        }) { (completion) -> Void in
-//         
-//            self.isPresentingNewDataMessageView = true
-//            NSUserDefaults.standardUserDefaults().setBool(false, forKey: kShouldShowNewPublicationFromPushNotification)
-//        }
-//    }
-    
-//    func defineBarsCenterPoints() {
-//        
-//        tabbarDragCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y + self.tabBarController!.tabBar.frame.size.height)
-//        
-//        tabbarVisibleCenter = CGPointMake(self.tabBarController!.tabBar.center.x, self.tabBarController!.tabBar.center.y)
-//    }
-//    
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        
-//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//        self.AdjustBarsCenterPointsTosize(size)
-//    }
-//    
-//    func AdjustBarsCenterPointsTosize(size: CGSize) {
-//        
-//        tabbarVisibleCenter = CGPointMake(size.width/2, size.height - self.tabBarController!.tabBar.frame.size.height / 2)
-//        tabbarDragCenter = CGPointMake(tabbarVisibleCenter.x, size.height + self.tabBarController!.tabBar.frame.size.height)
-//    }
     
     func didDragMap(gestureRecognizer: UIPanGestureRecognizer) {
        
@@ -243,15 +167,6 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         }
     }
     
-//    func hideTabbar() {
-//        
-//        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarDragCenter)
-//    }
-//    
-//    func showTabbar() {
-//        
-//        self.tabBarController!.tabBar.animateCenterWithSpring(0.4, center: self.tabbarVisibleCenter)
-//    }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -349,17 +264,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     func dismissDetailVC() {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    // MARK: - ArrivedToSpotView Delegate
-   
-//    func postOnSpotReport(publication: FCPublication) {
-//
-//        var userInfo = [NSObject : AnyObject]()
-//        userInfo[kPublicationUniqueIdKey] = publication.uniqueId
-//        userInfo[kPublicationVersionKey] = publication.version
-//        NSNotificationCenter.defaultCenter().postNotificationName(kDidArriveOnSpotNotification, object: self, userInfo: userInfo)
-//    }
-//    
+       
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -392,21 +297,7 @@ extension FCCollectorRootVC {
         self.reloadAnnotations()
     }
     
-    
-    //MARK - new data from push notification.
-    //these notifications are posted ny FCModel after handling remote notification events
-    
-//    func didRecieveNewPublication(notification: NSNotification) {
-//        
-//        let recivedPublication = FCModel.sharedInstance.publications.last!
-//        self.reloadAnnotations()
-//        
-//        //display new publication view
-//        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//            self.showNewDataMessageView(recivedPublication)
-//        })
-//    }
-    
+
     //MARK: - newDataMessageViewDelegate
     //called when a user tapped show action in newDataMessageView
     func showNewPublicationDetails(publication: Publication) {
@@ -415,46 +306,17 @@ extension FCCollectorRootVC {
         self.presentPublicationDetailsTVC(publication)
     }
     
-//    func dissmissNewPublicationMessageView() {
-//        self.hideNewDataMessageView()
-//    }
     
     func didDeletePublication(notification: NSNotification) {
 
         self.reloadAnnotations()
     }
     
-//    func didRecievePublicationReport(notification: NSNotification) {
-//        let (identifier, _) = FCUserNotificationHandler.sharedInstance.recivedReports.last!
-//        
-//        //we need to check if the report belongs to the presented publication to refresh it
-//        //change this to the presented publication
-//        let presentedPublication = self.publications[0]
-//        
-//        if self.isPresentingNewDataMessageView &&
-//            presentedPublication.uniqueId == identifier.uniqueId &&
-//            presentedPublication.version == identifier.version {
-//                
-//                //self.publicationDetailsView.reloadReports
-//        }
-//    }
-//    
-    
-//    func publicationWithIdentifier(identifier: PublicationIdentifier) -> FCPublication? {
-//        var requestedPublication: FCPublication?
-//        for publication in self.publications {
-//            if publication.uniqueId == identifier.uniqueId &&
-//                publication.version == identifier.version{
-//                    requestedPublication = publication
-//            }
-//        }
-//        return requestedPublication
-//    }
     
     func reloadAnnotations() {
     
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-   //         FCModel.sharedInstance.loadPublications()
+
             self.mapView.removeAnnotations(self.annotations)
             self.publications = FCModel.sharedInstance.publications
             let annotations = self.makeAnnotations()
@@ -462,9 +324,6 @@ extension FCCollectorRootVC {
         })
     }
     
-//    func appWillEnterForeground() {
-//        self.showNewPublicationMessageViewIfNeeded()
-//    }
     
     func registerForNSNotifications() {
         
@@ -474,11 +333,10 @@ extension FCCollectorRootVC {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData:", name: kRecievedNewDataNotification, object: nil)
         
-      //  NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations:", name: kRecievedNewPublicationNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
                 
-    //    NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name: UIApplicationWillEnterForegroundNotification, object: nil)
 
    //     NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentNotificationsFromWebFetch", name: kDidPrepareNotificationsFromWebFetchNotification, object: nil)
     }

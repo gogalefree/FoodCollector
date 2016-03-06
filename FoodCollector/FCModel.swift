@@ -35,7 +35,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     var userCreatedPublications = [Publication]()
 
     
-    //this is set whenever a user deletes a userCreatedPublication
+    //this is set whenever a user deletes a userCreatedPublication or when a delete remote notification arrives
     //ui can get the deleted object here
     var userDeletedPublication: Publication?
     
@@ -123,21 +123,6 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         }
     }
     
-    //initiated by delete push notification
-    func prepareToDeletePublication(identifier: PublicationIdentifier) {
-        
-//        if let publication = self.publicationWithIdentifier(identifier) {
-//            
-//            if publication.didRegisterForCurrentPublication {
-//                //only if registered
-//                //inform the tab bar to present an alert
-//                FCUserNotificationHandler.sharedInstance.removeLocationNotification(publication)
-//                let userInfo = ["publication" : publication]
-//                NSNotificationCenter.defaultCenter().postNotificationName("prepareToDelete", object: nil, userInfo: userInfo)
-//            }
-//            self.deletePublication(identifier, deleteFromServer: false, deleteUserCreatedPublication: false)
-//        }
-    }
     
     func deletePublication(publication: Publication, deleteFromServer: Bool) {
         

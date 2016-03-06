@@ -40,7 +40,7 @@ protocol FCServerProtocol {
     ///
     /// fetch publication with a certain identifier
     /// called after a newPublication push notification had arrived.
-    func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: FCPublication) -> Void)
+    func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: Publication?) ->  Void)
 
     
         ///

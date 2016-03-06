@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate {
+class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate, FCOnSpotPublicationReportDelegate {
     
     @IBOutlet weak var mapNavigationControllerLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var mapNavigationControllerTrailingConstraint: NSLayoutConstraint!
@@ -33,6 +33,8 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnSpotLocalNotification:", name: kDidArriveOnSpotNotification, object: nil)
+        
         activityCenterNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("activityCenterNavController") as! UINavigationController
         
         self.addChildViewController(activityCenterNavigationController)
@@ -54,7 +56,20 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         collectorRootVC.delegate = self
         
         self.definePointsWithRect(self.view.bounds)
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        presentLoginIfNeeded()
+    }
+    
+    func presentLoginIfNeeded() {
+       
+        if !User.sharedInstance.userIsLoggedIn {
+            let loginSB = UIStoryboard(name: "Login", bundle: nil)
+            let loginVC = loginSB.instantiateInitialViewController() as! UINavigationController
+            self.presentViewController(loginVC, animated: true, completion: nil)
+        }   
     }
     
     func collectorVCWillSlide() {
@@ -112,7 +127,39 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         collectorMapVisibleOrigin = containerBounds.origin
     }
     
+    func didRecieveOnSpotLocalNotification(notification :NSNotification) {
+        
+        let userInfo = notification.userInfo
+        if let data = userInfo {
+            
+            let id = data[kPublicationUniqueIdKey] as? Int ?? 0
+            let version = data[kPublicationVersionKey] as? Int ?? 0
+            
+            if id > 0 && version > 0 {
+             
+                let predicate = NSPredicate(format: "uniqueId = %@ && version = %@", NSNumber(integer: id) , NSNumber(integer: version))
+                let results = (FCModel.sharedInstance.publications as NSArray).filteredArrayUsingPredicate(predicate) as! [Publication]
+                if results.count > 0 {
+                   
+                    let publication = results.last!
+                    let onSpotVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+                    onSpotVC.publication = publication
+                    onSpotVC.delegate = self
+                    
+                    let navController = UINavigationController(rootViewController: onSpotVC) as UINavigationController
+                    self.presentViewController(navController, animated: true, completion: nil)
+                }
+                
+            }
+        }
+    }
+    
+    func dismiss(report: PublicationReport?) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

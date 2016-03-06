@@ -76,28 +76,13 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 65
-        //self.title = publication?.title
         fetchPublicationReports()
         fetchPublicationPhoto()
         //fetchPublicationRegistrations()
         registerForNotifications()
         addTopRightButton(self.state)
         configAdminIfNeeded()
-       // showOnSpotReport()
     }
-    
-    //tests only
-//    func showOnSpotReport() {
-//    
-//        let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
-//        
-//        arrivedToSpotReportVC.publication = self.publication
-//        
-//        let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
-//        
-//        self.navigationController?.presentViewController(navController, animated: true, completion: nil)
-//    }
-    //end tests
     
     //MARK: - Table view Headers
     
@@ -303,16 +288,14 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     //MARK: - Remote Notification Handling
     func didDeletePublication(notification: NSNotification) {
         
-        let publicationIdentifier = FCUserNotificationHandler.sharedInstance.recivedtoDelete.last
+        let deleted = FCModel.sharedInstance.userDeletedPublication
         
-        if let identifier = publicationIdentifier {
-            
+        
             if let publication = self.publication {
                 
-                if identifier.uniqueId == publication.uniqueId?.integerValue && identifier.version == publication.version?.integerValue {
+                if deleted?.uniqueId == publication.uniqueId && deleted?.version == publication.version {
                     
                     let alert = UIAlertController(title: publication.title, message: kDeleteAlertTitle, preferredStyle: .Alert)
-                    // Localization: Original string = title: "okay"
                     let action = UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         
                         alert.dismissViewControllerAnimated(true, completion: nil)
@@ -323,67 +306,37 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
             }
+        
+    }
+    
+    func didRecievePublicationRegistration(notification: NSNotification) {
+        
+        let info = notification.userInfo as? [String : AnyObject]
+        
+        if let userInfo = info {
+            
+            let publication = userInfo["publication"] as! Publication
+            if let presentedPublication = self.publication {
+                
+                if  presentedPublication.uniqueId == publication.uniqueId &&
+                    presentedPublication.version == publication.version {
+                        
+                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+                        if let cell = imageCell {
+                         
+                            cell.reloadRegisteredUserIconCounter()
+                        }
+                }
+            }
         }
     }
     
-//    func didRecievePublicationRegistration(notification: NSNotification) {
-//        
-//        let info = notification.userInfo as? [String : AnyObject]
-//        
-//        if let userInfo = info {
-//            
-//            let publication = userInfo["publication"] as! FCPublication
-//            if let presentedPublication = self.publication {
-//                
-//                if  presentedPublication.uniqueId == publication.uniqueId &&
-//                    presentedPublication.version == publication.version {
-//                        
-//                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
-//                        if let cell = imageCell {
-//                         
-//                            cell.reloadRegisteredUserIconCounter()
-//                            self.showNewRegistrationBanner()
-//                        }
-//                }
-//            }
-//        }
-//    }
-    
-//    func showNewRegistrationBanner() {
-//        
-//        let newRgistrationBannerView = NewRegistrationBannerView.loadFromNibNamed("NewRegistrationBannerView", bundle: nil) as! NewRegistrationBannerView
-//        newRgistrationBannerView.userCreatedPublication = self.publication
-//        
-//        let kNewRegistrationBannerHiddenY: CGFloat = -80
-//        
-//        newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
-//        self.view.addSubview(newRgistrationBannerView)
-//        
-//        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-//            
-//            newRgistrationBannerView.alpha = 1
-//            newRgistrationBannerView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 66)
-//            
-//            }) { (finished) -> Void in
-//                
-//                UIView.animateWithDuration(0.3, delay: 5, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-//                    
-//                    newRgistrationBannerView.frame = CGRectMake(0, kNewRegistrationBannerHiddenY , CGRectGetWidth(self.view.bounds), 66)
-//                    newRgistrationBannerView.alpha = 0
-//                    
-//                    
-//                    }){ (finished) -> Void in
-//                        
-//                        newRgistrationBannerView.removeFromSuperview()
-//                }
-//        }
-//    }
     
     //MARK: - NSNotifications
     func registerForNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
-       // NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
         
     }
     
