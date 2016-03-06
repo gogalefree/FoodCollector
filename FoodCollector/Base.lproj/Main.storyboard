@@ -2559,24 +2559,6 @@
             </objects>
             <point key="canvasLocation" x="6262" y="-1994"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="1Zd-iN-d62">
-            <objects>
-                <navigationController storyboardIdentifier="activityCenterNavController" automaticallyAdjustsScrollViewInsets="NO" id="MEY-Xh-d3r" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NZN-zc-UN2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="47X-cz-Bsd" kind="relationship" relationship="rootViewController" id="uCb-L7-pbB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KZ6-gd-e1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2391" y="-422"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Avtivity-center" width="27" height="30"/>
@@ -2585,7 +2567,7 @@
         <image name="Donate_v5" width="35" height="40"/>
         <image name="Green-dot" width="7" height="7"/>
         <image name="Map-view" width="27" height="30"/>
-        <image name="MyShares" width="14" height="14"/>
+        <image name="MyShares" width="21" height="21"/>
         <image name="NoPhotoPlaceholder" width="87" height="80"/>
         <image name="ProfilePic" width="120" height="120"/>
         <image name="Table-view" width="27" height="30"/>

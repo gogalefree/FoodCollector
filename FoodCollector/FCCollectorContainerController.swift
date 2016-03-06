@@ -20,7 +20,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     var isLoginStarted = false
     
     var identityProviderLogingViewNavVC: UINavigationController!
-    var activityCenterNavigationController: UINavigationController!
+    var activityCenterVC: ActivityCenterVC!
     var collectorRootNavigationController: UINavigationController!
     var activityCenterPresented = false
     
@@ -36,14 +36,14 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         
         super.viewDidLoad()
         
-        activityCenterNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("activityCenterNavController") as! UINavigationController
+        activityCenterVC = self.storyboard?.instantiateViewControllerWithIdentifier("ActivityCenterVC") as! ActivityCenterVC
         
-        self.addChildViewController(activityCenterNavigationController)
-        activityCenterNavigationController.view.frame = self.view.bounds
+        self.addChildViewController(activityCenterVC)
+        activityCenterVC.view.frame = self.view.bounds
         
-        self.view.addSubview(self.activityCenterNavigationController.view)
-        self.activityCenterNavigationController.didMoveToParentViewController(self)
-        self.view.sendSubviewToBack(self.activityCenterNavigationController.view)
+        self.view.addSubview(self.activityCenterVC.view)
+        self.activityCenterVC.didMoveToParentViewController(self)
+        self.view.sendSubviewToBack(self.activityCenterVC.view)
         
       
         for vc in self.childViewControllers {
@@ -95,12 +95,11 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     }
     
     func showActivityCenter() {
-        
         // Reload User Image and User Name string in activity center
         activityCenterPresented = true
-        let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! ActivityCenterVC
-        activityCenterVC.profilePic.setNeedsDisplay()
-        activityCenterVC.userIdentityProviderName.setNeedsDisplay()
+        //let activityCenterVC = activityCenterVC.viewControllers[0] as! ActivityCenterVC
+        activityCenterVC.userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName
+        activityCenterVC.displayUserProfileImage()
         
         //inform collector root vc that activity center is presented
         let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC

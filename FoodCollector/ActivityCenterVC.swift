@@ -277,7 +277,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
 //        }
 //    }
     
-    private func displayUserProfileImage() {
+    func displayUserProfileImage() {
         profilePic.image = User.sharedInstance.loginData?.userImage ?? User.sharedInstance.userImage
         profilePic.layer.cornerRadius = CGRectGetWidth(profilePic.frame)/2
         profilePic.layer.masksToBounds = true
