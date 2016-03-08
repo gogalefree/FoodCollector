@@ -17,7 +17,10 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
     let kConstraintsTotalPadding: CGFloat = 20
     let kViewsTotalPaddind      : CGFloat = 16
     
-    var activityCenterNavigationController: UINavigationController!
+    var isLoginStarted = false
+    
+    var identityProviderLogingViewNavVC: UINavigationController!
+    var activityCenterVC: ActivityCenterVC!
     var collectorRootNavigationController: UINavigationController!
     var activityCenterPresented = false
     
@@ -37,12 +40,12 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         
         activityCenterNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("activityCenterNavController") as! UINavigationController
         
-        self.addChildViewController(activityCenterNavigationController)
-        activityCenterNavigationController.view.frame = self.view.bounds
+        self.addChildViewController(activityCenterVC)
+        activityCenterVC.view.frame = self.view.bounds
         
-        self.view.addSubview(self.activityCenterNavigationController.view)
-        self.activityCenterNavigationController.didMoveToParentViewController(self)
-        self.view.sendSubviewToBack(self.activityCenterNavigationController.view)
+        self.view.addSubview(self.activityCenterVC.view)
+        self.activityCenterVC.didMoveToParentViewController(self)
+        self.view.sendSubviewToBack(self.activityCenterVC.view)
         
       
         for vc in self.childViewControllers {
@@ -72,17 +75,46 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         }   
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (!User.sharedInstance.userIsLoggedIn && !User.sharedInstance.userSkippedLogin) {
+            print("User is not Loged-in and didn't skip Login")
+            showIdentityProviderLoginView()
+        }
+        else {
+            print("User is Loged-in or skipped Login")
+        }
+        
+        
+        //let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+        //storyBoard.instantiateInitialViewController() as! UINavigationController
+        //self.presentViewController(viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?)
+    }
+    
+    private func showIdentityProviderLoginView() {
+        print("showIdentityProviderLoginView()")
+        
+        if !isLoginStarted {
+            let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+            identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+            
+            self.presentViewController(self.identityProviderLogingViewNavVC, animated: true, completion: nil)
+            isLoginStarted = true
+        }
+    }
+    
     func collectorVCWillSlide() {
         if !activityCenterPresented { showActivityCenter() }
         else { hideActivityCenter() }
     }
     
     func showActivityCenter() {
-        
-        ///reload data in activity center
+        // Reload User Image and User Name string in activity center
         activityCenterPresented = true
-        //let activityCenterVC = activityCenterNavigationController.viewControllers[0] as! ActivityCenterVC
-        //activityCenterVC.reload()
+        //let activityCenterVC = activityCenterVC.viewControllers[0] as! ActivityCenterVC
+        activityCenterVC.userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName
+        activityCenterVC.displayUserProfileImage()
         
         //inform collector root vc that activity center is presented
         let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
