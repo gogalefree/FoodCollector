@@ -73,6 +73,8 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
 
         //inform server
         FCModel.sharedInstance.foodCollectorWebServer.deleteGroup(groupToDelete)
+        
+        //TODO: Take the publication associated with this group off air
     }
     
     func cancelDeleteGroup(alertAction: UIAlertAction!) {
