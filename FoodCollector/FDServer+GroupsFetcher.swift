@@ -15,8 +15,12 @@ extension FCMockServer {
         
         //TODO: Change url
         
+        let userId = User.sharedInstance.userUniqueID
+        if userId == 0 {return}
+        
         let session = NSURLSession.sharedSession()
-        let url = NSURL(string: "https://ofer-fd-server.herokuapp.com/users/21/groups")
+        let url = NSURL(string: baseUrlString +  "users/\(userId)/groups")
+        
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if let serverResponse = response as? NSHTTPURLResponse  {

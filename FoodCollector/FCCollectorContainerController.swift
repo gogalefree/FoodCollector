@@ -36,9 +36,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveOnSpotLocalNotification:", name: kDidArriveOnSpotNotification, object: nil)
-        
-        activityCenterNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("activityCenterNavController") as! UINavigationController
+        activityCenterVC = self.storyboard?.instantiateViewControllerWithIdentifier("ActivityCenterVC") as! ActivityCenterVC
         
         self.addChildViewController(activityCenterVC)
         activityCenterVC.view.frame = self.view.bounds
@@ -59,20 +57,6 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         collectorRootVC.delegate = self
         
         self.definePointsWithRect(self.view.bounds)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        presentLoginIfNeeded()
-    }
-    
-    func presentLoginIfNeeded() {
-       
-        if !User.sharedInstance.userIsLoggedIn {
-            let loginSB = UIStoryboard(name: "Login", bundle: nil)
-            let loginVC = loginSB.instantiateInitialViewController() as! UINavigationController
-            self.presentViewController(loginVC, animated: true, completion: nil)
-        }   
     }
     
     override func viewDidAppear(animated: Bool) {

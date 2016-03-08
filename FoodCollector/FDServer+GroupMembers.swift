@@ -16,7 +16,7 @@ extension FCMockServer {
         guard let data = GroupMember.groupMembersJson(myMembers) else {return}
         
         //TODO: Change the url
-        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/group_members.json")
+        let url = NSURL(string: baseUrlString + "group_members.json")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod  = "POST"
         request.HTTPBody    = data
@@ -84,7 +84,7 @@ extension FCMockServer {
     func deleteGroupMember(memberToDelete: GroupMember) {
         
         //TODO: Change the url
-        let url = NSURL(string: /*baseUrlString*/  "https://ofer-fd-server.herokuapp.com/group_members/\(memberToDelete.id!.integerValue)")
+        let url = NSURL(string: baseUrlString +  "group_members/\(memberToDelete.id!.integerValue)")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "DELETE"
         
