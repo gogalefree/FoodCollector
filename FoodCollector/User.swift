@@ -321,7 +321,7 @@ class User {
     
     func logOut() {
         setValueInUserClassProperty(false, forKey: .IsLoggedIn)
-        setValueInUserClassProperty(false, forKey: .SkippedLogin)
+        setValueInUserClassProperty(true, forKey: .SkippedLogin)
         setValueInUserClassProperty(false, forKey: .CompletedIdentityProviderLogin)
         
         setValueInUserClassProperty("", forKey: .IdentityProviderUserName)
