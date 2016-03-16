@@ -314,12 +314,24 @@
 		E49B93281A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */; };
 		E49B932C1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */; };
 		E4A41D331B490321007A611E /* MainActionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A41D321B490321007A611E /* MainActionVC.swift */; };
+		E4A557201C919F5000E09139 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A5571F1C919F5000E09139 /* Settings.storyboard */; };
+		E4A557211C919F5000E09139 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4A5571F1C919F5000E09139 /* Settings.storyboard */; };
+		E4A557241C919F6800E09139 /* NotificationsDistanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557221C919F6800E09139 /* NotificationsDistanceVC.swift */; };
+		E4A557251C919F6800E09139 /* NotificationsDistanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557221C919F6800E09139 /* NotificationsDistanceVC.swift */; };
+		E4A557261C919F6800E09139 /* DragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557231C919F6800E09139 /* DragView.swift */; };
+		E4A557271C919F6800E09139 /* DragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557231C919F6800E09139 /* DragView.swift */; };
+		E4A557291C91A07000E09139 /* SettingsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557281C91A07000E09139 /* SettingsRootVC.swift */; };
+		E4A5572A1C91A07000E09139 /* SettingsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557281C91A07000E09139 /* SettingsRootVC.swift */; };
 		E4AEDE551B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */; };
 		E4AEDE5C1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5B1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift */; };
 		E4AEDE5E1B257E9D00431F9B /* PublicationDetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */; };
 		E4AEDE601B258D1100431F9B /* PublicationDetailsSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5F1B258D1100431F9B /* PublicationDetailsSubtitleCell.swift */; };
 		E4AEDE621B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE611B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift */; };
 		E4AEDE6A1B26FE1000431F9B /* PublicationDetailsReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE691B26FE1000431F9B /* PublicationDetailsReportCell.swift */; };
+		E4B791771C97F748008C1762 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B791761C97F748008C1762 /* UserSettings.swift */; };
+		E4B791781C97F748008C1762 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B791761C97F748008C1762 /* UserSettings.swift */; };
+		E4B7917A1C983694008C1762 /* FCUserNotificationsHandler+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B791791C983694008C1762 /* FCUserNotificationsHandler+Background.swift */; };
+		E4B7917B1C983694008C1762 /* FCUserNotificationsHandler+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B791791C983694008C1762 /* FCUserNotificationsHandler+Background.swift */; };
 		E4BF44F31A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BF44F21A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift */; };
 		E4C1C1651A52AB3500A37E00 /* FCAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */; };
 		E4C1C1671A52AB7400A37E00 /* FCPublicationsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C1C1661A52AB7400A37E00 /* FCPublicationsTVCell.swift */; };
@@ -590,12 +602,18 @@
 		E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FCPublicationDetailsDatesCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FCArrivedToPublicationSpotVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E4A41D321B490321007A611E /* MainActionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainActionVC.swift; sourceTree = "<group>"; };
+		E4A5571F1C919F5000E09139 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		E4A557221C919F6800E09139 /* NotificationsDistanceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsDistanceVC.swift; sourceTree = "<group>"; };
+		E4A557231C919F6800E09139 /* DragView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragView.swift; sourceTree = "<group>"; };
+		E4A557281C91A07000E09139 /* SettingsRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRootVC.swift; sourceTree = "<group>"; };
 		E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationRegistrationsFetcher.swift; sourceTree = "<group>"; };
 		E4AEDE5B1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsTitleCellTableViewCell.swift; sourceTree = "<group>"; };
 		E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsImageCell.swift; sourceTree = "<group>"; };
 		E4AEDE5F1B258D1100431F9B /* PublicationDetailsSubtitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsSubtitleCell.swift; sourceTree = "<group>"; };
 		E4AEDE611B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsReportsTitleCell.swift; sourceTree = "<group>"; };
 		E4AEDE691B26FE1000431F9B /* PublicationDetailsReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsReportCell.swift; sourceTree = "<group>"; };
+		E4B791761C97F748008C1762 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		E4B791791C983694008C1762 /* FCUserNotificationsHandler+Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCUserNotificationsHandler+Background.swift"; sourceTree = "<group>"; };
 		E4BF44F21A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		E4C1C1601A52A3ED00A37E00 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		E4C1C1641A52AB3500A37E00 /* FCAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCAnnotationView.swift; sourceTree = "<group>"; };
@@ -909,6 +927,7 @@
 				E4D8B3D21BE639F1003112E0 /* OnSpotPublicationReport.swift */,
 				A10832F61BADD81F00B81F57 /* User.swift */,
 				E41BCE0A1C2EBB100018E771 /* LoginData.swift */,
+				E4B791761C97F748008C1762 /* UserSettings.swift */,
 			);
 			name = FCModel;
 			sourceTree = "<group>";
@@ -971,6 +990,7 @@
 			children = (
 				A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */,
 				A13FFB551C8AF1D500FA43A2 /* sideMenuItemTVCell.swift */,
+				E4A5571E1C919F3300E09139 /* Settings */,
 			);
 			name = "Side Menu";
 			sourceTree = "<group>";
@@ -1009,6 +1029,7 @@
 			isa = PBXGroup;
 			children = (
 				E4737D831A10C01300A4AB81 /* FCUserNotificationHandler.swift */,
+				E4B791791C983694008C1762 /* FCUserNotificationsHandler+Background.swift */,
 				E48263721BE20AE100526C7B /* ActivityLogController.swift */,
 				E48263741BE20B6C00526C7B /* FetchedDataNotification.swift */,
 			);
@@ -1208,6 +1229,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E4A5571E1C919F3300E09139 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E4A5571F1C919F5000E09139 /* Settings.storyboard */,
+				E4A557281C91A07000E09139 /* SettingsRootVC.swift */,
+				E4A557221C919F6800E09139 /* NotificationsDistanceVC.swift */,
+				E4A557231C919F6800E09139 /* DragView.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		E4D16F161C881E8900EDFE69 /* ActivityLog */ = {
 			isa = PBXGroup;
 			children = (
@@ -1381,7 +1413,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = Z43P8YG44T;
+						DevelopmentTeam = 58NS37C8VA;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -1442,6 +1474,7 @@
 				E44FDE361C5CB5F9000D5F97 /* Pin-Whole@2x.png in Resources */,
 				E44FDE371C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
 				E44FDE381C5CB5F9000D5F97 /* Pin-Table-Whole@3x.png in Resources */,
+				E4A557211C919F5000E09139 /* Settings.storyboard in Resources */,
 				E44FDE391C5CB5F9000D5F97 /* Pin-Table-Whole.png in Resources */,
 				E44FDE3A1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.xib in Resources */,
 				E44FDE3B1C5CB5F9000D5F97 /* Images.xcassets in Resources */,
@@ -1490,6 +1523,7 @@
 				A1E04A4E1C22A84500709B0A /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
 				E4545D9C1AD322B20031CF8A /* Pin-Table-Whole@3x.png in Resources */,
 				E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */,
+				E4A557201C919F5000E09139 /* Settings.storyboard in Resources */,
 				A1E04A801C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
 				A19A035C1C674F26006F6873 /* Login.storyboard in Resources */,
@@ -1676,7 +1710,9 @@
 				E4F40D201C75AB1A0094E455 /* GroupMember+CoreDataProperties.swift in Sources */,
 				E44FDDC11C5CB5F9000D5F97 /* PublicationDetailsReportCell.swift in Sources */,
 				E44FDDC21C5CB5F9000D5F97 /* FCPublicationReportsTVC.swift in Sources */,
+				E4B7917B1C983694008C1762 /* FCUserNotificationsHandler+Background.swift in Sources */,
 				E404D63C1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift in Sources */,
+				E4A557271C919F6800E09139 /* DragView.swift in Sources */,
 				E4D16F231C885B9600EDFE69 /* FDServer+GroupsFetcher.swift in Sources */,
 				E4F40CF51C70B0270094E455 /* Group+CoreDataProperties.swift in Sources */,
 				E4F40D231C79CB870094E455 /* FDServer+GroupMembers.swift in Sources */,
@@ -1735,7 +1771,9 @@
 				E4D16F201C88373300EDFE69 /* ActivityLogTVC.swift in Sources */,
 				E4F40CC51C70A7590094E455 /* DataController.swift in Sources */,
 				E4F40CC81C70A9BB0094E455 /* CoreDataConstants.swift in Sources */,
+				E4A557251C919F6800E09139 /* NotificationsDistanceVC.swift in Sources */,
 				E44FDDF01C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.swift in Sources */,
+				E4A5572A1C91A07000E09139 /* SettingsRootVC.swift in Sources */,
 				E44FDDF11C5CB5F9000D5F97 /* AppDelegate+.swift in Sources */,
 				E44FDDF21C5CB5F9000D5F97 /* PublicationPhotoPresentorVC.swift in Sources */,
 				E44FDDF31C5CB5F9000D5F97 /* LoginPhoneNumberVC.swift in Sources */,
@@ -1750,6 +1788,7 @@
 				E40F198E1C803BF8009C044E /* GroupMembersEditorTVCell.swift in Sources */,
 				E40F199C1C81984B009C044E /* Publication.swift in Sources */,
 				E44FDDF91C5CB5F9000D5F97 /* FCLaunchScreenView.swift in Sources */,
+				E4B791781C97F748008C1762 /* UserSettings.swift in Sources */,
 				E44FDDFA1C5CB5F9000D5F97 /* FCCollectorRootVC.swift in Sources */,
 				E4F40D0B1C7319560094E455 /* GroupsRootVC.swift in Sources */,
 				E44FDDFB1C5CB5F9000D5F97 /* FCCollectorContainerController.swift in Sources */,
@@ -1819,6 +1858,7 @@
 				A1248A921B7673D8001C5901 /* PublicationEditorTVCMoreInfoCustomCell.swift in Sources */,
 				E4AEDE6A1B26FE1000431F9B /* PublicationDetailsReportCell.swift in Sources */,
 				E4F40CF41C70B0270094E455 /* Group+CoreDataProperties.swift in Sources */,
+				E4A557261C919F6800E09139 /* DragView.swift in Sources */,
 				E4F40D221C79CB870094E455 /* FDServer+GroupMembers.swift in Sources */,
 				E4F839231ABB03460055A277 /* FCPublicationReportsTVC.swift in Sources */,
 				E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */,
@@ -1830,6 +1870,7 @@
 				E4F40D1C1C7599A50094E455 /* GroupMembersEditorVC+AddressPicker.swift in Sources */,
 				E40F19951C81984B009C044E /* PublicationReport+CoreDataProperties.swift in Sources */,
 				E462F9BD1BDEC43600832A08 /* PublicationsThumbnailsCollectionViewController.swift in Sources */,
+				E4A557291C91A07000E09139 /* SettingsRootVC.swift in Sources */,
 				E4E83F531C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */,
 				E4E83F501C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */,
 				A1248A831B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
@@ -1844,7 +1885,9 @@
 				E41235D41ABC4B840016FE5F /* FCPublicationReportsNavigationController.swift in Sources */,
 				E42ED5771A8BD007008FB618 /* FCModel+NewData.swift in Sources */,
 				A12394691B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift in Sources */,
+				E4B791771C97F748008C1762 /* UserSettings.swift in Sources */,
 				E4607B051BE298AE00E76FCA /* FCCollectorRootVC+Thumbnails.swift in Sources */,
+				E4B7917A1C983694008C1762 /* FCUserNotificationsHandler+Background.swift in Sources */,
 				E40F198A1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */,
 				E4F839251ABB04A30055A277 /* FCPublicationReporetsTVCell.swift in Sources */,
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
@@ -1902,6 +1945,7 @@
 				E42ED5751A8B682C008FB618 /* DataUpdater.swift in Sources */,
 				E4C4B95E1C843AF5009599DD /* FDAnnotation.swift in Sources */,
 				E40F199B1C81984B009C044E /* Publication.swift in Sources */,
+				E4A557241C919F6800E09139 /* NotificationsDistanceVC.swift in Sources */,
 				A1A738A21B7FA22800CA2C5A /* PublicationEditorTVCPhoneNumEditorCustomCell.swift in Sources */,
 				A1F44BEB1C6938C9000F132A /* InfoPopoverVC.swift in Sources */,
 				E4584B821BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift in Sources */,

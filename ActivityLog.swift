@@ -12,7 +12,7 @@ import CoreData
 
 class ActivityLog: NSManagedObject {
 
-    enum LogType: Int {case NewPublication = 1, DeletePublication = 2, Report = 3, Registration = 4, newGroup = 5, newGroupMember = 6, deletedGroupMember = 7}
+    enum LogType: Int {case NewPublication = 1,EditedPublication = 2, DeletePublication = 3, Report = 4, Registration = 5, newGroup = 6, newGroupMember = 7, deletedGroupMember = 8}
 
     class func activityLog(publication: Publication? ,type: Int, context: NSManagedObjectContext) {
         
@@ -45,24 +45,27 @@ class ActivityLog: NSManagedObject {
         case .NewPublication:
             title = kNewEventMessageTitle
             
+        case .EditedPublication:
+            title =  NSLocalizedString("Event Updated: ", comment:"Title for a notification")
+            
         case .DeletePublication:
-            title =  NSLocalizedString("Event Ended Near You ", comment:"Title for a notification")
+            title =  NSLocalizedString("Event Ended Near You: ", comment:"Title for a notification")
             
         case .Report:
-            title = NSLocalizedString("New report for ", comment:"Title for a notification")
+            title = NSLocalizedString("New report for: ", comment:"Title for a notification")
 
         case .Registration:
-            title = NSLocalizedString("User’s Coming To Pickup ", comment:"fetched data notification text: Another user is en route to pickup:")
+            title = NSLocalizedString("User’s Coming To Pickup: ", comment:"fetched data notification text: Another user is en route to pickup:")
             
         case .newGroup:
-            title = NSLocalizedString("You've benn added to a new group ", comment:"fetched data notification text: current user was added to a new group")
+            title = NSLocalizedString("You've benn added to a new group: ", comment:"fetched data notification text: current user was added to a new group")
          
             
         case .newGroupMember:
-            title = NSLocalizedString("New group member in ", comment:"fetched data notification text: Another user was added to a group")
+            title = NSLocalizedString("New group member in: ", comment:"fetched data notification text: Another user was added to a group")
             
         case .deletedGroupMember:
-            title = NSLocalizedString("User was removed from a group ", comment:"fetched data notification text: A user was removed from a group")
+            title = NSLocalizedString("User was removed from a group: ", comment:"fetched data notification text: A user was removed from a group")
         }
         let publicationTitle = publication?.title ?? ""
         return title + publicationTitle

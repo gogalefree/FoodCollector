@@ -24,7 +24,7 @@ let unRegisterUserFromPublicationURL = baseUrlString + "publications/"
 public class FCMockServer: NSObject , FCServerProtocol {
     
     //fetches a publication with a certain identifier
-    //called when a newPublication remote notification has arrived
+    //called when a newPublication remote notification has arrived while the app is active
     
     func fetchPublicationWithIdentifier(identifier: PublicationIdentifier ,completion: (publication: Publication?) ->  Void) {
         
@@ -52,11 +52,27 @@ public class FCMockServer: NSObject , FCServerProtocol {
                                 let moc = FCModel.dataController.managedObjectContext
                                 moc.performBlock({ () -> Void in
                                     
-                                    let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: moc) as! Publication
-                                    publication.updateFromParams(params, context: moc)
-                                    FCModel.sharedInstance.publications.append(publication)
-                                    completion(publication: publication)
                                     
+                                    if let existingPublication = FCModel.sharedInstance.publicationWithUniqueId(identifier) {
+                                        
+                                        existingPublication.updateFromParams(params, context: moc)
+                                        FCUserNotificationHandler.sharedInstance.makeActivityLogForType(ActivityLog.LogType.EditedPublication , publication: existingPublication)
+                                        completion(publication: existingPublication)
+                                    }
+                                    
+                                    else {
+                                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                            
+                                            moc.performBlock({ () -> Void in
+                                                let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: moc) as! Publication
+                                                publication.updateFromParams(params, context: moc)
+                                                ActivityLog.activityLog(publication, type: ActivityLog.LogType.NewPublication.rawValue, context: moc)
+                                                FCModel.sharedInstance.publications.append(publication)
+                                                completion(publication: publication)
+
+                                            })
+                                        })
+                                    }
                                 })
                             })
                         }
@@ -102,7 +118,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 if error != nil || serverResponse.statusCode != 200 {
 
                     NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportPushNotificationToServerKey)
-                    FCUserNotificationHandler.sharedInstance.resendPushNotificationToken()
+                    //FCUserNotificationHandler.sharedInstance.resendPushNotificationToken()
                 }
                 else {
                     
@@ -175,6 +191,12 @@ public class FCMockServer: NSObject , FCServerProtocol {
     public func reportUserLocation() {
         
         let location = FCModel.sharedInstance.userLocation.coordinate
+        
+        //set the location in user defaults
+        NSUserDefaults.standardUserDefaults().setDouble(location.latitude, forKey: kUserLastLatitudeKey)
+        NSUserDefaults.standardUserDefaults().setDouble(location.longitude, forKey: kUserLastLongitudeKey)
+
+        
         var params = [String: AnyObject]()
         params["last_location_longitude"] = location.longitude
         params["last_location_latitude"] = location.latitude

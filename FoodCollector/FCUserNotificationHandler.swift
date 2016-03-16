@@ -41,7 +41,15 @@ class FCUserNotificationHandler : NSObject {
         return NSUserDefaults.standardUserDefaults().objectForKey(kRemoteNotificationTokenKey) as? String
         }()
     
-    var notificationsBadgeCounter: Int = NSUserDefaults.standardUserDefaults().integerForKey(kNotificationBadgeNumberKey) ?? 0
+    var notificationsBadgeCounter: Int = NSUserDefaults.standardUserDefaults().integerForKey(kNotificationBadgeNumberKey) ?? 0 {
+        didSet {
+            if notificationsBadgeCounter != oldValue {
+                saveNotificationBadgeCounter()
+                self.postUpdateNotificationCounterNotification()
+                print("Notification Badge Count: \(notificationsBadgeCounter)", separator: "=========", terminator: "\n______________")
+            }
+        }
+    }
     
     
     var registeredLocationNotification = [(UILocalNotification, Publication)]()
@@ -154,10 +162,6 @@ class FCUserNotificationHandler : NSObject {
             let publicationIdentifier = self.identifierForInfo(data!)
             print("Notifications Handler data recieved:\n\(data) ")
             
-            //increment the badge
-            self.notificationsBadgeCounter += 1
-
-            
             switch notificationType {
                 
             case kRemoteNotificationTypeNewPublication:
@@ -181,6 +185,8 @@ class FCUserNotificationHandler : NSObject {
                 print("Notifications Handler kRemoteNotificationTypeUserRegisteredForPublication ")
                 self.handleRegistrationFromPushNotification(data!)
                 
+                //TODO: Add type = ”group_members”
+                //check if the current user is a group member, and if not - delete the whole group from the client
             default:
                 break
             }
@@ -189,15 +195,16 @@ class FCUserNotificationHandler : NSObject {
     
     func handleNewPublicationFromPushNotification(publicationIdentifier: PublicationIdentifier) {
         
-            //fetch the new publication from the server
+        //fetch the new publication from the server
+        //within the fetch we check whether it's a new publication or an update for an existing publication
+      
             FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(publicationIdentifier, completion: { (publication: Publication?) -> Void in
                     
                     //handle the new publication
                 if let recivedPublication = publication {
                    
-                    self.makeActivityLogForType(ActivityLog.LogType.NewPublication , publication: recivedPublication)
+                    self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypeNewPublication, publication: recivedPublication)
                     self.postUpdateNotificationCounterNotification()
-                    FCModel.sharedInstance.postRecievedNewPublicationNotification()
                 }
                 
             })
@@ -205,22 +212,14 @@ class FCUserNotificationHandler : NSObject {
     
     func handleDeletePublicationFromPushNotification(publicationIdentifier: PublicationIdentifier){
         
-        let moc = FCModel.dataController.managedObjectContext
         let publicationId = publicationIdentifier.uniqueId
         let predicate = NSPredicate(format: "uniqueId = %@", NSNumber(integer: publicationId))
         let results = (FCModel.sharedInstance.publications as NSArray).filteredArrayUsingPredicate(predicate) as! [Publication]
         if results.count > 0 {
             let toDelete = results.last!
-            FCModel.sharedInstance.userDeletedPublication = toDelete
+            self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypeDeletedPublication, publication: toDelete)
+            FCModel.sharedInstance.deletePublication(toDelete, deleteFromServer: false)
             self.makeActivityLogForType(ActivityLog.LogType.DeletePublication, publication: toDelete)
-            self.postUpdateNotificationCounterNotification()
-
-            moc.performBlock({ () -> Void in
-                moc.deleteObject(toDelete)
-                FCModel.dataController.save()
-                FCModel.sharedInstance.postDeletedPublicationNotification()
-
-            })
         }
     }
     
@@ -233,12 +232,9 @@ class FCUserNotificationHandler : NSObject {
             if results.count > 0 {
                 
                 let publication = results.last!
+                self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypePublicationReport, publication: publication)
                 let moc = FCModel.dataController.managedObjectContext
-                FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: moc, completion: { (success) -> Void in
-                    if success {
-                        self.postUpdateNotificationCounterNotification()
-                    }
-                })
+                FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: moc, completion: { (success) -> Void in })
             }
         }
     }
@@ -253,15 +249,11 @@ class FCUserNotificationHandler : NSObject {
             if results.count > 0 {
             
                 let publication = results.last!
+                self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypeUserRegisteredForPublication, publication: publication)
                 let moc = FCModel.dataController.managedObjectContext
                 let fetcher = CDPublicationRegistrationFetcher(publication: publication, context: moc)
                 fetcher.fetchRegistrationsForPublication(true)
                 self.makeActivityLogForType(ActivityLog.LogType.Registration, publication: publication)
-                self.postUpdateNotificationCounterNotification()
-                
-                let userInfo = ["publication" : publication]
-                NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self, userInfo: userInfo)
-                
             }
         }
     }
@@ -275,7 +267,9 @@ class FCUserNotificationHandler : NSObject {
 
     func postUpdateNotificationCounterNotification() {
         
-        NSNotificationCenter.defaultCenter().postNotificationName(kUpdateNotificationsCounterNotification, object: nil)
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+          NSNotificationCenter.defaultCenter().postNotificationName(kUpdateNotificationsCounterNotification, object: nil)
+        }
     }
     
     func identifierForInfo(data: [ NSObject: AnyObject?]) -> PublicationIdentifier {
@@ -290,6 +284,37 @@ class FCUserNotificationHandler : NSObject {
         let date = NSDate(timeIntervalSince1970: timeDouble)
         return date
     }
+    
+    func saveNotificationBadgeCounter() {
+        NSUserDefaults.standardUserDefaults().setInteger(notificationsBadgeCounter, forKey: kNotificationBadgeNumberKey)
+    }
+    
+    func incrementNotificationsBadgeNumberIfNeededForType(type: String , publication: Publication?) {
+    
+        if !User.sharedInstance.settings.shouldPresentNotifications {return}
+        guard let publication = publication else {return}
+        let distanceFromUser = Int(publication.distanceFromUserLocation)
+        let notificationsRadiusInMeters = User.sharedInstance.settings.notificationsRadius * 1000
+        if  distanceFromUser >= notificationsRadiusInMeters {return}
+    
+        switch type {
+        
+        case kRemoteNotificationTypeNewPublication:
+        
+            
+            self.notificationsBadgeCounter++
+            
+            
+        case kRemoteNotificationTypeDeletedPublication,
+             kRemoteNotificationTypePublicationReport,
+             kRemoteNotificationTypeUserRegisteredForPublication:
+            
+            if publication.didRegisterForCurrentPublication?.boolValue == true { self.notificationsBadgeCounter++ }
+            
+        default:
+            return
+        }
+    }
 }
 
 
@@ -297,7 +322,7 @@ class FCUserNotificationHandler : NSObject {
 
 extension FCUserNotificationHandler {
     func setup(){
-                
+        
         //we might not need this since we only register location notifications when a user
         //registers to come pick up a pubication
         //NSNotificationCenter.defaultCenter().addObserver(self, selector: "registerForLocationNotifications:", name: kRecievedNewDataNotification, object: nil)
@@ -340,7 +365,8 @@ extension FCUserNotificationHandler {
 
     
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-        UIApplication.sharedApplication().registerForRemoteNotifications();
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
     }
 }
 

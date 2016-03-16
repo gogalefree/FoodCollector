@@ -28,7 +28,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        userIdentityProviderName.text = User.sharedInstance.loginData?.identityProviderUserName
+        userIdentityProviderName.text = User.sharedInstance.loginData?.identityProviderUserName?.capitalizedString
         displayUserProfileImage()
         
         // Add underline to the skip button text
