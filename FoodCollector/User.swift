@@ -124,7 +124,6 @@ class User {
     }
     
     private func setUserImage() {
-        
         if (self.userImageName == "") {
             self.userImage = UIImage(named: "ProfilePic")
         }
@@ -326,7 +325,8 @@ class User {
         
         setValueInUserClassProperty("", forKey: .IdentityProviderUserName)
         
-        // Setting image to "" and calling setUserImage() is setting a default/generic profile image.
+        // Setting image name to "" and calling setUserImage()
+        // is setting a default/generic profile image.
         setValueInUserClassProperty("", forKey: .ImageName)
         setUserImage()
         

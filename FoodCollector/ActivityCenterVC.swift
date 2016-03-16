@@ -36,8 +36,6 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         // Do any additional setup after loading the view.
         leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
         
-        
-        
         sideMenuTable.delegate = self
         sideMenuTable.dataSource = self
         
@@ -163,9 +161,6 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-    
-    
-    
     func createButtunsTitleArray() {
         // The empty string in the array represenet the seperator.
         // Without it, the index of the titles in the array will be off sync
@@ -219,8 +214,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func displayUserProfileImage() {
-        //print("profilePic farme: \(profilePic.frame)")
-        profilePic.image = User.sharedInstance.loginData?.userImage ?? User.sharedInstance.userImage
+        profilePic.image = User.sharedInstance.userImage
         profilePic.layer.cornerRadius = CGRectGetWidth(profilePic.frame)/2
         profilePic.layer.masksToBounds = true
     }
