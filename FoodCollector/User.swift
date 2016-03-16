@@ -322,6 +322,10 @@ class User {
         setValueInUserClassProperty(false, forKey: .IsLoggedIn)
         setValueInUserClassProperty(false, forKey: .SkippedLogin)
         setValueInUserClassProperty(false, forKey: .CompletedIdentityProviderLogin)
+        
+        // Setting image to "" and calling setUserImage() is setting a default/generic profile image.
+        setValueInUserClassProperty("", forKey: .ImageName)
+        setUserImage()
     }
     
 }
