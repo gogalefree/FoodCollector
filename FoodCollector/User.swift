@@ -110,6 +110,87 @@ class User {
         setValueInUserClassProperty(getValue(data, forKey: .SkippedLogin), forKey: .SkippedLogin)
     }
     
+    
+    
+    
+    private func calculateUserRating() {
+        let sum = Double(self.userRatings.reduce(0,combine: +))
+        let count = Double(self.userRatings.count)
+        // Calculate average
+        self.calculatedUserRating = (count > 0) ? Double(sum/count) : 0
+        // Round to the nearest half (format: 1.0, 1.5)
+        self.calculatedUserRating = Double(round(self.calculatedUserRating*2)/2)
+    }
+    
+    private func setUserImage() {
+        
+        if (self.userImageName == "") {
+            self.userImage = UIImage(named: "ProfilePic")
+        }
+        else {
+            // use an existing image from documents diretory (as listed in UserData.plist)
+            let path = FCModel.documentsDirectory().stringByAppendingString("/" + self.userImageName)
+            loadImageFromPath(path)
+        }
+    }
+    
+    private func loadImageFromPath(path: String) {
+        self.userImage = UIImage(contentsOfFile: path)!
+    }
+    
+    
+    
+    //===========================================================================
+    //   MARK: - User Data Object Functios
+    //===========================================================================
+    
+    private func updateUserDataWithValuesFromClassProperties(){
+        userData[UserDataKey.ID.rawValue] = self.userUniqueID
+        userData[UserDataKey.IdentityProvider.rawValue] = self.userIdentityProvider
+        userData[UserDataKey.IdentityProviderUserID.rawValue] = self.userIdentityProviderUserID
+        userData[UserDataKey.PhoneNumber.rawValue] = self.userPhoneNumber
+        userData[UserDataKey.IdentityProviderEmail.rawValue] = self.userIdentityProviderEmail
+        userData[UserDataKey.IdentityProviderUserName.rawValue] = self.userIdentityProviderUserName
+        userData[UserDataKey.IsLoggedIn.rawValue] = self.userIsLoggedIn
+        userData[UserDataKey.UUID.rawValue] = self.userActiveDeviceDevUUID
+        userData[UserDataKey.Ratings.rawValue] = self.userRatings
+        userData[UserDataKey.Credits.rawValue] = self.userCredits
+        userData[UserDataKey.Foodies.rawValue] = self.userFoodies
+        userData[UserDataKey.ImageName.rawValue] = self.userImageName
+        userData[UserDataKey.SkippedLogin.rawValue] = self.userSkippedLogin
+        userData[UserDataKey.CompletedIdentityProviderLogin.rawValue] = self.userCompletedIdentityProviderLogin
+    }
+    
+    private func getValue(data: NSDictionary, forKey key: UserDataKey) -> AnyObject? {
+        
+        return data[key.rawValue]
+    }
+    
+    
+    //===========================================================================
+    //   MARK: - Read Write Functions
+    //===========================================================================
+    
+    private func writeUserData() {
+        updateUserDataWithValuesFromClassProperties()
+        DeviceData.writePlist(plistFileName, data: userData)
+    }
+    
+    private func readData(path: String) -> Bool {
+        if NSFileManager.defaultManager().fileExistsAtPath(path){
+            userData = NSDictionary(contentsOfFile: path) as! [String : String]
+            //print(userData.description)
+            return true
+        }
+        
+        return false
+    }
+
+    
+    //===========================================================================
+    //   MARK: - Public Functions
+    //===========================================================================
+    
     func updateWithLoginData(){
         
         guard let loginData = self.loginData else {return}
@@ -163,7 +244,7 @@ class User {
             
             //upload user photo to amazon
             let userPhotoUploader = FCUserPhotoFetcher()
-            userPhotoUploader.uploadUserPhoto() 
+            userPhotoUploader.uploadUserPhoto()
         }
         //else {
         //    print("No User Image!!!!")
@@ -214,13 +295,13 @@ class User {
             
         case .Foodies:
             self.userFoodies = value as? Int ?? 0
-        
+            
         case .ImageName:
             self.userImageName = value as? String ?? ""
-        
+            
         case .SkippedLogin:
             self.userSkippedLogin = value as? Bool ?? false
-        
+            
         case .CompletedIdentityProviderLogin:
             self.userCompletedIdentityProviderLogin = value as? Bool ?? false
             
@@ -231,104 +312,17 @@ class User {
         
         writeUserData()
     }
-
-    private func calculateUserRating() {
-        let sum = Double(self.userRatings.reduce(0,combine: +))
-        let count = Double(self.userRatings.count)
-        // Calculate average
-        self.calculatedUserRating = (count > 0) ? Double(sum/count) : 0
-        // Round to the nearest half (format: 1.0, 1.5)
-        self.calculatedUserRating = Double(round(self.calculatedUserRating*2)/2)
-    }
     
-    private func setUserImage() {
-        
-        if (self.userImageName == "") {
-            self.userImage = UIImage(named: "ProfilePic")
-        }
-        else {
-            // use an existing image from documents diretory (as listed in UserData.plist)
-            let path = FCModel.documentsDirectory().stringByAppendingString("/" + self.userImageName)
-            loadImageFromPath(path)
-        }
-    }
-    
-    private func loadImageFromPath(path: String) {
-        self.userImage = UIImage(contentsOfFile: path)!
-    }
     
     func getFullUserIamgeName() -> String {
         return self.defaultUserImageFileName + String(self.userUniqueID) + self.defaultUserImageFileNameSuffix
     }
     
-    
-    //===========================================================================
-    //   MARK: - User Data Object Functios
-    //===========================================================================
-    
-    private func updateUserDataWithValuesFromClassProperties(){
-        userData[UserDataKey.ID.rawValue] = self.userUniqueID
-        userData[UserDataKey.IdentityProvider.rawValue] = self.userIdentityProvider
-        userData[UserDataKey.IdentityProviderUserID.rawValue] = self.userIdentityProviderUserID
-        userData[UserDataKey.PhoneNumber.rawValue] = self.userPhoneNumber
-        userData[UserDataKey.IdentityProviderEmail.rawValue] = self.userIdentityProviderEmail
-        userData[UserDataKey.IdentityProviderUserName.rawValue] = self.userIdentityProviderUserName
-        userData[UserDataKey.IsLoggedIn.rawValue] = self.userIsLoggedIn
-        userData[UserDataKey.UUID.rawValue] = self.userActiveDeviceDevUUID
-        userData[UserDataKey.Ratings.rawValue] = self.userRatings
-        userData[UserDataKey.Credits.rawValue] = self.userCredits
-        userData[UserDataKey.Foodies.rawValue] = self.userFoodies
-        userData[UserDataKey.ImageName.rawValue] = self.userImageName
-        userData[UserDataKey.SkippedLogin.rawValue] = self.userSkippedLogin
-        userData[UserDataKey.CompletedIdentityProviderLogin.rawValue] = self.userCompletedIdentityProviderLogin
+    func logOut() {
+        setValueInUserClassProperty(false, forKey: .IsLoggedIn)
+        setValueInUserClassProperty(false, forKey: .SkippedLogin)
+        setValueInUserClassProperty(false, forKey: .CompletedIdentityProviderLogin)
     }
     
-    private func getValue(data: NSDictionary, forKey key: UserDataKey) -> AnyObject? {
-        
-        return data[key.rawValue]
-    }
-    
-    
-    //===========================================================================
-    //   MARK: - Read Write Functions
-    //===========================================================================
-    
-    private func writeUserData() {
-        updateUserDataWithValuesFromClassProperties()
-        DeviceData.writePlist(plistFileName, data: userData)
-    }
-
-    
-    
-    //===========================================================================
-    //   MARK: - RREMOVE THESE FUNCTIONS !!!!!
-    //===========================================================================
-    
-    // TODO: I need to remove these 4 methods and update all the files that use them.
-    
-    func setUserName(name: String) {
-        self.userIdentityProviderUserName = name
-        //updateInternalUserDataBase()
-    }
-    
-    func setUserPhoneNumber(phoneNumber: String) {
-        self.userPhoneNumber = phoneNumber
-        //updateInternalUserDataBase()
-    }
-    
-    func setUserName(name: String, andPhoneNumber number: String) {
-        setUserName(name)
-        setUserPhoneNumber(number)
-    }
-    
-    private func readData(path: String) -> Bool {
-        if NSFileManager.defaultManager().fileExistsAtPath(path){
-            userData = NSDictionary(contentsOfFile: path) as! [String : String]
-            //print(userData.description)
-            return true
-        }
-        
-        return false
-    }
 }
 
