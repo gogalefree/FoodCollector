@@ -33,7 +33,7 @@ extension FCMockServer {
             return
         }
       
-        let url = NSURL(string: /*baseUrlString*/ "https://ofer-fd-server.herokuapp.com/" + "users.json")
+        let url = NSURL(string: baseUrlString + "users.json")
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod  = "POST"
         request.HTTPBody    = data
