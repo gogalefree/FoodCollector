@@ -14,13 +14,12 @@ let kPublishAddress = NSLocalizedString("Event location", comment:"Add address f
 let kPublishPhoneNumber = NSLocalizedString("What's your phone number?", comment:"Add phone number for a new event")
 let kPublishStartDate = NSLocalizedString("Pickup starts:", comment:"Add start date for a new event")
 let kPublishEndDate = NSLocalizedString("Pickup ends:", comment:"Add end date for a new event")
-let kPublishImage = NSLocalizedString("Add a picture", comment:"Add image for a new event")
-// TODO: Check if kPublishedImage is still used and for what
+let kPublishImage = NSLocalizedString("Start sharing by adding a photo of the item you wish to share.", comment:"Add image for a new event")
 let kPublishedImage = NSLocalizedString("Selected picture", comment:"This is the image you have selected label")
 let kPublishSubtitle = NSLocalizedString("Additional details", comment:"Add subitle for a new event")
 
 
-let kAddDefaultHoursToStartDate:Double = 72 // Amount of hours to add to the start date so that we will have an End date for new publication only!
+let kAddDefaultHoursToStartDate:Double = 48 // Amount of hours to add to the start date so that we will have an End date for new publication only!
 let kTimeIntervalInSecondsToEndDate = kAddDefaultHoursToStartDate * 60.0 * 60.0 // Hours * 60 Minutes * 60 seconds
 
 struct PublicationEditorTVCCellData {
@@ -35,12 +34,6 @@ enum PublicationEditorTVCState {
     case EditPublication
     case CreateNewPublication
 }
-
-//enum CellState {
-//    
-//    case Edit
-//    case Display
-//}
 
 public enum TypeOfCollecting: Int {
     
@@ -57,7 +50,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     var dataSource = [PublicationEditorTVCCellData]()
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
     var selectedIndexPath: NSIndexPath?
-    //var takeOffAirButtonEnabled = false
     var publishButtonEnabled = false
     lazy var activityIndicatorBlureView = UIVisualEffectView()
     
@@ -66,7 +58,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     var showStartDatePickerCell = false
     var showEndDatePickerCell = false
-    //var contactPublisherSelected = true // For new publication it sets the default value of the contact publisher data and switch state. It also, reflects the state of the switch in contact publisher row.
 
     func setupWithState(initialState: PublicationEditorTVCState, publication: Publication?) {
         // This function is executed before viewDidLoad()
@@ -83,11 +74,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             self.fetchPhotoIfNeeded()
         }
         
-        // Check the state of Contact Publisher
-        //let contactValueRawValue = (dataSource[5].userData as! [String : AnyObject])[kPublicationTypeOfCollectingKey] as! Int
-        //if (contactValueRawValue == 1) {
-        //    contactPublisherSelected = false
-        //}
         
         print(">>>> show self.dataSource")
         for dataObj in self.dataSource {
@@ -722,7 +708,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 extension  PublicationEditorTVC {
 
     func prepareDataSource() {
-        // Sections Index
+        // Sections Index -- OLD
         // 0.  Photo
         // 1.  Title
         // 2.  Address + latitude + longitude
@@ -730,6 +716,13 @@ extension  PublicationEditorTVC {
         // 4.  End date
         // 5.  Type of collection
         // 6.  Subtitle (More Info)
+        
+        // Sections Index -- NEW
+        // 0.  Photo
+        // 1.  Title
+        // 2.  Address + latitude + longitude
+        // 3.  Type of Share (Public / Groups)
+        // 4.  More Info (used to be Subtitle)
         
         var initialTitles = [kPublishImage, kPublishTitle, kPublishAddress, kPublishStartDate, kPublishEndDate, kPublishPhoneNumber, kPublishSubtitle]
         
