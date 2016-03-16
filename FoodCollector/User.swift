@@ -328,6 +328,8 @@ class User {
         // Setting image to "" and calling setUserImage() is setting a default/generic profile image.
         setValueInUserClassProperty("", forKey: .ImageName)
         setUserImage()
+        
+        writeUserData()
     }
     
 }
