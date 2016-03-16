@@ -36,9 +36,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         // Do any additional setup after loading the view.
         leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
         
-        let userName = User.sharedInstance.userIdentityProviderUserName.capitalizedString
-        userIdentityProviderName.text = userName
-        displayUserProfileImage()
+        
         
         sideMenuTable.delegate = self
         sideMenuTable.dataSource = self
@@ -46,6 +44,19 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         createButtunsTitleArray()
         createButtunsImageArray()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        print("ActivityCenterVC: viewWillAppear")
+        let userName = User.sharedInstance.userIdentityProviderUserName.capitalizedString
+        userIdentityProviderName.text = userName
+        displayUserProfileImage()
+    }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        print("ActivityCenterVC: viewDidAppear")
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
