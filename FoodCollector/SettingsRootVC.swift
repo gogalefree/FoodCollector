@@ -96,7 +96,8 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func logOut() {
         
-        print("logout")
+        User.sharedInstance.logOut()
+        self.tableView.reloadData()
     }
     
     
