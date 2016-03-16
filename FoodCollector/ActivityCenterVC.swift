@@ -36,7 +36,8 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         // Do any additional setup after loading the view.
         leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
         
-        userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName
+        let userName = User.sharedInstance.userIdentityProviderUserName.capitalizedString
+        userIdentityProviderName.text = userName
         displayUserProfileImage()
         
         sideMenuTable.delegate = self
@@ -53,8 +54,8 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     
     final func leftSwipeAction(recognizer: UISwipeGestureRecognizer) {
         
-        let container = self.navigationController?.parentViewController as! FCCollectorContainerController
-        container.collectorVCWillSlide()
+        let container = self.parentViewController as? FCCollectorContainerController
+        container?.collectorVCWillSlide()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,6 +99,9 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
         switch indexPath.row {
             case 0: // My Shares
                 if let mySharesVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublishRootVC") as? FCPublishRootVC {
@@ -132,6 +136,9 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
             
             case 6: // Settings
                 print("Settings was Taped")
+            
+                let settingsNav = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as! UINavigationController
+                self.presentViewController(settingsNav, animated: true, completion: nil)
             
             case 7: // Send Feedback
                 presentFeedbackVC()

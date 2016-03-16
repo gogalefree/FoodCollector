@@ -109,13 +109,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //if the app is in background Mode and we recived a delete notification
         //we delete it from the publications array
         
-        if UIApplication.sharedApplication().applicationState != .Active {
-            
-            var badgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber
-            badgeNumber++
-            UIApplication.sharedApplication().applicationIconBadgeNumber = badgeNumber
         
-            NSUserDefaults.standardUserDefaults().setInteger(badgeNumber, forKey: kNotificationBadgeNumberKey)
+        if UIApplication.sharedApplication().applicationState != .Active {
+           
+            FCUserNotificationHandler.sharedInstance.handleNotificationFromBacground(userInfo)
+            
         }
         
         else {

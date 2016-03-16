@@ -35,9 +35,6 @@ class PublicationRegistration: NSManagedObject {
             
             aRegistration = registration
             
-            //we only add new report log from web fetch and not for the User's report
-            let newRegistrationLog = ActivityLog.LogType.Registration.rawValue
-            ActivityLog.activityLog(publication, type: newRegistrationLog, context: context)
             
             
                 print("registration created:\n\(registration.toString())")

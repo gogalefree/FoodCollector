@@ -214,7 +214,22 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             
         }
     }
-
+    
+    func publicationWithUniqueId(identifier: PublicationIdentifier) -> Publication? {
+        
+        let request = NSFetchRequest(entityName: kPublicationEntity)
+        let predicate = NSPredicate(format: "uniqueId = %@", NSNumber(integer: identifier.uniqueId))
+        request.predicate = predicate
+        
+        let moc = FCModel.dataController.managedObjectContext
+        do {
+        
+            let results = try moc.executeFetchRequest(request) as! [Publication]
+            if results.count > 0 { return results.last! } else {return nil}
+            
+            
+        } catch { return nil }
+    }
 }
 
 // MARK: SingleTone

@@ -97,7 +97,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         // Reload User Image and User Name string in activity center
         activityCenterPresented = true
         //let activityCenterVC = activityCenterVC.viewControllers[0] as! ActivityCenterVC
-        activityCenterVC.userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName
+        activityCenterVC.userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName.capitalizedString
         activityCenterVC.displayUserProfileImage()
         
         //inform collector root vc that activity center is presented

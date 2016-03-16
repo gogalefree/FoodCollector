@@ -64,6 +64,7 @@ class User {
     private(set) var userSkippedLogin =     false
     private(set) var userCompletedIdentityProviderLogin = false
     
+    let settings = UserSettings()
     
     // 'private' prevents other classes from using the default '()' initializer for this class.
     private init() {

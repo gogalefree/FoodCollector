@@ -69,11 +69,17 @@ class CDPublicationRegistrationFetcher: NSObject {
                             
                             self.processRegistrationsJsonArray(registrations)
                             
-                            if let delegate = self.delegate {
-                                delegate.didFinishFetchingPublicationRegistrations()
-                            }
+                            //informs publicationDetails to update registrations counter
+                            //we might need to add Publications Table View as a listener
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                
+                                let userInfo = ["publication" : self.publication]
+                                NSNotificationCenter.defaultCenter().postNotificationName(kRecievedPublicationRegistrationNotification, object: self, userInfo: userInfo)
+                                if let delegate = self.delegate {
+                                    delegate.didFinishFetchingPublicationRegistrations()
+                                }
+                            })
                         })
-                        
                     }
                 }
             }
@@ -138,6 +144,15 @@ class CDPublicationRegistrationFetcher: NSObject {
                     
                     if self.publication.registrations == nil {self.publication.registrations = Set<PublicationRegistration>()}
                     self.publication.registrations = self.publication.registrations?.setByAddingObject(newRegistration)
+                    
+      
+                    //we only add new report log from web fetch and not for the User's report
+                    
+                    if self.publication.didRegisterForCurrentPublication?.boolValue == true {
+                   
+                        let newRegistrationLog = ActivityLog.LogType.Registration.rawValue
+                        ActivityLog.activityLog(self.publication, type: newRegistrationLog, context: self.context)
+                    }
                     
                     do {
                         try self.context.save()

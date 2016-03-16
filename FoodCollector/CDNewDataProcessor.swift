@@ -160,6 +160,7 @@ class CDNewDataProcessor: NSObject {
                             //create notification object
                             let new = ActivityLog.LogType.NewPublication.rawValue
                             ActivityLog.activityLog(newPublication, type: new, context: localContext)
+                            
                         }
                     }
                 }
@@ -180,7 +181,6 @@ class CDNewDataProcessor: NSObject {
                 
                 FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: localContext, completion: { (success) -> Void in})
             }
-            
         }
         
         //fetchRegistration

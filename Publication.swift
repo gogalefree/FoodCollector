@@ -16,7 +16,7 @@ class Publication: NSManagedObject {
  //   var wasUpdated: Bool = false
     
     var coordinate: CLLocationCoordinate2D! { get {
-            return CLLocationCoordinate2DMake(self.longitutde!.doubleValue, self.longitutde!.doubleValue)}
+            return CLLocationCoordinate2DMake(self.latitude!.doubleValue, self.longitutde!.doubleValue)}
     }
     
     var photoUrl: String { get {
