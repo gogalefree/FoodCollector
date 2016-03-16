@@ -97,8 +97,8 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         // Reload User Image and User Name string in activity center
         activityCenterPresented = true
         //let activityCenterVC = activityCenterVC.viewControllers[0] as! ActivityCenterVC
-        activityCenterVC.userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName.capitalizedString
-        activityCenterVC.displayUserProfileImage()
+        //activityCenterVC.userIdentityProviderName.text = User.sharedInstance.userIdentityProviderUserName.capitalizedString
+        //activityCenterVC.displayUserProfileImage()
         
         //inform collector root vc that activity center is presented
         let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
@@ -108,10 +108,9 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             
-            
             self.view.layoutIfNeeded()
     
-            }) { (completion) -> Void in}
+        }) { (completion) -> Void in}
     }
     
     func hideActivityCenter() {
