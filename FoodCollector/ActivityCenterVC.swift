@@ -36,17 +36,21 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         // Do any additional setup after loading the view.
         leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
         
-        let userName = User.sharedInstance.userIdentityProviderUserName.capitalizedString
-        userIdentityProviderName.text = userName
-        displayUserProfileImage()
-        
         sideMenuTable.delegate = self
         sideMenuTable.dataSource = self
         
         createButtunsTitleArray()
         createButtunsImageArray()
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        print("ActivityCenterVC: viewWillAppear")
+        let userName = User.sharedInstance.userIdentityProviderUserName.capitalizedString
+        userIdentityProviderName.text = userName
+        displayUserProfileImage()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -157,9 +161,6 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-    
-    
-    
     func createButtunsTitleArray() {
         // The empty string in the array represenet the seperator.
         // Without it, the index of the titles in the array will be off sync
@@ -213,8 +214,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func displayUserProfileImage() {
-        //print("profilePic farme: \(profilePic.frame)")
-        profilePic.image = User.sharedInstance.loginData?.userImage ?? User.sharedInstance.userImage
+        profilePic.image = User.sharedInstance.userImage
         profilePic.layer.cornerRadius = CGRectGetWidth(profilePic.frame)/2
         profilePic.layer.masksToBounds = true
     }
