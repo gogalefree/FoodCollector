@@ -11,3 +11,5 @@ import Foundation
 let kGroupEntity        = "Group"
 let kGroupMemberEntity  = "GroupMember"
 let kPublicationEntity  = "Publication"
+let kPublicationReportEntity = "PublicationReport"
+let kPublicationRegistrationEntity = "PublicationRegistration"

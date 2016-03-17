@@ -21,6 +21,7 @@ let kRemoteNotificationPublicationReportMessageKey = "report"
 let kRemoteNotificationPublicationReportDateKey = "date"
 let kRemoteNotificationTypeUserRegisteredForPublication = "registration_for_publication"
 let kRemoteNotificationRegistrationMessageForPublicationKey = "registration_message"
+let kRemoteNotificationTypeGroupMembers = "group_members"
 let kRemoteNotificationDataKey = "data"
 //let kShouldShowNewPublicationFromPushNotification = "kShouldShowNewPublicationFromPushNotification"
 let kRegionRadiusForLocationNotification = 20
@@ -185,8 +186,9 @@ class FCUserNotificationHandler : NSObject {
                 print("Notifications Handler kRemoteNotificationTypeUserRegisteredForPublication ")
                 self.handleRegistrationFromPushNotification(data!)
                 
-                //TODO: Add type = ”group_members”
-                //check if the current user is a group member, and if not - delete the whole group from the client
+            case kRemoteNotificationTypeGroupMembers:
+                //This is called when members were added or removed from a group that the user is a member in
+                self.handleGroupMembersChangedFromPushNotification(data!)
             default:
                 break
             }
@@ -258,10 +260,18 @@ class FCUserNotificationHandler : NSObject {
         }
     }
     
+    func handleGroupMembersChangedFromPushNotification(data: [String : AnyObject]) {
+    
+        //we increment the counter and create an ActivityLog only if the group was deleted
+        let id = data["id"] as? Int
+        guard let groupId = id else {return}
+        FCModel.sharedInstance.foodCollectorWebServer.fetchMembersForGroup(groupId) { (success) -> Void in }
+    }
+    
     func makeActivityLogForType(type: ActivityLog.LogType, publication: Publication) {
         
         let moc = FCModel.dataController.managedObjectContext
-        ActivityLog.activityLog(publication, type: type.rawValue, context: moc)
+        ActivityLog.activityLog(publication, group: nil ,type: type.rawValue, context: moc)
         
     }
 

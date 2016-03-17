@@ -17,7 +17,7 @@ class PublicationRegistration: NSManagedObject {
     {
         
         var aRegistration: PublicationRegistration? = nil
-        let newRegistration = NSEntityDescription.insertNewObjectForEntityForName("PublicationRegistration", inManagedObjectContext: context) as? PublicationRegistration
+        let newRegistration = NSEntityDescription.insertNewObjectForEntityForName(kPublicationRegistrationEntity, inManagedObjectContext: context) as? PublicationRegistration
         
         if let registration = newRegistration {
             

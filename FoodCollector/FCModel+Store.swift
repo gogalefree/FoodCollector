@@ -17,7 +17,7 @@ public extension FCModel {
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
 
-            let request = NSFetchRequest(entityName: "Publication")
+            let request = NSFetchRequest(entityName: kPublicationEntity)
             let predicate = NSPredicate(format: "startingData < %@ && endingData > %@ && isOnAir = %@", NSDate(), NSDate() , NSNumber(bool: true) )
             request.predicate = predicate
             let moc = FCModel.dataController.managedObjectContext
@@ -42,7 +42,7 @@ public extension FCModel {
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
-            let request = NSFetchRequest(entityName: "Publication")
+            let request = NSFetchRequest(entityName: kPublicationEntity)
             let predicate = NSPredicate(format: "isUserCreatedPublication = %@", NSNumber(bool: true) )
             request.predicate = predicate
             let moc = FCModel.dataController.managedObjectContext

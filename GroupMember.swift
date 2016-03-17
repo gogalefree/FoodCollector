@@ -139,11 +139,11 @@ class GroupMember: NSManagedObject {
                 let phoneNumber = memberParams["phone_number"] as? String ?? ""
                 let groupId = group.id!.integerValue
                 
-                let request = NSFetchRequest(entityName: "GroupMember")
+                let request = NSFetchRequest(entityName: kGroupMemberEntity)
                 let predicate = NSPredicate(format: "phoneNumber == %@ && belongToGroup.id = %@ ", phoneNumber , NSNumber(integer: groupId))
                 request.predicate = predicate
                 
-                context.performBlockAndWait({ () -> Void in
+                context.performBlock({ () -> Void in
                     
                     do {
                         let results = try context.executeFetchRequest(request) as? [GroupMember]
@@ -151,7 +151,7 @@ class GroupMember: NSManagedObject {
                         
                             if groupMembers.count == 0 {
                                 
-                                let member = NSEntityDescription.insertNewObjectForEntityForName("GroupMember", inManagedObjectContext: context) as? GroupMember
+                                let member = NSEntityDescription.insertNewObjectForEntityForName(kGroupMemberEntity, inManagedObjectContext: context) as? GroupMember
                                 
                                 if let newMember = member {
                                 
@@ -210,6 +210,7 @@ class GroupMember: NSManagedObject {
             self.didInformServer = true
             self.belongToGroup = group
             
+            if group.members == nil {group.members = Set<GroupMember>()}
             group.members?.setByAddingObject(self)
             
             do {
@@ -218,5 +219,22 @@ class GroupMember: NSManagedObject {
                 print ("error \(error) " + __FUNCTION__)
             }
         }
+    }
+    
+    class func currentUserIsMember(membersDicts: [[String : AnyObject]]) -> Bool {
+        
+        print("members: \(membersDicts)")
+        
+        let arrivedIds: [NSNumber] = membersDicts.map { dictionary in
+            return NSNumber(integer: (dictionary["id"] as? Int ?? -1))
+        }
+        
+        let foundId = arrivedIds.filter {number in number == NSNumber(integer: User.sharedInstance.userUniqueID)}
+        
+        if foundId.count > 0 {
+            return true
+        }
+        
+        return false
     }
 }

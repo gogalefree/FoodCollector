@@ -39,7 +39,7 @@ class PublicationReport: NSManagedObject {
             //prevent wrong data
             if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
             
-            let request = NSFetchRequest(entityName: "PublicationReport")
+            let request = NSFetchRequest(entityName: kPublicationReportEntity)
             let predicate = NSPredicate(format: "id = %@", NSNumber(integer: reportId) )
             request.predicate = predicate
             
@@ -48,7 +48,7 @@ class PublicationReport: NSManagedObject {
                 guard let existing = results else { return }
                 if existing.count == 0 {
                     
-                    let report = NSEntityDescription.insertNewObjectForEntityForName("PublicationReport", inManagedObjectContext: context) as? PublicationReport
+                    let report = NSEntityDescription.insertNewObjectForEntityForName(kPublicationReportEntity, inManagedObjectContext: context) as? PublicationReport
                     guard let newReport = report else {return}
                     
                     newReport.reporterContactInfo = reportContactInfo
@@ -69,7 +69,7 @@ class PublicationReport: NSManagedObject {
                         
                         publication.didRecieveNewReport = true
                         let newReportLog = ActivityLog.LogType.Report.rawValue
-                        ActivityLog.activityLog(publication, type: newReportLog, context: context)
+                        ActivityLog.activityLog(publication, group: nil, type: newReportLog, context: context)
                         
                         //TODO: check if the report contains "took all" and the current user is the publisher
                         
@@ -81,7 +81,7 @@ class PublicationReport: NSManagedObject {
     }
     
     class func reportForPublication(reportInt: Int ,publication: Publication, context: NSManagedObjectContext)  -> PublicationReport {
-        let report = NSEntityDescription.insertNewObjectForEntityForName("PublicationReport", inManagedObjectContext: context) as! PublicationReport
+        let report = NSEntityDescription.insertNewObjectForEntityForName(kPublicationReportEntity, inManagedObjectContext: context) as! PublicationReport
         report.reporterContactInfo = User.sharedInstance.userPhoneNumber
         report.activeDeviceDecUUID = FCModel.sharedInstance.deviceUUID
         report.dateOfReport = NSDate()

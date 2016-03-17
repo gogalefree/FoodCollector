@@ -70,7 +70,7 @@ class Group: NSManagedObject {
     
     class func fetchGroupWithId(groupId: Int) -> Group? {
        
-        let predicate = NSPredicate(format: "id = %@",NSNumber(long: groupId))
+        let predicate = NSPredicate(format: "id = %@",NSNumber(integer: groupId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
         request.returnsObjectsAsFaults = false
@@ -110,7 +110,7 @@ class Group: NSManagedObject {
             
             if groupId == 0 {return}
             
-            let request = NSFetchRequest(entityName: "Group")
+            let request = NSFetchRequest(entityName: kGroupEntity)
             let predicate = NSPredicate(format: "id = %@", NSNumber(integer: groupId))
             request.predicate = predicate
             
@@ -120,18 +120,21 @@ class Group: NSManagedObject {
                 
                 if groups.count == 0 {
                     
-                    let group = NSEntityDescription.insertNewObjectForEntityForName("Group", inManagedObjectContext: context) as! Group
+                    let group = NSEntityDescription.insertNewObjectForEntityForName(kGroupEntity, inManagedObjectContext: context) as! Group
                     group.updateWithParams(groupParams, context: context)
                 }
                 
                 else if groups.count == 1 {
                     let group = groups.last!
+                    
+                    group.deleteMembers()
                     group.updateWithParams(groupParams, context: context)
                 }
                 
                 else {
                     
                     let group = groups.last!
+                    group.deleteMembers()
                     group.updateWithParams(groupParams, context: context)
                     
                     //delete duplicates
@@ -153,7 +156,8 @@ class Group: NSManagedObject {
     
     func updateWithParams(groupParams: [String : AnyObject], context: NSManagedObjectContext) {
         
-        let groupAdminId = 21 //TODO:Change//groupParams["user_id"] as? Int ?? 0
+        
+        let groupAdminId = groupParams["user_id"] as? Int ?? 0
         let groupId = groupParams["group_id"] as? Int ?? 0
         let groupName = groupParams["group_name"] as? String ?? ""
         
@@ -168,6 +172,9 @@ class Group: NSManagedObject {
             let membersArray = groupParams["members"] as? [[String : AnyObject]]
             guard let members = membersArray else {return}
             
+            
+            
+            //create new
             GroupMember.createOrUpdateMembersForGroup(members, group: self, context: context)
             
             do {
@@ -178,4 +185,31 @@ class Group: NSManagedObject {
         }
     }
     
+    class func deleteGroupWithId(groupId: Int) {
+        
+        let group = Group.fetchGroupWithId(groupId)
+        guard let groupToDelete = group else {return}
+        
+        ActivityLog.activityLog(nil, group: groupToDelete, type: ActivityLog.LogType.DeleteGroup.rawValue, context: FCModel.dataController.managedObjectContext)
+        FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter++
+        
+        Group.moc.performBlock { () -> Void in
+            Group.moc.deleteObject(groupToDelete)
+            FCModel.dataController.save()
+        }
+        
+        
+        
+    }
+    
+    func deleteMembers() {
+        
+        for member in self.members! {
+            
+            let moc = (member as! NSManagedObjectContext)
+            moc.performBlock({ () -> Void in
+                moc.deleteObject(member as! NSManagedObject)
+            })
+        }
+    }
 }

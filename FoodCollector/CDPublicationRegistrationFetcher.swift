@@ -97,7 +97,7 @@ class CDPublicationRegistrationFetcher: NSObject {
             
             let id                      = registrationDict[kPublicationRegistrationUniqueIdKey]             as? Int ?? 0
             
-            let request = NSFetchRequest(entityName: "PublicationRegistration")
+            let request = NSFetchRequest(entityName: kPublicationRegistrationEntity)
             let predicate = NSPredicate(format: "id = %@", NSNumber(integer: id))
             request.predicate = predicate
     
@@ -128,7 +128,7 @@ class CDPublicationRegistrationFetcher: NSObject {
                
                 
                 
-                let registration = NSEntityDescription.insertNewObjectForEntityForName("PublicationRegistration", inManagedObjectContext: self.context) as? PublicationRegistration
+                let registration = NSEntityDescription.insertNewObjectForEntityForName(kPublicationRegistrationEntity, inManagedObjectContext: self.context) as? PublicationRegistration
                 
                 if let newRegistration = registration {
                 
@@ -151,7 +151,7 @@ class CDPublicationRegistrationFetcher: NSObject {
                     if self.publication.didRegisterForCurrentPublication?.boolValue == true {
                    
                         let newRegistrationLog = ActivityLog.LogType.Registration.rawValue
-                        ActivityLog.activityLog(self.publication, type: newRegistrationLog, context: self.context)
+                        ActivityLog.activityLog(self.publication, group: nil, type: newRegistrationLog, context: self.context)
                     }
                     
                     do {

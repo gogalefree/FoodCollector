@@ -112,6 +112,11 @@ protocol FCServerProtocol {
     ///Delete group members from Foodonet Server
     ///
     func deleteGroupMember(memberToDelete: GroupMember)
+    
+    ///
+    ///Called from a groupMember Push notification
+    ///
+    func fetchMembersForGroup(groupId: Int, completion: (success: Bool) -> Void )
 
     //core data fetch reports for publication
     func reportsForPublication(publication:Publication,

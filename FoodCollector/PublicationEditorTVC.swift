@@ -557,7 +557,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         let params = self.prepareParamsDictToSend()
         
         let context = FCModel.dataController.managedObjectContext
-        let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: context) as! Publication
+        let publication = NSEntityDescription.insertNewObjectForEntityForName(kPublicationEntity, inManagedObjectContext: context) as! Publication
         let imageData = UIImageJPEGRepresentation(self.dataSource[0].userData as! UIImage, 1)
         publication.photoBinaryData = imageData
         

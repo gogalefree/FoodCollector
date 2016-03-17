@@ -29,6 +29,12 @@ extension FCUserNotificationHandler {
             
             let data = userInfo[kRemoteNotificationDataKey] as? [String : AnyObject] ?? ["" : ""]
             
+            //we do not present notifications for group changes while in the backgroupnd
+            if notificationType == kRemoteNotificationTypeGroupMembers {
+            
+                return
+            }
+            
             //location of the push event
             let notificationLatitude = data?["latitude"] as? Double ?? 0
             let notificationLongitude = data?["longitude"] as? Double ?? 0

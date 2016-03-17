@@ -63,7 +63,7 @@ class CDNewDataProcessor: NSObject {
         
         //delete old
         let toDeletePredicate = NSPredicate(format: "NOT (uniqueId in %@)", argumentArray: [arrivedIds])
-        let deleteFetchRequest   = NSFetchRequest(entityName: "Publication")
+        let deleteFetchRequest   = NSFetchRequest(entityName: kPublicationEntity)
         deleteFetchRequest.predicate = toDeletePredicate
         
         localContext.performBlockAndWait { () -> Void in
@@ -84,7 +84,7 @@ class CDNewDataProcessor: NSObject {
                     
                     //make delete notification object
                     let delete = ActivityLog.LogType.DeletePublication.rawValue
-                    ActivityLog.activityLog(publication, type: delete, context: localContext)
+                    ActivityLog.activityLog(publication, group: nil, type: delete, context: localContext)
                     localContext.deleteObject(publication)
                 }
             }
@@ -93,7 +93,7 @@ class CDNewDataProcessor: NSObject {
         
         //update existing
         let existingPredicate = NSPredicate(format: "uniqueId in %@", argumentArray: [arrivedIds])
-        let existingFetchRequest   = NSFetchRequest(entityName: "Publication")
+        let existingFetchRequest   = NSFetchRequest(entityName: kPublicationEntity)
         existingFetchRequest.predicate = existingPredicate
         
         localContext.performBlockAndWait { () -> Void in
@@ -142,7 +142,7 @@ class CDNewDataProcessor: NSObject {
             let id =  NSNumber(integer: unique)
             //fetch with id
             let existingPredicate = NSPredicate(format: "uniqueId = %@", id)
-            let existingFetchRequest   = NSFetchRequest(entityName: "Publication")
+            let existingFetchRequest   = NSFetchRequest(entityName: kPublicationEntity)
             existingFetchRequest.predicate = existingPredicate
             
             localContext.performBlockAndWait({ () -> Void in
@@ -153,13 +153,13 @@ class CDNewDataProcessor: NSObject {
                     if founds.count == 0 {
                         
                         //create the new one
-                        let publication = NSEntityDescription.insertNewObjectForEntityForName("Publication", inManagedObjectContext: localContext) as? Publication
+                        let publication = NSEntityDescription.insertNewObjectForEntityForName(kPublicationEntity, inManagedObjectContext: localContext) as? Publication
                         if let newPublication = publication {
                             newPublication.updateFromParams(dict, context: localContext)
                             
                             //create notification object
                             let new = ActivityLog.LogType.NewPublication.rawValue
-                            ActivityLog.activityLog(newPublication, type: new, context: localContext)
+                            ActivityLog.activityLog(newPublication, group: nil, type: new, context: localContext)
                             
                         }
                     }
@@ -168,7 +168,7 @@ class CDNewDataProcessor: NSObject {
         }
         //fetch Reports
         
-        let request = NSFetchRequest(entityName: "Publication")
+        let request = NSFetchRequest(entityName: kPublicationEntity)
         
         var publications: [Publication]?
         
@@ -206,21 +206,34 @@ class CDNewDataProcessor: NSObject {
             }
         
         //fetch groups
+        if User.sharedInstance.userIsLoggedIn {
+           
+            CDNewDataProcessor.fetchGroups(localContext)
+        }
         
-        localContext.performBlockAndWait { () -> Void in
+    }
+    
+    class func fetchGroups(context: NSManagedObjectContext) {
+        
+        context.performBlockAndWait { () -> Void in
             
             defer {
-            
+                
                 do {
-                    try localContext.save()
+                    try context.save()
                     FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
                 } catch {
                     print("error saving context afetr groups fetch \(error)")
                 }
             }
-            FCModel.sharedInstance.foodCollectorWebServer.fetchGroupsForUser(localContext)
-//            FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
-        }
         
+            FCModel.sharedInstance.foodCollectorWebServer.fetchGroupsForUser(context)
+        }
+    }
+    
+    class func fetchGroupsAfterLogin() {
+        
+        let localContext = FCModel.dataController.createPrivateQueueContext()
+        CDNewDataProcessor.fetchGroups(localContext)
     }
 }
