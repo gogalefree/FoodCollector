@@ -12,9 +12,7 @@ extension FCMockServer {
     
     
     func fetchGroupsForUser(context: NSManagedObjectContext) {
-        
-        //TODO: Change url
-        
+                
         let userId = User.sharedInstance.userUniqueID
         if userId == 0 {return}
         
