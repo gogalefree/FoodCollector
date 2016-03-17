@@ -35,6 +35,8 @@ extension FCUserNotificationHandler {
                 return
             }
             
+        
+            
             //location of the push event
             let notificationLatitude = data?["latitude"] as? Double ?? 0
             let notificationLongitude = data?["longitude"] as? Double ?? 0
@@ -53,9 +55,12 @@ extension FCUserNotificationHandler {
             //check if the push object is within notifications radius
             if distance <= notificationRadiusMeters {
                 
+                let publicationTitle = data?["title"] as? String ?? ""
+                let notificationTitle = titleForNotificationType(notificationType) + " " + publicationTitle
+                
                 //create local notification and present to the user
                 let notification = UILocalNotification()
-                notification.alertBody = notificationType // text that will be displayed in the notification
+                notification.alertBody = notificationTitle // text that will be displayed in the notification
                 notification.fireDate  = NSDate() // todo item due date (when notification will be fired)
                 notification.soundName = UILocalNotificationDefaultSoundName // play default sound
                 
@@ -77,5 +82,31 @@ extension FCUserNotificationHandler {
 
             }
         }
+    }
+    
+    func titleForNotificationType(type: String) -> String {
+        
+        var activityLogType = ActivityLog.LogType.NewPublication
+        
+        
+        switch type {
+            
+        case kRemoteNotificationTypeNewPublication:
+            activityLogType = ActivityLog.LogType.NewPublication
+            
+        case kRemoteNotificationTypeDeletedPublication:
+            activityLogType = ActivityLog.LogType.EditedPublication
+            
+        case kRemoteNotificationTypePublicationReport:
+            activityLogType = ActivityLog.LogType.Report
+            
+        case kRemoteNotificationTypeUserRegisteredForPublication:
+            activityLogType = ActivityLog.LogType.Registration
+            
+        default:
+            break
+        }
+        
+        return ActivityLog.titleForType(activityLogType.rawValue, publication: nil, group: nil)
     }
 }
