@@ -129,13 +129,13 @@ class PublicationEditorTVCPhoneNumEditorCustomCell: UITableViewCell, UITextField
         return true
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        if let delegate = self.delegate {
-            delegate.closeDatePicker()
-        }
-        
-        return true
-    }
+//    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+//        if let delegate = self.delegate {
+//            delegate.closeDatePicker()
+//        }
+//        
+//        return true
+//    }
 
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         textField.resignFirstResponder()

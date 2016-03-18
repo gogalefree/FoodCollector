@@ -52,11 +52,11 @@ class PublicationEditorTVCDatePickerCustomCell: UITableViewCell {
         self.cellDatePicker.addGestureRecognizer(tapRecognizer)
     }
     
-    func datePickerTapped() {
-        if let delegate = self.delegate {
-            delegate.closeDatePicker()
-        }
-    }
+//    func datePickerTapped() {
+//        if let delegate = self.delegate {
+//            delegate.closeDatePicker()
+//        }
+//    }
 
     override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

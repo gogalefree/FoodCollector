@@ -17,6 +17,8 @@ let kPublishEndDate = NSLocalizedString("Pickup ends:", comment:"Add end date fo
 let kPublishImage = NSLocalizedString("Start sharing by adding a photo of the item you wish to share.", comment:"Add image for a new event")
 let kPublishedImage = NSLocalizedString("Selected picture", comment:"This is the image you have selected label")
 let kPublishSubtitle = NSLocalizedString("Additional details", comment:"Add subitle for a new event")
+let kPublishAudiance = NSLocalizedString("Share With:", comment:"Add share type (public/privet for a new event")
+
 
 
 let kAddDefaultHoursToStartDate:Double = 48 // Amount of hours to add to the start date so that we will have an End date for new publication only!
@@ -95,17 +97,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
         
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
-        
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCOnlyLabelCustomCell", bundle: nil), forCellReuseIdentifier: "onlyLabelCustomCell")
-        
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCStartEndDateCustomCell", bundle: nil), forCellReuseIdentifier: "startEndDateCustomCell")
-        
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCDatePickerCustomCell", bundle: nil), forCellReuseIdentifier: "datePickerCustomCell")
-        
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCPhoneNumEditorCustomCell", bundle: nil), forCellReuseIdentifier: "phoneNumEditorCustomCell")
-        
         self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCImageCustomCell", bundle: nil), forCellReuseIdentifier: "imageCustomCell")
+        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
+        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCOnlyLabelCustomCell", bundle: nil), forCellReuseIdentifier: "onlyLabelCustomCell")
+        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCAudianceCustomCell", bundle: nil), forCellReuseIdentifier: "audianceCustomCell")
         
         // To hide the empty cells set a zero size table footer view.
         // Because the table thinks there is a footer to show, it doesn't display any
@@ -141,22 +136,14 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     // Section 2 - Address
     //    Cell 0 - Label (clicking it loads a view for adding address)
     
-    // Section 3 - Start Date
+    // Section 3 - Audiance (Public / Group)
     //    Cell 0 - Label
-    //    Cell 1 - Date Picker
     
-    // Section 4 - End Date
-    //    Cell 0 - Label
-    //    Cell 1 - Date Picker
-    
-    // Section 5 - Phone Number
-    //    Cell 0 - Text field
-    
-    // Section 6 - More Detials
+    // Section 4 - More Detials
     //    Cell 0 - Text field
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 7
+        return 5
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -164,32 +151,16 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 3: // Start Date Section
-            if (showStartDatePickerCell) {return 2}
             return 1
-        case 4: // End Date Section
-            if (showEndDatePickerCell) {return 2}
-            return 1
-        default:
-            return 1
-        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
         switch indexPath.section {
-        case 0:
+        case 0: // Image Section
             return pictureRowHeigt
-        case 3, 4:
-            if (showStartDatePickerCell || showEndDatePickerCell) {
-                if (indexPath.row == 1) {
-                    return 162
-                }
-                else{
-                    return defaultRowHeigt
-                }
-            }
-            return defaultRowHeigt
+        case 4: // More Info Section
+            return 60
         default:
             return defaultRowHeigt
         }
@@ -229,35 +200,14 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             
             return onlyLabelCell
 
-        case 3, 4: // Start & End Date Sections
-            if (indexPath.row == 0) {
-                let dateCell = tableView.dequeueReusableCellWithIdentifier("startEndDateCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCStartEndDateCustomCell
-                dateCell.cellData = self.dataSource[indexPath.section]
-
-                return dateCell
-            }
-            else {
-                let datePickerCell = tableView.dequeueReusableCellWithIdentifier("datePickerCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCDatePickerCustomCell
-                datePickerCell.minimumDate = self.dataSource[3]
-                datePickerCell.section = indexPath.section
-                datePickerCell.cellData = self.dataSource[indexPath.section]
-                datePickerCell.delegate = self
-                datePickerCell.selectionStyle = UITableViewCellSelectionStyle.None
-                
-                return datePickerCell
-            }
+        case 3: // Audiance (Public / Group) Section
+            let audianceCell = tableView.dequeueReusableCellWithIdentifier("audianceCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCAudianceCustomCell
+            audianceCell.cellData = self.dataSource[indexPath.section]
+            //audianceCell.accessoryType
             
-        case 5: // Phone Number Section
-            
-            let phoneNumEditorCell = tableView.dequeueReusableCellWithIdentifier("phoneNumEditorCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCPhoneNumEditorCustomCell
-            phoneNumEditorCell.cellData = self.dataSource[indexPath.section]
-            phoneNumEditorCell.section = indexPath.section
-            phoneNumEditorCell.delegate = self
-            phoneNumEditorCell.selectionStyle = UITableViewCellSelectionStyle.None
+            return audianceCell
 
-            return phoneNumEditorCell
-
-        case 6: // More Info Section
+        case 4: // More Info Section
             let textFieldCell = tableView.dequeueReusableCellWithIdentifier("textFieldCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCTextFieldCustomCell
             textFieldCell.cellData = self.dataSource[indexPath.section]
             textFieldCell.section = indexPath.section
@@ -281,36 +231,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         switch indexPath.section {
             
         case 2: // Address
-            closeDatePicker()
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
             
-        case 3: // Start date
-            // Close the End date picker
-            if (showEndDatePickerCell) {
-                showEndDatePickerCell = false
-                tableView.reloadSections(NSIndexSet(index: indexPath.section+1), withRowAnimation: .Automatic)
-            }
-            if (showStartDatePickerCell) {
-                showStartDatePickerCell = false
-            }
-            else {
-                showStartDatePickerCell = true
-            }
-            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
-            
-        case 4: // End date
-            // Close the Start date picker
-            if (showStartDatePickerCell) {
-                showStartDatePickerCell = false
-                tableView.reloadSections(NSIndexSet(index: indexPath.section-1), withRowAnimation: .Automatic)
-            }
-            if (showEndDatePickerCell) {
-                showEndDatePickerCell = false
-            }
-            else {
-                showEndDatePickerCell = true
-            }
-            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+        case 3: // Audiance (Public / Group) Section
+            print("Clicked Audiance (Public / Group) Section")
         
         default: // Title, Subtitle (More Info)
             break
@@ -325,18 +249,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             return nil
         default:
             return indexPath
-        }
-    }
-    
-    func closeDatePicker() {
-        // If the user clicked a cell that is not the start or end date cell, and one of the date pickers is visible, then close it.
-        if (showStartDatePickerCell) {
-            showStartDatePickerCell = false
-            tableView.reloadSections(NSIndexSet(index: 3), withRowAnimation: .Automatic)
-        }
-        if (showEndDatePickerCell) {
-            showEndDatePickerCell = false
-            tableView.reloadSections(NSIndexSet(index: 4), withRowAnimation: .Automatic)
         }
     }
 
@@ -708,25 +620,25 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 extension  PublicationEditorTVC {
 
     func prepareDataSource() {
-        // Sections Index -- OLD
-        // 0.  Photo
-        // 1.  Title
-        // 2.  Address + latitude + longitude
-        // 3.  Start date
-        // 4.  End date
-        // 5.  Type of collection
-        // 6.  Subtitle (More Info)
+                                        // Sections Index -- OLD
+                                        // 0.  Photo
+                                        // 1.  Title
+                                        // 2.  Address + latitude + longitude
+                                        // 3.  Start date
+                                        // 4.  End date
+                                        // 5.  Type of collection
+                                        // 6.  Subtitle (More Info)
         
         // Sections Index -- NEW
         // 0.  Photo
         // 1.  Title
         // 2.  Address + latitude + longitude
-        // 3.  Type of Share (Public / Groups)
+        // 3.  Audiance (Public / Group)
         // 4.  More Info (used to be Subtitle)
         
-        var initialTitles = [kPublishImage, kPublishTitle, kPublishAddress, kPublishStartDate, kPublishEndDate, kPublishPhoneNumber, kPublishSubtitle]
+        var initialTitles = [kPublishImage, kPublishTitle, kPublishAddress, kPublishAudiance, kPublishSubtitle]
         
-        for index in 0...6 {
+        for index in 0...4 {
             
             var cellData = PublicationEditorTVCCellData()
             cellData.cellTitle = initialTitles[index]
@@ -760,38 +672,17 @@ extension  PublicationEditorTVC {
                         cellData.cellTitle = publication.address!
                         
                     case 3:
-                        //publication starting date
-                        cellData.userData = publication.startingData!
+                        //publication audiance (public / group)
+                        cellData.userData = publication.audiance ?? 0
                         cellData.containsUserData = true
-                        cellData.cellTitle = kPublishStartDate
-                        
+                        cellData.cellTitle = kPublishAudiance
+                    
                     case 4:
-                        //publication ending date
-                        cellData.userData = publication.endingData!
-                        cellData.containsUserData = true
-                        cellData.cellTitle = kPublishEndDate
-                        
-                    case 5:
-                        //publication phone number (it was type of collecting)
-                        cellData.cellTitle = publication.contactInfo!
-                        cellData.containsUserData = true
-                        
-                       
-                        
-                        let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 2 , kPublicationContactInfoKey : publication.contactInfo!]
-                        
-                        cellData.userData = typeOfCollectingDict
-                        
-                        if publication.contactInfo! == "" {
-                            cellData.containsUserData = false
-                            cellData.cellTitle = kPublishPhoneNumber
-                        }
-                        
-                    case 6:
                         //publication subTitle (More Info)
                         cellData.userData = publication.subtitle ?? ""
                         cellData.containsUserData = true
                         cellData.cellTitle = publication.subtitle ?? kPublishSubtitle
+                                          cellData.containsUserData = true
                         
                     default:
                         break
@@ -803,28 +694,11 @@ extension  PublicationEditorTVC {
                 print(">>> Create defaults for new empty publication")
                 
                 switch index {
-                case 0:
-                    //publication photo
-                    cellData.containsUserData = true
-                    
                 case 3:
-                    //publication starting date
-                    cellData.userData = NSDate()
+                    //publication audiance (public / group)
+                    cellData.userData = 0
                     cellData.containsUserData = true
-                    cellData.cellTitle = kPublishStartDate
-                    
-                case 4:
-                    //publication ending date
-                    cellData.userData = NSDate().dateByAddingTimeInterval(kTimeIntervalInSecondsToEndDate)
-                    cellData.containsUserData = true
-                    cellData.cellTitle = kPublishEndDate
-                    
-                case 5:
-                    //phone number (it was publication type of collecting)
-                    let typeOfCollectingDict: [String : AnyObject] = [kPublicationTypeOfCollectingKey : 2 , kPublicationContactInfoKey : ""]
-                    cellData.userData = typeOfCollectingDict
-                    cellData.containsUserData = false
-                    cellData.cellTitle = kPublishPhoneNumber
+                    cellData.cellTitle = kPublishAudiance
                     
                 default:
                     break
@@ -910,7 +784,6 @@ extension PublicationEditorTVC {
 //===========================================================================
 protocol CellInfoDelegate :NSObjectProtocol{
     func updateData(data:PublicationEditorTVCCellData, section: Int)
-    func closeDatePicker()
 }
 
 
