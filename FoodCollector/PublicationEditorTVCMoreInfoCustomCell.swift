@@ -2,19 +2,15 @@
 //  PublicationEditorTVCMoreInfoCustomCell.swift
 //  FoodCollector
 //
-//  Created by Boris Tsigelman on 08/08/15.
-//  Copyright (c) 2015 Boris Tsigelman. All rights reserved.
+//  Created by Boris Tsigelman on 18.3.2016.
+//  Copyright © 2016 Foodonet. All rights reserved.
 //
 
 import UIKit
 
-class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell {
+class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell, UITextViewDelegate {
     
-    @IBOutlet weak var cellLabel: UILabel!
-    
-    let digits = "0123456789"
-    var onlyDigitsPhoneString = ""
-    var isPhoneNumberValid = false
+    @IBOutlet weak var cellText: UITextView!
     
     var cellData: PublicationEditorTVCCellData? {
         
@@ -22,27 +18,48 @@ class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell {
             
             if let cellData = self.cellData {
                 
-                self.cellLabel.text = cellData.cellTitle
+                self.cellText.text = cellData.cellTitle
             }
         }
     }
+    
+    var section: Int?
+    
+    weak var delegate: CellInfoDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        //self.addressName.text = self.addressListItem
-        //println("self.addressName.text: \(self.addressName.text)")
+        cellText.delegate = self
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            //print("Return pressed")
+            cellText.resignFirstResponder()
+            return false
+        }
+        
+        return true
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        print("textViewDidEndEditing")
+        if !cellText.text!.isEmpty {
+            cellData!.cellTitle = textView.text!
+            cellData!.userData = textView.text!
+            cellData!.containsUserData = true
+            
+            if let delegate = self.delegate {
+                delegate.updateData(cellData!, section: section!)
+            }
+        }
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.cellLabel.text = ""
     }
     
 }

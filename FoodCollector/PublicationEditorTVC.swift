@@ -96,11 +96,17 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         addPictureButton()
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
+
+        tableView.registerNib(UINib(nibName: "PublicationEditorTVCImageCustomCell", bundle: nil), forCellReuseIdentifier: "imageCustomCell")
+        tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
+        tableView.registerNib(UINib(nibName: "PublicationEditorTVCOnlyLabelCustomCell", bundle: nil), forCellReuseIdentifier: "onlyLabelCustomCell")
+        tableView.registerNib(UINib(nibName: "PublicationEditorTVCAudianceCustomCell", bundle: nil), forCellReuseIdentifier: "audianceCustomCell")
+        tableView.registerNib(UINib(nibName: "PublicationEditorTVCMoreInfoCustomCell", bundle: nil), forCellReuseIdentifier: "moreInfoCustomCell")
+
         
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCImageCustomCell", bundle: nil), forCellReuseIdentifier: "imageCustomCell")
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCOnlyLabelCustomCell", bundle: nil), forCellReuseIdentifier: "onlyLabelCustomCell")
-        self.tableView.registerNib(UINib(nibName: "PublicationEditorTVCAudianceCustomCell", bundle: nil), forCellReuseIdentifier: "audianceCustomCell")
+        tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0) //(top, left, bottom, right)
+        tableView.preservesSuperviewLayoutMargins = false
+        tableView.layoutMargins = UIEdgeInsetsMake(0, 0, 0, 0) //(top, left, bottom, right)
         
         // To hide the empty cells set a zero size table footer view.
         // Because the table thinks there is a footer to show, it doesn't display any
@@ -160,16 +166,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         case 0: // Image Section
             return pictureRowHeigt
         case 4: // More Info Section
-            return 60
+            return 100
         default:
             return defaultRowHeigt
         }
-    }
-    
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0) //(top, left, bottom, right)
-        cell.layoutMargins = UIEdgeInsetsMake(0, 0, 0, 0) //(top, left, bottom, right)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -208,13 +208,13 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             return audianceCell
 
         case 4: // More Info Section
-            let textFieldCell = tableView.dequeueReusableCellWithIdentifier("textFieldCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCTextFieldCustomCell
-            textFieldCell.cellData = self.dataSource[indexPath.section]
-            textFieldCell.section = indexPath.section
-            textFieldCell.delegate = self
-            textFieldCell.selectionStyle = UITableViewCellSelectionStyle.None
+            let moreInfoCell = tableView.dequeueReusableCellWithIdentifier("moreInfoCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCMoreInfoCustomCell
+            moreInfoCell.cellData = self.dataSource[indexPath.section]
+            moreInfoCell.section = indexPath.section
+            moreInfoCell.delegate = self
+            moreInfoCell.selectionStyle = UITableViewCellSelectionStyle.None
             
-            return textFieldCell
+            return moreInfoCell
         
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) 
@@ -254,6 +254,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 
     
     func updateData(data:PublicationEditorTVCCellData, section: Int){
+        print("updateData")
         dataSource[section] = data
         
         // If it's not the image cell (section=0), reload section.
@@ -306,8 +307,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func addPictureButton(){
         let screenWidth = UIScreen.mainScreen().bounds.width
-        let buttonWidth = CGFloat(50)
-        let buttonHeight = CGFloat(50)
+        let buttonWidth = CGFloat(54)
+        let buttonHeight = CGFloat(54)
         let paddingFromEdge = CGFloat(40)
         
         let image = UIImage(named: "CameraIcon") as UIImage?
@@ -319,7 +320,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // The auxiliaryView helps to position the button using the proper constraints.
         
         let button   = UIButton(type: UIButtonType.Custom)
-        button.backgroundColor = kNavBarBlueColor //UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
+        //button.backgroundColor = kNavBarBlueColor //UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
         button.layer.cornerRadius = buttonWidth / 2
         button.setImage(image, forState: .Normal)
         button.addTarget(self, action: "pictureButtonTouched:", forControlEvents:.TouchUpInside)
@@ -378,10 +379,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     private func checkIfReadyForPublish(){
         var containsData = true
             
-        //check cellData
-        // Photo and More Info (index 0 & 6) are optional. containsUserData can be false when publishing.
         
-        for index in 1...5 {
+        for index in 0...4 {
             
             let cellData = self.dataSource[index]
             if !cellData.containsUserData {
@@ -389,28 +388,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 break
             }
         }
-            
-        //check dates
-        var normalDates = true
-        var expired = true
-        
-        if self.dataSource[3].containsUserData && self.dataSource[4].containsUserData {
-            
-            let startindDate =  self.dataSource[3].userData as! NSDate
-            let endingDate = self.dataSource[4].userData as! NSDate
-            expired = FCDateFunctions.PublicationDidExpired(endingDate)
-            
-            //check if ending date is later than starting date
-            if startindDate.timeIntervalSince1970 >= endingDate.timeIntervalSince1970 {normalDates = false}
-        }
-        
-        if normalDates && !expired && containsData /*&& !self.takeOffAirButtonEnabled*/ {
-            self.publishButtonEnabled = true
-        }
-        else {
-            self.publishButtonEnabled = false
-        }
-        
+    
         self.setTopRightButtonStatus()
     }
     

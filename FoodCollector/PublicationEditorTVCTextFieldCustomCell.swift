@@ -60,14 +60,6 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
         return false
     }
     
-//    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-//        if let delegate = self.delegate {
-//            delegate.closeDatePicker()
-//        }
-//        
-//        return true
-//    }
-    
     func textFieldDidEndEditing(textField: UITextField) {
         if !cellTextField.text!.isEmpty {
             cellData!.cellTitle = textField.text!

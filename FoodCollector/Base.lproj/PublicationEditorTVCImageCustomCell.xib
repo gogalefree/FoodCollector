@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,28 +14,42 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderActivity" translatesAutoresizingMaskIntoConstraints="NO" id="2Fx-ne-G5I">
-                        <rect key="frame" x="111" y="38" width="98" height="90"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1is-qk-pze">
+                        <rect key="frame" x="50" y="42" width="220" height="80"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="98" id="INo-dc-C9s"/>
+                            <constraint firstAttribute="width" constant="220" id="Azm-Vu-8Fn"/>
+                            <constraint firstAttribute="height" constant="80" id="pBJ-Qn-FEM"/>
                         </constraints>
-                    </imageView>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No-photo" translatesAutoresizingMaskIntoConstraints="NO" id="5J7-kJ-tvb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvL-Pf-Su1" userLabel="Buttom Line">
+                        <rect key="frame" x="0.0" y="162.5" width="320" height="2"/>
+                        <color key="backgroundColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="MJ7-Y0-cbj"/>
+                        </constraints>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.80784313725490198" green="0.80784313725490198" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="2Fx-ne-G5I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="30" id="0gu-rN-lDz"/>
+                    <constraint firstItem="1is-qk-pze" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="2eQ-8C-67V"/>
                     <constraint firstItem="5J7-kJ-tvb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4S5-Br-7Qi"/>
                     <constraint firstItem="5J7-kJ-tvb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4iL-e5-cp9"/>
-                    <constraint firstItem="2Fx-ne-G5I" firstAttribute="centerY" secondItem="5J7-kJ-tvb" secondAttribute="centerY" id="Bdv-Ug-6Dw"/>
+                    <constraint firstItem="1is-qk-pze" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="B9p-Ec-y30"/>
                     <constraint firstAttribute="trailing" secondItem="5J7-kJ-tvb" secondAttribute="trailing" id="Bt7-Zw-mdD"/>
+                    <constraint firstItem="xvL-Pf-Su1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RfC-fA-TQJ"/>
+                    <constraint firstAttribute="bottom" secondItem="xvL-Pf-Su1" secondAttribute="bottom" id="UQm-oQ-LcS"/>
+                    <constraint firstAttribute="trailing" secondItem="xvL-Pf-Su1" secondAttribute="trailing" id="lXY-IY-Rht"/>
                     <constraint firstItem="5J7-kJ-tvb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lsk-mr-uIz"/>
-                    <constraint firstItem="5J7-kJ-tvb" firstAttribute="centerX" secondItem="2Fx-ne-G5I" secondAttribute="centerX" id="yuw-As-wU2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="cellLabel" destination="1is-qk-pze" id="ybG-Sh-S7g"/>
                 <outlet property="publicationImage" destination="5J7-kJ-tvb" id="Rn8-6N-9eJ"/>
             </connections>
             <point key="canvasLocation" x="353" y="354.5"/>
@@ -44,6 +57,5 @@
     </objects>
     <resources>
         <image name="No-photo" width="118" height="118"/>
-        <image name="PlaceholderActivity" width="49" height="45"/>
     </resources>
 </document>
