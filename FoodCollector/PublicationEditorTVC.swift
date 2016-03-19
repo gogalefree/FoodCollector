@@ -291,18 +291,12 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func unwindFromAudianceSelectionTVC(segue: UIStoryboardSegue) {
-        print("unwindFromAudianceSelectionTVC")
         let sourceVC = segue.sourceViewController as! PublicationAudianceSelectionTVC
-        print("cellData.userData: \(sourceVC.cellData!)")
-        let section = selectedIndexPath!.section
-        self.dataSource[section] = sourceVC.cellData!
-        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
-        checkIfReadyForPublish()
         if let cellData = sourceVC.cellData {
-            //print("cellData.userData: \(cellData.userData)")
-            //let section = selectedIndexPath!.section
-            //self.dataSource[section] = cellData
-            
+            let section = selectedIndexPath!.section
+            self.dataSource[section] = cellData
+            self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+            checkIfReadyForPublish()
         }
     }
     

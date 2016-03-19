@@ -13,6 +13,7 @@ let kPublicGroupName = NSLocalizedString("Public", comment:"This is the name of 
 class PublicationAudianceSelectionTVC: UITableViewController {
     
     var selectedGroupID = 0
+    var selectedGroupIndex = 0
     
     var cellData: PublicationEditorTVCCellData? {
         didSet {
@@ -30,14 +31,8 @@ class PublicationAudianceSelectionTVC: UITableViewController {
     var groupIDsArray = [0]
     
     var groupsDataSource = [Group]()
-    //var group: Group? = nil
     
     @IBOutlet weak var audianceTitle: UILabel!
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        prepareDataSource()
-    }
     
     func prepareDataSource() {
         
@@ -47,20 +42,17 @@ class PublicationAudianceSelectionTVC: UITableViewController {
             groupsDataSource = adminGroups + memberGroups
         }
         
-        //if let group = Group.initWith("Public", id: 0, adminId: User.sharedInstance.userUniqueID) {
-        //    groupsDataSource.insert(group, atIndex: 0)
-        //}
-        
+        var i = 1
         for group in groupsDataSource {
             if let groupName = group.name {
                 if let groupID = group.id?.integerValue {
                     groupNamesArray.append(groupName)
                     groupIDsArray.append(groupID)
+                    if selectedGroupID == groupID {selectedGroupIndex = i}
                 }
             }
+        i++
         }
-        //print(groupNamesArray)
-        //print(groupIDsArray)
     }
     
     override func viewDidLoad() {
@@ -73,7 +65,8 @@ class PublicationAudianceSelectionTVC: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: .Top)
+        prepareDataSource()
+        tableView.selectRowAtIndexPath(NSIndexPath(forRow: selectedGroupIndex, inSection: 0), animated: true, scrollPosition: .Top)
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,16 +99,12 @@ class PublicationAudianceSelectionTVC: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         cellData?.userData = groupIDsArray[indexPath.row]
         
-        
-        //selectedGroupID = groupIDsArray[indexPath.row]
-        print("selectedGroupID: \(selectedGroupID)")
-        print("cellData.userData: \(cellData!.userData)")
+        return indexPath
     }
     
-
     
     /*
     // MARK: - Navigation
@@ -123,9 +112,12 @@ class PublicationAudianceSelectionTVC: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
-        
+        print("Start prepareForSegue")
+        print("selectedGroupID: \(selectedGroupID)")
+        print("cellData.userData: \(cellData!.userData)")
+        print("End prepareForSegue")
     }
-*/
+    */
 
     
 }
