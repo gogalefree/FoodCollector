@@ -19,15 +19,14 @@ class PublicationEditorTVCAudianceCustomCell: UITableViewCell {
         didSet {
             
             if let cellData = self.cellData {
-                self.audianceLabel.text = "Long Group Name"
-                self.cellLabel.text = cellData.cellTitle
-                
+                cellLabel.text = cellData.cellTitle
                 if (cellData.userData as! Int) != 0 {
-                    let goupeID = cellData.userData as! Int
-                    // TO DO: find the name of the group based on it ID (goupeID) and set it as the label for audianceLabel
-                    self.audianceLabel.text = "" // should be a name of groupe
+                    if let group = Group.fetchGroupWithId(cellData.userData as! Int) {
+                        if let groupName = group.name {
+                            audianceLabel.text = groupName
+                        }
+                    }
                 }
-                
             }
         }
     }

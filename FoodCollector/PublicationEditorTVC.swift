@@ -203,7 +203,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         case 3: // Audiance (Public / Group) Section
             let audianceCell = tableView.dequeueReusableCellWithIdentifier("audianceCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCAudianceCustomCell
             audianceCell.cellData = self.dataSource[indexPath.section]
-            //audianceCell.accessoryType
             
             return audianceCell
 
@@ -268,13 +267,18 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 //   MARK: - Navigation Functions
 //===========================================================================
 
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        let section = self.selectedIndexPath!.section
+        let cellData = self.dataSource[section]
+        
+        if (segue.identifier == "showPublicationAudianceSelection") {
+            let audianceSelectionTVC = segue.destinationViewController as! PublicationAudianceSelectionTVC
+            audianceSelectionTVC.cellData = cellData
+            audianceSelectionTVC.section = section
+        }
     }
-    */
+    
     
     
     @IBAction func unwindFromAddressEditorVC(segue: UIStoryboardSegue) {
@@ -284,6 +288,22 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         self.dataSource[section] = cellData
         self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
         checkIfReadyForPublish()
+    }
+    
+    @IBAction func unwindFromAudianceSelectionTVC(segue: UIStoryboardSegue) {
+        print("unwindFromAudianceSelectionTVC")
+        let sourceVC = segue.sourceViewController as! PublicationAudianceSelectionTVC
+        print("cellData.userData: \(sourceVC.cellData!)")
+        let section = selectedIndexPath!.section
+        self.dataSource[section] = sourceVC.cellData!
+        self.tableView.reloadRowsAtIndexPaths([self.selectedIndexPath!], withRowAnimation: .Automatic)
+        checkIfReadyForPublish()
+        if let cellData = sourceVC.cellData {
+            //print("cellData.userData: \(cellData.userData)")
+            //let section = selectedIndexPath!.section
+            //self.dataSource[section] = cellData
+            
+        }
     }
     
     func popViewController() {
@@ -609,15 +629,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 extension  PublicationEditorTVC {
 
     func prepareDataSource() {
-                                        // Sections Index -- OLD
-                                        // 0.  Photo
-                                        // 1.  Title
-                                        // 2.  Address + latitude + longitude
-                                        // 3.  Start date
-                                        // 4.  End date
-                                        // 5.  Type of collection
-                                        // 6.  Subtitle (More Info)
-        
         // Sections Index -- NEW
         // 0.  Photo
         // 1.  Title
@@ -662,7 +673,12 @@ extension  PublicationEditorTVC {
                         
                     case 3:
                         //publication audiance (public / group)
-                        cellData.userData = publication.audiance ?? 0
+                        if let groupID = publication.audiance?.integerValue {
+                            cellData.userData = groupID
+                        }
+                        else {
+                            cellData.userData = 0
+                        }
                         cellData.containsUserData = true
                         cellData.cellTitle = kPublishAudiance
                     

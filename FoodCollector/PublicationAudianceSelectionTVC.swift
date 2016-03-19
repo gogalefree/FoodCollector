@@ -8,6 +8,8 @@
 
 import UIKit
 
+let kPublicGroupName = NSLocalizedString("Public", comment:"This is the name of the public group")
+
 class PublicationAudianceSelectionTVC: UITableViewController {
     
     var selectedGroupID = 0
@@ -24,10 +26,42 @@ class PublicationAudianceSelectionTVC: UITableViewController {
     
     let selectionImage = UIImage(named: "AudianceSelectionUnchecked")
     let selectionImageHighlighted = UIImage(named: "AudianceSelectionChecked")
-    let groupsArray = ["Public", "Friends", "Co-Workers", "Family", "Neighborhood"]
+    var groupNamesArray = [kPublicGroupName]
+    var groupIDsArray = [0]
     
+    var groupsDataSource = [Group]()
+    //var group: Group? = nil
     
     @IBOutlet weak var audianceTitle: UILabel!
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        prepareDataSource()
+    }
+    
+    func prepareDataSource() {
+        
+        let adminGroupsForUser = Group.adminGroupsForLogedinUser()
+        let memberGroupsForUser = Group.groupMemberGroupsForloginUser()
+        if let adminGroups = adminGroupsForUser , memberGroups = memberGroupsForUser {
+            groupsDataSource = adminGroups + memberGroups
+        }
+        
+        //if let group = Group.initWith("Public", id: 0, adminId: User.sharedInstance.userUniqueID) {
+        //    groupsDataSource.insert(group, atIndex: 0)
+        //}
+        
+        for group in groupsDataSource {
+            if let groupName = group.name {
+                if let groupID = group.id?.integerValue {
+                    groupNamesArray.append(groupName)
+                    groupIDsArray.append(groupID)
+                }
+            }
+        }
+        //print(groupNamesArray)
+        //print(groupIDsArray)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +88,7 @@ class PublicationAudianceSelectionTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupsArray.count
+        return groupNamesArray.count
     }
     
     
@@ -63,7 +97,7 @@ class PublicationAudianceSelectionTVC: UITableViewController {
         let bgCellView = UIView(frame: cell.frame)
         bgCellView.backgroundColor = UIColor.clearColor()
         
-        cell.textLabel?.text = groupsArray[indexPath.row]
+        cell.textLabel?.text = groupNamesArray[indexPath.row]
         cell.textLabel?.highlightedTextColor = kNavBarBlueColor
         cell.imageView?.image = selectionImage
         cell.imageView?.highlightedImage = selectionImageHighlighted
@@ -72,51 +106,26 @@ class PublicationAudianceSelectionTVC: UITableViewController {
         return cell
     }
     
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        cellData?.userData = groupIDsArray[indexPath.row]
+        
+        
+        //selectedGroupID = groupIDsArray[indexPath.row]
+        print("selectedGroupID: \(selectedGroupID)")
+        print("cellData.userData: \(cellData!.userData)")
     }
-    */
     
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the item to be re-orderable.
-    return true
-    }
-    */
+
     
     /*
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
+        
     }
-    */
+*/
+
     
 }
