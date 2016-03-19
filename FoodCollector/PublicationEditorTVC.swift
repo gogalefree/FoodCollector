@@ -234,9 +234,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             self.performSegueWithIdentifier("showPublicationAdressEditor", sender: indexPath.row)
             
         case 3: // Audiance (Public / Group) Section
-            print("Clicked Audiance (Public / Group) Section")
+            self.performSegueWithIdentifier("showPublicationAudianceSelection", sender: indexPath.row)
         
-        default: // Title, Subtitle (More Info)
+        default:
             break
         }
     }
