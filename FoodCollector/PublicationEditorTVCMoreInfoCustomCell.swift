@@ -19,6 +19,9 @@ class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell, UITextViewDelegat
             if let cellData = self.cellData {
                 
                 self.cellText.text = cellData.cellTitle
+                if self.cellText.text != kPublishSubtitle {
+                    self.cellText.textColor = UIColor.blackColor()
+                }
             }
         }
     }
@@ -38,6 +41,15 @@ class PublicationEditorTVCMoreInfoCustomCell: UITableViewCell, UITextViewDelegat
             //print("Return pressed")
             cellText.resignFirstResponder()
             return false
+        }
+        
+        return true
+    }
+    
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        if textView.text == kPublishSubtitle {
+            textView.text = ""
+            textView.textColor = UIColor.blackColor()
         }
         
         return true

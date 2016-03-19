@@ -8,8 +8,8 @@
 
 import UIKit
 
+let kPublishButtonTitle = NSLocalizedString("Publish", comment:"Title for a button")
 let kPublishTitle = NSLocalizedString("What are you sharing?", comment:"Add title for a new event")
-
 let kPublishAddress = NSLocalizedString("Event location", comment:"Add address for a new event")
 let kPublishPhoneNumber = NSLocalizedString("What's your phone number?", comment:"Add phone number for a new event")
 let kPublishStartDate = NSLocalizedString("Pickup starts:", comment:"Add start date for a new event")
@@ -297,7 +297,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func addTopRightButton() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "V_Button"), style: UIBarButtonItemStyle.Done, target: self, action: "publish")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: kPublishButtonTitle, style: .Done, target: self, action: "publish")
         setTopRightButtonStatus()
     }
     
@@ -378,7 +378,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     private func checkIfReadyForPublish(){
         var containsData = true
-            
         
         for index in 0...4 {
             
@@ -388,6 +387,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 break
             }
         }
+        
+        self.publishButtonEnabled = containsData
     
         self.setTopRightButtonStatus()
     }
@@ -534,34 +535,44 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // 0.  Photo
         // 1.  Title
         // 2.  Address + latitude + longitude
-        // 3.  Start date
-        // 4.  End date
-        // 5.  Type of collection
-        // 6.  Subtitle (More info)
+        // 3.  Audiance (Public / Group)
+        // 4.  More Info (used to be Subtitle)
 
         var params = [String: AnyObject]()
+        
+        // Title
         params[kPublicationTitleKey] = self.dataSource[1].userData as! String
+        
+        // Address + latitude + longitude
         let addressDict = self.dataSource[2].userData as! [String: AnyObject]
         params[kPublicationAddressKey] = addressDict["adress"] as! String
         params[kPublicationlatitudeKey] = addressDict["Latitude"] as! Double
         params[kPublicationLongtitudeKey] = addressDict["longitude"] as! Double
         
-        let startingDate = self.dataSource[3].userData as! NSDate
+        // Audiance (Public / Group)
+        
+        
+        // Start Date
+        let startingDate = NSDate()
         let startingDateInterval = startingDate.timeIntervalSince1970
         let startingDateInt: Int = Int(startingDateInterval)
         params[kPublicationStartingDateKey] = startingDateInt as Int
         
-        let endingDate = self.dataSource[4].userData as! NSDate
+        // End Date
+        let endingDate = startingDate.dateByAddingTimeInterval(kTimeIntervalInSecondsToEndDate)
         let endingDateInterval = endingDate.timeIntervalSince1970
         let endingDateInt: Int = Int(endingDateInterval)
         params[kPublicationEndingDateKey] = endingDateInt as Int
         
-        let typeOfCollectingDict = self.dataSource[5].userData as! [String : AnyObject]
-        params[kPublicationContactInfoKey] = typeOfCollectingDict[kPublicationContactInfoKey]
+        // Type of collection
+        params[kPublicationContactInfoKey] = User.sharedInstance.userPhoneNumber
         params[kPublicationTypeOfCollectingKey] = 2
-        var subtitle = self.dataSource[6].userData as? String ?? ""
+        
+        // More Info (used to be Subtitle)
+        var subtitle = self.dataSource[4].userData as? String ?? ""
         if subtitle ==  "" { subtitle = " "}
         params[kPublicationSubTitleKey] = subtitle
+        
         return params
     }
 

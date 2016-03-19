@@ -34,6 +34,7 @@ class PublicationAudianceSelectionTVC: UITableViewController {
         
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
+        // The above has to be uncomment in order for selectRowAtIndexPath to work properly
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
