@@ -168,7 +168,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
        
         self.userCreatedPublications.append(publication)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.postNewUserCreatedPublicationNotification()
+               // self.postNewUserCreatedPublicationNotification()
             })
     }
     
