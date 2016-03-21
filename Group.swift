@@ -36,7 +36,7 @@ class Group: NSManagedObject {
     
         
         let moc = FCModel.dataController.managedObjectContext
-        let adminId = 21 //User.sharedInstance.userUniqueID
+        let adminId = User.sharedInstance.userUniqueID
         let predicate = NSPredicate(format: "adminUserId = %@", NSNumber(long: adminId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
@@ -52,7 +52,7 @@ class Group: NSManagedObject {
         return nil
     }
     
-    class func groupMemberGroupsForloginUser() -> [Group]? {
+    class func groupMemberGroupsForloggedinUser() -> [Group]? {
         
         var groups = [Group]()
         let groupMembers = GroupMember.membersForLoginUser()
@@ -101,6 +101,44 @@ class Group: NSManagedObject {
 
         return nil
     }
+    
+    class func deleteGroupsIfNeeded(groupsArray: [[String : AnyObject]], context: NSManagedObjectContext) {
+        
+        let incomingIds = groupsArray.map {dictionary in
+            return NSNumber(integer: dictionary["group_id"] as? Int ?? -1)
+        }
+        
+        let toDeletePredicate = NSPredicate(format: "NOT (id in %@)", argumentArray: [incomingIds])
+        let deleteFetchRequest   = NSFetchRequest(entityName: kGroupEntity)
+        deleteFetchRequest.predicate = toDeletePredicate
+        
+        context.performBlockAndWait { () -> Void in
+            
+            defer {
+                
+                do {
+                    try context.save()
+                    
+                } catch {
+                    print("error deleting old publications \(error)" + __FUNCTION__)
+                }
+            }
+            
+            let groupsToDelete = try! context.executeFetchRequest(deleteFetchRequest) as? [Group]
+            
+            if let toDelete = groupsToDelete {
+               
+                for group in toDelete {
+                    
+                    //make delete notification object
+                    let delete = ActivityLog.LogType.DeleteGroup.rawValue
+                    ActivityLog.activityLog(nil, group: group, type: delete, context: context)
+                    context.deleteObject(group)
+                }
+            }
+        }
+    }
+
     
     class func instatiateGroupWithParams(groupParams: [String : AnyObject], context: NSManagedObjectContext) {
         

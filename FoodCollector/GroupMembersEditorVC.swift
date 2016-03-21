@@ -21,6 +21,8 @@ import Foundation
 import CoreData
 import AddressBook
 import AddressBookUI
+import Contacts
+import ContactsUI
 
 class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableViewDelegate, ABPeoplePickerNavigationControllerDelegate, GroupDetilsTVCellDelegate {
 
@@ -80,10 +82,17 @@ class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func addMemberTapped(sender: AnyObject) {
    
-        //Show Adrress book
-        let addressBookController = ABPeoplePickerNavigationController()
-        addressBookController.peoplePickerDelegate = self
-        self.presentViewController(addressBookController, animated: true, completion: nil)
+                
+        
+        let addressBookRef = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
+        ABAddressBookRequestAccessWithCompletion(addressBookRef) { (granted, error) -> Void in
+            
+            //Show Adrress book
+            let addressBookController = ABPeoplePickerNavigationController()
+            addressBookController.peoplePickerDelegate = self
+            self.presentViewController(addressBookController, animated: true, completion: nil)
+
+        }
     }
     
     func donePickingMembers() {

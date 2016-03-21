@@ -69,6 +69,8 @@
 		E407DEA51AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */; };
 		E407DEA71AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */; };
 		E407DEA91AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */; };
+		E408A6591C9ECB7900D17D9D /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E408A6581C9ECB7900D17D9D /* Publication+CoreDataProperties.swift */; };
+		E408A65A1C9ECB7900D17D9D /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E408A6581C9ECB7900D17D9D /* Publication+CoreDataProperties.swift */; };
 		E40EE8481C132C3C00A7B8E2 /* FCMockServer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */; };
 		E40F198A1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40F19891C8035C8009C044E /* GroupDetailsVC+addressPicker.swift */; };
 		E40F198B1C8035C8009C044E /* GroupDetailsVC+addressPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40F19891C8035C8009C044E /* GroupDetailsVC+addressPicker.swift */; };
@@ -343,8 +345,6 @@
 		E4D11FDE1C36A8E100A426B6 /* FCUserPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D11FDD1C36A8E100A426B6 /* FCUserPhotoFetcher.swift */; };
 		E4D16F111C881DDD00EDFE69 /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F0E1C881DDD00EDFE69 /* ActivityLog.swift */; };
 		E4D16F121C881DDD00EDFE69 /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F0E1C881DDD00EDFE69 /* ActivityLog.swift */; };
-		E4D16F141C881E0600EDFE69 /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F131C881E0600EDFE69 /* Publication+CoreDataProperties.swift */; };
-		E4D16F151C881E0600EDFE69 /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F131C881E0600EDFE69 /* Publication+CoreDataProperties.swift */; };
 		E4D16F181C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */; };
 		E4D16F191C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */; };
 		E4D16F1C1C8836B600EDFE69 /* ActivityLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */; };
@@ -506,6 +506,7 @@
 		E407DEA41AB0901F00FC8415 /* PublicationPhotoPresentorAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorAnimator.swift; sourceTree = "<group>"; };
 		E407DEA61AB0C37D00FC8415 /* FCPhotoPresentorNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPhotoPresentorNavigationController.swift; sourceTree = "<group>"; };
 		E407DEA81AB2EA3D00FC8415 /* PublicationPhotoPresentorDissmissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationPhotoPresentorDissmissAnimator.swift; sourceTree = "<group>"; };
+		E408A6581C9ECB7900D17D9D /* Publication+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Publication+CoreDataProperties.swift"; path = "../Publication+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E40EE8471C132C3C00A7B8E2 /* FCMockServer+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FCMockServer+.swift"; sourceTree = "<group>"; };
 		E40F19891C8035C8009C044E /* GroupDetailsVC+addressPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GroupDetailsVC+addressPicker.swift"; sourceTree = "<group>"; };
 		E40F198C1C803BF8009C044E /* GroupMembersEditorTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMembersEditorTVCell.swift; sourceTree = "<group>"; };
@@ -623,7 +624,6 @@
 		E4C4B95D1C843AF5009599DD /* FDAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDAnnotation.swift; sourceTree = "<group>"; };
 		E4D11FDD1C36A8E100A426B6 /* FCUserPhotoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCUserPhotoFetcher.swift; sourceTree = "<group>"; };
 		E4D16F0E1C881DDD00EDFE69 /* ActivityLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityLog.swift; path = ../ActivityLog.swift; sourceTree = "<group>"; };
-		E4D16F131C881E0600EDFE69 /* Publication+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Publication+CoreDataProperties.swift"; path = "../Publication+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ActivityLog+CoreDataProperties.swift"; path = "../ActivityLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActivityLog.storyboard; sourceTree = "<group>"; };
 		E4D16F1E1C88373300EDFE69 /* ActivityLogTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogTVC.swift; sourceTree = "<group>"; };
@@ -866,7 +866,7 @@
 		E40F19A11C81987D009C044E /* Publication */ = {
 			isa = PBXGroup;
 			children = (
-				E4D16F131C881E0600EDFE69 /* Publication+CoreDataProperties.swift */,
+				E408A6581C9ECB7900D17D9D /* Publication+CoreDataProperties.swift */,
 				E40F19921C81984B009C044E /* Publication.swift */,
 			);
 			name = Publication;
@@ -1413,7 +1413,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = Z43P8YG44T;
+						DevelopmentTeam = 58NS37C8VA;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -1677,7 +1677,6 @@
 			files = (
 				E44FDDA31C5CB5F9000D5F97 /* FCIconFactory.swift in Sources */,
 				E44FDDA41C5CB5F9000D5F97 /* FCModel+LocationManager.swift in Sources */,
-				E4D16F151C881E0600EDFE69 /* Publication+CoreDataProperties.swift in Sources */,
 				E44FDDA51C5CB5F9000D5F97 /* PublicationPhotoPresentorPresentationController.swift in Sources */,
 				E44FDDA61C5CB5F9000D5F97 /* FCAnnotationView.swift in Sources */,
 				E40F19961C81984B009C044E /* PublicationReport+CoreDataProperties.swift in Sources */,
@@ -1780,6 +1779,7 @@
 				E4F40D0E1C744F990094E455 /* FDServer+Groups.swift in Sources */,
 				E40F199E1C81984B009C044E /* PublicationRegistration+CoreDataProperties.swift in Sources */,
 				E44FDDF41C5CB5F9000D5F97 /* FDServer+Login.swift in Sources */,
+				E408A65A1C9ECB7900D17D9D /* Publication+CoreDataProperties.swift in Sources */,
 				E44FDDF51C5CB5F9000D5F97 /* FCPublication.swift in Sources */,
 				E44FDDF61C5CB5F9000D5F97 /* FCCollectorRootVC+.swift in Sources */,
 				E44FDDF71C5CB5F9000D5F97 /* FCPublicationReportsPresentationController.swift in Sources */,
@@ -1875,7 +1875,6 @@
 				E4E83F501C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */,
 				A1248A831B7666A5001C5901 /* PublicationEditorTVCStartEndDateCustomCell.swift in Sources */,
 				E4F40D131C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */,
-				E4D16F141C881E0600EDFE69 /* Publication+CoreDataProperties.swift in Sources */,
 				A1248A881B766DAE001C5901 /* PublicationEditorTVCContactPublisherCustomCell.swift in Sources */,
 				A14F4D731B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift in Sources */,
 				E45689951C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift in Sources */,
@@ -1946,6 +1945,7 @@
 				E4C4B95E1C843AF5009599DD /* FDAnnotation.swift in Sources */,
 				E40F199B1C81984B009C044E /* Publication.swift in Sources */,
 				E4A557241C919F6800E09139 /* NotificationsDistanceVC.swift in Sources */,
+				E408A6591C9ECB7900D17D9D /* Publication+CoreDataProperties.swift in Sources */,
 				A1A738A21B7FA22800CA2C5A /* PublicationEditorTVCPhoneNumEditorCustomCell.swift in Sources */,
 				A1F44BEB1C6938C9000F132A /* InfoPopoverVC.swift in Sources */,
 				E4584B821BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift in Sources */,

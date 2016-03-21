@@ -30,7 +30,7 @@ class GroupMember: NSManagedObject {
     
     class func membersForLoginUser() -> [GroupMember]? {
         
-        let memberId = 21 //User.sharedInstance.userUniqueID
+        let memberId = User.sharedInstance.userUniqueID
         let request  = NSFetchRequest(entityName: kGroupMemberEntity)
         let predicate = NSPredicate(format: "userId = %@ && isAdmin = %@", NSNumber(long: memberId) , NSNumber(bool: false))
         request.predicate = predicate

@@ -17,15 +17,13 @@ protocol FCPublicationsTVCDelegate: NSObjectProtocol{
 
 
 /// presents all Publication in a tableView.
-/// must be sorted by distance from user location. nearest is first.
+/// initially sorted by distance from user location. nearest is first.
 
-//TODO: chnage to NSFetchResultsController
-//TODO: Delete the new message view. we'll present it from the container controller
+//for notifications badge number, use: NSUsernotificationsHandler.sharedInstance.notificationsBadgeCounter
 
-class FCPublicationsTableViewController : UITableViewController, UISearchBarDelegate {
+class FCPublicationsTableViewController : UITableViewController, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
     
     weak var delegate: FCPublicationsTVCDelegate!
-    var publications = [Publication]()
     var filteredPublicaitons = [Publication]()
     var searchBar: UISearchBar!
     var isFiltered = false
@@ -36,14 +34,41 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     let scopeButtonTitlesRecent = NSLocalizedString("Recent", comment:"Search bar scope button titles")
     let scopeButtonTitlesActive = NSLocalizedString("Active", comment:"Search bar scope button titles")
     
+    var _fetchedResultsController :NSFetchedResultsController?
+    
+    var fetchedResultsController: NSFetchedResultsController {
+        
+        if _fetchedResultsController != nil {return _fetchedResultsController!}
+        
+        let moc = FCModel.dataController.managedObjectContext
+        let request = NSFetchRequest(entityName: kPublicationEntity)
+        request.fetchBatchSize = 20
+        request.sortDescriptors = [NSSortDescriptor(key: "storedDistanceFromUserLocation", ascending: true)]
+        
+        let predicate = NSPredicate(format: "startingData < %@ && endingData > %@ && isOnAir = %@", NSDate(), NSDate() , NSNumber(bool: true) )
+        request.predicate = predicate
+        
+        let aFetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        aFetchResultsController.delegate =  self
+        _fetchedResultsController = aFetchResultsController
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+            
+        } catch {
+            print("error fetching activity logs by fetchedResultsController \(error) " + __FUNCTION__)
+        }
+        
+        return _fetchedResultsController!
+    }
+    
+
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         self.title = navBarTitle
-        self.publications = FCModel.sharedInstance.publications
-        self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
         addSearchBar()
         self.tableView.estimatedRowHeight = 96
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -141,25 +166,41 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     }
     
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+      
+        var sorter = NSSortDescriptor()
+        isFiltered = false
+        //let publications = self.fetchedResultsController.fetchedObjects as! [Publication]
+
         switch selectedScope {
+            
+            
         case 0:
             //sort by distance
-            self.publications = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
-            self.filteredPublicaitons = FCPublicationsSorter.sortPublicationsByDistanceFromUser(self.publications)
+            sorter = NSSortDescriptor(key: "storedDistanceFromUserLocation", ascending: true)
         case 1:
             //sort by StartingDate
-            self.publications = FCPublicationsSorter.sortPublicationsByStartingDate(self.publications)
-            self.filteredPublicaitons = FCPublicationsSorter.sortPublicationsByStartingDate(self.publications)
+            sorter = NSSortDescriptor(key: "startingData", ascending: true)
             
         case 2:
-            //sort by count of registered uaers
-            self.publications = FCPublicationsSorter.sortPublicationsByCountOfRegisteredUsers(self.publications)
-            self.filteredPublicaitons = FCPublicationsSorter.sortPublicationsByCountOfRegisteredUsers(self.publications)
+            //sort by count of registered users
+            isFiltered = true
+            let publications = fetchedResultsController.fetchedObjects as! [Publication]
+            self.filteredPublicaitons = publications.sort {(publicationA, publicationB) in publicationA.registrations?.count < publicationB.registrations?.count}
+            self.tableView.reloadData()
+            return
+            
         default:
             break
         }
         
-        self.tableView.reloadData()
+        fetchedResultsController.fetchRequest.sortDescriptors = [sorter]
+        do {
+            try fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {
+            print("error refetching in publications table view \(error)")
+        }
+        
     }
     
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
@@ -171,7 +212,9 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         
         var filtered = [Publication]()
         
-        for publication in self.publications {
+        let publications = self.fetchedResultsController.fetchedObjects as! [Publication]
+        
+        for publication in publications {
         
             let titleRange: Range<String.Index> = Range<String.Index>(start: publication.title!.startIndex  ,end: publication.title!.endIndex)
             
@@ -197,15 +240,17 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     }
     
     //MARK: - Table view Delegate DataSource
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isFiltered {return self.filteredPublicaitons.count}
-        return self.publications.count
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
     
-//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return 96
-//    }
-//    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.isFiltered {return self.filteredPublicaitons.count}
+        return fetchedResultsController.sections![0].numberOfObjects
+    }
+    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell =  tableView.dequeueReusableCellWithIdentifier("publicationTableViewCell", forIndexPath: indexPath)as! FCPublicationsTVCell
@@ -216,7 +261,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
             publication = self.filteredPublicaitons[indexPath.row]
         }
         else {
-            publication = self.publications[indexPath.row]
+            publication = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Publication
         }
         cell.publication = publication
         FCTableViewAnimator.animateCell(cell, sender: self)
@@ -231,7 +276,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
             publication = self.filteredPublicaitons[indexPath.row] 
         }
         else {
-            publication = self.publications[indexPath.row]
+            publication = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Publication
         }
         
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
@@ -242,6 +287,43 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    //MARK: INSERT & DELETE animations
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type {
+            
+        case .Insert:
+            if controller.sections![0].numberOfObjects == 1 {tableView.reloadData()} else {
+                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            }
+            
+        case .Delete:
+            if controller.sections![0].numberOfObjects == 0 {
+                tableView.reloadData()
+                tableView.setEditing(false, animated: true)
+            } else {
+                
+                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            }
+            
+            //we dont allow move for now
+            //        case .Move:
+            //            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            //            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        default:
+            break
+        }
+    }
+
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
     }
     
     func dismissDetailVC() {
@@ -255,46 +337,62 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         }
     }
     
-    func didRecieveNewPublication(notification: NSNotification) {
+    
+    //BORIS
+    //this is called when the notifications icon needs update
+    func updateNotificationBadgeCounter() {
         
-        let recivedPublication = FCModel.sharedInstance.publications.last!
-        let existingIndex = self.publications.indexOf(recivedPublication)
-        
-        if existingIndex == nil {
-            
-            self.addNewRecivedPublication(recivedPublication)
-        }
-    }
-
-    func didDeletePublication(notification: NSNotification) {
-        
-        let deleted = FCModel.sharedInstance.userDeletedPublication
-        if let publication = deleted {
-            
-            let index = self.publications.indexOf(publication)
-            if let foundIndex = index {
-                
-                let indexpath = NSIndexPath(forRow: foundIndex, inSection: 0)
-                self.tableView.beginUpdates()
-                self.publications.removeAtIndex(foundIndex)
-                self.tableView.deleteRowsAtIndexPaths([indexpath], withRowAnimation: .Fade)
-                self.tableView.endUpdates()
-            }
-        }
+        let newNotificationsCount = FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter
     }
     
-    func addNewRecivedPublication(publication: Publication) {
-        self.tableView.beginUpdates()
-        self.publications.insert(publication, atIndex: 0)
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-        self.tableView.endUpdates()
-    }
+    //DEPARECATED v1.0.9
+//    func didRecieveNewPublication(notification: NSNotification) {
+//        
+//        let recivedPublication = FCModel.sharedInstance.publications.last!
+//        let existingIndex = self.publications.indexOf(recivedPublication)
+//        
+//        if existingIndex == nil {
+//            
+//            self.addNewRecivedPublication(recivedPublication)
+//        }
+//    }
+
+//    func didDeletePublication(notification: NSNotification) {
+//        
+//        let deleted = FCModel.sharedInstance.userDeletedPublication
+//        if let publication = deleted {
+//            
+//            let index = self.publications.indexOf(publication)
+//            if let foundIndex = index {
+//                
+//                let indexpath = NSIndexPath(forRow: foundIndex, inSection: 0)
+//                self.tableView.beginUpdates()
+//                self.publications.removeAtIndex(foundIndex)
+//                self.tableView.deleteRowsAtIndexPaths([indexpath], withRowAnimation: .Fade)
+//                self.tableView.endUpdates()
+//            }
+//        }
+//    }
+    
+//    func addNewRecivedPublication(publication: Publication) {
+//        self.tableView.beginUpdates()
+//        self.publications.insert(publication, atIndex: 0)
+//        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+//        self.tableView.endUpdates()
+//    }
     
     func registerForAppNotifications() {
-   
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationBadgeCounter", name: kUpdateNotificationsCounterNotification, object: nil)
+        
+        //DEPRECATED v1.0.9
+        //we use NSFetchedResultesController so updates are performed automatically
+//   
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
     }
+    
+//END OF DEPRECATION v1.0.9
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)

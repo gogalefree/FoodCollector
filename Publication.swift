@@ -92,7 +92,14 @@ class Publication: NSManagedObject {
             self.isOnAir = true
             self.publisherDevUUID = activeDevice
             self.publisherUserName = publisherUserName
+            self.storedDistanceFromUserLocation = NSNumber(double: self.distanceFromUserLocation)
         }
+    }
+    
+    override func awakeFromFetch() {
+        super.awakeFromFetch()
+        self.storedDistanceFromUserLocation = NSNumber(double: distanceFromUserLocation)
+        print("publication awake from fetch - stored distance: \(self.storedDistanceFromUserLocation.description)")
     }
     
     func toString() {

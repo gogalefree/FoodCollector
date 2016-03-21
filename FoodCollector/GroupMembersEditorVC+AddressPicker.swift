@@ -21,20 +21,22 @@ extension GroupMembersEditorVC {
         
         //first name
         let firstNameTemp = ABRecordCopyValue(person, kABPersonFirstNameProperty)
-        let firstName: NSObject! = Unmanaged<NSObject>.fromOpaque(firstNameTemp.toOpaque()).takeRetainedValue()
+        
+        if firstNameTemp != nil {
+        let firstName: NSObject? = Unmanaged<NSObject>.fromOpaque(firstNameTemp.toOpaque()).takeRetainedValue()
         
         if let firstName = firstName{
             memberName = firstName as! String
             print("firstName: \(firstName)")
         }
         else {print("fristName is nil")}
-        
+        }
         
         //last name
         let lastNameTemp = ABRecordCopyValue(person, kABPersonLastNameProperty)
         if let lastNameTemp = lastNameTemp {
             
-            let lastName: NSObject! = Unmanaged<NSObject>.fromOpaque(lastNameTemp.toOpaque()).takeRetainedValue()
+            let lastName: NSObject? = Unmanaged<NSObject>.fromOpaque(lastNameTemp.toOpaque()).takeRetainedValue()
             
             if let lastName = lastName {
                 memberName = memberName + " " + (lastName as! String)

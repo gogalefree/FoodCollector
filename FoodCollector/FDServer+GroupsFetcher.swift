@@ -37,6 +37,9 @@ extension FCMockServer {
                         
                     
                     if let groupsArray = arrayOfGroups {
+                        
+                        //Check If There're Groups To Delete
+                        Group.deleteGroupsIfNeeded(groupsArray, context: context)
                             
                         for groupParams in groupsArray {
                             print("group:\n\(groupParams.description)")

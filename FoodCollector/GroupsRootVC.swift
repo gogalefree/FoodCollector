@@ -60,7 +60,7 @@ class GroupsRootVC: UIViewController {
     func prepareDataSource() {
     
         let adminGroupsForUser = Group.adminGroupsForLogedinUser()
-        let memberGroupsForUser = Group.groupMemberGroupsForloginUser()
+        let memberGroupsForUser = Group.groupMemberGroupsForloggedinUser()
         if let adminGroups = adminGroupsForUser , memberGroups = memberGroupsForUser {
             dataSource = adminGroups + memberGroups
         }
@@ -146,8 +146,10 @@ class GroupsRootVC: UIViewController {
     
     func presentActivityIndicatorView() {
     
+        
         self.view.bringSubviewToFront(self.activityIndicatorView)
         UIView.animateWithDuration(0.1) { () -> Void in
+            self.noGroupsMessageView.alpha = 0
             self.activityIndicatorView.alpha = 1
         }
     }
