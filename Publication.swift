@@ -54,7 +54,7 @@ class Publication: NSManagedObject {
         
         //add context
        context.performBlockAndWait { () -> Void in
-            
+            print("pubilcation params: \(params)")
             let aUniquId = params[kPublicationUniqueIdKey] as? Int ?? 0
             let aTitle = params[kPublicationTitleKey] as? String ?? ""
             let aSubTitle  = params[kPublicationSubTitleKey] as? String ?? ""
@@ -99,7 +99,6 @@ class Publication: NSManagedObject {
     override func awakeFromFetch() {
         super.awakeFromFetch()
         self.storedDistanceFromUserLocation = NSNumber(double: distanceFromUserLocation)
-        print("publication awake from fetch - stored distance: \(self.storedDistanceFromUserLocation.description)")
     }
     
     func toString() {

@@ -33,7 +33,7 @@ let kReportCollectorNameArray = "kReportCollectorNameArray"
 let kReportIdArray = "kReportIdArray"
 let kPublicationCountOfRegisteredUsersKey = "pulbicationCountOfRegisteredUsersKey"
 let kReportMessageValueKey = "kReportMessageValueKey"
-let kPublicationAudianceKey = "audiance_id"
+let kPublicationAudianceKey = "audience"
 
 struct PublicationIdentifier {
     

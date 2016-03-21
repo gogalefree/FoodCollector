@@ -37,7 +37,7 @@ class PublicationAudianceSelectionTVC: UITableViewController {
     func prepareDataSource() {
         
         let adminGroupsForUser = Group.adminGroupsForLogedinUser()
-        let memberGroupsForUser = Group.groupMemberGroupsForloginUser()
+        let memberGroupsForUser = Group.groupMemberGroupsForloggedinUser()
         if let adminGroups = adminGroupsForUser , memberGroups = memberGroupsForUser {
             groupsDataSource = adminGroups + memberGroups
         }

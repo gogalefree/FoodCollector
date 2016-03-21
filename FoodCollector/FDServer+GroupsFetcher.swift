@@ -57,9 +57,7 @@ extension FCMockServer {
     }
     
     func fetchMembersForGroup(groupId: Int, completion: (success: Bool) -> Void ) {
-        
-        //TODO: Change url
-       
+               
         let url = NSURL(string: baseUrlString + "groups/\(groupId)/group_members")
         let session = NSURLSession.sharedSession()
         
