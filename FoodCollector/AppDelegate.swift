@@ -85,7 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if userInfo[kRemoteNotificationType] as? String  != nil {
                     
                     FCUserNotificationHandler.sharedInstance.didRecieveRemoteNotification(userInfo)
-
                 }
             }
         }
