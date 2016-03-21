@@ -72,7 +72,7 @@ class Publication: NSManagedObject {
             
             let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
             let aVersion = params[kPublicationVersionKey] as? Int ?? 0
-            let audiance = params["audience"] as? Int ?? 0
+            let audiance = params[kPublicationAudianceKey] as? Int ?? 0
             let publisherId = params["publisher_id"] as? Int ?? 0
             let activeDevice = params["active_device_dev_uuid"] as? String ?? ""
             let publisherUserName = params["identity_provider_user_name"] as? String ?? ""

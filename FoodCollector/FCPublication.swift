@@ -33,6 +33,7 @@ let kReportCollectorNameArray = "kReportCollectorNameArray"
 let kReportIdArray = "kReportIdArray"
 let kPublicationCountOfRegisteredUsersKey = "pulbicationCountOfRegisteredUsersKey"
 let kReportMessageValueKey = "kReportMessageValueKey"
+let kPublicationAudianceKey = "audiance_id"
 
 struct PublicationIdentifier {
     
@@ -66,6 +67,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
     public var startingDate     :NSDate     //managed
     public var endingDate       :NSDate     //managed
     public var contactInfo      :String?    //managed
+    public var audiance         : Int       //managed
     public var isOnAir          : Bool      //managed
     public var didModifyCoords  : Bool      //managed
     public var photoUrl:String
@@ -109,7 +111,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         theTitle: String, endingDate: NSDate,
         typeOfCollecting: TypeOfCollecting, startingDate: NSDate,
         uniqueId: Int, address: String,
-        contactInfo: String?, subTitle: String?, version: Int) {
+        contactInfo: String?, subTitle: String?, version: Int, audiance: Int) {
             
             self.uniqueId = uniqueId
             self.version = version
@@ -122,6 +124,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
             self.endingDate = endingDate
             self.contactInfo = contactInfo
             self.isOnAir = true
+            self.audiance = audiance
             self.photoUrl = "\(uniqueId).\(version).jpg"
             self.didRegisterForCurrentPublication = false
             self.didModifyCoords = false
@@ -146,9 +149,11 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         aCoder.encodeObject(self.contactInfo, forKey: kPublicationContactInfoKey)
         aCoder.encodeObject(self.photoUrl, forKey: kPublicationPhotoUrl)
         aCoder.encodeBool(self.isOnAir, forKey: kPublicationIsOnAirKey)
+        aCoder.encodeInteger(self.audiance, forKey: kPublicationAudianceKey)
         aCoder.encodeBool(self.didRegisterForCurrentPublication, forKey: kDidRegisterForCurrentPublicationKey)
         aCoder.encodeBool(self.didModifyCoords, forKey: kDidModifyCoordinatesKey)
         aCoder.encodeInteger(self.countOfRegisteredUsers, forKey: kPublicationCountOfRegisteredUsersKey)
+        
         
         var reportsMessageArray = [Int]()
         var reportsDateArray = [Double]()
@@ -190,6 +195,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         self.contactInfo = aDecoder.decodeObjectForKey(kPublicationContactInfoKey) as? String
         self.photoUrl = aDecoder.decodeObjectForKey(kPublicationPhotoUrl) as! String
         self.isOnAir = aDecoder.decodeBoolForKey(kPublicationIsOnAirKey) as Bool
+        self.audiance = aDecoder.decodeIntegerForKey(kPublicationAudianceKey)
         self.didRegisterForCurrentPublication = aDecoder.decodeBoolForKey(kDidRegisterForCurrentPublicationKey) as Bool
         self.didModifyCoords = aDecoder.decodeBoolForKey(kDidModifyCoordinatesKey) as Bool
         self.countOfRegisteredUsers = aDecoder.decodeIntegerForKey(kPublicationCountOfRegisteredUsersKey) as Int
@@ -253,6 +259,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let startingDateDouble = (params[kPublicationStartingDateKey] as! NSString).doubleValue
         let startingDateInt = Double(startingDateDouble)
         let aStartingDate = NSDate(timeIntervalSince1970: NSTimeInterval(startingDateInt))
+        let aAudiance = params[kPublicationAudianceKey] as! Int
         
         let endingDateDouble = (params[kPublicationEndingDateKey] as! NSString).doubleValue
         //let endingDateInt = Double(endingDateDouble)
@@ -260,7 +267,7 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
         let aVersion = params[kPublicationVersionKey] as! Int
         //let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
-        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
+        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion, audiance: aAudiance)
         return publication
     }
     
@@ -278,12 +285,14 @@ public class FCPublication : NSObject, MKAnnotation { //NSSecureCoding,
         let startingDateDouble = params[kPublicationStartingDateKey] as! Double
         let aStartingDate = NSDate(timeIntervalSince1970: startingDateDouble)
         
+        let aAudiance = params[kPublicationAudianceKey] as! Int
+        
         let endingDateDouble = params[kPublicationEndingDateKey] as! Double
         let aEndingDate = NSDate(timeIntervalSince1970: endingDateDouble)
         let aContactInfo = params[kPublicationContactInfoKey] as? String ?? ""
         let aVersion = params[kPublicationVersionKey] as! Int
         //let aPhotoUrl = "\(aUniquId).\(aVersion).jpg"
-        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion)
+        let publication = FCPublication(coordinates: aCoordinateds, theTitle: aTitle, endingDate: aEndingDate, typeOfCollecting: aTypeOfCollecting!, startingDate: aStartingDate, uniqueId: aUniquId, address: anAddress,  contactInfo: aContactInfo, subTitle: aSubTitle, version: aVersion, audiance: aAudiance)
         return publication
 
     }
