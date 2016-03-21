@@ -564,7 +564,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         params[kPublicationLongtitudeKey] = addressDict["longitude"] as! Double
         
         // Audiance (Public / Group)
-        
+        params[kPublicationAudianceKey] = self.dataSource[3].userData as! Int
         
         // Start Date
         let startingDate = NSDate()
