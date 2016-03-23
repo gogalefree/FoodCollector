@@ -63,9 +63,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         super.viewDidLoad()
         
-        
-     //   userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-        
         collectionView.delegate = self
         if fetchedResultsController.sections![0].numberOfObjects == 0 {
             
@@ -77,20 +74,16 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             collectionView.userInteractionEnabled = true
             collectionView.scrollEnabled = true
         }
-        
-   //     NSNotificationCenter.defaultCenter().addObserver(self, selector: "newUserCreatedPublication", name: kNewUserCreatedPublicationNotification, object: nil)
-  //      NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublicationNotification", name: kDeletedPublicationNotification, object: nil)
-  //      NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeleteOldVersionOfUserCreatedPublication", name: kDidDeleteOldVersionsOfUserCreatedPublication, object: nil)
-        
-        
-        kDidDeleteOldVersionsOfUserCreatedPublication
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        userCreatedPublications = FCPublicationsSorter.sortPublicationsByEndingDate(userCreatedPublications)
-//        userCreatedPublications = FCPublicationsSorter.sortPublicationByIsOnAir(userCreatedPublications)
-//        self.collectionView.reloadData()
+        self.collectionView.reloadData()
+        if fetchedResultsController.sections![0].numberOfObjects > 0 {
+            showCollectionView()
+        } else {
+            hideCollectionView()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -223,19 +216,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-//DEPRECATED v1.0.9
-//    func newUserCreatedPublication() {
-//        
-//        if collectionViewHidden {showCollectionView()}
-//        let publication = FCModel.sharedInstance.userCreatedPublications.last!
-//        self.userCreatedPublications.insert(publication, atIndex: 0)
-//        self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 0)])        
-//    }
     
     //MARK: - User deleted his own user created publication
     //Segue initiated by delete button in PublicationEditorTVC
-
     //DELETE is automatically managed by NSFetchedResultsController
+    //Should Deprecate
     @IBAction func unwindWithDeletePublication(segue: UIStoryboardSegue) {
     
         //if the state is not .Edit new the user cant delete
@@ -243,43 +228,15 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         if publicationEditorTVC.state != .EditPublication {return}
         
         let pubicationToDelete = publicationEditorTVC.publication!
-//        let indexPathToRemove = self.indexPathForUserCreatedPublication(pubicationToDelete)
-        
-//        //delete fron ColectionView
-//        if let indexPath = indexPathToRemove {
-//            self.collectionView.performBatchUpdates({ () -> Void in
-//                
-//                self.userCreatedPublications.removeAtIndex(indexPath.row)
-//                self.collectionView.deleteItemsAtIndexPaths([indexPath])
-//                
-//            }, completion: { (finished) -> Void in
-//                self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-//                self.collectionView.reloadData()
-//            })
-//            
-//            print("after delete segue from notification: \(self.userCreatedPublications.count)")
 
             if self.fetchedResultsController.fetchedObjects?.count == 0 {
                 hideCollectionView()
             }
-//        }
-        
         
         //delete from model
         FCModel.sharedInstance.deletePublication(pubicationToDelete, deleteFromServer: true)
     
     }
-    
-//    func indexPathForUserCreatedPublication(pubicationToDelete: Publication) -> NSIndexPath? {
-//        
-//        for (index,publication) in self.userCreatedPublications.enumerate() {
-//            if publication.uniqueId == pubicationToDelete.uniqueId &&
-//                publication.version == pubicationToDelete.version {
-//                   return NSIndexPath(forItem: index, inSection: 0)
-//            }
-//        }
-//        return nil
-//    }
     
     func hideCollectionView() {
         collectionView.alpha = 0
@@ -298,38 +255,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         })
     }
     
-    //this is triggered by a NSNotification.
-    //we reload the collection view since it might have been a user created publication taken off air
-//    func didDeletePublicationNotification() {
-//        if self.collectionView != nil {
-//            self.userCreatedPublications = FCModel.sharedInstance.userCreatedPublications
-//            self.collectionView.reloadData()
-//            print("after reloading from notification: \(self.userCreatedPublications.count)")
-//        }
-//    }
-    
-    //this is trigered when a user had updated or reposted userCreatedPublication
-    //the model deletes old versions and posts this notification
-    //DEPRECATED v1.0.9
-//    func didDeleteOldVersionOfUserCreatedPublication() {
-//
-//        let newUserCreatedPublication = FCModel.sharedInstance.userCreatedPublications.last
-//        for (index,publication) in self.userCreatedPublications.enumerate() {
-//            if publication.uniqueId == newUserCreatedPublication?.uniqueId && publication.version < newUserCreatedPublication?.version {
-//                self.userCreatedPublications.removeAtIndex(index)
-//                self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
-//                break
-//            }
-//        }
-//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-//            Int64(1 * Double(NSEC_PER_SEC)))
-//        
-//        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-//            self.collectionView.reloadData()
-//        })
-//    }
     
     func displayNoPublicatiosMessage(){
+        
         let recWidth = DeviceData.screenWidth()/1.4
         let recHight = DeviceData.screenHight()/1.4
         let recCenterX = DeviceData.screenWidth()/2
@@ -349,14 +277,6 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         }
     }
     
-//    func deleteFromCollectionView(publication: Publication, indexNumber: Int) {
-//        self.collectionView.performBatchUpdates({ () -> Void in
-//            self.userCreatedPublications.removeAtIndex(indexNumber)
-//            self.collectionView.deleteItemsAtIndexPaths([NSIndexPath(forItem: indexNumber, inSection: 0)])
-//            
-//            }, completion:nil)
-//        
-//    }
     
     //MARK: - UISearchBar
     
@@ -493,24 +413,45 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+
+
+//MARK: FetchedResultsController Delegate
+// this will update the collection view after a new publication was created
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    
+
+        switch type {
+            
+        case .Insert:
+            if controller.sections![0].numberOfObjects == 1 {collectionView.reloadData()} else {
+                collectionView.insertItemsAtIndexPaths([newIndexPath!])
+            }
+            
+        case .Delete:
+            if controller.sections![0].numberOfObjects == 0 {
+                collectionView.reloadData()
+                hideCollectionView()
+            } else {
+                
+                collectionView.deleteItemsAtIndexPaths([indexPath!])
+            }
+            
+        default:
+            break
+        }
+    }
+    
 }
 
 extension FCPublishRootVC: UserDidDeletePublicationProtocol {
 
     //DEPRECATED v1.0.9
     func didDeletePublication(publication: Publication,  collectionViewIndex: Int) {
-//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-//            Int64(2 * Double(NSEC_PER_SEC)))
-//        
-//        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-//            let indexPath = NSIndexPath(forItem: collectionViewIndex, inSection: 0)
-//            self.collectionView.performBatchUpdates({ () -> Void in
-//                self.userCreatedPublications.removeAtIndex(indexPath.item)
-//                self.collectionView.deleteItemsAtIndexPaths([indexPath])
-//            }, completion: nil)
-//            
-//        })
+
     }
+    //End Deprecation
+    
     
     func didTakeOffAirPublication(publication: Publication) {
         let delayTime = dispatch_time(DISPATCH_TIME_NOW,

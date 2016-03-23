@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="164.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1is-qk-pze">
@@ -28,10 +28,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvL-Pf-Su1" userLabel="Buttom Line">
-                        <rect key="frame" x="0.0" y="162.5" width="320" height="2"/>
+                        <rect key="frame" x="0.0" y="163" width="320" height="1"/>
                         <color key="backgroundColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="2" id="MJ7-Y0-cbj"/>
+                            <constraint firstAttribute="height" constant="1" id="MJ7-Y0-cbj"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -325,7 +325,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         let buttonHeight = CGFloat(54)
         let paddingFromEdge = CGFloat(40)
         
-        let image = UIImage(named: "CameraIcon") as UIImage?
+        let image = UIImage(named: "Camera") as UIImage?
         let auxiliaryView = UIView(frame: CGRectMake(0, 0, screenWidth, pictureRowHeigt))
         
         // When I try to position the button (using constraints) relative to it’s superview (UITableView),
@@ -393,7 +393,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     private func checkIfReadyForPublish(){
         var containsData = true
         
-        for index in 0...4 {
+        for index in 0...3 {
             
             let cellData = self.dataSource[index]
             if !cellData.containsUserData {
@@ -445,14 +445,17 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func publishNewCreatedPublication() {
         
-        let params = self.prepareParamsDictToSend()
+        var newParams = self.prepareParamsDictToSend()
         
         let context = FCModel.dataController.managedObjectContext
         let publication = NSEntityDescription.insertNewObjectForEntityForName(kPublicationEntity, inManagedObjectContext: context) as! Publication
+        publication.isUserCreatedPublication = true
+
         let imageData = UIImageJPEGRepresentation(self.dataSource[0].userData as! UIImage, 1)
         publication.photoBinaryData = imageData
+        publication.didTryToDownloadImage = true
         
-        FCModel.sharedInstance.foodCollectorWebServer.postNewCreatedPublication(params, completion: {
+        FCModel.sharedInstance.foodCollectorWebServer.postNewCreatedPublication(newParams, completion: {
             (success: Bool, params: [String: AnyObject]) -> () in
             
             if success {
@@ -461,8 +464,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     
                     self.navigationController?.popViewControllerAnimated(true)
                     context.performBlock({ () -> Void in
-                        publication.isUserCreatedPublication = true
-                        publication.updateFromParams(params, context: context)
+                        newParams[kPublicationUniqueIdKey] = params[kPublicationUniqueIdKey]
+                        newParams[kPublicationVersionKey] = params[kPublicationVersionKey]
+                        publication.updateAfterUserCreation(newParams, context: context)
                     })
                     
                     //add the new publication
@@ -484,6 +488,15 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     self.removeActivityIndicator()
                     let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                    
+                    publication.updateAfterUserCreation(newParams, context: context)
+                    publication.didInformServer = false
+                    
+                    if publication.photoBinaryData != nil {
+                        //send the photo
+                        let uploader = FCPhotoFetcher()
+                        uploader.uploadPhotoForPublication(publication)
+                    }
                 })
             }
         })
@@ -493,11 +506,18 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         
         let context = FCModel.dataController.managedObjectContext
         
-        let params = self.prepareParamsDictToSend()
+        var params = self.prepareParamsDictToSend()
+        params[kPublicationUniqueIdKey] = self.publication?.uniqueId?.integerValue
+        params[kPublicationVersionKey] = (self.publication?.version?.integerValue ?? 0) + 1
+        self.publication?.updateAfterUserCreation(params, context: context)
         
         FCModel.sharedInstance.foodCollectorWebServer.postEditedPublication(params, publication: self.publication!) { (success, version) -> () in
             
             if success {
+                
+                //delete old image
+                let fetcher = FCPhotoFetcher()
+                fetcher.deletePhotoForPublication(self.publication!)
                 
                 let image = self.dataSource[0].userData as? UIImage
                 
@@ -532,6 +552,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 self.removeActivityIndicator()
                 let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event",aMessage: "try again later")
                 self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                
+                self.publication?.didInformServer = false
             }
         }
     }

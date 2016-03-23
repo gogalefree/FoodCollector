@@ -1139,7 +1139,7 @@
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="collectorDetailsCell" id="XM4-LY-Pik" customClass="ContactCollectorPickerCollectorDetailsCell" customModule="FoodCollector" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="560" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="560" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XM4-LY-Pik" id="CiD-up-f36">
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
@@ -1187,7 +1187,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sendSmsToCollectorsCell" id="KDc-Up-DpV" customClass="ContactCollectorsPickerSendSmsCell" customModule="FoodCollector" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="93.5" width="560" height="44"/>
+                                        <rect key="frame" x="0.0" y="94" width="560" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KDc-Up-DpV" id="4tU-nw-EI2">
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
@@ -1274,7 +1274,7 @@
                                                     <rect key="frame" x="0.0" y="86" width="600" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JZA-zZ-sGF" id="Y9a-Ss-KFd">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rE1-yD-ReW">
@@ -1376,7 +1376,7 @@
                                 <rect key="frame" x="0.0" y="66" width="600" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nOK-Hd-C35" id="aNs-u4-V9a">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="95.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="UUi-bh-y4c">
@@ -1571,7 +1571,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="q5c-MA-PUJ">
-                                        <rect key="frame" x="13" y="15.5" width="80" height="80"/>
+                                        <rect key="frame" x="13" y="16" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="W6h-Ck-bOC"/>
                                             <constraint firstAttribute="width" constant="80" id="dOq-Vi-eRE"/>
@@ -1703,7 +1703,7 @@
                                 <rect key="frame" x="0.0" y="22" width="150" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Njc-Jb-Pzu" id="qtQ-ih-52E">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -2139,7 +2139,7 @@
                                         <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zwE-ZR-1Uj" id="9D9-8h-OMv">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2515,7 +2515,7 @@
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCollectorPhonePickerLabelCell" id="8Ar-MX-diw" customClass="ContactCollectorPhonePickerLabelCell" customModule="FoodCollector" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="560" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="560" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Ar-MX-diw" id="EFl-lu-8zI">
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>

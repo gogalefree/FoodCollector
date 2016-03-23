@@ -93,8 +93,51 @@ class Publication: NSManagedObject {
             self.publisherDevUUID = activeDevice
             self.publisherUserName = publisherUserName
             self.storedDistanceFromUserLocation = NSNumber(double: self.distanceFromUserLocation)
+        
+        do {
+            try context.save()
+        } catch {
+            print("error updating publication with params \(error)")
+        }
+        
+        
         }
     }
+    
+    func updateAfterUserCreation(params: [String: AnyObject], context: NSManagedObjectContext) {
+        
+        self.title = params[kPublicationTitleKey] as? String
+        self.address = params[kPublicationAddressKey] as? String
+        self.version = NSNumber(integer: params[kPublicationVersionKey] as? Int ?? 1)
+        self.uniqueId = NSNumber(integer: params[kPublicationUniqueIdKey] as? Int ?? 0)
+        self.audiance = NSNumber(integer: params[kPublicationAudianceKey] as? Int ?? 0)
+        self.latitude = NSDecimalNumber(double: params[kPublicationlatitudeKey] as? Double ?? 0)
+        self.longitutde = NSDecimalNumber(double: params[kPublicationLongtitudeKey] as? Double ?? 0)
+        self.contactInfo = User.sharedInstance.userPhoneNumber
+        self.typeOfCollecting = NSNumber(integer: 2)
+        self.didInformServer = true
+        self.isOnAir = true
+        self.publisherDevUUID = FCModel.sharedInstance.deviceUUID
+        self.publisherId = NSNumber(integer: User.sharedInstance.userUniqueID)
+        self.publisherUserName = User.sharedInstance.userIdentityProviderUserName
+        self.subtitle = params[kPublicationSubTitleKey] as? String ?? ""
+        self.storedDistanceFromUserLocation = NSNumber(double: self.distanceFromUserLocation)
+        self.registrations = Set<PublicationRegistration>()
+        self.reports = Set<PublicationReport>()
+        
+        let endingDateDouble = params[kPublicationEndingDateKey] as? Double ?? 0
+        self.endingData = NSDate(timeIntervalSince1970: endingDateDouble)
+        
+        let startingDateDouble = params[kPublicationStartingDateKey] as? Double ?? 0
+        self.startingData = NSDate(timeIntervalSince1970: startingDateDouble)
+    
+        do {
+            try context.save()
+        } catch {
+            print ("error updating after creation \(error)" + __FUNCTION__)
+        }
+    }
+    
     
     override func awakeFromFetch() {
         super.awakeFromFetch()

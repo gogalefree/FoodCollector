@@ -82,6 +82,9 @@ class CDNewDataProcessor: NSObject {
             if let toDelete = publicationsToDelete {
                 for publication in toDelete {
                     
+                    //keep user created publications
+                    if publication.isUserCreatedPublication == true {continue}
+                    
                     //make delete notification object
                     let delete = ActivityLog.LogType.DeletePublication.rawValue
                     ActivityLog.activityLog(publication, group: nil, type: delete, context: localContext)

@@ -31,6 +31,12 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="M4Y-mZ-AWX"/>
+                    <exclude reference="onF-7i-fKN"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="101" y="-225"/>
         </view>
     </objects>

@@ -137,7 +137,8 @@ class FCUserPhotoFetcher: NSObject {
             }
                 
                 //DEV
-            else if serverUrl == "https://prv-fd-server.herokuapp.com/" {
+            else if serverUrl == "https://prv-fd-server.herokuapp.com/" ||
+                    serverUrl == "https://ofer-prv-fd-server.herokuapp.com/"{
                 
                 print("dev Version. user photoes buck is \(self.foodCollectorDevelopmentBucketName)")
                 return self.foodCollectorDevelopmentBucketName

@@ -317,13 +317,14 @@ public class FCMockServer: NSObject , FCServerProtocol {
         completion:(success: Bool, params: [String: AnyObject])->()) {
         
             var paramsToSend = params
-            paramsToSend["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
-            paramsToSend["is_on_air"] = true
-            paramsToSend["photo_url"] = ""
-            paramsToSend["audience"] = params["audience"] as? Int ?? 0 //change to group id or 0
-            paramsToSend["publisher_id"] = User.sharedInstance.userUniqueID
-            paramsToSend["contact_info"] = User.sharedInstance.userPhoneNumber
-            paramsToSend["publisher_user_name"] = User.sharedInstance.userIdentityProviderUserName
+            paramsToSend[kPublicationActiveDeviceUUIDKey] = FCModel.sharedInstance.deviceUUID
+            paramsToSend[kPublicationIsOnAirKey] = true
+            paramsToSend[kPublicationPhotoUrl] = ""
+            paramsToSend[kPublicationPublisherIdKey] = User.sharedInstance.userUniqueID
+            paramsToSend[kPublicationContactInfoKey] = User.sharedInstance.userPhoneNumber
+            paramsToSend[kPublicationPublisherUserNameKey] = User.sharedInstance.userIdentityProviderUserName
+            paramsToSend[kPublicationTypeOfCollectingKey] = 2
+            
             
             let pubDict = ["publication" : paramsToSend]
             print(pubDict)
@@ -372,14 +373,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
         completion:(success: Bool,  version: Int)->()) {
         
             var paramsToSend = params
-            paramsToSend["active_device_dev_uuid"] = FCModel.sharedInstance.deviceUUID
-            paramsToSend["is_on_air"] = true
-            paramsToSend["photo_url"] = ""
-            paramsToSend["audience"] = params["audience"] as? Int ?? 0 //change to group id or 0
-            paramsToSend["publisher_id"] = User.sharedInstance.userUniqueID
-            paramsToSend["contact_info"] = User.sharedInstance.userPhoneNumber
-            paramsToSend["publisher_user_name"] = User.sharedInstance.userIdentityProviderUserName
-            
+            paramsToSend[kPublicationActiveDeviceUUIDKey] = FCModel.sharedInstance.deviceUUID
+            paramsToSend[kPublicationIsOnAirKey] = true
+            paramsToSend[kPublicationPhotoUrl] = ""
+            paramsToSend[kPublicationPublisherIdKey] = User.sharedInstance.userUniqueID
+            paramsToSend[kPublicationContactInfoKey] = User.sharedInstance.userPhoneNumber
+            paramsToSend[kPublicationPublisherUserNameKey] = User.sharedInstance.userIdentityProviderUserName
+            paramsToSend[kPublicationTypeOfCollectingKey] = 2
         
             let pubDict = ["publication" : paramsToSend]
             let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
