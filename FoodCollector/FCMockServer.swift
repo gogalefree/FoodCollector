@@ -421,7 +421,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let publicationID = publication.uniqueId!.integerValue
         var params = [String:AnyObject]()
-        params["is_on_air"] = false
+        params[kPublicationIsOnAirKey] = false
         let pubDict = ["publication" : params]
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
         
@@ -442,6 +442,22 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 
                 
                 if error == nil && serverResponse.statusCode == 200 {
+                    
+                    if let data = data {
+                        let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
+                        if let dict = dict {
+                            
+                            let version = dict[kPublicationVersionKey] as! Int
+                            publication.version = NSNumber(integer: version)
+                            do {
+                                try publication.managedObjectContext?.save()
+                            } catch {
+                                print ("error saving publication after take off air: \(error)" + __FUNCTION__)
+                            }
+                        }
+                    }
+
+                    
                     
                     completion(success: true)
                 }

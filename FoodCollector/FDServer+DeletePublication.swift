@@ -28,10 +28,12 @@ extension FCMockServer {
                 
                 print("DELETE PUBLICATION RESPONSE: \(serverResponse)")
                 
-                if error != nil || serverResponse.statusCode != 200 {
+                if error != nil || serverResponse.statusCode > 300 {
                     
                     print("ERROR DELETING: \(error)")
                     completion(success: false)
+                } else  {
+                    completion(success: true)
                 }
             }
             else {
@@ -41,8 +43,6 @@ extension FCMockServer {
         
         
         task.resume()
-        
-        
     }
 
 }

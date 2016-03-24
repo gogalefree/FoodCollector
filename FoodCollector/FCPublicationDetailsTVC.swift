@@ -923,6 +923,7 @@ extension FCPublicationDetailsTVC {
         deleteAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
             
             //delete from model
+            deleteAlert.dismissViewControllerAnimated(true, completion: nil)
             FCModel.sharedInstance.deletePublication(self.publication!, deleteFromServer: true)
             self.deleteDelgate?.didDeletePublication(self.publication!, collectionViewIndex: self.publicationIndexNumber)
         }))

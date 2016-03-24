@@ -45,7 +45,9 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
     //MARK: New data notification
     func didRecieveNewData() {
     
-        self.publications = FCModel.sharedInstance.publications.sort { (pubA , pubB) in return pubA.endingData!.timeIntervalSince1970 > pubB.endingData!.timeIntervalSince1970}
+        
+        let newPublications = FCModel.sharedInstance.publications
+        self.publications = newPublications.sort { (pubA , pubB) in return pubA.endingData!.timeIntervalSince1970 > pubB.endingData!.timeIntervalSince1970}
         self.collectionView.reloadData()
     }
     

@@ -130,13 +130,14 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         
         //delete the publication
         let context = FCModel.dataController.managedObjectContext
-        context.performBlock { () -> Void in
+        context.performBlockAndWait { () -> Void in
             context.deleteObject(publication)
             FCModel.dataController.save()
+            self.loadPublications()
+            self.loadUserCreatedPublications()
         }
         
     
-        self.postDeletedPublicationNotification()
         let photofetcher = FCPhotoFetcher()
         photofetcher.deletePhotoForPublication(publication)
         if deleteFromServer {
@@ -146,6 +147,11 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
                 //TODO: implement persistency so we'll save the identifier and try again
                 
             })
+        }
+        
+        else {
+            //we post this notification if the delete came from a push notification and not if the user deleted
+            self.postDeletedPublicationNotification()
         }
     }
     

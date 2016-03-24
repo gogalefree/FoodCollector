@@ -20,7 +20,7 @@ public class FCAlertsHandler : NSObject {
     public func alertWithDissmissButton(aTitle: String, aMessage: String) -> UIAlertController {
        
         let alertController = UIAlertController(title: aTitle, message:aMessage, preferredStyle: .Alert)
-        let dissmissAction = UIAlertAction(title:kCancelButtonTitle, style: .Cancel) { (action) in
+        let dissmissAction = UIAlertAction(title:kOKButtonTitle, style: .Cancel) { (action) in
             alertController.dismissViewControllerAnimated(true , completion: nil)
         }
         alertController.addAction(dissmissAction)

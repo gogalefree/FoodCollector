@@ -79,7 +79,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.collectionView.reloadData()
-        if fetchedResultsController.sections![0].numberOfObjects > 0 {
+        if fetchedResultsController.fetchedObjects?.count > 0 {
             showCollectionView()
         } else {
             hideCollectionView()
@@ -245,35 +245,42 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     }
     
     func showCollectionView() {
-        self.collectionViewHidden = false
-        UIView.animateWithDuration(0.4, animations: { () -> Void in
-            self.collectionView.alpha = 1
-            if let label = self.noUserCreatedPublicationMessageLabel {
-                label.alpha = 0
-                label.removeFromSuperview()
-            }
-        })
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+
+            self.collectionViewHidden = false
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
+                self.collectionView.alpha = 1
+                if let label = self.noUserCreatedPublicationMessageLabel {
+                    label.alpha = 0
+                }
+            })
+        }
     }
     
     
     func displayNoPublicatiosMessage(){
         
-        let recWidth = DeviceData.screenWidth()/1.4
-        let recHight = DeviceData.screenHight()/1.4
-        let recCenterX = DeviceData.screenWidth()/2
-        let recCenterY = DeviceData.screenHight()/2
-        let fontSize = DeviceData.screenWidth()/10 - 9
-        
-        self.noUserCreatedPublicationMessageLabel = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
-        
-        if let label = self.noUserCreatedPublicationMessageLabel {
+        if self.noUserCreatedPublicationMessageLabel == nil {
+            let recWidth = DeviceData.screenWidth()/1.4
+            let recHight = DeviceData.screenHight()/1.4
+            let recCenterX = DeviceData.screenWidth()/2
+            let recCenterY = DeviceData.screenHight()/2
+            let fontSize = DeviceData.screenWidth()/10 - 9
             
-            label.center = CGPointMake(recCenterX, recCenterY - 100)
-            label.textAlignment = NSTextAlignment.Center
-            label.numberOfLines = 0
-            label.font = UIFont.systemFontOfSize(fontSize)
-            label.text = NSLocalizedString("Hi,\nWhat would you like to share?" , comment:"No user created publications message")
-            self.view.addSubview(label)
+            self.noUserCreatedPublicationMessageLabel = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
+            
+            if let label = self.noUserCreatedPublicationMessageLabel {
+                
+                label.center = CGPointMake(recCenterX, recCenterY - 100)
+                label.textAlignment = NSTextAlignment.Center
+                label.numberOfLines = 0
+                label.font = UIFont.systemFontOfSize(fontSize)
+                label.text = NSLocalizedString("Hi,\nWhat would you like to share?" , comment:"No user created publications message")
+                self.view.addSubview(label)
+            }
+        }
+        else {
+            self.noUserCreatedPublicationMessageLabel?.alpha = 1
         }
     }
     
@@ -424,7 +431,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         switch type {
             
         case .Insert:
-            if controller.sections![0].numberOfObjects == 1 {collectionView.reloadData()} else {
+            if controller.sections![0].numberOfObjects == 1 {
+            
+                showCollectionView()
+                collectionView.reloadData()
+            } else {
                 collectionView.insertItemsAtIndexPaths([newIndexPath!])
             }
             
@@ -446,11 +457,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
 
 extension FCPublishRootVC: UserDidDeletePublicationProtocol {
 
-    //DEPRECATED v1.0.9
     func didDeletePublication(publication: Publication,  collectionViewIndex: Int) {
-
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    //End Deprecation
     
     
     func didTakeOffAirPublication(publication: Publication) {
@@ -459,27 +468,28 @@ extension FCPublishRootVC: UserDidDeletePublicationProtocol {
         
         dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
 
-            //update model
-            FCModel.dataController.managedObjectContext.performBlock({ () -> Void in
-                
-                publication.endingData = NSDate()
-                publication.isOnAir = false
-                FCModel.dataController.save()
-            })
-            
             
             //inform server and model
             FCModel.sharedInstance.foodCollectorWebServer.takePublicationOffAir(publication, completion: { (success) -> Void in
+                
+                //dissmiss publication details screen
+                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 
                 if success{
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
-                       
-                        FCModel.sharedInstance.loadPublications()
-                        FCModel.sharedInstance.loadUserCreatedPublications()
-                        self.collectionView.reloadData()
-
+                        //update model
+                        FCModel.dataController.managedObjectContext.performBlockAndWait({ () -> Void in
+                            
+                            publication.endingData = NSDate()
+                            publication.isOnAir = false
+                            FCModel.dataController.save()
+                            
+                            FCModel.sharedInstance.loadPublications()
+                            FCModel.sharedInstance.loadUserCreatedPublications()
+                            self.collectionView.reloadData()
+                        })
                     })
                 }
                 else{
