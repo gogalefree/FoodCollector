@@ -1369,7 +1369,7 @@
 				TargetAttributes = {
 					E494DF091A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 58NS37C8VA;
+						DevelopmentTeam = Z43P8YG44T;
 					};
 					E494DF1E1A0A980D004A369E = {
 						CreatedOnToolsVersion = 6.1;
@@ -1821,7 +1821,6 @@
 				E4E83F531C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */,
 				E4E83F501C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */,
 				E4F40D131C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */,
-				E4D16F141C881E0600EDFE69 /* Publication+CoreDataProperties.swift in Sources */,
 				A14F4D731B9AC0D800E29DE4 /* PublicationOptionsMenuItemCell.swift in Sources */,
 				E45689951C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift in Sources */,
 				E4AEDE551B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift in Sources */,
@@ -1893,7 +1892,6 @@
 				E40F199B1C81984B009C044E /* Publication.swift in Sources */,
 				E4A557241C919F6800E09139 /* NotificationsDistanceVC.swift in Sources */,
 				E408A6591C9ECB7900D17D9D /* Publication+CoreDataProperties.swift in Sources */,
-				A1A738A21B7FA22800CA2C5A /* PublicationEditorTVCPhoneNumEditorCustomCell.swift in Sources */,
 				A1F44BEB1C6938C9000F132A /* InfoPopoverVC.swift in Sources */,
 				E4584B821BE4F870007D45E2 /* ContactCollectorPhonePickerLabelCell.swift in Sources */,
 				E42ED57D1A8BD380008FB618 /* FCModel+PostNotifications.swift in Sources */,
