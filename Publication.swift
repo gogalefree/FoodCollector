@@ -36,6 +36,13 @@ class Publication: NSManagedObject {
         }
     }
     
+    var audianceID: Int { get {
+        
+        guard let audianceInt = self.audiance else {return 0}
+        return audianceInt.integerValue
+        }
+    }
+    
     func setUserRegistration(registered: Bool) {
         
         self.didRegisterForCurrentPublication = registered

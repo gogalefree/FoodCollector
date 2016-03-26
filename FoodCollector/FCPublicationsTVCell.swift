@@ -14,7 +14,7 @@ class FCPublicationsTVCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
 
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var audianceIconImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
     
     var publication: Publication? {
@@ -30,7 +30,11 @@ class FCPublicationsTVCell: UITableViewCell {
         self.titleLabel.text = publication.title
         self.addressLabel.text = publication.address
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
-        self.iconImageView.image = FCIconFactory.publicationsTableIcon()
+        self.audianceIconImageView.image = FCIconFactory.typeOfPublicationIcon(publication)
+        
+        //publication.countOfRegisteredUsers
+        
+        
         downloadImage()
     }
     
