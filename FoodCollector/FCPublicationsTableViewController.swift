@@ -73,6 +73,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         self.tableView.estimatedRowHeight = 96
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)
+        addCreatePublicationButton()
         self.registerForAppNotifications()
     }
     
@@ -337,6 +338,72 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         }
     }
     
+    
+    func addCreatePublicationButton(){
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        let buttonWidth = CGFloat(60)
+        let buttonHeight = CGFloat(61)
+        let spaceFromBottom = CGFloat(50)
+        let buttonX = screenWidth / 2
+        let buttonY = screenHeight - spaceFromBottom - (buttonHeight / 2)
+        
+        let image = UIImage(named: "NewPublicationPlusBtn") as UIImage?
+        
+        let button   = UIButton(type: UIButtonType.Custom)
+        button.frame.size = CGSizeMake(buttonWidth,buttonHeight)
+        button.center = CGPointMake(buttonX, buttonY)
+        //button.layer.cornerRadius = buttonWidth / 2
+        
+        button.setImage(image, forState: .Normal)
+        button.addTarget(self, action: "createNewPublicationButtonTouched:", forControlEvents:.TouchUpInside)
+        
+        self.view.addSubview(button)
+    }
+    
+    func createNewPublicationButtonTouched(object : UIButton) {
+        print("createNewPublicationButtonTouched")
+        
+        // If the user is logged in: let him create a new publication event.
+        // If the user is NOT logged in: start login process.
+        
+        if User.sharedInstance.userIsLoggedIn {
+            if let newShareVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC {
+                newShareVC.setupWithState(.CreateNewPublication, publication: nil)
+                newShareVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissVC")
+                let nav = UINavigationController(rootViewController: newShareVC)
+                self.presentViewController(nav, animated: true, completion: nil)
+            }
+            
+            
+            //let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
+            //publicationEditorTVC.setupWithState()
+        }
+        else {
+            showPickupRegistrationAlert()
+        }
+    }
+    
+    func showPickupRegistrationAlert() {
+        let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Add buttons
+        alertController.addAction(UIAlertAction(title: kAlertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+            self.startLoginprocess()
+        }))
+        alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func startLoginprocess() {
+        print("startLoginprocess")
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+        
+        self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
+    }
+
     
     //BORIS
     //this is called when the notifications icon needs update
