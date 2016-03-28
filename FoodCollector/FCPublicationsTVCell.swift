@@ -27,8 +27,12 @@ class FCPublicationsTVCell: UITableViewCell {
     }
     
     func setUp(publication: Publication) {
+        let shortDistanceString = FCStringFunctions.formmatedDistanceString(publication.distanceFromUserLocation)
         self.titleLabel.text = publication.title
-        self.addressLabel.text = publication.address
+        if let address = publication.address {
+            self.addressLabel.text = address + "(" + shortDistanceString + ")"
+        }
+        
         self.distanceLabel.text = FCStringFunctions.longDistanceString(publication)
         self.audianceIconImageView.image = FCIconFactory.typeOfPublicationIcon(publication)
         

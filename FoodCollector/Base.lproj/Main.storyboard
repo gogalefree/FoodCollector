@@ -1402,8 +1402,8 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-tK-AE0">
-                                            <rect key="frame" x="88" y="46" width="222" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-tK-AE0">
+                                            <rect key="frame" x="88" y="76" width="222" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="LPI-El-QXh"/>
                                             </constraints>
@@ -1415,7 +1415,7 @@
                                             </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-bl-l9O">
-                                            <rect key="frame" x="88" y="68" width="222" height="16"/>
+                                            <rect key="frame" x="88" y="50" width="222" height="16"/>
                                             <fontDescription key="fontDescription" name="ArialHebrew" family="Arial Hebrew" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1432,7 +1432,13 @@
                                         <constraint firstItem="UUi-bh-y4c" firstAttribute="leading" secondItem="Oir-l9-AxA" secondAttribute="trailing" constant="8" id="h0O-T6-pLF"/>
                                         <constraint firstAttribute="trailing" secondItem="Hf6-tK-AE0" secondAttribute="trailing" constant="10" id="hjC-CN-QH2"/>
                                         <constraint firstItem="Oir-l9-AxA" firstAttribute="centerY" secondItem="aNs-u4-V9a" secondAttribute="centerY" id="mHR-YX-g90"/>
+                                        <constraint firstItem="Hf6-tK-AE0" firstAttribute="bottom" secondItem="Oir-l9-AxA" secondAttribute="bottom" id="rYL-uQ-K4C"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="PJt-Hc-urf"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addressLabel" destination="5OQ-bl-l9O" id="YO7-5I-a2O"/>
