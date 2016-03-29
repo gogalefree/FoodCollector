@@ -48,6 +48,27 @@ class FCDateFunctions : NSObject {
         formatter.locale = NSLocale.currentLocale()
         return formatter.stringFromDate(date)
     }
+    
+    class func timeStringDaysAndHoursRemain(fromDate fromDate: NSDate, toDate: NSDate) -> String {
+        let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double
+        print("tiemInterval: \(timeInterval)")
+        if timeInterval > 0 {
+            print("timeInterval > 0")
+            let totalHours = timeInterval / 60 / 60
+            if totalHours == 0 { // less than an hour to end date
+                print("totalHours == 0")
+                let remainingMinutes = Int(timeInterval / 60)
+                return "0H \(remainingMinutes)M" // "0H 1M"
+            }
+            
+            let remainingDays = Int(totalHours / 24)
+            let remainingHours = totalHours % 24
+            return "\(remainingDays)D \(remainingHours)H" // "2D 1H"
+        }
+        else {
+            return "0D 0H"
+        }
+    }
 }
 
 

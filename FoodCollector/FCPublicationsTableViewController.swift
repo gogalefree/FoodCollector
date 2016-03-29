@@ -344,7 +344,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let screenHeight = UIScreen.mainScreen().bounds.height
         let buttonWidth = CGFloat(60)
         let buttonHeight = CGFloat(61)
-        let spaceFromBottom = CGFloat(50)
+        let spaceFromBottom = CGFloat(35)
         let buttonX = screenWidth / 2
         let buttonY = screenHeight - spaceFromBottom - (buttonHeight / 2)
         

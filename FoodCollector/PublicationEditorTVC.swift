@@ -325,7 +325,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         let buttonHeight = CGFloat(54)
         let paddingFromEdge = CGFloat(40)
         
-        let image = UIImage(named: "Camera") as UIImage?
+        let image = UIImage(named: "CameraIcon") as UIImage?
         let auxiliaryView = UIView(frame: CGRectMake(0, 0, screenWidth, pictureRowHeigt))
         
         // When I try to position the button (using constraints) relative to it’s superview (UITableView),
@@ -459,7 +459,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             (success: Bool, params: [String: AnyObject]) -> () in
             
             if success {
-            
+                
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     self.navigationController?.popViewControllerAnimated(true)
