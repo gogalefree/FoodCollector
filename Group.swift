@@ -244,7 +244,7 @@ class Group: NSManagedObject {
         
         for member in self.members! {
             
-            let moc = (member as! NSManagedObjectContext)
+            let moc = member.managedObjectContext!
             moc.performBlock({ () -> Void in
                 moc.deleteObject(member as! NSManagedObject)
             })
