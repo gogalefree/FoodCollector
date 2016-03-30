@@ -344,13 +344,13 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let screenHeight = UIScreen.mainScreen().bounds.height
         let buttonWidth = CGFloat(60)
         let buttonHeight = CGFloat(61)
-        let spaceFromBottom = CGFloat(35)
+        let spaceFromBottom = CGFloat(30)
         let buttonX = screenWidth / 2
         let buttonY = screenHeight - spaceFromBottom - (buttonHeight / 2)
         
         let image = UIImage(named: "NewPublicationPlusBtn") as UIImage?
         
-        let button   = UIButton(type: UIButtonType.Custom)
+        let button = UIButton(type: UIButtonType.Custom)
         button.frame.size = CGSizeMake(buttonWidth,buttonHeight)
         button.center = CGPointMake(buttonX, buttonY)
         //button.layer.cornerRadius = buttonWidth / 2
@@ -358,7 +358,8 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         button.setImage(image, forState: .Normal)
         button.addTarget(self, action: "createNewPublicationButtonTouched:", forControlEvents:.TouchUpInside)
         
-        self.view.addSubview(button)
+        //self.view.addSubview(button)
+        self.navigationController!.view.addSubview(button)
     }
     
     func createNewPublicationButtonTouched(object : UIButton) {

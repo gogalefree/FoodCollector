@@ -1403,7 +1403,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-tK-AE0">
-                                            <rect key="frame" x="119" y="47" width="29.5" height="16"/>
+                                            <rect key="frame" x="119" y="44" width="29.5" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="Bit-cW-kBE"/>
                                                 <constraint firstAttribute="height" constant="14" id="LPI-El-QXh"/>
@@ -1418,7 +1418,7 @@
                                             </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-bl-l9O">
-                                            <rect key="frame" x="88" y="47" width="29.5" height="16"/>
+                                            <rect key="frame" x="88" y="44" width="29.5" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="qsG-6H-Z54"/>
                                             </constraints>
@@ -1473,7 +1473,7 @@
                                         <constraint firstItem="Oir-l9-AxA" firstAttribute="centerY" secondItem="aNs-u4-V9a" secondAttribute="centerY" id="mHR-YX-g90"/>
                                         <constraint firstItem="Hf6-tK-AE0" firstAttribute="leading" secondItem="5OQ-bl-l9O" secondAttribute="trailing" constant="2" id="ozr-zN-90x"/>
                                         <constraint firstItem="Hf6-tK-AE0" firstAttribute="bottom" secondItem="Oir-l9-AxA" secondAttribute="bottom" id="rYL-uQ-K4C"/>
-                                        <constraint firstItem="5OQ-bl-l9O" firstAttribute="top" secondItem="6h8-2b-WKd" secondAttribute="bottom" constant="15" id="td4-wk-nGp"/>
+                                        <constraint firstItem="5OQ-bl-l9O" firstAttribute="top" secondItem="6h8-2b-WKd" secondAttribute="bottom" constant="12" id="td4-wk-nGp"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">

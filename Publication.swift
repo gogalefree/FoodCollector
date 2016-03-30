@@ -36,6 +36,10 @@ class Publication: NSManagedObject {
         }
     }
     
+    var countOfRegisteredUsersAsString: String { get {
+        return "\(countOfRegisteredUsers)" }
+    }
+    
     var audianceID: Int { get {
         
         guard let audianceInt = self.audiance else {return 0}
