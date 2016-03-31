@@ -134,6 +134,12 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
             
             case 4: // Groups
                 print("Groups was Taped")
+                
+                if !User.sharedInstance.userIsLoggedIn {
+                    presentLogin()
+                    return
+                }
+                
                 let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)
                 let groupsNavVC = groupsStoryBoard.instantiateInitialViewController() as? UINavigationController
                 self.presentViewController(groupsNavVC!, animated: true, completion: nil)
@@ -224,6 +230,13 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         feedbackNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         feedbackNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         self.parentViewController?.parentViewController?.presentViewController(feedbackNavVC, animated: true, completion: nil)
+    }
+    
+    func presentLogin() {
+        
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginRootVCNavController = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+        self.presentViewController(loginRootVCNavController, animated: true, completion: nil)
     }
     
     /*

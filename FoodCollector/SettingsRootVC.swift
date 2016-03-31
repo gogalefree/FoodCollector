@@ -97,7 +97,10 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func logOut() {
         
         User.sharedInstance.logOut()
+        GIDSignIn.sharedInstance().signOut()
+        FBSDKLoginManager().logOut()
         self.tableView.reloadData()
+        //TODO: Add logout with foodonet server
     }
     
     

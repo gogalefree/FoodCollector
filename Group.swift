@@ -160,6 +160,7 @@ class Group: NSManagedObject {
                     
                     let group = NSEntityDescription.insertNewObjectForEntityForName(kGroupEntity, inManagedObjectContext: context) as! Group
                     group.updateWithParams(groupParams, context: context)
+                    ActivityLog.activityLog(nil, group: group, type: ActivityLog.LogType.NewGroup.rawValue, context: context)
                 }
                 
                 else if groups.count == 1 {
@@ -244,7 +245,7 @@ class Group: NSManagedObject {
         
         for member in self.members! {
             
-            let moc = (member as! NSManagedObjectContext)
+            let moc = member.managedObjectContext!
             moc.performBlock({ () -> Void in
                 moc.deleteObject(member as! NSManagedObject)
             })

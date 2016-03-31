@@ -19,7 +19,7 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
         let moc = FCModel.dataController.managedObjectContext
         let request = NSFetchRequest(entityName: "ActivityLog")
         request.fetchBatchSize = 20
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         
         let aFetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         aFetchResultsController.delegate =  self

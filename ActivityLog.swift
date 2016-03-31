@@ -12,7 +12,7 @@ import CoreData
 
 class ActivityLog: NSManagedObject {
 
-    enum LogType: Int {case NewPublication = 1,EditedPublication = 2, DeletePublication = 3, Report = 4, Registration = 5, DeleteGroup = 6}
+    enum LogType: Int {case NewPublication = 1,EditedPublication = 2, DeletePublication = 3, Report = 4, Registration = 5, DeleteGroup = 6, NewGroup = 7}
 
     class func activityLog(publication: Publication?, group: Group? ,type: Int, context: NSManagedObjectContext) {
         
@@ -59,12 +59,15 @@ class ActivityLog: NSManagedObject {
             
         case .DeleteGroup:
             title = NSLocalizedString("Group was deleted: ", comment:"fetched data notification text: a group was eddited")
+       
+        case .NewGroup:
+            title = NSLocalizedString("Group Added: ", comment:"fetched data notification text: a group was created")
 
         }
         
         var additionalTitle = ""
         
-        if logType == .DeleteGroup {
+        if logType == .DeleteGroup || logType == .NewGroup {
             
             additionalTitle = group?.name ?? ""
             
