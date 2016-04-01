@@ -19,13 +19,13 @@ import QuartzCore
 class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var publicationsTableView: UITableView!
-    
+    @IBOutlet weak var searchBar: UISearchBar!
+
     var noUserCreatedPublicationMessageLabel: UILabel?
     
     var filteredUserCreatedPublications = [Publication]()
     var publicationsTableViewHidden = false
     
-    var searchBar: UISearchBar!
     var searchTextCharCount = 0
     var onceToken = 0
     var isFiltered = false
@@ -63,11 +63,13 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLoad()
         
         publicationsTableView.delegate = self
+        publicationsTableView.dataSource = self
         if fetchedResultsController.sections![0].numberOfObjects == 0 {
             
             hideTableView()
         }
         else {
+
             publicationsTableView.userInteractionEnabled = true
             publicationsTableView.scrollEnabled = true
         }
@@ -90,7 +92,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLayoutSubviews()
         
         dispatch_once(&onceToken) {
-            self.publicationsTableView.contentOffset.y = 20
+            self.publicationsTableView.contentOffset.y = -22 //assign 0 if you want the search bar to show on load
         }
     }
     
@@ -98,18 +100,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidAppear(animated)
         GAController.reportsAnalyticsForScreen(kFAPublisherRootVCScreenName)
     }
-    
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        
-//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//        
-//        if self.publicationsTableView != nil {
-//            
-//            self.publicationsTableView.tableViewLayout.invalidateLayout()
-//            super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//        }
-//    }
-    
+        
     // MARK: - Table View Functions
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -117,23 +108,30 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        //If you keep the search bar as a cell, you need to return the count + 1
+        
         if isFiltered {return filteredUserCreatedPublications.count}
-        return fetchedResultsController.sections![0].numberOfObjects
+        
+        let count = fetchedResultsController.sections![0].numberOfObjects
+        return count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
-            let reusableId = "PublishTableViewSearchCell"
-            let cell = tableView.dequeueReusableCellWithIdentifier(reusableId) as! PublishRootVCCustomTableViewSearchCell
-            return cell
-        }
+        //it's better to have the search bar as a seperate viwe and assign it as the tableViewHeaderView, and not as a cell.
         
+//        if indexPath.row == 0 {
+//            let reusableId = "PublishTableViewSearchCell"
+//            let cell = tableView.dequeueReusableCellWithIdentifier(reusableId, forIndexPath: indexPath) as! PublishRootVCCustomTableViewSearchCell
+//            return cell
+//        }
+//        
         
         var publication: Publication
         
         if isFiltered {
-            publication = filteredUserCreatedPublications[indexPath.item]
+            publication = filteredUserCreatedPublications[indexPath.row]
         }
         else {
             publication = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Publication
@@ -141,18 +139,21 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
         
         let reusableId = "PublishTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(reusableId) as! PublishRootVCCustomTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reusableId, forIndexPath: indexPath) as! PublishRootVCCustomTableViewCell
         cell.publication = publication
         
         // The tag property will be used later in the segue to identify
         // the publication item clicked by the user for editing.
-        cell.tag = indexPath.item
+        // Why don't you pass the indexPath itself?
+        cell.tag = indexPath.row
         
         return cell
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         
+        // This will crash since the first cell is the SearchCell
+        // It's better to remove the search bar out of the table view and keep it as a seperate view
         var publication: Publication
         
         if isFiltered {
@@ -314,24 +315,24 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     //MARK: - UISearchBar
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
-        var reusableview:UICollectionReusableView!
-        
-        
-        
-        if (kind == UICollectionElementKindSectionHeader) {
-            
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: kPublisherRootVCHeaderViewReusableId, forIndexPath: indexPath) as! FCPublisherRootVCCollectionViewHeaderCollectionReusableView
-            
-            headerView.setUp()
-            self.searchBar = headerView.searchBar
-            self.searchBar.delegate = self
-            reusableview = headerView
-        }
-        
-        return reusableview
-    }
+//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+//        
+//        var reusableview:UICollectionReusableView!
+//        
+//        
+//        
+//        if (kind == UICollectionElementKindSectionHeader) {
+//            
+//            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: kPublisherRootVCHeaderViewReusableId, forIndexPath: indexPath) as! FCPublisherRootVCCollectionViewHeaderCollectionReusableView
+//            
+//            headerView.setUp()
+//            self.searchBar = headerView.searchBar
+//            self.searchBar.delegate = self
+//            reusableview = headerView
+//        }
+//        
+//        return reusableview
+//    }
     
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -405,8 +406,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        
-        self.searchBar.resignFirstResponder()
+        self.searchBar?.resignFirstResponder()
     }
     
     func searchPublications(text: String) {

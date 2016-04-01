@@ -32,7 +32,8 @@ class PublishRootVCCustomTableViewCell: UITableViewCell {
     func setUp(publication: Publication) {
         self.titleLabel.text = publication.title
         self.audianceIconImageView.image = FCIconFactory.typeOfPublicationIcon(publication)
-        self.countOfRegisteredUsersLabel.text = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment: "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'"), publication.countOfRegisteredUsers)
+        let count = publication.countOfRegisteredUsers
+        self.countOfRegisteredUsersLabel.text = "\(count)" + String.localizedStringWithFormat(" users joined", "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'")
         self.timeRemains.text = FCDateFunctions.timeStringDaysAndHoursRemain(fromDate: publication.endingData!, toDate: NSDate())
         
         downloadImage()
