@@ -792,6 +792,11 @@ extension PublicationEditorTVC {
         self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
     }
     
+    final func dismissVC() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    
 }
 
 ////===========================================================================

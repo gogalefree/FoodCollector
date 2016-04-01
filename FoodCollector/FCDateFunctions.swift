@@ -69,6 +69,21 @@ class FCDateFunctions : NSObject {
             return "0D 0H"
         }
     }
+    
+    class func timeStringDaysAndHoursRemainWithColor(fromDate fromDate: NSDate, toDate: NSDate) -> (String, UIColor) {
+        
+        let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double
+        if timeInterval > 0 {
+            let timeString = timeStringDaysAndHoursRemain(fromDate: fromDate, toDate: toDate)
+            let textColor = UIColor(red: 65/255, green: 117/255, blue: 5/255, alpha: 1)
+            return (timeString, textColor)
+        }
+        else {
+            let timeString = NSLocalizedString("Ended", comment: "The time for publication has ended.")
+            let textColor = UIColor(red: 255/255, green: 39/255, blue: 39/255, alpha: 1)
+            return (timeString, textColor)
+        }
+    }
 }
 
 

@@ -17,6 +17,12 @@ import QuartzCore
 ///
 
 class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
+    
+    let searchBarPlaceHolderText = NSLocalizedString("Search", comment:"Search bar placeholder text")
+    let scopeButtonTitlesOnAir = NSLocalizedString("On Air", comment:"Search bar scope button titles")
+    let scopeButtonTitlesOffAir = NSLocalizedString("Off Air", comment:"Search bar scope button titles")
+    let scopeButtonTitlesEnds = NSLocalizedString("Ends", comment:"Search bar scope button titles")
+
 
     @IBOutlet weak var publicationsTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -62,6 +68,8 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchBarSetup()
+        
         publicationsTableView.delegate = self
         publicationsTableView.dataSource = self
         if fetchedResultsController.sections![0].numberOfObjects == 0 {
@@ -75,6 +83,24 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
         
         addCreatePublicationButton()
+    }
+    
+    func searchBarSetup() {
+        let white = UIColor.whiteColor()
+        let selectedColor = UIColor(red: 245, green: 221, blue: 249, alpha: 0.5)
+        
+        searchBar.placeholder = searchBarPlaceHolderText
+        searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        searchBar.scopeButtonTitles = [scopeButtonTitlesOnAir, scopeButtonTitlesOffAir, scopeButtonTitlesEnds]
+        searchBar.showsScopeBar = true
+        searchBar.selectedScopeButtonIndex = 0
+        searchBar.sizeToFit()
+        
+        searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(white, view: searchBar), forState: .Normal)
+        
+        searchBar.setScopeBarButtonBackgroundImage(UIImage.imageWithColor(selectedColor, view: searchBar), forState: .Selected)
+        
+        searchBar.scopeBarBackgroundImage = UIImage.imageWithColor(white, view: searchBar)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -92,7 +118,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLayoutSubviews()
         
         dispatch_once(&onceToken) {
-            self.publicationsTableView.contentOffset.y = -22 //assign 0 if you want the search bar to show on load
+            self.publicationsTableView.contentOffset.y = -64 //assign 0 if you want the search bar to show on load
         }
     }
     
@@ -150,7 +176,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         // This will crash since the first cell is the SearchCell
         // It's better to remove the search bar out of the table view and keep it as a seperate view
