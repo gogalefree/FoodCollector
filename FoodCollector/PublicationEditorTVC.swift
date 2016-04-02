@@ -117,7 +117,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func backButtonAction() {
-        self.popViewController()
+        //self.popViewController()
+        self.dismissViewControllerAnimated(true, completion: nil)
         GAController.sendAnalitics(kFAPublicationEditorTVCScreenName, action: "Back button action", label: "canceled publication creation or edit", value: 0)
     }
 
