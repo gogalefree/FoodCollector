@@ -403,6 +403,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         })
     }
     
+    
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         
         var sorter = NSSortDescriptor()
