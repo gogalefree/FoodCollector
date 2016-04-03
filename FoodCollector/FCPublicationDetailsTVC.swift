@@ -12,18 +12,19 @@ import Social
 import CoreData
 
 
-let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a button")
-let kOptionsButtonTitle = NSLocalizedString("Options", comment:"Report title for a button")
-let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End publication confirmation title for an alert controller")
-let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
+//let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a button")
+//let kOptionsButtonTitle = NSLocalizedString("Options", comment:"Report title for a button")
+//let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End publication confirmation title for an alert controller")
+//let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
 
 
-
+/*
 enum PublicationDetailsTVCViewState {
 
     case Publisher
     case Collector
 }
+
 
 enum PublicationDetailsTVCVReferral {
     
@@ -36,6 +37,7 @@ protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
     func didDeletePublication(publication: Publication, collectionViewIndex: Int)
     func didTakeOffAirPublication(publication: Publication)
 }
+*/
 
 class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
     
@@ -672,271 +674,271 @@ extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
     }
 }
 
-extension FCPublicationDetailsTVC {
-    //MARK: - reports cell full screen
-    
-
-    func displayReportsWithFullScreen() {
-        
-        let reports = publication?.reports
-        
-        if reports == nil || reports?.count == 0 {return}
-
-       
-            let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as! FCPublicationReportsNavigationController
-            self.publicationReportsNavController = publicationReportsNavController
-            
-            publicationReportsNavController.transitioningDelegate = self
-            publicationReportsNavController.modalPresentationStyle = .Custom
-            
-            let publicationReportsTVC = publicationReportsNavController.viewControllers[0] as! FCPublicationReportsTVC
-            
-            publicationReportsTVC.publication = self.publication
-            
-            self.navigationController?.presentViewController(publicationReportsNavController, animated: true, completion: { () -> Void in})
-        
-        }
-
-}
-
-//MARK: - SMS Message Composer
-
-extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
-    
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-        
-        switch (result.rawValue) {
-        
-        case MessageComposeResultCancelled.rawValue:
-            print("Message was cancelled")
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-       
-        case MessageComposeResultFailed.rawValue:
-            
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-
-            
-            let alert = UIAlertController(title: kSendSMSfailedAlertTitle, message: kSendSMSTryAgainAlertMessage, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default , handler: { (action) -> Void in
-                self.didRequestSmsForPublication(self.publication!)
-            }))
-            alert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Cancel, handler: { (action) -> Void in
-                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-            }))
-            
-            self.navigationController?.presentViewController(alert, animated: true, completion: nil)
-            
-        case MessageComposeResultSent.rawValue:
-            print("Message was sent")
-            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-        default:
-            break;
-        }
-    }
-}
-
-//MARK: - Report Button and delegate
-
-extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
-    
-    func addTopRightButton(buttonType: PublicationDetailsTVCViewState) {
-        var buttonValus = (kReportButtonTitle, "presentReportVC")
-        
-        if buttonType == PublicationDetailsTVCViewState.Publisher {
-            buttonValus = (kOptionsButtonTitle, "presentOptionsMenuVC")
-        }
-            
-        createTopRightButton(label: buttonValus.0, andAction: buttonValus.1)
-    }
-    
-    func createTopRightButton(label label:String, andAction actionName: String) {
-        let actionSelector = Selector(stringLiteral: actionName)
-        let topRightButton = UIBarButtonItem(
-                title: label,
-                style: UIBarButtonItemStyle.Done,
-                target: self,
-                action: actionSelector)
-        self.navigationItem.setRightBarButtonItem(topRightButton, animated: false)
-    }
-    
-    
-    func presentReportVC() {
-        
-        if User.sharedInstance.userIsLoggedIn {
-            let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
-            
-            arrivedToSpotReportVC.publication = self.publication
-            arrivedToSpotReportVC.delegate = self
-            
-            let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
-            
-            self.navigationController?.presentViewController(navController, animated: true, completion: nil)
-        }
-        else {
-            showNotLoggedInAlert()
-        }
-    }
-    
-    //MARK: - Reports delegate
-
-    func dismiss(report: PublicationReport?) {
-
-        if self.presentedViewController != nil {
-            self.dismissViewControllerAnimated(true, completion: nil)
-            self.tableView.reloadData()
-        }
-    }
-    
-    //MARK: - Options menue
-    func presentOptionsMenuVC(){
-        
-        if User.sharedInstance.userIsLoggedIn {
-            let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
-            optionsMenuPopUpVC.delegate = self
-            optionsMenuPopUpVC.publication = publication
-            
-            optionsMenuPopUpVC.popoverPresentationController?.delegate = self
-            optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
-            if publication!.isOnAir! == true {
-                // 44 is the row height of each cell in the options menu table
-                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
-            }
-            else {
-                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
-            }
-            
-            //get the popup presentation controller. it is a property on every
-            //View Controller subclass. there you set the arrows direction etc. take a look at
-            //it's properties, it's very flexible.
-            
-            let popUpPC = optionsMenuPopUpVC.popoverPresentationController
-            popUpPC?.delegate = self
-            popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
-            popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
-            
-            self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
-        
-        }
-        else {
-            showNotLoggedInAlert()
-        }
-    }
-    
-    func adaptivePresentationStyleForPresentationController(
-        controller: UIPresentationController) -> UIModalPresentationStyle {
-            return .None
-    }
-    
-    
-}
-
-//MARK: - Admin for beta bundle
-
-extension FCPublicationDetailsTVC {
-    
-    func configAdminIfNeeded() {
-        
-        var infoPlist: NSDictionary?
-        
-        if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
-            
-            infoPlist = NSDictionary(contentsOfFile: path)
-        }
-        
-        if let infoPlist = infoPlist {
-            
-            let bundleName = infoPlist["CFBundleName"] as! String
-            let bundleID = infoPlist["CFBundleIdentifier"] as! String
-            print("BUNDLE ID: \(bundleID)")
-            if bundleName.hasPrefix("beta") {
-             
-                print("Beta Version. adding deleteButton")
-                addDeletButton()
-            }
-        }
-        else {
-            print("Config Admin **************: NOT FOUND")
-            
-        }
-    }
-    
-    func addDeletButton() {
-        
-        let deleteButton = UIBarButtonItem(title: "delete", style: UIBarButtonItemStyle.Plain, target: self, action: "deletePublication")
-        self.navigationItem.setRightBarButtonItem(deleteButton, animated: false)
-    }
-    
-    func deletePublication() {
-        print("deleting publication")
-        
-//        let identifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId!.integerValue , version: self.publication!.version!.integerValue)
+//extension FCPublicationDetailsTVC {
+//    //MARK: - reports cell full screen
+//    
+//
+//    func displayReportsWithFullScreen() {
 //        
-//        FCModel.sharedInstance.foodCollectorWebServer.deletePublication(identifier, completion: { (success) -> () in
+//        let reports = publication?.reports
+//        
+//        if reports == nil || reports?.count == 0 {return}
+//
+//       
+//            let publicationReportsNavController = self.storyboard?.instantiateViewControllerWithIdentifier("publicationReportsNavController") as! FCPublicationReportsNavigationController
+//            self.publicationReportsNavController = publicationReportsNavController
 //            
-//            if success {
-//                self.dismissViewControllerAnimated(true, completion: nil)
+//            publicationReportsNavController.transitioningDelegate = self
+//            publicationReportsNavController.modalPresentationStyle = .Custom
+//            
+//            let publicationReportsTVC = publicationReportsNavController.viewControllers[0] as! FCPublicationReportsTVC
+//            
+//            publicationReportsTVC.publication = self.publication
+//            
+//            self.navigationController?.presentViewController(publicationReportsNavController, animated: true, completion: { () -> Void in})
+//        
+//        }
+//
+//}
+//
+////MARK: - SMS Message Composer
+//
+//extension FCPublicationDetailsTVC : MFMessageComposeViewControllerDelegate {
+//    
+//    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+//        
+//        switch (result.rawValue) {
+//        
+//        case MessageComposeResultCancelled.rawValue:
+//            print("Message was cancelled")
+//            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//       
+//        case MessageComposeResultFailed.rawValue:
+//            
+//            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//
+//            
+//            let alert = UIAlertController(title: kSendSMSfailedAlertTitle, message: kSendSMSTryAgainAlertMessage, preferredStyle: .Alert)
+//            alert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default , handler: { (action) -> Void in
+//                self.didRequestSmsForPublication(self.publication!)
+//            }))
+//            alert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Cancel, handler: { (action) -> Void in
+//                self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//            }))
+//            
+//            self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+//            
+//        case MessageComposeResultSent.rawValue:
+//            print("Message was sent")
+//            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+//        default:
+//            break;
+//        }
+//    }
+//}
+
+////MARK: - Report Button and delegate
+//
+//extension FCPublicationDetailsTVC : FCOnSpotPublicationReportDelegate {
+//    
+//    func addTopRightButton(buttonType: PublicationDetailsTVCViewState) {
+//        var buttonValus = (kReportButtonTitle, "presentReportVC")
+//        
+//        if buttonType == PublicationDetailsTVCViewState.Publisher {
+//            buttonValus = (kOptionsButtonTitle, "presentOptionsMenuVC")
+//        }
+//            
+//        createTopRightButton(label: buttonValus.0, andAction: buttonValus.1)
+//    }
+//    
+//    func createTopRightButton(label label:String, andAction actionName: String) {
+//        let actionSelector = Selector(stringLiteral: actionName)
+//        let topRightButton = UIBarButtonItem(
+//                title: label,
+//                style: UIBarButtonItemStyle.Done,
+//                target: self,
+//                action: actionSelector)
+//        self.navigationItem.setRightBarButtonItem(topRightButton, animated: false)
+//    }
+//    
+//    
+//    func presentReportVC() {
+//        
+//        if User.sharedInstance.userIsLoggedIn {
+//            let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
+//            
+//            arrivedToSpotReportVC.publication = self.publication
+//            arrivedToSpotReportVC.delegate = self
+//            
+//            let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+//            
+//            self.navigationController?.presentViewController(navController, animated: true, completion: nil)
+//        }
+//        else {
+//            showNotLoggedInAlert()
+//        }
+//    }
+//    
+//    //MARK: - Reports delegate
+//
+//    func dismiss(report: PublicationReport?) {
+//
+//        if self.presentedViewController != nil {
+//            self.dismissViewControllerAnimated(true, completion: nil)
+//            self.tableView.reloadData()
+//        }
+//    }
+//    
+//    //MARK: - Options menue
+//    func presentOptionsMenuVC(){
+//        
+//        if User.sharedInstance.userIsLoggedIn {
+//            let optionsMenuPopUpVC = self.storyboard?.instantiateViewControllerWithIdentifier("publisherOptionsMenuVC") as! PublicationOptionsMenuTVC
+//            optionsMenuPopUpVC.delegate = self
+//            optionsMenuPopUpVC.publication = publication
+//            
+//            optionsMenuPopUpVC.popoverPresentationController?.delegate = self
+//            optionsMenuPopUpVC.modalPresentationStyle = UIModalPresentationStyle.Popover
+//            if publication!.isOnAir! == true {
+//                // 44 is the row height of each cell in the options menu table
+//                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*3-1))
 //            }
-//            
 //            else {
-//                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("Error deleting", aMessage: "publication id: \(identifier.uniqueId) version: \(identifier.version) ")
-//                self.presentViewController(alert, animated: true, completion: nil)
+//                optionsMenuPopUpVC.preferredContentSize = CGSizeMake(150, (44*2-1))
 //            }
-//        })
-    }
-}
+//            
+//            //get the popup presentation controller. it is a property on every
+//            //View Controller subclass. there you set the arrows direction etc. take a look at
+//            //it's properties, it's very flexible.
+//            
+//            let popUpPC = optionsMenuPopUpVC.popoverPresentationController
+//            popUpPC?.delegate = self
+//            popUpPC?.permittedArrowDirections = UIPopoverArrowDirection.Up
+//            popUpPC?.barButtonItem = self.navigationItem.rightBarButtonItem
+//            
+//            self.presentViewController(optionsMenuPopUpVC, animated: true, completion: nil)
+//        
+//        }
+//        else {
+//            showNotLoggedInAlert()
+//        }
+//    }
+//    
+//    func adaptivePresentationStyleForPresentationController(
+//        controller: UIPresentationController) -> UIModalPresentationStyle {
+//            return .None
+//    }
+//    
+//    
+//}
 
-//MARK: - PublicationDetailsOptionsMenuPopUpTVCDelegate Protocol
-
-extension FCPublicationDetailsTVC {
-    
-    func didSelectEditPublicationAction(){
-     //   dismiss()
-
-        let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
-        publicationEditorTVC?.setupWithState(.EditPublication, publication: publication!)
-        
-        
-        let nav = UINavigationController(rootViewController: publicationEditorTVC!)
-        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
-
-    }
-    
-    func didSelectTakOffAirPublicationAction() {
-        
-        let takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        takeOffAirAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
-            self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
-        }))
-        
-        takeOffAirAlert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
-        }))
-        
-        presentViewController(takeOffAirAlert, animated: true, completion: nil)
-        
-    }
-    
-    func didSelectDeletePublicationAction() {
-        
-        let deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        deleteAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
-            
-            //delete from model
-            deleteAlert.dismissViewControllerAnimated(true, completion: nil)
-            FCModel.sharedInstance.deletePublication(self.publication!, deleteFromServer: true)
-            self.deleteDelgate?.didDeletePublication(self.publication!, collectionViewIndex: self.publicationIndexNumber)
-        }))
-        
-        deleteAlert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Default, handler: nil))
-        self.presentViewController(deleteAlert, animated: true, completion: nil)
-    }
-    
-    func reload() {
-        print("reload")
-        self.tableView.reloadData()
-    }
-}
+////MARK: - Admin for beta bundle
+//
+//extension FCPublicationDetailsTVC {
+//    
+//    func configAdminIfNeeded() {
+//        
+//        var infoPlist: NSDictionary?
+//        
+//        if let path = NSBundle.mainBundle().pathForResource("Info", ofType:"plist") {
+//            
+//            infoPlist = NSDictionary(contentsOfFile: path)
+//        }
+//        
+//        if let infoPlist = infoPlist {
+//            
+//            let bundleName = infoPlist["CFBundleName"] as! String
+//            let bundleID = infoPlist["CFBundleIdentifier"] as! String
+//            print("BUNDLE ID: \(bundleID)")
+//            if bundleName.hasPrefix("beta") {
+//             
+//                print("Beta Version. adding deleteButton")
+//                addDeletButton()
+//            }
+//        }
+//        else {
+//            print("Config Admin **************: NOT FOUND")
+//            
+//        }
+//    }
+//    
+//    func addDeletButton() {
+//        
+//        let deleteButton = UIBarButtonItem(title: "delete", style: UIBarButtonItemStyle.Plain, target: self, action: "deletePublication")
+//        self.navigationItem.setRightBarButtonItem(deleteButton, animated: false)
+//    }
+//    
+//    func deletePublication() {
+//        print("deleting publication")
+//        
+////        let identifier = PublicationIdentifier(uniqueId: self.publication!.uniqueId!.integerValue , version: self.publication!.version!.integerValue)
+////        
+////        FCModel.sharedInstance.foodCollectorWebServer.deletePublication(identifier, completion: { (success) -> () in
+////            
+////            if success {
+////                self.dismissViewControllerAnimated(true, completion: nil)
+////            }
+////            
+////            else {
+////                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("Error deleting", aMessage: "publication id: \(identifier.uniqueId) version: \(identifier.version) ")
+////                self.presentViewController(alert, animated: true, completion: nil)
+////            }
+////        })
+//    }
+//}
+//
+////MARK: - PublicationDetailsOptionsMenuPopUpTVCDelegate Protocol
+//
+//extension FCPublicationDetailsTVC {
+//    
+//    func didSelectEditPublicationAction(){
+//     //   dismiss()
+//
+//        let publicationEditorTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC
+//        publicationEditorTVC?.setupWithState(.EditPublication, publication: publication!)
+//        
+//        
+//        let nav = UINavigationController(rootViewController: publicationEditorTVC!)
+//        self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+//
+//    }
+//    
+//    func didSelectTakOffAirPublicationAction() {
+//        
+//        let takeOffAirAlert = UIAlertController(title: kTakeOffAirlertTitle, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+//        
+//        takeOffAirAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction!) in
+//            self.deleteDelgate?.didTakeOffAirPublication(self.publication!)
+//        }))
+//        
+//        takeOffAirAlert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
+//        }))
+//        
+//        presentViewController(takeOffAirAlert, animated: true, completion: nil)
+//        
+//    }
+//    
+//    func didSelectDeletePublicationAction() {
+//        
+//        let deleteAlert = UIAlertController(title: kDeleteAlertTitle, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+//        
+//        deleteAlert.addAction(UIAlertAction(title: kYesButtonTitle, style: .Default, handler: { (action: UIAlertAction) in
+//            
+//            //delete from model
+//            deleteAlert.dismissViewControllerAnimated(true, completion: nil)
+//            FCModel.sharedInstance.deletePublication(self.publication!, deleteFromServer: true)
+//            self.deleteDelgate?.didDeletePublication(self.publication!, collectionViewIndex: self.publicationIndexNumber)
+//        }))
+//        
+//        deleteAlert.addAction(UIAlertAction(title: kNoButtonTitle, style: .Default, handler: nil))
+//        self.presentViewController(deleteAlert, animated: true, completion: nil)
+//    }
+//    
+//    func reload() {
+//        print("reload")
+//        self.tableView.reloadData()
+//    }
+//}
 
 
 
