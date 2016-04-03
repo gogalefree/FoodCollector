@@ -45,8 +45,9 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         request.fetchBatchSize = 20
         request.sortDescriptors = [NSSortDescriptor(key: "storedDistanceFromUserLocation", ascending: true)]
         
-        let predicate = NSPredicate(format: "startingData < %@ && endingData > %@ && isOnAir = %@", NSDate(), NSDate() , NSNumber(bool: true) )
+        let predicate = NSPredicate(format: "endingData > %@ && isOnAir = %@",  NSDate() , NSNumber(bool: true) )
         request.predicate = predicate
+//        /startingData < %@ &&
         
         let aFetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         aFetchResultsController.delegate =  self
@@ -265,7 +266,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
             publication = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Publication
         }
         cell.publication = publication
-        FCTableViewAnimator.animateCell(cell, sender: self)
+    //    FCTableViewAnimator.animateCell(cell, sender: self)
         return cell
     }
     
@@ -327,10 +328,6 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         tableView.endUpdates()
     }
     
-    func dismissDetailVC() {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     @IBAction func showActivityCenter(sender: UIButton) {
     
         if let delegate = self.delegate {
@@ -371,14 +368,10 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         if User.sharedInstance.userIsLoggedIn {
             if let newShareVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC {
                 newShareVC.setupWithState(.CreateNewPublication, publication: nil)
-                newShareVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissVC")
+
                 let nav = UINavigationController(rootViewController: newShareVC)
                 self.presentViewController(nav, animated: true, completion: nil)
             }
-            
-            
-            //let publicationEditorTVC = segue!.destinationViewController as! PublicationEditorTVC
-            //publicationEditorTVC.setupWithState()
         }
         else {
             showPickupRegistrationAlert()
@@ -413,54 +406,11 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let newNotificationsCount = FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter
     }
     
-    //DEPARECATED v1.0.9
-//    func didRecieveNewPublication(notification: NSNotification) {
-//        
-//        let recivedPublication = FCModel.sharedInstance.publications.last!
-//        let existingIndex = self.publications.indexOf(recivedPublication)
-//        
-//        if existingIndex == nil {
-//            
-//            self.addNewRecivedPublication(recivedPublication)
-//        }
-//    }
-
-//    func didDeletePublication(notification: NSNotification) {
-//        
-//        let deleted = FCModel.sharedInstance.userDeletedPublication
-//        if let publication = deleted {
-//            
-//            let index = self.publications.indexOf(publication)
-//            if let foundIndex = index {
-//                
-//                let indexpath = NSIndexPath(forRow: foundIndex, inSection: 0)
-//                self.tableView.beginUpdates()
-//                self.publications.removeAtIndex(foundIndex)
-//                self.tableView.deleteRowsAtIndexPaths([indexpath], withRowAnimation: .Fade)
-//                self.tableView.endUpdates()
-//            }
-//        }
-//    }
-    
-//    func addNewRecivedPublication(publication: Publication) {
-//        self.tableView.beginUpdates()
-//        self.publications.insert(publication, atIndex: 0)
-//        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-//        self.tableView.endUpdates()
-//    }
     
     func registerForAppNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationBadgeCounter", name: kUpdateNotificationsCounterNotification, object: nil)
-        
-        //DEPRECATED v1.0.9
-        //we use NSFetchedResultesController so updates are performed automatically
-//   
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewPublication:", name: kRecievedNewPublicationNotification, object: nil)
     }
-    
-//END OF DEPRECATION v1.0.9
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)

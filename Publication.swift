@@ -145,7 +145,7 @@ class Publication: NSManagedObject {
         do {
             try context.save()
         } catch {
-            print ("error updating after creation \(error)" + #function)
+            print ("error updating after creation \(error)" + __FUNCTION__)
         }
     }
     
