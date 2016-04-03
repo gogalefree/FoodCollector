@@ -108,7 +108,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         
         switch indexPath.row {
             case 0: // My Shares
-                if let mySharesVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublishRootVC") as? FCPublishRootVC {
+                if let mySharesVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublishRootVC") as? PublishRootVC {
                     mySharesVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissVC")
                     let nav = UINavigationController(rootViewController: mySharesVC)
                     self.presentViewController(nav, animated: true, completion: nil)

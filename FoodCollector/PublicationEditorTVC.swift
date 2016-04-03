@@ -117,7 +117,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func backButtonAction() {
-        self.popViewController()
+        //self.popViewController()
+        self.dismissViewControllerAnimated(true, completion: nil)
         GAController.sendAnalitics(kFAPublicationEditorTVCScreenName, action: "Back button action", label: "canceled publication creation or edit", value: 0)
     }
 
@@ -325,7 +326,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         let buttonHeight = CGFloat(54)
         let paddingFromEdge = CGFloat(40)
         
-        let image = UIImage(named: "Camera") as UIImage?
+        let image = UIImage(named: "CameraIcon") as UIImage?
         let auxiliaryView = UIView(frame: CGRectMake(0, 0, screenWidth, pictureRowHeigt))
         
         // When I try to position the button (using constraints) relative to it’s superview (UITableView),
@@ -444,37 +445,35 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func publishNewCreatedPublication() {
-        
+        print("publishNewCreatedPublication")
         var newParams = self.prepareParamsDictToSend()
         
         let context = FCModel.dataController.managedObjectContext
         let publication = NSEntityDescription.insertNewObjectForEntityForName(kPublicationEntity, inManagedObjectContext: context) as! Publication
         publication.isUserCreatedPublication = true
-
+        
+        print("publishNewCreatedPublication 1")
+        
         let imageData = UIImageJPEGRepresentation(self.dataSource[0].userData as! UIImage, 1)
         publication.photoBinaryData = imageData
         publication.didTryToDownloadImage = true
         
+        print("publishNewCreatedPublication 2")
         FCModel.sharedInstance.foodCollectorWebServer.postNewCreatedPublication(newParams, completion: {
             (success: Bool, params: [String: AnyObject]) -> () in
-            
             if success {
-            
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    
-                    self.navigationController?.popViewControllerAnimated(true)
+                    self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     context.performBlock({ () -> Void in
                         newParams[kPublicationUniqueIdKey] = params[kPublicationUniqueIdKey]
                         newParams[kPublicationVersionKey] = params[kPublicationVersionKey]
                         publication.updateAfterUserCreation(newParams, context: context)
                     })
-                    
                     //add the new publication
                     FCModel.sharedInstance.addPublication(publication)
                     
                     //add user created publication
                     FCModel.sharedInstance.addUserCreatedPublication(publication)
-                    
                     
                     if publication.photoBinaryData != nil {
                         //send the photo
@@ -484,22 +483,28 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                 })
             }
             else {
+                print("publishNewCreatedPublication 10")
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    print("publishNewCreatedPublication 11")
                     self.removeActivityIndicator()
                     let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton("could not post your event", aMessage: "try again later")
                     self.navigationController?.presentViewController(alert, animated: true, completion: nil)
-                    
+                    print("publishNewCreatedPublication 12")
                     publication.updateAfterUserCreation(newParams, context: context)
                     publication.didInformServer = false
                     
                     if publication.photoBinaryData != nil {
+                        print("publishNewCreatedPublication 13")
                         //send the photo
                         let uploader = FCPhotoFetcher()
                         uploader.uploadPhotoForPublication(publication)
+                        print("publishNewCreatedPublication 14")
                     }
                 })
+                print("publishNewCreatedPublication 15")
             }
         })
+        print("publishNewCreatedPublication 16")
     }
     
     func publishEdidtedPublication() {
@@ -787,6 +792,11 @@ extension PublicationEditorTVC {
         checkIfReadyForPublish()
         self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
     }
+    
+    final func dismissVC() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
     
 }
 

@@ -48,6 +48,42 @@ class FCDateFunctions : NSObject {
         formatter.locale = NSLocale.currentLocale()
         return formatter.stringFromDate(date)
     }
+    
+    class func timeStringDaysAndHoursRemain(fromDate fromDate: NSDate, toDate: NSDate) -> String {
+        let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double
+        print("tiemInterval: \(timeInterval)")
+        if timeInterval > 0 {
+            print("timeInterval > 0")
+            let totalHours = timeInterval / 60 / 60
+            if totalHours == 0 { // less than an hour to end date
+                print("totalHours == 0")
+                let remainingMinutes = Int(timeInterval / 60)
+                return "0H \(remainingMinutes)M" // "0H 1M"
+            }
+            
+            let remainingDays = Int(totalHours / 24)
+            let remainingHours = totalHours % 24
+            return "\(remainingDays)D \(remainingHours)H" // "2D 1H"
+        }
+        else {
+            return "0D 0H"
+        }
+    }
+    
+    class func timeStringDaysAndHoursRemainWithColor(fromDate fromDate: NSDate, toDate: NSDate) -> (String, UIColor) {
+        
+        let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double
+        if timeInterval > 0 {
+            let timeString = timeStringDaysAndHoursRemain(fromDate: fromDate, toDate: toDate)
+            let textColor = UIColor(red: 65/255, green: 117/255, blue: 5/255, alpha: 1)
+            return (timeString, textColor)
+        }
+        else {
+            let timeString = NSLocalizedString("Ended", comment: "The time for publication has ended.")
+            let textColor = UIColor(red: 255/255, green: 39/255, blue: 39/255, alpha: 1)
+            return (timeString, textColor)
+        }
+    }
 }
 
 

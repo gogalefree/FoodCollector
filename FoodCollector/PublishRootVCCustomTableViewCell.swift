@@ -1,22 +1,22 @@
 //
-//  FCPublicationsTVCell.swift
+//  PublishRootVCCustomTableViewCell.swift
 //  FoodCollector
 //
-//  Created by Guy Freedman on 12/30/14.
-//  Copyright (c) 2014 Guy Freeman. All rights reserved.
+//  Created by Boris Tsigelman on 29.3.2016.
+//  Copyright © 2016 Foodonet. All rights reserved.
 //
 
 import UIKit
 
-class FCPublicationsTVCell: UITableViewCell {
+class PublishRootVCCustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var timeRemains: UILabel!
     @IBOutlet weak var countOfRegisteredUsersLabel: UILabel!
     @IBOutlet weak var audianceIconImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var audianceNameLabel: UILabel!
+    
     
     var publication: Publication? {
         
@@ -31,11 +31,19 @@ class FCPublicationsTVCell: UITableViewCell {
     
     func setUp(publication: Publication) {
         self.titleLabel.text = publication.title
-        self.addressLabel.text = publication.address
-        self.distanceLabel.text = FCStringFunctions.shortDistanceString(publication)
         self.audianceIconImageView.image = FCIconFactory.typeOfPublicationIcon(publication)
         self.countOfRegisteredUsersLabel.text = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment: "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'"), publication.countOfRegisteredUsersAsString)
-        self.timeRemains.text = FCDateFunctions.timeStringDaysAndHoursRemain(fromDate: publication.endingData!, toDate: NSDate())
+        
+        let endDateTextAndColor = FCDateFunctions.timeStringDaysAndHoursRemainWithColor(fromDate: publication.endingData!, toDate: NSDate())
+        self.timeRemains.text = endDateTextAndColor.0
+        self.timeRemains.textColor = endDateTextAndColor.1
+        
+        if let group = Group.fetchGroupWithId(publication.audianceID) {
+            if let groupName = group.name {
+                self.audianceNameLabel.text = groupName
+            }
+        }
+        
         
         downloadImage()
     }
@@ -64,13 +72,13 @@ class FCPublicationsTVCell: UITableViewCell {
         let photo = UIImage(data: (self.publication?.photoBinaryData)!)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-
+            
             UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.photoImageView.alpha = 0
                 self.photoImageView.image = photo
                 self.photoImageView.alpha = 1
             })
-
+            
         })
     }
     
@@ -81,11 +89,16 @@ class FCPublicationsTVCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:96 ))
+        //self.contentView.addConstraint(NSLayoutConstraint(item: self.contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1, constant:96 ))
         self.photoImageView.layer.cornerRadius = CGRectGetWidth(self.photoImageView.bounds) / 2
         
-
+        
     }
-    
-}
 
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}
