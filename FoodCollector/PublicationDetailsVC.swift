@@ -51,8 +51,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     var publicationReportsNavController: FCPublicationReportsNavigationController!
 
     @IBOutlet weak var shareDetailsTableView: UITableView!
-    @IBOutlet weak var shareDetailsImage: UIImageView!
-    @IBOutlet weak var shareDetailsTitle: UILabel!
+    
+    
     
     func setupWithState(initialState: PublicationDetailsTVCViewState, caller: PublicationDetailsTVCVReferral, publication: Publication?, publicationIndexPath:Int = 0) {
         // This function is executed before viewDidLoad()
@@ -77,8 +77,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shareDetailsTableView.dataSource = self
-        shareDetailsTableView.delegate = self
+        //shareDetailsTableView.dataSource = self
+        //shareDetailsTableView.delegate = self
         //self.tableView.estimatedRowHeight = 65
         fetchPublicationReports()
         fetchPublicationPhoto()
@@ -98,6 +98,77 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - TableView Functions
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        switch indexPath.row {
+        case 0: // Image Cell
+            return 220
+        case 1: // Title Cell
+            return 40
+        case 2: // Details Cell
+            return 40
+        case 3: // More Info Cell
+            return 40
+        case 4: // Reports Cell
+            return 40
+        default:
+            return 40
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        switch indexPath.row {
+        case 0: //Image cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsImageCell", forIndexPath: indexPath) as! PublicationDetailsImageCell
+            cell.delegate = self
+            cell.publication = self.publication
+            return cell
+        
+        case 1: //Title cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsTitleCellTableViewCell", forIndexPath: indexPath) as! PublicationDetailsTitleCellTableViewCell
+            cell.publication = self.publication
+            return cell
+            
+        
+        case 0:
+            //Subtitle cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsSubtitleCell", forIndexPath: indexPath) as! PublicationDetailsSubtitleCell
+            cell.publication = self.publication
+            return cell
+        case 1:
+            //Dates cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as! FCPublicationDetailsDatesCell
+            cell.publication = self.publication
+            return cell
+        case 2:
+            //Reports title cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportsTitleCell", forIndexPath: indexPath) as! PublicationDetailsReportsTitleCell
+            return cell
+        case 2:
+            //Reports cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
+            cell.indexPath = indexPath
+            cell.publication = self.publication
+            return cell
+        default:
+            break
+        }
+              
+        return UITableViewCell()
+    }
+    
     
     // MARK: - Fetch Data For Publication
     
@@ -156,6 +227,16 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                 fetcher.delegate = self
                 fetcher.fetchRegistrationsForPublication(false)
             })
+        }
+    }
+    
+    func didFinishFetchingPublicationRegistrations() {
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            let cell = self.shareDetailsTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+            if let imageCell = cell {
+                imageCell.reloadRegisteredUserIconCounter()
+            }
         }
     }
     
