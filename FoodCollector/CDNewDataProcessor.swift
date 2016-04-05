@@ -191,9 +191,6 @@ class CDNewDataProcessor: NSObject {
         
             localContext.performBlockAndWait { () -> Void in
                 
-                defer {
-                    FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
-                }
                 
                 if let currentPublications = publications {
                     
@@ -212,6 +209,9 @@ class CDNewDataProcessor: NSObject {
         if User.sharedInstance.userIsLoggedIn {
            
             CDNewDataProcessor.fetchGroups(localContext)
+        } else {
+           
+            FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
         }
         
     }

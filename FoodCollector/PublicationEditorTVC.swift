@@ -454,7 +454,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         
         print("publishNewCreatedPublication 1")
         
-        let imageData = UIImageJPEGRepresentation(self.dataSource[0].userData as! UIImage, 1)
+        let imageData = UIImageJPEGRepresentation(self.dataSource[0].userData as! UIImage, 0.5)
         publication.photoBinaryData = imageData
         publication.didTryToDownloadImage = true
         
@@ -468,18 +468,20 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                         newParams[kPublicationUniqueIdKey] = params[kPublicationUniqueIdKey]
                         newParams[kPublicationVersionKey] = params[kPublicationVersionKey]
                         publication.updateAfterUserCreation(newParams, context: context)
+                        
+                        //add the new publication
+                        FCModel.sharedInstance.addPublication(publication)
+                        
+                        //add user created publication
+                        FCModel.sharedInstance.addUserCreatedPublication(publication)
+                        
+                        if publication.photoBinaryData != nil {
+                            //send the photo
+                            let uploader = FCPhotoFetcher()
+                            uploader.uploadPhotoForPublication(publication)
+                        }
+
                     })
-                    //add the new publication
-                    FCModel.sharedInstance.addPublication(publication)
-                    
-                    //add user created publication
-                    FCModel.sharedInstance.addUserCreatedPublication(publication)
-                    
-                    if publication.photoBinaryData != nil {
-                        //send the photo
-                        let uploader = FCPhotoFetcher()
-                        uploader.uploadPhotoForPublication(publication)
-                    }
                 })
             }
             else {

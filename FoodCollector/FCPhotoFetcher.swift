@@ -30,7 +30,10 @@ class FCPhotoFetcher: NSObject {
         
         transferManager.download(downloadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
             
+
             
+            publication.didTryToDownloadImage = true
+
             if task.error != nil {
                 print(task.error)
                 completion(image: photo)
@@ -40,14 +43,13 @@ class FCPhotoFetcher: NSObject {
                 
                 //let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
-                publication.didTryToDownloadImage = true
                 
                 if let publicationPhoto = photo {
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
                         FCModel.dataController.managedObjectContext.performBlock({ () -> Void in
-                            
+
                             let data = UIImageJPEGRepresentation(publicationPhoto, 1)
                             publication.photoBinaryData = data
                             FCModel.dataController.save()

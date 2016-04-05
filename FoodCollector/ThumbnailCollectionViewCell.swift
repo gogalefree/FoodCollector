@@ -47,7 +47,8 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
         
         let photo = UIImage(data: publication.photoBinaryData!)
         guard let aPhoto = photo else {return}
-        
+        self.imageView.image = aPhoto
+
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
 
             UIView.animateWithDuration(0.1, animations: { () -> Void in
@@ -55,7 +56,7 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
                 self.imageView.alpha = 0
                 }) { (_) -> Void in
                     self.imageView.image = aPhoto
-                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    UIView.animateWithDuration(0.1, animations: { () -> Void in
                         self.imageView.alpha = 1
                         }, completion: nil)
             }

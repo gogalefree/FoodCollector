@@ -94,6 +94,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         super.viewDidLoad()
         self.title = NSLocalizedString("Pickup", comment:"Collector map title")
         self.publications = FCModel.sharedInstance.publications
+        makeAnnotations()
         registerForNSNotifications()
         configureMapView()
         configureTrackButton()

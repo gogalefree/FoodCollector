@@ -42,10 +42,9 @@ class FCPublicationsTVCell: UITableViewCell {
     
     func downloadImage() {
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
-            
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+
             if self.publication?.photoBinaryData != nil {self.showImage()}
-                
             else if (self.publication?.didTryToDownloadImage == false) {
                 
                 let photoFetcher = FCPhotoFetcher()
@@ -65,7 +64,7 @@ class FCPublicationsTVCell: UITableViewCell {
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(0.15, animations: { () -> Void in
                 self.photoImageView.alpha = 0
                 self.photoImageView.image = photo
                 self.photoImageView.alpha = 1

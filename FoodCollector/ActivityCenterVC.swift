@@ -229,7 +229,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         let feedbackNavVC = self.storyboard?.instantiateViewControllerWithIdentifier("feedbackvc") as! FeedbacksVCViewController
         feedbackNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         feedbackNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-        self.parentViewController?.parentViewController?.presentViewController(feedbackNavVC, animated: true, completion: nil)
+        self.presentViewController(feedbackNavVC, animated: true, completion: nil)
     }
     
     func presentLogin() {

@@ -291,6 +291,10 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
     }
     
+    func dismissDetailVC() {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     //MARK: INSERT & DELETE animations
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
