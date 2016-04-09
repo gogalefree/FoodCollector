@@ -9,10 +9,17 @@
 import UIKit
 
 class PublicationDetailsDetailsTVCell: UITableViewCell {
+    
+    @IBOutlet weak var shareUserImage: UIImageView!
+    
+    @IBOutlet weak var shareLocationLabel: UILabel!
+    
+    @IBOutlet weak var shareUserNameLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        shareUserImage.layer.cornerRadius = CGRectGetWidth(shareUserImage.frame)/2
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

@@ -32,7 +32,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     var annotations = [FDAnnotation]()
     var isPresentingNewDataMessageView = false
     var panStartingPoint: CGPoint!
-    var publicationDetailsTVC: FCPublicationDetailsTVC?
+    var publicationDetailsTVC: PublicationDetailsVC?
     var isPresentingActivityCenter = false
     var trackingUserLocation = false
     var locationManager = CLLocationManager()
@@ -252,7 +252,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     func presentPublicationDetailsTVC(publication:Publication) {
         
-        self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        self.publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationDetailsVC") as? PublicationDetailsVC
         self.publicationDetailsTVC?.publication = publication
         let state :PublicationDetailsTVCViewState = publication.isUserCreatedPublication!.boolValue ? .Publisher : .Collector
         self.publicationDetailsTVC?.setupWithState(state, caller: .MyPublications, publication: publication)

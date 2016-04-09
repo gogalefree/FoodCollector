@@ -280,7 +280,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
             publication = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Publication
         }
         
-        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationDetailsVC") as? PublicationDetailsVC
         publicationDetailsTVC?.title = publication.title
         publicationDetailsTVC?.publication = publication
         

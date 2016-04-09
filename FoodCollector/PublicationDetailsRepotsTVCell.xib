@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="PublicationDetailsRepotsTVCell" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailsRepotsTVCell" id="KGk-i7-Jjw" customClass="PublicationDetailsRepotsTVCell" customModule="FoodCollector" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="21.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ReportBullet" translatesAutoresizingMaskIntoConstraints="NO" id="H94-cM-3lD">
+                        <rect key="frame" x="8" y="6" width="10" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="DHh-EO-od0"/>
+                            <constraint firstAttribute="width" constant="10" id="qdW-cz-bMl"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXU-be-bQT">
+                        <rect key="frame" x="26" y="6.5" width="286" height="8.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="7"/>
+                        <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="PXU-be-bQT" secondAttribute="trailing" id="Nvh-7V-79P"/>
+                    <constraint firstItem="H94-cM-3lD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="a4S-82-qPS"/>
+                    <constraint firstItem="PXU-be-bQT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oAy-2b-6Mh"/>
+                    <constraint firstItem="PXU-be-bQT" firstAttribute="leading" secondItem="H94-cM-3lD" secondAttribute="trailing" constant="8" id="qqM-37-53N"/>
+                    <constraint firstItem="H94-cM-3lD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="x1o-F2-uES"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="iconImageView" destination="H94-cM-3lD" id="DDl-42-0rR"/>
+                <outlet property="reportLabel" destination="PXU-be-bQT" id="CkC-QX-e7h"/>
+            </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ReportBullet" width="10" height="10"/>
+    </resources>
 </document>

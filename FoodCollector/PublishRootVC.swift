@@ -190,7 +190,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
         }
         
-        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationDetailsVC") as? PublicationDetailsVC
         
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: publication, publicationIndexPath: indexPath.item)
         

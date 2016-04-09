@@ -38,7 +38,7 @@ protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
 }
 
 
-class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
+class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate, UIPopoverPresentationControllerDelegate {
     
     weak var deleteDelgate: UserDidDeletePublicationProtocol?
     
@@ -49,8 +49,61 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     var photoPresentorNavController: FCPhotoPresentorNavigationController!
     var publicationReportsNavController: FCPublicationReportsNavigationController!
+    
+    weak var actionsHeaderView: PublicationDetsilsCollectorActionsHeaderView?
+    
 
     @IBOutlet weak var shareDetailsTableView: UITableView!
+    
+    @IBOutlet weak var joinButton: UIButton!
+    
+    @IBOutlet weak var actionView: UIView!
+    
+    @IBOutlet weak var smsButton: UIButton!
+    
+    @IBOutlet weak var callButton: UIButton!
+    
+    @IBOutlet weak var goButton: UIButton!
+    
+    
+    
+    @IBAction func joinButtonClicked(sender: UIButton) {
+        if let publication = self.publication {
+            switch publication.didRegisterForCurrentPublication!.boolValue {
+                case true:
+                    self.didUnRegisterForPublication(publication)
+                case false:
+                    self.didRegisterForPublication(publication)
+            }
+        }
+    }
+    
+    @IBAction func smsButtonClicked(sender: UIButton) {
+        if let publication = self.publication {
+            self.didRequestSmsForPublication(publication)
+        }
+        
+        GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector sms button", label: "", value: 0)
+    }
+    
+    @IBAction func callButtonClicked(sender: UIButton) {
+        if let publication = self.publication {
+            self.didRequestPhoneCallForPublication(publication)
+        }
+
+        GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector phone call button", label: "", value: 0)
+    }
+    
+    @IBAction func goButtonClicked(sender: UIButton) {
+        if let publication = self.publication {
+            if !publication.didRegisterForCurrentPublication!.boolValue{
+                self.didRegisterForPublication(publication)
+            }
+            self.didRequestNavigationForPublication(publication)
+        }
+
+        GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector navigation button", label: "", value: 0)
+    }
     
     
     
@@ -77,6 +130,16 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsImageTVCell", bundle: nil), forCellReuseIdentifier: "detailsImageTVCell")
+        
+        self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsTitleTVCell", bundle: nil), forCellReuseIdentifier: "detailsTitleTVCell")
+        
+        self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsDetailsTVCell", bundle: nil), forCellReuseIdentifier: "detailsDetailsTVCell")
+        
+        self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsMoreInfoTVCell", bundle: nil), forCellReuseIdentifier: "detailsMoreInfoTVCell")
+        
+        self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsRepotsTVCell", bundle: nil), forCellReuseIdentifier: "detailsRepotsTVCell")
+        
         //shareDetailsTableView.dataSource = self
         //shareDetailsTableView.delegate = self
         //self.tableView.estimatedRowHeight = 65
@@ -102,26 +165,34 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - TableView Functions
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        
+        if section == 0 {return 4}
+        
+        return PublicationDetailsReportCell.numberOfReportsToPresent(self.publication)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        switch indexPath.row {
-        case 0: // Image Cell
-            return 220
-        case 1: // Title Cell
-            return 40
-        case 2: // Details Cell
-            return 40
-        case 3: // More Info Cell
-            return 40
-        case 4: // Reports Cell
-            return 40
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0: // Image Cell
+                return 110
+            case 1: // Title Cell
+                return 40
+            case 2: // Details Cell
+                return 64
+            case 3: // More Info Cell
+                return 40
+            default:
+                return 40
+            }
+        case 1:
+            return 22 // Reports cell(s)
         default:
             return 40
         }
@@ -129,43 +200,56 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0: //Image cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsImageCell", forIndexPath: indexPath) as! PublicationDetailsImageCell
-            cell.delegate = self
-            cell.publication = self.publication
-            return cell
-        
-        case 1: //Title cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsTitleCellTableViewCell", forIndexPath: indexPath) as! PublicationDetailsTitleCellTableViewCell
-            cell.publication = self.publication
-            return cell
-            
-        
+        switch indexPath.section {
         case 0:
-            //Subtitle cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsSubtitleCell", forIndexPath: indexPath) as! PublicationDetailsSubtitleCell
-            cell.publication = self.publication
-            return cell
+            
+            switch indexPath.row {
+            case 0: // Image cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("detailsImageTVCell", forIndexPath: indexPath) as! PublicationDetailsImageTVCell
+                if let data = self.publication?.photoBinaryData{
+                    let photo = UIImage(data: data)
+                    cell.shareDetailsImage = UIImageView(image: photo)
+                }
+                return cell
+                
+            case 1: // Title cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("detailsTitleTVCell", forIndexPath: indexPath) as! PublicationDetailsTitleTVCell
+                cell.shareDetailsTitle.text = publication?.title
+                return cell
+                
+            case 2: // Details Cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("detailsDetailsTVCell", forIndexPath: indexPath) as! PublicationDetailsDetailsTVCell
+                //cell.shareUserImage = publication.????
+                //cell.shareUserNameLabel = publication.????
+                cell.shareLocationLabel.text = publication?.address
+                return cell
+                
+            case 3: // More Info Cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("detailsMoreInfoTVCell", forIndexPath: indexPath) as! PublicationDetailsMoreInfoTVCell
+                cell.shareDetailsMorInfo.text = publication?.subtitle
+                return cell
+                
+            default:
+                break
+            }
+        
         case 1:
-            //Dates cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("FCPublicationDetailsDatesCell", forIndexPath: indexPath) as! FCPublicationDetailsDatesCell
-            cell.publication = self.publication
-            return cell
-        case 2:
-            //Reports title cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportsTitleCell", forIndexPath: indexPath) as! PublicationDetailsReportsTitleCell
-            return cell
-        case 2:
-            //Reports cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsReportCell", forIndexPath: indexPath) as! PublicationDetailsReportCell
-            cell.indexPath = indexPath
-            cell.publication = self.publication
-            return cell
+            
+            switch indexPath.row {
+            case 0: // Reports cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("detailsRepotsTVCell", forIndexPath: indexPath) as! PublicationDetailsRepotsTVCell
+                cell.indexPath = indexPath
+                cell.publication = self.publication
+                return cell
+            default:
+                break
+            }
+            
         default:
             break
         }
-              
+        
+        
         return UITableViewCell()
     }
     
@@ -208,7 +292,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                     if success {
                         
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            self.shareDetailsTableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .Automatic)
+                            //self.shareDetailsTableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .Automatic)
+                            self.shareDetailsTableView.reloadData()
                         })
                     }
                 })
@@ -260,6 +345,122 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
 
 }
 
+//MARK: - Collector Actions Header delegate
+
+extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate {
+    
+    
+    func didRegisterForPublication(publication: Publication) {
+        // If the user is logged in: register him to this pickup.
+        // If the user is NOT logged in: start login process.
+        
+        if User.sharedInstance.userIsLoggedIn {
+            registerUserForPublication()
+        }
+        else {
+            showNotLoggedInAlert()
+        }
+    }
+    
+    func didUnRegisterForPublication(publication: Publication) {
+        
+        publication.didRegisterForCurrentPublication = false
+        FCModel.sharedInstance.removeRegistrationFor(publication)
+        self.updateRegisteredUserIconCounter()
+        animateRegistrationButton()
+    }
+    
+    func didRequestNavigationForPublication(publication: Publication) {
+        
+        
+        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
+            let title = NSLocalizedString("Navigate with:", comment:"an action sheet title meening chose app to navigate with")
+            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+        }
+        else {
+            //navigateWithWaze
+            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
+        }
+    }
+    
+    func didRequestSmsForPublication(publication: Publication) {
+        
+        if let phoneNumber = self.publication?.contactInfo {
+            
+            if MFMessageComposeViewController.canSendText() {
+                
+                let messageVC = MFMessageComposeViewController()
+                messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
+                messageVC.recipients = [phoneNumber]
+                //messageVC.messageComposeDelegate = self
+                self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
+                
+            }
+        }
+    }
+    
+    func didRequestPhoneCallForPublication(publication: Publication) {
+        
+        if let phoneNumber = self.publication?.contactInfo {
+            
+            let telUrl = NSURL(string: "tel://\(phoneNumber)")!
+            
+            if UIApplication.sharedApplication().canOpenURL(telUrl){
+                
+                UIApplication.sharedApplication().openURL(telUrl)
+            }
+        }
+    }
+    
+    private func registerUserForPublication() {
+        publication!.didRegisterForCurrentPublication = true
+        FCModel.sharedInstance.addRegisterationFor(publication!)
+        self.updateRegisteredUserIconCounter()
+        self.animateRegistrationButton()
+    }
+    
+    private func animateRegistrationButton() {
+        actionsHeaderView?.animateButton((actionsHeaderView?.registerButton)!)
+        actionsHeaderView?.configureRegisterButton()
+    }
+    
+    private func updateRegisteredUserIconCounter() {
+        
+        let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+        let imageCell = self.shareDetailsTableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+        if let cell = imageCell {
+            cell.reloadRegisteredUserIconCounter()
+        }
+    }
+    
+    func showNotLoggedInAlert() {
+        let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        // Add buttons
+        alertController.addAction(UIAlertAction(title: kAlertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+            self.startLoginprocess()
+        }))
+        alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func startLoginprocess() {
+        print("startLoginprocess")
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+        
+        self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    }
+    
+    
+}
+
 extension PublicationDetailsVC {
     //MARK: - reports cell full screen
     
@@ -285,6 +486,85 @@ extension PublicationDetailsVC {
         
     }
     
+}
+
+extension PublicationDetailsVC: UIViewControllerTransitioningDelegate {
+    
+    //MARK: - Transition Delegate
+    
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+        
+        var pcontrol: UIPresentationController!
+        
+        if presented is FCPhotoPresentorNavigationController {
+            
+            pcontrol = PublicationPhotoPresentorPresentationController(
+                presentedViewController: self.photoPresentorNavController,
+                presentingViewController: self.navigationController!)
+        }
+            
+        else if presented is FCPublicationReportsNavigationController{
+            
+            pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
+                presentingViewController: self.navigationController!)
+        }
+        
+        return  pcontrol
+    }
+    
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        //starting frame for transition
+        if presented is FCPhotoPresentorNavigationController {
+            
+            let photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
+            
+            var originFrame = CGRectZero
+            //TODO: set initial photo frame
+            let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+            let imageCell = self.shareDetailsTableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+            if let cell = imageCell {
+                originFrame = self.view.convertRect(cell.publicationImageView.frame, fromView: cell)
+            }
+            
+            photoPresentorVCAnimator.originFrame = originFrame
+            return photoPresentorVCAnimator
+        }
+            
+        else if presented is FCPublicationReportsNavigationController{
+            
+            let publicationReportsAnimator = FCPublicationReportsVCAnimator()
+            var startingFrame = self.shareDetailsTableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+            //        startingFrame.origin.y += kTableViewHeaderHeight
+            startingFrame.size.width = startingFrame.size.width / 2
+            
+            publicationReportsAnimator.originFrame = startingFrame
+            return publicationReportsAnimator
+            
+        }
+        
+        return nil
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if dismissed is FCPhotoPresentorNavigationController {
+            return PublicationPhotoPresentorDissmissAnimator()
+        }
+        else if dismissed == self.publicationReportsNavController {
+            
+            let animator = FCPublicationReportsDismissAnimator()
+            
+            let destinationFrame =
+            self.shareDetailsTableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+            
+            animator.destinationRect = destinationFrame
+            
+            return animator
+        }
+        
+        return nil
+    }
 }
 
 //MARK: - SMS Message Composer
@@ -372,7 +652,7 @@ extension PublicationDetailsVC : FCOnSpotPublicationReportDelegate {
         
         if self.presentedViewController != nil {
             self.dismissViewControllerAnimated(true, completion: nil)
-            self.tableView.reloadData()
+            self.shareDetailsTableView.reloadData()
         }
     }
     
@@ -523,7 +803,7 @@ extension PublicationDetailsVC {
     
     func reload() {
         print("reload")
-        self.tableView.reloadData()
+        self.shareDetailsTableView.reloadData()
     }
 }
 

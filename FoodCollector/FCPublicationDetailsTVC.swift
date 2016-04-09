@@ -39,7 +39,8 @@ protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
 }
 */
 
-class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
+//class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
+class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate {
     
     weak var deleteDelgate: UserDidDeletePublicationProtocol?
     
@@ -82,8 +83,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         fetchPublicationPhoto()
         //fetchPublicationRegistrations()
         registerForNotifications()
-        addTopRightButton(self.state)
-        configAdminIfNeeded()
+        //addTopRightButton(self.state)
+        //configAdminIfNeeded()
     }
     
     //MARK: - Table view Headers
@@ -100,7 +101,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         }
         if state == .Collector {
             let header = UIView.loadFromNibNamed("PublicationDetsilsCollectorActionsHeaderView", bundle: nil) as? PublicationDetsilsCollectorActionsHeaderView
-            header?.delegate = self
+            //header?.delegate = self
             header?.publication = self.publication
             self.actionsHeaderView = header
             return header
@@ -166,7 +167,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             case 1:
                 //Image cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("PublicationDetailsImageCell", forIndexPath: indexPath) as! PublicationDetailsImageCell
-                cell.delegate = self
+                //cell.delegate = self
                 cell.publication = self.publication
                 return cell
             default:
@@ -213,7 +214,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         //present reports on full screen
         if indexPath.section == 2 {
             
-            self.displayReportsWithFullScreen()
+            //self.displayReportsWithFullScreen()
         }
     }
     
@@ -354,121 +355,121 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
 }
 
-//MARK: - Collector Actions Header delegate
-
-extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDelegate {
-    
-    
-    func didRegisterForPublication(publication: Publication) {
-        // If the user is logged in: register him to this pickup.
-        // If the user is NOT logged in: start login process.
-        
-        if User.sharedInstance.userIsLoggedIn {
-            registerUserForPublication()
-        }
-        else {
-            showNotLoggedInAlert()
-        }
-    }
-    
-    func didUnRegisterForPublication(publication: Publication) {
-        
-        publication.didRegisterForCurrentPublication = false
-        FCModel.sharedInstance.removeRegistrationFor(publication)
-        self.updateRegisteredUserIconCounter()
-        animateRegistrationButton() 
-    }
-    
-    func didRequestNavigationForPublication(publication: Publication) {
-        
-        
-        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-            let title = NSLocalizedString("Navigate with:", comment:"an action sheet title meening chose app to navigate with")
-            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        }
-        else {
-            //navigateWithWaze
-            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
-        }
-    }
-    
-    func didRequestSmsForPublication(publication: Publication) {
-        
-        if let phoneNumber = self.publication?.contactInfo {
-            
-            if MFMessageComposeViewController.canSendText() {
-                
-                let messageVC = MFMessageComposeViewController()
-                messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
-                messageVC.recipients = [phoneNumber]
-                messageVC.messageComposeDelegate = self
-                self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
-                
-            }
-        }
-    }
-    
-    func didRequestPhoneCallForPublication(publication: Publication) {
-        
-        if let phoneNumber = self.publication?.contactInfo {
-            
-            let telUrl = NSURL(string: "tel://\(phoneNumber)")!
-
-            if UIApplication.sharedApplication().canOpenURL(telUrl){
-                
-                UIApplication.sharedApplication().openURL(telUrl)
-            }
-        }
-    }
-    
-    private func registerUserForPublication() {
-        publication!.didRegisterForCurrentPublication = true
-        FCModel.sharedInstance.addRegisterationFor(publication!)
-        self.updateRegisteredUserIconCounter()
-        self.animateRegistrationButton()
-    }
-
-    private func animateRegistrationButton() {
-        actionsHeaderView?.animateButton((actionsHeaderView?.registerButton)!)
-        actionsHeaderView?.configureRegisterButton()
-    }
-    
-    private func updateRegisteredUserIconCounter() {
-        
-        let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-        let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
-        if let cell = imageCell {
-            cell.reloadRegisteredUserIconCounter()
-        }
-    }
-    
-    func showNotLoggedInAlert() {
-        let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        // Add buttons
-        alertController.addAction(UIAlertAction(title: kAlertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
-            self.startLoginprocess()
-        }))
-        alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    func startLoginprocess() {
-        print("startLoginprocess")
-        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        let identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
-        
-        self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
-    }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-    }
-    
-    
-}
+////MARK: - Collector Actions Header delegate
+//
+//extension FCPublicationDetailsTVC: PublicationDetsilsCollectorActionsHeaderDelegate {
+//    
+//    
+//    func didRegisterForPublication(publication: Publication) {
+//        // If the user is logged in: register him to this pickup.
+//        // If the user is NOT logged in: start login process.
+//        
+//        if User.sharedInstance.userIsLoggedIn {
+//            registerUserForPublication()
+//        }
+//        else {
+//            showNotLoggedInAlert()
+//        }
+//    }
+//    
+//    func didUnRegisterForPublication(publication: Publication) {
+//        
+//        publication.didRegisterForCurrentPublication = false
+//        FCModel.sharedInstance.removeRegistrationFor(publication)
+//        self.updateRegisteredUserIconCounter()
+//        animateRegistrationButton() 
+//    }
+//    
+//    func didRequestNavigationForPublication(publication: Publication) {
+//        
+//        
+//        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
+//            let title = NSLocalizedString("Navigate with:", comment:"an action sheet title meening chose app to navigate with")
+//            let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
+//            self.presentViewController(actionSheet, animated: true, completion: nil)
+//        }
+//        else {
+//            //navigateWithWaze
+//            FCNavigationHandler.sharedInstance.wazeNavigation(publication)
+//        }
+//    }
+//    
+//    func didRequestSmsForPublication(publication: Publication) {
+//        
+//        if let phoneNumber = self.publication?.contactInfo {
+//            
+//            if MFMessageComposeViewController.canSendText() {
+//                
+//                let messageVC = MFMessageComposeViewController()
+//                messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
+//                messageVC.recipients = [phoneNumber]
+//                //messageVC.messageComposeDelegate = self
+//                self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
+//                
+//            }
+//        }
+//    }
+//    
+//    func didRequestPhoneCallForPublication(publication: Publication) {
+//        
+//        if let phoneNumber = self.publication?.contactInfo {
+//            
+//            let telUrl = NSURL(string: "tel://\(phoneNumber)")!
+//
+//            if UIApplication.sharedApplication().canOpenURL(telUrl){
+//                
+//                UIApplication.sharedApplication().openURL(telUrl)
+//            }
+//        }
+//    }
+//    
+//    private func registerUserForPublication() {
+//        publication!.didRegisterForCurrentPublication = true
+//        FCModel.sharedInstance.addRegisterationFor(publication!)
+//        self.updateRegisteredUserIconCounter()
+//        self.animateRegistrationButton()
+//    }
+//
+//    private func animateRegistrationButton() {
+//        actionsHeaderView?.animateButton((actionsHeaderView?.registerButton)!)
+//        actionsHeaderView?.configureRegisterButton()
+//    }
+//    
+//    private func updateRegisteredUserIconCounter() {
+//        
+//        let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+//        let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+//        if let cell = imageCell {
+//            cell.reloadRegisteredUserIconCounter()
+//        }
+//    }
+//    
+//    func showNotLoggedInAlert() {
+//        let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)
+//        
+//        // Add buttons
+//        alertController.addAction(UIAlertAction(title: kAlertLoginButtonTitle, style: UIAlertActionStyle.Default,handler: { (action) -> Void in
+//            self.startLoginprocess()
+//        }))
+//        alertController.addAction(UIAlertAction(title: kCancelButtonTitle, style: UIAlertActionStyle.Default, handler: nil))
+//        
+//        self.presentViewController(alertController, animated: true, completion: nil)
+//    }
+//    
+//    func startLoginprocess() {
+//        print("startLoginprocess")
+//        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+//        let identityProviderLogingViewNavVC = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+//        
+//        self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
+//    }
+//    
+//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//    }
+//    
+//    
+//}
 
 //MARK: - Publisher Actions Header delegate
 
@@ -570,109 +571,109 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
 
 //MARK: - Image cell delegate
 
-extension FCPublicationDetailsTVC : PublicationDetailsImageCellDelegate {
-    
-    
-    func didRequestFullScreenImage() {
-        self.presentPhotoPresentor()
-    }
-    
-    func presentPhotoPresentor() {
-        
-        //add if to check whether there's a photo or default
-        if self.publication?.photoBinaryData == nil {return}
-        
-        self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as! FCPhotoPresentorNavigationController
+//extension FCPublicationDetailsTVC : PublicationDetailsImageCellDelegate {
+//    
+//    
+//    func didRequestFullScreenImage() {
+//        self.presentPhotoPresentor()
+//    }
+//    
+//    func presentPhotoPresentor() {
+//        
+//        //add if to check whether there's a photo or default
+//        if self.publication?.photoBinaryData == nil {return}
+//        
+//        self.photoPresentorNavController = self.storyboard?.instantiateViewControllerWithIdentifier("photoPresentorNavController") as! FCPhotoPresentorNavigationController
+//
+//        self.photoPresentorNavController.transitioningDelegate = self
+//        self.photoPresentorNavController.modalPresentationStyle = .Custom
+//        
+//        let photoPresentorVC = self.photoPresentorNavController.viewControllers[0] as! PublicationPhotoPresentorVC
+//        photoPresentorVC.publication = self.publication
+//        
+//        self.navigationController?.presentViewController(
+//            self.photoPresentorNavController, animated: true, completion:nil)
+//    }
+//}
 
-        self.photoPresentorNavController.transitioningDelegate = self
-        self.photoPresentorNavController.modalPresentationStyle = .Custom
-        
-        let photoPresentorVC = self.photoPresentorNavController.viewControllers[0] as! PublicationPhotoPresentorVC
-        photoPresentorVC.publication = self.publication
-        
-        self.navigationController?.presentViewController(
-            self.photoPresentorNavController, animated: true, completion:nil)
-    }
-}
-
-extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
-    
-    //MARK: - Transition Delegate
-    
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-       
-        var pcontrol: UIPresentationController!
-        
-        if presented is FCPhotoPresentorNavigationController {
-            
-            pcontrol = PublicationPhotoPresentorPresentationController(
-            presentedViewController: self.photoPresentorNavController,
-            presentingViewController: self.navigationController!)
-        }
-        
-        else if presented is FCPublicationReportsNavigationController{
-            
-            pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
-                presentingViewController: self.navigationController!)
-        }
-        
-        return  pcontrol
-    }
-    
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        //starting frame for transition
-        if presented is FCPhotoPresentorNavigationController {
-
-            let photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
-
-            var originFrame = CGRectZero
-            //TODO: set initial photo frame
-            let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-            let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
-            if let cell = imageCell {
-                originFrame = self.view.convertRect(cell.publicationImageView.frame, fromView: cell)
-            }
-            
-            photoPresentorVCAnimator.originFrame = originFrame
-            return photoPresentorVCAnimator
-        }
-        
-        else if presented is FCPublicationReportsNavigationController{
-            
-            let publicationReportsAnimator = FCPublicationReportsVCAnimator()
-            var startingFrame = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
-    //        startingFrame.origin.y += kTableViewHeaderHeight
-            startingFrame.size.width = startingFrame.size.width / 2
-    
-            publicationReportsAnimator.originFrame = startingFrame
-            return publicationReportsAnimator
-            
-        }
-        
-        return nil
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        if dismissed is FCPhotoPresentorNavigationController {
-            return PublicationPhotoPresentorDissmissAnimator()
-        }
-        else if dismissed == self.publicationReportsNavController {
-            
-            let animator = FCPublicationReportsDismissAnimator()
-            
-            let destinationFrame =
-            self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
-            
-            animator.destinationRect = destinationFrame
-            
-            return animator
-        }
-        
-        return nil
-    }
-}
+//extension FCPublicationDetailsTVC: UIViewControllerTransitioningDelegate {
+//    
+//    //MARK: - Transition Delegate
+//    
+//    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+//       
+//        var pcontrol: UIPresentationController!
+//        
+//        if presented is FCPhotoPresentorNavigationController {
+//            
+//            pcontrol = PublicationPhotoPresentorPresentationController(
+//            presentedViewController: self.photoPresentorNavController,
+//            presentingViewController: self.navigationController!)
+//        }
+//        
+//        else if presented is FCPublicationReportsNavigationController{
+//            
+//            pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
+//                presentingViewController: self.navigationController!)
+//        }
+//        
+//        return  pcontrol
+//    }
+//    
+//    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        
+//        //starting frame for transition
+//        if presented is FCPhotoPresentorNavigationController {
+//
+//            let photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
+//
+//            var originFrame = CGRectZero
+//            //TODO: set initial photo frame
+//            let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+//            let imageCell = self.tableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
+//            if let cell = imageCell {
+//                originFrame = self.view.convertRect(cell.publicationImageView.frame, fromView: cell)
+//            }
+//            
+//            photoPresentorVCAnimator.originFrame = originFrame
+//            return photoPresentorVCAnimator
+//        }
+//        
+//        else if presented is FCPublicationReportsNavigationController{
+//            
+//            let publicationReportsAnimator = FCPublicationReportsVCAnimator()
+//            var startingFrame = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+//    //        startingFrame.origin.y += kTableViewHeaderHeight
+//            startingFrame.size.width = startingFrame.size.width / 2
+//    
+//            publicationReportsAnimator.originFrame = startingFrame
+//            return publicationReportsAnimator
+//            
+//        }
+//        
+//        return nil
+//    }
+//    
+//    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        
+//        if dismissed is FCPhotoPresentorNavigationController {
+//            return PublicationPhotoPresentorDissmissAnimator()
+//        }
+//        else if dismissed == self.publicationReportsNavController {
+//            
+//            let animator = FCPublicationReportsDismissAnimator()
+//            
+//            let destinationFrame =
+//            self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+//            
+//            animator.destinationRect = destinationFrame
+//            
+//            return animator
+//        }
+//        
+//        return nil
+//    }
+//}
 
 //extension FCPublicationDetailsTVC {
 //    //MARK: - reports cell full screen

@@ -164,7 +164,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             
         }
         
-        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationDetailsTVC") as? FCPublicationDetailsTVC
+        let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationDetailsVC") as? PublicationDetailsVC
         
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: publication, publicationIndexPath: indexPath.item)
         

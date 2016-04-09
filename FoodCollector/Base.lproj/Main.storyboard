@@ -1730,21 +1730,102 @@
                                     <constraint firstAttribute="height" constant="30" id="4Tg-E2-UTL"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pA-4N-af7">
+                                <rect key="frame" x="20" y="400" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="IB0-3p-NKv"/>
+                                    <constraint firstAttribute="height" constant="60" id="y5d-4r-c6t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Join" backgroundImage="JoinButton">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="joinButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="dd3-OX-gwc"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mrf-9L-Y11" userLabel="ActionView">
+                                <rect key="frame" x="98" y="408" width="202" height="52"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tF7-OW-iXg">
+                                        <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="2Cu-EQ-d3s"/>
+                                            <constraint firstAttribute="width" constant="52" id="8MZ-gp-0Vz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                        <state key="normal" title="SMS" backgroundImage="ActionButton"/>
+                                        <connections>
+                                            <action selector="smsButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="p1d-Uq-lbW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nl5-jO-5om">
+                                        <rect key="frame" x="75" y="0.0" width="52" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="D6X-oL-4L1"/>
+                                            <constraint firstAttribute="width" constant="52" id="SLH-np-wJR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                        <state key="normal" title="Call" backgroundImage="ActionButton"/>
+                                        <connections>
+                                            <action selector="callButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="K7y-wO-7sL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2d-Mc-e8C">
+                                        <rect key="frame" x="150" y="0.0" width="52" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="52" id="sZg-hQ-IeZ"/>
+                                            <constraint firstAttribute="height" constant="52" id="uja-RR-0Uj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                        <state key="normal" title="Go" backgroundImage="ActionButton"/>
+                                        <connections>
+                                            <action selector="goButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="DPr-Vy-6eD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="nl5-jO-5om" firstAttribute="centerX" secondItem="Mrf-9L-Y11" secondAttribute="centerX" id="1sM-Uh-YT6"/>
+                                    <constraint firstAttribute="height" constant="52" id="cNZ-2D-LRh"/>
+                                    <constraint firstItem="nl5-jO-5om" firstAttribute="centerY" secondItem="Mrf-9L-Y11" secondAttribute="centerY" id="nAU-3a-ng6"/>
+                                    <constraint firstAttribute="trailing" secondItem="x2d-Mc-e8C" secondAttribute="trailing" id="ocr-Ka-Rfg"/>
+                                    <constraint firstItem="x2d-Mc-e8C" firstAttribute="centerY" secondItem="Mrf-9L-Y11" secondAttribute="centerY" id="qIy-fP-kg0"/>
+                                    <constraint firstItem="tF7-OW-iXg" firstAttribute="leading" secondItem="Mrf-9L-Y11" secondAttribute="leading" id="uRh-Dh-mlh"/>
+                                    <constraint firstItem="tF7-OW-iXg" firstAttribute="centerY" secondItem="Mrf-9L-Y11" secondAttribute="centerY" id="wHX-YR-Plk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2pA-4N-af7" firstAttribute="leading" secondItem="deg-wr-KXL" secondAttribute="leading" constant="20" id="405-ci-9Ma"/>
                             <constraint firstItem="CdY-tl-1gX" firstAttribute="leading" secondItem="deg-wr-KXL" secondAttribute="leading" id="8be-Zo-vhY"/>
                             <constraint firstAttribute="trailing" secondItem="RZi-P0-0cP" secondAttribute="trailing" id="9Ln-Uo-IvQ"/>
+                            <constraint firstItem="2pA-4N-af7" firstAttribute="top" secondItem="Mrf-9L-Y11" secondAttribute="bottom" constant="7" id="JIM-01-iA8"/>
                             <constraint firstAttribute="trailing" secondItem="CdY-tl-1gX" secondAttribute="trailing" id="REa-E3-hvC"/>
                             <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="CdY-tl-1gX" secondAttribute="bottom" id="WK8-r4-7aN"/>
+                            <constraint firstAttribute="trailing" secondItem="Mrf-9L-Y11" secondAttribute="trailing" constant="20" id="alp-s2-LIU"/>
+                            <constraint firstItem="Mrf-9L-Y11" firstAttribute="leading" secondItem="2pA-4N-af7" secondAttribute="trailing" constant="18" id="dQL-yq-4Zy"/>
+                            <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="2pA-4N-af7" secondAttribute="bottom" constant="20" id="ouD-Ma-iWt"/>
                             <constraint firstItem="RZi-P0-0cP" firstAttribute="top" secondItem="so5-8R-xIB" secondAttribute="bottom" id="qeE-0S-DID"/>
+                            <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="Mrf-9L-Y11" secondAttribute="bottom" constant="20" id="qqP-Rv-54F"/>
                             <constraint firstItem="CdY-tl-1gX" firstAttribute="top" secondItem="so5-8R-xIB" secondAttribute="bottom" id="vRf-IM-ZTa"/>
                             <constraint firstItem="RZi-P0-0cP" firstAttribute="leading" secondItem="deg-wr-KXL" secondAttribute="leading" id="yqG-Fr-Z5J"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="JIM-01-iA8"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="actionView" destination="Mrf-9L-Y11" id="CNT-Ew-dPE"/>
+                        <outlet property="callButton" destination="nl5-jO-5om" id="Bjr-rL-4T7"/>
+                        <outlet property="goButton" destination="x2d-Mc-e8C" id="K7B-gN-IuT"/>
+                        <outlet property="joinButton" destination="2pA-4N-af7" id="Dpe-pi-Ks7"/>
                         <outlet property="shareDetailsTableView" destination="CdY-tl-1gX" id="CVp-eJ-hes"/>
+                        <outlet property="smsButton" destination="tF7-OW-iXg" id="m5t-bW-7xs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8uv-jt-BaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2797,11 +2878,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ActionButton" width="52" height="52"/>
         <image name="Avtivity-center" width="27" height="30"/>
         <image name="Collect-off" width="49" height="49"/>
         <image name="Collect_v5" width="35" height="40"/>
         <image name="Donate_v5" width="35" height="40"/>
         <image name="Green-dot" width="7" height="7"/>
+        <image name="JoinButton" width="60" height="60"/>
         <image name="Map-view" width="17" height="26"/>
         <image name="MyShares" width="21" height="21"/>
         <image name="NoPhotoPlaceholder" width="87" height="80"/>

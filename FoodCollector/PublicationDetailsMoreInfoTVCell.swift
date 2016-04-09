@@ -10,6 +10,8 @@ import UIKit
 
 class PublicationDetailsMoreInfoTVCell: UITableViewCell {
 
+    @IBOutlet weak var shareDetailsMorInfo: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
