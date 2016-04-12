@@ -20,10 +20,10 @@ let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificati
 // A starting point is to darken each of the RGB channels in your bar color by 0.12. For example:
 
 // Original RGB value as set by the design team:
-// let kNavBarBlueColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
+let kNavBarBlueColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
 // Adjusted RGB values. At run time the nav bar has the correct color as set by the design team.
 //let kNavBarBlueColor = UIColor(red: 41/255, green: 160/255, blue: 222/255, alpha: 1)
-let kNavBarBlueColor = UIColor(red: 14/255, green: 133/255, blue: 212/255, alpha: 1)
+//let kNavBarBlueColor = UIColor(red: 14/255, green: 133/255, blue: 212/255, alpha: 1)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

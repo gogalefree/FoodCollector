@@ -18,7 +18,6 @@ let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End
 let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
 
 
-
 enum PublicationDetailsTVCViewState {
     
     case Publisher
@@ -52,10 +51,20 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     weak var actionsHeaderView: PublicationDetsilsCollectorActionsHeaderView?
     
-
-    @IBOutlet weak var shareDetailsTableView: UITableView!
     
-    @IBOutlet weak var topGradiantStripView: UIView!
+    @IBOutlet weak var registeredUsersCounterLabel: UILabel!
+    
+    @IBOutlet weak var endOfPublicationTimelabel: UILabel!
+    
+    @IBOutlet weak var targetAudienceLabel: UILabel!
+    
+    @IBOutlet weak var targetAudienceIcon: UIImageView!
+    
+    
+    
+    
+    
+    @IBOutlet weak var shareDetailsTableView: UITableView!
     
     @IBOutlet weak var joinButton: UIButton!
     
@@ -152,16 +161,13 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         addTopRightButton(self.state)
         configAdminIfNeeded()
         
-        
-        let gradient: CAGradientLayer = CAGradientLayer()
-        
-        gradient.colors = [kNavBarBlueColor.CGColor, UIColor.clearColor().CGColor]
-        //gradient.locations = [0.0 , 0.5]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.frame = CGRect(x: 0.0, y: 0.0, width: topGradiantStripView.frame.size.width, height: topGradiantStripView.frame.size.height)
-        
-        topGradiantStripView.layer.insertSublayer(gradient, atIndex: 0)
+        reloadRegisteredUserIconCounter()
+
+        // This will eliminate the 1px dark shadow strip under the navbar.
+        if let navBar =  self.navigationController?.navigationBar {
+            //navBar.translucent = false
+            navBar.clipsToBounds = true
+        }
     }
 
 
@@ -325,6 +331,37 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                 fetcher.delegate = self
                 fetcher.fetchRegistrationsForPublication(false)
             })
+        }
+    }
+    
+    final func reloadRegisteredUserIconCounter() {
+        
+        if let registrations = self.publication?.registrations {
+            
+            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+                
+                self.registeredUsersCounterlabel.alpha = 0
+                
+                }) { (finished) -> Void in
+                    var registeredUsersCounterlabelText = ""
+                    switch registrations.count {
+                    case 0: // No users registered
+                        registeredUsersCounterlabelText = NSLocalizedString("No users joined", comment:"Displays how many are registered and joined a publication.")
+                    case 1: // One user registered
+                        registeredUsersCounterlabelText = NSLocalizedString("1 user joined", comment:"Displays how many are registered and joined a publication.")
+                    default: // More than one user registered
+                        registeredUsersCounterlabelText = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment:"Displays how many are registered and joined a publication. e.g.: '3 users joined'"), "\(registrations.count)")
+                    }
+
+                    self.registeredUsersCounterlabel.text = registeredUsersCounterlabelText
+                    //self.defineImageColorForUser()
+                    
+                    UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+                        
+                        self.registeredUsersCounterlabel.alpha = 1
+                        
+                        
+                        }, completion: nil)}
         }
     }
     
