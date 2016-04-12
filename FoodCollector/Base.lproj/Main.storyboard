@@ -1724,6 +1724,14 @@
                                     <outlet property="delegate" destination="vT8-4h-8aj" id="HM2-jp-eyc"/>
                                 </connections>
                             </tableView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSF-RB-Alm" userLabel="TopGradiantStripView">
+                                <rect key="frame" x="0.0" y="20" width="320" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="mKo-u4-uiw"/>
+                                </constraints>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TopBGStrip" translatesAutoresizingMaskIntoConstraints="NO" id="RZi-P0-0cP">
                                 <rect key="frame" x="0.0" y="20" width="320" height="30"/>
                                 <constraints>
@@ -1736,7 +1744,7 @@
                                     <constraint firstAttribute="width" constant="60" id="IB0-3p-NKv"/>
                                     <constraint firstAttribute="height" constant="60" id="y5d-4r-c6t"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <state key="normal" title="Join" backgroundImage="JoinButton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1753,8 +1761,10 @@
                                             <constraint firstAttribute="height" constant="52" id="2Cu-EQ-d3s"/>
                                             <constraint firstAttribute="width" constant="52" id="8MZ-gp-0Vz"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="SMS" backgroundImage="ActionButton"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <state key="normal" title="SMS" backgroundImage="ActionButton">
+                                            <color key="titleColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="smsButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="p1d-Uq-lbW"/>
                                         </connections>
@@ -1765,8 +1775,10 @@
                                             <constraint firstAttribute="height" constant="52" id="D6X-oL-4L1"/>
                                             <constraint firstAttribute="width" constant="52" id="SLH-np-wJR"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="Call" backgroundImage="ActionButton"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <state key="normal" title="Call" backgroundImage="ActionButton">
+                                            <color key="titleColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="callButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="K7y-wO-7sL"/>
                                         </connections>
@@ -1777,8 +1789,10 @@
                                             <constraint firstAttribute="width" constant="52" id="sZg-hQ-IeZ"/>
                                             <constraint firstAttribute="height" constant="52" id="uja-RR-0Uj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="Go" backgroundImage="ActionButton"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <state key="normal" title="Go" backgroundImage="ActionButton">
+                                            <color key="titleColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="goButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="DPr-Vy-6eD"/>
                                         </connections>
@@ -1799,13 +1813,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2pA-4N-af7" firstAttribute="leading" secondItem="deg-wr-KXL" secondAttribute="leading" constant="20" id="405-ci-9Ma"/>
+                            <constraint firstItem="GSF-RB-Alm" firstAttribute="leading" secondItem="deg-wr-KXL" secondAttribute="leading" id="5lI-RF-ZZp"/>
                             <constraint firstItem="CdY-tl-1gX" firstAttribute="leading" secondItem="deg-wr-KXL" secondAttribute="leading" id="8be-Zo-vhY"/>
                             <constraint firstAttribute="trailing" secondItem="RZi-P0-0cP" secondAttribute="trailing" id="9Ln-Uo-IvQ"/>
+                            <constraint firstItem="GSF-RB-Alm" firstAttribute="top" secondItem="so5-8R-xIB" secondAttribute="bottom" id="CCv-68-uWO"/>
                             <constraint firstItem="2pA-4N-af7" firstAttribute="top" secondItem="Mrf-9L-Y11" secondAttribute="bottom" constant="7" id="JIM-01-iA8"/>
                             <constraint firstAttribute="trailing" secondItem="CdY-tl-1gX" secondAttribute="trailing" id="REa-E3-hvC"/>
                             <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="CdY-tl-1gX" secondAttribute="bottom" id="WK8-r4-7aN"/>
                             <constraint firstAttribute="trailing" secondItem="Mrf-9L-Y11" secondAttribute="trailing" constant="20" id="alp-s2-LIU"/>
                             <constraint firstItem="Mrf-9L-Y11" firstAttribute="leading" secondItem="2pA-4N-af7" secondAttribute="trailing" constant="18" id="dQL-yq-4Zy"/>
+                            <constraint firstAttribute="trailing" secondItem="GSF-RB-Alm" secondAttribute="trailing" id="nVF-w7-NgJ"/>
                             <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="2pA-4N-af7" secondAttribute="bottom" constant="20" id="ouD-Ma-iWt"/>
                             <constraint firstItem="RZi-P0-0cP" firstAttribute="top" secondItem="so5-8R-xIB" secondAttribute="bottom" id="qeE-0S-DID"/>
                             <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="Mrf-9L-Y11" secondAttribute="bottom" constant="20" id="qqP-Rv-54F"/>
@@ -1826,6 +1843,7 @@
                         <outlet property="joinButton" destination="2pA-4N-af7" id="Dpe-pi-Ks7"/>
                         <outlet property="shareDetailsTableView" destination="CdY-tl-1gX" id="CVp-eJ-hes"/>
                         <outlet property="smsButton" destination="tF7-OW-iXg" id="m5t-bW-7xs"/>
+                        <outlet property="topGradiantStripView" destination="GSF-RB-Alm" id="txm-14-205"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8uv-jt-BaI" userLabel="First Responder" sceneMemberID="firstResponder"/>

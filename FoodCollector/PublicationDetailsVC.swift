@@ -55,6 +55,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var shareDetailsTableView: UITableView!
     
+    @IBOutlet weak var topGradiantStripView: UIView!
+    
     @IBOutlet weak var joinButton: UIButton!
     
     @IBOutlet weak var actionView: UIView!
@@ -149,6 +151,17 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         registerForNotifications()
         addTopRightButton(self.state)
         configAdminIfNeeded()
+        
+        
+        let gradient: CAGradientLayer = CAGradientLayer()
+        
+        gradient.colors = [kNavBarBlueColor.CGColor, UIColor.clearColor().CGColor]
+        //gradient.locations = [0.0 , 0.5]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.frame = CGRect(x: 0.0, y: 0.0, width: topGradiantStripView.frame.size.width, height: topGradiantStripView.frame.size.height)
+        
+        topGradiantStripView.layer.insertSublayer(gradient, atIndex: 0)
     }
 
 
