@@ -70,6 +70,27 @@ class FCDateFunctions : NSObject {
         }
     }
     
+    class func timeStringDaysAndHoursRemainVerbose(fromDate fromDate: NSDate, toDate: NSDate) -> String {
+        let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double
+        print("tiemInterval: \(timeInterval)")
+        if timeInterval > 0 {
+            print("timeInterval > 0")
+            let totalHours = timeInterval / 60 / 60
+            if totalHours == 0 { // less than an hour to end date
+                print("totalHours == 0")
+                let remainingMinutes = Int(timeInterval / 60)
+                return String.localizedStringWithFormat(NSLocalizedString("Ending in %@ min", comment: "Time remaining. e.g: 'Ending in 35 min'"), "\(remainingMinutes)")
+            }
+            
+            let remainingDays = Int(totalHours / 24)
+            let remainingHours = totalHours % 24
+            return String.localizedStringWithFormat(NSLocalizedString("Ending in %@ days and %@h", comment: "Time remaining. e.g: 'Ending in 2 days and 3h'"), "\(remainingDays)", "\(remainingHours)")
+        }
+        else {
+            return NSLocalizedString("Ended", comment: "No time remains. Publication ended.")
+        }
+    }
+    
     class func timeStringDaysAndHoursRemainWithColor(fromDate fromDate: NSDate, toDate: NSDate) -> (String, UIColor) {
         
         let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double

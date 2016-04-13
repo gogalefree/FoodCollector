@@ -77,6 +77,17 @@ class FCIconFactory: NSObject {
         return icon
     }
     
+    class func typeOfPublicationIconWhite(publication: Publication) -> UIImage {
+        
+        var icon = UIImage(named: "AudienceIconPublic")!
+        
+        if publication.audianceID > 0 {
+            icon = UIImage(named: "AudienceIconGroup")!
+        }
+        
+        return icon
+    }
+    
     class func publicationDetailsReportIcon(report: PublicationReport) -> UIImage {
         
         var icon: UIImage

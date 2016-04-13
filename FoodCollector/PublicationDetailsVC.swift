@@ -60,10 +60,6 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var targetAudienceIcon: UIImageView!
     
-    
-    
-    
-    
     @IBOutlet weak var shareDetailsTableView: UITableView!
     
     @IBOutlet weak var joinButton: UIButton!
@@ -81,10 +77,10 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func joinButtonClicked(sender: UIButton) {
         if let publication = self.publication {
             switch publication.didRegisterForCurrentPublication!.boolValue {
-                case true:
-                    self.didUnRegisterForPublication(publication)
-                case false:
-                    self.didRegisterForPublication(publication)
+            case true:
+                self.didUnRegisterForPublication(publication)
+            case false:
+                self.didRegisterForPublication(publication)
             }
         }
     }
@@ -101,7 +97,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         if let publication = self.publication {
             self.didRequestPhoneCallForPublication(publication)
         }
-
+        
         GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector phone call button", label: "", value: 0)
     }
     
@@ -112,7 +108,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             }
             self.didRequestNavigationForPublication(publication)
         }
-
+        
         GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Collector navigation button", label: "", value: 0)
     }
     
@@ -136,7 +132,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,21 +159,27 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         reloadRegisteredUserIconCounter()
 
+        if let pub = publication {
+            endOfPublicationTimelabel.text = FCDateFunctions.timeStringDaysAndHoursRemainVerbose(fromDate: pub.endingData!, toDate: NSDate())
+            targetAudienceIcon.image = FCIconFactory.typeOfPublicationIconWhite(pub)
+        }
+
+        
         // This will eliminate the 1px dark shadow strip under the navbar.
         if let navBar =  self.navigationController?.navigationBar {
             //navBar.translucent = false
             navBar.clipsToBounds = true
         }
     }
-
-
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
     
@@ -251,7 +253,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             default:
                 break
             }
-        
+            
         case 1:
             
             switch indexPath.row {
@@ -340,7 +342,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                 
-                self.registeredUsersCounterlabel.alpha = 0
+                self.registeredUsersCounterLabel.alpha = 0
                 
                 }) { (finished) -> Void in
                     var registeredUsersCounterlabelText = ""
@@ -352,13 +354,13 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                     default: // More than one user registered
                         registeredUsersCounterlabelText = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment:"Displays how many are registered and joined a publication. e.g.: '3 users joined'"), "\(registrations.count)")
                     }
-
-                    self.registeredUsersCounterlabel.text = registeredUsersCounterlabelText
+                    
+                    self.registeredUsersCounterLabel.text = registeredUsersCounterlabelText
                     //self.defineImageColorForUser()
                     
                     UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
                         
-                        self.registeredUsersCounterlabel.alpha = 1
+                        self.registeredUsersCounterLabel.alpha = 1
                         
                         
                         }, completion: nil)}
@@ -392,7 +394,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
     }
-
+    
 }
 
 //MARK: - Collector Actions Header delegate
