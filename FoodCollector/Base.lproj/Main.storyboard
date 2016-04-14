@@ -1767,7 +1767,7 @@
                                             <constraint firstAttribute="height" constant="17" id="Jop-rZ-BKc"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="990" verticalHuggingPriority="251" horizontalCompressionResistancePriority="990" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dua-aU-plr">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="990" verticalHuggingPriority="251" horizontalCompressionResistancePriority="990" misplaced="YES" text="Public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dua-aU-plr">
                                         <rect key="frame" x="178.5" y="5" width="29.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="CSc-am-ccl"/>
@@ -1777,14 +1777,14 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AudienceIconPublic" translatesAutoresizingMaskIntoConstraints="NO" id="t5i-Fq-l3h">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="AudienceIconPublic" translatesAutoresizingMaskIntoConstraints="NO" id="t5i-Fq-l3h">
                                         <rect key="frame" x="157.5" y="9" width="15" height="12"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="12" id="JM0-cZ-AV5"/>
                                             <constraint firstAttribute="width" constant="15" id="U6R-38-YBg"/>
                                         </constraints>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hz4-LL-Xqm">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hz4-LL-Xqm">
                                         <rect key="frame" x="0.0" y="8" width="155.5" height="15"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>

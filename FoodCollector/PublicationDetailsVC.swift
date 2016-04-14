@@ -159,15 +159,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         reloadRegisteredUserIconCounter()
 
-        if let pub = publication {
-            endOfPublicationTimelabel.text = FCDateFunctions.timeStringDaysAndHoursRemainVerbose(fromDate: pub.endingData!, toDate: NSDate())
-            targetAudienceIcon.image = FCIconFactory.typeOfPublicationIconWhite(pub)
-            if let group = Group.fetchGroupWithId(pub.audianceID) {
-                if let groupName = group.name {
-                    targetAudienceLabel.text = groupName
-                }
-            }
-        }
+        shareDetailsTableView.estimatedRowHeight = 40
 
         
         // This will eliminate the 1px dark shadow strip under the navbar.
@@ -175,9 +167,21 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             //navBar.translucent = false
             navBar.clipsToBounds = true
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        shareDetailsTableView.estimatedRowHeight = 40
-        shareDetailsTableView.rowHeight = UITableViewAutomaticDimension
+        if let pub = publication {
+            endOfPublicationTimelabel.text = FCDateFunctions.timeStringDaysAndHoursRemainVerbose(fromDate: pub.endingData!, toDate: NSDate())
+            targetAudienceIcon.image = FCIconFactory.typeOfPublicationIconWhite(pub)
+            
+            if let group = Group.fetchGroupWithId(pub.audianceID) {
+                if let groupName = group.name {
+                    targetAudienceLabel.text = groupName
+                }
+            }
+        }
     }
     
     
@@ -204,28 +208,28 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         return PublicationDetailsReportCell.numberOfReportsToPresent(self.publication)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-            case 0: // Image Cell
-                return 110
-            case 1: // Title Cell
-                return 40
-            case 2: // Details Cell
-                return 64
-            case 3: // More Info Cell
-                return 40
-            default:
-                return 40
-            }
-        case 1:
-            return 22 // Reports cell(s)
-        default:
-            return 40
-        }
-    }
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        
+//        switch indexPath.section {
+//        case 0:
+//            switch indexPath.row {
+//            case 0: // Image Cell
+//                return 110
+//            case 1: // Title Cell
+//                return 40
+//            case 2: // Details Cell
+//                return 64
+//            case 3: // More Info Cell
+//                return 40
+//            default:
+//                return 40
+//            }
+//        case 1:
+//            return 22 // Reports cell(s)
+//        default:
+//            return 40
+//        }
+//    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -235,7 +239,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             switch indexPath.row {
             case 0: // Image cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsImageTVCell", forIndexPath: indexPath) as! PublicationDetailsImageTVCell
-                if let data = self.publication?.photoBinaryData{
+                if let data = self.publication?.photoBinaryData {
+                    print("Image Data!!!!")
                     let photo = UIImage(data: data)
                     cell.shareDetailsImage = UIImageView(image: photo)
                 }
