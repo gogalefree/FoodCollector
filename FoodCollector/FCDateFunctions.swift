@@ -84,7 +84,7 @@ class FCDateFunctions : NSObject {
             
             let remainingDays = Int(totalHours / 24)
             let remainingHours = totalHours % 24
-            return String.localizedStringWithFormat(NSLocalizedString("Ending in %@d and %@h", comment: "Time remaining. e.g: 'Ending in 2 days and 3h'"), "\(remainingDays)", "\(remainingHours)")
+            return String.localizedStringWithFormat(NSLocalizedString("Ending in %@d and %@h", comment: "Time remaining in days and hours. e.g: 'Ending in 2 and 3h'"), "\(remainingDays)", "\(remainingHours)")
         }
         else {
             return NSLocalizedString("Ended", comment: "No time remains. Publication ended.")

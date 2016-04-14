@@ -162,6 +162,11 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         if let pub = publication {
             endOfPublicationTimelabel.text = FCDateFunctions.timeStringDaysAndHoursRemainVerbose(fromDate: pub.endingData!, toDate: NSDate())
             targetAudienceIcon.image = FCIconFactory.typeOfPublicationIconWhite(pub)
+            if let group = Group.fetchGroupWithId(pub.audianceID) {
+                if let groupName = group.name {
+                    targetAudienceLabel.text = groupName
+                }
+            }
         }
 
         
@@ -170,6 +175,9 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             //navBar.translucent = false
             navBar.clipsToBounds = true
         }
+        
+        shareDetailsTableView.estimatedRowHeight = 40
+        shareDetailsTableView.rowHeight = UITableViewAutomaticDimension
     }
     
     
