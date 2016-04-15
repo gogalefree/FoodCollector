@@ -210,28 +210,19 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         return PublicationDetailsReportCell.numberOfReportsToPresent(self.publication)
     }
     
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        
-//        switch indexPath.section {
-//        case 0:
-//            switch indexPath.row {
-//            case 0: // Image Cell
-//                return 110
-//            case 1: // Title Cell
-//                return 40
-//            case 2: // Details Cell
-//                return 64
-//            case 3: // More Info Cell
-//                return 40
-//            default:
-//                return 40
-//            }
-//        case 1:
-//            return 22 // Reports cell(s)
-//        default:
-//            return 40
-//        }
-//    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                return view.frame.size.height * 0.1936 // Image Cell
+            }
+        }
+        else {
+            return 22 // Report cell(s)
+        }
+        
+        return UITableViewAutomaticDimension
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
