@@ -42,7 +42,7 @@ class PublicationDetailsImageCell: UITableViewCell {
     private func setUp() {
         self.addressLabel.text = makeAddressText(self.publication)
         reloadPublicationImage()
-        reloadRegisteredUserIconCounter()
+        //reloadRegisteredUserIconCounter()
     }
     
     final func reloadPublicationImage() {
@@ -61,31 +61,31 @@ class PublicationDetailsImageCell: UITableViewCell {
         }
     }
     
-    final func reloadRegisteredUserIconCounter() {
-        
-        if let registrations = self.publication.registrations {
-    
-            
-        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-            
-            self.registeredUsersCounterlabel.alpha = 0
-            self.registeredUsersIconImageView.alpha = 0
-            
-        }) { (finished) -> Void in
-
-            
-            self.registeredUsersCounterlabel.text = "\(registrations.count)"
-            self.defineImageColorForUser()
-            
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-                
-                self.registeredUsersCounterlabel.alpha = 1
-                self.registeredUsersIconImageView.alpha = 1
-
-                
-            }, completion: nil)}
-        }
-    }
+//    final func reloadRegisteredUserIconCounter() {
+//        
+//        if let registrations = self.publication.registrations {
+//    
+//            
+//        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+//            
+//            self.registeredUsersCounterlabel.alpha = 0
+//            self.registeredUsersIconImageView.alpha = 0
+//            
+//        }) { (finished) -> Void in
+//
+//            
+//            self.registeredUsersCounterlabel.text = "\(registrations.count)"
+//            self.defineImageColorForUser()
+//            
+//            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+//                
+//                self.registeredUsersCounterlabel.alpha = 1
+//                self.registeredUsersIconImageView.alpha = 1
+//
+//                
+//            }, completion: nil)}
+//        }
+//    }
     
     private func defineImageColorForUser() {
         

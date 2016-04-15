@@ -52,6 +52,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     weak var actionsHeaderView: PublicationDetsilsCollectorActionsHeaderView?
     
     
+    // MARK: - @IBOutlet Variables
+    
     @IBOutlet weak var registeredUsersCounterLabel: UILabel!
     
     @IBOutlet weak var endOfPublicationTimelabel: UILabel!
@@ -73,7 +75,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var goButton: UIButton!
     
     
-    
+    // MARK: - @IBAction Functions
     @IBAction func joinButtonClicked(sender: UIButton) {
         if let publication = self.publication {
             switch publication.didRegisterForCurrentPublication!.boolValue {
@@ -383,10 +385,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     func didFinishFetchingPublicationRegistrations() {
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let cell = self.shareDetailsTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
-            if let imageCell = cell {
-                imageCell.reloadRegisteredUserIconCounter()
-            }
+            self.reloadRegisteredUserIconCounter()
         }
     }
     
@@ -396,6 +395,23 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
         
+    }
+    
+    func didRecievePublicationRegistration(notification: NSNotification) {
+        
+        let info = notification.userInfo as? [String : AnyObject]
+        if let userInfo = info {
+
+            let publication = userInfo["publication"] as! Publication
+            if let presentedPublication = self.publication {
+
+                if  presentedPublication.uniqueId == publication.uniqueId &&
+                    presentedPublication.version == publication.version {
+
+                        reloadRegisteredUserIconCounter()
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -431,8 +447,8 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
         
         publication.didRegisterForCurrentPublication = false
         FCModel.sharedInstance.removeRegistrationFor(publication)
-        self.updateRegisteredUserIconCounter()
-        animateRegistrationButton()
+        reloadRegisteredUserIconCounter()
+        //animateRegistrationButton()
     }
     
     func didRequestNavigationForPublication(publication: Publication) {
@@ -450,11 +466,8 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
     }
     
     func didRequestSmsForPublication(publication: Publication) {
-        
         if let phoneNumber = self.publication?.contactInfo {
-            
             if MFMessageComposeViewController.canSendText() {
-                
                 let messageVC = MFMessageComposeViewController()
                 messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
                 messageVC.recipients = [phoneNumber]
@@ -481,23 +494,16 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
     private func registerUserForPublication() {
         publication!.didRegisterForCurrentPublication = true
         FCModel.sharedInstance.addRegisterationFor(publication!)
-        self.updateRegisteredUserIconCounter()
-        self.animateRegistrationButton()
+        reloadRegisteredUserIconCounter()
+        //self.animateRegistrationButton()
     }
     
-    private func animateRegistrationButton() {
-        actionsHeaderView?.animateButton((actionsHeaderView?.registerButton)!)
-        actionsHeaderView?.configureRegisterButton()
-    }
+//    private func animateRegistrationButton() {
+//        actionsHeaderView?.animateButton((actionsHeaderView?.registerButton)!)
+//        actionsHeaderView?.configureRegisterButton()
+//    }
     
-    private func updateRegisteredUserIconCounter() {
-        
-        let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-        let imageCell = self.shareDetailsTableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
-        if let cell = imageCell {
-            cell.reloadRegisteredUserIconCounter()
-        }
-    }
+    
     
     func showNotLoggedInAlert() {
         let alertController = UIAlertController(title: kAlertLoginTitle, message: kAlertLoginMessage, preferredStyle: UIAlertControllerStyle.Alert)

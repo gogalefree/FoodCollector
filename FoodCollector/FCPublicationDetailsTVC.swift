@@ -280,12 +280,12 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
     func didFinishFetchingPublicationRegistrations() {
    
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
-            if let imageCell = cell {
-                imageCell.reloadRegisteredUserIconCounter()
-            }
-        }
+//        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+//            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+//            if let imageCell = cell {
+//                imageCell.reloadRegisteredUserIconCounter()
+//            }
+//        }
     }
     
     //MARK: - Remote Notification Handling
@@ -314,24 +314,24 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
     func didRecievePublicationRegistration(notification: NSNotification) {
         
-        let info = notification.userInfo as? [String : AnyObject]
-        
-        if let userInfo = info {
-            
-            let publication = userInfo["publication"] as! Publication
-            if let presentedPublication = self.publication {
-                
-                if  presentedPublication.uniqueId == publication.uniqueId &&
-                    presentedPublication.version == publication.version {
-                        
-                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
-                        if let cell = imageCell {
-                         
-                            cell.reloadRegisteredUserIconCounter()
-                        }
-                }
-            }
-        }
+//        let info = notification.userInfo as? [String : AnyObject]
+//        
+//        if let userInfo = info {
+//            
+//            let publication = userInfo["publication"] as! Publication
+//            if let presentedPublication = self.publication {
+//                
+//                if  presentedPublication.uniqueId == publication.uniqueId &&
+//                    presentedPublication.version == publication.version {
+//                        
+//                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
+//                        if let cell = imageCell {
+//                         
+//                            cell.reloadRegisteredUserIconCounter()
+//                        }
+//                }
+//            }
+//        }
     }
     
     
