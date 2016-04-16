@@ -63,6 +63,7 @@
 	<string>Foodonet</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>waze</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>

@@ -443,14 +443,18 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
     }
     
     func didRequestNavigationForPublication(publication: Publication) {
-        
-        
+        //UIAlertView(title: "didRequestNavigationForPublication", message: "didRequestNavigationForPublication", delegate: nil, cancelButtonTitle: "OK").show()
+        print("didRequestNavigationForPublication")
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
+            //UIAlertView(title: "didRequestNavigationForPublication", message: "didRequestNavigationForPublication: canOpenURL", delegate: nil, cancelButtonTitle: "OK").show()
+            print("didRequestNavigationForPublication: canOpenURL")
             let title = NSLocalizedString("Navigate with:", comment:"an action sheet title meening chose app to navigate with")
             let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }
         else {
+            //UIAlertView(title: "didRequestNavigationForPublication", message: "didRequestNavigationForPublication: else", delegate: nil, cancelButtonTitle: "OK").show()
+            print("didRequestNavigationForPublication: else")
             //navigateWithWaze
             FCNavigationHandler.sharedInstance.wazeNavigation(publication)
         }
@@ -462,7 +466,7 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
                 let messageVC = MFMessageComposeViewController()
                 messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
                 messageVC.recipients = [phoneNumber]
-                //messageVC.messageComposeDelegate = self
+                messageVC.messageComposeDelegate = self
                 self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)
                 
             }
