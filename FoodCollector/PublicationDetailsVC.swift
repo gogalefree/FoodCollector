@@ -133,6 +133,14 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "publication details", label: "publisher state", value: 0)
             
         }
+        
+        actionView.alpha = 0
+        if let isRegistered = publication?.didRegisterForCurrentPublication?.boolValue {
+            if isRegistered {
+                actionView.alpha = 1
+            }
+        }
+        
     }
     
     
@@ -428,6 +436,7 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
         
         if User.sharedInstance.userIsLoggedIn {
             registerUserForPublication()
+            animateViewFadeInOut(actionView)
         }
         else {
             showNotLoggedInAlert()
@@ -439,22 +448,17 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
         publication.didRegisterForCurrentPublication = false
         FCModel.sharedInstance.removeRegistrationFor(publication)
         reloadRegisteredUserIconCounter()
+        animateViewFadeInOut(actionView)
         //animateRegistrationButton()
     }
     
     func didRequestNavigationForPublication(publication: Publication) {
-        //UIAlertView(title: "didRequestNavigationForPublication", message: "didRequestNavigationForPublication", delegate: nil, cancelButtonTitle: "OK").show()
-        print("didRequestNavigationForPublication")
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!)){
-            //UIAlertView(title: "didRequestNavigationForPublication", message: "didRequestNavigationForPublication: canOpenURL", delegate: nil, cancelButtonTitle: "OK").show()
-            print("didRequestNavigationForPublication: canOpenURL")
             let title = NSLocalizedString("Navigate with:", comment:"an action sheet title meening chose app to navigate with")
             let actionSheet = FCAlertsHandler.sharedInstance.navigationActionSheet(title, publication: publication)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }
         else {
-            //UIAlertView(title: "didRequestNavigationForPublication", message: "didRequestNavigationForPublication: else", delegate: nil, cancelButtonTitle: "OK").show()
-            print("didRequestNavigationForPublication: else")
             //navigateWithWaze
             FCNavigationHandler.sharedInstance.wazeNavigation(publication)
         }
@@ -498,6 +502,16 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
 //        actionsHeaderView?.configureRegisterButton()
 //    }
     
+    private func animateViewFadeInOut(view: UIView) {
+        UIView.animateWithDuration(0.4) { () -> Void in
+            if view.alpha == 0 {
+                view.alpha = 1
+            }
+            else {
+                view.alpha = 0
+            }
+        }
+    }
     
     
     func showNotLoggedInAlert() {
