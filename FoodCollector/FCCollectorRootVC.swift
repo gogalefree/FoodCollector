@@ -208,6 +208,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         var annotations = [FDAnnotation]()
         
         for publication in self.publications {
+            if publication.title == nil {continue}
             let annotation =  FDAnnotation(publication: publication)
             annotations.append(annotation)
         }

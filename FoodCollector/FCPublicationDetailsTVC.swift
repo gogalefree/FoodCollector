@@ -299,7 +299,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
                     let action = UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         
                         alert.dismissViewControllerAnimated(true, completion: nil)
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     })
                     
                     alert.addAction(action)

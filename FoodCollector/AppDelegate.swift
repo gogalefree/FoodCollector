@@ -101,6 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
 
+        print("push payload:\n \(userInfo)")
         //called when the app recieves push while in foreground or backround
         //use UIApplication.sharedApplication().applicationState
         //to find out whether the app was susspended or not

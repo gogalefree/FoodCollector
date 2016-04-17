@@ -21,8 +21,8 @@ class FDAnnotation: NSObject,  MKAnnotation {
         
         self.publication = publication
         self.coordinate = publication.coordinate
-        self.title = publication.title!
-        self.subtitle = publication.subtitle
+        self.title = publication.title ?? ""
+        self.subtitle = publication.subtitle ?? ""
         
     }
 }
