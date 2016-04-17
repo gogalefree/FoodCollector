@@ -168,22 +168,18 @@ class FCUserNotificationHandler : NSObject {
             case kRemoteNotificationTypeNewPublication:
                 
                 //we download the new publication from the server and append it to publications Array in FCModel
-                print("Notifications Handler kRemoteNotificationTypeNewPublication ")
                 self.handleNewPublicationFromPushNotification(publicationIdentifier)
             
             case kRemoteNotificationTypeDeletedPublication:
                 
-                print("Notifications Handler kRemoteNotificationTypeDeletedPublication ")
                 self.handleDeletePublicationFromPushNotification(publicationIdentifier)
                 
             case kRemoteNotificationTypePublicationReport:
                 
-                print("Notifications Handler kRemoteNotificationTypePublicationReport ")
                 self.handlePublicationReportFromPushNotification(data!)
                 
             case kRemoteNotificationTypeUserRegisteredForPublication:
                 
-                print("Notifications Handler kRemoteNotificationTypeUserRegisteredForPublication ")
                 self.handleRegistrationFromPushNotification(data!)
                 
             case kRemoteNotificationTypeGroupMembers:
