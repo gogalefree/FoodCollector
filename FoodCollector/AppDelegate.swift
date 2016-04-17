@@ -14,7 +14,16 @@ let kRemoteNotificationTokenKey = "kRemoteNotificationTokenKey"
 let kDidReportPushNotificationToServerKey = "didFailToRegisterPush"
 let kDidReciveLocationNotificationInBackground = "didReciveNewLocationNotificationInBackground"
 
+
+// To compute a bar tint color to match a given color (e.g. for a corporate or brand identity), the color you pass to the -setBarTintColor: method will need to account for the translucency iOS maintains for the bar. Also note that the alpha channel for the color you pass will be ignored, since iOS controls for that to achieve the overall translucency effect.
+// Arriving at the correct color for tinted bars may require some experimentation. You may also need to take into account the app content which passes under the bar (e.g. photos or text).
+// A starting point is to darken each of the RGB channels in your bar color by 0.12. For example:
+
+// Original RGB value as set by the design team:
 let kNavBarBlueColor = UIColor(red: 52/255, green: 152/255, blue: 219/255, alpha: 1)
+// Adjusted RGB values. At run time the nav bar has the correct color as set by the design team.
+//let kNavBarBlueColor = UIColor(red: 41/255, green: 160/255, blue: 222/255, alpha: 1)
+//let kNavBarBlueColor = UIColor(red: 14/255, green: 133/255, blue: 212/255, alpha: 1)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

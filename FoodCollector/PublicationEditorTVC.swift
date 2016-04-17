@@ -547,7 +547,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     if self.state == .EditPublication{
             
                         let publicationDetailsNavigationController = self.navigationController?.presentingViewController as? UINavigationController
-                        let publicationDetailsTVC = publicationDetailsNavigationController?.viewControllers[0] as? FCPublicationDetailsTVC
+                        let publicationDetailsTVC = publicationDetailsNavigationController?.viewControllers[0] as? PublicationDetailsVC
                         publicationDetailsTVC?.publication = self.publication
                         publicationDetailsTVC?.reload()
                         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)

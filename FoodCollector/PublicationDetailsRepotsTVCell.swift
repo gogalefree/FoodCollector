@@ -1,25 +1,22 @@
 //
-//  PublicationDetailsReportCell.swift
+//  PublicationDetailsRepotsTVCell.swift
 //  FoodCollector
 //
-//  Created by Guy Freedman on 6/9/15.
-//  Copyright (c) 2015 Guy Freeman. All rights reserved.
+//  Created by Boris Tsigelman on 4.4.2016.
+//  Copyright © 2016 Foodonet. All rights reserved.
 //
 
 import UIKit
 
-//let kHasMoreTitle = NSLocalizedString("There’s more to pickup", comment:"The title of a user report which means that there is more food to pickup")
-//let kTookAllTitle = NSLocalizedString("Took all", comment:"The title of a user report which means that he took all the food")
-//let kNothingThereTitle = NSLocalizedString("Nothing left", comment:"The title of a user report which means that he found nothing")
+let kHasMoreTitle = NSLocalizedString("There’s more to pickup", comment:"The title of a user report which means that there is more food to pickup")
+let kTookAllTitle = NSLocalizedString("Took all", comment:"The title of a user report which means that he took all the food")
+let kNothingThereTitle = NSLocalizedString("Nothing left", comment:"The title of a user report which means that he found nothing")
 
+class PublicationDetailsRepotsTVCell: UITableViewCell {
 
-class PublicationDetailsReportCell: UITableViewCell {
-    
-    let identifier = "PublicationDetailsReportCell"
-    
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var reportLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
+    var timeLabel = ""
     
     var indexPath: NSIndexPath!
     var publication: Publication! {
@@ -29,13 +26,13 @@ class PublicationDetailsReportCell: UITableViewCell {
             }
         }
     }
-
+    
     private func setUp() {
         
         guard let reports = publication?.reports else {return}
         
         if reports.count != 0 {
-
+            
             let reportsArray = FCPublicationsSorter.sortPublicationReportsByDate(publication)
             let report = reportForIndexPath(reportsArray)
             if let aReport = report {
@@ -43,9 +40,9 @@ class PublicationDetailsReportCell: UITableViewCell {
             }
             else { presentNoReportsMessage()}
         }
-        
+            
         else {
-         
+            
             presentNoReportsMessage()
         }
     }
@@ -53,14 +50,14 @@ class PublicationDetailsReportCell: UITableViewCell {
     func presentNoReportsMessage() {
         
         self.reportLabel.text = NSLocalizedString("No reports", comment:"the title in the table view cell displayed when a publication has no reports")
-        self.timeLabel.text = " "
-        self.iconImageView.image = UIImage(named: "Pin-Table-Whole")!
+        self.iconImageView.alpha = 0
     }
     
     func presentReport(report: PublicationReport){
-        self.reportLabel.text = self.titleForReport(report)
-        self.timeLabel.text = FCDateFunctions.localizedTimeStringShortStyle(report.dateOfReport!)
-        self.iconImageView.image = FCIconFactory.publicationDetailsReportIcon(report)
+        let reportTime = FCDateFunctions.localizedTimeStringShortStyle(report.dateOfReport!)
+        timeLabel = String.localizedStringWithFormat(NSLocalizedString("(reported at %@)", comment:"this text will become the sentence: '(reported at 21:30)'"), reportTime)
+        self.reportLabel.text = self.titleForReport(report) + " " + timeLabel
+        //self.iconImageView.image = FCIconFactory.publicationDetailsReportIcon(report)
     }
     
     func titleForReport(report:PublicationReport) -> String {
@@ -79,10 +76,10 @@ class PublicationDetailsReportCell: UITableViewCell {
         
         return title
     }
-
+    
     
     func reportForIndexPath(reportsArray: [PublicationReport]) -> PublicationReport? {
-    
+        
         if let indexPath = self.indexPath {
             
             let reportIndex = indexPath.row
@@ -101,18 +98,18 @@ class PublicationDetailsReportCell: UITableViewCell {
     }
     
     
-
+    
     class func numberOfReportsToPresent(publication: Publication?) -> Int {
         
         if let publication = publication , reports = publication.reports {
-        let num = reports.count
+            let num = reports.count
             if num < 3 {
                 //if there are no reports - return 1
                 //if reports.count > 3 return 3
                 //else return reports.count
                 return  max(1, num)
             }
-        
+            
             return 3
         }
         else {return 1}
@@ -120,8 +117,8 @@ class PublicationDetailsReportCell: UITableViewCell {
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }
