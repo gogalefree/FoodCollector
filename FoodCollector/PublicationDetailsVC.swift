@@ -162,6 +162,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         //self.tableView.estimatedRowHeight = 65
         fetchPublicationReports()
         fetchPublicationPhoto()
+        fetchPublisherPhoto()
         //fetchPublicationRegistrations()
         registerForNotifications()
         addTopRightButton(self.state)
@@ -169,7 +170,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         reloadRegisteredUserIconCounter()
 
-        shareDetailsTableView.estimatedRowHeight = 40
+        shareDetailsTableView.estimatedRowHeight = 44
 
         
         // This will eliminate the 1px dark shadow strip under the navbar.
@@ -222,7 +223,11 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                return view.frame.size.height * 0.1936 // Image Cell
+                return 220//view.frame.size.height * 0.1936 // Image Cell
+            }
+            
+            else if indexPath.row == 2 {
+                return 64 //details cell
             }
         }
         else {
@@ -243,20 +248,20 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                 if let data = self.publication?.photoBinaryData {
                     print("Image Data!!!!")
                     let photo = UIImage(data: data)
-                    cell.shareDetailsImage = UIImageView(image: photo)
+                    cell.shareDetailsImage.image = photo
                 }
                 return cell
                 
             case 1: // Title cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsTitleTVCell", forIndexPath: indexPath) as! PublicationDetailsTitleTVCell
-                cell.shareDetailsTitle.text = publication?.title
+                cell.shareDetailsTitle.text = publication?.title?.capitalizedString
                 return cell
                 
             case 2: // Details Cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsDetailsTVCell", forIndexPath: indexPath) as! PublicationDetailsDetailsTVCell
-                //cell.shareUserImage = publication.????
-                //cell.shareUserNameLabel = publication.????
                 cell.shareLocationLabel.text = publication?.address
+                cell.shareUserNameLabel.text = publication?.publisherUserName
+                print("publisher name: \(publication?.publisherUserName)")
                 return cell
                 
             case 3: // More Info Cell
@@ -290,6 +295,19 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     // MARK: - Fetch Data For Publication
+    
+    func fetchPublisherPhoto() {
+        
+        guard let publication = self.publication else {return}
+        let fetcher = FCUserPhotoFetcher()
+        fetcher.userPhotoForPublication(publication) { (image) in
+            
+            guard let userImage = image else {return}
+            let cell = self.shareDetailsTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! PublicationDetailsDetailsTVCell
+            cell.shareUserImage.image = userImage
+        }
+    }
+
     
     func fetchPublicationPhoto() {
         if let publication = self.publication {

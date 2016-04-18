@@ -13,19 +13,21 @@ class FCUserPhotoFetcher: NSObject {
     let foodCollectorProductionBucketName  = "foodonetusers"
     let foodCollectorDevelopmentBucketName = "foodonetusersdev"
     
-    func userPhotoForPublication(publication: FCPublication , completion: (image: UIImage?)->Void) {
+    func userPhotoForPublication(publication: Publication , completion: (image: UIImage?)->Void) {
         //TODO: get the user from the current publication and set the photo url for user
+        
+        let photoKey = kUserPhotoKeyPrefix + "\(publication.publisherId!.integerValue)" + ".jpg"
 
         var photo: UIImage? = nil
         
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         
-        let downloadedFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(publication.photoUrl)")
+        let downloadedFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(photoKey)")
         let downloadedFileUrl = NSURL.fileURLWithPath(downloadedFilePath.path!)
         
         let downloadRequest                 = AWSS3TransferManagerDownloadRequest()
         downloadRequest.bucket              = self.bucketNameForBundle()//"foodcollector"
-        downloadRequest.key                 = publication.photoUrl
+        downloadRequest.key                 = photoKey
         downloadRequest.downloadingFileURL  = downloadedFileUrl
         
         transferManager.download(downloadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
