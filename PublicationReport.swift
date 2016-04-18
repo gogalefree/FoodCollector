@@ -98,7 +98,7 @@ class PublicationReport: NSManagedObject {
         do {
             try context.save()
         }catch {
-            print("error saving new report \(error) " + __FUNCTION__)
+            print("error saving new report \(error)")
         }
         
         return report        

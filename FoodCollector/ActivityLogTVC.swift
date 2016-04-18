@@ -29,7 +29,7 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
             try _fetchedResultsController!.performFetch()
 
         } catch {
-            print("error fetching activity logs by fetchedResultsController \(error) " + __FUNCTION__)
+            print("error fetching activity logs by fetchedResultsController \(error) ")
         }
         
         return _fetchedResultsController!
@@ -45,7 +45,7 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("fecth results controllrt count: \(fetchedResultsController.sections![0].numberOfObjects) " + __FUNCTION__)
+        print("fecth results controllrt count: \(fetchedResultsController.sections![0].numberOfObjects) ")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

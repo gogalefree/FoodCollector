@@ -52,10 +52,10 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
     }
     
     func registerAppNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kReloadDataNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kRecievedNewDataNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kRecievedNewPublicationNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData", name: kDeletedPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PublicationsThumbnailsCollectionViewController.didRecieveNewData), name: kReloadDataNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PublicationsThumbnailsCollectionViewController.didRecieveNewData), name: kRecievedNewDataNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PublicationsThumbnailsCollectionViewController.didRecieveNewData), name: kRecievedNewPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PublicationsThumbnailsCollectionViewController.didRecieveNewData), name: kDeletedPublicationNotification, object: nil)
     }
     
     override func didReceiveMemoryWarning() {

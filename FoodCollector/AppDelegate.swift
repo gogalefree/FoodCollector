@@ -142,8 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         //TODO: Add urk scheme for EU
-        print("url: \(url.scheme)" + " " + __FUNCTION__)
-        
+        print("url: \(url.scheme)")
         if url.scheme == "fb694275220709803" {
         
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)

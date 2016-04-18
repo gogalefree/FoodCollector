@@ -130,7 +130,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     
     func addPanRecognizer() {
         
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: "didDragMap:")
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(FCCollectorRootVC.didDragMap(_:)))
         panRecognizer.delegate = self
         self.mapView.addGestureRecognizer(panRecognizer)
     }
@@ -258,7 +258,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         self.publicationDetailsTVC?.publication = publication
         let state :PublicationDetailsTVCViewState = publication.isUserCreatedPublication!.boolValue ? .Publisher : .Collector
         self.publicationDetailsTVC?.setupWithState(state, caller: .MyPublications, publication: publication)
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCCollectorRootVC.dismissDetailVC))
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         self.navigationController!.presentViewController(nav, animated: true, completion: nil)
     }
@@ -331,13 +331,13 @@ extension FCCollectorRootVC {
         
        // NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: "didFetchNewPublicationReportNotification", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: kReloadDataNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCCollectorRootVC.reloadAnnotations), name: kReloadDataNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecieveNewData:", name: kRecievedNewDataNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCCollectorRootVC.didRecieveNewData(_:)), name: kRecievedNewDataNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: kRecievedNewPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCCollectorRootVC.reloadAnnotations), name: kRecievedNewPublicationNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCCollectorRootVC.didDeletePublication(_:)), name: kDeletedPublicationNotification, object: nil)
                 
 
    //     NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentNotificationsFromWebFetch", name: kDidPrepareNotificationsFromWebFetchNotification, object: nil)

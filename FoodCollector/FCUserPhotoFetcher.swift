@@ -14,7 +14,7 @@ class FCUserPhotoFetcher: NSObject {
     let foodCollectorDevelopmentBucketName = "foodonetusersdev"
     
     func userPhotoForPublication(publication: Publication , completion: (image: UIImage?)->Void) {
-        //TODO: get the user from the current publication and set the photo url for user
+
         
         let photoKey = kUserPhotoKeyPrefix + "\(publication.publisherId!.integerValue)" + ".jpg"
 
@@ -42,10 +42,10 @@ class FCUserPhotoFetcher: NSObject {
                 
                 //let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
-//                publication.photoData.didTryToDonwloadImage = true
-//                if let publicationPhoto = photo {
-//                    publication.photoData.photo = publicationPhoto
-//                }
+                if photo != nil {
+                    publication.publisherPhotoData = UIImageJPEGRepresentation(photo!, 1)
+                    FCModel.dataController.save()
+                }
                 completion(image: photo)
             }
             
@@ -56,7 +56,6 @@ class FCUserPhotoFetcher: NSObject {
     
     func uploadUserPhoto() {
         
-        //TODO: get the user and set the photo url for user
         guard let photo     = User.sharedInstance.userImage else {return}
         let photoKey        = kUserPhotoKeyPrefix + "\(User.sharedInstance.userUniqueID)" + ".jpg"
         let uploadFilePath  = NSTemporaryDirectory().stringByAppendingString(photoKey)

@@ -162,7 +162,6 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         //self.tableView.estimatedRowHeight = 65
         fetchPublicationReports()
         fetchPublicationPhoto()
-        fetchPublisherPhoto()
         //fetchPublicationRegistrations()
         registerForNotifications()
         addTopRightButton(self.state)
@@ -195,6 +194,10 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        fetchPublisherPhoto()
+    }
     
     /*
     // MARK: - Navigation
@@ -299,15 +302,27 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     func fetchPublisherPhoto() {
         
         guard let publication = self.publication else {return}
-        let fetcher = FCUserPhotoFetcher()
-        fetcher.userPhotoForPublication(publication) { (image) in
-            
-            guard let userImage = image else {return}
-            let cell = self.shareDetailsTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! PublicationDetailsDetailsTVCell
-            cell.shareUserImage.image = userImage
+        
+        if let photoData = publication.publisherPhotoData {
+            let photo = UIImage(data: photoData)
+            presentPublisherPhoto(photo!)
+        }
+        else {
+         
+            let fetcher = FCUserPhotoFetcher()
+            fetcher.userPhotoForPublication(publication) { (image) in
+                
+                guard let userPhoto = image else {return}
+                self.presentPublisherPhoto(userPhoto)                
+            }
         }
     }
 
+    func presentPublisherPhoto(photo: UIImage) {
+        
+        let cell = self.shareDetailsTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0)) as! PublicationDetailsDetailsTVCell
+        cell.shareUserImage.image = photo
+    }
     
     func fetchPublicationPhoto() {
         if let publication = self.publication {
@@ -409,8 +424,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - NSNotifications
     func registerForNotifications() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+       // NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PublicationDetailsVC.didRecievePublicationRegistration(_:)), name: kRecievedPublicationRegistrationNotification, object: nil)
         
     }
     
@@ -829,7 +844,7 @@ extension PublicationDetailsVC {
     
     func addDeletButton() {
         
-        let deleteButton = UIBarButtonItem(title: "delete", style: UIBarButtonItemStyle.Plain, target: self, action: "deletePublication")
+        let deleteButton = UIBarButtonItem(title: "delete", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(PublicationDetailsVC.deletePublication))
         self.navigationItem.setRightBarButtonItem(deleteButton, animated: false)
     }
     

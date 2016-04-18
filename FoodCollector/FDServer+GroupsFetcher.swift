@@ -124,7 +124,7 @@ extension FCMockServer {
                         completion(success: true)
                     }
                     catch {
-                        print("error fetching MembersForGroup: \(error) " + __FUNCTION__)
+                        print("error fetching MembersForGroup: \(error) " + #function)
                         completion(success: false)
                         return
                     }

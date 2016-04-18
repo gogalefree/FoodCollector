@@ -95,7 +95,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         addTopRightButton()
         addPictureButton()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "backButtonAction")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(PublicationEditorTVC.backButtonAction))
 
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCImageCustomCell", bundle: nil), forCellReuseIdentifier: "imageCustomCell")
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
@@ -312,7 +312,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func addTopRightButton() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: kPublishButtonTitle, style: .Done, target: self, action: "publish")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: kPublishButtonTitle, style: .Done, target: self, action: #selector(PublicationEditorTVC.publish))
         setTopRightButtonStatus()
     }
     
@@ -338,7 +338,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         //button.backgroundColor = kNavBarBlueColor //UIColor(red: 0.0, green: 128/255, blue: 1.0, alpha: 1.0)
         button.layer.cornerRadius = buttonWidth / 2
         button.setImage(image, forState: .Normal)
-        button.addTarget(self, action: "pictureButtonTouched:", forControlEvents:.TouchUpInside)
+        button.addTarget(self, action: #selector(PublicationEditorTVC.pictureButtonTouched(_:)), forControlEvents:.TouchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         let widthConstraint = NSLayoutConstraint(

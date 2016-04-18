@@ -120,7 +120,7 @@ class Group: NSManagedObject {
                     try context.save()
                     
                 } catch {
-                    print("error deleting old publications \(error)" + __FUNCTION__)
+                    print("error deleting old publications \(error)" + #function)
                 }
             }
             
@@ -177,7 +177,7 @@ class Group: NSManagedObject {
                     group.updateWithParams(groupParams, context: context)
                     
                     //delete duplicates
-                    for var index = 0 ; index < groups.count - 1 ; index++ {
+                    for index in 0  ..< groups.count - 1  {
                         let groupToDelete = groups.first!
                         context.delete(groupToDelete)
                     }
@@ -185,7 +185,7 @@ class Group: NSManagedObject {
                 }
                 
             }catch  {
-                print("error fetching group \(error) " + __FUNCTION__)
+                print("error fetching group \(error) " + #function)
             }
             
         }
@@ -219,7 +219,7 @@ class Group: NSManagedObject {
             do {
                 try context.save()
             } catch {
-                print("error saving group \(error) " + __FUNCTION__ )
+                print("error saving group \(error) " + #function )
             }
         }
     }
@@ -230,7 +230,7 @@ class Group: NSManagedObject {
         guard let groupToDelete = group else {return}
         
         ActivityLog.activityLog(nil, group: groupToDelete, type: ActivityLog.LogType.DeleteGroup.rawValue, context: FCModel.dataController.managedObjectContext)
-        FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter++
+        FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter += 1
         
         Group.moc.performBlock { () -> Void in
             Group.moc.deleteObject(groupToDelete)

@@ -32,7 +32,7 @@ public extension FCModel {
                     
                     
                 } catch {
-                    print("error fetching publications in: " + __FUNCTION__ + "\nerror: \(error)")
+                    print("error fetching publications in: " + "\nerror: \(error)")
                 }
             }
         }
@@ -53,7 +53,7 @@ public extension FCModel {
                     let results = try moc.executeFetchRequest(request) as? [Publication]
                     if let publications = results { self.userCreatedPublications = publications}
                 } catch {
-                    print("error fetching publications in: " + __FUNCTION__ + "\nerror: \(error)")
+                    print("error fetching publications in: " + "\nerror: \(error)")
                 }
 
             }

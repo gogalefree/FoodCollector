@@ -85,7 +85,7 @@ extension FCMockServer {
                     print("response: \(serverResponse)")
                     if error != nil || serverResponse.statusCode > 300 {
                         
-                        print("error posting report \(error)" + __FUNCTION__)
+                        print("error posting report \(error)")
                     }
                     
                     else {
@@ -101,7 +101,7 @@ extension FCMockServer {
                             })
                             
                         } catch {
-                            print("error parsing report data \(error) " + __FUNCTION__)
+                            print("error parsing report data \(error) ")
                         }
                     }
                 }

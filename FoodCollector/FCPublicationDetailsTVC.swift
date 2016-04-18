@@ -338,8 +338,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     //MARK: - NSNotifications
     func registerForNotifications() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didDeletePublication:", name: kDeletedPublicationNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didRecievePublicationRegistration:", name: kRecievedPublicationRegistrationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCPublicationDetailsTVC.didDeletePublication(_:)), name: kDeletedPublicationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCPublicationDetailsTVC.didRecievePublicationRegistration(_:)), name: kRecievedPublicationRegistrationNotification, object: nil)
         
     }
     

@@ -63,6 +63,15 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.imageView.image = defaultImage
+        if let publication = self.publication {
+            
+            if publication.photoBinaryData != nil {animateImage(publication)}
+        }
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.imageView.image = defaultImage

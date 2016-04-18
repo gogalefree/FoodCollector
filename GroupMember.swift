@@ -175,7 +175,7 @@ class GroupMember: NSManagedObject {
                                     aMember.updateWithParams(memberParams, context: context, group: group)
                                    
                                     
-                                    for var index = 0 ; index < groupMembers.count - 1 ; index++ {
+                                    for index in 0  ..< groupMembers.count - 1  {
                                         let member = groupMembers.first!
                                         context.deleteObject(member)
                                     }
@@ -184,7 +184,7 @@ class GroupMember: NSManagedObject {
                         }
                     
                      catch {
-                        print("error create or update Group Member \(error) " + __FUNCTION__)
+                        print("error create or update Group Member \(error)")
                     }
                 })
             }
@@ -216,7 +216,7 @@ class GroupMember: NSManagedObject {
             do {
                 try context.save()
             } catch {
-                print ("error \(error) " + __FUNCTION__)
+                print ("error \(error) ")
             }
         }
     }

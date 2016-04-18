@@ -30,8 +30,7 @@ extension FCMockServer {
         
         let dicToSend = ["registered_user_for_publication" : params]
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(params, options: [])
-        print("registration to send: \(dicToSend)" + __FUNCTION__)
-        
+        print("registration to send: \(dicToSend)")
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"

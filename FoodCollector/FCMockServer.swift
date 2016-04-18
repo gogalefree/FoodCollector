@@ -452,7 +452,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                             do {
                                 try publication.managedObjectContext?.save()
                             } catch {
-                                print ("error saving publication after take off air: \(error)" + __FUNCTION__)
+                                print ("error saving publication after take off air: \(error)")
                             }
                         }
                     }

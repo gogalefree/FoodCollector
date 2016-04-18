@@ -89,7 +89,7 @@ class PublicationPhotoPresentorVC: UIViewController, UIScrollViewDelegate, UIGes
     
     func addGestureToScrollView() {
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: "scrollViewTapped:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(PublicationPhotoPresentorVC.scrollViewTapped(_:)))
         tapGesture.numberOfTapsRequired = 2
         tapGesture.delegate = self
         self.scrollView.addGestureRecognizer(tapGesture)

@@ -34,7 +34,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        leftSwipeGesture.addTarget(self, action: "leftSwipeAction:")
+        leftSwipeGesture.addTarget(self, action: #selector(ActivityCenterVC.leftSwipeAction(_:)))
         
         sideMenuTable.delegate = self
         sideMenuTable.dataSource = self
@@ -109,14 +109,14 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         switch indexPath.row {
             case 0: // My Shares
                 if let mySharesVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublishRootVC") as? PublishRootVC {
-                    mySharesVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissVC")
+                    mySharesVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ActivityCenterVC.dismissVC))
                     let nav = UINavigationController(rootViewController: mySharesVC)
                     self.presentViewController(nav, animated: true, completion: nil)
                 }
             
             case 1: // All Events
                 if let allEventsVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationsTableViewController") as? FCPublicationsTableViewController {
-                    allEventsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissVC")
+                    allEventsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ActivityCenterVC.dismissVC))
                     let nav = UINavigationController(rootViewController: allEventsVC)
                     self.presentViewController(nav, animated: true, completion: nil)
                 }

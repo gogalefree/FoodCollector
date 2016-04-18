@@ -30,7 +30,7 @@ class CDNewDataProcessor: NSObject {
         var numBatches = count / batchSize
         numBatches += count % batchSize > 0 ? 1 : 0
         
-        for var batchNumber = 0; batchNumber < numBatches; batchNumber++ {
+        for batchNumber in 0 ..< numBatches {
             
             let batchStart = batchNumber * batchSize
             let batchEnd = batchStart + min(batchSize, count - batchNumber * batchSize)
@@ -74,7 +74,7 @@ class CDNewDataProcessor: NSObject {
                     try localContext.save()
 
                 } catch {
-                    print("error deleting old publications \(error)" + __FUNCTION__)
+                    print("error deleting old publications \(error)")
                 }
             }
             
@@ -107,7 +107,7 @@ class CDNewDataProcessor: NSObject {
                     try localContext.save()
                     
                 } catch {
-                    print("error deleting old publications \(error)" + __FUNCTION__)
+                    print("error deleting old publications \(error)")
                 }
             }
             
@@ -137,7 +137,7 @@ class CDNewDataProcessor: NSObject {
                     try localContext.save()
                     
                 } catch {
-                    print("error deleting old publications \(error)" + __FUNCTION__)
+                    print("error deleting old publications \(error)")
                 }
             }
             

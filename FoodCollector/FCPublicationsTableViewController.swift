@@ -57,7 +57,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
             try _fetchedResultsController!.performFetch()
             
         } catch {
-            print("error fetching activity logs by fetchedResultsController \(error) " + __FUNCTION__)
+            print("error fetching activity logs by fetchedResultsController \(error) ")
         }
         
         return _fetchedResultsController!
@@ -218,7 +218,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         
         for publication in publications {
         
-            let titleRange: Range<String.Index> = Range<String.Index>(start: publication.title!.startIndex  ,end: publication.title!.endIndex)
+            let titleRange: Range<String.Index> = Range<String.Index>(publication.title!.startIndex ..< publication.title!.endIndex)
             
             let titleFound = publication.title!.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: titleRange, locale: nil)
         
@@ -227,7 +227,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
             
             if let subtitle = publication.subtitle {
                 
-               let subTitleRange = Range<String.Index>(start: subtitle.startIndex  ,end: subtitle.endIndex)
+               let subTitleRange = Range<String.Index>( subtitle.startIndex ..< subtitle.endIndex)
                
                 subtitleFound = subtitle.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: subTitleRange, locale: nil)
     
@@ -285,7 +285,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         //publicationDetailsTVC?.title = publication.title
         publicationDetailsTVC?.publication = publication
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublicationsTableViewController.dismissDetailVC))
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)
@@ -357,7 +357,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         //button.layer.cornerRadius = buttonWidth / 2
         
         button.setImage(image, forState: .Normal)
-        button.addTarget(self, action: "createNewPublicationButtonTouched:", forControlEvents:.TouchUpInside)
+        button.addTarget(self, action: #selector(FCPublicationsTableViewController.createNewPublicationButtonTouched(_:)), forControlEvents:.TouchUpInside)
         
         //self.view.addSubview(button)
         self.navigationController!.view.addSubview(button)
@@ -413,7 +413,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     
     func registerForAppNotifications() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationBadgeCounter", name: kUpdateNotificationsCounterNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCPublicationsTableViewController.updateNotificationBadgeCounter), name: kUpdateNotificationsCounterNotification, object: nil)
     }
     
     deinit {

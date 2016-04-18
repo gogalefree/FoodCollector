@@ -71,7 +71,7 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
 
         case smsButton:
 
-            print(__FUNCTION__ + "smsButton")
+            print("smsButton")
             delegate?.publisherDidRequestSmsCollectors()
             
             GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Pulbisher sms button", label: "", value: 0)
@@ -79,7 +79,7 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
             
         case phoneCallButton:
 
-            print(__FUNCTION__ + "phoneCallButton")
+            print("phoneCallButton")
             delegate?.publisherDidRequestPhoneCall()
             
             GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "Pulbisher phone call button", label: "", value: 0)

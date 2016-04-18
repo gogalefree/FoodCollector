@@ -52,7 +52,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             try _fetchedResultsController!.performFetch()
             
         } catch {
-            print("error fetching activity logs by fetchedResultsController \(error) " + __FUNCTION__)
+            print("error fetching activity logs by fetchedResultsController \(error)")
         }
         
         return _fetchedResultsController!
@@ -168,7 +168,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: publication, publicationIndexPath: indexPath.item)
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissDetailVC")
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublishRootVC.dismissDetailVC))
         
         //publicationDetailsTVC?.deleteDelgate = self
         
@@ -390,7 +390,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         for publication in publications {
             
-            let titleRange: Range<String.Index> = Range<String.Index>(start: publication.title!.startIndex  ,end: publication.title!.endIndex)
+            let titleRange: Range<String.Index> = Range<String.Index>(publication.title!.startIndex ..< publication.title!.endIndex)
             
             let titleFound = publication.title!.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: titleRange, locale: nil)
             
@@ -399,7 +399,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             
             if let subtitle = publication.subtitle {
                 
-                let subTitleRange = Range<String.Index>(start: subtitle.startIndex  ,end: subtitle.endIndex)
+                let subTitleRange = Range<String.Index>(subtitle.startIndex ..< subtitle.endIndex)
                 
                 subtitleFound = subtitle.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch, range: subTitleRange, locale: nil)
                 

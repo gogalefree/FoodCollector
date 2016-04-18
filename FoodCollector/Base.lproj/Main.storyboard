@@ -2402,8 +2402,8 @@
                                     <rect key="frame" x="0.0" y="64" width="320" height="88"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <searchBar contentMode="redraw" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ruw-wp-Mbp">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ruw-wp-Mbp">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
                                                 <outlet property="delegate" destination="w3E-Nc-KQr" id="d7A-jX-B8P"/>

@@ -34,7 +34,7 @@ class ActivityLogController: NSObject {
                     self.logs = someLogs
                 }
             } catch {
-                print("error fetching logs \(error) " + __FUNCTION__)
+                print("error fetching logs \(error) " + #function)
             }
             
         }

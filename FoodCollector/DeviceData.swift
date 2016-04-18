@@ -43,6 +43,7 @@ public extension DeviceData {
     
     public class func readPlist(var fileName: String) -> (data: AnyObject?, dataType: PlistDataType){
         // Check if fileName has a pathExtension. If it doesn't, add it.
+        
         if ((fileName as NSString).pathExtension == "") {
             fileName = fileName + ".plist"
         }

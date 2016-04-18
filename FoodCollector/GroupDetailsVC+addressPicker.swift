@@ -55,7 +55,7 @@ extension GroupDetailsVC {
                 
                 let phones: ABMultiValueRef = ABRecordCopyValue(person, kABPersonPhoneProperty).takeUnretainedValue() as ABMultiValueRef
                 
-                for var index = 0; index < ABMultiValueGetCount(phones); ++index{
+                for index in 0 ..< ABMultiValueGetCount(phones){
                     
                     let currentPhoneLabel = ABMultiValueCopyLabelAtIndex(phones, index).takeUnretainedValue() as CFStringRef as String
                     let currentPhoneValue = ABMultiValueCopyValueAtIndex(phones, index).takeUnretainedValue() as! CFStringRef as String

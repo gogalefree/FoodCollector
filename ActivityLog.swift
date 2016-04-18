@@ -27,7 +27,7 @@ class ActivityLog: NSManagedObject {
             do {
                 try context.save()
             } catch {
-                print("error creating activity log \(error) " + __FUNCTION__)
+                print("error creating activity log \(error) ")
             }
         }
     }
