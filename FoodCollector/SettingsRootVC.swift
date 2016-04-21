@@ -78,7 +78,11 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
             
         case 0:
             //personal profile
-            print("personal profile")
+            
+            if loggedIn {
+                let userProfileTVC = UIStoryboard(name: "Settings", bundle: nil).instantiateViewControllerWithIdentifier("UserProfileTVC") as! UserProfileTVC
+                self.navigationController?.pushViewController(userProfileTVC, animated: true)
+            }
             
         case 1:
             let notoficationsNav = UIStoryboard(name: "Settings", bundle: nil).instantiateViewControllerWithIdentifier("NotificationsSettingsNavVC") as! UINavigationController

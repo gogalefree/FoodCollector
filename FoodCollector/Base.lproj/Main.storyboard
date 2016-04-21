@@ -2827,7 +2827,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fv4-BX-Ufw">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="116"/>
+                                <rect key="frame" x="20" y="0.0" width="560" height="116"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="gGM-2F-gaJ">
@@ -2885,10 +2885,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="fv4-BX-Ufw" secondAttribute="trailing" constant="-20" id="F94-jw-KBv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fv4-BX-Ufw" secondAttribute="trailing" id="F94-jw-KBv"/>
                             <constraint firstItem="fv4-BX-Ufw" firstAttribute="bottom" secondItem="K4U-bc-xzP" secondAttribute="bottomMargin" id="JqU-tJ-Ywx"/>
                             <constraint firstItem="fv4-BX-Ufw" firstAttribute="top" secondItem="K4U-bc-xzP" secondAttribute="topMargin" id="M2Y-M6-YYh"/>
-                            <constraint firstItem="fv4-BX-Ufw" firstAttribute="leading" secondItem="K4U-bc-xzP" secondAttribute="leadingMargin" constant="-20" id="bBp-bD-3zv"/>
+                            <constraint firstItem="fv4-BX-Ufw" firstAttribute="leading" secondItem="K4U-bc-xzP" secondAttribute="leadingMargin" id="bBp-bD-3zv"/>
                         </constraints>
                     </view>
                     <connections>
