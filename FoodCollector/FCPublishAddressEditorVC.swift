@@ -440,7 +440,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
         for serachItem in searchHistoryArray{
             let addr = (serachItem as NSDictionary).objectForKey("adress") as! String
             self.initialData.append(addr)
-            countItemsAdded++
+            countItemsAdded += 1
             if (countItemsAdded == maxItemsToDisplay) {break}
         }
     }

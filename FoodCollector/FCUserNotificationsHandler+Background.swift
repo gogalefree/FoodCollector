@@ -74,7 +74,7 @@ extension FCUserNotificationHandler {
                 
                 //badge handling
                 var badgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber
-                badgeNumber++
+                badgeNumber += 1
                 UIApplication.sharedApplication().applicationIconBadgeNumber = badgeNumber
                 
                 //when the app starts - the notificationBadgeCounter Starts From here
@@ -95,7 +95,7 @@ extension FCUserNotificationHandler {
             activityLogType = ActivityLog.LogType.NewPublication
             
         case kRemoteNotificationTypeDeletedPublication:
-            activityLogType = ActivityLog.LogType.EditedPublication
+            activityLogType = ActivityLog.LogType.DeletePublication
             
         case kRemoteNotificationTypePublicationReport:
             activityLogType = ActivityLog.LogType.Report

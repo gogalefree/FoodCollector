@@ -93,7 +93,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
            self.setupLocationManager()
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "mergeChanges:", name: NSManagedObjectContextDidSaveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCModel.mergeChanges(_:)), name: NSManagedObjectContextDidSaveNotification, object: nil)
         
     }
     

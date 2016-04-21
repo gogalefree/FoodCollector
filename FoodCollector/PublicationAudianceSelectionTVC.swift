@@ -51,7 +51,7 @@ class PublicationAudianceSelectionTVC: UITableViewController {
                     if selectedGroupID == groupID {selectedGroupIndex = i}
                 }
             }
-        i++
+        i += 1
         }
     }
     

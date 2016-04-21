@@ -54,6 +54,42 @@ class FCUserPhotoFetcher: NSObject {
         })
     }
     
+    func userPhotoForGroup(group: Group , completion: (image: UIImage?)->Void) {
+        
+        
+        let photoKey = kUserPhotoKeyPrefix + "\(group.adminUserId!.integerValue)" + ".jpg"
+        
+        var photo: UIImage? = nil
+        
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        
+        let downloadedFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(photoKey)")
+        let downloadedFileUrl = NSURL.fileURLWithPath(downloadedFilePath.path!)
+        
+        let downloadRequest                 = AWSS3TransferManagerDownloadRequest()
+        downloadRequest.bucket              = self.bucketNameForBundle()//"foodcollector"
+        downloadRequest.key                 = photoKey
+        downloadRequest.downloadingFileURL  = downloadedFileUrl
+        
+        transferManager.download(downloadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
+            
+            
+            if task.error != nil {
+                print(task.error)
+                completion(image: photo)
+            }
+            
+            if task.result != nil {
+                
+                //let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
+                photo = UIImage(contentsOfFile: downloadedFilePath.path!)
+                completion(image: photo)
+            }
+            
+            return nil
+        })
+    }
+
     func uploadUserPhoto() {
         
         guard let photo     = User.sharedInstance.userImage else {return}

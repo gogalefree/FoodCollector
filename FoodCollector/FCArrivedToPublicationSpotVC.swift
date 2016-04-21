@@ -83,7 +83,7 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         super.viewDidLoad()
         
         let buttonTitle = NSLocalizedString("Not Now",comment:"Navigation bar button title")
-        let rightButton = UIBarButtonItem(title: buttonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "cancelButtonAction:")
+        let rightButton = UIBarButtonItem(title: buttonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCArrivedToPublicationSpotVC.cancelButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = rightButton
         configureButton(self.tookAllButton)
         configureButton(self.tookSomeButton)

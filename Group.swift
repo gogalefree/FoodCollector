@@ -130,9 +130,6 @@ class Group: NSManagedObject {
                
                 for group in toDelete {
                     
-                    //make delete notification object
-                    let delete = ActivityLog.LogType.DeleteGroup.rawValue
-                    ActivityLog.activityLog(nil, group: group, type: delete, context: context)
                     context.deleteObject(group)
                 }
             }
@@ -228,9 +225,6 @@ class Group: NSManagedObject {
         
         let group = Group.fetchGroupWithId(groupId)
         guard let groupToDelete = group else {return}
-        
-        ActivityLog.activityLog(nil, group: groupToDelete, type: ActivityLog.LogType.DeleteGroup.rawValue, context: FCModel.dataController.managedObjectContext)
-        FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter += 1
         
         Group.moc.performBlock { () -> Void in
             Group.moc.deleteObject(groupToDelete)

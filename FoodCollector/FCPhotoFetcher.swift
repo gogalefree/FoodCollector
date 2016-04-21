@@ -21,6 +21,7 @@ class FCPhotoFetcher: NSObject {
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         
         let downloadedFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(publication.photoUrl)")
+        print("url: \(publication.photoUrl)")
         let downloadedFileUrl = NSURL.fileURLWithPath(downloadedFilePath.path!)
         
         let downloadRequest = AWSS3TransferManagerDownloadRequest()

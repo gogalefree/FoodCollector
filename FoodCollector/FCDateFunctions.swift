@@ -105,6 +105,36 @@ class FCDateFunctions : NSObject {
             return (timeString, textColor)
         }
     }
+    
+    class func timeStringForActivityLogCell(objectDate: NSDate) -> String{
+        
+        var timeString = ""
+        
+        let logTimeInterval = -objectDate.timeIntervalSinceNow
+        let hours = Int(logTimeInterval / 60 / 60)
+        
+        if hours == 0 {
+            //show minutes
+            let minutes = Int(logTimeInterval / 60)
+            let minString = NSLocalizedString("mins", comment: "a shorted version of minutes")
+            timeString = "\(minutes) " + minString
+        }
+        
+        else if hours > 24 {
+            //show days
+            let days = Int(hours / 24)
+            let daysString = NSLocalizedString("days", comment: "days passed from date")
+            timeString = "\(days) " + daysString
+        }
+        
+        else {
+            //show hours
+            let hoursString = NSLocalizedString("h", comment: "hours passed from date")
+            timeString = "\(hours) " + hoursString
+        }
+        
+        return timeString
+    }
 }
 
 

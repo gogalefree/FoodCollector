@@ -56,7 +56,6 @@ public class FCMockServer: NSObject , FCServerProtocol {
                                     if let existingPublication = FCModel.sharedInstance.publicationWithUniqueId(identifier) {
                                         
                                         existingPublication.updateFromParams(params, context: moc)
-                                        FCUserNotificationHandler.sharedInstance.makeActivityLogForType(ActivityLog.LogType.EditedPublication , publication: existingPublication)
                                         completion(publication: existingPublication)
                                     }
                                     

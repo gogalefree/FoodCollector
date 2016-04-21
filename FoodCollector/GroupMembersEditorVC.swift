@@ -41,7 +41,7 @@ class GroupMembersEditorVC: UIViewController, UITableViewDataSource, UITableView
         self.tableView.delegate   = self
         groupNameLabel.text = group.name
         if members.count == 0 {tableView.alpha = 0}
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: kDoneButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "donePickingMembers")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: kDoneButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(GroupMembersEditorVC.donePickingMembers))
     }
     
    

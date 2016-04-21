@@ -27,7 +27,7 @@ class DragView: UIView {
         super.layoutSubviews()
         if panRecognizer == nil {
             
-            panRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
+            panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(DragView.handlePan(_:)))
             self.addGestureRecognizer(panRecognizer)
            
             

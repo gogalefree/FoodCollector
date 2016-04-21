@@ -139,6 +139,10 @@
 		E43F89FF1BDEB9D5007991E6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */; };
 		E43F8A001BDEB9D5007991E6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */; };
 		E43F8A021BDEBACE007991E6 /* AppDelegate+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */; };
+		E448ADA71CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */; };
+		E448ADA81CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */; };
+		E448ADAD1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */; };
+		E448ADAE1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */; };
 		E44FDDA31C5CB5F9000D5F97 /* FCIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */; };
 		E44FDDA41C5CB5F9000D5F97 /* FCModel+LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ED5781A8BD175008FB618 /* FCModel+LocationManager.swift */; };
 		E44FDDA51C5CB5F9000D5F97 /* PublicationPhotoPresentorPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E407DEA21AB08FE100FC8415 /* PublicationPhotoPresentorPresentationController.swift */; };
@@ -322,6 +326,12 @@
 		E476114C1B570ED400042D8F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114B1B570ED400042D8F /* libz.dylib */; };
 		E476114E1B570EE700042D8F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E476114D1B570EE700042D8F /* SystemConfiguration.framework */; };
 		E477AE4E1BFF41430055FCB0 /* GAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E477AE4D1BFF41430055FCB0 /* GAController.swift */; };
+		E478A25A1CC8C5680015515F /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478A2591CC8C5680015515F /* UserProfilePhotoCell.swift */; };
+		E478A25B1CC8C5680015515F /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478A2591CC8C5680015515F /* UserProfilePhotoCell.swift */; };
+		E478A25D1CC8C5840015515F /* UserProfileTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478A25C1CC8C5840015515F /* UserProfileTextCell.swift */; };
+		E478A25E1CC8C5840015515F /* UserProfileTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478A25C1CC8C5840015515F /* UserProfileTextCell.swift */; };
+		E478A2601CC8C73F0015515F /* UserProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478A25F1CC8C73F0015515F /* UserProfileTVC.swift */; };
+		E478A2611CC8C73F0015515F /* UserProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478A25F1CC8C73F0015515F /* UserProfileTVC.swift */; };
 		E47F9C511A120C0B00079164 /* FCMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C501A120C0B00079164 /* FCMockServer.swift */; };
 		E48263731BE20AE100526C7B /* ActivityLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263721BE20AE100526C7B /* ActivityLogController.swift */; };
 		E48263751BE20B6C00526C7B /* FetchedDataNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48263741BE20B6C00526C7B /* FetchedDataNotification.swift */; };
@@ -363,8 +373,6 @@
 		E4D11FDE1C36A8E100A426B6 /* FCUserPhotoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D11FDD1C36A8E100A426B6 /* FCUserPhotoFetcher.swift */; };
 		E4D16F111C881DDD00EDFE69 /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F0E1C881DDD00EDFE69 /* ActivityLog.swift */; };
 		E4D16F121C881DDD00EDFE69 /* ActivityLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F0E1C881DDD00EDFE69 /* ActivityLog.swift */; };
-		E4D16F181C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */; };
-		E4D16F191C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */; };
 		E4D16F1C1C8836B600EDFE69 /* ActivityLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */; };
 		E4D16F1D1C8836B600EDFE69 /* ActivityLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */; };
 		E4D16F1F1C88373300EDFE69 /* ActivityLogTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D16F1E1C88373300EDFE69 /* ActivityLogTVC.swift */; };
@@ -557,6 +565,8 @@
 		E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+.swift"; sourceTree = "<group>"; };
+		E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogTVCell.swift; sourceTree = "<group>"; };
+		E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ActivityLog+CoreDataProperties.swift"; path = "../ActivityLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E44FDE4D1C5CB5F9000D5F97 /* FoodonetEU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodonetEU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E44FDE4E1C5CB5FA000D5F97 /* FoodonetEU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = FoodonetEU.plist; path = /Users/Guy/iosProjects/foodCollector_oldREPO/FoodCollector/FoodonetEU.plist; sourceTree = "<absolute>"; };
 		E4545D7F1AD320E60031CF8A /* Track-clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear.png"; sourceTree = "<group>"; };
@@ -606,6 +616,9 @@
 		E476114D1B570EE700042D8F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E477AE4B1BFF3D500055FCB0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GoogleFoodonet/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E477AE4D1BFF41430055FCB0 /* GAController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAController.swift; sourceTree = "<group>"; };
+		E478A2591CC8C5680015515F /* UserProfilePhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoCell.swift; sourceTree = "<group>"; };
+		E478A25C1CC8C5840015515F /* UserProfileTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTextCell.swift; sourceTree = "<group>"; };
+		E478A25F1CC8C73F0015515F /* UserProfileTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileTVC.swift; sourceTree = "<group>"; };
 		E47F9C501A120C0B00079164 /* FCMockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCMockServer.swift; sourceTree = "<group>"; };
 		E47F9C521A12184200079164 /* ModelInitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInitTests.swift; sourceTree = "<group>"; };
 		E48263721BE20AE100526C7B /* ActivityLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogController.swift; sourceTree = "<group>"; };
@@ -643,7 +656,6 @@
 		E4C4B95D1C843AF5009599DD /* FDAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDAnnotation.swift; sourceTree = "<group>"; };
 		E4D11FDD1C36A8E100A426B6 /* FCUserPhotoFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCUserPhotoFetcher.swift; sourceTree = "<group>"; };
 		E4D16F0E1C881DDD00EDFE69 /* ActivityLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActivityLog.swift; path = ../ActivityLog.swift; sourceTree = "<group>"; };
-		E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ActivityLog+CoreDataProperties.swift"; path = "../ActivityLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActivityLog.storyboard; sourceTree = "<group>"; };
 		E4D16F1E1C88373300EDFE69 /* ActivityLogTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogTVC.swift; sourceTree = "<group>"; };
 		E4D16F211C885B9500EDFE69 /* FDServer+GroupsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+GroupsFetcher.swift"; sourceTree = "<group>"; };
@@ -1311,6 +1323,9 @@
 				E4A5571F1C919F5000E09139 /* Settings.storyboard */,
 				E4A557281C91A07000E09139 /* SettingsRootVC.swift */,
 				E4A557221C919F6800E09139 /* NotificationsDistanceVC.swift */,
+				E478A25F1CC8C73F0015515F /* UserProfileTVC.swift */,
+				E478A2591CC8C5680015515F /* UserProfilePhotoCell.swift */,
+				E478A25C1CC8C5840015515F /* UserProfileTextCell.swift */,
 				E4A557231C919F6800E09139 /* DragView.swift */,
 			);
 			name = Settings;
@@ -1319,7 +1334,7 @@
 		E4D16F161C881E8900EDFE69 /* ActivityLog */ = {
 			isa = PBXGroup;
 			children = (
-				E4D16F171C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift */,
+				E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */,
 				E4D16F0E1C881DDD00EDFE69 /* ActivityLog.swift */,
 			);
 			name = ActivityLog;
@@ -1330,6 +1345,7 @@
 			children = (
 				E4D16F1B1C8836B600EDFE69 /* ActivityLog.storyboard */,
 				E4D16F1E1C88373300EDFE69 /* ActivityLogTVC.swift */,
+				E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */,
 			);
 			name = "Activity Log";
 			sourceTree = "<group>";
@@ -1773,10 +1789,12 @@
 				E4C4B95F1C843AF5009599DD /* FDAnnotation.swift in Sources */,
 				E44FDDAF1C5CB5F9000D5F97 /* FCNavigationHandler.swift in Sources */,
 				E44FDDB01C5CB5F9000D5F97 /* FCMockServer+.swift in Sources */,
+				E448ADA81CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */,
 				E44FDDB21C5CB5F9000D5F97 /* FCArrivedToPublicationSpotVC.swift in Sources */,
 				E44FDDB31C5CB5F9000D5F97 /* FCServerProtocol.swift in Sources */,
 				E44FDDB41C5CB5F9000D5F97 /* FCPublishAddressEditorVC.swift in Sources */,
 				E40F19A01C81984B009C044E /* PublicationRegistration.swift in Sources */,
+				E478A25B1CC8C5680015515F /* UserProfilePhotoCell.swift in Sources */,
 				E44FDDB51C5CB5F9000D5F97 /* Validator.swift in Sources */,
 				E44FDDB61C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.swift in Sources */,
 				E44FDDB71C5CB5F9000D5F97 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */,
@@ -1815,12 +1833,14 @@
 				E4E83F541C7D80D500E4A9F6 /* GroupsRootvcTVCell.swift in Sources */,
 				E4E83F511C7B0DE400E4A9F6 /* GroupDetailsVC.swift in Sources */,
 				E4F40D141C747B680094E455 /* GroupsRootVC+TableView.swift in Sources */,
+				E448ADAE1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift in Sources */,
 				E44FDDCC1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.swift in Sources */,
 				E44FDDCD1C5CB5F9000D5F97 /* FCPublicationRegistrationsFetcher.swift in Sources */,
 				E44FDDCE1C5CB5F9000D5F97 /* FCPublicationReportsNavigationController.swift in Sources */,
 				E4D16F121C881DDD00EDFE69 /* ActivityLog.swift in Sources */,
 				E4F40CFB1C70B0270094E455 /* GroupMember.swift in Sources */,
 				A1CE0EE41CB1A557004EC403 /* PublicationDetailsVC.swift in Sources */,
+				E478A25E1CC8C5840015515F /* UserProfileTextCell.swift in Sources */,
 				E44FDDCF1C5CB5F9000D5F97 /* FCModel+NewData.swift in Sources */,
 				E44FDDD01C5CB5F9000D5F97 /* PublicationDetsilsCollectorActionsHeaderView.swift in Sources */,
 				E44FDDD11C5CB5F9000D5F97 /* FCCollectorRootVC+Thumbnails.swift in Sources */,
@@ -1870,8 +1890,8 @@
 				E44FDDF61C5CB5F9000D5F97 /* FCCollectorRootVC+.swift in Sources */,
 				A1A8A09A1CB2B3FB001F47DC /* PublicationDetailsTitleTVCell.swift in Sources */,
 				E44FDDF71C5CB5F9000D5F97 /* FCPublicationReportsPresentationController.swift in Sources */,
-				E4D16F191C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift in Sources */,
 				E4F40CF71C70B0270094E455 /* Group.swift in Sources */,
+				E478A2611CC8C73F0015515F /* UserProfileTVC.swift in Sources */,
 				E40F198E1C803BF8009C044E /* GroupMembersEditorTVCell.swift in Sources */,
 				E40F199C1C81984B009C044E /* Publication.swift in Sources */,
 				E44FDDF91C5CB5F9000D5F97 /* FCLaunchScreenView.swift in Sources */,
@@ -1931,13 +1951,13 @@
 				E4737D9E1A10C01300A4AB81 /* FCServerProtocol.swift in Sources */,
 				A1A8A0921CB2B3CD001F47DC /* PublicationDetailsImageTVCell.swift in Sources */,
 				A1D6763F1CAAB77E00F84AD9 /* PublishRootVC.swift in Sources */,
-				E4D16F181C882D9300EDFE69 /* ActivityLog+CoreDataProperties.swift in Sources */,
 				E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */,
 				A1A8A0991CB2B3FB001F47DC /* PublicationDetailsTitleTVCell.swift in Sources */,
 				E40F19AB1C81D083009C044E /* FDServer+PublicationReports.swift in Sources */,
 				A1992B281BB3246D002DDF4C /* Validator.swift in Sources */,
 				A1248A8D1B767107001C5901 /* PublicationEditorTVCImageCustomCell.swift in Sources */,
 				E4BF44F31A94887B00CCF195 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */,
+				E478A25A1CC8C5680015515F /* UserProfilePhotoCell.swift in Sources */,
 				E4584B801BE4F843007D45E2 /* ContactCollectorPhonePickerVC.swift in Sources */,
 				A10832F71BADD81F00B81F57 /* User.swift in Sources */,
 				E41BCE0B1C2EBB100018E771 /* LoginData.swift in Sources */,
@@ -1989,7 +2009,9 @@
 				E4737D9B1A10C01300A4AB81 /* FCPublicationsTableViewController.swift in Sources */,
 				E4C4B95B1C83016C009599DD /* CDNewDataProcessor.swift in Sources */,
 				A15C6ED61C9BED4400C6EC49 /* PublicationEditorTVCAudianceCustomCell.swift in Sources */,
+				E448ADAD1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift in Sources */,
 				E4D8B3D31BE639F1003112E0 /* OnSpotPublicationReport.swift in Sources */,
+				E478A25D1CC8C5840015515F /* UserProfileTextCell.swift in Sources */,
 				E4584B701BE4BD96007D45E2 /* ContactCollectorPickerCollectorDetailsCell.swift in Sources */,
 				E4F40CC11C7089970094E455 /* Model.xcdatamodeld in Sources */,
 				A1A738971B7E578200CA2C5A /* PublicationEditorTVCTextFieldCustomCell.swift in Sources */,
@@ -1999,6 +2021,7 @@
 				A13FFB561C8AF1D500FA43A2 /* sideMenuItemTVCell.swift in Sources */,
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */,
+				E478A2601CC8C73F0015515F /* UserProfileTVC.swift in Sources */,
 				A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */,
 				E4FEDA4A1C142B9C00580630 /* FeedbacksVCViewController.swift in Sources */,
 				E40F199F1C81984B009C044E /* PublicationRegistration.swift in Sources */,
@@ -2026,6 +2049,7 @@
 				E4737D931A10C01300A4AB81 /* FCPublication.swift in Sources */,
 				E482637B1BE22A8400526C7B /* FCCollectorRootVC+.swift in Sources */,
 				E4F40CF61C70B0270094E455 /* Group.swift in Sources */,
+				E448ADA71CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */,
 				E4F8391F1ABB02C90055A277 /* FCPublicationReportsPresentationController.swift in Sources */,
 				E45DA73E1AA0ABD000F45C70 /* FCLaunchScreenView.swift in Sources */,
 				E4F40D0A1C7319560094E455 /* GroupsRootVC.swift in Sources */,

@@ -2,6 +2,12 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="ActivityLog" representedClassName=".ActivityLog" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-749230260" syncable="YES"/>
+        <attribute name="isNew" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="logImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="objectVerion" optional="YES" attributeType="Integer 32" defaultValueString="1" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" defaultValueString=" " syncable="YES"/>
+        <attribute name="timeString" optional="YES" attributeType="String" defaultValueString=" " syncable="YES"/>
         <attribute name="title" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="type" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
@@ -75,8 +81,8 @@
         <relationship name="publication" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Publication" inverseName="reports" inverseEntity="Publication" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ActivityLog" positionX="-216" positionY="-27" width="128" height="90"/>
-        <element name="Group" positionX="-324" positionY="-180" width="128" height="103"/>
+        <element name="ActivityLog" positionX="-612" positionY="-180" width="128" height="178"/>
+        <element name="Group" positionX="-423" positionY="-180" width="128" height="103"/>
         <element name="GroupMember" positionX="-90" positionY="-180" width="128" height="165"/>
         <element name="Publication" positionX="-351" positionY="99" width="128" height="465"/>
         <element name="PublicationRegistration" positionX="-108" positionY="389" width="128" height="178"/>

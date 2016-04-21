@@ -308,14 +308,14 @@ class FCUserNotificationHandler : NSObject {
         case kRemoteNotificationTypeNewPublication:
         
             
-            self.notificationsBadgeCounter++
+            self.notificationsBadgeCounter += 1
             
             
         case kRemoteNotificationTypeDeletedPublication,
              kRemoteNotificationTypePublicationReport,
              kRemoteNotificationTypeUserRegisteredForPublication:
             
-            if publication.didRegisterForCurrentPublication?.boolValue == true { self.notificationsBadgeCounter++ }
+            if publication.didRegisterForCurrentPublication?.boolValue == true { self.notificationsBadgeCounter += 1 }
             
         default:
             return

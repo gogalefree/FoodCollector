@@ -19,7 +19,7 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
         let moc = FCModel.dataController.managedObjectContext
         let request = NSFetchRequest(entityName: "ActivityLog")
         request.fetchBatchSize = 20
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false) , NSSortDescriptor(key: "isNew", ascending: true)]
         
         let aFetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         aFetchResultsController.delegate =  self
@@ -47,6 +47,14 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
         super.viewWillAppear(animated)
         print("fecth results controllrt count: \(fetchedResultsController.sections![0].numberOfObjects) ")
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter = 0
+        //TODO
+        //set the notification badge icons to zero
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -65,12 +73,9 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("activityLogCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("activityLogCell", forIndexPath: indexPath) as! ActivityLogTVCell
         let log = self.fetchedResultsController.objectAtIndexPath(indexPath) as? ActivityLog
-        
-        cell.textLabel?.text = log?.title
-        cell.detailTextLabel?.text =  FCDateFunctions.localizedDateAndTimeStringShortStyle(log!.date!)
-        
+        cell.log = log
         return cell
     }
     
