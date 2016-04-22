@@ -360,12 +360,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-Ao-ZK6">
-                                <rect key="frame" x="-4" y="64" width="383" height="603"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lfu-Ao-ZK6">
+                                <rect key="frame" x="-4" y="20" width="383" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfilePhotoCell" rowHeight="120" id="fvS-ZW-d4n" customClass="UserProfilePhotoCell" customModule="FoodCollector" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="383" height="120"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfilePhotoCell" rowHeight="120" id="fvS-ZW-d4n" customClass="UserProfilePhotoCell" customModule="FoodCollector" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="383" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fvS-ZW-d4n" id="nqh-bf-POD">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="119"/>
@@ -386,7 +386,7 @@
                                                     </constraints>
                                                     <state key="normal" title="Edit"/>
                                                     <connections>
-                                                        <action selector="editPhotoAction:" destination="fvS-ZW-d4n" eventType="touchUpInside" id="zAG-LL-wzg"/>
+                                                        <action selector="editPhotoAction:" destination="fvS-ZW-d4n" eventType="touchUpInside" id="hhr-LH-3vA"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit your profile picture or your personal data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c04-67-170">
@@ -412,9 +412,57 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="editPhotoButton" destination="mua-e4-tjH" id="L59-MM-3mw"/>
                                             <outlet property="photoImageView" destination="fKP-Yv-fG7" id="kld-8j-7mp"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="userProfileTextCell" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userProfileTextCell" rowHeight="60" id="iuS-K6-02B" customClass="UserProfileTextCell" customModule="FoodCollector" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="148" width="383" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iuS-K6-02B" id="woh-3y-XHT">
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fbh-rP-OHP">
+                                                    <rect key="frame" x="20" y="15" width="280" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yda-8j-3XV">
+                                                    <rect key="frame" x="316" y="15" width="46" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="46" id="ASK-45-tuh"/>
+                                                        <constraint firstAttribute="height" constant="30" id="Axv-y8-Ab6"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Edit"/>
+                                                    <connections>
+                                                        <action selector="editActionTapped:" destination="iuS-K6-02B" eventType="touchUpInside" id="LQJ-RG-Dgb"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCA-Cp-fhw">
+                                                    <rect key="frame" x="20" y="19" width="280" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Yda-8j-3XV" firstAttribute="centerY" secondItem="woh-3y-XHT" secondAttribute="centerY" id="55G-eT-8fx"/>
+                                                <constraint firstItem="fbh-rP-OHP" firstAttribute="leading" secondItem="woh-3y-XHT" secondAttribute="leadingMargin" constant="12" id="Etx-GL-UoR"/>
+                                                <constraint firstItem="fCA-Cp-fhw" firstAttribute="leading" secondItem="woh-3y-XHT" secondAttribute="leadingMargin" constant="12" id="Mr3-qm-0Zp"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Yda-8j-3XV" secondAttribute="trailing" constant="13" id="Ozj-1R-ORr"/>
+                                                <constraint firstItem="fCA-Cp-fhw" firstAttribute="centerY" secondItem="woh-3y-XHT" secondAttribute="centerY" id="Pl9-Dv-s8t"/>
+                                                <constraint firstItem="fbh-rP-OHP" firstAttribute="centerY" secondItem="woh-3y-XHT" secondAttribute="centerY" id="TKo-6O-b3T"/>
+                                                <constraint firstItem="Yda-8j-3XV" firstAttribute="leading" secondItem="fbh-rP-OHP" secondAttribute="trailing" constant="16" id="XzT-48-6jy"/>
+                                                <constraint firstItem="Yda-8j-3XV" firstAttribute="leading" secondItem="fCA-Cp-fhw" secondAttribute="trailing" constant="16" id="jux-Mj-rko"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="editButton" destination="Yda-8j-3XV" id="ZuG-cG-IoC"/>
+                                            <outlet property="mainLabel" destination="fCA-Cp-fhw" id="42u-uL-syD"/>
+                                            <outlet property="textField" destination="fbh-rP-OHP" id="nQV-EJ-Edc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -423,19 +471,36 @@
                                     <outlet property="delegate" destination="DeX-g5-rgA" id="enw-n8-RcT"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gp3-jX-s2H">
+                                <rect key="frame" x="-2" y="578" width="378" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="dCJ-If-n0R"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Update">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="updateButtonAction:" destination="DeX-g5-rgA" eventType="touchUpInside" id="d9o-At-rfj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lfu-Ao-ZK6" firstAttribute="leading" secondItem="fVV-sw-a3e" secondAttribute="leadingMargin" constant="-20" id="95W-ud-8wA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gp3-jX-s2H" secondAttribute="trailing" constant="-17" id="UQD-rX-KWD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lfu-Ao-ZK6" secondAttribute="trailing" constant="-20" id="WXy-Nh-T1i"/>
                             <constraint firstItem="lfu-Ao-ZK6" firstAttribute="top" secondItem="5Yb-BT-gp0" secondAttribute="bottom" id="a2b-8s-wl0"/>
                             <constraint firstItem="Rc7-7X-ehA" firstAttribute="top" secondItem="lfu-Ao-ZK6" secondAttribute="bottom" id="geN-3a-Sh0"/>
+                            <constraint firstItem="Rc7-7X-ehA" firstAttribute="top" secondItem="gp3-jX-s2H" secondAttribute="bottom" constant="45" id="lEN-QU-jQW"/>
+                            <constraint firstItem="gp3-jX-s2H" firstAttribute="leading" secondItem="fVV-sw-a3e" secondAttribute="leadingMargin" constant="-18" id="qw4-o0-SVn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IVq-i0-wJM"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="lfu-Ao-ZK6" id="WhO-nZ-dc9"/>
+                        <outlet property="updateButton" destination="gp3-jX-s2H" id="WIe-sN-AO7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9dc-1n-Rlw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -460,25 +525,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E3K-Zd-Csv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="460.5" y="585.5"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="YPM-BN-wPq">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pyb-jd-PKI" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GS7-G0-Mj9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="DeX-g5-rgA" kind="relationship" relationship="rootViewController" id="lIM-Uh-daj"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ptp-jv-dgB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="911.5" y="1350.5"/>
         </scene>
     </scenes>
 </document>

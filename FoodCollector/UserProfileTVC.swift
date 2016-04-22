@@ -8,16 +8,21 @@
 
 import UIKit
 
-class UserProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UserProfilePhotoCellDelegate {
+class UserProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UserProfilePhotoCellDelegate, UserProfileTextCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var updateButton: UIButton!
     
     lazy var imagePicker: UIImagePickerController = UIImagePickerController()
+    var blockingView: BlockingView!
+    
+    var newPhoneNumber  = ""
+    var newUserName     = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.updateButton.setTitleColor(UIColor.lightGrayColor(), forState: .Disabled)
+        self.updateButton.enabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,18 +32,89 @@ class UserProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
-        return 120
+        switch indexPath.row {
+        case 0:
+            return 120
+        default:
+            return 60
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-        let cell = tableView.dequeueReusableCellWithIdentifier("userProfilePhotoCell", forIndexPath: indexPath) as! UserProfilePhotoCell
-        cell.delegate = self
-        return cell
+        
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCellWithIdentifier("userProfilePhotoCell", forIndexPath: indexPath) as! UserProfilePhotoCell
+            cell.delegate = self
+            return cell
+        
+        case 1:
+            let cell = tableView.dequeueReusableCellWithIdentifier("userProfileTextCell", forIndexPath: indexPath) as! UserProfileTextCell
+            cell.type = .NameCell
+            cell.delegate = self
+            cell.indexPath = indexPath
+            return cell
+            
+        case 2:
+            let cell = tableView.dequeueReusableCellWithIdentifier("userProfileTextCell", forIndexPath: indexPath) as! UserProfileTextCell
+            cell.type = .PhoneNumberCell
+            cell.delegate = self
+            cell.indexPath = indexPath
+            return cell
+            
+        default:
+            break
+        }
+        
+        
+        return UITableViewCell()
+    }
+    
+    //MARK UserProfileTextCellDelegate
+    
+    func didRequestEditing(indexPath: NSIndexPath) {
+        
+        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+    }
+    
+    func didEndEditing(text: String?, indexpath: NSIndexPath) {
+    
+        guard let data = text else {
+            //present ooops message fo phone number
+            presentPhoneNumberAllert()
+            
+            return
+        }
+        
+        if !data.isEmpty {
+            
+            updateButton.enabled = true
+            
+            switch indexpath.row {
+                case 1:
+                    newUserName = data
+                case 2:
+                    newPhoneNumber = data
+                default:
+                    break
+            }
+        }
+    }
+    
+    func presentPhoneNumberAllert() {
+        
+        let alertController = UIAlertController(title: kOopsAlertTitle, message: kPhoneNumberIncorrectAlertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        
+            alertController.addAction(UIAlertAction(title: kOKButtonTitle, style: UIAlertActionStyle.Cancel,handler: {(UIAlertAction) in
+                alertController.dismissViewControllerAnimated(true, completion: nil)
+            } ))
+        
+        self.navigationController?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     //===========================================================================
@@ -89,6 +165,8 @@ class UserProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelega
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             self.updateUserClassWithImage(image)
             self.updateImageCell(image)
+            //TODO:
+            //update aws photo server
         }
     }
     
@@ -106,19 +184,55 @@ class UserProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelega
         imageCell.animateNewImage(image)
     }
     
-    
-    //===========================================================================
-    //   MARK: - Info Pop Over
-    //===========================================================================
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
     }
-    */
-
+    
+    
+    @IBAction func updateButtonAction(sender: AnyObject) {
+        
+        if blockingView == nil {
+            blockingView = BlockingView(frame: self.view.bounds)
+            self.view.addSubview(blockingView)
+            self.view.bringSubviewToFront(blockingView)
+        }
+       
+        self.blockingView.alpha = 1
+        
+        //save in user class
+        if !newPhoneNumber.isEmpty {
+            User.sharedInstance.setValueInUserClassProperty(newPhoneNumber, forKey: UserDataKey.PhoneNumber)
+        }
+        
+        if !newUserName.isEmpty {
+            User.sharedInstance.setValueInUserClassProperty(newUserName, forKey: UserDataKey.IdentityProviderUserName)
+        }
+        
+        //update server
+        //we only update the server with the phone number
+        //the identity provider userName is saved localy so we have the original one in the server
+        //publications and reports we'll be published under the new user name
+        
+        FCModel.sharedInstance.foodCollectorWebServer.updateUserProfile { (success) in
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                if success {
+             
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                
+                else {
+                
+                    self.blockingView.alpha = 0
+                    let title = NSLocalizedString("Could not update your profile", comment: "alert title")
+                    let message = NSLocalizedString("Try again later", comment: "alert message")
+                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: message)
+                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                
+                }
+            })
+        }
+    }
 }
