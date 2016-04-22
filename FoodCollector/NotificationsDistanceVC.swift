@@ -28,7 +28,7 @@ class NotificationsDistanceVC: UIViewController, DragViewDelegate {
     
     let blueColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
     let allText = NSLocalizedString("All", comment: "notifications distance text means that all notifications will be delivered")
-    let setDistanceTetxt = NSLocalizedString("Set the distance", comment: "title of settings distance screen")
+    let setDistanceTetxt = NSLocalizedString("Set The Distance", comment: "title of settings distance screen")
     
     @IBAction func switchDidMove(sender: AnyObject) {
         

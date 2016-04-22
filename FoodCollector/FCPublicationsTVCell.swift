@@ -18,6 +18,8 @@ class FCPublicationsTVCell: UITableViewCell {
     @IBOutlet weak var audianceIconImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
     
+    let defaultImage = UIImage(named: "NoPhotoPlaceholder")
+    
     var publication: Publication? {
         
         didSet{
@@ -71,6 +73,15 @@ class FCPublicationsTVCell: UITableViewCell {
             })
 
         })
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.photoImageView.image = defaultImage
+//        if let publication = self.publication {
+//            
+//  //          if publication.photoBinaryData != nil {animateImage(publication)}
+//        }
     }
     
     override func prepareForReuse() {

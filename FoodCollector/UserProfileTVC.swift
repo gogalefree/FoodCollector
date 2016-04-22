@@ -23,6 +23,7 @@ class UserProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         self.updateButton.setTitleColor(UIColor.lightGrayColor(), forState: .Disabled)
         self.updateButton.enabled = false
+        self.title = NSLocalizedString("Profile", comment: "the title of the profile vc")
     }
 
     override func didReceiveMemoryWarning() {
@@ -165,8 +166,10 @@ class UserProfileTVC: UIViewController, UITableViewDataSource, UITableViewDelega
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             self.updateUserClassWithImage(image)
             self.updateImageCell(image)
-            //TODO:
+
             //update aws photo server
+            let uploader = FCUserPhotoFetcher()
+            uploader.uploadUserPhoto()
         }
     }
     
