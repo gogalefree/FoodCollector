@@ -155,11 +155,10 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
             
             case 8: // About
                 print("About was Taped")
-                //if let aboutVC = self.storyboard?.instantiateViewControllerWithIdentifier("AboutVC") as? AboutVC {
-                    //aboutVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: "dismissVC")
-                    //let nav = UINavigationController(rootViewController: aboutVC)
-                    //self.navigationController?.presentViewController(nav, animated: true, completion: nil)
-                //}
+                let aboutUsSB = UIStoryboard(name: "AboutUsSB", bundle: nil)
+                let aboutUsNavVC = aboutUsSB.instantiateInitialViewController() as? UINavigationController
+                self.presentViewController(aboutUsNavVC!, animated: true, completion: nil)
+
             
             default:
                 break

@@ -20,6 +20,8 @@
 
 #import <Google/SignIn.h>
 
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
 //#import <GINInvite/GINInvite.h>
 
 

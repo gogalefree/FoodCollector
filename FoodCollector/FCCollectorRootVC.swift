@@ -228,7 +228,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         if annotationView == nil {
             annotationView = FCAnnotationView(annotation: annotation, reuseIdentifier: reusableIdentifier)
         }
-        annotationView?.image = UIImage(named: "Pin_Map_Marker") // FCIconFactory.smallIconForPublication(annotation as! FCPublication)
+        annotationView?.image = UIImage(named: "Pin_Map_Marker")
         annotationView?.canShowCallout = true
         annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
         annotationView?.calloutOffset = CGPoint(x: 0, y: -5)
