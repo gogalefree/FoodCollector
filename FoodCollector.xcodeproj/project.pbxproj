@@ -434,6 +434,8 @@
 		E4FA4EF01CCB4A84004EE050 /* AboutUsTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA4EEE1CCB4A84004EE050 /* AboutUsTextCell.swift */; };
 		E4FA4EF21CCB4A9A004EE050 /* AboutUsSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FA4EF11CCB4A9A004EE050 /* AboutUsSB.storyboard */; };
 		E4FA4EF31CCB4A9A004EE050 /* AboutUsSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FA4EF11CCB4A9A004EE050 /* AboutUsSB.storyboard */; };
+		E4FA4EF51CCB6E0C004EE050 /* ArrivedToSpotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA4EF41CCB6E0C004EE050 /* ArrivedToSpotCell.swift */; };
+		E4FA4EF61CCB6E0C004EE050 /* ArrivedToSpotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA4EF41CCB6E0C004EE050 /* ArrivedToSpotCell.swift */; };
 		E4FEDA4A1C142B9C00580630 /* FeedbacksVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -704,6 +706,7 @@
 		E4FA4EEB1CCB4A71004EE050 /* AboutUsLikeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsLikeCell.swift; sourceTree = "<group>"; };
 		E4FA4EEE1CCB4A84004EE050 /* AboutUsTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsTextCell.swift; sourceTree = "<group>"; };
 		E4FA4EF11CCB4A9A004EE050 /* AboutUsSB.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AboutUsSB.storyboard; sourceTree = "<group>"; };
+		E4FA4EF41CCB6E0C004EE050 /* ArrivedToSpotCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivedToSpotCell.swift; sourceTree = "<group>"; };
 		E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbacksVCViewController.swift; sourceTree = "<group>"; };
 		F1B2D1FD30AE3BB39FBEABBA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1076,6 +1079,7 @@
 			isa = PBXGroup;
 			children = (
 				E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */,
+				E4FA4EF41CCB6E0C004EE050 /* ArrivedToSpotCell.swift */,
 			);
 			name = "Arrived To Publication Spot";
 			sourceTree = "<group>";
@@ -1832,6 +1836,7 @@
 				E40F19A01C81984B009C044E /* PublicationRegistration.swift in Sources */,
 				E478A25B1CC8C5680015515F /* UserProfilePhotoCell.swift in Sources */,
 				E44FDDB51C5CB5F9000D5F97 /* Validator.swift in Sources */,
+				E4FA4EF61CCB6E0C004EE050 /* ArrivedToSpotCell.swift in Sources */,
 				E44FDDB61C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.swift in Sources */,
 				E44FDDB71C5CB5F9000D5F97 /* FCPublisherRootVCCollectionViewHeaderCollectionReusableView.swift in Sources */,
 				A1A8A0931CB2B3CD001F47DC /* PublicationDetailsImageTVCell.swift in Sources */,
@@ -2010,6 +2015,7 @@
 				E4F40CF41C70B0270094E455 /* Group+CoreDataProperties.swift in Sources */,
 				E4A557261C919F6800E09139 /* DragView.swift in Sources */,
 				E4F40D221C79CB870094E455 /* FDServer+GroupMembers.swift in Sources */,
+				E4FA4EF51CCB6E0C004EE050 /* ArrivedToSpotCell.swift in Sources */,
 				E4F839231ABB03460055A277 /* FCPublicationReportsTVC.swift in Sources */,
 				E4E2EA971A8EAE1A00681B2E /* FCTableViewAnimator.swift in Sources */,
 				E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */,

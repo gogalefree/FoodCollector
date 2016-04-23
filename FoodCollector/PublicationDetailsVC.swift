@@ -751,6 +751,8 @@ extension PublicationDetailsVC : FCOnSpotPublicationReportDelegate {
             arrivedToSpotReportVC.delegate = self
             
             let navController = UINavigationController(rootViewController: arrivedToSpotReportVC) as UINavigationController
+            navController.modalPresentationStyle = .OverCurrentContext
+            navController.modalTransitionStyle = .CrossDissolve
             
             self.navigationController?.presentViewController(navController, animated: true, completion: nil)
         }

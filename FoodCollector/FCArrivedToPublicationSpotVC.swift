@@ -13,82 +13,87 @@ protocol FCOnSpotPublicationReportDelegate {
 }
 
 
-class FCArrivedToPublicationSpotVC: UIViewController {
+class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var publicationTitleLable: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var tookAllButton: UIButton!
-    @IBOutlet weak var tookSomeButton: UIButton!
-    @IBOutlet weak var nothingThereButton: UIButton!
+    @IBOutlet weak var whiteBGTransparentView: UIView!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var publicationTitleLabel: UILabel!
+    @IBOutlet weak var pleaseReportTitleLabel: UILabel!
+    @IBOutlet weak var reportMessageTableView: UITableView!
+    @IBOutlet weak var ratingView: UIView!
+
+    var reportMessage: FCOnSpotPublicationReportMessage? = nil
     
+
     var publication: Publication?
     var delegate: FCOnSpotPublicationReportDelegate?    //FCMainTabBar
     
+    //MARK: Table view Delegate
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("arrivedToSpotCell", forIndexPath: indexPath) as! ArrivedToSpotCell
+        cell.indexPath = indexPath
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+        switch indexPath.row {
+        case 0:
+            reportMessage = .HasMore
+        case 1:
+            reportMessage = .TookAll
+        case 2:
+            reportMessage = .NothingThere
+        default:
+            reportMessage = nil
+        }
+    }
+    
     func setup(aPublication: Publication) {
         
-        self.publicationTitleLable.text = aPublication.title
-        
-        if aPublication.photoBinaryData != nil {
-            self.imageView.image = UIImage(data: aPublication.photoBinaryData!)
-        }
-        else if aPublication.didTryToDownloadImage?.boolValue == false {
-            let fetcher = FCPhotoFetcher()
-            fetcher.fetchPhotoForPublication(aPublication, completion: { (image) -> Void in
-               
-                if image != nil {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.imageView.image = image
-                        self.view.reloadInputViews()
-                        self.view.setNeedsDisplay()
-                    })
-                }
-            })
-        }
-        
+        self.publicationTitleLabel.text = aPublication.title
         self.presentUserNotCloseToPublicationAlertIfNeeded()
+        
+        let shadowPath = UIBezierPath(roundedRect: contentView.bounds, cornerRadius: 5)
+        contentView.layer.masksToBounds = false
+        self.contentView.layer.shadowColor = UIColor.blackColor().CGColor
+        self.contentView.layer.shadowOffset = CGSizeMake(0, 0)
+        self.contentView.layer.shadowOpacity = 0.5
+        self.contentView.layer.shadowPath = shadowPath.CGPath
+        self.contentView.layer.cornerRadius = 5
     }
     
-    @IBAction func tookAllAction(sender: AnyObject) {
-        self.postOnSpotReportWithMessage(.TookAll)
-    }
-    
-    @IBAction func tookSomeAction(sender: AnyObject) {
-        self.postOnSpotReportWithMessage(.HasMore)
-    }
-    
-    @IBAction func nothingThereAction(sender: AnyObject) {
-        self.postOnSpotReportWithMessage(.NothingThere)
-    }
-    
-    func postOnSpotReportWithMessage(message: FCOnSpotPublicationReportMessage) {
+    @IBAction func postReport(sender: AnyObject) {
+  
+        guard let message = self.reportMessage?.rawValue else {return}
+        if message != 1 && message != 3 && message != 5 {return}
         
         //make the report
         let moc = FCModel.dataController.managedObjectContext
-        let reportMessage = message.rawValue
-        let report = PublicationReport.reportForPublication(reportMessage, publication: publication!, context: moc)
+        let report = PublicationReport.reportForPublication(message, publication: publication!, context: moc)
         
         //pass it back to publication details tvc
         self.delegate?.dismiss(report)
         
         //inform server
         FCModel.sharedInstance.foodCollectorWebServer.postReportforPublication(report)
+    
     }
     
-    func cancelButtonAction(sender: AnyObject){
+    @IBAction func cancelButtonAction(sender: AnyObject) {
+    
         self.delegate?.dismiss(nil)
         GAController.sendAnalitics(kFAPublicationReportScreenName, action: "canceled report action", label: "user did not report", value: 0)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let buttonTitle = NSLocalizedString("Not Now",comment:"Navigation bar button title")
-        let rightButton = UIBarButtonItem(title: buttonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCArrivedToPublicationSpotVC.cancelButtonAction(_:)))
-        self.navigationItem.rightBarButtonItem = rightButton
-        configureButton(self.tookAllButton)
-        configureButton(self.tookSomeButton)
-        configureButton(self.nothingThereButton)
-        
         if let publication = self.publication {
             setup(publication)
         }
@@ -99,12 +104,6 @@ class FCArrivedToPublicationSpotVC: UIViewController {
         GAController.reportsAnalyticsForScreen(kFAPublicationReportScreenName)
     }
     
-    func configureButton(button: UIButton) {
-        
-        button.layer.borderColor = UIColor.blueColor().CGColor
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 0.5
-    }
     
     func presentUserNotCloseToPublicationAlertIfNeeded() {
         
