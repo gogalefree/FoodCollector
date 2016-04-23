@@ -78,10 +78,10 @@ class FCPublicationsTVCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.photoImageView.image = defaultImage
-//        if let publication = self.publication {
-//            
-//  //          if publication.photoBinaryData != nil {animateImage(publication)}
-//        }
+        if let publication = self.publication {
+            
+           if publication.photoBinaryData != nil {showImage()}
+        }
     }
     
     override func prepareForReuse() {

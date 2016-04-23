@@ -21,7 +21,8 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var pleaseReportTitleLabel: UILabel!
     @IBOutlet weak var reportMessageTableView: UITableView!
     @IBOutlet weak var ratingView: UIView!
-
+    var shadowPath :UIBezierPath!
+    
     var reportMessage: FCOnSpotPublicationReportMessage? = nil
     
 
@@ -59,16 +60,20 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
         
         self.publicationTitleLabel.text = aPublication.title
         self.presentUserNotCloseToPublicationAlertIfNeeded()
-        
-        let shadowPath = UIBezierPath(roundedRect: contentView.bounds, cornerRadius: 5)
-        contentView.layer.masksToBounds = false
-        self.contentView.layer.shadowColor = UIColor.blackColor().CGColor
-        self.contentView.layer.shadowOffset = CGSizeMake(0, 0)
-        self.contentView.layer.shadowOpacity = 0.5
-        self.contentView.layer.shadowPath = shadowPath.CGPath
-        self.contentView.layer.cornerRadius = 5
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if shadowPath == nil {
+            shadowPath = UIBezierPath(roundedRect: self.contentView.bounds, cornerRadius: 5)
+            contentView.layer.masksToBounds = false
+            self.contentView.layer.shadowColor = UIColor.blackColor().CGColor
+            self.contentView.layer.shadowOffset = CGSizeMake(0, 0)
+            self.contentView.layer.shadowOpacity = 0.5
+            self.contentView.layer.shadowPath = shadowPath.CGPath
+            self.contentView.layer.cornerRadius = 5
+        }
+    }
     @IBAction func postReport(sender: AnyObject) {
   
         guard let message = self.reportMessage?.rawValue else {return}
