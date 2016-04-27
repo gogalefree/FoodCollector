@@ -43,7 +43,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         if _fetchedResultsController != nil {return _fetchedResultsController!}
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let request = NSFetchRequest(entityName: kPublicationEntity)
         request.fetchBatchSize = 20
         request.sortDescriptors = [NSSortDescriptor(key: "endingData", ascending: false)]
@@ -537,11 +537,11 @@ extension PublishRootVC: UserDidDeletePublicationProtocol {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
                         //update model
-                        FCModel.dataController.managedObjectContext.performBlockAndWait({ () -> Void in
+                        FCModel.sharedInstance.dataController.managedObjectContext.performBlockAndWait({ () -> Void in
                             
                             publication.endingData = NSDate()
                             publication.isOnAir = false
-                            FCModel.dataController.save()
+                            FCModel.sharedInstance.dataController.save()
                             
                             FCModel.sharedInstance.loadPublications()
                             FCModel.sharedInstance.loadUserCreatedPublications()

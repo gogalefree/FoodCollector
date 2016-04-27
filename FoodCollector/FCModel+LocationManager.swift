@@ -14,6 +14,7 @@ extension FCModel {
     public func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         switch status {
+            
         case  .AuthorizedWhenInUse :
             self.setupLocationManager()
         default:
@@ -23,7 +24,6 @@ extension FCModel {
     
     func setupLocationManager() {
         
-        self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.distanceFilter = kDistanceFilter
@@ -35,4 +35,7 @@ extension FCModel {
         self.userLocation = locations.last!
     }
     
+    public func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?){
+        print(error)
+    }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 let kHasMoreTitle = NSLocalizedString("There’s more to pickup", comment:"The title of a user report which means that there is more food to pickup")
-let kTookAllTitle = NSLocalizedString("Took all", comment:"The title of a user report which means that he took all the food")
+let kTookAllTitle = NSLocalizedString("I Took all", comment:"The title of a user report which means that he took all the food")
 let kNothingThereTitle = NSLocalizedString("Nothing left", comment:"The title of a user report which means that he found nothing")
 
 class PublicationDetailsRepotsTVCell: UITableViewCell {

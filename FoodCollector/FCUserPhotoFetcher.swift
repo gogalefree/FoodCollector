@@ -44,7 +44,7 @@ class FCUserPhotoFetcher: NSObject {
                 photo = UIImage(contentsOfFile: downloadedFilePath.path!)
                 if photo != nil {
                     publication.publisherPhotoData = UIImageJPEGRepresentation(photo!, 1)
-                    FCModel.dataController.save()
+                    FCModel.sharedInstance.dataController.save()
                 }
                 completion(image: photo)
             }
@@ -88,6 +88,53 @@ class FCUserPhotoFetcher: NSObject {
             
             return nil
         })
+    }
+    
+    func userPhotoForReport(report: PublicationReport, completion: (image: UIImage?)->Void) {
+        
+        guard let reporterId = report.reporterUserId?.integerValue else {return}
+        
+        let photoKey = kUserPhotoKeyPrefix + "\(reporterId)" + ".jpg"
+        
+        var photo: UIImage? = nil
+        
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        
+        let downloadedFilePath = FCModel.sharedInstance.photosDirectoryUrl.URLByAppendingPathComponent("/\(photoKey)")
+        let downloadedFileUrl = NSURL.fileURLWithPath(downloadedFilePath.path!)
+        
+        let downloadRequest                 = AWSS3TransferManagerDownloadRequest()
+        downloadRequest.bucket              = self.bucketNameForBundle()//"foodcollector"
+        downloadRequest.key                 = photoKey
+        downloadRequest.downloadingFileURL  = downloadedFileUrl
+        
+        transferManager.download(downloadRequest).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task: AWSTask!) -> AnyObject! in
+            
+            
+            if task.error != nil {
+                print(task.error)
+                completion(image: photo)
+            }
+            
+            if task.result != nil {
+                
+                //let downloadOutput = task.result as! AWSS3TransferManagerDownloadOutput
+                photo = UIImage(contentsOfFile: downloadedFilePath.path!)
+                if let image = photo {
+                    
+                    report.reporterImageData = UIImageJPEGRepresentation(image, 1)
+                    FCModel.sharedInstance.dataController.save()
+
+                }
+            
+                completion(image: photo)
+            
+            }
+            
+            return nil
+        })
+
+        
     }
 
     func uploadUserPhoto() {

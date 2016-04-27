@@ -19,8 +19,9 @@ protocol CollectorVCSlideDelegate: NSObjectProtocol {
     func collectorVCWillSlide()
 }
 
-class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManagerDelegate, UIGestureRecognizerDelegate, FCPublicationsTVCDelegate{
+class FCCollectorRootVC : UIViewController, MKMapViewDelegate , /*CLLocationManagerDelegate*/ UIGestureRecognizerDelegate, FCPublicationsTVCDelegate{
     
+    @IBOutlet weak var activityCenterButton: NotificationBarButtonItem!
     @IBOutlet var mapView:MKMapView!
     @IBOutlet weak var showTableButton: UIBarButtonItem!
     @IBOutlet weak var trackUserButton: UIButton!
@@ -35,37 +36,39 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
     var publicationDetailsTVC: PublicationDetailsVC?
     var isPresentingActivityCenter = false
     var trackingUserLocation = false
-    var locationManager = CLLocationManager()
+  //  var locationManager = CLLocationManager()
     var initialLaunch = true
 
     
     //MARK: - Location Manager setup
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        
-        switch status {
-            
-        case .AuthorizedWhenInUse :
-            self.setupLocationManager()
-        default :
-            break
-        }
-    }
+//    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+//        
+//        switch status {
+//            
+//        case .AuthorizedWhenInUse :
+//            self.setupLocationManager()
+//            FCModel.sharedInstance.foodCollectorWebServer.downloadAllPublications()
+//
+//        default :
+//            break
+//        }
+//    }
 
     func setupLocationManager() {
-        self.locationManager.delegate = self
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        self.locationManager.distanceFilter = 2.5
-        if !CLLocationManager.locationServicesEnabled() {
-            self.locationManager.requestWhenInUseAuthorization()
-        }
-        self.locationManager.startUpdatingLocation()
-        
-        if CLLocationManager.headingAvailable() {
-            self.locationManager.headingFilter = 45
-            self.locationManager.startUpdatingHeading()
-        }
+//        self.locationManager.delegate = self
+//        self.locationManager.requestWhenInUseAuthorization()
+//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+//        self.locationManager.distanceFilter = 2.5
+//        if !CLLocationManager.locationServicesEnabled() {
+//            self.locationManager.requestWhenInUseAuthorization()
+//        }
+//        self.locationManager.startUpdatingLocation()
+//        
+//        if CLLocationManager.headingAvailable() {
+//            self.locationManager.headingFilter = 45
+//            self.locationManager.startUpdatingHeading()
+//        }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -100,6 +103,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         configureTrackButton()
         addPanRecognizer()
         self.setupLocationManager()
+        self.activityCenterButton.button.addTarget(self, action: #selector(self.ShowActivityCenter(_:)), forControlEvents: .TouchUpInside)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     }
     
     
@@ -107,6 +112,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         super.viewDidAppear(animated)
         if initialLaunch {
      
+            activityCenterButton.reloadCounterLabel()
 
             //we set the map to center on user's location. if the location manager has no location, we set the map's center to Tel-Aviv
             var userCoordinadets = FCModel.sharedInstance.userLocation.coordinate
@@ -232,18 +238,22 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , CLLocationManage
         annotationView?.canShowCallout = true
         annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
         annotationView?.calloutOffset = CGPoint(x: 0, y: -5)
+        annotationView?.annotation = annotation
         return annotationView
     }
     
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        let annotation = view.annotation
-        if annotation!.isKindOfClass(MKUserLocation){
-            return
-        }
-        
-       
-        //  self.postOnSpotReport(publication)
-    }
+//    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+//        
+////        let annotation = view.annotation
+////        if annotation!.isKindOfClass(MKUserLocation){
+////            return
+////        }
+////        
+//        
+//        
+//       
+//        //  self.postOnSpotReport(publication)
+//    }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
@@ -326,8 +336,12 @@ extension FCCollectorRootVC {
         })
     }
     
+    func updateNotificationsCounterLabel() {
+        self.activityCenterButton.reloadCounterLabel()
+    }
     
     func registerForNSNotifications() {
+        
         
        // NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotations", name: "didFetchNewPublicationReportNotification", object: nil)
         
@@ -338,6 +352,8 @@ extension FCCollectorRootVC {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCCollectorRootVC.reloadAnnotations), name: kRecievedNewPublicationNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCCollectorRootVC.didDeletePublication(_:)), name: kDeletedPublicationNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCCollectorRootVC.updateNotificationsCounterLabel), name: kUpdateNotificationsCounterNotification, object: nil)
                 
 
    //     NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentNotificationsFromWebFetch", name: kDidPrepareNotificationsFromWebFetchNotification, object: nil)

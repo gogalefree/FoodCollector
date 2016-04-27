@@ -133,14 +133,6 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             GAController.sendAnalitics(kFAPublicationDetailsScreenName, action: "publication details", label: "publisher state", value: 0)
             
         }
-        
-        actionView.alpha = 0
-        if let isRegistered = publication?.didRegisterForCurrentPublication?.boolValue {
-            if isRegistered {
-                actionView.alpha = 1
-            }
-        }
-        
     }
     
     
@@ -191,6 +183,50 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                     targetAudienceLabel.text = groupName
                 }
             }
+            
+            actionView.alpha = 0
+            if let isRegistered = publication?.didRegisterForCurrentPublication?.boolValue {
+                if isRegistered {
+                    actionView.alpha = 1
+                    configueJoinButtonForState(isRegistered)
+                }
+            }
+        }
+    }
+    
+    func configueJoinButtonForState(registered: Bool) {
+        
+        var title: String
+        var titleColor: UIColor
+        var backgroundImage: UIImage?
+        
+        if registered {
+            
+            title = NSLocalizedString("Joined", comment: "a button title if the user has registered for pickup")
+            titleColor = UIColor.whiteColor()
+
+        } else {
+            title = NSLocalizedString("Join", comment: "a button title if the user has not registered for pickup")
+            titleColor = kNavBarBlueColor
+            backgroundImage = UIImage(named: "ActionButton")
+        }
+        
+        let scale = CGAffineTransformMakeScale(1.2, 1.2)
+        
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: [], animations: { () -> Void in
+            
+            self.joinButton.transform = scale
+            self.joinButton.setTitle(title, forState: .Normal)
+            self.joinButton.setBackgroundImage(backgroundImage, forState: .Normal)
+            self.joinButton.setTitleColor(titleColor, forState: .Normal)
+            
+        }) { (finished) -> Void in
+            
+            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+                
+                self.joinButton.transform = CGAffineTransformIdentity
+                
+            }) { (finished) -> Void in}
         }
     }
     
@@ -199,17 +235,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         fetchPublisherPhoto()
     }
     
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
-    // MARK: - TableView Functions
+    // MARK: - TableView DataSource & Delegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -277,16 +303,10 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             }
             
         case 1:
-            
-            switch indexPath.row {
-            case 0: // Reports cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsRepotsTVCell", forIndexPath: indexPath) as! PublicationDetailsRepotsTVCell
                 cell.indexPath = indexPath
                 cell.publication = self.publication
                 return cell
-            default:
-                break
-            }
             
         default:
             break
@@ -294,6 +314,28 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         return UITableViewCell()
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        switch indexPath.section {
+        case 0:
+            
+            switch indexPath.row {
+            case 0:
+                //image cell tapped
+                presentPhotoPresentor()
+            default:
+                break
+            }
+            
+        case 1:
+            //present reports on full screen
+            displayReportsWithFullScreen()
+            
+        default:
+            break
+        }
     }
     
     
@@ -326,7 +368,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     func fetchPublicationPhoto() {
         if let publication = self.publication {
-            if publication.photoBinaryData == nil && !publication.didTryToDownloadImage!.boolValue {
+            // && !publication.didTryToDownloadImage!.boolValue //we dont check for now
+            if publication.photoBinaryData == nil {
                 
                 
                 let fetcher = FCPhotoFetcher()
@@ -351,7 +394,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let publication = self.publication {
             
-            let localContext = FCModel.dataController.createPrivateQueueContext()
+            let localContext = FCModel.sharedInstance.dataController.createPrivateQueueContext()
             
             localContext.performBlock({ () -> Void in
                 
@@ -373,7 +416,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let publication = self.publication {
             
-            let context = FCModel.dataController.managedObjectContext
+            let context = FCModel.sharedInstance.dataController.managedObjectContext
             context.performBlock({ () -> Void in
                 
                 let fetcher = CDPublicationRegistrationFetcher(publication: publication, context: context)
@@ -395,11 +438,11 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                     var registeredUsersCounterlabelText = ""
                     switch registrations.count {
                     case 0: // No users registered
-                        registeredUsersCounterlabelText = NSLocalizedString("No users joined", comment:"Displays how many are registered and joined a publication.")
+                        registeredUsersCounterlabelText = NSLocalizedString("None Joined", comment:"Displays how many are registered and joined a publication.")
                     case 1: // One user registered
-                        registeredUsersCounterlabelText = NSLocalizedString("1 user joined", comment:"Displays how many are registered and joined a publication.")
+                        registeredUsersCounterlabelText = NSLocalizedString("1 Joined", comment:"Displays how many are registered and joined a publication.")
                     default: // More than one user registered
-                        registeredUsersCounterlabelText = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment:"Displays how many are registered and joined a publication. e.g.: '3 users joined'"), "\(registrations.count)")
+                        registeredUsersCounterlabelText = String.localizedStringWithFormat(NSLocalizedString("%@ Joined", comment:"Displays how many are registered and joined a publication. e.g.: '3 Joined'"), "\(registrations.count)")
                     }
                     
                     self.registeredUsersCounterLabel.text = registeredUsersCounterlabelText
@@ -470,6 +513,7 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
         if User.sharedInstance.userIsLoggedIn {
             registerUserForPublication()
             animateViewFadeInOut(actionView)
+            configueJoinButtonForState(true)
         }
         else {
             showNotLoggedInAlert()
@@ -482,6 +526,7 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
         FCModel.sharedInstance.removeRegistrationFor(publication)
         reloadRegisteredUserIconCounter()
         animateViewFadeInOut(actionView)
+        configueJoinButtonForState(false)
         //animateRegistrationButton()
     }
     
@@ -529,11 +574,6 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
         reloadRegisteredUserIconCounter()
         //self.animateRegistrationButton()
     }
-    
-//    private func animateRegistrationButton() {
-//        actionsHeaderView?.animateButton((actionsHeaderView?.registerButton)!)
-//        actionsHeaderView?.configureRegisterButton()
-//    }
     
     private func animateViewFadeInOut(view: UIView) {
         UIView.animateWithDuration(0.4) { () -> Void in
@@ -599,85 +639,6 @@ extension PublicationDetailsVC {
         
     }
     
-}
-
-extension PublicationDetailsVC: UIViewControllerTransitioningDelegate {
-    
-    //MARK: - Transition Delegate
-    
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        
-        var pcontrol: UIPresentationController!
-        
-        if presented is FCPhotoPresentorNavigationController {
-            
-            pcontrol = PublicationPhotoPresentorPresentationController(
-                presentedViewController: self.photoPresentorNavController,
-                presentingViewController: self.navigationController!)
-        }
-            
-        else if presented is FCPublicationReportsNavigationController{
-            
-            pcontrol = FCPublicationReportsPresentationController( presentedViewController: self.publicationReportsNavController,
-                presentingViewController: self.navigationController!)
-        }
-        
-        return  pcontrol
-    }
-    
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        //starting frame for transition
-        if presented is FCPhotoPresentorNavigationController {
-            
-            let photoPresentorVCAnimator = PublicationPhotoPresentorAnimator()
-            
-            var originFrame = CGRectZero
-            //TODO: set initial photo frame
-            let imageCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
-            let imageCell = self.shareDetailsTableView.cellForRowAtIndexPath(imageCellIndexPath) as? PublicationDetailsImageCell
-            if let cell = imageCell {
-                originFrame = self.view.convertRect(cell.publicationImageView.frame, fromView: cell)
-            }
-            
-            photoPresentorVCAnimator.originFrame = originFrame
-            return photoPresentorVCAnimator
-        }
-            
-        else if presented is FCPublicationReportsNavigationController{
-            
-            let publicationReportsAnimator = FCPublicationReportsVCAnimator()
-            var startingFrame = self.shareDetailsTableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
-            //        startingFrame.origin.y += kTableViewHeaderHeight
-            startingFrame.size.width = startingFrame.size.width / 2
-            
-            publicationReportsAnimator.originFrame = startingFrame
-            return publicationReportsAnimator
-            
-        }
-        
-        return nil
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        if dismissed is FCPhotoPresentorNavigationController {
-            return PublicationPhotoPresentorDissmissAnimator()
-        }
-        else if dismissed == self.publicationReportsNavController {
-            
-            let animator = FCPublicationReportsDismissAnimator()
-            
-            let destinationFrame =
-            self.shareDetailsTableView.rectForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
-            
-            animator.destinationRect = destinationFrame
-            
-            return animator
-        }
-        
-        return nil
-    }
 }
 
 //MARK: - SMS Message Composer

@@ -36,10 +36,10 @@ class PublicationsThumbnailsCollectionViewController: UIViewController, UICollec
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
      
-        
+        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
         let mapVC = self.parentViewController as? FCCollectorRootVC
         mapVC?.didSelectThumbnailForPublication(self.publications[indexPath.item])
-        GAController.sendAnalitics(kFAThumbNailsCategory, action: "Thumbnail Pressed", label: "", value: 0)
+       // GAController.sendAnalitics(kFAThumbNailsCategory, action: "Thumbnail Pressed", label: "", value: 0)
     }
    
     //MARK: New data notification

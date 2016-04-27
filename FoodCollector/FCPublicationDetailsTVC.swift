@@ -79,7 +79,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 65
-        fetchPublicationReports()
+      //  fetchPublicationReports()
         fetchPublicationPhoto()
         //fetchPublicationRegistrations()
         registerForNotifications()
@@ -221,7 +221,8 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
     func fetchPublicationPhoto() {
         if let publication = self.publication {
-            if publication.photoBinaryData == nil && !publication.didTryToDownloadImage!.boolValue {
+            //&& !publication.didTryToDownloadImage!.boolValue //we dont check for now
+            if publication.photoBinaryData == nil {
                 
                 
                 let fetcher = FCPhotoFetcher()
@@ -247,7 +248,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         
         if let publication = self.publication {
             
-            let localContext = FCModel.dataController.createPrivateQueueContext()
+            let localContext = FCModel.sharedInstance.dataController.createPrivateQueueContext()
             
             localContext.performBlock({ () -> Void in
                 
@@ -268,7 +269,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
     
         if let publication = self.publication {
             
-            let context = FCModel.dataController.managedObjectContext
+            let context = FCModel.sharedInstance.dataController.managedObjectContext
             context.performBlock({ () -> Void in
                 
                 let fetcher = CDPublicationRegistrationFetcher(publication: publication, context: context)

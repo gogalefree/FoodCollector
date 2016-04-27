@@ -109,7 +109,7 @@ extension FCMockServer {
                                     
                                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                         
-                                        let moc = FCModel.dataController.managedObjectContext
+                                        let moc = FCModel.sharedInstance.dataController.managedObjectContext
                                         
                                         //delete all existing
                                         group.deleteMembers()

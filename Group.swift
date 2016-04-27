@@ -18,7 +18,7 @@ import CoreData
 
 class Group: NSManagedObject {
 
-    static let moc = FCModel.dataController.managedObjectContext
+    static let moc = FCModel.sharedInstance.dataController.managedObjectContext
 
     class func initWith(name: String, id: Int, adminId: Int) -> Group? {
         
@@ -28,14 +28,14 @@ class Group: NSManagedObject {
         group.id = id
         group.adminUserId = adminId
         //after the group is created, logedin User is added as a group Member
-        FCModel.dataController.save()
+        FCModel.sharedInstance.dataController.save()
         return group
     }
 
     class func adminGroupsForLogedinUser() -> [Group]? {
     
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let adminId = User.sharedInstance.userUniqueID
         let predicate = NSPredicate(format: "adminUserId = %@", NSNumber(long: adminId))
         let request = NSFetchRequest(entityName: kGroupEntity)
@@ -174,7 +174,7 @@ class Group: NSManagedObject {
                     group.updateWithParams(groupParams, context: context)
                     
                     //delete duplicates
-                    for index in 0  ..< groups.count - 1  {
+                    for _ in 0  ..< groups.count - 1  {
                         let groupToDelete = groups.first!
                         context.delete(groupToDelete)
                     }
@@ -228,7 +228,7 @@ class Group: NSManagedObject {
         
         Group.moc.performBlock { () -> Void in
             Group.moc.deleteObject(groupToDelete)
-            FCModel.dataController.save()
+            FCModel.sharedInstance.dataController.save()
         }
         
         

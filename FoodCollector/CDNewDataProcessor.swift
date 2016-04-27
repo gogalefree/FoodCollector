@@ -14,7 +14,7 @@ class CDNewDataProcessor: NSObject {
     
         
         //Create a context on a private queue
-        let localContext = FCModel.dataController.createPrivateQueueContext()
+        let localContext = FCModel.sharedInstance.dataController.createPrivateQueueContext()
          
         //Sort the dictionaries by code so they can be compared in parallel
         let publicationDictionaries = jsonArray.sort { lhs, rhs in
@@ -162,8 +162,7 @@ class CDNewDataProcessor: NSObject {
                             
                             //create notification object
                             let new = ActivityLog.LogType.NewPublication.rawValue
-                            ActivityLog.activityLog(newPublication, group: nil, type: new, context: localContext)
-                            
+                            ActivityLog.activityLog(newPublication, group: nil, type: new, context: localContext)                            
                         }
                     }
                 }
@@ -236,7 +235,7 @@ class CDNewDataProcessor: NSObject {
     
     class func fetchGroupsAfterLogin() {
         
-        let localContext = FCModel.dataController.createPrivateQueueContext()
+        let localContext = FCModel.sharedInstance.dataController.createPrivateQueueContext()
         CDNewDataProcessor.fetchGroups(localContext)
     }
 }

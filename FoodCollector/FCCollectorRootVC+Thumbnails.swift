@@ -20,6 +20,7 @@ extension FCCollectorRootVC {
         self.mapView.setRegion(region, animated: true)
         guard let annotation = self.annotationForPublication(publication) else {return}
         self.mapView.selectAnnotation(annotation, animated: true)
+        //self.mapView.showAnnotations([annotation], animated: true)
         
     }
     

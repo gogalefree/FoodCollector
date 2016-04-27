@@ -12,7 +12,7 @@ import CoreData
 
 class GroupMember: NSManagedObject {
 
-    static let moc = FCModel.dataController.managedObjectContext
+    static let moc = FCModel.sharedInstance.dataController.managedObjectContext
     
     class func initWith(name: String, id: Int, phoneNumber: String, userId: Int, isFoodonetUser: Bool, isAdmin: Bool, belongsToGroup: Group) -> GroupMember? {
         
@@ -88,7 +88,7 @@ class GroupMember: NSManagedObject {
         }
         
         //save
-        FCModel.dataController.save()
+        FCModel.sharedInstance.dataController.save()
         return membersToSend
 
     }
@@ -175,7 +175,7 @@ class GroupMember: NSManagedObject {
                                     aMember.updateWithParams(memberParams, context: context, group: group)
                                    
                                     
-                                    for index in 0  ..< groupMembers.count - 1  {
+                                    for _ in 0  ..< groupMembers.count - 1  {
                                         let member = groupMembers.first!
                                         context.deleteObject(member)
                                     }

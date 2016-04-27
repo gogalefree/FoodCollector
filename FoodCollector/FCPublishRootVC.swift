@@ -36,7 +36,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         if _fetchedResultsController != nil {return _fetchedResultsController!}
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let request = NSFetchRequest(entityName: kPublicationEntity)
         request.fetchBatchSize = 20
         request.sortDescriptors = [NSSortDescriptor(key: "endingData", ascending: false)]

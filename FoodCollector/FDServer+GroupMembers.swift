@@ -65,7 +65,7 @@ extension FCMockServer {
                         }
                     }
                     
-                    FCModel.dataController.save()
+                    FCModel.sharedInstance.dataController.save()
                         
                         
                 }

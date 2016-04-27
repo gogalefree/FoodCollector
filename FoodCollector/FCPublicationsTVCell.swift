@@ -80,7 +80,11 @@ class FCPublicationsTVCell: UITableViewCell {
         self.photoImageView.image = defaultImage
         if let publication = self.publication {
             
-           if publication.photoBinaryData != nil {showImage()}
+           if publication.photoBinaryData != nil {
+            
+                let photo = UIImage(data: (self.publication?.photoBinaryData)!)
+                self.photoImageView.image = photo
+            }
         }
     }
     

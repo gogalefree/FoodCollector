@@ -31,16 +31,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+       
+        let userNotificationHandler = FCUserNotificationHandler.sharedInstance
+        userNotificationHandler.setup()
+
         UIApplication.sharedApplication().cancelAllLocalNotifications()
         
         let model = FCModel.sharedInstance
         model.foodCollectorWebServer = FCMockServer()
         model.setUp()
         
-        let userNotificationHandler = FCUserNotificationHandler.sharedInstance
-        userNotificationHandler.setup()
-
+       
         setupUI()
         registerAWSS3()
         registreGoogleAnalytics()

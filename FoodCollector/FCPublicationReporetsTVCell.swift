@@ -10,6 +10,11 @@ import UIKit
 
 class FCPublicationReporetsTVCell: UITableViewCell {
 
+    let userReportedString =
+        NSLocalizedString("User Reported", comment: "a title before a user report")
+    let defaultImage = UIImage(named: "ProfilePic")
+    
+    @IBOutlet weak var reporterNameLabel: UILabel!
     @IBOutlet weak var reportLabel: UILabel!
     @IBOutlet weak var reportDate: UILabel!
     @IBOutlet weak var reportIcon: UIImageView!
@@ -23,11 +28,21 @@ class FCPublicationReporetsTVCell: UITableViewCell {
     }
 
     func setup(report: PublicationReport){
+        var reporterName = report.reoprterUserName?.capitalizedString ?? ""
+        reporterName =  reporterName == "" ? userReportedString : reporterName
+        self.reporterNameLabel.text = reporterName + ":"
         self.reportLabel.text = self.titleForReport(report)
         self.reportDate.text = FCDateFunctions.localizedDateAndTimeStringShortStyle(report.dateOfReport!)
-        self.reportIcon.image = self.iconForReport(report)
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        reportIcon.layer.cornerRadius = CGRectGetWidth(reportIcon.bounds) / 2
+        downloadReporterImage()
+    }
+    
+
+    
     func titleForReport(report:PublicationReport) -> String {
         
         var title = ""
@@ -45,18 +60,29 @@ class FCPublicationReporetsTVCell: UITableViewCell {
         return title
     }
     
-    func iconForReport(report: PublicationReport) -> UIImage {
+    func downloadReporterImage() {
         
-        var icon: UIImage
+        self.reportIcon.image = defaultImage
         
-        switch FCOnSpotPublicationReportMessage(rawValue: report.report!.integerValue)! {
-        case .HasMore:
-            icon = FCIconFactory.orangeImage()
+        if let imageData = report.reporterImageData {
             
-        default:
-            icon = FCIconFactory.redImage()
+            let image = UIImage(data: imageData)
+            self.reportIcon.image = image
         }
-        return icon
+        
+        else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+                let fetcher = FCUserPhotoFetcher()
+                fetcher.userPhotoForReport(self.report) { (image) in
+                    if image != nil {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.reportIcon.image = image
+                        }
+                    }
+                }
+            }
+        }
     }
     
     override func awakeFromNib() {

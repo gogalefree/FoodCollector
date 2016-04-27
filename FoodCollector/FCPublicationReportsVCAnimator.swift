@@ -11,7 +11,7 @@ import UIKit
 class FCPublicationReportsVCAnimator: NSObject , UIViewControllerAnimatedTransitioning{
     
     var originFrame: CGRect!
-    var duration = 0.4
+    var duration = 0.2
    
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {

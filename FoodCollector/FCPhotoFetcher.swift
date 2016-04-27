@@ -49,11 +49,11 @@ class FCPhotoFetcher: NSObject {
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
-                        FCModel.dataController.managedObjectContext.performBlock({ () -> Void in
+                        FCModel.sharedInstance.dataController.managedObjectContext.performBlock({ () -> Void in
 
                             let data = UIImageJPEGRepresentation(publicationPhoto, 1)
                             publication.photoBinaryData = data
-                            FCModel.dataController.save()
+                            FCModel.sharedInstance.dataController.save()
                             completion(image: photo)
                             
                         })

@@ -22,7 +22,7 @@ class ActivityLogController: NSObject {
     
     func loadLogObjects() {
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         moc.performBlock { () -> Void in
             
             let request = NSFetchRequest(entityName: "ActivityLog")

@@ -16,7 +16,7 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
     
         if _fetchedResultsController != nil {return _fetchedResultsController!}
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let request = NSFetchRequest(entityName: "ActivityLog")
         request.fetchBatchSize = 20
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false) , NSSortDescriptor(key: "isNew", ascending: true)]
@@ -152,9 +152,9 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
         if editingStyle == .Delete {
 
             let logTODelete = fetchedResultsController.objectAtIndexPath(indexPath) as! ActivityLog
-            let moc = FCModel.dataController.managedObjectContext
+            let moc = FCModel.sharedInstance.dataController.managedObjectContext
             moc.deleteObject(logTODelete)
-            FCModel.dataController.save()
+            FCModel.sharedInstance.dataController.save()
         }
     }
     

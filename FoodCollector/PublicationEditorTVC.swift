@@ -448,7 +448,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         print("publishNewCreatedPublication")
         var newParams = self.prepareParamsDictToSend()
         
-        let context = FCModel.dataController.managedObjectContext
+        let context = FCModel.sharedInstance.dataController.managedObjectContext
         let publication = NSEntityDescription.insertNewObjectForEntityForName(kPublicationEntity, inManagedObjectContext: context) as! Publication
         publication.isUserCreatedPublication = true
         
@@ -511,7 +511,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func publishEdidtedPublication() {
         
-        let context = FCModel.dataController.managedObjectContext
+        let context = FCModel.sharedInstance.dataController.managedObjectContext
         
         var params = self.prepareParamsDictToSend()
         params[kPublicationUniqueIdKey] = self.publication?.uniqueId?.integerValue
@@ -623,7 +623,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     func fetchPhotoIfNeeded() {
         
         if let publication = self.publication {
-            if (publication.photoBinaryData == nil) && !publication.didTryToDownloadImage!.boolValue {
+            // && !publication.didTryToDownloadImage!.boolValue//we dont check for now
+            if (publication.photoBinaryData == nil) {
                 let photoFetcher = FCPhotoFetcher()
                 photoFetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
                     var cellData = self.dataSource[0]

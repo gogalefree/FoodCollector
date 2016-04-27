@@ -195,17 +195,10 @@ class FCUserNotificationHandler : NSObject {
         
         //fetch the new publication from the server
         //within the fetch we check whether it's a new publication or an update for an existing publication
+        //Activity Log is created inside the Publication class
+        //Notification counter is incremented after the ActivityLog is created
       
-            FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(publicationIdentifier, completion: { (publication: Publication?) -> Void in
-                    
-                    //handle the new publication
-                if let recivedPublication = publication {
-                   
-                    self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypeNewPublication, publication: recivedPublication)
-                    self.postUpdateNotificationCounterNotification()
-                }
-                
-            })
+            FCModel.sharedInstance.foodCollectorWebServer.fetchPublicationWithIdentifier(publicationIdentifier, completion: { (publication: Publication?) -> Void in })
     }
     
     func handleDeletePublicationFromPushNotification(publicationIdentifier: PublicationIdentifier){
@@ -215,7 +208,6 @@ class FCUserNotificationHandler : NSObject {
         let results = (FCModel.sharedInstance.publications as NSArray).filteredArrayUsingPredicate(predicate) as! [Publication]
         if results.count > 0 {
             let toDelete = results.last!
-            self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypeDeletedPublication, publication: toDelete)
             FCModel.sharedInstance.deletePublication(toDelete, deleteFromServer: false)
             self.makeActivityLogForType(ActivityLog.LogType.DeletePublication, publication: toDelete)
         }
@@ -230,8 +222,7 @@ class FCUserNotificationHandler : NSObject {
             if results.count > 0 {
                 
                 let publication = results.last!
-                self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypePublicationReport, publication: publication)
-                let moc = FCModel.dataController.managedObjectContext
+                let moc = FCModel.sharedInstance.dataController.managedObjectContext
                 FCModel.sharedInstance.foodCollectorWebServer.reportsForPublication(publication, context: moc, completion: { (success) -> Void in })
             }
         }
@@ -247,11 +238,9 @@ class FCUserNotificationHandler : NSObject {
             if results.count > 0 {
             
                 let publication = results.last!
-                self.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypeUserRegisteredForPublication, publication: publication)
-                let moc = FCModel.dataController.managedObjectContext
+                let moc = FCModel.sharedInstance.dataController.managedObjectContext
                 let fetcher = CDPublicationRegistrationFetcher(publication: publication, context: moc)
                 fetcher.fetchRegistrationsForPublication(true)
-                self.makeActivityLogForType(ActivityLog.LogType.Registration, publication: publication)
             }
         }
     }
@@ -266,7 +255,7 @@ class FCUserNotificationHandler : NSObject {
     
     func makeActivityLogForType(type: ActivityLog.LogType, publication: Publication) {
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         ActivityLog.activityLog(publication, group: nil ,type: type.rawValue, context: moc)
         
     }
@@ -295,32 +284,32 @@ class FCUserNotificationHandler : NSObject {
         NSUserDefaults.standardUserDefaults().setInteger(notificationsBadgeCounter, forKey: kNotificationBadgeNumberKey)
     }
     
-    func incrementNotificationsBadgeNumberIfNeededForType(type: String , publication: Publication?) {
-    
-        if !User.sharedInstance.settings.shouldPresentNotifications {return}
-        guard let publication = publication else {return}
-        let distanceFromUser = Int(publication.distanceFromUserLocation)
-        let notificationsRadiusInMeters = User.sharedInstance.settings.notificationsRadius * 1000
-        if  distanceFromUser >= notificationsRadiusInMeters {return}
-    
-        switch type {
-        
-        case kRemoteNotificationTypeNewPublication:
-        
-            
-            self.notificationsBadgeCounter += 1
-            
-            
-        case kRemoteNotificationTypeDeletedPublication,
-             kRemoteNotificationTypePublicationReport,
-             kRemoteNotificationTypeUserRegisteredForPublication:
-            
-            if publication.didRegisterForCurrentPublication?.boolValue == true { self.notificationsBadgeCounter += 1 }
-            
-        default:
-            return
-        }
-    }
+//    func incrementNotificationsBadgeNumberIfNeededForType(type: String , publication: Publication?) {
+//    
+//        if !User.sharedInstance.settings.shouldPresentNotifications {return}
+//        guard let publication = publication else {return}
+//        let distanceFromUser = Int(publication.distanceFromUserLocation)
+//        let notificationsRadiusInMeters = User.sharedInstance.settings.notificationsRadius * 1000
+//        if  distanceFromUser >= notificationsRadiusInMeters {return}
+//    
+//        switch type {
+//        
+//        case kRemoteNotificationTypeNewPublication:
+//        
+//            
+//            self.notificationsBadgeCounter += 1
+//            
+//            
+//        case kRemoteNotificationTypeDeletedPublication,
+//             kRemoteNotificationTypePublicationReport,
+//             kRemoteNotificationTypeUserRegisteredForPublication:
+//            
+//            if publication.didRegisterForCurrentPublication?.boolValue == true { self.notificationsBadgeCounter += 1 }
+//            
+//        default:
+//            return
+//        }
+//    }
 }
 
 

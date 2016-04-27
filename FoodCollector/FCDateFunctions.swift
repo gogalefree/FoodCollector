@@ -16,6 +16,7 @@ import Foundation
 
 class FCDateFunctions : NSObject {
     
+    
     class func PublicationDidExpired(endingDate: NSDate) -> Bool {
         // If timeIntervalSinceDate is bigger than 0, it means that the
         // event is active and the result of PublicationDidExpired needs
@@ -79,12 +80,12 @@ class FCDateFunctions : NSObject {
             if totalHours == 0 { // less than an hour to end date
                 print("totalHours == 0")
                 let remainingMinutes = Int(timeInterval / 60)
-                return String.localizedStringWithFormat(NSLocalizedString("Ending in %@ min", comment: "Time remaining. e.g: 'Ending in 35 min'"), "\(remainingMinutes)")
+                return String.localizedStringWithFormat(NSLocalizedString("Ends: %@ min", comment: "Time remaining. e.g: 'Ends: 35 min'"), "\(remainingMinutes)")
             }
             
             let remainingDays = Int(totalHours / 24)
             let remainingHours = totalHours % 24
-            return String.localizedStringWithFormat(NSLocalizedString("Ending in %@d and %@h", comment: "Time remaining in days and hours. e.g: 'Ending in 2 and 3h'"), "\(remainingDays)", "\(remainingHours)")
+            return String.localizedStringWithFormat(NSLocalizedString("Ends: %@d and %@h", comment: "Time remaining in days and hours. e.g: 'Ends: 2 and 3h'"), "\(remainingDays)", "\(remainingHours)")
         }
         else {
             return NSLocalizedString("Ended", comment: "No time remains. Publication ended.")

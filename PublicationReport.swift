@@ -43,40 +43,48 @@ class PublicationReport: NSManagedObject {
             let predicate = NSPredicate(format: "id = %@", NSNumber(integer: reportId) )
             request.predicate = predicate
             
+            var results: [PublicationReport]? = nil
+            do {
             
-                let results = try! context.executeFetchRequest(request) as? [PublicationReport]
-                guard let existing = results else { return }
-                if existing.count == 0 {
+                results = try context.executeFetchRequest(request) as? [PublicationReport]
+            } catch {
+                print( error )
+            }
+            
+            guard let existing = results else { return }
+            if existing.count == 0 {
+            
+            context.performBlockAndWait({ 
+                
+                let report = NSEntityDescription.insertNewObjectForEntityForName(kPublicationReportEntity, inManagedObjectContext: context) as? PublicationReport
+                guard let newReport = report else {return}
+                
+                newReport.reporterContactInfo = reportContactInfo
+                newReport.activeDeviceDecUUID = reporterActiveDeviceUUID
+                newReport.dateOfReport = reportDate
+                newReport.id = reportId
+                newReport.publicationId = publication.uniqueId
+                newReport.publicationVersion = publication.version
+                newReport.reoprterUserName = reportCollectorName
+                newReport.report = reportMessage
+                newReport.reporterUserId = reporterUserId
+                newReport.publication = publication
+                
+                if publication.reports == nil {publication.reports = NSSet()}
+                publication.reports = publication.reports?.setByAddingObject(newReport)
+                
+                if publication.didRegisterForCurrentPublication?.boolValue == true {
                     
-                    let report = NSEntityDescription.insertNewObjectForEntityForName(kPublicationReportEntity, inManagedObjectContext: context) as? PublicationReport
-                    guard let newReport = report else {return}
+                    publication.didRecieveNewReport = true
+                    let newReportLog = ActivityLog.LogType.Report.rawValue
+                    ActivityLog.activityLog(publication, group: nil, type: newReportLog, context: context)
                     
-                    newReport.reporterContactInfo = reportContactInfo
-                    newReport.activeDeviceDecUUID = reporterActiveDeviceUUID
-                    newReport.dateOfReport = reportDate
-                    newReport.id = reportId
-                    newReport.publicationId = publication.uniqueId
-                    newReport.publicationVersion = publication.version
-                    newReport.reoprterUserName = reportCollectorName
-                    newReport.report = reportMessage
-                    newReport.reporterUserId = reporterUserId
-                    newReport.publication = publication
-                    
-                    if publication.reports == nil {publication.reports = NSSet()}
-                    publication.reports = publication.reports?.setByAddingObject(newReport)
-                    
-                    if publication.didRegisterForCurrentPublication?.boolValue == true {
-                        
-                        publication.didRecieveNewReport = true
-                        let newReportLog = ActivityLog.LogType.Report.rawValue
-                        ActivityLog.activityLog(publication, group: nil, type: newReportLog, context: context)
-                        
-                        //TODO: check if the report contains "took all" and the current user is the publisher
-                        
-                        //FCUserNotificationHandler.sharedInstance.incrementNotificationsBadgeNumberIfNeededForType(kRemoteNotificationTypePublicationReport, publication: publication)
-                    }
+                    //TODO: check if the report contains "took all" and the current user is the publisher
                     
                 }
+
+            })
+        }
         }
     }
     

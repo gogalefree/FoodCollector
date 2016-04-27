@@ -26,7 +26,7 @@ let kModifyCoordsToPresentOnMapView = 0.0004
 
 public class FCModel : NSObject, CLLocationManagerDelegate {
     
-    static let dataController = DataController()
+    let dataController = DataController()
     
     var readyToLaunchUI:Bool = false
     var foodCollectorWebServer:FCServerProtocol!
@@ -48,7 +48,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         didSet {
             if (uiReadyForNewData){
             
-                self.foodCollectorWebServer.downloadAllPublications()
+                  //  self.foodCollectorWebServer.downloadAllPublications()
                 FCUserNotificationHandler.sharedInstance.resendPushNotificationToken()
             }
         }
@@ -87,10 +87,14 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         loadPublications()
         loadUserCreatedPublications()
         reportDeviceUUIDToServer()
+        self.foodCollectorWebServer.downloadAllPublications()
         self.dataUpdater.startUpdates()
+        self.locationManager.delegate = self
         
         if CLLocationManager.locationServicesEnabled() {
            self.setupLocationManager()
+        } else {
+            self.locationManager.requestWhenInUseAuthorization()
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCModel.mergeChanges(_:)), name: NSManagedObjectContextDidSaveNotification, object: nil)
@@ -99,10 +103,20 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func mergeChanges(notification: NSNotification) {
     
+        let moc = notification.object as? NSManagedObjectContext
+        if let callerMoc = moc {
+            if callerMoc == FCModel.sharedInstance.dataController.managedObjectContext {
+                callerMoc.mergeChangesFromContextDidSaveNotification(notification)
+                print("SAME CONTEXT")
+                return
+                
+            }
+        }
+        
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             
-            FCModel.dataController.managedObjectContext.performBlock({ () -> Void in
-                let moc = FCModel.dataController.managedObjectContext
+            FCModel.sharedInstance.dataController.managedObjectContext.performBlock({ () -> Void in
+                let moc = FCModel.sharedInstance.dataController.managedObjectContext
                 moc.mergeChangesFromContextDidSaveNotification(notification)
                 FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
                 
@@ -129,10 +143,10 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         self.userDeletedPublication = publication
         
         //delete the publication
-        let context = FCModel.dataController.managedObjectContext
+        let context = FCModel.sharedInstance.dataController.managedObjectContext
         context.performBlockAndWait { () -> Void in
             context.deleteObject(publication)
-            FCModel.dataController.save()
+            FCModel.sharedInstance.dataController.save()
             self.loadPublications()
             self.loadUserCreatedPublications()
         }
@@ -184,7 +198,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func addRegisterationFor(publication: Publication) {
         
-        let context = FCModel.dataController.managedObjectContext
+        let context = FCModel.sharedInstance.dataController.managedObjectContext
         context.performBlock { () -> Void in
             
             guard let registration = PublicationRegistration.registrationForPublication(publication, context: context) else {return}
@@ -192,7 +206,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             
                 if success {
                     
-                    FCModel.dataController.save()
+                    FCModel.sharedInstance.dataController.save()
                 }
             
             })
@@ -212,10 +226,10 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             set.removeObject(registration)
             publication.registrations = set
 
-            let context = FCModel.dataController.managedObjectContext
+            let context = FCModel.sharedInstance.dataController.managedObjectContext
             context.performBlock({ () -> Void in
                 context.deleteObject(registration)
-                FCModel.dataController.save()
+                FCModel.sharedInstance.dataController.save()
             })
             
         }
@@ -227,7 +241,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         let predicate = NSPredicate(format: "uniqueId = %@", NSNumber(integer: identifier.uniqueId))
         request.predicate = predicate
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         do {
         
             let results = try moc.executeFetchRequest(request) as! [Publication]

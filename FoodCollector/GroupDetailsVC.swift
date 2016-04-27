@@ -42,7 +42,7 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func setupForAdmin() {
     
-        self.leaveGroupButton.alpha = 0
+        self.leaveGroupButton.alpha = 1
         isUserAdmin = true
     }
     
@@ -78,17 +78,29 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func leaveGroupTapped(sender: AnyObject) {
+        
+        //when a user wants to leave a group:
+        //1. infrom the server to delete the user as a group member from the group
+        //2. delete the group from the current device. this will result with the deletion of all group members
+        
+        let memberToDelete = self.group.members!.filter { (member) -> Bool in
+            let aMember = member as? GroupMember
+            return aMember?.userId?.integerValue == User.sharedInstance.userUniqueID
+        }
     
-        //delete the gtoup
+        if let foundMemeber = memberToDelete.first as? GroupMember {
+            print("member to delete id: \(foundMemeber.userId?.integerValue)")
+            print("member to delete name: \(foundMemeber.name)")
+            FCModel.sharedInstance.foodCollectorWebServer.deleteGroupMember(foundMemeber)
+        }
+
+        //delete the gtoup locally
         let groupToDelete = self.group
         
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         moc.deleteObject(groupToDelete)
-        FCModel.dataController.save()
-    
-
-        FCModel.sharedInstance.foodCollectorWebServer.deleteGroup(groupToDelete)
-        
+        FCModel.sharedInstance.dataController.save()
+            
         //go back to groups vc
         self.navigationController?.popViewControllerAnimated(true)
     }

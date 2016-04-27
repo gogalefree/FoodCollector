@@ -37,6 +37,7 @@ class ActivityLog: NSManagedObject {
                 newLog?.timeString = FCDateFunctions.timeStringForActivityLogCell(newLog!.date!)
             }
             
+            FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter += 1 
             
             do {
                 try context.save()

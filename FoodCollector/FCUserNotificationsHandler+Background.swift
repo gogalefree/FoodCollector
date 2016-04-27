@@ -45,7 +45,7 @@ extension FCUserNotificationHandler {
             let userLastLatitude = NSUserDefaults.standardUserDefaults().doubleForKey(kUserLastLatitudeKey) ?? 0
             let userLastLongitude = NSUserDefaults.standardUserDefaults().doubleForKey(kUserLastLongitudeKey) ?? 0
             
-            //create CLLocation object to define sidtance
+            //create CLLocation object to define distance
             let noiticationLocation = CLLocation(latitude: notificationLatitude, longitude: notificationLongitude)
             let userLocation = CLLocation(latitude: userLastLatitude, longitude: userLastLongitude)
             

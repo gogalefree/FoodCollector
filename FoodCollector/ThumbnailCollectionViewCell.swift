@@ -8,7 +8,7 @@
 
 import UIKit
 
-let thumbnailCollectionViewCellID = "thumbnailCollectionViewCellID"
+let thumbnailCollectionViewCellID = "thumbnailCollectionViewCellI"
 
 class ThumbnailCollectionViewCell: UICollectionViewCell {
     
@@ -29,9 +29,13 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
         self.imageView.image = defaultImage
         self.shadowView.backgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.1)
         
+        print(publication.title)
+        print((publication.didTryToDownloadImage))
+        print(publication.photoBinaryData?.length)
+        
         if publication.photoBinaryData != nil {animateImage(publication)}
             
-        else if !publication.didTryToDownloadImage!.boolValue {
+        else  {
             
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(publication, completion: { (image) -> Void in
@@ -68,7 +72,10 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
         self.imageView.image = defaultImage
         if let publication = self.publication {
             
-            if publication.photoBinaryData != nil {animateImage(publication)}
+            if publication.photoBinaryData != nil {
+                let photo = UIImage(data: publication.photoBinaryData!)
+                self.imageView.image = photo
+            }
         }
     }
     

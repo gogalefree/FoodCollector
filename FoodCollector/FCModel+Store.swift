@@ -20,7 +20,7 @@ public extension FCModel {
             let request = NSFetchRequest(entityName: kPublicationEntity)
             let predicate = NSPredicate(format: "startingData < %@ && endingData > %@ && isOnAir = %@", NSDate(), NSDate() , NSNumber(bool: true) )
             request.predicate = predicate
-            let moc = FCModel.dataController.managedObjectContext
+            let moc = FCModel.sharedInstance.dataController.managedObjectContext
             moc.performBlock { () -> Void in
                 
                 do {
@@ -45,7 +45,7 @@ public extension FCModel {
             let request = NSFetchRequest(entityName: kPublicationEntity)
             let predicate = NSPredicate(format: "isUserCreatedPublication = %@", NSNumber(bool: true) )
             request.predicate = predicate
-            let moc = FCModel.dataController.managedObjectContext
+            let moc = FCModel.sharedInstance.dataController.managedObjectContext
             moc.performBlock { () -> Void in
                 
                 do {

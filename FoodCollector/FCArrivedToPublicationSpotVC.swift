@@ -80,7 +80,7 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
         if message != 1 && message != 3 && message != 5 {return}
         
         //make the report
-        let moc = FCModel.dataController.managedObjectContext
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let report = PublicationReport.reportForPublication(message, publication: publication!, context: moc)
         
         //pass it back to publication details tvc

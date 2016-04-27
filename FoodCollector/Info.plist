@@ -100,6 +100,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Display a message when arriving to pickup location</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Display a message when arriving to pickup location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

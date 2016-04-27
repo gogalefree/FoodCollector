@@ -77,6 +77,7 @@
         <attribute name="reoprterUserName" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="report" attributeType="Integer 32" defaultValueString="1" syncable="YES"/>
         <attribute name="reporterContactInfo" attributeType="String" defaultValueString="no" syncable="YES"/>
+        <attribute name="reporterImageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="reporterUserId" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="publication" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Publication" inverseName="reports" inverseEntity="Publication" syncable="YES"/>
     </entity>
@@ -86,6 +87,6 @@
         <element name="GroupMember" positionX="-90" positionY="-180" width="128" height="165"/>
         <element name="Publication" positionX="-351" positionY="99" width="128" height="465"/>
         <element name="PublicationRegistration" positionX="-108" positionY="389" width="128" height="178"/>
-        <element name="PublicationReport" positionX="-101" positionY="99" width="128" height="193"/>
+        <element name="PublicationReport" positionX="-101" positionY="99" width="128" height="210"/>
     </elements>
 </model>
