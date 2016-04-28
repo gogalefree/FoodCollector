@@ -45,30 +45,30 @@ class FCPublicationsTVCell: UITableViewCell {
     func downloadImage() {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-
-            if self.publication?.photoBinaryData != nil {self.showImage()}
+            
+            if let data  = self.publication?.photoBinaryData {self.showImage(UIImage(data: data))}
             else if (self.publication?.didTryToDownloadImage == false) {
                 
                 let photoFetcher = FCPhotoFetcher()
                 photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
                     
                     if image != nil {
-                        self.showImage()
+                        self.showImage(image)
                     }
                 })
             }
         })
     }
     
-    func showImage() {
+    func showImage(image: UIImage?) {
         
-        let photo = UIImage(data: (self.publication?.photoBinaryData)!)
+        //let photo = UIImage(data: (self.publication?.photoBinaryData)!)
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
             UIView.animateWithDuration(0.15, animations: { () -> Void in
                 self.photoImageView.alpha = 0
-                self.photoImageView.image = photo
+                self.photoImageView.image = image
                 self.photoImageView.alpha = 1
             })
 

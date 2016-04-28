@@ -23,7 +23,12 @@ protocol FCPublicationsTVCDelegate: NSObjectProtocol{
 
 class FCPublicationsTableViewController : UITableViewController, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
     
+    @IBOutlet weak var showActivityCenterButton: NotificationBarButtonItem!
+    
     weak var delegate: FCPublicationsTVCDelegate!
+    weak var slideDelegate: CollectorVCSlideDelegate?
+    var isPresentingActivityCenter = false
+    
     var filteredPublicaitons = [Publication]()
     var searchBar: UISearchBar!
     var isFiltered = false
@@ -46,8 +51,8 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         request.sortDescriptors = [NSSortDescriptor(key: "storedDistanceFromUserLocation", ascending: true)]
         
         let predicate = NSPredicate(format: "endingData > %@ && isOnAir = %@",  NSDate() , NSNumber(bool: true) )
+        
         request.predicate = predicate
-//        /startingData < %@ &&
         
         let aFetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         aFetchResultsController.delegate =  self
@@ -76,10 +81,13 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         self.tableView.contentOffset.y = CGRectGetHeight(self.searchBar.bounds)
         addCreatePublicationButton()
         self.registerForAppNotifications()
+        self.showActivityCenterButton.button.addTarget(self, action: #selector(self.showActivityCenter), forControlEvents: .TouchUpInside)
+
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        showActivityCenterButton.reloadCounterLabel()
         GAController.reportsAnalyticsForScreen(kFAPublicationsTVCScreenName)
     }
     
@@ -171,7 +179,6 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
       
         var sorter = NSSortDescriptor()
         isFiltered = false
-        //let publications = self.fetchedResultsController.fetchedObjects as! [Publication]
 
         switch selectedScope {
             
@@ -282,7 +289,6 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         }
         
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationDetailsVC") as? PublicationDetailsVC
-        //publicationDetailsTVC?.title = publication.title
         publicationDetailsTVC?.publication = publication
         
         publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublicationsTableViewController.dismissDetailVC))
@@ -303,28 +309,21 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         
+        
         switch type {
             
         case .Insert:
-            if controller.sections![0].numberOfObjects == 1 {tableView.reloadData()} else {
-                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-            }
-            
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
+     
         case .Delete:
-            if controller.sections![0].numberOfObjects == 0 {
-                tableView.reloadData()
-                tableView.setEditing(false, animated: true)
-            } else {
-                
-                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            }
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        
+        case .Move:
+            tableView.deleteRowsAtIndexPaths([indexPath!] , withRowAnimation:.Automatic)
+            tableView.insertRowsAtIndexPaths([newIndexPath!] ,withRowAnimation:.Automatic)
             
-            //we dont allow move for now
-            //        case .Move:
-            //            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            //            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        default:
-            break
+        case .Update:
+            self.tableView.reloadRowsAtIndexPaths([indexPath!] ,withRowAnimation:.Automatic)
         }
     }
 
@@ -332,15 +331,8 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         tableView.endUpdates()
     }
     
-    @IBAction func showActivityCenter(sender: UIButton) {
-    
-        if let delegate = self.delegate {
-            delegate.didRequestActivityCenter()
-        }
-    }
-    
-    
     func addCreatePublicationButton(){
+        
         let screenWidth = UIScreen.mainScreen().bounds.width
         let screenHeight = UIScreen.mainScreen().bounds.height
         let buttonWidth = CGFloat(60)
@@ -354,12 +346,9 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let button = UIButton(type: UIButtonType.Custom)
         button.frame.size = CGSizeMake(buttonWidth,buttonHeight)
         button.center = CGPointMake(buttonX, buttonY)
-        //button.layer.cornerRadius = buttonWidth / 2
-        
         button.setImage(image, forState: .Normal)
         button.addTarget(self, action: #selector(FCPublicationsTableViewController.createNewPublicationButtonTouched(_:)), forControlEvents:.TouchUpInside)
         
-        //self.view.addSubview(button)
         self.navigationController!.view.addSubview(button)
     }
     
@@ -402,24 +391,32 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         self.presentViewController(identityProviderLogingViewNavVC, animated: true, completion: nil)
     }
 
-    
-    //BORIS
-    //this is called when the notifications icon needs update
     func updateNotificationBadgeCounter() {
         
-        let newNotificationsCount = FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter
+        self.showActivityCenterButton.reloadCounterLabel()
     }
     
-    
+
     func registerForAppNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FCPublicationsTableViewController.updateNotificationBadgeCounter), name: kUpdateNotificationsCounterNotification, object: nil)
+        
+       // NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.reloadData), name: kReloadDataNotification, object: nil)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+}
 
+extension FCPublicationsTableViewController {
     
+    func showActivityCenter() {
+        
+        self.isPresentingActivityCenter = !self.isPresentingActivityCenter
+        if self.slideDelegate != nil {
+            self.slideDelegate?.collectorVCWillSlide()
+        }
+    }
 }
 

@@ -45,6 +45,8 @@ extension FCModel {
     
     func postReloadDataNotificationOnMainThread(){
         
+        if FCModel.sharedInstance.processingData {return}
+        
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.loadPublications()
             NSNotificationCenter.defaultCenter().postNotificationName(kReloadDataNotification, object: nil)

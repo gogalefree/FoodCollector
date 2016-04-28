@@ -41,18 +41,18 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        tableView.estimatedRowHeight  = 80
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("fecth results controllrt count: \(fetchedResultsController.sections![0].numberOfObjects) ")
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter = 0
-        //TODO
-        //set the notification badge icons to zero
+        FCModel.sharedInstance.dataController.save()
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,9 +106,7 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
         switch type {
             
         case .Insert:
-            if controller.sections![0].numberOfObjects == 1 {tableView.reloadData()} else {
-                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-            }
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
             
         case .Delete:
             if controller.sections![0].numberOfObjects == 0 {
@@ -119,12 +117,12 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
                 tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
             }
 
-            //we dont allow move for now
-//        case .Move:
-//            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-//            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        default:
-            break
+        case .Move:
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        
+        case .Update:
+            self.tableView.reloadRowsAtIndexPaths([indexPath!] ,withRowAnimation:.Automatic)
         }
     }
     

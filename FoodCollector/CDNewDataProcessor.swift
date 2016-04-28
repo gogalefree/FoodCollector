@@ -46,7 +46,13 @@ class CDNewDataProcessor: NSObject {
             } catch {
                 print("error saving local context: \(error)")
             }
+            
+            if batchNumber == (numBatches + 1) {
+                FCModel.sharedInstance.processingData = false
+                FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
+            }
         }
+        
     }
     
     class func updateAndAddPublicationsFromDictionaries(results: [[String: AnyObject]], usingContext localContext: NSManagedObjectContext) {
@@ -223,6 +229,7 @@ class CDNewDataProcessor: NSObject {
                 
                 do {
                     try context.save()
+                    FCModel.sharedInstance.processingData = false
                     FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
                 } catch {
                     print("error saving context afetr groups fetch \(error)")
@@ -234,7 +241,7 @@ class CDNewDataProcessor: NSObject {
     }
     
     class func fetchGroupsAfterLogin() {
-        
+        FCModel.sharedInstance.processingData = true
         let localContext = FCModel.sharedInstance.dataController.createPrivateQueueContext()
         CDNewDataProcessor.fetchGroups(localContext)
     }

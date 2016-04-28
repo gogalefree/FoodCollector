@@ -470,11 +470,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="OgJ-ic-60V">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OgJ-ic-60V" secondAttribute="height" multiplier="1:1" id="Grs-K2-HBY"/>
                                     <constraint firstAttribute="width" constant="600" id="Nqh-dl-Tcz"/>
@@ -492,7 +492,7 @@
                                 </connections>
                             </mapView>
                             <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iar-eB-Wi1">
-                                <rect key="frame" x="0.0" y="484" width="600" height="116"/>
+                                <rect key="frame" x="-4" y="551" width="383" height="116"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="116" id="x48-GI-4iR"/>
                                 </constraints>
@@ -501,7 +501,7 @@
                                 </connections>
                             </containerView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0e-IL-u3L">
-                                <rect key="frame" x="30" y="416" width="60" height="60"/>
+                                <rect key="frame" x="26" y="483" width="60" height="60"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="vFd-fs-WSC">
                                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -554,14 +554,10 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="kY9-ko-GZu">
-                        <barButtonItem key="leftBarButtonItem" image="Avtivity-center" id="hT8-MR-50Q" customClass="NotificationBarButtonItem" customModule="FoodCollector" customModuleProvider="target">
-                            <connections>
-                                <action selector="ShowActivityCenter:" destination="vXZ-lx-hvc" id="rut-gM-Y9I"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" image="Avtivity-center" id="hT8-MR-50Q" customClass="NotificationBarButtonItem" customModule="FoodCollector" customModuleProvider="target"/>
                         <barButtonItem key="rightBarButtonItem" image="Table-view" id="Rj4-yt-P4Y">
                             <connections>
-                                <segue destination="xDT-kC-DAC" kind="show" identifier="presentPublicationsTVC" id="aZ2-oz-GvC"/>
+                                <action selector="dismiss:" destination="vXZ-lx-hvc" id="KvB-46-kCv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -575,7 +571,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2554" y="293"/>
+            <point key="canvasLocation" x="2583.5" y="155.5"/>
         </scene>
         <!--Publication Photo PresentorVC-->
         <scene sceneID="0gC-yj-AoA">
@@ -1091,15 +1087,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="FCPublicationsTableViewController" id="f4d-b5-Oid" customClass="FCPublicationsTableViewController" customModule="FoodCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Ra-ij-bsg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="publicationTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="publicationTableViewCell" id="nOK-Hd-C35" customClass="FCPublicationsTVCell" customModule="FoodCollector" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="66" width="320" height="110"/>
+                                <rect key="frame" x="0.0" y="66" width="375" height="110"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nOK-Hd-C35" id="aNs-u4-V9a">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="109"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-l9-AxA">
@@ -1117,7 +1113,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6h8-2b-WKd">
-                                            <rect key="frame" x="111" y="10" width="201" height="22"/>
+                                            <rect key="frame" x="111" y="10" width="256" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="AgN-hw-1zG"/>
                                             </constraints>
@@ -1160,7 +1156,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="838-xw-iQa">
-                                            <rect key="frame" x="277" y="69" width="33" height="21"/>
+                                            <rect key="frame" x="332" y="69" width="33" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="azJ-gZ-AxJ"/>
                                                 <constraint firstAttribute="height" constant="21" id="goW-UM-5vB"/>
@@ -1225,24 +1221,21 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="QUs-qb-U8y">
-                        <barButtonItem key="leftBarButtonItem" image="Avtivity-center" id="Xot-h9-cKw">
-                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="showActivityCenter:" destination="f4d-b5-Oid" id="fuK-gf-Iom"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" image="Avtivity-center" id="oC6-Nz-96T" customClass="NotificationBarButtonItem" customModule="FoodCollector" customModuleProvider="target"/>
                         <barButtonItem key="rightBarButtonItem" image="Map-view" id="yCl-2U-JYg">
                             <connections>
-                                <segue destination="etT-oa-SeJ" kind="unwind" unwindAction="unwindFromTableView:" id="noZ-Wt-xsx"/>
+                                <segue destination="V26-sE-fum" kind="presentation" identifier="presentMapView" id="r6m-vp-mMJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="showActivityCenterButton" destination="oC6-Nz-96T" id="72d-lm-R4Q"/>
+                    </connections>
                 </tableViewController>
-                <exit id="etT-oa-SeJ" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gA4-bv-1lN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4179" y="290"/>
+            <point key="canvasLocation" x="1541" y="288"/>
         </scene>
         <!--Activity CenterVC-->
         <scene sceneID="d1e-Vd-II9">
@@ -1775,7 +1768,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCL-Pv-k4t">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="V26-sE-fum" kind="embed" id="E2c-II-YAb"/>
+                                    <segue destination="xDT-kC-DAC" kind="embed" id="EzB-yA-Ak7"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -1795,7 +1788,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htA-Ht-Vb0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1008" y="300"/>
+            <point key="canvasLocation" x="192" y="293"/>
         </scene>
         <!--Pickup-->
         <scene sceneID="VED-7b-aGp">
@@ -1814,7 +1807,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbS-QR-Vjh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1810" y="293"/>
+            <point key="canvasLocation" x="2057.5" y="292.5"/>
         </scene>
         <!--My Shares-->
         <scene sceneID="TRz-H0-Ogd">
@@ -2365,6 +2358,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xDT-kC-DAC" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3DD-Lk-Drc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2376,7 +2370,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Snh-OR-blD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3367" y="293"/>
+            <point key="canvasLocation" x="991" y="307"/>
         </scene>
         <!--Photo Presentor Navigation Controller-->
         <scene sceneID="Xap-18-s3M">
@@ -2544,11 +2538,11 @@
                         <viewControllerLayoutGuide type="bottom" id="QDo-vf-F7H"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="K4U-bc-xzP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="116"/>
+                        <rect key="frame" x="0.0" y="0.0" width="383" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fv4-BX-Ufw">
-                                <rect key="frame" x="20" y="0.0" width="560" height="116"/>
+                                <rect key="frame" x="16" y="0.0" width="351" height="116"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="gGM-2F-gaJ">

@@ -103,8 +103,8 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , /*CLLocationMana
         configureTrackButton()
         addPanRecognizer()
         self.setupLocationManager()
-        self.activityCenterButton.button.addTarget(self, action: #selector(self.ShowActivityCenter(_:)), forControlEvents: .TouchUpInside)
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+//        self.activityCenterButton.button.addTarget(self, action: #selector(self.ShowActivityCenter(_:)), forControlEvents: .TouchUpInside)
+//        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     }
     
     
@@ -372,6 +372,9 @@ extension FCCollectorRootVC {
         //        }
     }
 
+    @IBAction func dismiss(sender: AnyObject) {
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
     
 }
 

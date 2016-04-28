@@ -46,15 +46,23 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         self.view.sendSubviewToBack(self.activityCenterVC.view)
         
       
+//        for vc in self.childViewControllers {
+//            if vc is CollectorMapVCNavController {
+//                collectorRootNavigationController = vc as? UINavigationController
+//                break
+//            }
+//        }
+
         for vc in self.childViewControllers {
-            if vc is CollectorMapVCNavController {
+            if vc is UINavigationController {
                 collectorRootNavigationController = vc as? UINavigationController
                 break
             }
         }
+
         
-        let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
-        collectorRootVC.delegate = self
+        let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCPublicationsTableViewController
+        collectorRootVC.slideDelegate = self
         
         self.definePointsWithRect(self.view.bounds)
     }
@@ -101,7 +109,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         //activityCenterVC.displayUserProfileImage()
         
         //inform collector root vc that activity center is presented
-        let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
+        let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCPublicationsTableViewController
         collectorRootVC.isPresentingActivityCenter = true
         self.mapNavigationControllerLeadingConstraint.constant = self.collectorMapHiddenOrigin.x - kConstraintsTotalPadding
         self.mapNavigationControllerTrailingConstraint.constant = -(self.collectorMapHiddenOrigin.x - kConstraintsTotalPadding)
@@ -118,7 +126,7 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         activityCenterPresented = false
         
         //inform collector root vc that activity center is presented
-        let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCCollectorRootVC
+        let collectorRootVC = collectorRootNavigationController.viewControllers[0] as! FCPublicationsTableViewController
         collectorRootVC.isPresentingActivityCenter = false
         
         self.mapNavigationControllerLeadingConstraint.constant = -kConstraintsTotalPadding

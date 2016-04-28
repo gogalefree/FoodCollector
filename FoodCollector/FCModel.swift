@@ -28,7 +28,8 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     let dataController = DataController()
     
-    var readyToLaunchUI:Bool = false
+    var processingData = false
+    
     var foodCollectorWebServer:FCServerProtocol!
     
     var publications = [Publication]()
@@ -106,7 +107,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
         let moc = notification.object as? NSManagedObjectContext
         if let callerMoc = moc {
             if callerMoc == FCModel.sharedInstance.dataController.managedObjectContext {
-                callerMoc.mergeChangesFromContextDidSaveNotification(notification)
+//                callerMoc.mergeChangesFromContextDidSaveNotification(notification)
                 print("SAME CONTEXT")
                 return
                 

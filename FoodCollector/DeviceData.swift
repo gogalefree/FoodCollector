@@ -41,17 +41,20 @@ public class DeviceData {
 
 public extension DeviceData {
     
-    public class func readPlist(var fileName: String) -> (data: AnyObject?, dataType: PlistDataType){
+    public class func readPlist(fileName: String) -> (data: AnyObject?, dataType: PlistDataType){
         // Check if fileName has a pathExtension. If it doesn't, add it.
         
+        var aFilename = fileName
+        
         if ((fileName as NSString).pathExtension == "") {
-            fileName = fileName + ".plist"
+            aFilename = fileName + ".plist"
         }
         
-        fileName = "/" + fileName
-        print("filename: \(fileName)")
+        aFilename = "/" + aFilename
+       
+        print("filename: \(aFilename)")
         if FCModel.documentsDirectory() != "" {
-            let plistFilePath = FCModel.documentsDirectory().stringByAppendingString(fileName)
+            let plistFilePath = FCModel.documentsDirectory().stringByAppendingString(aFilename)
             print("plistFilePath: \(plistFilePath)")
             let plistData = NSDictionary(contentsOfFile: plistFilePath)
             // If plistData == nil it's not a dictionary - It's an array
@@ -68,18 +71,20 @@ public extension DeviceData {
         }
     }
     
-    public class func writePlist(var fileName: String, data: AnyObject) -> Bool {
+    public class func writePlist(fileName: String, data: AnyObject) -> Bool {
         // Check if fileName has a .plist suffix. If it has, remove it.
+        var aFilename = fileName
         let fileNameExtention = "plist"
         if (fileNameExtention != (fileName as NSString).pathExtension) {
-            fileName = fileName + "." + fileNameExtention
+            aFilename = fileName + "." + fileNameExtention
         }
-        fileName = "/" + fileName
+       
+        aFilename = "/" + aFilename
         
         if FCModel.documentsDirectory() == "" {
             return false
         }
-        let path = FCModel.documentsDirectory().stringByAppendingString(fileName)
+        let path = FCModel.documentsDirectory().stringByAppendingString(aFilename)
         
         // Check what type of data we got (NSArray or NSDIctionary
         

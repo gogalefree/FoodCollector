@@ -11,7 +11,7 @@ import UIKit
 let sideMenuBtnTitleMyShares    = NSLocalizedString("My Shares", comment:"Title for a side menu button")
 let sideMenuBtnTitleAllEvents   = NSLocalizedString("All Events", comment:"Title for a side menu button")
 let sideMenuBtnTitleMapView     = NSLocalizedString("Map View", comment:"Title for a side menu button")
-let sideMenuBtnTitleActivityLog = NSLocalizedString("Activity Log", comment:"Title for a side menu button")
+let sideMenuBtnTitleActivityLog = NSLocalizedString("Notifications", comment:"Title for a side menu button")
 let sideMenuBtnTitleGroups      = NSLocalizedString("Groups", comment:"Title for a side menu button")
 let sideMenuBtnTitleSettings    = NSLocalizedString("Settings", comment:"Title for a side menu button")
 let sideMenuBtnTitleContactUs   = NSLocalizedString("Contact Us", comment:"Title for a side menu button")
@@ -115,15 +115,20 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
                 }
             
             case 1: // All Events
-                if let allEventsVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationsTableViewController") as? FCPublicationsTableViewController {
-                    allEventsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ActivityCenterVC.dismissVC))
-                    let nav = UINavigationController(rootViewController: allEventsVC)
-                    self.presentViewController(nav, animated: true, completion: nil)
-                }
+//                if let allEventsVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCPublicationsTableViewController") as? FCPublicationsTableViewController {
+//                    allEventsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ActivityCenterVC.dismissVC))
+//                    let nav = UINavigationController(rootViewController: allEventsVC)
+//                    self.presentViewController(nav, animated: true, completion: nil)
+                
+                    let container = self.parentViewController as! FCCollectorContainerController
+                    container.collectorVCWillSlide()
+ //               }
             
             case 2: // Map View
                 let container = self.parentViewController as! FCCollectorContainerController
                 container.collectorVCWillSlide()
+                let publicationsTVC = container.collectorRootNavigationController.viewControllers[0] as! FCPublicationsTableViewController
+                publicationsTVC.performSegueWithIdentifier("presentMapView", sender: nil)
             
             case 3: // Activity Log
                 let activityLogSB = UIStoryboard(name: "ActivityLog", bundle: nil)

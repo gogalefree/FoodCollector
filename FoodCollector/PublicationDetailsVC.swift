@@ -204,6 +204,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             
             title = NSLocalizedString("Joined", comment: "a button title if the user has registered for pickup")
             titleColor = UIColor.whiteColor()
+            backgroundImage = UIImage(named: "JoinButton")
+
 
         } else {
             title = NSLocalizedString("Join", comment: "a button title if the user has not registered for pickup")

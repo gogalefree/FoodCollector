@@ -70,7 +70,6 @@ class User {
     private init() {
         setInitialUserData()
         calculateUserRating()
-        print("userData:\n\(userData.debugDescription)")
         
     }
     
@@ -195,10 +194,7 @@ class User {
         
         guard let loginData = self.loginData else {return}
         
-        print("start updateWithLoginData")
-        print("self.userIsLoggedIn: \(self.userIsLoggedIn)")
-        print("self.userSkippedLogin: \(self.userSkippedLogin)")
-        print("self.userCompletedIdentityProviderLogin: \(self.userCompletedIdentityProviderLogin)")
+      
         //update user properties after login - we only need to update the userId property after we recieve it from the server
         
         // Data recieved from loging identity provider
@@ -226,15 +222,12 @@ class User {
             // If loginData.isLoggedIn == true, it means the user has successfully completed the
             // Identity Provider login. It DOES NOT mean that the entire login process was successful!
             // Only after the user registered his phone number, the login is successful.
-            print("loginData.isLoggedIn: \(loginData.isLoggedIn)")
             setValueInUserClassProperty(true, forKey: .CompletedIdentityProviderLogin)
-            print("")
         }
         
         
         // Image data from loging identity provider
         if let image = loginData.userImage {
-            print("Image user is present!!!!")
             self.userImage = image
             DeviceData.writeImage(image, imageName: self.getFullUserIamgeName())
             let fullImageName = getFullUserIamgeName()
@@ -246,16 +239,8 @@ class User {
             let userPhotoUploader = FCUserPhotoFetcher()
             userPhotoUploader.uploadUserPhoto()
         }
-        //else {
-        //    print("No User Image!!!!")
-        //}
         
         writeUserData()
-        
-        print("end updateWithLoginData")
-        print("self.userIsLoggedIn: \(self.userIsLoggedIn)")
-        print("self.userSkippedLogin: \(self.userSkippedLogin)")
-        print("self.userCompletedIdentityProviderLogin: \(self.userCompletedIdentityProviderLogin)")
     }
     
     func setValueInUserClassProperty(value: AnyObject?, forKey key: UserDataKey) {
