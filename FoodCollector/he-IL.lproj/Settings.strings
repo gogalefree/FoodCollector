@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "Notifications"; ObjectID = "A6p-6p-qWm"; */
+"A6p-6p-qWm.text" = "Notifications";
+
+/* Class = "UILabel"; text = "Set the distance"; ObjectID = "GWu-oN-IqO"; */
+"GWu-oN-IqO.text" = "Set the distance";
+
+/* Class = "UILabel"; text = "All"; ObjectID = "KNz-t0-gZf"; */
+"KNz-t0-gZf.text" = "All";
+
+/* Class = "UILabel"; text = "km"; ObjectID = "TqT-ot-S0F"; */
+"TqT-ot-S0F.text" = "km";
+
+/* Class = "UILabel"; text = "30"; ObjectID = "WRr-6Y-jpL"; */
+"WRr-6Y-jpL.text" = "30";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "Yda-8j-3XV"; */
+"Yda-8j-3XV.normalTitle" = "Edit";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "bSH-K4-yPi"; */
+"bSH-K4-yPi.text" = "1";
+
+/* Class = "UILabel"; text = "Edit your profile picture or your personal data"; ObjectID = "c04-67-170"; */
+"c04-67-170.text" = "Edit your profile picture or your personal data";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fCA-Cp-fhw"; */
+"fCA-Cp-fhw.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Update"; ObjectID = "gp3-jX-s2H"; */
+"gp3-jX-s2H.normalTitle" = "Update";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "isn-he-fbo"; */
+"isn-he-fbo.text" = "Title";
+
+/* Class = "UILabel"; text = "Notifications Radius:"; ObjectID = "jrY-Vj-TZ3"; */
+"jrY-Vj-TZ3.text" = "Notifications Radius:";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "kvK-lu-Zt1"; */
+"kvK-lu-Zt1.text" = "60";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "mDi-tI-gnb"; */
+"mDi-tI-gnb.text" = "Subtitle";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "mua-e4-tjH"; */
+"mua-e4-tjH.normalTitle" = "Edit";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "yLc-2k-jIS"; */
+"yLc-2k-jIS.title" = "Back";
