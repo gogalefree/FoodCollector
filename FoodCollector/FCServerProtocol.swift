@@ -116,7 +116,7 @@ protocol FCServerProtocol {
     ///
     ///Called from a groupMember Push notification
     ///
-    func fetchMembersForGroup(groupId: Int, completion: (success: Bool) -> Void )
+    func fetchMembersForGroup(groupId: Int, completion: (success: Bool, group: Group?) -> Void )
 
     //core data fetch reports for publication
     func reportsForPublication(publication:Publication,

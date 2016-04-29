@@ -226,7 +226,7 @@ class GroupMember: NSManagedObject {
         print("members: \(membersDicts)")
         
         let arrivedIds: [NSNumber] = membersDicts.map { dictionary in
-            return NSNumber(integer: (dictionary["id"] as? Int ?? -1))
+            return NSNumber(integer: (dictionary["user_id"] as? Int ?? -1))
         }
         
         let foundId = arrivedIds.filter {number in number == NSNumber(integer: User.sharedInstance.userUniqueID)}

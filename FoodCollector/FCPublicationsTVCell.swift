@@ -44,20 +44,21 @@ class FCPublicationsTVCell: UITableViewCell {
     
     func downloadImage() {
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            
+        
             if let data  = self.publication?.photoBinaryData {self.showImage(UIImage(data: data))}
             else if (self.publication?.didTryToDownloadImage == false) {
                 
-                let photoFetcher = FCPhotoFetcher()
-                photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
-                    
-                    if image != nil {
-                        self.showImage(image)
-                    }
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+
+                    let photoFetcher = FCPhotoFetcher()
+                    photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
+                        
+                        if image != nil {
+                            self.showImage(image)
+                        }
+                    })
                 })
             }
-        })
     }
     
     func showImage(image: UIImage?) {

@@ -249,8 +249,21 @@ class FCUserNotificationHandler : NSObject {
     
         //we increment the counter and create an ActivityLog only if the group was deleted
         let id = data["id"] as? Int
+        let groupTitle = data["title"] as? String
+        
         guard let groupId = id else {return}
-        FCModel.sharedInstance.foodCollectorWebServer.fetchMembersForGroup(groupId) { (success) -> Void in }
+        FCModel.sharedInstance.foodCollectorWebServer.fetchMembersForGroup(groupId) { (success: Bool , group: Group?) -> Void in
+        
+            if success {
+                
+                if let newGroup = group , title = groupTitle, groupID = id{
+                    
+                    newGroup.name = title
+                    newGroup.id = NSNumber(integer: groupID)
+                    FCModel.sharedInstance.dataController.save()
+                }
+            }
+        }
     }
     
     func makeActivityLogForType(type: ActivityLog.LogType, publication: Publication) {

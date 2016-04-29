@@ -56,7 +56,7 @@ extension FCMockServer {
         
     }
     
-    func fetchMembersForGroup(groupId: Int, completion: (success: Bool) -> Void ) {
+    func fetchMembersForGroup(groupId: Int, completion: (success: Bool, group: Group?) -> Void ) {
                
         let url = NSURL(string: baseUrlString + "groups/\(groupId)/group_members")
         let session = NSURLSession.sharedSession()
@@ -70,7 +70,7 @@ extension FCMockServer {
                 
                 if error != nil || serverResponse.statusCode > 300 {
                     //handle error
-                    completion(success: false)
+                    completion(success: false, group: nil)
                     return
                 }
                 
@@ -81,7 +81,7 @@ extension FCMockServer {
                         let groupMembersDic = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String : AnyObject]
                         let membersArray = groupMembersDic?["members"] as? [[String : AnyObject]]
                         guard let membersDicts = membersArray else {
-                            completion(success: false)
+                            completion(success: false, group: nil)
                             return
                         }
                         
@@ -103,7 +103,12 @@ extension FCMockServer {
                             //update the group members
                             else {
                                 
-                                let aGroup = Group.fetchGroupWithId(groupId)
+                                var aGroup: Group? = Group.fetchGroupWithId(groupId)
+                                
+                                if aGroup == nil {
+                                   
+                                    aGroup = NSEntityDescription.insertNewObjectForEntityForName(kGroupEntity, inManagedObjectContext: FCModel.sharedInstance.dataController.managedObjectContext) as? Group
+                                }
                                 
                                 if let group = aGroup {
                                     
@@ -113,19 +118,23 @@ extension FCMockServer {
                                         
                                         //delete all existing
                                         group.deleteMembers()
-                                  
+                                        
                                         //create existing
                                         GroupMember.createOrUpdateMembersForGroup(membersDicts, group: group, context: moc)
+                                        completion(success: true, group: group)
                                     })
+                                    
+                                } else {
+                                    completion(success: false, group: nil)
                                 }
                             }
                         }
                         
-                        completion(success: true)
+                        
                     }
                     catch {
                         print("error fetching MembersForGroup: \(error) " + #function)
-                        completion(success: false)
+                        completion(success: false, group: nil)
                         return
                     }
                 }
