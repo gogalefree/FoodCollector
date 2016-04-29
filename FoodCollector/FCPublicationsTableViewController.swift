@@ -291,6 +291,9 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let publicationDetailsTVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationDetailsVC") as? PublicationDetailsVC
         publicationDetailsTVC?.publication = publication
         
+        let state: PublicationDetailsTVCViewState = publication.isUserCreatedPublication!.boolValue ? .Publisher : .Collector
+        publicationDetailsTVC?.state = state
+        
         publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublicationsTableViewController.dismissDetailVC))
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         

@@ -107,8 +107,10 @@ class ActivityLog: NSManagedObject {
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(publication, completion: { (image) in
                 
+                guard let photo = image else {return}
+                
                 context.performBlock({
-                    self.logImage = publication.photoBinaryData
+                    self.logImage = UIImageJPEGRepresentation(photo, 0.1)
                     print("data: \(self.logImage?.length)")
                     do {
                         
@@ -121,7 +123,9 @@ class ActivityLog: NSManagedObject {
             })
         }
         
-        else {self.logImage = publication.photoBinaryData }
+        else {
+            self.logImage = publication.photoBinaryData
+        }
     }
     
     func setLogImageDataForGroup(group: Group, context: NSManagedObjectContext) {

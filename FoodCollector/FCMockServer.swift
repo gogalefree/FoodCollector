@@ -62,7 +62,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                                     else {
                                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                             
-                                            moc.performBlock({ () -> Void in
+                                            moc.performBlockAndWait({ () -> Void in
                                                 let publication = NSEntityDescription.insertNewObjectForEntityForName(kPublicationEntity, inManagedObjectContext: moc) as! Publication
                                                 publication.updateFromParams(params, context: moc)
                                                 ActivityLog.activityLog(publication, group: nil,  type: ActivityLog.LogType.NewPublication.rawValue, context: moc)

@@ -23,7 +23,7 @@ class PublicationEditorTVCAudianceCustomCell: UITableViewCell {
                 if (cellData.userData as! Int) != 0 {
                     if let group = Group.fetchGroupWithId(cellData.userData as! Int) {
                         if let groupName = group.name {
-                            audianceLabel.text = groupName
+                            audianceLabel.text = groupName.capitalizedString
                         }
                     }
                 }

@@ -186,10 +186,14 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             
             actionView.alpha = 0
             if let isRegistered = publication?.didRegisterForCurrentPublication?.boolValue {
-                if isRegistered {
+                if isRegistered && state == .Collector {
                     actionView.alpha = 1
                     configueJoinButtonForState(isRegistered)
                 }
+            }
+            
+            if state == .Publisher {
+                self.joinButton.alpha = 0
             }
         }
     }

@@ -192,32 +192,44 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 if (error == nil) {
                     
                     if let data = data {
-                        let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
-                        
-                        print("result: \(jsonResult) " )
-                        
-                        if let jsonResult = jsonResult {
+                       
+                        do {
                             
+                            let jsonResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                             
-                            let arrayOfPredications = jsonResult["predictions"] as! NSArray
+                            print("result: \(jsonResult) " )
                             
-                            if arrayOfPredications.count != 0 {
+                            if let jsonResult = jsonResult {
                                 
-                                self.didSerchAndFindResults = true
-                                self.initialData.removeAll(keepCapacity: false)
                                 
-                                for object in arrayOfPredications {
-                                    let dict = object as! NSDictionary
-                                    let desc = dict["description"] as! String
-                                    print(desc)
-                                    self.initialData.append(desc)
+                                let arrayOfPredications = jsonResult["predictions"] as? NSArray
+                                
+                                if let predeictions = arrayOfPredications {
+                                    
+                                    self.didSerchAndFindResults = true
+                                    self.initialData.removeAll(keepCapacity: false)
+                                    
+                                    for object in predeictions {
+                                        let dict = object as? NSDictionary
+                                        let desc = dict?["description"] as? String
+                                        print(desc)
+                                        
+                                        if let description = desc {
+                                            self.initialData.append(description)
+
+                                        }
+                                    }
+                                    
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                        self.tableView.reloadData()
+                                    })
                                 }
-                                
-                                
-                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                    self.tableView.reloadData()
-                                })
                             }
+                            
+                            
+                        } catch {
+                            print (error)
                         }
                     }
                 }else {
@@ -252,19 +264,31 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                 if error == nil {
                     
                     if let data = data {
-                        let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
                         
-                        if let jsonResult = jsonResult {
-                            let results = jsonResult["results"] as! NSArray
-                            let aResultDict = results.lastObject as! NSDictionary
-                            let geo = aResultDict["geometry"] as! NSDictionary
-                            let locationDict = geo["location"] as! NSDictionary
-                            self.selectedLatitude = locationDict["lat"] as! Double
-                            self.selectedLongtitude = locationDict["lng"] as! Double
+                        do {
                             
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
-                            })
+                            let jsonResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+                            
+                            if let jsonResult = jsonResult {
+                                let results = jsonResult["results"] as? NSArray
+                                let aResultDict = results?.lastObject as? NSDictionary
+                                let geo = aResultDict?["geometry"] as? NSDictionary
+                                let locationDict = geo?["location"] as? NSDictionary
+                                self.selectedLatitude = (locationDict?["lat"] as? Double) ?? 0
+                                self.selectedLongtitude = (locationDict?["lng"] as? Double) ?? 0
+                                
+                                if self.selectedLatitude == 0 || self.selectedLongtitude == 0 {
+                                    self.presentErrorAlert()
+                                    return
+                                }
+                                
+                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                    self.performSegueWithIdentifier("unwindFromAddressEditorVC", sender: self)
+                                })
+                            }
+                            
+                        } catch {
+                            print (error)
                         }
                     }
                 }
@@ -272,8 +296,7 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
                     //handle error
                     print(error!.description)
                     // UIALERT
-                    let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error occurred", comment:"An error occurred"), aMessage: kCommunicationIssueBody)
-                    self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+                    self.presentErrorAlert()
                 }
             }
             else {
@@ -283,6 +306,11 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
             }
             
         }).resume()
+    }
+    
+    func presentErrorAlert() {
+        let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error occurred", comment:"An error occurred"), aMessage: kCommunicationIssueBody)
+        self.navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
     
     func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lon: Double) {

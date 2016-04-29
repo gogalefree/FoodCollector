@@ -18,7 +18,7 @@ class ActivityLogTVCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     
     let defaultImage = UIImage(named: "NoPhotoPlaceholder")
-    let tagIconsNames = ["EndedTag" , "GroupIcon", "JoinedTag", "NewEventTag", "ReportTag"]
+    let tagIconsNames = ["EndedTag" , "Group_tag_1", "JoinedTag", "NewEventTag", "ReportTag"]
     
     var log: ActivityLog! {
         didSet {
@@ -85,7 +85,7 @@ class ActivityLogTVCell: UITableViewCell {
         case .NewGroup:
             icon = UIImage(named: tagIconsNames[1])
             titleLabel.textColor = UIColor.orangeColor()
-            iconImageView.backgroundColor = UIColor.orangeColor()
+            //iconImageView.backgroundColor = UIColor.orangeColor()
         }
         
         self.iconImageView.image = icon
