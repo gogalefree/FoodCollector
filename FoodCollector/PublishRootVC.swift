@@ -28,6 +28,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var searchBar: UISearchBar!
 
     var noUserCreatedPublicationMessageLabel: UILabel?
+    var noUserCreatedPublicationMessageText = NSLocalizedString("Hi,(br)What would you like to share?" , comment:"No user created publications message. DO NOT change or delete (br) !!!")
     
     var filteredUserCreatedPublications = [Publication]()
     var publicationsTableViewHidden = false
@@ -329,7 +330,7 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 label.textAlignment = NSTextAlignment.Center
                 label.numberOfLines = 0
                 label.font = UIFont.systemFontOfSize(fontSize)
-                label.text = NSLocalizedString("Hi,\nWhat would you like to share?" , comment:"No user created publications message")
+                label.text = noUserCreatedPublicationMessageText.stringByReplacingOccurrencesOfString("(br)", withString: "\n")
                 self.view.addSubview(label)
             }
         }

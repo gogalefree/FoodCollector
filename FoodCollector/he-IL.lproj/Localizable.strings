@@ -146,9 +146,8 @@
 /* report button title */
 "Has More To Pickup" = "נשאר עוד לאסוף";
 
-/* No user created publications message */
-"Hi,
-What would you like to share?" = "הי, מה תרצו לשתף?";
+/* No user created publications message. DO NOT change or delete (br) !!! */
+"Hi,(br)What would you like to share?" = "הי,(br)מה תרצו לשתף?";
 
 /* report button title */
 "I Took All" = "לקחתי הכל";
