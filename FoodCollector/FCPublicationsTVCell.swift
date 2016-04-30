@@ -10,6 +10,8 @@ import UIKit
 
 class FCPublicationsTVCell: UITableViewCell {
     
+    var usersJoinedString = String.localizedStringWithFormat(NSLocalizedString(" users joined", comment: "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'"))
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
@@ -36,7 +38,7 @@ class FCPublicationsTVCell: UITableViewCell {
         self.addressLabel.text = publication.address
         self.distanceLabel.text = FCStringFunctions.shortDistanceString(publication)
         self.audianceIconImageView.image = FCIconFactory.typeOfPublicationIcon(publication)
-        self.countOfRegisteredUsersLabel.text = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment: "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'"), publication.countOfRegisteredUsersAsString)
+        self.countOfRegisteredUsersLabel.text = publication.countOfRegisteredUsersAsString + usersJoinedString
         self.timeRemains.text = FCDateFunctions.timeStringDaysAndHoursRemain(fromDate: publication.endingData!, toDate: NSDate())
         
         downloadImage()
@@ -44,11 +46,12 @@ class FCPublicationsTVCell: UITableViewCell {
     
     func downloadImage() {
         
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), { () -> Void in
+
         
             if let data  = self.publication?.photoBinaryData {self.showImage(UIImage(data: data))}
             else if (self.publication?.didTryToDownloadImage == false) {
                 
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
 
                     let photoFetcher = FCPhotoFetcher()
                     photoFetcher.fetchPhotoForPublication(self.publication!, completion: { (image) -> Void in
@@ -57,8 +60,9 @@ class FCPublicationsTVCell: UITableViewCell {
                             self.showImage(image)
                         }
                     })
-                })
+                
             }
+        })
     }
     
     func showImage(image: UIImage?) {
@@ -67,31 +71,31 @@ class FCPublicationsTVCell: UITableViewCell {
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
-            UIView.animateWithDuration(0.15, animations: { () -> Void in
-                self.photoImageView.alpha = 0
+         //   UIView.animateWithDuration(0.15, animations: { () -> Void in
+             //   self.photoImageView.alpha = 0
                 self.photoImageView.image = image
-                self.photoImageView.alpha = 1
-            })
+               // self.photoImageView.alpha = 1
+           // })
 
         })
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.photoImageView.image = defaultImage
-        if let publication = self.publication {
-            
-           if publication.photoBinaryData != nil {
-            
-                let photo = UIImage(data: (self.publication?.photoBinaryData)!)
-                self.photoImageView.image = photo
-            }
-        }
-    }
-    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        self.photoImageView.image = defaultImage
+//        if let publication = self.publication {
+//            
+//           if publication.photoBinaryData != nil {
+//            
+//                let photo = UIImage(data: (self.publication?.photoBinaryData)!)
+//                self.photoImageView.image = photo
+//            }
+//        }
+//    }
+//    
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.photoImageView.image = UIImage(named: "NoPhotoPlaceholder")
+        self.photoImageView.image = defaultImage
     }
     
     override func awakeFromNib() {

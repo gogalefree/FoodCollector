@@ -16,7 +16,6 @@ class Publication: NSManagedObject {
  //   var wasUpdated: Bool = false
     
     var coordinate: CLLocationCoordinate2D! { get {
-        print("publication name: \(self.title)\nlatitude: \(self.latitude?.doubleValue)\nlongitude\(self.longitutde?.doubleValue)")
         let latitude = self.latitude?.doubleValue ?? 0
         let longitude = self.longitutde?.doubleValue ?? 0
         return CLLocationCoordinate2DMake(latitude, longitude)

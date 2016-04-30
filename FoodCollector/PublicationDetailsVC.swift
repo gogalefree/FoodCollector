@@ -281,7 +281,6 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             case 0: // Image cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsImageTVCell", forIndexPath: indexPath) as! PublicationDetailsImageTVCell
                 if let data = self.publication?.photoBinaryData {
-                    print("Image Data!!!!")
                     let photo = UIImage(data: data)
                     cell.shareDetailsImage.image = photo
                 }
@@ -296,7 +295,6 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsDetailsTVCell", forIndexPath: indexPath) as! PublicationDetailsDetailsTVCell
                 cell.shareLocationLabel.text = publication?.address
                 cell.shareUserNameLabel.text = publication?.publisherUserName
-                print("publisher name: \(publication?.publisherUserName)")
                 return cell
                 
             case 3: // More Info Cell

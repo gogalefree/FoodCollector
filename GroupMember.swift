@@ -213,6 +213,10 @@ class GroupMember: NSManagedObject {
             if group.members == nil {group.members = Set<GroupMember>()}
             group.members?.setByAddingObject(self)
             
+            if isAdimn == 1{
+                group.adminUserId = NSNumber(integer: memberUserId)
+            }
+            
             do {
                 try context.save()
             } catch {
