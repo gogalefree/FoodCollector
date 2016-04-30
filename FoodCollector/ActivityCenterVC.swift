@@ -92,10 +92,47 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         cell.sideMenuTitle.text = buttunsTitleArray[indexPath.row]
         if indexPath.row == 5 {
             let separatorLineView = UIView()
-            separatorLineView.frame = CGRectMake(10, 0, cell.frame.width-20, cell.frame.height)
+            separatorLineView.translatesAutoresizingMaskIntoConstraints = false
+
+            //separatorLineView.frame = CGRectMake(10, 0, cell.frame.width-20, cell.frame.height)
+                        
             // color = HEX(C8C8C8) -> RGB(200,200,200)
             separatorLineView.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+            
+            let topConstraint = NSLayoutConstraint(
+                item: separatorLineView,
+                attribute: NSLayoutAttribute.Top,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cell,
+                attribute: NSLayoutAttribute.Top,
+                multiplier: 1,
+                constant: 0)
+            let bottomConstraint = NSLayoutConstraint(
+                item: separatorLineView,
+                attribute: NSLayoutAttribute.Bottom,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cell,
+                attribute: NSLayoutAttribute.Bottom,
+                multiplier: 1,
+                constant: 0)
+            let leadingConstraint = NSLayoutConstraint(
+                item: separatorLineView,
+                attribute: NSLayoutAttribute.Leading,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cell,
+                attribute: NSLayoutAttribute.Leading,
+                multiplier: 1,
+                constant: 10)
+            let trailingConstraint = NSLayoutConstraint(
+                item: separatorLineView,
+                attribute: NSLayoutAttribute.Trailing,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: cell,
+                attribute: NSLayoutAttribute.Trailing,
+                multiplier: 1,
+                constant: 10)
             cell.addSubview(separatorLineView)
+            NSLayoutConstraint.activateConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
         }
         
         
