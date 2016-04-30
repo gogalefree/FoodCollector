@@ -1,6 +1,9 @@
+/* Class = "UILabel"; text = ">"; ObjectID = "5ZV-OV-LO9"; */
+"5ZV-OV-LO9.text" = ">";
 
 /* Class = "UILabel"; text = "Public"; ObjectID = "BHl-5b-TYm"; */
-"BHl-5b-TYm.text" = "Public";
+"BHl-5b-TYm.text" = "ציבורי";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "dxu-5x-WfU"; */
 "dxu-5x-WfU.text" = "Label";
+

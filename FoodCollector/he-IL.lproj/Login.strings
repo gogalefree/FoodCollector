@@ -1,11 +1,5 @@
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "0QM-sm-Zzm"; */
-"0QM-sm-Zzm.normalTitle" = "Button";
-
 /* Class = "UITextField"; placeholder = "Phone"; ObjectID = "3EE-Tz-mV3"; */
 "3EE-Tz-mV3.placeholder" = "טלפון";
-
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "4dY-Jp-n6A"; */
-"4dY-Jp-n6A.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "Last step to start"; ObjectID = "C3i-Ho-WWH"; */
 "C3i-Ho-WWH.text" = "שלב אחרון להתחלה";
@@ -17,10 +11,10 @@
 "FzY-7R-UwU.normalTitle" = "המשך ללא רישום";
 
 /* Class = "UILabel"; text = "Sharing food changing society"; ObjectID = "LZn-e1-m8L"; */
-"LZn-e1-m8L.text" = "Sharing food changing society";
+"LZn-e1-m8L.text" = "משתפים אוכל משנים את החברה";
 
 /* Class = "UILabel"; text = "—  Sign in with  —"; ObjectID = "RxJ-SW-BD5"; */
-"RxJ-SW-BD5.text" = "—  הכנס בעזרת  —";
+"RxJ-SW-BD5.text" = "— הכנס בעזרת —";
 
 /* Class = "UIButton"; normalTitle = "Continue without Registration"; ObjectID = "VRI-d3-Rba"; */
 "VRI-d3-Rba.normalTitle" = "המשך ללא רישום";
@@ -36,9 +30,6 @@
 
 /* Class = "UINavigationItem"; title = "Login"; ObjectID = "cGH-Xx-5Hk"; */
 "cGH-Xx-5Hk.title" = "התחברות";
-
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "glP-XC-z6n"; */
-"glP-XC-z6n.normalTitle" = "Button";
 
 /* Class = "UITextView"; text = "Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text."; ObjectID = "nCf-kt-4rD"; */
 "nCf-kt-4rD.text" = "Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text. Place holder Text.";

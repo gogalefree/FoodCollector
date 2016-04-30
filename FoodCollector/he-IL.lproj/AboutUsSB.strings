@@ -1,12 +1,12 @@
-
 /* Class = "UILabel"; text = "Foodonet"; ObjectID = "bvu-HQ-2Rj"; */
 "bvu-HQ-2Rj.text" = "Foodonet";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "eKJ-NB-X8w"; */
-"eKJ-NB-X8w.title" = "Back";
+"eKJ-NB-X8w.title" = "חזרה";
 
 /* Class = "UILabel"; text = "v 1.0.9"; ObjectID = "fUr-VL-LbD"; */
 "fUr-VL-LbD.text" = "v 1.0.9";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "iyb-sg-gIG"; */
 "iyb-sg-gIG.text" = "Label";
+

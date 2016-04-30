@@ -1,12 +1,12 @@
+/* Class = "UILabel"; text = "Label"; ObjectID = "4Sg-yt-3i4"; */
+"4Sg-yt-3i4.text" = "Label";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "19t-SH-Wll"; */
 "19t-SH-Wll.text" = "Label";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "4Sg-yt-3i4"; */
-"4Sg-yt-3i4.text" = "Label";
-
 /* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "WzQ-3g-mH1"; */
-"WzQ-3g-mH1.title" = "Done";
+"WzQ-3g-mH1.title" = "בוצע";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Yfn-eU-pxH"; */
 "Yfn-eU-pxH.text" = "Label";
+

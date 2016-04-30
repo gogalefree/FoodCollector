@@ -1,4 +1,3 @@
-
 /* Class = "UILabel"; text = "Label"; ObjectID = "1AY-he-WDs"; */
 "1AY-he-WDs.text" = "Label";
 
@@ -6,22 +5,22 @@
 "JIW-KM-hxt.text" = "Label";
 
 /* Class = "UILabel"; text = "Group Name"; ObjectID = "KZy-SC-njU"; */
-"KZy-SC-njU.text" = "Group Name";
+"KZy-SC-njU.text" = "שם קבוצה";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "L7b-ba-bJE"; */
 "L7b-ba-bJE.text" = "Label";
 
 /* Class = "UILabel"; text = "Add Group Member"; ObjectID = "VQ6-3b-b2l"; */
-"VQ6-3b-b2l.text" = "Add Group Member";
+"VQ6-3b-b2l.text" = "הוספת חבר לקבוצה";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "VbQ-2R-Hmv"; */
-"VbQ-2R-Hmv.title" = "Back";
+"VbQ-2R-Hmv.title" = "חזרה";
 
 /* Class = "UILabel"; text = "Add Group Member"; ObjectID = "XpM-zo-UIx"; */
-"XpM-zo-UIx.text" = "Add Group Member";
+"XpM-zo-UIx.text" = "הוספת חבר לקבוצה";
 
 /* Class = "UILabel"; text = "You don't have any groups yet. "; ObjectID = "ajL-46-oVK"; */
-"ajL-46-oVK.text" = "You don't have any groups yet. ";
+"ajL-46-oVK.text" = "עדיין לא נוצרו קבוצות.";
 
 /* Class = "UILabel"; text = "2"; ObjectID = "bKn-Fw-gfy"; */
 "bKn-Fw-gfy.text" = "2";
@@ -30,16 +29,17 @@
 "d3X-HW-uoP.text" = "Label";
 
 /* Class = "UILabel"; text = "Group Name"; ObjectID = "eAo-NQ-kGY"; */
-"eAo-NQ-kGY.text" = "Group Name";
+"eAo-NQ-kGY.text" = "שם קבוצה";
 
 /* Class = "UILabel"; text = "Gruop Members"; ObjectID = "sSS-cW-O1O"; */
-"sSS-cW-O1O.text" = "Gruop Members";
+"sSS-cW-O1O.text" = "חברי קבוצה";
 
 /* Class = "UILabel"; text = "Gruop Members"; ObjectID = "vAi-4h-j0k"; */
-"vAi-4h-j0k.text" = "Gruop Members";
+"vAi-4h-j0k.text" = "חברי קבוצה";
 
 /* Class = "UILabel"; text = "Group Name"; ObjectID = "vBl-OF-NR4"; */
-"vBl-OF-NR4.text" = "Group Name";
+"vBl-OF-NR4.text" = "שם קבוצה";
 
 /* Class = "UILabel"; text = "Creating Group"; ObjectID = "y7D-R5-Rdw"; */
-"y7D-R5-Rdw.text" = "Creating Group";
+"y7D-R5-Rdw.text" = "יצירת קבוצה";
+
