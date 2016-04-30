@@ -7,3 +7,11 @@
 /* (No Commment) */
 "CFBundleShortVersionString" = "1.0.9";
 
+/* When a user is asked to allow access to location services, this is the body of the message. */
+"NSLocationAlwaysUsageDescription" = "הצגת הודעה בזמן הגעה לנקודת שיתוף";
+
+/* When a user is asked to allow access to location services, this is the body of the message. */
+"NSLocationUsageDescription" = "הצגת הודעה בזמן הגעה לנקודת שיתוף";
+
+/* When a user is asked to allow access to location services, this is the body of the message. */
+"NSLocationWhenInUseUsageDescription" = "הצגת הודעה בזמן הגעה לנקודת שיתוף";
