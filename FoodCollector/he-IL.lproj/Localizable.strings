@@ -48,7 +48,7 @@
 "Are you sure?" = "האם אתם בטוחים?";
 
 /* Title for a navigation button */
-"Back" = "חזרה";
+"Back" = "אחרוה";
 
 /* Title for a list of people registered to this event */
 "Call collector:" = "התקשר לאוסף:";
@@ -174,7 +174,7 @@
 "Join" = "הצטרף";
 
 /* a button title if the user has registered for pickup */
-"Joined" = "הצטרפתם";
+"Joined" = "הצטרפת";
 
 /* the section header title for last searches history list */
 "Last searches" = "חיפושים אחרונים";

@@ -95,7 +95,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
             separatorLineView.translatesAutoresizingMaskIntoConstraints = false
 
             //separatorLineView.frame = CGRectMake(10, 0, cell.frame.width-20, cell.frame.height)
-                        
+            
             // color = HEX(C8C8C8) -> RGB(200,200,200)
             separatorLineView.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
             

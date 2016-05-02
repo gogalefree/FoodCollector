@@ -14,7 +14,7 @@
 "VQ6-3b-b2l.text" = "הוספת חבר לקבוצה";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "VbQ-2R-Hmv"; */
-"VbQ-2R-Hmv.title" = "חזרה";
+"VbQ-2R-Hmv.title" = "אחורה";
 
 /* Class = "UILabel"; text = "Add Group Member"; ObjectID = "XpM-zo-UIx"; */
 "XpM-zo-UIx.text" = "הוספת חבר לקבוצה";
