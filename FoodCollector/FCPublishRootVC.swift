@@ -20,6 +20,7 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
     
     @IBOutlet var collectionView:UICollectionView!
     var noUserCreatedPublicationMessageLabel: UILabel?
+    var noUserCreatedPublicationMessageText = NSLocalizedString("Hi,(br)What would you like to share?" , comment:"No user created publications message. DO NOT change or delete (br) !!!")
     
     var filteredUserCreatedPublications = [Publication]()
     var collectionViewHidden = false
@@ -270,12 +271,11 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
             self.noUserCreatedPublicationMessageLabel = UILabel(frame: CGRectMake(0, 0, recWidth, recHight))
             
             if let label = self.noUserCreatedPublicationMessageLabel {
-                
                 label.center = CGPointMake(recCenterX, recCenterY - 100)
                 label.textAlignment = NSTextAlignment.Center
                 label.numberOfLines = 0
                 label.font = UIFont.systemFontOfSize(fontSize)
-                label.text = NSLocalizedString("Hi,\nWhat would you like to share?" , comment:"No user created publications message")
+                label.text = noUserCreatedPublicationMessageText.stringByReplacingOccurrencesOfString("<br/>", withString: "\n")
                 self.view.addSubview(label)
             }
         }

@@ -1,5 +1,26 @@
-/* Distance from location of sharing. the first place holder is a number, the second placeholder is the distance unit, e.g: '55 km away' */
+/* Displays how many are registered and joined a publication. e.g.: '3 Joined' */
+"%@ Joined" = "%@ הצטרפו";
+
+/* Notifications distance text. Means that notifications will be delivered based on the distance set by the user. the final string will look like this: '30 km' */
+"%@ km" = "%@ ק״מ";
+
+/* Distance from location of sharing. e.g: '55 km away' */
 "%@ km away" = "%@ ק״מ ממקומך";
+
+/* Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined' */
+"%@ users joined" = "%@ משתמשים הצטרפו";
+
+/* Distance from location of sharing. e.g: '55 km' */
+"(%@ km)" = "(%@ ק\"מ)";
+
+/* this text will become the sentence: '(reported at 21:30)' */
+"(reported at %@)" = "(דווח ב: %@)";
+
+/* Displays how many are registered and joined a publication. */
+"1 Joined" = "1 הצטרף";
+
+/* Title for a side menu button */
+"About" = "אודות";
 
 /* Search bar scope button titles
    The publication is active */
@@ -8,31 +29,29 @@
 /* Activity center navigation bar title */
 "Activity Center" = "מרכז הפעילות";
 
-/* Add image for a new event */
-"Add a picture" = "הוספת תמונה";
-
 /* Add subitle for a new event */
 "Additional details" = "פרטים נוספים";
 
-/* Alert message body */
-"All fields are required" = "חובה למלא את כל השדות";
+/* label title indicating that the user is the group admin */
+"Admin" = "מנהל";
+
+/* Notifications distance text. Means that all notifications will be delivered */
+"All" = "הכל";
+
+/* Title for a side menu button */
+"All Events" = "כל השיתופים";
 
 /* An error occurred */
 "An error occurred" = "אירע שגיאה";
 
-/* new registration banner title text */
-"Another user is en route to pickup:" = "משתמש נוסף בדרך לאסוף:";
-
 /* navigation button in action sheet meening apple maps navigation */
 "Apple Maps" = "Apple Maps";
 
-/* Alert message body
-   Delete confirmation message for an alert controller
-   End publication confirmation message for an alert controller */
+/* Alert message body */
 "Are you sure?" = "האם אתם בטוחים?";
 
 /* Title for a navigation button */
-"Back" = "חזרה";
+"Back" = "אחורה";
 
 /* Title for a list of people registered to this event */
 "Call collector:" = "התקשר לאוסף:";
@@ -55,11 +74,23 @@
 /* End publication confirmation title for an alert controller */
 "Confirm Event Ended" = "אישור הפסקת פרסום אירוע";
 
+/* Title for a side menu button */
+"Contact Us" = "צור קשר";
+
+/* Alert message when adding a member to a group that has no name or phone number. */
+"Contact has no name or phone number." = "לאיש קשר זה אין שם או מספר טלפון";
+
 /* Title for a skip sign-in button */
 "Continue without Registration" = "המשך ללא רישום";
 
 /* alert dissmiss button title */
 "Cool" = "אחלה";
+
+/* alert title */
+"Could not update your profile" = "לא הצלחנו לעדכן את הפרופיל שלך";
+
+/* Alert button title when creating a new group. confirm creation of a new group */
+"Create" = "יצירה";
 
 /* the string for current location table row */
 "Current location" = "מיקום נוכחי";
@@ -70,16 +101,16 @@
 /* Delete confirmation title for an alert controller */
 "Delete Event?" = "למחוק אירוע?";
 
-/* action button title show details */
-"Details" = "פרטים";
-
 /* Title for an alert button */
 "Done" = "בוצע";
 
-/* Publisher top right menu item */
+/* a button title meaning edit
+   Publisher top right menu item */
 "Edit" = "עריכה";
 
-/* the puclication has ended (it is off the air) */
+/* No time remains. Publication ended.
+   the puclication has ended (it is off the air)
+   The time for publication has ended. */
 "Ended" = "הסתיים";
 
 /* Search bar scope button titles */
@@ -88,22 +119,53 @@
 /* a label title meaning: will finish on date */
 "Ends:" = "סיום:";
 
-/* A message that informs the user that a publication ended
-   Title for a notification */
+/* Time remaining. e.g: 'Ends: 35 min' */
+"Ends: %@ min" = "מסתיים: %@ דקות";
+
+/* Time remaining in days and hours. e.g: 'Ends: 2 and 3h' */
+"Ends: %@d and %@h" = "מסתיים: %1$@d ו- %2$@h";
+
+/* Title for a notification */
 "Event Ended Near You" = "ארוע הסתיים באזורך";
 
+/* Title for a notification */
+"Event Ended Near You: " = "ארוע הסתיים באזורך:";
+
 /* Add address for a new event */
-"Event location" = "מאיפה לאסוף?";
+"Event location" = "מיקום השיתוף";
 
 /* Nav Bar title - the events near you */
 "Events Near You" = "אירועים בקירבתך";
 
-/* No user created publications message */
-"Hi,
-What would you like to share?" = "הי,מה תרצו לשתף?";
+/* about us text */
+"Foodonet is a social initiative aiming to reduce food waste. Foodonet develops a mobile platform that allows people to easily donate spare food to one another. Foodonet is connecting food producers directly to customers with no mediators and cutting food costs" = "\U200fFoodonet הינה יוזמה חברתית השמה לעצמה כמטרה לצמצם בזבוז מזון. Foodonet מפתחת פלטפורמה ניידת המאפשרת לאנשים לתרום בקלות עודפי מזון האחד לשני. Foodonet מחברת בין יצרני מזון ישירות לצרכנים ללא מתווך ביניים ומורידה עלויות של מזון.";
+
+/* report button title */
+"Fount Nothing There" = "לא מצאתי כלום";
+
+/* Message alert title when creating a new group. asks the user to enter a group name */
+"Group Name:" = "שם קבוצה:";
+
+/* Title for a side menu button */
+"Groups" = "קבוצות";
+
+/* report button title */
+"Has More To Pickup" = "נשאר עוד לאסוף";
+
+/* No user created publications message. DO NOT change or delete (br) !!! */
+"Hi,(br)What would you like to share?" = "הי,(br)מה תרצו לשתף?";
+
+/* report button title */
+"I Took All" = "אספתי הכל";
+
+/* The title of a user report which means that he took all the food */
+"I Took all" = "אספתי הכל";
 
 /* SMS message body: I want to pickup 'Publication name' */
 "I want to pickup %@" = "רוצה לבוא לאסוף %@";
+
+/* Alert message body */
+"If you wish to register for a pickup or to create or edit an event, please login-in." = "אם ברצונכם להרשם לאיסוף או לערוך שיתוף, אנא התחברו.";
 
 /* The publication is not active */
 "Inactive" = "לא פעיל";
@@ -114,32 +176,44 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* Alert message body */
 "It seems the phone number is incorrect. Please check you have typed it correctly." = "נראה שמספר הטלפון לא תקין. אנא בידקו שהקלדתם נכון.";
 
+/* a button title if the user has not registered for pickup */
+"Join" = "הצטרף";
+
+/* a button title if the user has registered for pickup */
+"Joined" = "הצטרפת";
+
 /* the section header title for last searches history list */
 "Last searches" = "חיפושים אחרונים";
 
 /* photo library button title */
 "Library" = "גלריה";
 
+/* settings cell title */
+"Log Out" = "התנתקות";
+
+/* Alert button title */
+"Login" = "התחברות";
+
+/* Title for a side menu button */
+"Map View" = "תצוגת מפה";
+
 /* Alert title */
 "Message delivery failed" = "שליחת ההודעה נכשלה";
 
-/* Activity center table section title. This is a list of publications that I'm as a collector registered to pickup */
-"My pickups" = "בדרך לאסוף";
-
-/* Activity center table section title. This is a list of publications that I've created as a contributer. */
-"My shares" = "השיתופים שלי";
-
-/* Alert text field label: Name */
-"Name" = "שם";
+/* Title for a side menu button */
+"My Shares" = "השיתופים שלי";
 
 /* an action sheet title meening chose app to navigate with */
 "Navigate with:" = "נווט בעזרת:";
 
 /* Title of the message banner meaning that a new event has started nearby */
-"New Event Near You" = "שיתוף חדש בקירבתך";
+"New Event Near You: " = "אירועים חדשים בקירבתך:";
 
 /* Title for a notification */
 "New Event Update" = "התקבל דיווח חדש עבור";
+
+/* Title for a notification */
+"New report for: " = "דיווח חדש עבור:";
 
 /* Title for an alert button */
 "No" = "לא";
@@ -156,11 +230,15 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* the title in the table view cell displayed when a publication has no reports */
 "No reports" = "אין דיווחים";
 
-/* Navigation bar button title */
-"Not Now" = "לא עכשיו";
+/* Displays how many are registered and joined a publication. */
+"None Joined" = "אין מצטרפים";
 
 /* The title of a user report which means that he found nothing */
 "Nothing left" = "לא מצאתי כלום";
+
+/* settings cell title
+   Title for a side menu button */
+"Notifications" = "הודעות";
 
 /* Title for an alert button */
 "OK" = "אישור";
@@ -177,8 +255,8 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* Report title for a button */
 "Options" = "אפשרויות";
 
-/* Alert text field label: Phone number */
-"Phone number" = "מספר טלפון";
+/* settings cell title */
+"Personal Profile" = "פרופיל אישי";
 
 /* Collector home page navigation bar title
    Collector map title */
@@ -190,35 +268,29 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* Add start date for a new event */
 "Pickup starts:" = "אפשר לאסוף החל מ-";
 
-/* Alert message body */
-"Please fill in details to join this pickup" = "יש למלא פרטי התקשרות כדי להצטרף לאיסוף";
-
 /* No comment provided by engineer. */
 "Please report only after you have visited the event's location" = "אנא דווחו רק אחרי שהייתם במקום";
 
+/* the title of the profile vc */
+"Profile" = "פרופיל";
+
+/* This is the name of the public group */
+"Public" = "ציבורי";
+
+/* Title for a button */
+"Publish" = "פירסום";
+
 /* Search bar scope button titles */
 "Recent" = "אחרונים";
-
-/* Alert button title: Register */
-"Register" = "הרשמה";
-
-/* Alert title */
-"Register for Pickup" = "רישום לאיסוף";
-
-/* action button title take off air */
-"Remove Event" = "הסרת שיתוף";
 
 /* Report title for a button */
 "Report" = "דווח";
 
 /* A small pop up information message that informs the user why we ask for his phone number */
-"Required for creating groups and finding friends. Your number is confidential and we will never expose it." = "נדרש עבור יצירת קבוצות ואיתור חברים.\nהמספר שלך סודי ואנו לעולם לא נחשוף אותו.";
+"Required for creating groups and finding friends. Your number is confidential and we will never expose it." = "נדרש עבור יצירת קבוצות ואיתור חברים. המספר שלך סודי ואנו לעולם לא נחשוף אותו.";
 
 /* Search bar placeholder text */
 "Search" = "חיפוש";
-
-/* the editor title for enter a publication address */
-"Select Address" = "הוספת כתובת";
 
 /* Choose all collectors */
 "Select All" = "בחר הכל";
@@ -226,17 +298,26 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* This is the image you have selected label */
 "Selected picture" = "זו התמונה שנבחרה";
 
-/* Activity center button title. */
-"Send Feedback" = "שליחת משוב";
-
 /* Send a message to a colllector */
 "Send Message" = "שליחת הודעה";
+
+/* title of settings distance screen */
+"Set The Distance" = "הגדרת המרחק";
+
+/* Title for a side menu button */
+"Settings" = "הגדרות";
+
+/* Add share type (public/privet for a new event */
+"Share With:" = "שיתוף עם:";
 
 /* Feedback text place holder */
 "Share your thoughts or anything else" = "שתפו אותנו במחשבות, הצעות או כל דבר אחר";
 
 /* Alert show event button title */
-"Show Event" = "הצגת אירוע";
+"Show Event" = "הצגת שיתוף";
+
+/* Add image for a new event */
+"Start sharing by adding a photo of the item you wish to share." = "התחילו לשתף על ידי הוספת תמונה של הדבר שברצונכם לשתף.";
 
 /* a label title meaning: publication start at date and time */
 "Started:" = "התחלה:";
@@ -256,17 +337,26 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* Alert message body */
 "Try again" = "נסו שוב";
 
+/* alert message */
+"Try again later" = "נסו שוב מאוחר יותר";
+
 /* Alert message body */
 "Try again?" = "לנסות שוב?";
 
 /* No comment provided by engineer. */
 "User" = "משתמש";
 
+/* fetched data notification text: Another user is en route to pickup: */
+"User Joined To Pickup: " = "משתמש הצטרף לאיסוף:";
+
+/* a title before a user report */
+"User Reported" = "משתמש דיווח";
+
 /* Publication details reports title */
 "User Reports" = "דיווחי משתמשים";
 
 /* fetched data notification text: Another user is en route to pickup: */
-"User’s Coming To Pickup" = "משתמש נוסף בדרך לאסוף";
+"User’s Coming To Pickup" = "משתמש בדרך לאסוף";
 
 /* navigation button in action sheet meening waze navigation */
 "Waze" = "Waze";
@@ -280,9 +370,24 @@ What would you like to share?" = "הי,מה תרצו לשתף?";
 /* Title for an alert button */
 "Yes" = "כן";
 
+/* Alert title */
+"You Are Not Logged-in" = "אתה לא מחובר";
+
 /* No comment provided by engineer. */
-"You are far from the event's location" = "אתם רחוקים ממקום הפרסום";
+"You are far from the event's location" = "אתם רחוקים ממקום השיתוף";
 
 /* location notification body: You have arrived to... */
 "You have arrived to: %@" = "הגעת ל: %@";
+
+/* fetched data notification text: a group was created */
+"You've been added to group: " = "צורפת לקבוצה:";
+
+/* days passed from date */
+"days" = "ימים";
+
+/* hours passed from date */
+"h" = "h";
+
+/* a shorted version of minutes */
+"mins" = "דקות";
 

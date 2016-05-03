@@ -19,7 +19,7 @@ class NotificationsDistanceVC: UIViewController, DragViewDelegate {
     @IBOutlet weak var circlViewHeight              : NSLayoutConstraint!
     @IBOutlet weak var dragBarLeftLeadingConstraint : NSLayoutConstraint!
     @IBOutlet weak var distanceLabel                : UILabel!
-    @IBOutlet weak var kmLabel                      : UILabel!
+    //@IBOutlet weak var kmLabel                      : UILabel!
     @IBOutlet weak var circleViewBackground         : UIView!
     
     let dragViewMaxRightTrailingConst   : CGFloat = 42
@@ -27,7 +27,7 @@ class NotificationsDistanceVC: UIViewController, DragViewDelegate {
     var dragViewMaxLeftTrailungConst    : CGFloat!
     
     let blueColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
-    let allText = NSLocalizedString("All", comment: "notifications distance text means that all notifications will be delivered")
+    let allText = NSLocalizedString("All", comment: "Notifications distance text. Means that all notifications will be delivered")
     let setDistanceTetxt = NSLocalizedString("Set The Distance", comment: "title of settings distance screen")
     
     @IBAction func switchDidMove(sender: AnyObject) {
@@ -118,13 +118,15 @@ class NotificationsDistanceVC: UIViewController, DragViewDelegate {
         let circleWidth = CGRectGetWidth(circleView.frame) - 30
         let fraction = circleWidth / (circleViewIntialWidth - 30)
         let distance = floor(fraction * CGFloat(60))
-        let  distanceInt = Int(distance)
+        let distanceInt = Int(distance)
 
         let multyplayer = floor(Double(distanceInt / 5))
         let value = Int(max(multyplayer * 5 , 1))
-        let alpha = value == 60 ? 0 :  1
-        kmLabel.alpha = CGFloat(alpha)
-        distanceLabel.text = value == 60 ? allText : String(value)
+        //let alpha = value == 60 ? 0 :  1
+        //kmLabel.alpha = CGFloat(alpha)
+        value == 60 ? allText : String(value)
+        let distanceText = String.localizedStringWithFormat(NSLocalizedString("%@ km", comment: "Notifications distance text. Means that notifications will be delivered based on the distance set by the user. the final string will look like this: '30 km'"), "\(value)")
+        distanceLabel.text = distanceText
         User.sharedInstance.settings.notificationsRadius = value >= 59 ? 200 : value
     }
     
@@ -144,9 +146,9 @@ class NotificationsDistanceVC: UIViewController, DragViewDelegate {
         distanceLabel.text = allText
         
         distanceLabel.textColor = blueColor
-        kmLabel.textColor = blueColor
+        //kmLabel.textColor = blueColor
         self.dragView.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.8)
-        kmLabel.alpha = 0
+        //kmLabel.alpha = 0
         
         self.circleViewWidth.constant = self.view.frame.size.width - 2 * dragViewMaxRightTrailingConst
         self.circlViewHeight.constant = self.view.frame.size.width - 2 * dragViewMaxRightTrailingConst

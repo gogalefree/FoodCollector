@@ -1,0 +1,45 @@
+/* Class = "UILabel"; text = "Notifications"; ObjectID = "A6p-6p-qWm"; */
+"A6p-6p-qWm.text" = "הודעות";
+
+/* Class = "UILabel"; text = "Set the distance"; ObjectID = "GWu-oN-IqO"; */
+"GWu-oN-IqO.text" = "הגדרת המרחק";
+
+/* Class = "UILabel"; text = "All"; ObjectID = "KNz-t0-gZf"; */
+"KNz-t0-gZf.text" = "הכל";
+
+/* Class = "UILabel"; text = "30"; ObjectID = "WRr-6Y-jpL"; */
+"WRr-6Y-jpL.text" = "30";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "Yda-8j-3XV"; */
+"Yda-8j-3XV.normalTitle" = "עריכה";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "bSH-K4-yPi"; */
+"bSH-K4-yPi.text" = "1";
+
+/* Class = "UILabel"; text = "Edit your profile picture or your personal data"; ObjectID = "c04-67-170"; */
+"c04-67-170.text" = "עריכת תמונת הפרופיל או המידע האישי שלך";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fCA-Cp-fhw"; */
+"fCA-Cp-fhw.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Update"; ObjectID = "gp3-jX-s2H"; */
+"gp3-jX-s2H.normalTitle" = "עדכון";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "isn-he-fbo"; */
+"isn-he-fbo.text" = "כותרת";
+
+/* Class = "UILabel"; text = "Notifications Radius:"; ObjectID = "jrY-Vj-TZ3"; */
+"jrY-Vj-TZ3.text" = "רדיוס הודעות:";
+
+/* Class = "UILabel"; text = "60 km"; ObjectID = "kvK-lu-Zt1"; */
+"kvK-lu-Zt1.text" = "60 ק״מ";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "mDi-tI-gnb"; */
+"mDi-tI-gnb.text" = "כותרת משנה";
+
+/* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "mua-e4-tjH"; */
+"mua-e4-tjH.normalTitle" = "עריכה";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "yLc-2k-jIS"; */
+"yLc-2k-jIS.title" = "אחורה";
+
