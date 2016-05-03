@@ -7,9 +7,6 @@
 /* Class = "UILabel"; text = "All"; ObjectID = "KNz-t0-gZf"; */
 "KNz-t0-gZf.text" = "הכל";
 
-/* Class = "UILabel"; text = "km"; ObjectID = "TqT-ot-S0F"; */
-"TqT-ot-S0F.text" = "ק\"מ";
-
 /* Class = "UILabel"; text = "30"; ObjectID = "WRr-6Y-jpL"; */
 "WRr-6Y-jpL.text" = "30";
 
@@ -34,8 +31,8 @@
 /* Class = "UILabel"; text = "Notifications Radius:"; ObjectID = "jrY-Vj-TZ3"; */
 "jrY-Vj-TZ3.text" = "רדיוס הודעות:";
 
-/* Class = "UILabel"; text = "60"; ObjectID = "kvK-lu-Zt1"; */
-"kvK-lu-Zt1.text" = "60";
+/* Class = "UILabel"; text = "60 km"; ObjectID = "kvK-lu-Zt1"; */
+"kvK-lu-Zt1.text" = "60 ק״מ";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "mDi-tI-gnb"; */
 "mDi-tI-gnb.text" = "כותרת משנה";

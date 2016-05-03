@@ -1,13 +1,16 @@
 /* Displays how many are registered and joined a publication. e.g.: '3 Joined' */
 "%@ Joined" = "%@ הצטרפו";
 
-/* Distance from location of sharing. the first place holder is a number, the second placeholder is the distance unit, e.g: '55 km away' */
+/* Notifications distance text. Means that notifications will be delivered based on the distance set by the user. the final string will look like this: '30 km' */
+"%@ km" = "%@ ק״מ";
+
+/* Distance from location of sharing. e.g: '55 km away' */
 "%@ km away" = "%@ ק״מ ממקומך";
 
 /* Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined' */
 "%@ users joined" = "%@ משתמשים הצטרפו";
 
-/* Distance from location of sharing. the first place holder is a number, the second placeholder is the distance unit, e.g: '55 km' */
+/* Distance from location of sharing. e.g: '55 km' */
 "(%@ km)" = "(%@ ק\"מ)";
 
 /* this text will become the sentence: '(reported at 21:30)' */
@@ -32,7 +35,7 @@
 /* label title indicating that the user is the group admin */
 "Admin" = "מנהל";
 
-/* notifications distance text means that all notifications will be delivered */
+/* Notifications distance text. Means that all notifications will be delivered */
 "All" = "הכל";
 
 /* Title for a side menu button */
