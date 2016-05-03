@@ -137,6 +137,8 @@
 		E43F89FF1BDEB9D5007991E6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */; };
 		E43F8A001BDEB9D5007991E6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */; };
 		E43F8A021BDEBACE007991E6 /* AppDelegate+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */; };
+		E443C6E31CD61A3700DC018A /* FDLikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E443C6E21CD61A3700DC018A /* FDLikeButton.swift */; };
+		E443C6E41CD61A3700DC018A /* FDLikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E443C6E21CD61A3700DC018A /* FDLikeButton.swift */; };
 		E448ADA71CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */; };
 		E448ADA81CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */; };
 		E448ADAD1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */; };
@@ -440,6 +442,8 @@
 		E4FA4EFC1CCCBA59004EE050 /* PublicationReport+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA4EFA1CCCBA59004EE050 /* PublicationReport+CoreDataProperties.swift */; };
 		E4FDA8211CCF316B00BFEF6D /* NotificationBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDA8201CCF316B00BFEF6D /* NotificationBarButtonItem.swift */; };
 		E4FDA8221CCF316B00BFEF6D /* NotificationBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDA8201CCF316B00BFEF6D /* NotificationBarButtonItem.swift */; };
+		E4FDA8241CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDA8231CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift */; };
+		E4FDA8251CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FDA8231CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift */; };
 		E4FEDA4A1C142B9C00580630 /* FeedbacksVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -582,6 +586,7 @@
 		E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+.swift"; sourceTree = "<group>"; };
+		E443C6E21CD61A3700DC018A /* FDLikeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLikeButton.swift; sourceTree = "<group>"; };
 		E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogTVCell.swift; sourceTree = "<group>"; };
 		E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ActivityLog+CoreDataProperties.swift"; path = "../ActivityLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E44FDE4D1C5CB5F9000D5F97 /* FoodonetEU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodonetEU.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -713,6 +718,7 @@
 		E4FA4EF71CCCAE6C004EE050 /* PublicationDetailsVC+PhotoPresentor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PublicationDetailsVC+PhotoPresentor.swift"; sourceTree = "<group>"; };
 		E4FA4EFA1CCCBA59004EE050 /* PublicationReport+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PublicationReport+CoreDataProperties.swift"; path = "../PublicationReport+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4FDA8201CCF316B00BFEF6D /* NotificationBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBarButtonItem.swift; sourceTree = "<group>"; };
+		E4FDA8231CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivedToSpotRatingsView.swift; sourceTree = "<group>"; };
 		E4FEDA491C142B9C00580630 /* FeedbacksVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbacksVCViewController.swift; sourceTree = "<group>"; };
 		F1B2D1FD30AE3BB39FBEABBA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1082,6 +1088,7 @@
 			isa = PBXGroup;
 			children = (
 				E49B932B1A5DBA4000D48C52 /* FCArrivedToPublicationSpotVC.swift */,
+				E4FDA8231CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift */,
 				E4FA4EF41CCB6E0C004EE050 /* ArrivedToSpotCell.swift */,
 			);
 			name = "Arrived To Publication Spot";
@@ -1451,6 +1458,7 @@
 				E4FA4EF11CCB4A9A004EE050 /* AboutUsSB.storyboard */,
 				E4FA4EE81CCB4A46004EE050 /* AboutUsTVC.swift */,
 				E4FA4EEB1CCB4A71004EE050 /* AboutUsLikeCell.swift */,
+				E443C6E21CD61A3700DC018A /* FDLikeButton.swift */,
 				E4FA4EEE1CCB4A84004EE050 /* AboutUsTextCell.swift */,
 			);
 			name = "About Us";
@@ -1827,6 +1835,7 @@
 				E4FA4EF01CCB4A84004EE050 /* AboutUsTextCell.swift in Sources */,
 				A1D676401CAAB77E00F84AD9 /* PublishRootVC.swift in Sources */,
 				E44FDDA81C5CB5F9000D5F97 /* FCPublicationReportsDismissAnimator.swift in Sources */,
+				E443C6E41CD61A3700DC018A /* FDLikeButton.swift in Sources */,
 				A1A8A0AF1CB2B4F7001F47DC /* PublicationDetailsRepotsTVCell.swift in Sources */,
 				E44FDDA91C5CB5F9000D5F97 /* LoginRootVC.swift in Sources */,
 				A1EBCBB21C77777300B39BBE /* ActivityCenterVC.swift in Sources */,
@@ -1889,6 +1898,7 @@
 				E44FDDCE1C5CB5F9000D5F97 /* FCPublicationReportsNavigationController.swift in Sources */,
 				E4D16F121C881DDD00EDFE69 /* ActivityLog.swift in Sources */,
 				E4F40CFB1C70B0270094E455 /* GroupMember.swift in Sources */,
+				E4FDA8251CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift in Sources */,
 				A1CE0EE41CB1A557004EC403 /* PublicationDetailsVC.swift in Sources */,
 				E478A25E1CC8C5840015515F /* UserProfileTextCell.swift in Sources */,
 				E44FDDCF1C5CB5F9000D5F97 /* FCModel+NewData.swift in Sources */,
@@ -2081,6 +2091,7 @@
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */,
 				E478A2601CC8C73F0015515F /* UserProfileTVC.swift in Sources */,
+				E443C6E31CD61A3700DC018A /* FDLikeButton.swift in Sources */,
 				A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */,
 				E4FEDA4A1C142B9C00580630 /* FeedbacksVCViewController.swift in Sources */,
 				E40F199F1C81984B009C044E /* PublicationRegistration.swift in Sources */,
@@ -2147,6 +2158,7 @@
 				E4F40D101C7460210094E455 /* GroupMembersEditorVC.swift in Sources */,
 				A14F4D6F1B99E13800E29DE4 /* PublicationOptionsMenuTVC.swift in Sources */,
 				A1B793281B695D0C0058198A /* FCPublishAddressEditorAddressHistoryCustomCell.swift in Sources */,
+				E4FDA8241CD5C4D600BFEF6D /* ArrivedToSpotRatingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

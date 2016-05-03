@@ -20,7 +20,7 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var publicationTitleLabel: UILabel!
     @IBOutlet weak var pleaseReportTitleLabel: UILabel!
     @IBOutlet weak var reportMessageTableView: UITableView!
-    @IBOutlet weak var ratingView: UIView!
+    @IBOutlet weak var ratingView: ArrivedToSpotRatingsView!
     var shadowPath :UIBezierPath!
     
     var reportMessage: FCOnSpotPublicationReportMessage? = nil
@@ -76,6 +76,9 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
     }
     @IBAction func postReport(sender: AnyObject) {
   
+        let ratings = self.ratingView.ratings
+        print("ratings is \(ratings)")
+
         guard let message = self.reportMessage?.rawValue else {return}
         if message != 1 && message != 3 && message != 5 {return}
         
@@ -86,9 +89,12 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
         //pass it back to publication details tvc
         self.delegate?.dismiss(report)
         
-        //inform server
+        //post report to server
         FCModel.sharedInstance.foodCollectorWebServer.postReportforPublication(report)
-    
+        
+        //post ratings to server
+        
+        
     }
     
     @IBAction func cancelButtonAction(sender: AnyObject) {

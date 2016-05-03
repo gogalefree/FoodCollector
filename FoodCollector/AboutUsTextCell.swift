@@ -12,7 +12,7 @@ class AboutUsTextCell: UITableViewCell {
 
     @IBOutlet weak var mainTextLabel: UILabel!
     
-    let aboutUsText = NSLocalizedString("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ", comment: "about us text")
+    let aboutUsText = NSLocalizedString("Foodonet is a social initiative aiming to reduce food waste. Foodonet develops a mobile platform that allows people to easily donate spare food to one another. Foodonet is connecting food producers directly to customers with no mediators and cutting food costs", comment: "about us text")
     
     override func awakeFromNib() {
         super.awakeFromNib()
