@@ -43,12 +43,14 @@ class GroupDetailsVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func setupForAdmin() {
     
         self.leaveGroupButton.alpha = 1
+        self.leaveGroupButton.titleLabel?.textAlignment = .Center
         isUserAdmin = true
     }
     
     func setupForMember() {
         
         self.leaveGroupButton.alpha = 1
+        self.leaveGroupButton.titleLabel?.textAlignment = .Center
         self.addMemberView.alpha    = 0
         self.tableViewTopConstraint.constant -= CGRectGetHeight(self.addMemberView.bounds)
     }

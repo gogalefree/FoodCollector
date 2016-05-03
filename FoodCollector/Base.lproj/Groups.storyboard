@@ -618,13 +618,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8d-2b-elc">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="R8d-2b-elc">
                                 <rect key="frame" x="159" y="569" width="56" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="93w-Nj-9UK"/>
                                     <constraint firstAttribute="width" constant="56" id="h3D-wL-DQv"/>
                                 </constraints>
-                                <state key="normal" image="Leavegroup"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Leave Group" backgroundImage="Leavegroup"/>
                                 <connections>
                                     <action selector="leaveGroupTapped:" destination="jFN-5n-Brz" eventType="touchUpInside" id="DDw-JH-235"/>
                                 </connections>
