@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="akw-hV-T1a">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="akw-hV-T1a">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1583,28 +1583,26 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mrf-9L-Y11" userLabel="ActionView">
                                 <rect key="frame" x="101" y="408" width="199" height="52"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tF7-OW-iXg">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tF7-OW-iXg">
                                         <rect key="frame" x="0.0" y="0.0" width="52" height="52"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="2Cu-EQ-d3s"/>
                                             <constraint firstAttribute="width" constant="52" id="8MZ-gp-0Vz"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <state key="normal" title="SMS" backgroundImage="ActionButton">
+                                        <state key="normal" image="SMS_New">
                                             <color key="titleColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="smsButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="p1d-Uq-lbW"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nl5-jO-5om">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nl5-jO-5om">
                                         <rect key="frame" x="73" y="0.0" width="52" height="52"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="D6X-oL-4L1"/>
                                             <constraint firstAttribute="width" constant="52" id="SLH-np-wJR"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <state key="normal" title="Call" backgroundImage="ActionButton">
+                                        <state key="normal" image="Call_New">
                                             <color key="titleColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -1618,14 +1616,13 @@
                                             <constraint firstAttribute="height" constant="30" id="GQB-AD-cfI"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2d-Mc-e8C">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2d-Mc-e8C">
                                         <rect key="frame" x="146" y="0.0" width="52" height="52"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="sZg-hQ-IeZ"/>
                                             <constraint firstAttribute="height" constant="52" id="uja-RR-0Uj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <state key="normal" title="Go" backgroundImage="ActionButton">
+                                        <state key="normal" image="Navigate_New">
                                             <color key="titleColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -2791,15 +2788,18 @@
         <image name="AudienceIconPublic" width="12" height="12"/>
         <image name="Avtivity-center" width="27" height="30"/>
         <image name="BottomBGStrip" width="320" height="75"/>
+        <image name="Call_New" width="52" height="52"/>
         <image name="Collect-off" width="49" height="49"/>
         <image name="Collect_v5" width="35" height="40"/>
         <image name="Donate_v5" width="35" height="40"/>
         <image name="Green-dot" width="7" height="7"/>
         <image name="Map-view" width="17" height="26"/>
         <image name="MyShares" width="21" height="21"/>
+        <image name="Navigate_New" width="52" height="52"/>
         <image name="NoPhotoPlaceholder" width="87" height="80"/>
         <image name="ProfilePic" width="120" height="120"/>
         <image name="PublicShareIcon" width="16" height="16"/>
+        <image name="SMS_New" width="52" height="52"/>
         <image name="Table-view" width="27" height="30"/>
         <image name="TopAreaBG" width="280" height="140"/>
         <image name="TopBGStrip" width="320" height="30"/>
