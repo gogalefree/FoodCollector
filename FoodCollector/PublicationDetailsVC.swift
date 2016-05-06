@@ -175,7 +175,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewWillAppear(animated)
         
         if let pub = publication {
-            endOfPublicationTimelabel.text = FCDateFunctions.timeStringDaysAndHoursRemainVerbose(fromDate: pub.endingData!, toDate: NSDate())
+            endOfPublicationTimelabel.text = FCDateFunctions.timeStringDaysAndHoursRemain(fromDate: pub.endingData!, toDate: NSDate())
             targetAudienceIcon.image = FCIconFactory.typeOfPublicationIconWhite(pub)
             
             if let group = Group.fetchGroupWithId(pub.audianceID) {
