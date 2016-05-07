@@ -112,7 +112,7 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , /*CLLocationMana
         super.viewDidAppear(animated)
         if initialLaunch {
      
-            activityCenterButton.reloadCounterLabel()
+           // activityCenterButton.reloadCounterLabel()
 
             //we set the map to center on user's location. if the location manager has no location, we set the map's center to Tel-Aviv
             var userCoordinadets = FCModel.sharedInstance.userLocation.coordinate
@@ -337,7 +337,7 @@ extension FCCollectorRootVC {
     }
     
     func updateNotificationsCounterLabel() {
-        self.activityCenterButton.reloadCounterLabel()
+     //   self.activityCenterButton.reloadCounterLabel()
     }
     
     func registerForNSNotifications() {

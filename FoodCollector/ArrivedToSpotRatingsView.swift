@@ -17,7 +17,7 @@ class ArrivedToSpotRatingsView: UIView {
     @IBOutlet weak var fiveStarButton: UIButton!
 
     let whiteStar = UIImage(named: "Star")
-    let yellowStar = UIImage(named: "")
+    let yellowStar = UIImage(named: "Star-filled")
     
     private var buttons = [UIButton]()
     var ratings = 5
