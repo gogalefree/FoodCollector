@@ -110,9 +110,7 @@ class MainActionVC: UIViewController {
             default:
                 break
             }
-            
-            //self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
-            
+                        
             UIView.animateWithDuration(0.4, animations: { () -> Void in
                 self.navigationController?.view.alpha = 0
                 }) {  (finished)->() in
@@ -123,16 +121,4 @@ class MainActionVC: UIViewController {
             
         }
     }
-    
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//        if size.height > size.width {
-//            self.mainLabelTopConstraint.constant = self.topConstraintPortraitConstant
-//        }
-//        else {
-//            self.mainLabelTopConstraint.constant = self.topConstraintLandscapeConstant
-//            
-//        }
-//        self.view.layoutIfNeeded()
-//    }
 }

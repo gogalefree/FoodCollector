@@ -165,35 +165,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
-//        if #available(iOS 9.0, *) {
-//            let options: [String: AnyObject] = [UIApplicationOpenURLOptionsSourceApplicationKey: sourceApplication!,
-//                UIApplicationOpenURLOptionsAnnotationKey: annotation]
-//       
-//            
-//        return self.application(application,
-//            openURL: url,
-//            options: options)
-//        }
-//       
+        
         return true
     }
     
-//    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-//        
-//            print("url: \(url.scheme)" + " " + __FUNCTION__)
-//
-//            if #available(iOS 9.0, *) {
-//                return GIDSignIn.sharedInstance().handleURL(url,
-//                    sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String,
-//                    annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
-//            } else {
-//                // Fallback on earlier versions
-//            }
-//        
-//        
-//        return false
-//    }
-//
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -231,13 +206,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fm = NSFileManager.defaultManager()
         let photoPath = FCModel.sharedInstance.photosDirectoryUrl.path!
         let files = (try! fm.contentsOfDirectoryAtPath(photoPath)) 
-        var error: NSError?
         for file in files {
             
             do {
                 try fm.removeItemAtPath(photoPath.stringByAppendingString("/\(file)"))
-            } catch let error1 as NSError {
-                error = error1
+            } catch {
                 print("Error deleting file: \(error)")
             }
         }
