@@ -80,19 +80,19 @@ class FCPublicationsTVCell: UITableViewCell {
         })
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        self.photoImageView.image = defaultImage
-//        if let publication = self.publication {
-//            
-//           if publication.photoBinaryData != nil {
-//            
-//                let photo = UIImage(data: (self.publication?.photoBinaryData)!)
-//                self.photoImageView.image = photo
-//            }
-//        }
-//    }
-//    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.photoImageView.image = defaultImage
+        if let publication = self.publication {
+            
+           if publication.photoBinaryData != nil {
+            
+                let photo = UIImage(data: (self.publication?.photoBinaryData)!)
+                self.photoImageView.image = photo
+            }
+        }
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.photoImageView.image = defaultImage
