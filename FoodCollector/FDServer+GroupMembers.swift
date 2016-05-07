@@ -10,8 +10,8 @@ import Foundation
 
 extension FCMockServer {
 
-    func postGroupMembers(members: [GroupMember]) -> Void {
-        
+    func postGroupMembers(members: [GroupMember], completion: (isFoodonetUser: Bool) -> Void) -> Void {
+    
         let myMembers = members
         guard let data = GroupMember.groupMembersJson(myMembers) else {return}
         
@@ -59,9 +59,11 @@ extension FCMockServer {
                             member.userId = userId
                             member.id     = id
                             member.didInformServer = true
+                            member.isFoodonetUser = true
                             print("member name: \(member.name)")
                             print("member id: \(member.id)")
                             print("member userid: \(member.userId)")
+                            completion(isFoodonetUser: true)
                         }
                     }
                     

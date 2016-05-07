@@ -88,9 +88,15 @@ extension GroupDetailsVC {
             
             self.membersTableView.beginUpdates()
             self.dataSource.insert(newMember, atIndex: 0)
-            self.membersTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            self.membersTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             self.membersTableView.endUpdates()
-            FCModel.sharedInstance.foodCollectorWebServer.postGroupMembers([newMember])
+            FCModel.sharedInstance.foodCollectorWebServer.postGroupMembers([newMember], completion: { (isFoodonetUser) in
+        
+                if isFoodonetUser {
+                    self.membersTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }
+            })
         }
     }
     

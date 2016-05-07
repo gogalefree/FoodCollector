@@ -32,7 +32,8 @@ class GroupDetailsMemberTVCell: UITableViewCell {
 
     func setup(groupMemeber: GroupMember){
     
-        memberIcon.image = icons[(groupMember.isFoodonetUser?.boolValue.hashValue)!]
+        let isUser = groupMemeber.isFoodonetUser!.boolValue == true || groupMemeber.userId! != 0 ? true : false
+        memberIcon.image = icons[isUser.boolValue.hashValue]
         memberNameLable.text = groupMemeber.name
         isAdminLabel.text = groupMemeber.isAdmin!.boolValue ? kAdminString : ""
         isAdminLabel.textColor = kGroupsRootvcTVCellIsAdminColor
