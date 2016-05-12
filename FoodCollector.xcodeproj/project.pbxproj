@@ -145,8 +145,6 @@
 		E43F89FF1BDEB9D5007991E6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */; };
 		E43F8A001BDEB9D5007991E6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */; };
 		E43F8A021BDEBACE007991E6 /* AppDelegate+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */; };
-		E443C6E31CD61A3700DC018A /* FDLikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E443C6E21CD61A3700DC018A /* FDLikeButton.swift */; };
-		E443C6E41CD61A3700DC018A /* FDLikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E443C6E21CD61A3700DC018A /* FDLikeButton.swift */; };
 		E448ADA71CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */; };
 		E448ADA81CC7737800EB1796 /* ActivityLogTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */; };
 		E448ADAD1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */; };
@@ -600,7 +598,6 @@
 		E43F89FC1BDEB9D5007991E6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E43F89FD1BDEB9D5007991E6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E43F8A011BDEBACE007991E6 /* AppDelegate+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+.swift"; sourceTree = "<group>"; };
-		E443C6E21CD61A3700DC018A /* FDLikeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDLikeButton.swift; sourceTree = "<group>"; };
 		E448ADA61CC7737800EB1796 /* ActivityLogTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogTVCell.swift; sourceTree = "<group>"; };
 		E448ADAC1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ActivityLog+CoreDataProperties.swift"; path = "../ActivityLog+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E44FDE4D1C5CB5F9000D5F97 /* FoodonetEU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodonetEU.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1468,7 +1465,6 @@
 				A10215841CD24A0C0057E364 /* AboutUsSB.storyboard */,
 				E4FA4EE81CCB4A46004EE050 /* AboutUsTVC.swift */,
 				E4FA4EEB1CCB4A71004EE050 /* AboutUsLikeCell.swift */,
-				E443C6E21CD61A3700DC018A /* FDLikeButton.swift */,
 				E4FA4EEE1CCB4A84004EE050 /* AboutUsTextCell.swift */,
 			);
 			name = "About Us";
@@ -1768,7 +1764,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift dev";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift user";
 		};
 		E44FDDA01C5CB5F9000D5F97 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1845,7 +1841,6 @@
 				E4FA4EF01CCB4A84004EE050 /* AboutUsTextCell.swift in Sources */,
 				A1D676401CAAB77E00F84AD9 /* PublishRootVC.swift in Sources */,
 				E44FDDA81C5CB5F9000D5F97 /* FCPublicationReportsDismissAnimator.swift in Sources */,
-				E443C6E41CD61A3700DC018A /* FDLikeButton.swift in Sources */,
 				A1A8A0AF1CB2B4F7001F47DC /* PublicationDetailsRepotsTVCell.swift in Sources */,
 				E44FDDA91C5CB5F9000D5F97 /* LoginRootVC.swift in Sources */,
 				A1EBCBB21C77777300B39BBE /* ActivityCenterVC.swift in Sources */,
@@ -2101,7 +2096,6 @@
 				E48847401A19E055000E98DA /* FCFetchedDataSorter.swift in Sources */,
 				E4E2EA9B1A8F1DF300681B2E /* UIImage+Extensions.swift in Sources */,
 				E478A2601CC8C73F0015515F /* UserProfileTVC.swift in Sources */,
-				E443C6E31CD61A3700DC018A /* FDLikeButton.swift in Sources */,
 				A1248A781B73C435001C5901 /* PublicationEditorTVC.swift in Sources */,
 				E4FEDA4A1C142B9C00580630 /* FeedbacksVCViewController.swift in Sources */,
 				E40F199F1C81984B009C044E /* PublicationRegistration.swift in Sources */,

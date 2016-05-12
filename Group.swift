@@ -18,10 +18,10 @@ import CoreData
 
 class Group: NSManagedObject {
 
-    static let moc = FCModel.sharedInstance.dataController.managedObjectContext
 
     class func initWith(name: String, id: Int, adminId: Int) -> Group? {
         
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let newGroup = NSEntityDescription.insertNewObjectForEntityForName(kGroupEntity, inManagedObjectContext: moc) as? Group
         guard let group = newGroup else {return nil}
         group.name = name
@@ -70,6 +70,7 @@ class Group: NSManagedObject {
     
     class func fetchGroupWithId(groupId: Int) -> Group? {
        
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let predicate = NSPredicate(format: "id = %@",NSNumber(integer: groupId))
         let request = NSFetchRequest(entityName: kGroupEntity)
         request.predicate = predicate
@@ -222,17 +223,14 @@ class Group: NSManagedObject {
     }
     
     class func deleteGroupWithId(groupId: Int) {
-        
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let group = Group.fetchGroupWithId(groupId)
         guard let groupToDelete = group else {return}
         
-        Group.moc.performBlock { () -> Void in
-            Group.moc.deleteObject(groupToDelete)
+        moc.performBlock { () -> Void in
+            moc.deleteObject(groupToDelete)
             FCModel.sharedInstance.dataController.save()
         }
-        
-        
-        
     }
     
     func deleteMembers() {
