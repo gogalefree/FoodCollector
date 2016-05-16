@@ -1592,14 +1592,13 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pA-4N-af7">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pA-4N-af7">
                                 <rect key="frame" x="20" y="400" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="IB0-3p-NKv"/>
                                     <constraint firstAttribute="height" constant="60" id="y5d-4r-c6t"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Join" backgroundImage="ActionButton"/>
+                                <state key="normal" image="JoinButton"/>
                                 <connections>
                                     <action selector="joinButtonClicked:" destination="vT8-4h-8aj" eventType="touchUpInside" id="dd3-OX-gwc"/>
                                 </connections>
@@ -2815,7 +2814,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ActionButton" width="52" height="52"/>
         <image name="AudienceIconPublic" width="12" height="12"/>
         <image name="Avtivity-center" width="27" height="30"/>
         <image name="BottomBGStrip" width="320" height="75"/>
@@ -2825,6 +2823,7 @@
         <image name="Collect_v5" width="35" height="40"/>
         <image name="Donate_v5" width="35" height="40"/>
         <image name="Green-dot" width="7" height="7"/>
+        <image name="JoinButton" width="60" height="60"/>
         <image name="JoinedIcon" width="13" height="13"/>
         <image name="Map-view" width="17" height="26"/>
         <image name="MyShares" width="21" height="21"/>
