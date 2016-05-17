@@ -200,21 +200,21 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     func configueJoinButtonForState(registered: Bool) {
         
-        var title: String
-        var titleColor: UIColor
-        var backgroundImage: UIImage?
+        //var title: String
+        //var titleColor: UIColor
+        var joinButtonImage: UIImage?
         
         if registered {
             
-            title = NSLocalizedString("Joined", comment: "a button title if the user has registered for pickup")
-            titleColor = UIColor.whiteColor()
-            backgroundImage = UIImage(named: "JoinButton")
+            //title = NSLocalizedString("Joined", comment: "a button title if the user has registered for pickup")
+            //titleColor = UIColor.whiteColor()
+            joinButtonImage = UIImage(named: "LeaveButton")
 
 
         } else {
-            title = NSLocalizedString("Join", comment: "a button title if the user has not registered for pickup")
-            titleColor = kNavBarBlueColor
-            backgroundImage = UIImage(named: "ActionButton")
+            //title = NSLocalizedString("Join", comment: "a button title if the user has not registered for pickup")
+            //titleColor = kNavBarBlueColor
+            joinButtonImage = UIImage(named: "JoinButton")
         }
         
         let scale = CGAffineTransformMakeScale(1.2, 1.2)
@@ -222,9 +222,9 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.8 , initialSpringVelocity: 0, options: [], animations: { () -> Void in
             
             self.joinButton.transform = scale
-            self.joinButton.setTitle(title, forState: .Normal)
-            self.joinButton.setBackgroundImage(backgroundImage, forState: .Normal)
-            self.joinButton.setTitleColor(titleColor, forState: .Normal)
+            //self.joinButton.setTitle(title, forState: .Normal)
+            self.joinButton.setImage(joinButtonImage, forState: .Normal)
+            //self.joinButton.setTitleColor(titleColor, forState: .Normal)
             
         }) { (finished) -> Void in
             
