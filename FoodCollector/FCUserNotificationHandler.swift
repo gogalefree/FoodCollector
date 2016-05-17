@@ -32,7 +32,6 @@ let kUpdateNotificationsCounterNotification = "kUpdateNotificationsCounterNotifi
 
 class FCUserNotificationHandler : NSObject {
     
-    
     var registeredForNotifications: Bool = {
         return UIApplication.sharedApplication().currentUserNotificationSettings()!.types != []
         }()
