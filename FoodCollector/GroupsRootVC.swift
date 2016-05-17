@@ -10,7 +10,6 @@ import UIKit
 
 class GroupsRootVC: UIViewController {
 
-    //TODO: add 
     
     @IBOutlet weak var noGroupsMessageView: UIView!
     @IBOutlet weak var activityIndicatorView: UIView!
