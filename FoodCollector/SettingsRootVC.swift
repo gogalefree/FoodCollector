@@ -12,6 +12,10 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var logoutButton: UIButton!
+    
+    let bellIcon = UIImage(named: "Bell")
+    let userIcon = UIImage(named: "User_icon")
     
     var loggedIn: Bool {
         return User.sharedInstance.userIsLoggedIn
@@ -19,6 +23,7 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.tableFooterView = UIView()
 
         // Do any additional setup after loading the view.
     }
@@ -29,7 +34,7 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,30 +44,22 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("settingsCell", forIndexPath: indexPath) 
+        cell.textLabel?.textColor = kNavBarBlueColor
         
         switch indexPath.section {
             
         case 0:
             //personal detials
             
-            cell.textLabel?.text = NSLocalizedString("Personal Profile", comment: "settings cell title")
+            cell.textLabel?.text = NSLocalizedString("Profile Settings", comment: "settings cell title")
+            cell.imageView?.image = userIcon
             
         case 1:
             //notifications
             
             cell.textLabel?.text = NSLocalizedString("Notifications", comment: "settings cell title")
-            
-        case 2:
-            
-            cell.textLabel?.text = NSLocalizedString("Log Out", comment: "settings cell title")
-            cell.textLabel?.textColor = UIColor.redColor()
-            cell.textLabel?.textAlignment = .Center
-            
-            if !loggedIn {
-                cell.textLabel?.textColor = UIColor.lightGrayColor()
-                cell.userInteractionEnabled = false
-            }
-            
+            cell.imageView?.image = bellIcon
+
         default:
             break
         }
@@ -90,12 +87,16 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
             
             self.navigationController?.pushViewController(notificationsSettings, animated: true)
             
-        case 2:
-            logOut()
-            
         default:
             break
         }
+    }
+    
+    @IBAction func logoutActionTapped(sender: AnyObject) {
+    
+        logOut()
+        dismiss(self)
+        FCModel.sharedInstance.userDidLogout()
     }
     
     func logOut() {
@@ -103,7 +104,6 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
         User.sharedInstance.logOut()
         GIDSignIn.sharedInstance().signOut()
         FBSDKLoginManager().logOut()
-        self.tableView.reloadData()
         //TODO: Add logout with foodonet server
     }
     
@@ -115,14 +115,4 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
         })
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

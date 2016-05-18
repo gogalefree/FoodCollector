@@ -1570,7 +1570,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="251" horizontalCompressionResistancePriority="999" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8Z-cN-964">
-                                                <rect key="frame" x="54.5" y="4" width="29.5" height="21"/>
+                                                <rect key="frame" x="54" y="4" width="30" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="DTS-oc-zu5"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="dIF-le-cga"/>
@@ -2934,6 +2934,7 @@
         <image name="NoPhotoPlaceholder" width="87" height="80"/>
         <image name="ProfilePic" width="120" height="120"/>
         <image name="PublicShareIcon" width="16" height="16"/>
+        <image name="SMS_New" width="52" height="52"/>
         <image name="Star" width="32" height="30"/>
         <image name="Table-view" width="27" height="30"/>
         <image name="TopAreaBG" width="280" height="140"/>

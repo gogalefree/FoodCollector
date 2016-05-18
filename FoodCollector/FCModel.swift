@@ -251,6 +251,37 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             
         } catch { return nil }
     }
+    
+    func publicationsForUser() -> [Publication]? {
+        
+        let moc = self.dataController.managedObjectContext
+        let request = NSFetchRequest(entityName: kPublicationEntity)
+        request.predicate = NSPredicate(format: "audiance != %@", NSNumber(integer: 0))
+        
+        var results: [Publication]? = nil
+        
+        do {
+           
+            results = try moc.executeFetchRequest(request) as? [Publication]
+        } catch {
+            print(error)
+        }
+        
+        return results
+    }
+    
+    func userDidLogout() {
+        
+        let moc = dataController.managedObjectContext
+        moc.performBlock { 
+        
+            let userPublications = self.publicationsForUser()
+            guard let toDelete = userPublications else {return}
+            for publication in toDelete {
+                moc.deleteObject(publication)
+            }
+        }
+    }
 }
 
 // MARK: SingleTone

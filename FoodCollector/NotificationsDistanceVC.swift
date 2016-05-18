@@ -138,17 +138,15 @@ class NotificationsDistanceVC: UIViewController, DragViewDelegate {
         circleView.clipsToBounds = true
         circleView.layer.masksToBounds = true
         circleView.backgroundColor = UIColor.whiteColor()
+        
         dragView.layer.cornerRadius = dragView.frame.size.width / 2
         dragView.delegate = self
-        
-        print("circle height \(circleView.frame.size.height)")
-        print("circle width \(circleView.frame.size.width)")
-        distanceLabel.text = allText
-        
+        dragView.layer.contents = UIImage(named: "Logo")?.CGImage
+        dragView.layer.contentsGravity = kCAGravityResizeAspectFill
+        dragView.layer.backgroundColor = UIColor.whiteColor().CGColor
+
+        distanceLabel.text = allText        
         distanceLabel.textColor = blueColor
-        //kmLabel.textColor = blueColor
-        self.dragView.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.8)
-        //kmLabel.alpha = 0
         
         self.circleViewWidth.constant = self.view.frame.size.width - 2 * dragViewMaxRightTrailingConst
         self.circlViewHeight.constant = self.view.frame.size.width - 2 * dragViewMaxRightTrailingConst
