@@ -219,6 +219,9 @@ class CDNewDataProcessor: NSObject {
             FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
         }
         
+        //indexInSpotlight
+        let indexer = FDSpotlightIndexer()
+        indexer.startIndexing()
     }
     
     class func fetchGroups(context: NSManagedObjectContext) {

@@ -131,6 +131,8 @@
 		E41BCE091C2EB6BC0018E771 /* FDServer+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */; };
 		E41BCE0B1C2EBB100018E771 /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0A1C2EBB100018E771 /* LoginData.swift */; };
 		E41BCE0D1C2ECEEA0018E771 /* FacebookLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */; };
+		E41C3C4E1CEDA57900A1F377 /* FDSpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41C3C4D1CEDA57900A1F377 /* FDSpotlightIndexer.swift */; };
+		E41C3C4F1CEDA57900A1F377 /* FDSpotlightIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41C3C4D1CEDA57900A1F377 /* FDSpotlightIndexer.swift */; };
 		E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */; };
 		E42C9E1F1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */; };
 		E42C9E231A55D311000E0FB1 /* FCIconFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */; };
@@ -585,6 +587,7 @@
 		E41BCE081C2EB6BC0018E771 /* FDServer+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+Login.swift"; sourceTree = "<group>"; };
 		E41BCE0A1C2EBB100018E771 /* LoginData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		E41BCE0C1C2ECEEA0018E771 /* FacebookLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLoginManager.swift; sourceTree = "<group>"; };
+		E41C3C4D1CEDA57900A1F377 /* FDSpotlightIndexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FDSpotlightIndexer.swift; sourceTree = "<group>"; };
 		E4214E6D1A63E0CF0070332D /* FCPublishAddressEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishAddressEditorVC.swift; sourceTree = "<group>"; };
 		E42C9E1E1A556C16000E0FB1 /* FCPublicationDetailsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FCPublicationDetailsTVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E42C9E221A55D311000E0FB1 /* FCIconFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCIconFactory.swift; sourceTree = "<group>"; };
@@ -1051,6 +1054,14 @@
 			name = "Reports TVC";
 			sourceTree = "<group>";
 		};
+		E41C3C4C1CEDA53500A1F377 /* Spotlight Index */ = {
+			isa = PBXGroup;
+			children = (
+				E41C3C4D1CEDA57900A1F377 /* FDSpotlightIndexer.swift */,
+			);
+			name = "Spotlight Index";
+			sourceTree = "<group>";
+		};
 		E42ED57E1A8BD4C5008FB618 /* FCModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1183,6 +1194,7 @@
 		E4737DA61A10C1C600A4AB81 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E41C3C4C1CEDA53500A1F377 /* Spotlight Index */,
 				E4F40CC91C70ACF60094E455 /* CoreData */,
 				E42ED57E1A8BD4C5008FB618 /* FCModel */,
 				E454995E1AAA1D48001B5E49 /* Notifications */,
@@ -1981,6 +1993,7 @@
 				E44FDE061C5CB5F9000D5F97 /* FCPhotoFetcher.swift in Sources */,
 				E4C4B95C1C83016C009599DD /* CDNewDataProcessor.swift in Sources */,
 				E44FDE071C5CB5F9000D5F97 /* PublicationDetailsTitleCellTableViewCell.swift in Sources */,
+				E41C3C4F1CEDA57900A1F377 /* FDSpotlightIndexer.swift in Sources */,
 				E4FA4EF91CCCAE6C004EE050 /* PublicationDetailsVC+PhotoPresentor.swift in Sources */,
 				E44FDE081C5CB5F9000D5F97 /* AboutVC.swift in Sources */,
 				A1DBCB111C9D52E900E11568 /* PublicationAudianceSelectionTVC.swift in Sources */,
@@ -2134,6 +2147,7 @@
 				E414F9F11C7F1DC400618EC3 /* GroupDetailsVC+TableView.swift in Sources */,
 				E4DB3A7D1AA6F89400604F27 /* FCCollectorNewDataMessageView.swift in Sources */,
 				E42ED5751A8B682C008FB618 /* DataUpdater.swift in Sources */,
+				E41C3C4E1CEDA57900A1F377 /* FDSpotlightIndexer.swift in Sources */,
 				E4C4B95E1C843AF5009599DD /* FDAnnotation.swift in Sources */,
 				E40F199B1C81984B009C044E /* Publication.swift in Sources */,
 				E4A557241C919F6800E09139 /* NotificationsDistanceVC.swift in Sources */,
