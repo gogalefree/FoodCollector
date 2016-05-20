@@ -15,7 +15,11 @@ class ArrivedToSpotCell: UITableViewCell {
     
     let radioIcons = [UIImage(named: "AudianceSelectionUnchecked") , UIImage(named: "AudianceSelectionChecked") ]
     
-    let titles = [NSLocalizedString("Has More To Pickup", comment: "report button title"), NSLocalizedString("I Took All", comment: "report button title"), NSLocalizedString("Fount Nothing There", comment: "report button title")]
+    let titles = [
+        NSLocalizedString("Has More To Pickup", comment: "report button title"),
+        NSLocalizedString("I Took All", comment: "report button title"),
+        NSLocalizedString("Found Nothing There", comment: "report button title")
+    ]
     
     var indexPath: NSIndexPath! {
         
