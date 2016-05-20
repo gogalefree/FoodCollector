@@ -27,6 +27,7 @@ class Group: NSManagedObject {
         group.name = name
         group.id = id
         group.adminUserId = adminId
+        group.createdAt = NSDate()
         //after the group is created, logedin User is added as a group Member
         FCModel.sharedInstance.dataController.save()
         return group
@@ -198,13 +199,18 @@ class Group: NSManagedObject {
         let groupId = groupParams["group_id"] as? Int ?? 0
         let groupName = groupParams["group_name"] as? String ?? ""
         
+        let unixTString = groupParams["created_at"] as? String ?? ""
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let createdAt = formatter.dateFromString(unixTString)
+        
         context.performBlockAndWait { () -> Void in
             
             self.id = groupId
             self.name = groupName
             self.adminUserId = groupAdminId
             self.members = Set<GroupMember>()
-            
+            self.createdAt = createdAt ?? NSDate()
          
             let membersArray = groupParams["members"] as? [[String : AnyObject]]
             guard let members = membersArray else {return}

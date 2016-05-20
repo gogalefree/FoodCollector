@@ -101,6 +101,8 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func logOut() {
         
+        //clear logs
+        ActivityLog.deleteLogsAfetrLogout()
         User.sharedInstance.logOut()
         GIDSignIn.sharedInstance().signOut()
         FBSDKLoginManager().logOut()

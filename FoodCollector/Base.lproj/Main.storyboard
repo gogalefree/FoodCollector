@@ -1432,16 +1432,36 @@
                                                     <color key="textColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lyf-6b-Qx7">
+                                                    <rect key="frame" x="25" y="1" width="20" height="20"/>
+                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="TZh-mQ-Fho"/>
+                                                        <constraint firstAttribute="width" constant="20" id="oSz-77-cJD"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Lyf-6b-Qx7" secondAttribute="trailing" constant="59" id="6Pl-6Q-z2N"/>
                                                 <constraint firstItem="Ez8-Rp-6q6" firstAttribute="leading" secondItem="9TJ-aj-r0D" secondAttribute="leadingMargin" constant="5" id="ASn-kE-339"/>
                                                 <constraint firstItem="Ez8-Rp-6q6" firstAttribute="centerY" secondItem="9TJ-aj-r0D" secondAttribute="centerY" id="AVD-rj-7za"/>
+                                                <constraint firstItem="Lyf-6b-Qx7" firstAttribute="leading" secondItem="9TJ-aj-r0D" secondAttribute="leadingMargin" constant="17" id="Ebq-Ny-nBG"/>
                                                 <constraint firstItem="rrd-P6-ha5" firstAttribute="centerY" secondItem="9TJ-aj-r0D" secondAttribute="centerY" id="IsG-YJ-e2G"/>
+                                                <constraint firstItem="Lyf-6b-Qx7" firstAttribute="centerY" secondItem="9TJ-aj-r0D" secondAttribute="centerY" constant="-11" id="cKY-mb-l2G"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rrd-P6-ha5" secondAttribute="trailing" id="grB-ma-L5s"/>
                                                 <constraint firstItem="rrd-P6-ha5" firstAttribute="leading" secondItem="Ez8-Rp-6q6" secondAttribute="trailing" constant="19" id="xjt-7q-sof"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="6Pl-6Q-z2N"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="notificationsCounterLabel" destination="Lyf-6b-Qx7" id="hRh-Hq-wIz"/>
                                             <outlet property="sideMenuIcon" destination="Ez8-Rp-6q6" id="T6f-EG-rZH"/>
                                             <outlet property="sideMenuTitle" destination="rrd-P6-ha5" id="ftC-xo-uv7"/>
                                         </connections>

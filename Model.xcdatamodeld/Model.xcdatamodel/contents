@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="ActivityLog" representedClassName=".ActivityLog" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-749230260" syncable="YES"/>
         <attribute name="isNew" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
@@ -13,6 +13,7 @@
     </entity>
     <entity name="Group" representedClassName=".Group" syncable="YES">
         <attribute name="adminUserId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="485422260" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="groupName" syncable="YES"/>
         <relationship name="members" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GroupMember" inverseName="belongToGroup" inverseEntity="GroupMember" syncable="YES"/>
@@ -83,7 +84,7 @@
     </entity>
     <elements>
         <element name="ActivityLog" positionX="-612" positionY="-180" width="128" height="178"/>
-        <element name="Group" positionX="-423" positionY="-180" width="128" height="103"/>
+        <element name="Group" positionX="-423" positionY="-180" width="128" height="120"/>
         <element name="GroupMember" positionX="-90" positionY="-180" width="128" height="165"/>
         <element name="Publication" positionX="-351" positionY="99" width="128" height="465"/>
         <element name="PublicationRegistration" positionX="-108" positionY="389" width="128" height="178"/>

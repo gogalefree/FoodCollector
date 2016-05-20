@@ -37,6 +37,9 @@ class DataController:  NSObject  {
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         self.managedObjectContext.persistentStoreCoordinator = psc
         
+        self.managedObjectContext.mergePolicy = NSMergePolicy(mergeType: .MergeByPropertyObjectTrumpMergePolicyType)
+
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
             
             let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
@@ -98,7 +101,8 @@ class DataController:  NSObject  {
         }
         
         let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-        
+        context.mergePolicy = NSMergePolicy(mergeType: .MergeByPropertyObjectTrumpMergePolicyType)
+
         context.persistentStoreCoordinator = coordinator
         
         context.undoManager = nil

@@ -11,6 +11,10 @@ import CoreData
 
 
 class ActivityLog: NSManagedObject {
+    
+    var timeStringFromCreation: String {
+        return FCDateFunctions.timeStringForActivityLogCell(self.date!)
+    }
 
     enum LogType: Int {case NewPublication = 1, DeletePublication = 2, Report = 3, Registration = 4,  NewGroup = 5}
 
@@ -29,12 +33,14 @@ class ActivityLog: NSManagedObject {
                 newLog?.objectId = publication?.uniqueId
                 newLog?.objectVerion = publication?.version
                 newLog?.setLogImageDataForPublication(publication!, context: context)
+                newLog?.date = publication?.startingData
                 newLog?.timeString = FCDateFunctions.timeStringForActivityLogCell(publication!.startingData!)
             }
             else {
                 newLog?.objectId = group?.id
                 newLog?.setLogImageDataForGroup(group!, context: context)
-                newLog?.timeString = FCDateFunctions.timeStringForActivityLogCell(newLog!.date!)
+                newLog?.date = group?.createdAt
+                newLog?.timeString = FCDateFunctions.timeStringForActivityLogCell(group!.createdAt!)
             }
             
             FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter += 1 
@@ -101,16 +107,17 @@ class ActivityLog: NSManagedObject {
     }
 
     func setLogImageDataForPublication(publication: Publication, context: NSManagedObjectContext) {
-        
         if publication.photoBinaryData == nil {
             
             let fetcher = FCPhotoFetcher()
             fetcher.fetchPhotoForPublication(publication, completion: { (image) in
                 
+                print(publication.title)
                 guard let photo = image else {return}
+                print(publication.title)
                 
                 context.performBlock({
-                    self.logImage = UIImageJPEGRepresentation(photo, 0.1)
+                    self.logImage = UIImageJPEGRepresentation(photo, 1)
                     print("data: \(self.logImage?.length)")
                     do {
                         
@@ -146,6 +153,25 @@ class ActivityLog: NSManagedObject {
                     }
                 })
             }
+        }
+    }
+    
+    class func deleteLogsAfetrLogout() {
+
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
+        let request = NSFetchRequest(entityName: kActivityLogEntity)
+        request.predicate = NSPredicate(format: "type  > %@", NSNumber(integer: 2))
+        do {
+            let results = try moc.executeFetchRequest(request) as? [ActivityLog]
+            guard let logsToDelete = results else {return}
+            for log in logsToDelete {
+                moc.performBlock({ 
+                    moc.deleteObject(log)
+                })
+            }
+            
+        } catch let error as NSError{
+            print(error.description + " " + #function)
         }
     }
     

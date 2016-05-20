@@ -2,7 +2,7 @@
 //  Group+CoreDataProperties.swift
 //  FoodCollector
 //
-//  Created by Guy Freedman on 14/02/2016.
+//  Created by Guy Freedman on 20/05/2016.
 //  Copyright © 2016 Foodonet. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,9 +14,10 @@ import CoreData
 
 extension Group {
 
+    @NSManaged var adminUserId: NSNumber?
     @NSManaged var id: NSNumber?
     @NSManaged var name: String?
-    @NSManaged var adminUserId: NSNumber?
+    @NSManaged var createdAt: NSDate?
     @NSManaged var members: NSSet?
 
 }

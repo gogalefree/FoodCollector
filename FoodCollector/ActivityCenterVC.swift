@@ -33,7 +33,8 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.updateNotificationBadgeCounter), name: kUpdateNotificationsCounterNotification, object: nil)
+        
         leftSwipeGesture.addTarget(self, action: #selector(ActivityCenterVC.leftSwipeAction(_:)))
         
         sideMenuTable.delegate = self
@@ -53,7 +54,7 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     final func leftSwipeAction(recognizer: UISwipeGestureRecognizer) {
@@ -74,6 +75,11 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         return 48
     }
     
+    func updateNotificationBadgeCounter() {
+        let cell = sideMenuTable.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 0)) as? sideMenuItemTVCell
+        cell?.updateNotificationLabel()
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         /// Cells Structure
@@ -90,6 +96,8 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCellWithIdentifier("sideMenuItemCell") as! sideMenuItemTVCell
         cell.sideMenuIcon.image = buttunsImageArray[indexPath.row]
         cell.sideMenuTitle.text = buttunsTitleArray[indexPath.row]
+        cell.indexPath = indexPath
+        
         if indexPath.row == 5 {
             let separatorLineView = UIView()
             separatorLineView.translatesAutoresizingMaskIntoConstraints = false
@@ -284,4 +292,8 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }

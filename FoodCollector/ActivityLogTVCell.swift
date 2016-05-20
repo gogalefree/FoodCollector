@@ -32,7 +32,7 @@ class ActivityLogTVCell: UITableViewCell {
         if newlog.isNew?.boolValue == true {setGrayBackrounds()}
         titleLabel.text = newlog.title
         subtitleLabel.text = newlog.subtitle
-        timeLabel.text = newlog.timeString
+        timeLabel.text = newlog.timeStringFromCreation
         setupMainImage(newlog)
         setupIconImageAndTextColor(newlog)
     }
