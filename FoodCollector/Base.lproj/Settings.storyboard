@@ -339,6 +339,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="backButton" destination="yLc-2k-jIS" id="mMn-Zl-bcL"/>
                         <outlet property="logoutButton" destination="1Y4-3I-Z0t" id="dz4-03-1Pq"/>
                         <outlet property="tableView" destination="9EA-Ku-6K6" id="MUj-8r-ydq"/>
                     </connections>

@@ -11,6 +11,7 @@ import UIKit
 class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logoutButton: UIButton!
     
@@ -23,6 +24,8 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
         self.tableView.tableFooterView = UIView()
 
         // Do any additional setup after loading the view.
