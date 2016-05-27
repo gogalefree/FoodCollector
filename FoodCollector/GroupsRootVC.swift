@@ -11,6 +11,7 @@ import UIKit
 class GroupsRootVC: UIViewController {
 
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var noGroupsMessageView: UIView!
     @IBOutlet weak var activityIndicatorView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -29,6 +30,8 @@ class GroupsRootVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
         self.tableView.dataSource = self
         self.tableView.delegate   = self
         

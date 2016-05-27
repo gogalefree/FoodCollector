@@ -238,6 +238,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorView" destination="V57-Oe-DBe" id="16J-Ph-tID"/>
+                        <outlet property="backButton" destination="VbQ-2R-Hmv" id="V3C-Ou-zSR"/>
                         <outlet property="createGroupButton" destination="72p-HA-aUM" id="3u8-Cw-UcL"/>
                         <outlet property="noGroupsMessageView" destination="zsH-43-hMX" id="2rl-dA-0la"/>
                         <outlet property="searchBar" destination="bAp-lJ-0bx" id="zMY-qF-NgF"/>
