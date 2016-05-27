@@ -10,8 +10,6 @@ import UIKit
 
 class FCPublicationsTVCell: UITableViewCell {
     
-    var usersJoinedString = String.localizedStringWithFormat(NSLocalizedString(" users joined", comment: "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'"))
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
@@ -38,7 +36,7 @@ class FCPublicationsTVCell: UITableViewCell {
         self.addressLabel.text = publication.address
         self.distanceLabel.text = FCStringFunctions.shortDistanceString(publication)
         self.audianceIconImageView.image = FCIconFactory.typeOfPublicationIcon(publication)
-        self.countOfRegisteredUsersLabel.text = publication.countOfRegisteredUsersAsString + usersJoinedString
+        self.countOfRegisteredUsersLabel.text = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment: "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'"), publication.countOfRegisteredUsersAsString)
         self.timeRemains.text = FCDateFunctions.timeStringDaysAndHoursRemain(fromDate: publication.endingData!, toDate: NSDate())
         
         downloadImage()
