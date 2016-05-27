@@ -146,7 +146,11 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         switch indexPath.row {
             case 0: // My Shares
                 if let mySharesVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublishRootVC") as? PublishRootVC {
-                    mySharesVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ActivityCenterVC.dismissVC))
+                    
+                    let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ActivityCenterVC.dismissVC))
+                    barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+                    mySharesVC.navigationItem.leftBarButtonItem = barButton
+                    
                     let nav = UINavigationController(rootViewController: mySharesVC)
                     self.presentViewController(nav, animated: true, completion: nil)
                 }

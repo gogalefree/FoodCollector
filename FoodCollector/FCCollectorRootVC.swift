@@ -268,7 +268,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , /*CLLocationMana
         self.publicationDetailsTVC?.publication = publication
         let state :PublicationDetailsTVCViewState = publication.isUserCreatedPublication!.boolValue ? .Publisher : .Collector
         self.publicationDetailsTVC?.setupWithState(state, caller: .MyPublications, publication: publication)
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCCollectorRootVC.dismissDetailVC))
+        let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCCollectorRootVC.dismissDetailVC))
+        barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = barButton
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         self.navigationController!.presentViewController(nav, animated: true, completion: nil)
     }

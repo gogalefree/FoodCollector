@@ -169,7 +169,9 @@ class FCPublishRootVC : UIViewController, UICollectionViewDelegate, UICollection
         
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: publication, publicationIndexPath: indexPath.item)
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublishRootVC.dismissDetailVC))
+        let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublishRootVC.dismissDetailVC))
+        barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = barButton
         
         //publicationDetailsTVC?.deleteDelgate = self
         

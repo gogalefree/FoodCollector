@@ -95,7 +95,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         addTopRightButton()
         addPictureButton()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(PublicationEditorTVC.backButtonAction))
+        let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(PublicationEditorTVC.backButtonAction))
+        barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+        self.navigationItem.leftBarButtonItem = barButton
 
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCImageCustomCell", bundle: nil), forCellReuseIdentifier: "imageCustomCell")
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")

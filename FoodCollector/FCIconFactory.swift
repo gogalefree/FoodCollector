@@ -106,4 +106,19 @@ class FCIconFactory: NSObject {
         
         return icon
     }
+    
+    class func backBGImage() -> UIImage? {
+        
+        var barButtonBGImageName = "BackArrowLeftBG"
+        var edgeInsets = UIEdgeInsetsMake(1, 30, 1, 1)
+        
+        if UIApplication.sharedApplication().userInterfaceLayoutDirection == .RightToLeft {
+            barButtonBGImageName = "BackArrowRightBG"
+            edgeInsets = UIEdgeInsetsMake(1, 1, 1, 30)
+        }
+        
+        let barButtonBGImage = UIImage(named:barButtonBGImageName)?.resizableImageWithCapInsets(edgeInsets)
+        
+        return barButtonBGImage
+    }
 }
