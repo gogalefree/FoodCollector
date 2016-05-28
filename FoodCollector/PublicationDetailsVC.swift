@@ -550,7 +550,9 @@ extension PublicationDetailsVC: PublicationDetsilsCollectorActionsHeaderDelegate
         if let phoneNumber = self.publication?.contactInfo {
             if MFMessageComposeViewController.canSendText() {
                 let messageVC = MFMessageComposeViewController()
-                messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
+                //messageVC.body = String.localizedStringWithFormat(NSLocalizedString("I want to pickup %@", comment:"SMS message body: I want to pickup 'Publication name'"), publication.title!)
+                let smsMesage = String.localizedStringWithFormat(NSLocalizedString("Hi, about your event in Foodonet: %@, can I come and pickup?(br)Thanks,(br)%@.", comment:"SMS message body. The first placeholder (%@) is the title of a share and the second is the name of the creator of the share. DO NOT change or delete (br) !!!"), publication.title!, User.sharedInstance.userIdentityProviderUserName)
+                messageVC.body = smsMesage.stringByReplacingOccurrencesOfString("(br)", withString: "\n")
                 messageVC.recipients = [phoneNumber]
                 messageVC.messageComposeDelegate = self
                 self.navigationController?.presentViewController(messageVC, animated: true, completion: nil)

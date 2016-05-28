@@ -10,9 +10,6 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "2Oa-A1-9fz"; */
 "2Oa-A1-9fz.text" = "Label";
 
-/* Class = "UIButton"; normalTitle = "Join"; ObjectID = "2pA-4N-af7"; */
-"2pA-4N-af7.normalTitle" = "הצטרף";
-
 /* Class = "UILabel"; text = "Label"; ObjectID = "3Zb-jF-K2K"; */
 "3Zb-jF-K2K.text" = "Label";
 
@@ -169,9 +166,6 @@
 /* Class = "UIButton"; normalTitle = "Send"; ObjectID = "mSz-8f-fLS"; */
 "mSz-8f-fLS.normalTitle" = "שליחה";
 
-/* Class = "UIButton"; normalTitle = "Call"; ObjectID = "nl5-jO-5om"; */
-"nl5-jO-5om.normalTitle" = "התקשר";
-
 /* Class = "UILabel"; text = "Title"; ObjectID = "oNA-4q-mL6"; */
 "oNA-4q-mL6.text" = "כותרת";
 
@@ -208,9 +202,6 @@
 /* Class = "UILabel"; text = "User Name"; ObjectID = "sul-0x-eRY"; */
 "sul-0x-eRY.text" = "שם משתמש";
 
-/* Class = "UIButton"; normalTitle = "SMS"; ObjectID = "tF7-OW-iXg"; */
-"tF7-OW-iXg.normalTitle" = "SMS";
-
 /* Class = "UISearchBar"; placeholder = "Type address or select an earlier search"; ObjectID = "ulr-E7-krT"; */
 "ulr-E7-krT.placeholder" = "הקלידו כתובת או ביחרו חיפוש קודם";
 
@@ -228,9 +219,6 @@
 
 /* Class = "UILabel"; text = "What would you like to do?"; ObjectID = "x0y-g5-7hP"; */
 "x0y-g5-7hP.text" = "מה תרצו לעשות?";
-
-/* Class = "UIButton"; normalTitle = "Go"; ObjectID = "x2d-Mc-e8C"; */
-"x2d-Mc-e8C.normalTitle" = "סע";
 
 /* Class = "UIViewController"; title = "Welcome"; ObjectID = "yCW-nD-O9I"; */
 "yCW-nD-O9I.title" = "ברוכים הבאים";

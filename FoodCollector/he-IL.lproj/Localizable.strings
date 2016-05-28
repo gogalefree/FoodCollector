@@ -152,6 +152,9 @@
 /* report button title */
 "Has More To Pickup" = "נשאר עוד לאסוף";
 
+/* SMS message body. The first placeholder (%@) is the title of a share and the second is the name of the creator of the share. DO NOT change or delete (br) !!! */
+"Hi, about your event in Foodonet: %@, can I come and pickup?(br)Thanks,(br)%@." = "שלום, בקשר לאירוע שלך ב-Foodonet: %1$@, האם אפשר להגיע ולאסוף?(br)תודה,(br)%2$@.";
+
 /* No user created publications message. DO NOT change or delete (br) !!! */
 "Hi,(br)What would you like to share?" = "הי,(br)מה תרצו לשתף?";
 
@@ -187,9 +190,6 @@
 
 /* photo library button title */
 "Library" = "גלריה";
-
-/* settings cell title */
-"Log Out" = "התנתקות";
 
 /* Alert button title */
 "Login" = "התחברות";
@@ -255,9 +255,6 @@
 /* Report title for a button */
 "Options" = "אפשרויות";
 
-/* settings cell title */
-"Profile Settings" = "הגדרות פרופיל";
-
 /* Collector home page navigation bar title
    Collector map title */
 "Pickup" = "איסוף";
@@ -273,6 +270,9 @@
 
 /* the title of the profile vc */
 "Profile" = "פרופיל";
+
+/* settings cell title */
+"Profile Settings" = "הגדרות פרופיל";
 
 /* This is the name of the public group */
 "Public" = "ציבורי";
