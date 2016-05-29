@@ -35,6 +35,8 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     var publications = [Publication]()
     var userCreatedPublications = [Publication]()
 
+    var shouldPresentAddItem = false
+    var shouldPresentNearYouItem = false
     
     //this is set whenever a user deletes a userCreatedPublication or when a delete remote notification arrives
     //ui can get the deleted object here

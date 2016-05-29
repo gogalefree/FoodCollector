@@ -90,6 +90,17 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         super.viewDidAppear(animated)
         showActivityCenterButton.reloadCounterLabel()
         GAController.reportsAnalyticsForScreen(kFAPublicationsTVCScreenName)
+        
+        if FCModel.sharedInstance.shouldPresentNearYouItem {
+            
+            FCModel.sharedInstance.shouldPresentNearYouItem = false
+            self.performSegueWithIdentifier("presentMapView", sender: self)
+        }
+            
+        else if FCModel.sharedInstance.shouldPresentAddItem {
+            FCModel.sharedInstance.shouldPresentAddItem = false
+            self.createNewPublicationButtonTouched(UIButton())
+        }
     }
     
     func addPanRecognizer() {

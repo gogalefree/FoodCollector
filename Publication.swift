@@ -91,6 +91,9 @@ class Publication: NSManagedObject {
         let publisherId = params["publisher_id"] as? Int ?? 0
         let activeDevice = params["active_device_dev_uuid"] as? String ?? ""
         let publisherUserName = params["identity_provider_user_name"] as? String ?? ""
+        let userRating = params["user_rating"] as? Double ?? 0
+        let price = params["price"] as? Double ?? 0
+        print ("user rating: \(userRating)" + " " + #function)
         
         self.uniqueId = aUniquId
         self.title = aTitle
@@ -106,9 +109,11 @@ class Publication: NSManagedObject {
         self.publisherId = publisherId
         self.isOnAir = true
         self.publisherDevUUID = activeDevice
-        self.publisherUserName = publisherUserName
+        self.publisherUserName = publisherUserName.capitalizedString
         self.storedDistanceFromUserLocation = NSNumber(double: self.distanceFromUserLocation)
-
+        self.publisherRating = NSNumber(double: userRating)
+        self.price = NSNumber(double: price)
+        
         //if the version is new - the publication was updated. than we try to fetch the photo again
         if self.version?.integerValue != aVersion {
             self.didTryToDownloadImage = false

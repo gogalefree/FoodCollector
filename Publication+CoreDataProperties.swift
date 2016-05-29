@@ -2,7 +2,7 @@
 //  Publication+CoreDataProperties.swift
 //  FoodCollector
 //
-//  Created by Guy Freedman on 18/04/2016.
+//  Created by Guy Freedman on 27/05/2016.
 //  Copyright © 2016 Foodonet. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -31,6 +31,7 @@ extension Publication {
     @NSManaged var photoBinaryData: NSData?
     @NSManaged var publisherDevUUID: String?
     @NSManaged var publisherId: NSNumber?
+    @NSManaged var publisherPhotoData: NSData?
     @NSManaged var publisherUserName: String?
     @NSManaged var startingData: NSDate?
     @NSManaged var storedDistanceFromUserLocation: NSNumber?
@@ -39,7 +40,9 @@ extension Publication {
     @NSManaged var typeOfCollecting: NSNumber?
     @NSManaged var uniqueId: NSNumber?
     @NSManaged var version: NSNumber?
-    @NSManaged var publisherPhotoData: NSData?
+    @NSManaged var publisherRating: NSNumber?
+    @NSManaged var price: NSNumber?
     @NSManaged var registrations: NSSet?
     @NSManaged var reports: NSSet?
+
 }

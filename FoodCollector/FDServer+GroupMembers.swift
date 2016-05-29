@@ -36,11 +36,22 @@ extension FCMockServer {
             print("response: \(response)")
             if response.statusCode == 200 || response.statusCode == 201 {
                 
-                let responseParams = try? NSJSONSerialization.JSONObjectWithData(incomingData, options: []) as? [[String: AnyObject]]
+                var responseParams: [[String: AnyObject]]? = nil
+                
+                do {
+                    
+                    responseParams = try NSJSONSerialization.JSONObjectWithData(incomingData, options: []) as? [[String: AnyObject]]
+                    
+                } catch let error as NSError {
+                    print ("error psrsing group members params after sending group members " + #function + error.description)
+                    return
+                }
+                
                 guard let params = responseParams else {print("error parsing params from group members response \(error)") ; return}
                 print("params: \(params)")
                 
-                for memberDict in params! {
+                
+                for memberDict in params {
                     
                     print("member: \(memberDict)")
                 

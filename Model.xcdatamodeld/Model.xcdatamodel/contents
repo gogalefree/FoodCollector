@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
     <entity name="ActivityLog" representedClassName=".ActivityLog" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="-749230260" syncable="YES"/>
         <attribute name="isNew" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
@@ -44,9 +44,11 @@
         <attribute name="latitude" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitutde" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="photoBinaryData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="price" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="publisherDevUUID" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="publisherId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="publisherPhotoData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="publisherRating" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="publisherUserName" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="startingData" attributeType="Date" defaultDateTimeInterval="-749209740" syncable="YES"/>
         <attribute name="storedDistanceFromUserLocation" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -75,6 +77,7 @@
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="publicationId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="publicationVersion" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="publisherRating" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="reoprterUserName" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="report" attributeType="Integer 32" defaultValueString="1" syncable="YES"/>
         <attribute name="reporterContactInfo" attributeType="String" defaultValueString="no" syncable="YES"/>
@@ -86,8 +89,8 @@
         <element name="ActivityLog" positionX="-612" positionY="-180" width="128" height="178"/>
         <element name="Group" positionX="-423" positionY="-180" width="128" height="120"/>
         <element name="GroupMember" positionX="-90" positionY="-180" width="128" height="165"/>
-        <element name="Publication" positionX="-351" positionY="99" width="128" height="465"/>
+        <element name="Publication" positionX="-351" positionY="99" width="128" height="495"/>
         <element name="PublicationRegistration" positionX="-108" positionY="389" width="128" height="178"/>
-        <element name="PublicationReport" positionX="-101" positionY="99" width="128" height="210"/>
+        <element name="PublicationReport" positionX="-101" positionY="99" width="128" height="225"/>
     </elements>
 </model>

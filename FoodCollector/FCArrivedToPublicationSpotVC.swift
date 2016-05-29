@@ -84,7 +84,7 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
         
         //make the report
         let moc = FCModel.sharedInstance.dataController.managedObjectContext
-        let report = PublicationReport.reportForPublication(message, publication: publication!, context: moc)
+        let report = PublicationReport.reportForPublication(message, publication: publication!, rating: ratings,context: moc)
         
         //pass it back to publication details tvc
         self.delegate?.dismiss(report)

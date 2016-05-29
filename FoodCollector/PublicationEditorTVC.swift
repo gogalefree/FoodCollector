@@ -116,6 +116,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        checkIfReadyForPublish()
+    }
+    
     func backButtonAction() {
         //self.popViewController()
         self.dismissViewControllerAnimated(true, completion: nil)

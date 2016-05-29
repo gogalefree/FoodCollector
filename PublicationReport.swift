@@ -35,6 +35,7 @@ class PublicationReport: NSManagedObject {
             
             let reportDateDouble = reportDateString.doubleValue
             let reportDate = NSDate(timeIntervalSince1970: reportDateDouble)
+            let publisherRating = publicationReportDict["rating"] as? Int ?? 5
             
             //prevent wrong data
             if reportMessage != 1 && reportMessage != 3 && reportMessage != 5 {continue}
@@ -69,6 +70,7 @@ class PublicationReport: NSManagedObject {
                 newReport.report = reportMessage
                 newReport.reporterUserId = reporterUserId
                 newReport.publication = publication
+                newReport.publisherRating = publisherRating
                 
                 if publication.reports == nil {publication.reports = NSSet()}
                 publication.reports = publication.reports?.setByAddingObject(newReport)
@@ -88,7 +90,7 @@ class PublicationReport: NSManagedObject {
         }
     }
     
-    class func reportForPublication(reportInt: Int ,publication: Publication, context: NSManagedObjectContext)  -> PublicationReport {
+    class func reportForPublication(reportInt: Int ,publication: Publication,rating: Int, context: NSManagedObjectContext)  -> PublicationReport {
         let report = NSEntityDescription.insertNewObjectForEntityForName(kPublicationReportEntity, inManagedObjectContext: context) as! PublicationReport
         report.reporterContactInfo = User.sharedInstance.userPhoneNumber
         report.activeDeviceDecUUID = FCModel.sharedInstance.deviceUUID
@@ -99,6 +101,7 @@ class PublicationReport: NSManagedObject {
         report.report = NSNumber(integer: reportInt)
         report.reporterUserId = NSNumber(integer: User.sharedInstance.userUniqueID)
         report.publication = publication
+        report.publisherRating = rating
         
         if publication.reports == nil {publication.reports = Set<PublicationReport>()}
         publication.reports = publication.reports?.setByAddingObject(report)

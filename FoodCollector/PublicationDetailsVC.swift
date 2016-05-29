@@ -295,6 +295,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsDetailsTVCell", forIndexPath: indexPath) as! PublicationDetailsDetailsTVCell
                 cell.shareLocationLabel.text = publication?.address
                 cell.shareUserNameLabel.text = publication?.publisherUserName
+                cell.publication = publication
                 return cell
                 
             case 3: // More Info Cell

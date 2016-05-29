@@ -65,7 +65,7 @@ extension FCMockServer {
         params["report_contact_info"]       = report.reporterContactInfo ?? ""
         params["report_user_name"]          = report.reoprterUserName ?? ""
         params["reporter_user_id"]          = report.reporterUserId!.integerValue
-        
+        params["rating"]                    = report.publisherRating?.doubleValue
         
         let dicToSend = ["publication_report" : params]
         print(dicToSend)
