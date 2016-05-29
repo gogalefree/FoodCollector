@@ -58,7 +58,7 @@ class CDNewDataProcessor: NSObject {
     class func updateAndAddPublicationsFromDictionaries(results: [[String: AnyObject]], usingContext localContext: NSManagedObjectContext) {
         
         for dict in results {
-            print("publication: \(dict)", separator: "===end publication===", terminator: "end publication json")
+            print("publication: \(dict)", separator: "===", terminator: "\n========end publication json============")
             print("\n")
             
         }

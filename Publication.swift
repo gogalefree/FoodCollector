@@ -93,6 +93,8 @@ class Publication: NSManagedObject {
         let publisherUserName = params["identity_provider_user_name"] as? String ?? ""
         let userRating = params["user_rating"] as? Double ?? 0
         let price = params["price"] as? Double ?? 0
+        let priceDescription = params["price_desciption"] as? String ?? ""
+     
         print ("user rating: \(userRating)" + " " + #function)
         
         self.uniqueId = aUniquId
@@ -113,6 +115,8 @@ class Publication: NSManagedObject {
         self.storedDistanceFromUserLocation = NSNumber(double: self.distanceFromUserLocation)
         self.publisherRating = NSNumber(double: userRating)
         self.price = NSNumber(double: price)
+        self.priceDescription = priceDescription
+   
         
         //if the version is new - the publication was updated. than we try to fetch the photo again
         if self.version?.integerValue != aVersion {

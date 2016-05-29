@@ -122,8 +122,8 @@ class ActivityLog: NSManagedObject {
                     do {
                         
                         try self.managedObjectContext?.save()
-                    } catch {
-                        print (error)
+                    } catch let error as NSError{
+                        print (error.description)
                     }
                     
                 })

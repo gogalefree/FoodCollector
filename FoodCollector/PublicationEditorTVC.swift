@@ -74,6 +74,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
         if self.state == .EditPublication {
             self.fetchPhotoIfNeeded()
+            checkIfReadyForPublish()
         }
         
         

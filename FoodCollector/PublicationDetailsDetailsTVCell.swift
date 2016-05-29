@@ -16,7 +16,9 @@ class PublicationDetailsDetailsTVCell: UITableViewCell {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var starImageView: UIImageView!
     
-    let starImages = [UIImage(named: "Star-No_rating") , UIImage(named: "Star_user_rating")]
+    let yellowBackgroundView = UIView()
+    
+    let starImages = [UIImage(named: "Star-No_rating") , UIImage(named: "Star_user_rating"), UIImage(named: "Star-rating")]
     
     var publication: Publication? {
         didSet {
@@ -28,11 +30,26 @@ class PublicationDetailsDetailsTVCell: UITableViewCell {
     func setupUserRating(publication: Publication) {
     
         setDefaultRating()
+        
         if publication.publisherRating != 0 {
             
-            starImageView.image = starImages[1]
+            self.starImageView.image = starImages[2]
+            self.starImageView.backgroundColor = UIColor.clearColor()
+            self.starImageView.clipsToBounds = true
+            let backgroundFraction: CGFloat = CGFloat((publication.publisherRating!.doubleValue / 5))
+            yellowBackgroundView.frame = self.starImageView.frame
+            yellowBackgroundView.frame.size.width = yellowBackgroundView.frame.size.width * backgroundFraction * 0.9
+            yellowBackgroundView.backgroundColor = UIColor.yellowColor()
+            
+            self.contentView.addSubview(yellowBackgroundView)
+            self.contentView.sendSubviewToBack(yellowBackgroundView)
             ratingLabel.text = String(publication.publisherRating!.floatValue)
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.yellowBackgroundView.removeFromSuperview()
     }
     
     override func awakeFromNib() {

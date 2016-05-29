@@ -116,7 +116,7 @@
 			<key>UIApplicationShortcutItemSubtitle</key>
 			<string>events near you</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>What&apos;s Near</string>
+			<string>What's Near</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).nearYouAction</string>
 		</dict>
