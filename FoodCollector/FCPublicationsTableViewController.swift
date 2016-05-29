@@ -329,7 +329,9 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
         let state: PublicationDetailsTVCViewState = publication.isUserCreatedPublication!.boolValue ? .Publisher : .Collector
         publicationDetailsTVC?.state = state
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublicationsTableViewController.dismissDetailVC))
+        let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FCPublicationsTableViewController.dismissDetailVC))
+        barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = barButton
         let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
         
         self.navigationController?.presentViewController(nav, animated: true, completion: nil)

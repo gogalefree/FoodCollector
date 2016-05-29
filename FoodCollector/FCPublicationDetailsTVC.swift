@@ -497,7 +497,7 @@ extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDeleg
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
             let twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             
-            let hashTagString = "#FooDoNet: "
+            let hashTagString = "#Foodonet: "
             let title = publication?.title
             twiiterPostController.setInitialText(hashTagString + title!)
             

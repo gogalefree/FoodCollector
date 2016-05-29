@@ -1,3 +1,6 @@
+/* Class = "UIButton"; normalTitle = "Log out"; ObjectID = "1Y4-3I-Z0t"; */
+"1Y4-3I-Z0t.normalTitle" = "התנתקות";
+
 /* Class = "UILabel"; text = "Notifications"; ObjectID = "A6p-6p-qWm"; */
 "A6p-6p-qWm.text" = "הודעות";
 
@@ -33,9 +36,6 @@
 
 /* Class = "UILabel"; text = "60 km"; ObjectID = "kvK-lu-Zt1"; */
 "kvK-lu-Zt1.text" = "60 ק״מ";
-
-/* Class = "UILabel"; text = "Subtitle"; ObjectID = "mDi-tI-gnb"; */
-"mDi-tI-gnb.text" = "כותרת משנה";
 
 /* Class = "UIButton"; normalTitle = "Edit"; ObjectID = "mua-e4-tjH"; */
 "mua-e4-tjH.normalTitle" = "עריכה";

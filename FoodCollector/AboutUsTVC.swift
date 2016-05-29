@@ -9,9 +9,14 @@
 import UIKit
 
 class AboutUsTVC: UITableViewController {
+    
+    @IBOutlet weak var backButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+        
         self.tableView.estimatedRowHeight = 120
     }
 

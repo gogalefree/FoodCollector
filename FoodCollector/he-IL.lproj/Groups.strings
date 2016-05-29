@@ -34,10 +34,10 @@
 /* Class = "UILabel"; text = "Group Name"; ObjectID = "eAo-NQ-kGY"; */
 "eAo-NQ-kGY.text" = "שם קבוצה";
 
-/* Class = "UILabel"; text = "Gruop Members"; ObjectID = "sSS-cW-O1O"; */
+/* Class = "UILabel"; text = "Group Members"; ObjectID = "sSS-cW-O1O"; */
 "sSS-cW-O1O.text" = "חברי קבוצה";
 
-/* Class = "UILabel"; text = "Gruop Members"; ObjectID = "vAi-4h-j0k"; */
+/* Class = "UILabel"; text = "Group Members"; ObjectID = "vAi-4h-j0k"; */
 "vAi-4h-j0k.text" = "חברי קבוצה";
 
 /* Class = "UILabel"; text = "Group Name"; ObjectID = "vBl-OF-NR4"; */

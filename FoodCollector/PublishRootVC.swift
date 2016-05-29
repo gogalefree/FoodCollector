@@ -195,7 +195,9 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         publicationDetailsTVC?.setupWithState(PublicationDetailsTVCViewState.Publisher, caller: PublicationDetailsTVCVReferral.MyPublications, publication: publication, publicationIndexPath: indexPath.item)
         
-        publicationDetailsTVC?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(PublishRootVC.dismissDetailVC))
+        let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(PublishRootVC.dismissDetailVC))
+        barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+        publicationDetailsTVC?.navigationItem.leftBarButtonItem = barButton
         
         publicationDetailsTVC?.deleteDelgate = self
         
@@ -253,7 +255,10 @@ class PublishRootVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         if User.sharedInstance.userIsLoggedIn {
             if let newShareVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublicationEditorTVC") as? PublicationEditorTVC {
                 newShareVC.setupWithState(.CreateNewPublication, publication: nil)
-                newShareVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(self.dismissDetailVC))
+                
+                let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(self.dismissDetailVC))
+                barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+                newShareVC.navigationItem.leftBarButtonItem = barButton
                 let nav = UINavigationController(rootViewController: newShareVC)
                 self.presentViewController(nav, animated: true, completion: nil)
             }

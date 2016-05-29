@@ -141,7 +141,7 @@
 "Foodonet is a social initiative aiming to reduce food waste. Foodonet develops a mobile platform that allows people to easily donate spare food to one another. Foodonet is connecting food producers directly to customers with no mediators and cutting food costs" = "\U200fFoodonet הינה יוזמה חברתית השמה לעצמה כמטרה לצמצם בזבוז מזון. Foodonet מפתחת פלטפורמה ניידת המאפשרת לאנשים לתרום בקלות עודפי מזון האחד לשני. Foodonet מחברת בין יצרני מזון ישירות לצרכנים ללא מתווך ביניים ומורידה עלויות של מזון.";
 
 /* report button title */
-"Fount Nothing There" = "לא מצאתי כלום";
+"Found Nothing There" = "לא מצאתי כלום";
 
 /* Message alert title when creating a new group. asks the user to enter a group name */
 "Group Name:" = "שם קבוצה:";
@@ -151,6 +151,9 @@
 
 /* report button title */
 "Has More To Pickup" = "נשאר עוד לאסוף";
+
+/* SMS message body. The first placeholder (%@) is the title of a share and the second is the name of the creator of the share. DO NOT change or delete (br) !!! */
+"Hi, about your event in Foodonet: %@, can I come and pickup?(br)Thanks,(br)%@." = "שלום, בקשר לאירוע שלך ב-Foodonet: %1$@, האם אפשר להגיע ולאסוף?(br)תודה,(br)%2$@.";
 
 /* No user created publications message. DO NOT change or delete (br) !!! */
 "Hi,(br)What would you like to share?" = "הי,(br)מה תרצו לשתף?";
@@ -187,9 +190,6 @@
 
 /* photo library button title */
 "Library" = "גלריה";
-
-/* settings cell title */
-"Log Out" = "התנתקות";
 
 /* Alert button title */
 "Login" = "התחברות";
@@ -255,9 +255,6 @@
 /* Report title for a button */
 "Options" = "אפשרויות";
 
-/* settings cell title */
-"Personal Profile" = "פרופיל אישי";
-
 /* Collector home page navigation bar title
    Collector map title */
 "Pickup" = "איסוף";
@@ -273,6 +270,9 @@
 
 /* the title of the profile vc */
 "Profile" = "פרופיל";
+
+/* settings cell title */
+"Profile Settings" = "הגדרות פרופיל";
 
 /* This is the name of the public group */
 "Public" = "ציבורי";

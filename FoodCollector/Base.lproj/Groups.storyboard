@@ -238,6 +238,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorView" destination="V57-Oe-DBe" id="16J-Ph-tID"/>
+                        <outlet property="backButton" destination="VbQ-2R-Hmv" id="V3C-Ou-zSR"/>
                         <outlet property="createGroupButton" destination="72p-HA-aUM" id="3u8-Cw-UcL"/>
                         <outlet property="noGroupsMessageView" destination="zsH-43-hMX" id="2rl-dA-0la"/>
                         <outlet property="searchBar" destination="bAp-lJ-0bx" id="zMY-qF-NgF"/>
@@ -288,7 +289,7 @@
                                     <constraint firstAttribute="height" constant="60" id="zhN-PP-MUN"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gruop Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAi-4h-j0k">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAi-4h-j0k">
                                 <rect key="frame" x="12" y="144" width="351" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -486,7 +487,7 @@
                                     <constraint firstItem="KZy-SC-njU" firstAttribute="centerY" secondItem="2Xy-vD-Qjq" secondAttribute="centerY" id="gek-VD-6EI"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gruop Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSS-cW-O1O">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSS-cW-O1O">
                                 <rect key="frame" x="12" y="144" width="351" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
