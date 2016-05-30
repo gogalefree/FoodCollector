@@ -37,6 +37,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Launch-file-Portrait" width="768" height="1024"/>
+        <image name="Launch-file-Portrait" width="320" height="568"/>
     </resources>
 </document>

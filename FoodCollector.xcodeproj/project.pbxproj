@@ -949,8 +949,6 @@
 				E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */,
 				A12394651B9C3B8300C960EA /* PublicationDetsilsCollectorActionsHeaderView.swift */,
 				A1E04A781C22A8CD00709B0A /* PublicationDetsilsCollectorActionsHeaderView.xib */,
-				A12394671B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift */,
-				A1E04A7D1C22A8D500709B0A /* PublicationDetsilsPublisherActionsHeaderView.xib */,
 				E4AEDE5F1B258D1100431F9B /* PublicationDetailsSubtitleCell.swift */,
 				E49B93271A5D0D0700D48C52 /* FCPublicationDetailsDatesCell.swift */,
 				E4AEDE611B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift */,
@@ -1120,6 +1118,8 @@
 			children = (
 				A1CE0EE21CB1A557004EC403 /* PublicationDetailsVC.swift */,
 				E4FA4EF71CCCAE6C004EE050 /* PublicationDetailsVC+PhotoPresentor.swift */,
+				A12394671B9C3B8300C960EA /* PublicationDetsilsPublisherActionsHeaderView.swift */,
+				A1E04A7D1C22A8D500709B0A /* PublicationDetsilsPublisherActionsHeaderView.xib */,
 				A1A8A08F1CB2B32C001F47DC /* Cell Views */,
 				E41235CC1ABC18E10016FE5F /* Reports TVC */,
 				E41235CB1ABC18B30016FE5F /* Photo Presentor */,
