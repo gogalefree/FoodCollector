@@ -82,6 +82,7 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
         guard let message = self.reportMessage?.rawValue else {return}
         if message != 1 && message != 3 && message != 5 {return}
         
+        
         //make the report
         let moc = FCModel.sharedInstance.dataController.managedObjectContext
         let report = PublicationReport.reportForPublication(message, publication: publication!, rating: ratings,context: moc)
@@ -91,10 +92,10 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
         
         //post report to server
         FCModel.sharedInstance.foodCollectorWebServer.postReportforPublication(report)
+                
         
-        //post ratings to server
-        
-        
+        publication?.userDidReportCurrentPublication = true
+        FCModel.sharedInstance.dataController.save()
     }
     
     @IBAction func cancelButtonAction(sender: AnyObject) {

@@ -488,7 +488,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                             let uploader = FCPhotoFetcher()
                             uploader.uploadPhotoForPublication(publication)
                         }
-
+                        
+                        self.addFoodiesToUser()
                     })
                 })
             }
@@ -540,6 +541,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
                     
                     context.performBlock({ () -> Void in
                     
+                        self.addFoodiesToUser()
                         self.publication?.version = NSNumber(integer: version)
                         self.publication?.isOnAir = true
                         self.publication?.isUserCreatedPublication = true
@@ -627,6 +629,10 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         return params
     }
 
+    func addFoodiesToUser() {
+    
+        User.sharedInstance.setValueInUserClassProperty(kFoodiesForNewPublication, forKey: .Foodies)
+    }
     
     func fetchPhotoIfNeeded() {
         

@@ -16,6 +16,7 @@ class UserProfilePhotoCell: UITableViewCell {
     
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var editPhotoButton: UIButton!
+    @IBOutlet weak var mainMessageLable: UILabel!
     
     var tapGestureRecognizer: UITapGestureRecognizer!
     weak var delegate: UserProfilePhotoCellDelegate?
@@ -35,6 +36,11 @@ class UserProfilePhotoCell: UITableViewCell {
             
             photoImageView.layer.cornerRadius = CGRectGetWidth(photoImageView.bounds) / 2
             photoImageView.image = User.sharedInstance.userImage
+            
+            let foodies = User.sharedInstance.userFoodies ?? 0
+            let message = String.localizedStringWithFormat(NSLocalizedString("%d Foodies Gained",comment: "a title representing the amount of foodies that the user have gained so far"),foodies )
+            self.mainMessageLable.text = message
+            
         }
     }
     

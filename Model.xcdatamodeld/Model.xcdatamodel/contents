@@ -57,6 +57,7 @@
         <attribute name="title" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="typeOfCollecting" attributeType="Integer 32" defaultValueString="2" syncable="YES"/>
         <attribute name="uniqueId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="userDidReportCurrentPublication" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="version" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="registrations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PublicationRegistration" inverseName="publication" inverseEntity="PublicationRegistration" syncable="YES"/>
         <relationship name="reports" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PublicationReport" inverseName="publication" inverseEntity="PublicationReport" syncable="YES"/>
@@ -90,7 +91,7 @@
         <element name="ActivityLog" positionX="-612" positionY="-180" width="128" height="178"/>
         <element name="Group" positionX="-423" positionY="-180" width="128" height="120"/>
         <element name="GroupMember" positionX="-90" positionY="-180" width="128" height="165"/>
-        <element name="Publication" positionX="-351" positionY="99" width="128" height="510"/>
+        <element name="Publication" positionX="-351" positionY="99" width="128" height="525"/>
         <element name="PublicationRegistration" positionX="-108" positionY="389" width="128" height="178"/>
         <element name="PublicationReport" positionX="-101" positionY="99" width="128" height="225"/>
     </elements>

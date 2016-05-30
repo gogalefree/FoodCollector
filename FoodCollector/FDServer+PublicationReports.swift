@@ -65,7 +65,7 @@ extension FCMockServer {
         params["report_contact_info"]       = report.reporterContactInfo ?? ""
         params["report_user_name"]          = report.reoprterUserName ?? ""
         params["reporter_user_id"]          = report.reporterUserId!.integerValue
-        params["rating"]                    = report.publisherRating?.doubleValue
+        params["rating"]                    = report.publisherRating?.integerValue
         
         let dicToSend = ["publication_report" : params]
         print(dicToSend)
@@ -76,7 +76,7 @@ extension FCMockServer {
         request.HTTPBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        print("params: \(params)")
+
         let session = NSURLSession.sharedSession()
         session.dataTaskWithRequest(request,
             completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in

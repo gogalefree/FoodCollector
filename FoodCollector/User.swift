@@ -8,6 +8,8 @@
 
 import UIKit
 
+let kFoodiesForNewPublication = 6
+
 // User data key names
 enum UserDataKey: String {
     case ID =                               "id"

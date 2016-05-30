@@ -350,6 +350,16 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         guard let publication = self.publication else {return}
         
+        //TODO: Insert web image name
+        //if web user: present web user image
+        if publication.publisherId?.integerValue == 1 {
+            if let webUserImage = UIImage(named: "") {
+                presentPublisherPhoto(webUserImage)
+            }
+            
+            return
+        }
+        
         if let photoData = publication.publisherPhotoData {
             let photo = UIImage(data: photoData)
             presentPublisherPhoto(photo!)
@@ -713,6 +723,13 @@ extension PublicationDetailsVC : FCOnSpotPublicationReportDelegate {
     func presentReportVC() {
         
         if User.sharedInstance.userIsLoggedIn {
+            
+            if publication!.userDidReportCurrentPublication == true {
+            
+                self.presentUserDidReportCurrentPublicationMessage()
+                return
+            }
+            
             let arrivedToSpotReportVC = self.storyboard?.instantiateViewControllerWithIdentifier("FCArrivedToPublicationSpotVC") as! FCArrivedToPublicationSpotVC
             
             arrivedToSpotReportVC.publication = self.publication
@@ -727,6 +744,14 @@ extension PublicationDetailsVC : FCOnSpotPublicationReportDelegate {
         else {
             showNotLoggedInAlert()
         }
+    }
+    
+    func presentUserDidReportCurrentPublicationMessage() {
+        
+        let title = NSLocalizedString("You've already posted a report on this event.", comment: "an alert message title meaning that the user has already reported this publication")
+        let message = NSLocalizedString("only one report can be posted for each event.", comment: "an alert title meaning that the user can only report one event")
+        let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: message)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     //MARK: - Reports delegate

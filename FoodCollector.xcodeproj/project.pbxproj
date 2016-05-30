@@ -362,8 +362,8 @@
 		E4A557271C919F6800E09139 /* DragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557231C919F6800E09139 /* DragView.swift */; };
 		E4A557291C91A07000E09139 /* SettingsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557281C91A07000E09139 /* SettingsRootVC.swift */; };
 		E4A5572A1C91A07000E09139 /* SettingsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A557281C91A07000E09139 /* SettingsRootVC.swift */; };
-		E4A728761CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A728751CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift */; };
-		E4A728771CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A728751CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift */; };
+		E4A728791CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A728781CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift */; };
+		E4A7287A1CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A728781CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift */; };
 		E4AEDE551B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */; };
 		E4AEDE5C1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5B1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift */; };
 		E4AEDE5E1B257E9D00431F9B /* PublicationDetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */; };
@@ -678,7 +678,7 @@
 		E4A557221C919F6800E09139 /* NotificationsDistanceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsDistanceVC.swift; sourceTree = "<group>"; };
 		E4A557231C919F6800E09139 /* DragView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragView.swift; sourceTree = "<group>"; };
 		E4A557281C91A07000E09139 /* SettingsRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRootVC.swift; sourceTree = "<group>"; };
-		E4A728751CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Publication+CoreDataProperties.swift"; path = "../Publication+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E4A728781CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Publication+CoreDataProperties.swift"; path = "../Publication+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E4AEDE541B22D41D00431F9B /* FCPublicationRegistrationsFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublicationRegistrationsFetcher.swift; sourceTree = "<group>"; };
 		E4AEDE5B1B257A8400431F9B /* PublicationDetailsTitleCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsTitleCellTableViewCell.swift; sourceTree = "<group>"; };
 		E4AEDE5D1B257E9D00431F9B /* PublicationDetailsImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsImageCell.swift; sourceTree = "<group>"; };
@@ -1008,7 +1008,7 @@
 		E40F19A11C81987D009C044E /* Publication */ = {
 			isa = PBXGroup;
 			children = (
-				E4A728751CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift */,
+				E4A728781CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift */,
 				E40F19921C81984B009C044E /* Publication.swift */,
 			);
 			name = Publication;
@@ -1915,7 +1915,7 @@
 				E448ADAE1CC8AE0900EB1796 /* ActivityLog+CoreDataProperties.swift in Sources */,
 				E44FDDCC1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.swift in Sources */,
 				E44FDDCD1C5CB5F9000D5F97 /* FCPublicationRegistrationsFetcher.swift in Sources */,
-				E4A728771CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift in Sources */,
+				E4A7287A1CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift in Sources */,
 				E44FDDCE1C5CB5F9000D5F97 /* FCPublicationReportsNavigationController.swift in Sources */,
 				E4D16F121C881DDD00EDFE69 /* ActivityLog.swift in Sources */,
 				E4F40CFB1C70B0270094E455 /* GroupMember.swift in Sources */,
@@ -2051,7 +2051,7 @@
 				E41BCE0B1C2EBB100018E771 /* LoginData.swift in Sources */,
 				E41BCE0D1C2ECEEA0018E771 /* FacebookLoginManager.swift in Sources */,
 				E494DF101A0A980D004A369E /* AppDelegate.swift in Sources */,
-				E4A728761CFAD6FC00DCB521 /* Publication+CoreDataProperties.swift in Sources */,
+				E4A728791CFC0D7D00DCB521 /* Publication+CoreDataProperties.swift in Sources */,
 				E4737D8B1A10C01300A4AB81 /* FCDateFunctions.swift in Sources */,
 				A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */,
 				E4AEDE621B25915B00431F9B /* PublicationDetailsReportsTitleCell.swift in Sources */,
