@@ -68,6 +68,7 @@ extension FCMockServer {
         params["rating"]                    = report.publisherRating?.integerValue
         
         let dicToSend = ["publication_report" : params]
+        
         print(dicToSend)
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(dicToSend, options: [])
         let url = NSURL(string: urlString)
