@@ -20,8 +20,8 @@ protocol PublicationDetsilsPublisherActionsHeaderDelegate: NSObjectProtocol {
 
 class PublicationDetsilsPublisherActionsHeaderView: UIView {
     
-    let buttonPressColor = UIColor(red: 32/255, green: 137/255, blue: 75/255, alpha: 1)
-    let normalColor = kNavBarBlueColor
+    let buttonPressColor = kNavBarBlueColor //UIColor(red: 32/255, green: 137/255, blue: 75/255, alpha: 1)
+    let normalColor = UIColor.clearColor()
     
     @IBOutlet weak var button1to2widthConstraint : NSLayoutConstraint!
     @IBOutlet weak var button2to3widthConstraint : NSLayoutConstraint!
@@ -30,7 +30,7 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
 
     
     @IBOutlet weak var facebookButton:  UIButton!
-    @IBOutlet weak var twitterButton:  UIButton!
+    @IBOutlet weak var twitterButton:   UIButton!
     @IBOutlet weak var smsButton:       UIButton!
     @IBOutlet weak var phoneCallButton: UIButton!
     
@@ -111,8 +111,8 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
     func configureButtons() {
         
         for button in self.buttons {
-            button.backgroundColor = normalColor
-            button.setTitle("", forState: .Normal)
+            //button.backgroundColor = normalColor
+            //button.setTitle("", forState: .Normal)
             button.layer.cornerRadius = CGRectGetWidth(button.frame) / 2
             button.enabled = true
         }
