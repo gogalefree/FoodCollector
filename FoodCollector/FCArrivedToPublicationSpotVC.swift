@@ -76,6 +76,8 @@ class FCArrivedToPublicationSpotVC: UIViewController, UITableViewDataSource, UIT
     }
     @IBAction func postReport(sender: AnyObject) {
   
+        publication?.userDidReportCurrentPublication = false
+
         let ratings = self.ratingView.ratings
         print("ratings is \(ratings)")
 

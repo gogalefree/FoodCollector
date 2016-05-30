@@ -409,7 +409,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         if let publication = self.publication {
             
-            let localContext = FCModel.sharedInstance.dataController.createPrivateQueueContext()
+            let localContext = FCModel.sharedInstance.dataController.managedObjectContext
             
             localContext.performBlock({ () -> Void in
                 
@@ -721,6 +721,8 @@ extension PublicationDetailsVC : FCOnSpotPublicationReportDelegate {
     
     
     func presentReportVC() {
+        
+        publication?.userDidReportCurrentPublication = false
         
         if User.sharedInstance.userIsLoggedIn {
             
