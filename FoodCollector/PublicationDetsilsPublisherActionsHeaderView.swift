@@ -55,7 +55,7 @@ class PublicationDetsilsPublisherActionsHeaderView: UIView {
         switch sender {
 
         case facebookButton:
-            
+
             if let delegate = self.delegate {
                 delegate.didRequestPostToFacebookForPublication()
             }

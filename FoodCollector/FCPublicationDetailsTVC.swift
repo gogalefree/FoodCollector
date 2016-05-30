@@ -108,7 +108,7 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
         }
         else {
             let header = UIView.loadFromNibNamed("PublicationDetsilsPublisherActionsHeaderView", bundle: nil) as? PublicationDetsilsPublisherActionsHeaderView
-            header?.delegate = self
+            //header?.delegate = self
             header?.publication = self.publication
             return header
         }

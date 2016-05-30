@@ -186,11 +186,11 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             
             actionView.alpha = 0
             
-            
             if state == .Publisher {
                 self.joinButton.alpha = 0
                 // Display the publisher action buttons
-                let publisherActionsView = UINib(nibName: "PublicationDetsilsPublisherActionsHeaderView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! UIView
+                let publisherActionsView = UINib(nibName: "PublicationDetsilsPublisherActionsHeaderView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PublicationDetsilsPublisherActionsHeaderView
+                publisherActionsView.delegate = self
                 let screenWidth = UIScreen.mainScreen().bounds.size.width
                 let actionViewY = UIScreen.mainScreen().bounds.size.height-54-20
                 publisherActionsView.frame = CGRectMake(0, actionViewY, screenWidth, 54)
@@ -926,7 +926,7 @@ extension PublicationDetailsVC {
 
 //MARK: - Publisher Actions Header delegate
 
-extension FCPublicationDetailsTVC: PublicationDetsilsPublisherActionsHeaderDelegate {
+extension PublicationDetailsVC: PublicationDetsilsPublisherActionsHeaderDelegate {
     
     
     func didRequestPostToFacebookForPublication() {
