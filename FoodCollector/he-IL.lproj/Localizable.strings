@@ -10,6 +10,9 @@
 /* Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined' */
 "%@ users joined" = "%@ משתמשים הצטרפו";
 
+/* a title representing the amount of foodies that the user have gained so far */
+"%d Foodies Gained" = "הרווחת %d Foodies";
+
 /* Distance from location of sharing. e.g: '55 km' */
 "(%@ km)" = "(%@ ק\"מ)";
 
@@ -138,7 +141,7 @@
 "Events Near You" = "אירועים בקירבתך";
 
 /* about us text */
-"Foodonet is a social initiative aiming to reduce food waste. Foodonet develops a mobile platform that allows people to easily donate spare food to one another. Foodonet is connecting food producers directly to customers with no mediators and cutting food costs" = "\U200fFoodonet הינה יוזמה חברתית השמה לעצמה כמטרה לצמצם בזבוז מזון. Foodonet מפתחת פלטפורמה ניידת המאפשרת לאנשים לתרום בקלות עודפי מזון האחד לשני. Foodonet מחברת בין יצרני מזון ישירות לצרכנים ללא מתווך ביניים ומורידה עלויות של מזון.";
+"Foodonet is a social initiative aiming to reduce food waste. Foodonet develops a mobile platform that allows people to easily donate spare food to one another. Foodonet is connecting food producers directly to customers with no mediators and cutting food costs" = "U200fFoodonet הינה יוזמה חברתית השמה לעצמה כמטרה לצמצם בזבוז מזון. Foodonet מפתחת פלטפורמה ניידת המאפשרת לאנשים לתרום בקלות עודפי מזון האחד לשני. Foodonet מחברת בין יצרני מזון ישירות לצרכנים ללא מתווך ביניים ומורידה עלויות של מזון.";
 
 /* report button title */
 "Found Nothing There" = "לא מצאתי כלום";
@@ -379,6 +382,9 @@
 /* location notification body: You have arrived to... */
 "You have arrived to: %@" = "הגעת ל: %@";
 
+/* an alert message title meaning that the user has already reported this publication */
+"You've already posted a report on this event." = "כבר פרסמת דיווח עבור שיתוף זה.";
+
 /* fetched data notification text: a group was created */
 "You've been added to group: " = "צורפת לקבוצה:";
 
@@ -390,4 +396,7 @@
 
 /* a shorted version of minutes */
 "mins" = "דקות";
+
+/* an alert title meaning that the user can only report one event */
+"only one report can be posted for each event." = "ניתן לדווח רק פעם עבור כל שיתוף.";
 

@@ -82,6 +82,9 @@
 /* Class = "UITabBarItem"; title = "Pickup"; ObjectID = "J8w-tF-wCB"; */
 "J8w-tF-wCB.title" = "איסוף";
 
+/* Class = "UILabel"; text = "15"; ObjectID = "Lyf-6b-Qx7"; */
+"Lyf-6b-Qx7.text" = "15";
+
 /* Class = "UINavigationItem"; title = "Welcome"; ObjectID = "NtA-nJ-dYr"; */
 "NtA-nJ-dYr.title" = "ברוכים הבאים";
 
