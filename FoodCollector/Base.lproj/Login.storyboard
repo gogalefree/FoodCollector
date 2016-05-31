@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="THF-2H-DF0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="THF-2H-DF0">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoPhotoPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="fUZ-7T-g8V">
-                                <rect key="frame" x="104" y="79" width="112" height="112"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FDN_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="fUZ-7T-g8V">
+                                <rect key="frame" x="104" y="78" width="112" height="112"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="112" id="Txe-W5-Z9w"/>
                                     <constraint firstAttribute="height" constant="112" id="xMo-jL-RgR"/>
@@ -32,7 +32,7 @@
                                     <constraint firstAttribute="height" constant="21" id="p9s-wN-ITf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-LightOblique" family="Helvetica" pointSize="18"/>
-                                <color key="textColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.094117647058823528" green="0.63921568627450975" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to get started?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7J-IC-nLf">
@@ -45,7 +45,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="—  Sign in with  —" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RxJ-SW-BD5">
-                                <rect key="frame" x="16" y="277" width="288" height="17"/>
+                                <rect key="frame" x="16" y="276" width="288" height="17"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -84,28 +84,28 @@
                                 </connections>
                             </button>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KYN-tz-qxT" userLabel="Spacer View 1">
-                                <rect key="frame" x="88" y="64" width="144" height="15"/>
+                                <rect key="frame" x="88" y="64" width="144" height="14.5"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="WsV-Qb-log"/>
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qLQ-rb-Bsa" userLabel="Spacer View 2">
-                                <rect key="frame" x="88" y="191" width="144" height="14"/>
+                                <rect key="frame" x="88" y="190.5" width="144" height="15"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="hku-3S-ywV"/>
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZeJ-lG-EH1" userLabel="Spacer View 3">
-                                <rect key="frame" x="88" y="226" width="144" height="15"/>
+                                <rect key="frame" x="88" y="226" width="144" height="14.5"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="cop-uk-3BP"/>
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzU-iD-uRc" userLabel="Spacer View 4">
-                                <rect key="frame" x="88" y="262" width="144" height="15"/>
+                                <rect key="frame" x="88" y="262" width="144" height="14.5"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="vQ6-PX-RMN"/>
@@ -119,7 +119,7 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcz-Ur-CMX" userLabel="Spacer View 6">
-                                <rect key="frame" x="88" y="417" width="144" height="15"/>
+                                <rect key="frame" x="88" y="417" width="144" height="14.5"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="144" id="lLr-6Q-bwp"/>
@@ -468,10 +468,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="FDN_Logo" width="67" height="100"/>
         <image name="FacebookLogin" width="270" height="42"/>
         <image name="GoogleLogin" width="270" height="42"/>
         <image name="I" width="87" height="80"/>
-        <image name="NoPhotoPlaceholder" width="87" height="80"/>
         <image name="PhoneFieldBG" width="270" height="42"/>
         <image name="PhoneIcon" width="27" height="24"/>
         <image name="ProfileChangeImageIcon" width="25" height="20"/>

@@ -185,23 +185,30 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             }
             
             actionView.alpha = 0
-            if let isRegistered = publication?.didRegisterForCurrentPublication?.boolValue {
-                if isRegistered && state == .Collector {
-                    actionView.alpha = 1
-                    configueJoinButtonForState(isRegistered)
-                }
-            }
             
             if state == .Publisher {
                 self.joinButton.alpha = 0
+                // Display the publisher action buttons
+                let publisherActionsView = UINib(nibName: "PublicationDetsilsPublisherActionsHeaderView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! PublicationDetsilsPublisherActionsHeaderView
+                publisherActionsView.delegate = self
+                let screenWidth = UIScreen.mainScreen().bounds.size.width
+                let actionViewY = UIScreen.mainScreen().bounds.size.height-54-20
+                publisherActionsView.frame = CGRectMake(0, actionViewY, screenWidth, 54)
+                self.view.addSubview(publisherActionsView)
+            }
+            else {
+                if let isRegistered = publication?.didRegisterForCurrentPublication?.boolValue {
+                    if isRegistered && state == .Collector {
+                        actionView.alpha = 1
+                        configueJoinButtonForState(isRegistered)
+                    }
+                }
             }
         }
     }
     
     func configueJoinButtonForState(registered: Bool) {
         
-        //var title: String
-        //var titleColor: UIColor
         var joinButtonImage: UIImage?
         
         if registered {
@@ -914,6 +921,103 @@ extension PublicationDetailsVC {
     func reload() {
         print("reload")
         self.shareDetailsTableView.reloadData()
+    }
+}
+
+//MARK: - Publisher Actions Header delegate
+
+extension PublicationDetailsVC: PublicationDetsilsPublisherActionsHeaderDelegate {
+    
+    
+    func didRequestPostToFacebookForPublication() {
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+            let facebookPostController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            
+            facebookPostController.setInitialText(publication?.title)
+            if let data = publication?.photoBinaryData {
+                facebookPostController.addImage(UIImage(data: data))
+                
+            }
+            facebookPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
+            self.presentViewController(facebookPostController, animated:true, completion:nil)
+        }
+    }
+    
+    func didRequestPostToTwitterForPublication() {
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+            let twiiterPostController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            
+            let hashTagString = "#Foodonet: "
+            let title = publication?.title
+            twiiterPostController.setInitialText(hashTagString + title!)
+            
+            if let data = publication?.photoBinaryData {
+                twiiterPostController.addImage(UIImage(data: data))
+                
+            }
+            twiiterPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
+            self.presentViewController(twiiterPostController, animated:true, completion:nil)
+        }
+    }
+    
+    func publisherDidRequestSmsCollectors() {
+        
+        let registrations = publication?.registrations
+        
+        if registrations == nil || registrations?.count == 0 {
+            let title = NSLocalizedString("No one is registered for this pickup", comment:"")
+            presentNoCollectorsAlert(title)
+            return
+        }
+        
+        
+        let validator = Validator()
+        let array = Array(registrations!) as! [PublicationRegistration]
+        let trueNumbers = array.filter { (registration) in validator.getValidPhoneNumber(registration.collectorContactInfo!) != nil }
+        if trueNumbers.count == 0 {
+            
+            let title = NSLocalizedString("There are no legit phone numbers", comment:"")
+            presentNoCollectorsAlert(title)
+            return
+        }
+        
+        
+        //present ContactCollectorPicker
+        let contactCollectorPickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorsNavController") as! UINavigationController
+        contactCollectorPickerNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        contactCollectorPickerNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        let contactCollectorPicker = contactCollectorPickerNavVC.viewControllers[0] as! ContactCollectorsPickerTVC
+        contactCollectorPicker.publication = self.publication
+        self.navigationController?.presentViewController(contactCollectorPickerNavVC, animated: true, completion: nil)
+    }
+    
+    func publisherDidRequestPhoneCall() {
+        
+        let registrations = publication?.registrations
+        
+        if registrations == nil || registrations?.count == 0 {
+            
+            let title = NSLocalizedString("No one is registered for this pickup", comment:"")
+            presentNoCollectorsAlert(title)
+            return
+        }
+        
+        let registrationsArray = Array(publication!.registrations!) as! [PublicationRegistration]
+        //present ContactCollectorPhonePicker
+        let contactCollectorPhonePickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorPhonePickerNavVC") as! UINavigationController
+        contactCollectorPhonePickerNavVC.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        contactCollectorPhonePickerNavVC.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        let contactCollectorPhonePicker = contactCollectorPhonePickerNavVC.viewControllers[0] as! ContactCollectorPhonePickerVC
+        contactCollectorPhonePicker.registrations = registrationsArray
+        self.navigationController?.presentViewController(contactCollectorPhonePickerNavVC, animated: true, completion: nil)
+    }
+    
+    func presentNoCollectorsAlert(title: String) {
+        
+        let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: "")
+        self.navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
 }
 
