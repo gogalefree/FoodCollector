@@ -729,7 +729,7 @@ extension PublicationDetailsVC : FCOnSpotPublicationReportDelegate {
     
     func presentReportVC() {
         
-        publication?.userDidReportCurrentPublication = false
+      //  publication?.userDidReportCurrentPublication = false
         
         if User.sharedInstance.userIsLoggedIn {
             
