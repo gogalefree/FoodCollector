@@ -360,7 +360,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         //TODO: Insert web image name
         //if web user: present web user image
         if publication.publisherId?.integerValue == 1 {
-            if let webUserImage = UIImage(named: "") {
+            if let webUserImage = UIImage(named: "Foodonet_user") {
                 presentPublisherPhoto(webUserImage)
             }
             
