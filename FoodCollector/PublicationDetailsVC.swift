@@ -980,7 +980,6 @@ extension PublicationDetailsVC: PublicationDetsilsPublisherActionsHeaderDelegate
             return
         }
         
-        
         let validator = Validator()
         let array = Array(registrations!) as! [PublicationRegistration]
         let trueNumbers = array.filter { (registration) in validator.getValidPhoneNumber(registration.collectorContactInfo!) != nil }
@@ -990,7 +989,6 @@ extension PublicationDetailsVC: PublicationDetsilsPublisherActionsHeaderDelegate
             presentNoCollectorsAlert(title)
             return
         }
-        
         
         //present ContactCollectorPicker
         let contactCollectorPickerNavVC = storyboard?.instantiateViewControllerWithIdentifier("ContactCollectorsNavController") as! UINavigationController
