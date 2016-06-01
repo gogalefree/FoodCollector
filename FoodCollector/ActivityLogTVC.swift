@@ -10,6 +10,8 @@ import UIKit
 
 class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate {
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    
     var _fetchedResultsController :NSFetchedResultsController?
     
     var fetchedResultsController: NSFetchedResultsController {
@@ -40,6 +42,7 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
         super.viewDidLoad()
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        backButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
         tableView.estimatedRowHeight  = 80
         tableView.rowHeight = UITableViewAutomaticDimension
