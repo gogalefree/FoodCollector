@@ -217,7 +217,6 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
 
         switch selectedScope {
             
-            
         case 0:
             //sort by distance
             sorter = NSSortDescriptor(key: "storedDistanceFromUserLocation", ascending: true)
