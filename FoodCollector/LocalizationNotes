@@ -17,16 +17,16 @@ Privacy - Location Usage Description: "הצגת הודעה בזמן הגעה ל�
 NSLocationWhenInUseUsageDescription: "הצגת הודעה בזמן הגעה לנקודת שיתוף"
 
 /* What's Near */
-"UIApplicationShortcutItemTitle" = "מה חדש בסביבה"
+"UIApplicationShortcutItemTitle" = "מה חדש בסביבה";
 
 /* Events near you */
-"UIApplicationShortcutItemSubtitle" = "שיתופים בקרתך"
+"UIApplicationShortcutItemSubtitle" = "שיתופים בקרתך";
 
 /* Post Event */
-"UIApplicationShortcutItemTitle" = "פירסום שיתוף"
+"UIApplicationShortcutItemTitle" = "פירסום שיתוף";
 
 /* Share something */
-"UIApplicationShortcutItemSubtitle" = "שתפו משהו"
+"UIApplicationShortcutItemSubtitle" = "שתפו משהו";
 
 
 
