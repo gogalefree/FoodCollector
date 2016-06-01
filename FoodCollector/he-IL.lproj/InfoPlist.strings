@@ -8,19 +8,19 @@
 "CFBundleShortVersionString" = "1.0.9";
 
 /* Display a message when arriving to pickup location */
-"NSLocationUsageDescription" = "הצגת הודעה בזמן הגעה לנקודת שיתוף"
+"NSLocationUsageDescription" = "הצגת הודעה בזמן הגעה לנקודת שיתוף";
 
 /* Display a message when arriving to pickup location */
-"NSLocationWhenInUseUsageDescription" = "הצגת הודעה בזמן הגעה לנקודת שיתוף"
+"NSLocationWhenInUseUsageDescription" = "הצגת הודעה בזמן הגעה לנקודת שיתוף";
 
 /* What's Near */
-"UIApplicationShortcutItemTitle" = "מה חדש בסביבה"
+"UIApplicationShortcutItemTitle" = "מה חדש בסביבה";
 
 /* Events near you */
-"UIApplicationShortcutItemSubtitle" = "שיתופים בקרתך"
+"UIApplicationShortcutItemSubtitle" = "שיתופים בקרתך";
 
 /* Post Event */
-"UIApplicationShortcutItemTitle" = "פירסום שיתוף"
+"UIApplicationShortcutItemTitle" = "פירסום שיתוף";
 
 /* Share something */
-"UIApplicationShortcutItemSubtitle" = "שתפו משהו"
+"UIApplicationShortcutItemSubtitle" = "שתפו משהו";
