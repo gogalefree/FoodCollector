@@ -115,7 +115,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // Because the table thinks there is a footer to show, it doesn't display any
         // cells beyond those you explicitly asked for.
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
-        
+        self.title = NSLocalizedString("New Event", comment: "publication editor  vc title")
+
 
     }
     

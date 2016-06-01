@@ -57,9 +57,9 @@ extension FCMockServer {
                 
                     let id = memberDict["id"] as? Int ?? 0
                     let userId = memberDict["user_id"] as? Int ?? 0
-                    let name = memberDict["name"] as? String ?? ""
-                    
-                    let groupMember = myMembers.filter {(member) in member.name == name }
+                    //let name = memberDict["name"] as? String ?? ""
+                    let phoneNumber = memberDict["phone_number"] as? String ?? ""
+                    let groupMember = myMembers.filter {(member) in member.phoneNumber == phoneNumber }
                     print("group member count should be 1 and is: \(groupMember.count)")
 
                     if groupMember.count > 0 {

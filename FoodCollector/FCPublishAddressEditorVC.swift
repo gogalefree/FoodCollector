@@ -309,8 +309,13 @@ class FCPublishAddressEditorVC: UIViewController, UISearchBarDelegate, UITableVi
     }
     
     func presentErrorAlert() {
-        let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error occurred", comment:"An error occurred"), aMessage: kCommunicationIssueBody)
-        self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+        
+        dispatch_async(dispatch_get_main_queue()) { 
+         
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(NSLocalizedString("An error occurred", comment:"An error occurred"), aMessage: kCommunicationIssueBody)
+            self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+        }
+        
     }
     
     func googleReverseGeoCodeForLatLngLocation(lat lat: Double, lon: Double) {

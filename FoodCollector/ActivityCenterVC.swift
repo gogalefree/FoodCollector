@@ -153,6 +153,11 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
         
         switch indexPath.row {
             case 0: // My Shares
+                
+                if !User.sharedInstance.userIsLoggedIn {
+                    return
+                }
+
                 if let mySharesVC = self.storyboard?.instantiateViewControllerWithIdentifier("PublishRootVC") as? PublishRootVC {
                     
                     let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ActivityCenterVC.dismissVC))
@@ -201,6 +206,11 @@ class ActivityCenterVC: UIViewController, UITableViewDataSource, UITableViewDele
             case 6: // Settings
                 print("Settings was Taped")
             
+                if !User.sharedInstance.userIsLoggedIn {
+                    presentLogin()
+                    return
+                }
+
                 let settingsNav = UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController() as! UINavigationController
                 self.presentViewController(settingsNav, animated: true, completion: nil)
             

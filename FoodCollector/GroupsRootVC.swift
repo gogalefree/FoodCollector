@@ -34,6 +34,7 @@ class GroupsRootVC: UIViewController {
         backButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
         self.tableView.dataSource = self
         self.tableView.delegate   = self
+        self.title = NSLocalizedString("Groups", comment: "groups root vc title")
         
 //        //DEBUG ONLY
 //        let moc = FCModel.dataController.managedObjectContext

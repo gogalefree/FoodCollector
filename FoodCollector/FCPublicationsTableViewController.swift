@@ -223,7 +223,7 @@ class FCPublicationsTableViewController : UITableViewController, UISearchBarDele
             sorter = NSSortDescriptor(key: "storedDistanceFromUserLocation", ascending: true)
         case 1:
             //sort by StartingDate
-            sorter = NSSortDescriptor(key: "startingData", ascending: true)
+            sorter = NSSortDescriptor(key: "startingData", ascending: false)
             
         case 2:
             //sort by count of registered users

@@ -28,7 +28,7 @@ class SettingsRootVC: UIViewController, UITableViewDataSource, UITableViewDelega
         backButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
         self.tableView.tableFooterView = UIView()
 
-        // Do any additional setup after loading the view.
+        self.title = NSLocalizedString("Settings", comment: "settings root vc title")
     }
 
     override func didReceiveMemoryWarning() {

@@ -359,13 +359,13 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         //TODO: Insert web image name
         //if web user: present web user image
-        if publication.publisherId?.integerValue == 1 {
-            if let webUserImage = UIImage(named: "Foodonet_user") {
-                presentPublisherPhoto(webUserImage)
-            }
-            
-            return
-        }
+//        if publication.publisherId?.integerValue == 1 {
+//            if let webUserImage = UIImage(named: "Foodonet_user") {
+//                presentPublisherPhoto(webUserImage)
+//            }
+//            
+//            return
+//        }
         
         if let photoData = publication.publisherPhotoData {
             let photo = UIImage(data: photoData)
@@ -941,7 +941,11 @@ extension PublicationDetailsVC: PublicationDetsilsPublisherActionsHeaderDelegate
             }
             facebookPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
             self.presentViewController(facebookPostController, animated:true, completion:nil)
-        }
+        } else {
+                let title = NSLocalizedString("Facebook App is not installed on your device.", comment: "cant post to facebook title")
+                let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: "")
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
     }
     
     func didRequestPostToTwitterForPublication() {
@@ -959,6 +963,10 @@ extension PublicationDetailsVC: PublicationDetsilsPublisherActionsHeaderDelegate
             }
             twiiterPostController.addURL(NSURL(string: "https://www.facebook.com/foodonet"))
             self.presentViewController(twiiterPostController, animated:true, completion:nil)
+        } else {
+            let title = NSLocalizedString("Twitter is not installed on your device.", comment: "cant post to twitter title")
+            let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: "")
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

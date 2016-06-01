@@ -122,9 +122,9 @@ class FCCollectorRootVC : UIViewController, MKMapViewDelegate , /*CLLocationMana
                 userCoordinadets.longitude = 34.785227
             }
             
-            let span   = MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
+            let span   = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
             let region = MKCoordinateRegion(center: userCoordinadets, span: span)
-            mapView.setRegion(region, animated: false)
+            mapView.setRegion(region, animated: true)
             initialLaunch = false
             
             FCModel.sharedInstance.uiReadyForNewData = true

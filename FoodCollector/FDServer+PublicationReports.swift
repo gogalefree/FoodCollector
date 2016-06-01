@@ -94,6 +94,7 @@ extension FCMockServer {
                         
                         do {
                             let reportDict = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String : AnyObject]
+                            print(reportDict)
                             let id = reportDict?["id"] as? Int ?? 0
                             
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
