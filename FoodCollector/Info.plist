@@ -114,7 +114,7 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeLocation</string>
 			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>events near you</string>
+			<string>Events near you</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>What's Near</string>
 			<key>UIApplicationShortcutItemType</key>
@@ -124,7 +124,7 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeAdd</string>
 			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>share something</string>
+			<string>Share something</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Post Event</string>
 			<key>UIApplicationShortcutItemType</key>

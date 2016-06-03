@@ -331,8 +331,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func addPictureButton(){
         let screenWidth = UIScreen.mainScreen().bounds.width
-        let buttonWidth = CGFloat(54)
-        let buttonHeight = CGFloat(54)
+        let buttonWidth = CGFloat(60)
+        let buttonHeight = CGFloat(60)
         let paddingFromEdge = CGFloat(40)
         
         let image = UIImage(named: "CameraIcon") as UIImage?

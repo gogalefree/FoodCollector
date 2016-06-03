@@ -1,4 +1,4 @@
-Two strings in Info.plist:
+Strings in Info.plist:
 ===========================================
 
 Source
@@ -15,6 +15,21 @@ Hebrew
 ------------------------------------
 Privacy - Location Usage Description: "הצגת הודעה בזמן הגעה לנקודת שיתוף"
 NSLocationWhenInUseUsageDescription: "הצגת הודעה בזמן הגעה לנקודת שיתוף"
+
+/* What's Near */
+"UIApplicationShortcutItemTitle" = "מה חדש בסביבה";
+
+/* Events near you */
+"UIApplicationShortcutItemSubtitle" = "שיתופים בקרתך";
+
+/* Post Event */
+"UIApplicationShortcutItemTitle" = "פירסום שיתוף";
+
+/* Share something */
+"UIApplicationShortcutItemSubtitle" = "שתפו משהו";
+
+
+
 
 
 Use UICommonStrings class for strings that are used more than once in the code.
