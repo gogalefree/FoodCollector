@@ -15,8 +15,8 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var imageView : UIImageView!
 
-    let defaultImage = UIImage(named: "NoPhotoPlaceholder")
-    
+    let defaultImage = UIImage(named:"Big_Logo")
+    /*"NoPhotoPlaceholder"*/
     var publication: Publication? {
         didSet {
             guard let publication = publication else {return}
@@ -26,6 +26,7 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
     
     func setup(publication: Publication) {
         
+        self.imageView.contentMode = .ScaleAspectFit
         self.imageView.image = defaultImage
         self.shadowView.backgroundColor = UIColor.darkGrayColor().colorWithAlphaComponent(0.1)
         
@@ -49,6 +50,7 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
     
     func animateImage(publication: Publication) {
         
+        self.imageView.contentMode = .ScaleAspectFill
         let photo = UIImage(data: publication.photoBinaryData!)
         guard let aPhoto = photo else {return}
         self.imageView.image = aPhoto

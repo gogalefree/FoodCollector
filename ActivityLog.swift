@@ -147,7 +147,7 @@ class ActivityLog: NSManagedObject {
                     print("data: \(self.logImage?.length)")
                     do {
                         
-                        try self.managedObjectContext?.save()
+                        try context.save()
                     } catch {
                         print(error)
                     }

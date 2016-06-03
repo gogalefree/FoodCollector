@@ -326,7 +326,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     }
     
     func setTopRightButtonStatus(){
-        self.navigationItem.rightBarButtonItem!.enabled = publishButtonEnabled
+        self.navigationItem.rightBarButtonItem?.enabled = publishButtonEnabled
     }
     
     func addPictureButton(){

@@ -52,6 +52,10 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         FCUserNotificationHandler.sharedInstance.notificationsBadgeCounter = 0
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         FCModel.sharedInstance.dataController.save()
     }
     

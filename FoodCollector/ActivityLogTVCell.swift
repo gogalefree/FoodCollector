@@ -16,8 +16,8 @@ class ActivityLogTVCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    
-    let defaultImage = UIImage(named: "NoPhotoPlaceholder")
+    /*NoPhotoPlaceholder*/
+    let defaultImage = UIImage(named: "Big_Logo")
     let tagIconsNames = ["EndedTag" , "Group_tag_1", "JoinedTag", "NewEventTag", "ReportTag"]
     
     var log: ActivityLog! {
@@ -42,9 +42,11 @@ class ActivityLogTVCell: UITableViewCell {
         mainImageView.layer.cornerRadius = CGRectGetWidth(mainImageView.bounds) / 2
         guard let imageData = newlog.logImage else {
             self.mainImageView.image = defaultImage
+            self.mainImageView.contentMode = .ScaleAspectFit
             return
         }
         
+        self.mainImageView.contentMode = .ScaleToFill
         let image = UIImage(data: imageData)
         self.mainImageView.image = image
     }
@@ -105,7 +107,7 @@ class ActivityLogTVCell: UITableViewCell {
         subtitleLabel.backgroundColor = UIColor.whiteColor()
         contentView.backgroundColor = UIColor.whiteColor()
         timeLabel.backgroundColor = UIColor.whiteColor()
-        
+        self.mainImageView.contentMode = .ScaleToFill
     }
     override func awakeFromNib() {
         super.awakeFromNib()
