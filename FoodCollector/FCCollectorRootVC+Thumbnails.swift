@@ -19,9 +19,7 @@ extension FCCollectorRootVC {
         let region = MKCoordinateRegion(center: coordinates, span: span)
         self.mapView.setRegion(region, animated: true)
         guard let annotation = self.annotationForPublication(publication) else {return}
-        self.mapView.selectAnnotation(annotation, animated: true)
-        //self.mapView.showAnnotations([annotation], animated: true)
-        
+        self.mapView.selectAnnotation(annotation, animated: true)        
     }
     
     func annotationForPublication(publication: Publication) -> FDAnnotation? {

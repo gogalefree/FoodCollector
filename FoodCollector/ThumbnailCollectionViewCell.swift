@@ -16,7 +16,7 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView : UIImageView!
 
     let defaultImage = UIImage(named:"Big_Logo")
-    /*"NoPhotoPlaceholder"*/
+   
     var publication: Publication? {
         didSet {
             guard let publication = publication else {return}

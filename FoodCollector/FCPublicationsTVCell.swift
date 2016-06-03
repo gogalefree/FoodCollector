@@ -17,8 +17,8 @@ class FCPublicationsTVCell: UITableViewCell {
     @IBOutlet weak var countOfRegisteredUsersLabel: UILabel!
     @IBOutlet weak var audianceIconImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
-    /*NoPhotoPlaceholder*/
-    let defaultImage = UIImage(named: "Big_Logo")
+    
+    let defaultImage = UIImage(named: "share_no_photo")
     
     var publication: Publication? {
         
@@ -80,7 +80,7 @@ class FCPublicationsTVCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.photoImageView.contentMode = .ScaleAspectFit
+       // self.photoImageView.contentMode = .ScaleAspectFit
         self.photoImageView.image = defaultImage
         if let publication = self.publication {
             
