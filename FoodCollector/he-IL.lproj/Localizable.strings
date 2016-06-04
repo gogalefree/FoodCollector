@@ -140,8 +140,11 @@
 /* Nav Bar title - the events near you */
 "Events Near You" = "אירועים בקירבתך";
 
+/* cant post to facebook title */
+"Facebook App is not installed on your device." = "אפליקציית Facebook לא מותקנת במכשיר זה.";
+
 /* about us text */
-"Foodonet is a social initiative aiming to reduce food waste. Foodonet develops a mobile platform that allows people to easily donate spare food to one another. Foodonet is connecting food producers directly to customers with no mediators and cutting food costs" = "U200fFoodonet הינה יוזמה חברתית השמה לעצמה כמטרה לצמצם בזבוז מזון. Foodonet מפתחת פלטפורמה ניידת המאפשרת לאנשים לתרום בקלות עודפי מזון האחד לשני. Foodonet מחברת בין יצרני מזון ישירות לצרכנים ללא מתווך ביניים ומורידה עלויות של מזון.";
+"Foodonet is a social initiative aiming to reduce food waste. Foodonet develops a mobile platform that allows people to easily donate spare food to one another. Foodonet is connecting food producers directly to customers with no mediators and cutting food costs" = "\U200fFoodonet הינה יוזמה חברתית השמה לעצמה כמטרה לצמצם בזבוז מזון. Foodonet מפתחת פלטפורמה ניידת המאפשרת לאנשים לתרום בקלות עודפי מזון האחד לשני. Foodonet מחברת בין יצרני מזון ישירות לצרכנים ללא מתווך ביניים ומורידה עלויות של מזון.";
 
 /* report button title */
 "Found Nothing There" = "לא מצאתי כלום";
@@ -149,7 +152,8 @@
 /* Message alert title when creating a new group. asks the user to enter a group name */
 "Group Name:" = "שם קבוצה:";
 
-/* Title for a side menu button */
+/* groups root vc title
+   Title for a side menu button */
 "Groups" = "קבוצות";
 
 /* report button title */
@@ -208,6 +212,9 @@
 
 /* an action sheet title meening chose app to navigate with */
 "Navigate with:" = "נווט בעזרת:";
+
+/* publication editor  vc title */
+"New Event" = "שיתוף חדש";
 
 /* Title of the message banner meaning that a new event has started nearby */
 "New Event Near You: " = "אירועים חדשים בקירבתך:";
@@ -307,7 +314,8 @@
 /* title of settings distance screen */
 "Set The Distance" = "הגדרת המרחק";
 
-/* Title for a side menu button */
+/* settings root vc title
+   Title for a side menu button */
 "Settings" = "הגדרות";
 
 /* Add share type (public/privet for a new event */
@@ -345,6 +353,9 @@
 
 /* Alert message body */
 "Try again?" = "לנסות שוב?";
+
+/* cant post to twitter title */
+"Twitter is not installed on your device." = "אפליקציית Twitter לא מותקנת במכשיר זה.";
 
 /* No comment provided by engineer. */
 "User" = "משתמש";
