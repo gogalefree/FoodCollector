@@ -195,12 +195,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-
-        //TODO: delete before release
-        let loginManager = FBSDKLoginManager()
-        loginManager.logOut()
-        GIDSignIn.sharedInstance().signOut()
-
         
         //delete all photos
         let fm = NSFileManager.defaultManager()

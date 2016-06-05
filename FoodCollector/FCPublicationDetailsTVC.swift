@@ -12,34 +12,7 @@ import Social
 import CoreData
 
 
-//let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a button")
-//let kOptionsButtonTitle = NSLocalizedString("Options", comment:"Report title for a button")
-//let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End publication confirmation title for an alert controller")
-//let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
 
-
-/*
-enum PublicationDetailsTVCViewState {
-
-    case Publisher
-    case Collector
-}
-
-
-enum PublicationDetailsTVCVReferral {
-    
-    case MyPublications
-    case ActivityCenter
-    
-}
-
-protocol UserDidDeletePublicationProtocol: NSObjectProtocol {
-    func didDeletePublication(publication: Publication, collectionViewIndex: Int)
-    func didTakeOffAirPublication(publication: Publication)
-}
-*/
-
-//class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate, PublicationDetailsOptionsMenuPopUpTVCDelegate {
 class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationControllerDelegate, FCPublicationRegistrationsFetcherDelegate {
     
     weak var deleteDelgate: UserDidDeletePublicationProtocol?
@@ -312,27 +285,10 @@ class FCPublicationDetailsTVC: UITableViewController, UIPopoverPresentationContr
             }
         
     }
+
     
     func didRecievePublicationRegistration(notification: NSNotification) {
         
-//        let info = notification.userInfo as? [String : AnyObject]
-//        
-//        if let userInfo = info {
-//            
-//            let publication = userInfo["publication"] as! Publication
-//            if let presentedPublication = self.publication {
-//                
-//                if  presentedPublication.uniqueId == publication.uniqueId &&
-//                    presentedPublication.version == publication.version {
-//                        
-//                        let imageCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as? PublicationDetailsImageCell
-//                        if let cell = imageCell {
-//                         
-//                            cell.reloadRegisteredUserIconCounter()
-//                        }
-//                }
-//            }
-//        }
     }
     
     
