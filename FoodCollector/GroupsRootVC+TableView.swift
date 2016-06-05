@@ -50,7 +50,8 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
     func confirmDelete(indexPath: NSIndexPath) {
         
         let groupToDelete = dataSource[indexPath.row]
-        let alert = UIAlertController(title: "Delete Group", message: "Are you sure you want to permanently delete \(groupToDelete.name)?", preferredStyle: .ActionSheet)
+        let publicationName  = groupToDelete.name ?? ""
+        let alert = UIAlertController(title: "Delete Group", message: "Are you sure you want to permanently delete \(publicationName)?", preferredStyle: .ActionSheet)
         let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: handleDeleteGroup)
         let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteGroup)
         alert.addAction(DeleteAction)
@@ -66,15 +67,13 @@ extension GroupsRootVC: UITableViewDelegate, UITableViewDataSource {
         self.tableView.deleteRowsAtIndexPaths([indexPathToDelete!], withRowAnimation: .Fade)
         tableView.endUpdates()
         
-        let moc = FCModel.sharedInstance.dataController.managedObjectContext
-        moc.deleteObject(groupToDelete)
-        FCModel.sharedInstance.dataController.save()
-    
-
+        //Delete data associated with this group
+        FCModel.sharedInstance.deleteDataForGroup(groupToDelete)
+        
         //inform server
         FCModel.sharedInstance.foodCollectorWebServer.deleteGroup(groupToDelete)
         
-        //TODO: Take the publication associated with this group off air
+        
     }
     
     func cancelDeleteGroup(alertAction: UIAlertAction!) {

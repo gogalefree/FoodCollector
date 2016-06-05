@@ -284,6 +284,39 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             }
         }
     }
+    
+    func deleteDataForGroup(group: Group) {
+    
+        let groupId = group.id?.integerValue ?? 0
+        let moc = self.dataController.managedObjectContext
+        let request = NSFetchRequest(entityName: kPublicationEntity)
+        request.predicate = NSPredicate(format: "audiance = %@", NSNumber(integer:groupId))
+        moc.performBlock { 
+            
+            moc.deleteObject(group)
+            do {
+                let results = try moc.executeFetchRequest(request) as? [Publication]
+                guard let arrayToDelete = results else {
+                    self.dataController.save()
+                    return
+                }
+                
+                for publication in arrayToDelete {
+                    moc.deleteObject(publication)
+                }
+                
+                self.dataController.save()
+                
+                
+            }catch let error as NSError {
+                print("error deleting group data after group deletion \(error.description) \(#function)")
+            }
+            
+        }
+        
+        FCModel.sharedInstance.dataController.save()
+        
+    }
 }
 
 // MARK: SingleTone

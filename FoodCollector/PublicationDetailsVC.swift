@@ -158,7 +158,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         registerForNotifications()
         addTopRightButton(self.state)
         configAdminIfNeeded()
-        
+       // addDeletButton()
         reloadRegisteredUserIconCounter()
 
         shareDetailsTableView.estimatedRowHeight = 44
