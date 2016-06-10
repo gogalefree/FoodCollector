@@ -175,6 +175,7 @@ class LoginPhoneNumberVC: UIViewController, UITextFieldDelegate, UIImagePickerCo
             
             User.sharedInstance.setValueInUserClassProperty(true, forKey: UserDataKey.IsLoggedIn)
             CDNewDataProcessor.fetchGroupsAfterLogin()
+            CDNewDataProcessor.fetchPublicationsForUser()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }

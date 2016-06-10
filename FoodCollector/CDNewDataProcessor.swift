@@ -214,6 +214,8 @@ class CDNewDataProcessor: NSObject {
         if User.sharedInstance.userIsLoggedIn {
            
             CDNewDataProcessor.fetchGroups(localContext)
+            CDNewDataProcessor.fetchPublicationsForUser()
+            
         } else {
            
             FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
@@ -243,9 +245,107 @@ class CDNewDataProcessor: NSObject {
         }
     }
     
+    class func proccessPublicationForUser(arrayOfPublicationDicts: [[String: AnyObject]]) {
+        
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
+        
+        //create new
+        for dict in arrayOfPublicationDicts {
+            
+            
+            guard let unique = dict[kPublicationUniqueIdKey] as? Int else {continue}
+            let id =  NSNumber(integer: unique)
+           
+            //fetch with id
+            let existingPredicate = NSPredicate(format: "uniqueId = %@", id)
+            let existingFetchRequest   = NSFetchRequest(entityName: kPublicationEntity)
+            existingFetchRequest.predicate = existingPredicate
+            
+            moc.performBlock({ () -> Void in
+                
+                do {
+                    
+                    let existingPublications =  try moc.executeFetchRequest(existingFetchRequest) as? [Publication]
+                    if let founds = existingPublications {
+                        
+                        if founds.count == 0 {
+                            
+                            //create the new one
+                            let publication = NSEntityDescription.insertNewObjectForEntityForName(kPublicationEntity, inManagedObjectContext: moc) as? Publication
+                            if let newPublication = publication {
+                                newPublication.updateFromParams(dict, context: moc)
+                                
+                                //create notification object
+                                let new = ActivityLog.LogType.NewPublication.rawValue
+                                ActivityLog.activityLog(newPublication, group: nil, type: new, context: moc)
+                            }
+                        }
+                        
+                        else if founds.count > 0 {
+                            
+                            if let publication = founds.first {
+                                publication.updateFromParams(dict, context: moc)
+                            }
+                        }
+                    }
+
+        
+                    
+                }catch let error as NSError {
+                    print("error creating new publication for user: " + error.description + " " + #function)
+                }
+            })
+        }
+        
+        let arrivedIds: [NSNumber] = arrayOfPublicationDicts.map { dictionary in
+            return NSNumber(integer: (dictionary[kPublicationUniqueIdKey] as? Int ?? 0))
+        }
+        
+        //delete old
+        let toDeletePredicate = NSPredicate(format: "NOT (uniqueId in %@)", argumentArray: [arrivedIds])
+        let deleteFetchRequest   = NSFetchRequest(entityName: kPublicationEntity)
+        deleteFetchRequest.predicate = toDeletePredicate
+        
+        moc.performBlock { 
+            
+            do {
+             
+                let allNotArrived = try moc.executeFetchRequest(deleteFetchRequest) as? [Publication]
+                if let toDelete = allNotArrived {
+                    
+                    let userPublicationsToDelete = toDelete.filter { publication in
+                    
+                        return publication.audiance!.integerValue != 0
+                    }
+                    
+                    for publication in userPublicationsToDelete {
+                        
+                        //keep user created publications
+                        if publication.isUserCreatedPublication == true {continue}
+                        
+                        //make delete notification object
+                        let delete = ActivityLog.LogType.DeletePublication.rawValue
+                        ActivityLog.activityLog(publication, group: nil, type: delete, context: moc)
+                        moc.deleteObject(publication)
+                    }
+                    
+                    FCModel.sharedInstance.dataController.save()
+                }
+                
+            } catch let error as NSError {
+                print("error deleting old publication for user: " + error.description + " " + #function)
+
+            }
+        }
+    }
+    
     class func fetchGroupsAfterLogin() {
         FCModel.sharedInstance.processingData = true
         let localContext = FCModel.sharedInstance.dataController.createPrivateQueueContext()
         CDNewDataProcessor.fetchGroups(localContext)
+    }
+    
+    class func fetchPublicationsForUser() {
+        FCModel.sharedInstance.foodCollectorWebServer.publicationsForUser()
     }
 }

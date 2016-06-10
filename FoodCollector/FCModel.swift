@@ -274,9 +274,13 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
     
     func userDidLogout() {
         
+        deleteUserPublications()
+    }
+    
+    func deleteUserPublications(){
         let moc = dataController.managedObjectContext
-        moc.performBlock { 
-        
+        moc.performBlock {
+            
             let userPublications = self.publicationsForUser()
             guard let toDelete = userPublications else {return}
             for publication in toDelete {
@@ -284,6 +288,7 @@ public class FCModel : NSObject, CLLocationManagerDelegate {
             }
         }
     }
+
     
     func deleteDataForGroup(group: Group) {
     

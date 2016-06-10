@@ -86,6 +86,93 @@ class ActivityLogTVC: UITableViewController, NSFetchedResultsControllerDelegate 
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let activityLog = fetchedResultsController.objectAtIndexPath(indexPath) as? ActivityLog
+        guard let log = activityLog else {return}
+        let logType = log.type?.integerValue ?? 0
+        guard let type = ActivityLog.LogType(rawValue:logType) else {return}
+        
+        switch type {
+            
+            //present Groups VC
+        case .NewGroup:
+           
+            if !User.sharedInstance.userIsLoggedIn {
+                presentLogin()
+                return
+            }
+            
+            let groupsStoryBoard = UIStoryboard(name: "Groups", bundle: nil)
+            let groupsNavVC = groupsStoryBoard.instantiateInitialViewController() as? UINavigationController
+            self.presentViewController(groupsNavVC!, animated: true, completion: nil)
+            
+
+        case .DeletePublication:
+            
+            presentPublicationEndedMessage()
+            
+        default:
+            //present publication details
+            presentPublicationDetailsForLog(log)
+            
+        }
+        
+    }
+    
+    func presentPublicationDetailsForLog(log: ActivityLog) {
+        
+        let publicationID = log.objectId?.integerValue ?? 0
+        let moc = FCModel.sharedInstance.dataController.managedObjectContext
+        let request = NSFetchRequest(entityName: kPublicationEntity)
+        request.predicate = NSPredicate(format: "uniqueId = %@", NSNumber(integer: publicationID))
+        do {
+         
+            let results = try moc.executeFetchRequest(request) as? [Publication]
+            guard let publications = results else {return}
+            guard let publication = publications.first else {
+            
+                presentPublicationEndedMessage()
+                return
+            }
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let publicationDetailsTVC = storyBoard.instantiateViewControllerWithIdentifier("PublicationDetailsVC") as? PublicationDetailsVC
+            publicationDetailsTVC?.publication = publication
+            
+            let state: PublicationDetailsTVCViewState = publication.isUserCreatedPublication!.boolValue ? .Publisher : .Collector
+            publicationDetailsTVC?.state = state
+            
+            let barButton = UIBarButtonItem(title: kBackButtonTitle, style: UIBarButtonItemStyle.Done, target: self, action: #selector(self.dismissDetailVC))
+            barButton.setBackgroundImage(FCIconFactory.backBGImage(), forState: .Normal, barMetrics: .Default)
+            publicationDetailsTVC?.navigationItem.leftBarButtonItem = barButton
+            let nav = UINavigationController(rootViewController: publicationDetailsTVC!)
+            self.navigationController?.presentViewController(nav, animated: true, completion: nil)
+        } catch let error as NSError {
+            print("error fetching publication in activity log vc: \(error.description) \(#function)")
+        }
+    }
+    
+    func presentPublicationEndedMessage(){
+        
+        let title = NSLocalizedString("This event has ended", comment: "alert title")
+        let alert = FCAlertsHandler.sharedInstance.alertWithDissmissButton(title, aMessage: "")
+        self.navigationController?.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func dismissDetailVC() {
+    
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func presentLogin() {
+        
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginRootVCNavController = loginStoryboard.instantiateViewControllerWithIdentifier("IdentityProviderLoginNavVC") as! UINavigationController
+        self.presentViewController(loginRootVCNavController, animated: true, completion: nil)
+    }
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         

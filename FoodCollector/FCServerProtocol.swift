@@ -127,6 +127,9 @@ protocol FCServerProtocol {
     func fetchGroupsForUser(contecxt: NSManagedObjectContext)
     
     //update user profile
-    func updateUserProfile(completion: (success: Bool) -> Void) 
+    func updateUserProfile(completion: (success: Bool) -> Void)
+    
+    //get publications for user
+    func publicationsForUser()
 }
 

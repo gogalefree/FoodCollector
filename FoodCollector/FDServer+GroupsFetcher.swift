@@ -33,20 +33,28 @@ extension FCMockServer {
                 
                 if let data = data {
                     
-                    let arrayOfGroups = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [[String : AnyObject]]
+                    do {
                         
-                    
-                    if let groupsArray = arrayOfGroups {
+                        let arrayOfGroups = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [[String : AnyObject]]
                         
-                        //Check If There're Groups To Delete
-                        Group.deleteGroupsIfNeeded(groupsArray, context: context)
+                        if let groupsArray = arrayOfGroups {
                             
-                        for groupParams in groupsArray {
-                            print("group:\n\(groupParams.description)")
+                            //Check If There're Groups To Delete
+                            Group.deleteGroupsIfNeeded(groupsArray, context: context)
                             
-                            Group.instatiateGroupWithParams(groupParams, context: context)
+                            for groupParams in groupsArray {
+                                print("group:\n\(groupParams.description)")
+                                
+                                Group.instatiateGroupWithParams(groupParams, context: context)
+                            }
                         }
+                        
+                    } catch {
+                        print(error)
                     }
+                    
+                    
+                    
                     
                 }
                 
