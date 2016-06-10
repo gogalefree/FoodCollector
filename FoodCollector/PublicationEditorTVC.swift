@@ -103,6 +103,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCImageCustomCell", bundle: nil), forCellReuseIdentifier: "imageCustomCell")
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCTextFieldCustomCell", bundle: nil), forCellReuseIdentifier: "textFieldCustomCell")
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCOnlyLabelCustomCell", bundle: nil), forCellReuseIdentifier: "onlyLabelCustomCell")
+        tableView.registerNib(UINib(nibName: "PublicationEditorTVCPriceCustomCell", bundle: nil), forCellReuseIdentifier: "priceCustomCell")
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCAudianceCustomCell", bundle: nil), forCellReuseIdentifier: "audianceCustomCell")
         tableView.registerNib(UINib(nibName: "PublicationEditorTVCMoreInfoCustomCell", bundle: nil), forCellReuseIdentifier: "moreInfoCustomCell")
 
@@ -589,8 +590,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         // 0.  Photo
         // 1.  Title
         // 2.  Address + latitude + longitude
-        // 3.  Audiance (Public / Group)
-        // 4.  More Info (used to be Subtitle)
+        // 3.  Price
+        // 4.  Audiance (Public / Group)
+        // 5.  More Info (used to be Subtitle)
 
         var params = [String: AnyObject]()
         
@@ -603,8 +605,11 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         params[kPublicationlatitudeKey] = addressDict["Latitude"] as! Double
         params[kPublicationLongtitudeKey] = addressDict["longitude"] as! Double
         
+        // Price
+        params[kPublicationPriceKey] = self.dataSource[3].userData as! Double
+        
         // Audiance (Public / Group)
-        params[kPublicationAudianceKey] = self.dataSource[3].userData as! Int
+        params[kPublicationAudianceKey] = self.dataSource[4].userData as! Int
         
         // Start Date
         let startingDate = NSDate()
@@ -623,7 +628,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         params[kPublicationTypeOfCollectingKey] = 2
         
         // More Info (used to be Subtitle)
-        var subtitle = self.dataSource[4].userData as? String ?? ""
+        var subtitle = self.dataSource[5].userData as? String ?? ""
         if subtitle ==  "" { subtitle = " "}
         params[kPublicationSubTitleKey] = subtitle
         
@@ -672,12 +677,13 @@ extension  PublicationEditorTVC {
         // 0.  Photo
         // 1.  Title
         // 2.  Address + latitude + longitude
-        // 3.  Audiance (Public / Group)
-        // 4.  More Info (used to be Subtitle)
+        // 3.  Price
+        // 4.  Audiance (Public / Group)
+        // 5.  More Info (used to be Subtitle)
         
-        var initialTitles = [kPublishImage, kPublishTitle, kPublishAddress, kPublishAudiance, kPublishSubtitle]
+        var initialTitles = [kPublishImage, kPublishTitle, kPublishAddress, "", kPublishAudiance, kPublishSubtitle]
         
-        for index in 0...4 {
+        for index in 0...5 {
             
             var cellData = PublicationEditorTVCCellData()
             cellData.cellTitle = initialTitles[index]
@@ -711,6 +717,18 @@ extension  PublicationEditorTVC {
                         cellData.cellTitle = publication.address!
                         
                     case 3:
+                        //price
+                        cellData.userData = 0.0
+                        cellData.containsUserData = true
+                        cellData.cellTitle = ""
+                        if let amount = publication.price {
+                            if amount.intValue != 0 {
+                                cellData.userData = amount.doubleValue
+                                cellData.cellTitle = FCStringFunctions.currencyString(amount.doubleValue)
+                            }
+                        }
+                    
+                    case 4:
                         //publication audiance (public / group)
                         if let groupID = publication.audiance?.integerValue {
                             cellData.userData = groupID
@@ -721,7 +739,7 @@ extension  PublicationEditorTVC {
                         cellData.containsUserData = true
                         cellData.cellTitle = kPublishAudiance
                     
-                    case 4:
+                    case 5:
                         //publication subTitle (More Info)
                         cellData.userData = publication.subtitle ?? ""
                         cellData.containsUserData = true
@@ -739,6 +757,11 @@ extension  PublicationEditorTVC {
                 
                 switch index {
                 case 3:
+                    //price
+                    cellData.userData = 0.0
+                    cellData.containsUserData = true
+                    
+                case 4:
                     //publication audiance (public / group)
                     cellData.userData = 0
                     cellData.containsUserData = true

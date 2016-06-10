@@ -35,6 +35,10 @@ let kAlertLoginTitle = NSLocalizedString("You Are Not Logged-in", comment:"Alert
 let kAlertLoginMessage = NSLocalizedString("If you wish to register for a pickup or to create or edit an event, please login-in.", comment:"Alert message body")
 
 
+//General Strings
+let kNISCurrencySymbol = NSLocalizedString("₪", comment:"New Israeli Shekel currency symbol. Shoult be the same for all language.")
+let kUSDCurrencySymbol = NSLocalizedString("$", comment:"US Dollar currency symbol. Shoult be the same for all language.")
+
 // Unused strings
 //let kConfirmationAlertMessage = NSLocalizedString("Are you sure?", comment:"Alert message body")
 

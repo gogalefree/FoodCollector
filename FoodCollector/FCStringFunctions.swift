@@ -38,6 +38,18 @@ class FCStringFunctions : NSObject {
         return  String.localizedStringWithFormat(NSLocalizedString("(%@ km)", comment: "Distance from location of sharing. e.g: '55 km'"),distanceNumbers)
         
     }
+    
+    class func currencyString (value: Double) -> String {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        formatter.locale = NSLocale.currentLocale()
+        if let currencyValue = formatter.stringFromNumber(value) {
+            return currencyValue
+        }
+        return ""
+    }
+    
+    
 
 }
 

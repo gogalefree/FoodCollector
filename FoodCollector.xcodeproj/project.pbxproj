@@ -53,6 +53,10 @@
 		A16619A91A94EAAF009D9EEA /* PreBuildScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */; };
 		A167202F1C31E29F00A22415 /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A167202E1C31E29F00A22415 /* DeviceData.swift */; };
 		A170EE641A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */; };
+		A17622521D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17622501D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift */; };
+		A17622531D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17622501D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift */; };
+		A17622541D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17622511D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib */; };
+		A17622551D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17622511D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib */; };
 		A183DC6E1C0CC76800E82D6C /* LocalizationNotes in Resources */ = {isa = PBXBuildFile; fileRef = A183DC6D1C0CC76800E82D6C /* LocalizationNotes */; };
 		A1992B281BB3246D002DDF4C /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1992B271BB3246D002DDF4C /* Validator.swift */; };
 		A19A035C1C674F26006F6873 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A19A035F1C674F26006F6873 /* Login.storyboard */; };
@@ -509,6 +513,8 @@
 		A16619A81A94EAAF009D9EEA /* PreBuildScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreBuildScript.swift; path = FoodCollector/Scripts/PreBuildScript.swift; sourceTree = "<group>"; };
 		A167202E1C31E29F00A22415 /* DeviceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		A170EE631A1A68DB003650FE /* FCPublishRootVCCustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FCPublishRootVCCustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		A17622501D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationEditorTVCPriceCustomCell.swift; sourceTree = "<group>"; };
+		A17622511D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationEditorTVCPriceCustomCell.xib; sourceTree = "<group>"; };
 		A183DC6D1C0CC76800E82D6C /* LocalizationNotes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LocalizationNotes; sourceTree = "<group>"; };
 		A1992B271BB3246D002DDF4C /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		A19A035E1C674F26006F6873 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
@@ -875,6 +881,15 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		A17622491D0AECBE00163192 /* Price Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A17622501D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift */,
+				A17622511D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib */,
+			);
+			name = "Price Cell";
+			sourceTree = "<group>";
+		};
 		A1A738991B7E579800CA2C5A /* Text Field Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -983,6 +998,7 @@
 				A1A738991B7E579800CA2C5A /* Text Field Cell */,
 				A1248A7B1B76451A001C5901 /* Only One Label Cell */,
 				A1248A7A1B764416001C5901 /* Address Editor */,
+				A17622491D0AECBE00163192 /* Price Cell */,
 				A1248A801B7665DC001C5901 /* Audiance Cell */,
 				A1DBCB0E1C9D527100E11568 /* Audiance Selection */,
 				A1248A8F1B767391001C5901 /* More Info Cell */,
@@ -1647,6 +1663,7 @@
 				A10215581CD249790057E364 /* PublicationDetailsMoreInfoTVCell.xib in Resources */,
 				E44FDE3A1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.xib in Resources */,
 				E44FDE3B1C5CB5F9000D5F97 /* Images.xcassets in Resources */,
+				A17622551D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib in Resources */,
 				A19A035D1C674F26006F6873 /* Login.storyboard in Resources */,
 				E44FDE3D1C5CB5F9000D5F97 /* Localizable.strings in Resources */,
 				E44FDE3E1C5CB5F9000D5F97 /* Pin-Table-Whole@2x.png in Resources */,
@@ -1699,6 +1716,7 @@
 				A10215571CD249790057E364 /* PublicationDetailsMoreInfoTVCell.xib in Resources */,
 				E494DF171A0A980D004A369E /* Images.xcassets in Resources */,
 				A19A035C1C674F26006F6873 /* Login.storyboard in Resources */,
+				A17622541D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.xib in Resources */,
 				A15307361C20BE1A00FE43AA /* Localizable.strings in Resources */,
 				E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */,
 				A1E04A761C22A8CD00709B0A /* PublicationDetsilsCollectorActionsHeaderView.xib in Resources */,
@@ -1967,6 +1985,7 @@
 				E44FDDF21C5CB5F9000D5F97 /* PublicationPhotoPresentorVC.swift in Sources */,
 				E44FDDF31C5CB5F9000D5F97 /* LoginPhoneNumberVC.swift in Sources */,
 				E4F40D0E1C744F990094E455 /* FDServer+Groups.swift in Sources */,
+				A17622531D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift in Sources */,
 				A1A8A0A81CB2B4C8001F47DC /* PublicationDetailsMoreInfoTVCell.swift in Sources */,
 				E40F199E1C81984B009C044E /* PublicationRegistration+CoreDataProperties.swift in Sources */,
 				E44FDDF41C5CB5F9000D5F97 /* FDServer+Login.swift in Sources */,
@@ -2040,6 +2059,7 @@
 				A1A8A0921CB2B3CD001F47DC /* PublicationDetailsImageTVCell.swift in Sources */,
 				A1D6763F1CAAB77E00F84AD9 /* PublishRootVC.swift in Sources */,
 				E4214E6E1A63E0CF0070332D /* FCPublishAddressEditorVC.swift in Sources */,
+				A17622521D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift in Sources */,
 				A1A8A0991CB2B3FB001F47DC /* PublicationDetailsTitleTVCell.swift in Sources */,
 				E40F19AB1C81D083009C044E /* FDServer+PublicationReports.swift in Sources */,
 				A1992B281BB3246D002DDF4C /* Validator.swift in Sources */,
