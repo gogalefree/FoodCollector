@@ -20,7 +20,6 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell {
         didSet {
             if cellData != nil {
                 if cellData?.cellTitle != "" {
-                    //print("cellData!.cellTitle: \(cellData!.cellTitle)")
                     self.amountInput.text = cellData!.cellTitle
                 }
             }
@@ -71,8 +70,6 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell {
             print("amountInput.text!: \(amountInput.text!)")
             cellData!.cellTitle = amountInput.text!
             cellData!.userData = Double(amountInput.text!)!
-            print("cellData!.cellTitle = \(cellData!.cellTitle)")
-            print("cellData!.userData = \(cellData!.userData)")
             if let delegate = self.delegate {
                 delegate.updateData(cellData!, section: section!)
             }

@@ -276,9 +276,6 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
 
     
     func updateData(data:PublicationEditorTVCCellData, section: Int){
-        print("updateData")
-        print("data.cellTitle: \(data.cellTitle)")
-        print("data.userData: \(data.userData)")
         dataSource[section] = data
         
         // If it's not the image cell (section=0), reload section.
