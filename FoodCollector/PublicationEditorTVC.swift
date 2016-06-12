@@ -153,6 +153,9 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     // Section 2 - Address
     //    Cell 0 - Label (clicking it loads a view for adding address)
     
+    // Section 3 - Price
+    //    Cell 0 - Text field + Label
+    
     // Section 3 - Audiance (Public / Group)
     //    Cell 0 - Label
     
@@ -176,7 +179,7 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
         switch indexPath.section {
         case 0: // Image Section
             return pictureRowHeigt
-        case 4: // More Info Section
+        case 5: // More Info Section
             return 100
         default:
             return defaultRowHeigt
@@ -210,14 +213,23 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
             onlyLabelCell.cellData = self.dataSource[indexPath.section]
             
             return onlyLabelCell
+        
+        case 3: // Price
+            let priceCell = tableView.dequeueReusableCellWithIdentifier("priceCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCPriceCustomCell
+            priceCell.cellData = self.dataSource[indexPath.section]
+            priceCell.section = indexPath.section
+            priceCell.delegate = self
+            priceCell.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            return priceCell
 
-        case 3: // Audiance (Public / Group) Section
+        case 4: // Audiance (Public / Group) Section
             let audianceCell = tableView.dequeueReusableCellWithIdentifier("audianceCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCAudianceCustomCell
             audianceCell.cellData = self.dataSource[indexPath.section]
             
             return audianceCell
 
-        case 4: // More Info Section
+        case 5: // More Info Section
             let moreInfoCell = tableView.dequeueReusableCellWithIdentifier("moreInfoCustomCell", forIndexPath: indexPath) as! PublicationEditorTVCMoreInfoCustomCell
             moreInfoCell.cellData = self.dataSource[indexPath.section]
             moreInfoCell.section = indexPath.section
@@ -265,6 +277,8 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     
     func updateData(data:PublicationEditorTVCCellData, section: Int){
         print("updateData")
+        print("data.cellTitle: \(data.cellTitle)")
+        print("data.userData: \(data.userData)")
         dataSource[section] = data
         
         // If it's not the image cell (section=0), reload section.
@@ -722,9 +736,12 @@ extension  PublicationEditorTVC {
                         cellData.containsUserData = true
                         cellData.cellTitle = ""
                         if let amount = publication.price {
+                            print("amount = publication.price")
                             if amount.intValue != 0 {
+                                print("amount.intValue != 0")
                                 cellData.userData = amount.doubleValue
-                                cellData.cellTitle = FCStringFunctions.currencyString(amount.doubleValue)
+                                cellData.cellTitle = String(amount.doubleValue)
+                                print(cellData.cellTitle)
                             }
                         }
                     

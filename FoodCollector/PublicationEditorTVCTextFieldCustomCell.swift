@@ -29,7 +29,6 @@ class PublicationEditorTVCTextFieldCustomCell: UITableViewCell, UITextFieldDeleg
     var section: Int?
     
     weak var delegate: CellInfoDelegate?
-    //weak var asdasdasd: PhoneNumEditorDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

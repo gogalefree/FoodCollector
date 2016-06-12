@@ -15,27 +15,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bE-BR-xpD">
-                        <rect key="frame" x="8" y="11" width="94" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bE-BR-xpD">
+                        <rect key="frame" x="8" y="11" width="79" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="9ko-cY-TET"/>
-                            <constraint firstAttribute="width" constant="94" id="Men-6E-0Pm"/>
+                            <constraint firstAttribute="width" constant="79" id="Men-6E-0Pm"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Free" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sIJ-Lu-nK9">
-                        <rect key="frame" x="121" y="7" width="75" height="30"/>
+                        <rect key="frame" x="97" y="7" width="114" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="BtI-ju-NIw"/>
-                            <constraint firstAttribute="width" constant="75" id="Kgs-gi-fVc"/>
+                            <constraint firstAttribute="width" constant="114" id="Kgs-gi-fVc"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                     </textField>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HsE-7t-cMv">
-                        <rect key="frame" x="204" y="11" width="24" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HsE-7t-cMv">
+                        <rect key="frame" x="219" y="11" width="24" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="ZIi-Yy-mej"/>
                             <constraint firstAttribute="width" constant="24" id="wv3-X6-iGM"/>
@@ -44,16 +44,30 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlF-ib-URi" userLabel="Buttom Line">
+                        <rect key="frame" x="15" y="41.5" width="295" height="2"/>
+                        <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="moA-GG-mir"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="5bE-BR-xpD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="4hr-Um-NPx"/>
                     <constraint firstItem="HsE-7t-cMv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="65g-K8-lwU"/>
-                    <constraint firstItem="sIJ-Lu-nK9" firstAttribute="leading" secondItem="5bE-BR-xpD" secondAttribute="trailing" constant="19" id="NJs-uw-Yu8"/>
+                    <constraint firstItem="sIJ-Lu-nK9" firstAttribute="leading" secondItem="5bE-BR-xpD" secondAttribute="trailing" constant="10" id="NJs-uw-Yu8"/>
                     <constraint firstItem="sIJ-Lu-nK9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PB0-3t-IF7"/>
+                    <constraint firstAttribute="trailing" secondItem="mlF-ib-URi" secondAttribute="trailing" constant="10" id="eMr-z6-vRV"/>
                     <constraint firstItem="HsE-7t-cMv" firstAttribute="leading" secondItem="sIJ-Lu-nK9" secondAttribute="trailing" constant="8" id="eiS-Oj-7eB"/>
                     <constraint firstItem="5bE-BR-xpD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pBo-Yx-pTx"/>
+                    <constraint firstAttribute="bottom" secondItem="mlF-ib-URi" secondAttribute="bottom" id="qXY-WH-SY5"/>
+                    <constraint firstItem="mlF-ib-URi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="rBv-EB-JeN"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="amountInput" destination="sIJ-Lu-nK9" id="1gY-pD-WyY"/>
+                <outlet property="currencySymbol" destination="HsE-7t-cMv" id="3PQ-CT-hYv"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

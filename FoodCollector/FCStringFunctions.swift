@@ -39,16 +39,6 @@ class FCStringFunctions : NSObject {
         
     }
     
-    class func currencyString (value: Double) -> String {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
-        formatter.locale = NSLocale.currentLocale()
-        if let currencyValue = formatter.stringFromNumber(value) {
-            return currencyValue
-        }
-        return ""
-    }
-    
     
 
 }
