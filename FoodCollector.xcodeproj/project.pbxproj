@@ -97,6 +97,10 @@
 		A1EBCBB21C77777300B39BBE /* ActivityCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */; };
 		A1F44BEB1C6938C9000F132A /* InfoPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */; };
 		A1F44BEC1C6938C9000F132A /* InfoPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */; };
+		A1F8A5131D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */; };
+		A1F8A5141D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */; };
+		A1F8A5151D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */; };
+		A1F8A5161D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E404D63B1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404D63A1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift */; };
 		E404D63C1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404D63A1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift */; };
@@ -567,6 +571,8 @@
 		A1E04A841C22A8E600709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/PublicationOptionsMenuItemCell.strings"; sourceTree = "<group>"; };
 		A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterVC.swift; sourceTree = "<group>"; };
 		A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPopoverVC.swift; sourceTree = "<group>"; };
+		A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsPriceTVCell.swift; sourceTree = "<group>"; };
+		A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationDetailsPriceTVCell.xib; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E404D63A1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+PublicationRegistrationUploader.swift"; sourceTree = "<group>"; };
 		E404D63D1C8579A800469EC0 /* FDServer+DeletePublication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+DeletePublication.swift"; sourceTree = "<group>"; };
@@ -905,6 +911,7 @@
 				A1A8A0961CB2B3D2001F47DC /* Image */,
 				A1A8A09D1CB2B401001F47DC /* Title */,
 				A1A8A0A41CB2B44B001F47DC /* Details */,
+				A1F8A5101D0DB0A5009CA0F9 /* Price */,
 				A1A8A0AB1CB2B4CE001F47DC /* More Info */,
 				A1A8A0B21CB2B504001F47DC /* Reports */,
 			);
@@ -989,6 +996,15 @@
 				A1DBCB0F1C9D52E900E11568 /* PublicationAudianceSelectionTVC.swift */,
 			);
 			name = "Audiance Selection";
+			sourceTree = "<group>";
+		};
+		A1F8A5101D0DB0A5009CA0F9 /* Price */ = {
+			isa = PBXGroup;
+			children = (
+				A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */,
+				A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */,
+			);
+			name = Price;
 			sourceTree = "<group>";
 		};
 		E4030A701A63DD7B005D224E /* Sub Views */ = {
@@ -1675,6 +1691,7 @@
 				E44FDE451C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
 				E44FDE461C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E44FDE471C5CB5F9000D5F97 /* Track-clear@2x.png in Resources */,
+				A1F8A5161D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1728,6 +1745,7 @@
 				E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */,
 				A1E04A441C22A82E00709B0A /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */,
+				A1F8A5151D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1988,6 +2006,7 @@
 				A17622531D0AEE2F00163192 /* PublicationEditorTVCPriceCustomCell.swift in Sources */,
 				A1A8A0A81CB2B4C8001F47DC /* PublicationDetailsMoreInfoTVCell.swift in Sources */,
 				E40F199E1C81984B009C044E /* PublicationRegistration+CoreDataProperties.swift in Sources */,
+				A1F8A5141D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift in Sources */,
 				E44FDDF41C5CB5F9000D5F97 /* FDServer+Login.swift in Sources */,
 				E44FDDF51C5CB5F9000D5F97 /* FCPublication.swift in Sources */,
 				E44FDDF61C5CB5F9000D5F97 /* FCCollectorRootVC+.swift in Sources */,
@@ -2113,6 +2132,7 @@
 				E4F839251ABB04A30055A277 /* FCPublicationReporetsTVCell.swift in Sources */,
 				E4737DA41A10C01300A4AB81 /* FCUserNotificationHandler.swift in Sources */,
 				E40F198D1C803BF8009C044E /* GroupMembersEditorTVCell.swift in Sources */,
+				A1F8A5131D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift in Sources */,
 				E42ED57B1A8BD2B9008FB618 /* FCModel+Store.swift in Sources */,
 				E404D63B1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift in Sources */,
 				E4D16F111C881DDD00EDFE69 /* ActivityLog.swift in Sources */,

@@ -145,6 +145,8 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsDetailsTVCell", bundle: nil), forCellReuseIdentifier: "detailsDetailsTVCell")
         
+        self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsPriceTVCell", bundle: nil), forCellReuseIdentifier: "detailsPriceTVCell")
+        
         self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsMoreInfoTVCell", bundle: nil), forCellReuseIdentifier: "detailsMoreInfoTVCell")
         
         self.shareDetailsTableView.registerNib(UINib(nibName: "PublicationDetailsRepotsTVCell", bundle: nil), forCellReuseIdentifier: "detailsRepotsTVCell")
