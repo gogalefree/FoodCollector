@@ -310,7 +310,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             case 3: // Price
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsPriceTVCell", forIndexPath: indexPath) as! PublicationDetailsPriceTVCell
                 if publication?.price?.intValue != 0 {
-                    cell.priceLabel.text = publication?.price?.stringValue
+                    cell.priceLabel.text = publication!.price!.stringValue + " ₪"
                 }
                 else {
                     cell.priceLabel.text = kPriceValueFree
