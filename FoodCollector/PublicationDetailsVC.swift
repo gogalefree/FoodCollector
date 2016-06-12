@@ -16,7 +16,7 @@ let kReportButtonTitle = NSLocalizedString("Report", comment:"Report title for a
 let kOptionsButtonTitle = NSLocalizedString("Options", comment:"Report title for a button")
 let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End publication confirmation title for an alert controller")
 let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
-
+let kPriceValueFree = NSLocalizedString("Free", comment:"Price of this share is free")
 
 enum PublicationDetailsTVCViewState {
     
@@ -258,7 +258,7 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 0 {return 4}
+        if section == 0 {return 5}
         
         return PublicationDetailsReportCell.numberOfReportsToPresent(self.publication)
     }
@@ -307,7 +307,17 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
                 cell.publication = publication
                 return cell
                 
-            case 3: // More Info Cell
+            case 3: // Price
+                let cell = tableView.dequeueReusableCellWithIdentifier("detailsPriceTVCell", forIndexPath: indexPath) as! PublicationDetailsPriceTVCell
+                if publication?.price?.intValue != 0 {
+                    cell.priceLabel.text = publication?.price?.stringValue
+                }
+                else {
+                    cell.priceLabel.text = kPriceValueFree
+                }
+                return cell
+            
+            case 4: // More Info Cell
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsMoreInfoTVCell", forIndexPath: indexPath) as! PublicationDetailsMoreInfoTVCell
                 cell.shareDetailsMorInfo.text = publication?.subtitle
                 return cell
