@@ -271,7 +271,10 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             }
             
             else if indexPath.row == 2 {
-                return 64 //details cell
+                return 64 // details cell
+            }
+            else if indexPath.row == 3 {
+                return 24 // price cell
             }
         }
         else {
