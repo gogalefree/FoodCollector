@@ -95,12 +95,12 @@
 		A1E04A801C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A821C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib */; };
 		A1EBCBB11C77777300B39BBE /* ActivityCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */; };
 		A1EBCBB21C77777300B39BBE /* ActivityCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */; };
+		A1F0D5BC1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1F0D5BF1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib */; };
+		A1F0D5BD1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1F0D5BF1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib */; };
 		A1F44BEB1C6938C9000F132A /* InfoPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */; };
 		A1F44BEC1C6938C9000F132A /* InfoPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */; };
 		A1F8A5131D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */; };
 		A1F8A5141D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */; };
-		A1F8A5151D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */; };
-		A1F8A5161D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */; };
 		A42DC1B7330EF75488324DE5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E404D63B1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404D63A1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift */; };
 		E404D63C1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E404D63A1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift */; };
@@ -570,9 +570,10 @@
 		A1E04A811C22A8E400709B0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PublicationOptionsMenuItemCell.xib; sourceTree = "<group>"; };
 		A1E04A841C22A8E600709B0A /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/PublicationOptionsMenuItemCell.strings"; sourceTree = "<group>"; };
 		A1EBCBB01C77777300B39BBE /* ActivityCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterVC.swift; sourceTree = "<group>"; };
+		A1F0D5BE1D0F4CDE0024E9EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PublicationDetailsPriceTVCell.xib; sourceTree = "<group>"; };
+		A1F0D5C11D0F4D160024E9EE /* he-IL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "he-IL"; path = "he-IL.lproj/PublicationDetailsPriceTVCell.strings"; sourceTree = "<group>"; };
 		A1F44BEA1C6938C9000F132A /* InfoPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPopoverVC.swift; sourceTree = "<group>"; };
 		A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDetailsPriceTVCell.swift; sourceTree = "<group>"; };
-		A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicationDetailsPriceTVCell.xib; sourceTree = "<group>"; };
 		C158973FCC90088B3F95AE17 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E404D63A1C8519CE00469EC0 /* FDServer+PublicationRegistrationUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+PublicationRegistrationUploader.swift"; sourceTree = "<group>"; };
 		E404D63D1C8579A800469EC0 /* FDServer+DeletePublication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FDServer+DeletePublication.swift"; sourceTree = "<group>"; };
@@ -1002,7 +1003,7 @@
 			isa = PBXGroup;
 			children = (
 				A1F8A5111D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.swift */,
-				A1F8A5121D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib */,
+				A1F0D5BF1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib */,
 			);
 			name = Price;
 			sourceTree = "<group>";
@@ -1691,7 +1692,7 @@
 				E44FDE451C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
 				E44FDE461C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E44FDE471C5CB5F9000D5F97 /* Track-clear@2x.png in Resources */,
-				A1F8A5161D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */,
+				A1F0D5BD1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1745,7 +1746,7 @@
 				E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */,
 				A1E04A441C22A82E00709B0A /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */,
-				A1F8A5151D0DB0DA009CA0F9 /* PublicationDetailsPriceTVCell.xib in Resources */,
+				A1F0D5BC1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2469,6 +2470,15 @@
 				A1CEEF5C1C4254FF00A0339D /* de */,
 			);
 			name = PublicationOptionsMenuItemCell.xib;
+			sourceTree = "<group>";
+		};
+		A1F0D5BF1D0F4CDE0024E9EE /* PublicationDetailsPriceTVCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1F0D5BE1D0F4CDE0024E9EE /* Base */,
+				A1F0D5C11D0F4D160024E9EE /* he-IL */,
+			);
+			name = PublicationDetailsPriceTVCell.xib;
 			sourceTree = "<group>";
 		};
 		E494DF131A0A980D004A369E /* Main.storyboard */ = {

@@ -17,6 +17,7 @@ class FCPublicationsTVCell: UITableViewCell {
     @IBOutlet weak var countOfRegisteredUsersLabel: UILabel!
     @IBOutlet weak var audianceIconImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var priceLabel: UILabel!
     
     let defaultImage = UIImage(named: "share_no_photo")
     
@@ -38,6 +39,13 @@ class FCPublicationsTVCell: UITableViewCell {
         self.audianceIconImageView.image = FCIconFactory.typeOfPublicationIcon(publication)
         self.countOfRegisteredUsersLabel.text = String.localizedStringWithFormat(NSLocalizedString("%@ users joined", comment: "Number of users registered for a sharing. the first place holder is a number. e.g: '55 users joined'"), publication.countOfRegisteredUsersAsString)
         self.timeRemains.text = FCDateFunctions.timeStringDaysAndHoursRemain(fromDate: publication.endingData!, toDate: NSDate())
+        
+        self.priceLabel.text = ""
+        if let price = publication.price {
+            if price.intValue > 0 {
+                self.priceLabel.text = price.stringValue + " ₪"
+            }
+        }
         
         downloadImage()
     }

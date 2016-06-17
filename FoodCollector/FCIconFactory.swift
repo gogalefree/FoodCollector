@@ -67,14 +67,25 @@ class FCIconFactory: NSObject {
     }
     
     class func typeOfPublicationIcon(publication: Publication) -> UIImage {
-        
-        var icon = UIImage(named: "PublicShareIcon")!
-        
-        if publication.audianceID > 0 {
-            icon = UIImage(named: "GroupShareIcon")!
+        // price is optional. If it is nil, than the publication is free.
+        // If price is not nil and it is > 0, than the publication is NOT free.
+        switch (publication.price, publication.audianceID) {
+        case let (price, aID) where price?.intValue > 0 && aID > 0:
+            // publication is not free and privet
+            return UIImage(named: "GroupShareIconNotFree")!
+            
+        case let (price, aID) where price?.intValue > 0 && aID == 0:
+            // publication is not free and public
+            return UIImage(named: "PublicShareIconNotFree")!
+            
+        case let (nil, aID) where aID > 0:
+            // publication is free (because it is optional and it is nil) and privet
+            return UIImage(named: "GroupShareIcon")!
+            
+        default:
+            // publication is free and public
+            return UIImage(named: "PublicShareIcon")!
         }
-        
-        return icon
     }
     
     class func typeOfPublicationIconWhite(publication: Publication) -> UIImage {
