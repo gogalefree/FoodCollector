@@ -1,3 +1,6 @@
+/* US Dollar currency symbol. Shoult be the same for all language. */
+"$" = "$";
+
 /* Displays how many are registered and joined a publication. e.g.: '3 Joined' */
 "%@ Joined" = "%@ הצטרפו";
 
@@ -148,6 +151,9 @@
 
 /* report button title */
 "Found Nothing There" = "לא מצאתי כלום";
+
+/* Price of this share is free */
+"Free" = "חינם";
 
 /* Message alert title when creating a new group. asks the user to enter a group name */
 "Group Name:" = "שם קבוצה:";
@@ -342,6 +348,9 @@
 /* The title of a user report which means that there is more food to pickup */
 "There’s more to pickup" = "נשאר עוד";
 
+/* alert title */
+"This event has ended" = "שיתוף זה הסתיים";
+
 /* The title of a user report which means that he took all the food */
 "Took all" = "אספתי הכל";
 
@@ -410,4 +419,7 @@
 
 /* an alert title meaning that the user can only report one event */
 "only one report can be posted for each event." = "ניתן לדווח רק פעם עבור כל שיתוף.";
+
+/* New Israeli Shekel currency symbol. Shoult be the same for all language. */
+"₪" = "₪";
 
