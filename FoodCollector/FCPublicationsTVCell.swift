@@ -43,7 +43,7 @@ class FCPublicationsTVCell: UITableViewCell {
         self.priceLabel.text = ""
         if let price = publication.price {
             if price.intValue > 0 {
-                self.priceLabel.text = price.stringValue + " ₪"
+                self.priceLabel.text = String(format: "%.2f", price.doubleValue) + " ₪"
             }
         }
         
