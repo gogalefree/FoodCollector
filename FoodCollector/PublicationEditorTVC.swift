@@ -156,14 +156,14 @@ class PublicationEditorTVC: UITableViewController, UIImagePickerControllerDelega
     // Section 3 - Price
     //    Cell 0 - Text field + Label
     
-    // Section 3 - Audiance (Public / Group)
+    // Section 4 - Audiance (Public / Group)
     //    Cell 0 - Label
     
-    // Section 4 - More Detials
+    // Section 5 - More Detials
     //    Cell 0 - Text field
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
