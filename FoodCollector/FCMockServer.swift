@@ -36,19 +36,19 @@ public class FCMockServer: NSObject , FCServerProtocol {
             if let serverResponse = response  {
                 let aServerResponse = serverResponse as! NSHTTPURLResponse
                 print("response: \(serverResponse.description)", terminator: "")
-
+                
                 
                 if error == nil && aServerResponse.statusCode < 300{
-                   
+                    
                     if let data = data {
-                    
+                        
                         let publicationDict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
-                    
+                        
                         if let params = publicationDict {
-
-
+                            
+                            
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                              
+                                
                                 let moc = FCModel.sharedInstance.dataController.managedObjectContext
                                 moc.performBlock({ () -> Void in
                                     
@@ -58,7 +58,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                                         existingPublication.updateFromParams(params, context: moc)
                                         completion(publication: existingPublication)
                                     }
-                                    
+                                        
                                     else {
                                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                             
@@ -68,7 +68,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
                                                 ActivityLog.activityLog(publication, group: nil,  type: ActivityLog.LogType.NewPublication.rawValue, context: moc)
                                                 FCModel.sharedInstance.publications.append(publication)
                                                 completion(publication: publication)
-
+                                                
                                             })
                                         })
                                     }
@@ -109,13 +109,13 @@ public class FCMockServer: NSObject , FCServerProtocol {
             (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             if let theResponse = response {
-            
+                
                 let serverResponse = theResponse as! NSHTTPURLResponse
                 print("respons: \(serverResponse.description)", terminator: "")
                 print("status code: \(serverResponse.statusCode) ***************")
                 
                 if error != nil || serverResponse.statusCode != 200 {
-
+                    
                     NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportPushNotificationToServerKey)
                     //FCUserNotificationHandler.sharedInstance.resendPushNotificationToken()
                 }
@@ -161,18 +161,18 @@ public class FCMockServer: NSObject , FCServerProtocol {
             (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             if let response = response {
-            
+                
                 let serverResponse = response as! NSHTTPURLResponse
-            
+                
                 if error != nil || serverResponse.statusCode != 200 {
-
+                    
                     NSUserDefaults.standardUserDefaults().setBool(false, forKey: kDidReportDeviceUUIDToServer)
                     FCModel.sharedInstance.reportDeviceUUIDToServer()
                 }
                 else {
-                
+                    
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidReportDeviceUUIDToServer)
-
+                    
                 }
             }
         })
@@ -194,7 +194,7 @@ public class FCMockServer: NSObject , FCServerProtocol {
         //set the location in user defaults
         NSUserDefaults.standardUserDefaults().setDouble(location.latitude, forKey: kUserLastLatitudeKey)
         NSUserDefaults.standardUserDefaults().setDouble(location.longitude, forKey: kUserLastLongitudeKey)
-
+        
         
         var params = [String: AnyObject]()
         params["last_location_longitude"] = location.longitude
@@ -234,54 +234,54 @@ public class FCMockServer: NSObject , FCServerProtocol {
     ///
     func downloadAllPublications(){
         
-       
-       // var publications = [FCPublication]()
+        
+        // var publications = [FCPublication]()
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: getAllPublicationsURL)
         let task = session.dataTaskWithURL(url!, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             if var serverResponse = response  {
                 serverResponse = serverResponse as! NSHTTPURLResponse
-            
-            print("response: \(serverResponse.description)", terminator: "")
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                 
-                if let data = data {
-                let arrayOfPublicationDicts = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [[String : AnyObject]]
+                print("response: \(serverResponse.description)", terminator: "")
+                
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
                     
-                    if let arrayOfPublicationDicts = arrayOfPublicationDicts {
+                    if let data = data {
+                        let arrayOfPublicationDicts = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [[String : AnyObject]]
                         
-                    
-                        //added v1.0.9
-                        CDNewDataProcessor.processDataFromWebFetch(arrayOfPublicationDicts)
+                        if let arrayOfPublicationDicts = arrayOfPublicationDicts {
+                            
+                            
+                            //added v1.0.9
+                            CDNewDataProcessor.processDataFromWebFetch(arrayOfPublicationDicts)
+                        }
                     }
-                }
-            })
+                })
             }
         })
         task.resume()
     }
     
     
-      
-  
+    
+    
     public func postNewCreatedPublication(params:[String:AnyObject],
-        completion:(success: Bool, params: [String: AnyObject])->()) {
+                                          completion:(success: Bool, params: [String: AnyObject])->()) {
         
-            var paramsToSend = params
-            paramsToSend[kPublicationActiveDeviceUUIDKey] = FCModel.sharedInstance.deviceUUID
-            paramsToSend[kPublicationIsOnAirKey] = true
-            paramsToSend[kPublicationPhotoUrl] = ""
-            paramsToSend[kPublicationPublisherIdKey] = User.sharedInstance.userUniqueID
-            paramsToSend[kPublicationContactInfoKey] = User.sharedInstance.userPhoneNumber
-            paramsToSend[kPublicationPublisherUserNameKey] = User.sharedInstance.userIdentityProviderUserName
-            paramsToSend[kPublicationTypeOfCollectingKey] = 2
-            
-            
-            let pubDict = ["publication" : paramsToSend]
-            print(pubDict)
-
+        var paramsToSend = params
+        paramsToSend[kPublicationActiveDeviceUUIDKey] = FCModel.sharedInstance.deviceUUID
+        paramsToSend[kPublicationIsOnAirKey] = true
+        paramsToSend[kPublicationPhotoUrl] = ""
+        paramsToSend[kPublicationPublisherIdKey] = User.sharedInstance.userUniqueID
+        paramsToSend[kPublicationContactInfoKey] = User.sharedInstance.userPhoneNumber
+        paramsToSend[kPublicationPublisherUserNameKey] = User.sharedInstance.userIdentityProviderUserName
+        paramsToSend[kPublicationTypeOfCollectingKey] = 2
+        
+        
+        let pubDict = ["publication" : paramsToSend]
+        print(pubDict)
+        
         let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
         let url = NSURL(string: postNewPublicationURL)
         let request = NSMutableURLRequest(URL: url!)
@@ -292,81 +292,81 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request,
-            completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
-            
-            if let serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)")
-                print("response error: \(serverResponse)")
-                print("error: \(error)")
-                
-                
-                if error == nil && serverResponse.statusCode < 300 {
-                    
-                    if let data = data {
-                   
-                    //we currently implement as best effort. nothing is done with an error
-                    let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
-                        
-                        if let dict = dict {
-
-                            completion(success: true, params: dict)
-                        }
-                    }
-                }
-                else {
-                    completion(success: false, params: ["error" : "couldNotParsePublicationObject"])
-                }
-            }
+                                               completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
+                                                
+                                                if let serverResponse = response as? NSHTTPURLResponse {
+                                                    print("respons: \(serverResponse.description)")
+                                                    print("response error: \(serverResponse)")
+                                                    print("error: \(error)")
+                                                    
+                                                    
+                                                    if error == nil && serverResponse.statusCode < 300 {
+                                                        
+                                                        if let data = data {
+                                                            
+                                                            //we currently implement as best effort. nothing is done with an error
+                                                            let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
+                                                            
+                                                            if let dict = dict {
+                                                                
+                                                                completion(success: true, params: dict)
+                                                            }
+                                                        }
+                                                    }
+                                                    else {
+                                                        completion(success: false, params: ["error" : "couldNotParsePublicationObject"])
+                                                    }
+                                                }
         })
         
         task.resume()
     }
     
     func postEditedPublication(params:[String:AnyObject],publication: Publication,
-        completion:(success: Bool,  version: Int)->()) {
+                               completion:(success: Bool,  version: Int)->()) {
         
-            var paramsToSend = params
-            paramsToSend[kPublicationActiveDeviceUUIDKey] = FCModel.sharedInstance.deviceUUID
-            paramsToSend[kPublicationIsOnAirKey] = true
-            paramsToSend[kPublicationPhotoUrl] = ""
-            paramsToSend[kPublicationPublisherIdKey] = User.sharedInstance.userUniqueID
-            paramsToSend[kPublicationContactInfoKey] = User.sharedInstance.userPhoneNumber
-            paramsToSend[kPublicationPublisherUserNameKey] = User.sharedInstance.userIdentityProviderUserName
-            paramsToSend[kPublicationTypeOfCollectingKey] = 2
+        var paramsToSend = params
+        paramsToSend[kPublicationActiveDeviceUUIDKey] = FCModel.sharedInstance.deviceUUID
+        paramsToSend[kPublicationIsOnAirKey] = true
+        paramsToSend[kPublicationPhotoUrl] = ""
+        paramsToSend[kPublicationPublisherIdKey] = User.sharedInstance.userUniqueID
+        paramsToSend[kPublicationContactInfoKey] = User.sharedInstance.userPhoneNumber
+        paramsToSend[kPublicationPublisherUserNameKey] = User.sharedInstance.userIdentityProviderUserName
+        paramsToSend[kPublicationTypeOfCollectingKey] = 2
         
-            let pubDict = ["publication" : paramsToSend]
-            let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
-            let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId!.integerValue).json"
-            let url = NSURL(string: urlString)
+        let pubDict = ["publication" : paramsToSend]
+        let jsonData = try? NSJSONSerialization.dataWithJSONObject(pubDict, options: [])
+        let urlString = reportsForPublicationBaseURL + "\(publication.uniqueId!.integerValue).json"
+        let url = NSURL(string: urlString)
         
-            let request = NSMutableURLRequest(URL: url!)
-            request.HTTPMethod = "PUT"
-            request.HTTPBody = jsonData
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            let session = NSURLSession.sharedSession()
-            let task = session.dataTaskWithRequest(request,
-                completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
-                
-                if let serverResponse = response as? NSHTTPURLResponse {
-                    print("post edited publication response: \(serverResponse)")
-                    if error == nil && serverResponse.statusCode < 300 {
-                        if let data = data {
-                        let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
-                            if let dict = dict {
-                        
-                                let version = dict[kPublicationVersionKey] as! Int
-                                completion(success: true,  version: version)
-                            }
-                        }
-                    }
-                    else {
-                        completion(success: false, version: 0)
-                    }
-                }
-            })
-            
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "PUT"
+        request.HTTPBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request,
+                                               completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
+                                                
+                                                if let serverResponse = response as? NSHTTPURLResponse {
+                                                    print("post edited publication response: \(serverResponse)")
+                                                    if error == nil && serverResponse.statusCode < 300 {
+                                                        if let data = data {
+                                                            let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
+                                                            if let dict = dict {
+                                                                
+                                                                let version = dict[kPublicationVersionKey] as! Int
+                                                                completion(success: true,  version: version)
+                                                            }
+                                                        }
+                                                    }
+                                                    else {
+                                                        completion(success: false, version: 0)
+                                                    }
+                                                }
+        })
+        
         task.resume()
     }
     
@@ -388,36 +388,36 @@ public class FCMockServer: NSObject , FCServerProtocol {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request,
-            completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
-            
-            if let serverResponse = response as? NSHTTPURLResponse {
-                print("respons: \(serverResponse.description)", terminator: "")
-                
-                
-                if error == nil && serverResponse.statusCode == 200 {
-                    
-                    if let data = data {
-                        let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
-                        if let dict = dict {
-                            
-                            let version = dict[kPublicationVersionKey] as! Int
-                            publication.version = NSNumber(integer: version)
-                            do {
-                                try publication.managedObjectContext?.save()
-                            } catch {
-                                print ("error saving publication after take off air: \(error)")
-                            }
-                        }
-                    }
-
-                    
-                    
-                    completion(success: true)
-                }
-                else {
-                    completion(success: false)
-                }
-            }
+                                               completionHandler: { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
+                                                
+                                                if let serverResponse = response as? NSHTTPURLResponse {
+                                                    print("respons: \(serverResponse.description)", terminator: "")
+                                                    
+                                                    
+                                                    if error == nil && serverResponse.statusCode == 200 {
+                                                        
+                                                        if let data = data {
+                                                            let dict = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? [String : AnyObject]
+                                                            if let dict = dict {
+                                                                
+                                                                let version = dict[kPublicationVersionKey] as! Int
+                                                                publication.version = NSNumber(integer: version)
+                                                                do {
+                                                                    try publication.managedObjectContext?.save()
+                                                                } catch {
+                                                                    print ("error saving publication after take off air: \(error)")
+                                                                }
+                                                            }
+                                                        }
+                                                        
+                                                        
+                                                        
+                                                        completion(success: true)
+                                                    }
+                                                    else {
+                                                        completion(success: false)
+                                                    }
+                                                }
         })
         
         task.resume()
@@ -436,35 +436,35 @@ public class FCMockServer: NSObject , FCServerProtocol {
                 serverResponse = serverResponse as! NSHTTPURLResponse
                 
                 print("response: \(serverResponse.description)", terminator: "=======End Of Response======\n")
+                
+                if let data = data {
                     
-                    if let data = data {
+                    
+                    do {
                         
-                    
-                        do {
+                        
+                        let arrayOfPublicationDicts = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [[String : AnyObject]]
+                        
+                        print("publicationsForUser: \(arrayOfPublicationDicts)", terminator: "=======End Of publications for user dicts======\n")
+                        
+                        if let arrayOfPublicationDicts = arrayOfPublicationDicts {
                             
-                            
-                            let arrayOfPublicationDicts = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [[String : AnyObject]]
-                            
-                            print("publicationsForUser: \(arrayOfPublicationDicts)", terminator: "=======End Of publications for user dicts======\n")
-
-                            if let arrayOfPublicationDicts = arrayOfPublicationDicts {
-                                
-                                //added v1.0.9
-                                CDNewDataProcessor.proccessPublicationForUser(arrayOfPublicationDicts)
-                            }
-
-                            
-                            
-                            
-                            
-                        } catch let error as NSError {
-                            print("error fetching publications for user: " + error.description + " " + #function)
+                            //added v1.0.9
+                            CDNewDataProcessor.proccessPublicationForUser(arrayOfPublicationDicts)
                         }
+                        
+                        
+                        
+                        
+                        
+                    } catch let error as NSError {
+                        print("error fetching publications for user: " + error.description + " " + #function)
                     }
+                }
                 
             }
         })
         task.resume()
     }
-        
+    
 }
