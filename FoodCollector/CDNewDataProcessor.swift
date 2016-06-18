@@ -249,7 +249,7 @@ class CDNewDataProcessor: NSObject {
         
         let moc = FCModel.sharedInstance.dataController.managedObjectContext
         
-        //create new
+        //create new if needed
         for dict in arrayOfPublicationDicts {
             
             
