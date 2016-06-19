@@ -68,7 +68,7 @@ class CDNewDataProcessor: NSObject {
         }
         
         //delete old
-        let toDeletePredicate = NSPredicate(format: "NOT (uniqueId in %@)", argumentArray: [arrivedIds])
+        let toDeletePredicate = NSPredicate(format: "NOT (uniqueId in %@) ", argumentArray: [arrivedIds])
         let deleteFetchRequest   = NSFetchRequest(entityName: kPublicationEntity)
         deleteFetchRequest.predicate = toDeletePredicate
         
@@ -89,7 +89,7 @@ class CDNewDataProcessor: NSObject {
                 for publication in toDelete {
                     
                     //keep user created publications
-                    if publication.isUserCreatedPublication == true {continue}
+                    if publication.isUserCreatedPublication == true || publication.audiance?.integerValue != 0 {continue}
                     
                     //make delete notification object
                     let delete = ActivityLog.LogType.DeletePublication.rawValue
@@ -210,7 +210,7 @@ class CDNewDataProcessor: NSObject {
                 }
             }
         
-        //fetch groups
+        //fetch groups and publications for user
         if User.sharedInstance.userIsLoggedIn {
            
             CDNewDataProcessor.fetchGroups(localContext)
@@ -220,7 +220,7 @@ class CDNewDataProcessor: NSObject {
            
             FCModel.sharedInstance.postReloadDataNotificationOnMainThread()
         }
-        
+                
         //indexInSpotlight
         let indexer = FDSpotlightIndexer()
         indexer.startIndexing()

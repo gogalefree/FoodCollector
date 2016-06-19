@@ -15,7 +15,7 @@ class DataUpdater: NSObject {
     
     func startUpdates() {
         
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(60 * 15 , target: self, selector: #selector(DataUpdater.fetchData(_:)), userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(60 * 1 , target: self, selector: #selector(DataUpdater.fetchData(_:)), userInfo: nil, repeats: true)
     }
     
     func fetchData(timer: NSTimer) {

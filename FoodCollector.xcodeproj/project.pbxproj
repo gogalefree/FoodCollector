@@ -1817,7 +1817,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift user";
+			shellScript = "${SRCROOT}/FoodCollector/Scripts/PreBuildScript.swift beta";
 		};
 		E44FDDA01C5CB5F9000D5F97 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
