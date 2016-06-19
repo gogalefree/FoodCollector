@@ -58,6 +58,7 @@ class PublicationDetailsRepotsTVCell: UITableViewCell {
         timeLabel = String.localizedStringWithFormat(NSLocalizedString("(reported at %@)", comment:"this text will become the sentence: '(reported at 21:30)'"), reportTime)
         self.reportLabel.text = self.titleForReport(report) + " " + timeLabel
         //self.iconImageView.image = FCIconFactory.publicationDetailsReportIcon(report)
+        self.iconImageView.alpha = 1
     }
     
     func titleForReport(report:PublicationReport) -> String {
