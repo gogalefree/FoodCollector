@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bE-BR-xpD">
@@ -26,16 +26,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Free" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sIJ-Lu-nK9">
-                        <rect key="frame" x="65" y="7" width="63" height="30"/>
+                        <rect key="frame" x="65" y="7" width="86" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="BtI-ju-NIw"/>
-                            <constraint firstAttribute="width" constant="63" id="Kgs-gi-fVc"/>
+                            <constraint firstAttribute="width" constant="86" id="Kgs-gi-fVc"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HsE-7t-cMv">
-                        <rect key="frame" x="134" y="11" width="24" height="21"/>
+                        <rect key="frame" x="159" y="11" width="24" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="ZIi-Yy-mej"/>
                             <constraint firstAttribute="width" constant="24" id="wv3-X6-iGM"/>
@@ -58,7 +58,7 @@
                     <constraint firstItem="sIJ-Lu-nK9" firstAttribute="leading" secondItem="5bE-BR-xpD" secondAttribute="trailing" constant="-22" id="NJs-uw-Yu8"/>
                     <constraint firstItem="sIJ-Lu-nK9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PB0-3t-IF7"/>
                     <constraint firstAttribute="trailing" secondItem="mlF-ib-URi" secondAttribute="trailing" constant="10" id="eMr-z6-vRV"/>
-                    <constraint firstItem="HsE-7t-cMv" firstAttribute="leading" secondItem="sIJ-Lu-nK9" secondAttribute="trailing" constant="6" id="eiS-Oj-7eB"/>
+                    <constraint firstItem="HsE-7t-cMv" firstAttribute="leading" secondItem="sIJ-Lu-nK9" secondAttribute="trailing" constant="8" id="eiS-Oj-7eB"/>
                     <constraint firstItem="5bE-BR-xpD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pBo-Yx-pTx"/>
                     <constraint firstAttribute="bottom" secondItem="mlF-ib-URi" secondAttribute="bottom" id="qXY-WH-SY5"/>
                     <constraint firstItem="mlF-ib-URi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="rBv-EB-JeN"/>
