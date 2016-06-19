@@ -385,10 +385,10 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GpR-lN-AMc">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="46"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="66" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="7KD-AQ-tsi"/>
-                                            <constraint firstAttribute="width" constant="50" id="XVU-dC-rKh"/>
+                                            <constraint firstAttribute="width" constant="66" id="XVU-dC-rKh"/>
                                         </constraints>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
@@ -413,7 +413,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kZO-X6-Trl">
-                                        <rect key="frame" x="0.0" y="48" width="560" height="152"/>
+                                        <rect key="frame" x="6" y="48" width="552" height="152"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
@@ -421,8 +421,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="kZO-X6-Trl" firstAttribute="leading" secondItem="xq8-TL-e1s" secondAttribute="leading" id="03g-xR-D3H"/>
-                                    <constraint firstAttribute="trailing" secondItem="kZO-X6-Trl" secondAttribute="trailing" id="0ZT-Lg-qpx"/>
+                                    <constraint firstItem="kZO-X6-Trl" firstAttribute="leading" secondItem="xq8-TL-e1s" secondAttribute="leading" constant="6" id="03g-xR-D3H"/>
+                                    <constraint firstAttribute="trailing" secondItem="kZO-X6-Trl" secondAttribute="trailing" constant="2" id="0ZT-Lg-qpx"/>
                                     <constraint firstAttribute="height" constant="200" id="ASW-cl-ALk"/>
                                     <constraint firstAttribute="bottom" secondItem="kZO-X6-Trl" secondAttribute="bottom" id="B4O-9J-fEa"/>
                                     <constraint firstItem="mSz-8f-fLS" firstAttribute="leading" secondItem="DtI-jc-HPg" secondAttribute="trailing" constant="8" id="BzJ-qI-XWG"/>
@@ -430,7 +430,7 @@
                                     <constraint firstItem="JSY-nn-K3E" firstAttribute="top" secondItem="xq8-TL-e1s" secondAttribute="top" constant="46" id="GhZ-w8-BHd"/>
                                     <constraint firstItem="DtI-jc-HPg" firstAttribute="top" secondItem="xq8-TL-e1s" secondAttribute="top" constant="12" id="J6J-5k-LGA"/>
                                     <constraint firstItem="mSz-8f-fLS" firstAttribute="top" secondItem="xq8-TL-e1s" secondAttribute="top" id="L2J-DS-A9y"/>
-                                    <constraint firstItem="DtI-jc-HPg" firstAttribute="leading" secondItem="GpR-lN-AMc" secondAttribute="trailing" constant="8" id="QvI-sn-kH4"/>
+                                    <constraint firstItem="DtI-jc-HPg" firstAttribute="leading" secondItem="GpR-lN-AMc" secondAttribute="trailing" constant="-8" id="QvI-sn-kH4"/>
                                     <constraint firstAttribute="trailing" secondItem="mSz-8f-fLS" secondAttribute="trailing" id="Vcu-pv-GuJ"/>
                                     <constraint firstItem="JSY-nn-K3E" firstAttribute="leading" secondItem="xq8-TL-e1s" secondAttribute="leading" id="hYe-xn-2a2"/>
                                     <constraint firstItem="GpR-lN-AMc" firstAttribute="top" secondItem="xq8-TL-e1s" secondAttribute="top" id="oIf-y6-y6A"/>
