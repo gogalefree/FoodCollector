@@ -152,6 +152,7 @@ class Publication: NSManagedObject {
         self.publisherId = NSNumber(integer: User.sharedInstance.userUniqueID)
         self.publisherUserName = User.sharedInstance.userIdentityProviderUserName
         self.subtitle = params[kPublicationSubTitleKey] as? String ?? ""
+        self.price = NSNumber(double: params[kPublicationPriceKey] as? Double ?? 0)
         self.storedDistanceFromUserLocation = NSNumber(double: self.distanceFromUserLocation)
         self.registrations = Set<PublicationRegistration>()
         self.reports = Set<PublicationReport>()
