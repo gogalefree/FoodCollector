@@ -20,6 +20,7 @@ class ActivityLog: NSManagedObject {
 
     class func activityLog(publication: Publication?, group: Group? ,type: Int, context: NSManagedObjectContext) {
         
+        print("publication log: \(publication?.title) and \(group?.name)")
         
         context.performBlockAndWait { () -> Void in
             

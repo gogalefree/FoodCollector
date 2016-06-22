@@ -8,11 +8,12 @@
 
 import UIKit
 
-class PublicationEditorTVCPriceCustomCell: UITableViewCell {
+class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate {
     
     let kNumberPadDoneTitle = String.localizedStringWithFormat("Done", "Done lable for button")
     let kNumberPadDismissTitle = String.localizedStringWithFormat("Cancel", "Cancel lable for button")
-    
+    let kamountInputPlaceholder = String.localizedStringWithFormat("Free", "Publication editor price text field placeholder")
+
     @IBOutlet weak var amountInput: UITextField!
     @IBOutlet weak var currencySymbol: UILabel!
     
@@ -32,8 +33,7 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        //amountInput.delegate = self
+        amountInput.delegate = self
         createNumberPadAccessoryViewToolbar()
     }
     
@@ -76,7 +76,18 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell {
         }
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        textField.placeholder = nil
+        return true
+    }
    
+    func textFieldDidEndEditing(textField: UITextField) {
+        let text = textField.text
+        if text == "0" || text == "" {
+            textField.text = ""
+            textField.placeholder = kamountInputPlaceholder
+        }
+    }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

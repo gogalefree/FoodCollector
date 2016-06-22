@@ -372,15 +372,14 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
         
         guard let publication = self.publication else {return}
         
-        //TODO: Insert web image name
         //if web user: present web user image
-//        if publication.publisherId?.integerValue == 1 {
-//            if let webUserImage = UIImage(named: "Foodonet_user") {
-//                presentPublisherPhoto(webUserImage)
-//            }
-//            
-//            return
-//        }
+        if publication.publisherId?.integerValue == 1 {
+            if let webUserImage = UIImage(named: "Foodonet_user") {
+                presentPublisherPhoto(webUserImage)
+            }
+            
+            return
+        }
         
         if let photoData = publication.publisherPhotoData {
             let photo = UIImage(data: photoData)
