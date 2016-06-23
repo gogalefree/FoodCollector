@@ -12,12 +12,13 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
     
     let kNumberPadDoneTitle = String.localizedStringWithFormat("Done", "Done lable for button")
     let kNumberPadDismissTitle = String.localizedStringWithFormat("Cancel", "Cancel lable for button")
-    let kamountInputPlaceholder = String.localizedStringWithFormat("Free", "Publication editor price text field placeholder")
+    let kAmountInputPlaceholder = String.localizedStringWithFormat("Free", "Publication editor price text field placeholder")
 
     @IBOutlet weak var amountInput: UITextField!
     @IBOutlet weak var currencySymbol: UILabel!
     
     let priceValidator = Validator()
+    var didPastePriceValue = false
     
     var cellData: PublicationEditorTVCCellData? {
         didSet {
@@ -65,21 +66,21 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
     
     func doneNumberPad() {
         print("doneNumberPad()")
-        if let priceText = amountInput.text {
-            if(priceText.isEmpty) {
-                dismissNumberPad()
-            }
-            else {
-                print("amountInput.text!: \(priceText)")
+        
+        if let priceText = amountInput.text where !priceText.isEmpty {
+            if !didPastePriceValue { // User typed the price using the keyboard
                 cellData!.cellTitle = priceText
                 if let doubleVelue = Double(priceText) {
                     cellData!.userData = doubleVelue
-                    if let delegate = self.delegate {
-                        delegate.updateData(cellData!, section: section!)
-                    }
                 }
-                
             }
+            
+            if let delegate = self.delegate {
+                delegate.updateData(cellData!, section: section!)
+            }
+        }
+        else {
+            dismissNumberPad()
         }
         
     }
@@ -88,7 +89,17 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
         print("started Paste")
         let pasteboard = UIPasteboard.generalPasteboard()
         if let tempPasteString = pasteboard.string {
-            amountInput.text = priceValidator.getValidPriceValue(tempPasteString)
+            let priceString = priceValidator.getValidPriceValue(tempPasteString)
+            if let price = Double(priceString) where Int(price) != 0 {
+                cellData?.userData = price
+                cellData?.cellTitle = priceString
+                didPastePriceValue = true
+            }
+            else {
+                cellData?.userData = 0.0
+                cellData?.cellTitle = kAmountInputPlaceholder
+            }
+            //amountInput.text = priceValidator.getValidPriceValue(tempPasteString)
         }
     }
     
@@ -101,10 +112,17 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
             return true
         }
         else { // Paste action
-            print("started shouldChangeCharactersInRange else")
-            amountInput.text = "22" //priceValidator.getValidPriceValue(string)
-            print("Price is:")
-            print(priceValidator.getValidPriceValue(string))
+            let priceString = priceValidator.getValidPriceValue(string)
+            if let price = Double(priceString) where Int(price) != 0 {
+                cellData?.userData = price
+                cellData?.cellTitle = priceString
+                didPastePriceValue = true
+            }
+            else {
+                cellData?.userData = 0.0
+                cellData?.cellTitle = kAmountInputPlaceholder
+            }
+            //amountInput.text = priceValidator.getValidPriceValue(string)
         }
         
         return true
@@ -119,14 +137,14 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
         let text = textField.text
         if text == "0" || text == "" {
             textField.text = ""
-            textField.placeholder = kamountInputPlaceholder
+            textField.placeholder = kAmountInputPlaceholder
         }
     }
     
-    func processPriceValue(price: String) {
-        
-        
-    }
+//    func processPriceValue(price: String) {
+//        
+//        
+//    }
     
     
     
