@@ -75,5 +75,55 @@ class Validator: NSObject {
     ////   END - Phone Number Validator
     ////===========================================================================
     
+    ////===========================================================================
+    ////   MARK: - Price Value Validator
+    ////===========================================================================
+    
+    func getValidPriceValue(stringToValidate: String) -> String {
+        let price = ""
+        let validPriceString = getOnlyPriceValidCharacters(stringToValidate)
+        
+        if (validPriceString.isEmpty) {return price}
+        
+        let priceArray = (validPriceString as NSString).componentsSeparatedByString(".")
+        
+        // if there is no decimal point in the price filed we will return the numbers as double
+        if priceArray.count == 1 {
+            return validPriceString
+        }
+        
+        // If there is more than one decimel symbol, we will get more than two members in priceArray
+        if priceArray[1].characters.count > 2 {
+            // For this reason we will ignore all members in priceArray after index 1.
+            // In prices there is a maximum of two digits after the decimal point
+            
+            let twoCharsAfterDecimalPoint = priceArray[1].substringWithRange(Range<String.Index>(start: priceArray[1].startIndex.advancedBy(0), end: priceArray[1].startIndex.advancedBy(2)))
+
+            return priceArray[0] + "." + twoCharsAfterDecimalPoint
+        }
+        
+        
+        return price
+        
+    }
+    
+    
+    private func getOnlyPriceValidCharacters(priceString: String) -> String {
+        // Remove all characters that are not numbers or dots
+        let legalCharsForPrice:Array<Character> = ["0", "1", "2", "3" ,"4", "5", "6", "7", "8", "9", "."]
+        var tempPriceString = "" // Reset variable to empty string
+        for priceChar in priceString.characters {
+            if legalCharsForPrice.contains(priceChar) {
+                tempPriceString += String(priceChar)
+            }
+        }
+        print("getOnlyPriceValidCharacters: \(tempPriceString)")
+        return tempPriceString
+    }
+    
+    ////===========================================================================
+    ////   END - Phone Number Validator
+    ////===========================================================================
+    
 
 }

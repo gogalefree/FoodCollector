@@ -17,6 +17,8 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
     @IBOutlet weak var amountInput: UITextField!
     @IBOutlet weak var currencySymbol: UILabel!
     
+    let priceValidator = Validator()
+    
     var cellData: PublicationEditorTVCCellData? {
         didSet {
             if cellData != nil {
@@ -63,17 +65,49 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
     
     func doneNumberPad() {
         print("doneNumberPad()")
-        if(amountInput.text!.isEmpty) {
-            dismissNumberPad()
-        }
-        else {
-            print("amountInput.text!: \(amountInput.text!)")
-            cellData!.cellTitle = amountInput.text!
-            cellData!.userData = Double(amountInput.text!)!
-            if let delegate = self.delegate {
-                delegate.updateData(cellData!, section: section!)
+        if let priceText = amountInput.text {
+            if(priceText.isEmpty) {
+                dismissNumberPad()
+            }
+            else {
+                print("amountInput.text!: \(priceText)")
+                cellData!.cellTitle = priceText
+                if let doubleVelue = Double(priceText) {
+                    cellData!.userData = doubleVelue
+                    if let delegate = self.delegate {
+                        delegate.updateData(cellData!, section: section!)
+                    }
+                }
+                
             }
         }
+        
+    }
+    
+    override func paste(sender: AnyObject?) {
+        print("started Paste")
+        let pasteboard = UIPasteboard.generalPasteboard()
+        if let tempPasteString = pasteboard.string {
+            amountInput.text = priceValidator.getValidPriceValue(tempPasteString)
+        }
+    }
+    
+    // Catch the string value and store in a temp var when the user pasted a string fomr clipboard.
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        print("started shouldChangeCharactersInRange")
+        // When typing into the text field each keyboard type adds 1 character.
+        // When pasting into the text field it is usually more than one character.
+        if (string.characters.count < 2) { // Regular typing action
+            return true
+        }
+        else { // Paste action
+            print("started shouldChangeCharactersInRange else")
+            amountInput.text = "22" //priceValidator.getValidPriceValue(string)
+            print("Price is:")
+            print(priceValidator.getValidPriceValue(string))
+        }
+        
+        return true
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -88,6 +122,14 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
             textField.placeholder = kamountInputPlaceholder
         }
     }
+    
+    func processPriceValue(price: String) {
+        
+        
+    }
+    
+    
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
