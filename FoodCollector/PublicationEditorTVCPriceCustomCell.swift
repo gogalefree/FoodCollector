@@ -65,8 +65,6 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
     }
     
     func doneNumberPad() {
-        print("doneNumberPad()")
-        
         if let priceText = amountInput.text where !priceText.isEmpty {
             if !didPastePriceValue { // User typed the price using the keyboard
                 cellData!.cellTitle = priceText
@@ -86,7 +84,6 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
     }
     
     override func paste(sender: AnyObject?) {
-        print("started Paste")
         let pasteboard = UIPasteboard.generalPasteboard()
         if let tempPasteString = pasteboard.string {
             let priceString = priceValidator.getValidPriceValue(tempPasteString)
@@ -99,30 +96,29 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
                 cellData?.userData = 0.0
                 cellData?.cellTitle = kAmountInputPlaceholder
             }
-            //amountInput.text = priceValidator.getValidPriceValue(tempPasteString)
         }
     }
     
     // Catch the string value and store in a temp var when the user pasted a string fomr clipboard.
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        print("started shouldChangeCharactersInRange")
         // When typing into the text field each keyboard type adds 1 character.
         // When pasting into the text field it is usually more than one character.
         if (string.characters.count < 2) { // Regular typing action
             return true
         }
         else { // Paste action
+            didPastePriceValue = true
             let priceString = priceValidator.getValidPriceValue(string)
-            if let price = Double(priceString) where Int(price) != 0 {
-                cellData?.userData = price
-                cellData?.cellTitle = priceString
-                didPastePriceValue = true
+            if priceString != "" {
+                if let price = Double(priceString) where Int(price) != 0 {
+                    cellData?.userData = price
+                    cellData?.cellTitle = priceString
+                }
+                else {
+                    cellData?.userData = 0.0
+                    cellData?.cellTitle = kAmountInputPlaceholder
+                }
             }
-            else {
-                cellData?.userData = 0.0
-                cellData?.cellTitle = kAmountInputPlaceholder
-            }
-            //amountInput.text = priceValidator.getValidPriceValue(string)
         }
         
         return true
@@ -141,12 +137,7 @@ class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate
         }
     }
     
-//    func processPriceValue(price: String) {
-//        
-//        
-//    }
-    
-    
+
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
