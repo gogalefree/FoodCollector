@@ -1562,7 +1562,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="CdY-tl-1gX">
-                                <rect key="frame" x="0.0" y="-14" width="320" height="409"/>
+                                <rect key="frame" x="0.0" y="-14" width="320" height="459"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PublicationDetailsTVCell" id="lB3-zm-vkj">
@@ -1718,8 +1718,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BottomBGStrip" translatesAutoresizingMaskIntoConstraints="NO" id="pa0-2o-4AD">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BottomBGStrip" translatesAutoresizingMaskIntoConstraints="NO" id="pa0-2o-4AD">
                                 <rect key="frame" x="0.0" y="405" width="320" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="dC3-uh-bZq"/>
                                     <constraint firstAttribute="width" constant="320" id="iye-q4-FNZ"/>
@@ -1746,6 +1748,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqW-DD-ldp" userLabel="View1">
                                 <rect key="frame" x="80" y="430" width="22" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="IT4-FI-La8"/>
                                 </constraints>
@@ -1782,6 +1785,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVd-Oe-RwI" userLabel="View2">
                                         <rect key="frame" x="52" y="11" width="21" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="GQB-AD-cfI"/>
                                         </constraints>
@@ -1802,12 +1806,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Fd-Wt-Z0O" userLabel="View3">
                                         <rect key="frame" x="125" y="11" width="22" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="93H-9L-fOe"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="nl5-jO-5om" firstAttribute="centerX" secondItem="Mrf-9L-Y11" secondAttribute="centerX" id="1sM-Uh-YT6"/>
                                     <constraint firstItem="1Fd-Wt-Z0O" firstAttribute="centerY" secondItem="Mrf-9L-Y11" secondAttribute="centerY" id="8HY-k1-kSL"/>
@@ -1844,7 +1850,7 @@
                             <constraint firstAttribute="trailing" secondItem="pa0-2o-4AD" secondAttribute="trailing" id="KbT-yT-2oB"/>
                             <constraint firstAttribute="trailing" secondItem="pa0-2o-4AD" secondAttribute="trailing" id="L8x-kC-ygx"/>
                             <constraint firstAttribute="trailing" secondItem="CdY-tl-1gX" secondAttribute="trailing" id="REa-E3-hvC"/>
-                            <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="CdY-tl-1gX" secondAttribute="bottom" constant="85" id="WK8-r4-7aN"/>
+                            <constraint firstItem="l7Z-jp-cWC" firstAttribute="top" secondItem="CdY-tl-1gX" secondAttribute="bottom" constant="35" id="WK8-r4-7aN"/>
                             <constraint firstAttribute="trailing" secondItem="Mrf-9L-Y11" secondAttribute="trailing" constant="20" id="alp-s2-LIU"/>
                             <constraint firstItem="Mrf-9L-Y11" firstAttribute="leading" secondItem="2pA-4N-af7" secondAttribute="trailing" constant="18" id="dQL-yq-4Zy"/>
                             <constraint firstItem="Mrf-9L-Y11" firstAttribute="leading" secondItem="yqW-DD-ldp" secondAttribute="trailing" constant="-1" id="kUl-Cm-xjz"/>

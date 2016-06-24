@@ -18,6 +18,10 @@ let kTakeOffAirlertTitle = NSLocalizedString("Confirm Event Ended", comment:"End
 let kDeleteAlertTitle = NSLocalizedString("Delete Event?", comment:"Delete confirmation title for an alert controller")
 let kPriceValueFree = NSLocalizedString("Free", comment:"Price of this share is free")
 
+let kPriceLabelColor = UIColor(red: 245/255, green: 166/255, blue: 35/255, alpha: 1)
+let kPriceFreeLabelColor = kNavBarBlueColor
+
+
 enum PublicationDetailsTVCViewState {
     
     case Publisher
@@ -313,9 +317,11 @@ class PublicationDetailsVC: UIViewController, UITableViewDelegate, UITableViewDa
             case 3: // Price
                 let cell = tableView.dequeueReusableCellWithIdentifier("detailsPriceTVCell", forIndexPath: indexPath) as! PublicationDetailsPriceTVCell
                 if publication?.price?.intValue != 0 {
+                    cell.priceLabel.textColor = kPriceLabelColor
                     cell.priceLabel.text = String(format: "%.2f", publication!.price!.doubleValue) + " ₪"
                 }
                 else {
+                    cell.priceLabel.textColor = kPriceFreeLabelColor
                     cell.priceLabel.text = kPriceValueFree
                 }
                 return cell
