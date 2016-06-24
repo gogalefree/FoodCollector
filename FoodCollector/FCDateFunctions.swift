@@ -78,14 +78,14 @@ class FCDateFunctions : NSObject {
         let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double
         if timeInterval > 0 {
             let totalHours = timeInterval / 60 / 60
+            let totalDays = totalHours / 24
+            let remainingHours = totalHours % 24
+            let remainingMinutes = (timeInterval-(remainingHours*60*60))/60
             if totalHours == 0 { // less than an hour to end date
-                let remainingMinutes = Int(timeInterval / 60)
                 return String.localizedStringWithFormat(NSLocalizedString("Ends: %@ min", comment: "Time remaining. e.g: 'Ends: 35 min'"), "\(remainingMinutes)")
             }
             
-            let remainingDays = Int(totalHours / 24)
-            let remainingHours = totalHours % 24
-            return String.localizedStringWithFormat(NSLocalizedString("Ends: %@d and %@h", comment: "Time remaining in days and hours. e.g: 'Ends: 2 and 3h'"), "\(remainingDays)", "\(remainingHours)")
+            return String.localizedStringWithFormat(NSLocalizedString("Ends: %@d and %@h", comment: "Time remaining in days and hours. e.g: 'Ends: 2 and 3h'"), "\(totalDays)", "\(remainingHours)")
         }
         else {
             return NSLocalizedString("Ended", comment: "No time remains. Publication ended.")
