@@ -97,7 +97,8 @@ class Validator: NSObject {
             // For this reason we will ignore all members in priceArray after index 1.
             // In prices there is a maximum of two digits after the decimal point
             
-            let twoCharsAfterDecimalPoint = priceArray[1].substringWithRange(Range<String.Index>(start: priceArray[1].startIndex.advancedBy(0), end: priceArray[1].startIndex.advancedBy(2)))
+            let range = priceArray[1].startIndex.advancedBy(0) ..< priceArray[1].startIndex.advancedBy(2)
+            let twoCharsAfterDecimalPoint = priceArray[1].substringWithRange(range)
 
             return priceArray[0] + "." + twoCharsAfterDecimalPoint
         }
