@@ -71,7 +71,8 @@
 /* camera button title */
 "Camera" = "מצלמה";
 
-/* Title for an alert button */
+/* Cancel lable for button
+   Title for an alert button */
 "Cancel" = "ביטול";
 
 /* Search bar scope button titles */
@@ -110,7 +111,8 @@
 /* Delete confirmation title for an alert controller */
 "Delete Event?" = "למחוק אירוע?";
 
-/* Title for an alert button */
+/* Done lable for button
+   Title for an alert button */
 "Done" = "בוצע";
 
 /* a button title meaning edit
@@ -155,7 +157,8 @@
 /* report button title */
 "Found Nothing There" = "לא מצאתי כלום";
 
-/* Price of this share is free */
+/* Price of this share is free
+   Publication editor price text field placeholder */
 "Free" = "חינם";
 
 /* Message alert title when creating a new group. asks the user to enter a group name */

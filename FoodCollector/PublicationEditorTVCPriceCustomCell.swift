@@ -10,9 +10,9 @@ import UIKit
 
 class PublicationEditorTVCPriceCustomCell: UITableViewCell , UITextFieldDelegate {
     
-    let kNumberPadDoneTitle = String.localizedStringWithFormat("Done", "Done lable for button")
-    let kNumberPadDismissTitle = String.localizedStringWithFormat("Cancel", "Cancel lable for button")
-    let kAmountInputPlaceholder = String.localizedStringWithFormat("Free", "Publication editor price text field placeholder")
+    let kNumberPadDoneTitle = NSLocalizedString("Done", comment:"Done lable for button")
+    let kNumberPadDismissTitle = NSLocalizedString("Cancel", comment:"Cancel lable for button")
+    let kAmountInputPlaceholder = NSLocalizedString("Free", comment:"Publication editor price text field placeholder")
 
     @IBOutlet weak var amountInput: UITextField!
     @IBOutlet weak var currencySymbol: UILabel!

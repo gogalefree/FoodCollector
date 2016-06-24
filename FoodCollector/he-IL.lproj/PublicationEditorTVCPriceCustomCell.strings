@@ -1,0 +1,9 @@
+/* Class = "UILabel"; text = "Price:"; ObjectID = "5bE-BR-xpD"; */
+"5bE-BR-xpD.text" = "מחיר:";
+
+/* Class = "UILabel"; text = "₪"; ObjectID = "HsE-7t-cMv"; */
+"HsE-7t-cMv.text" = "₪";
+
+/* Class = "UITextField"; placeholder = "Free"; ObjectID = "sIJ-Lu-nK9"; */
+"sIJ-Lu-nK9.placeholder" = "חינם";
+
