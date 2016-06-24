@@ -54,17 +54,24 @@ class FCDateFunctions : NSObject {
         let timeInterval = Int(fromDate.timeIntervalSinceDate(toDate)) // NSTimeInterval is Double
         if timeInterval > 0 {
             let totalHours = timeInterval / 60 / 60
-            if totalHours == 0 { // less than an hour to end date
-                let remainingMinutes = Int(timeInterval / 60)
-                return "0H \(remainingMinutes)M" // "0H 1M"
+            let totalDays = totalHours / 24
+            let remainingHours = totalHours % 24
+            
+            if totalDays == 0 { // less than a day to end date
+                let remainingMinutes = Int(totalHours % 60)
+                return "\(remainingHours)h \(remainingMinutes)m" // "2h 12m"
             }
             
-            let remainingDays = Int(totalHours / 24)
-            let remainingHours = totalHours % 24
-            return "\(remainingDays)D \(remainingHours)H" // "2D 1H"
+            if totalHours == 0 { // less than an hour to end date
+                let remainingMinutes = Int(timeInterval / 60)
+                let timeString = String.localizedStringWithFormat(NSLocalizedString("%@ minutes", comment: "Time remaining. e.g: '35 minutes'"), "\(remainingMinutes)")
+                return timeString // "35 minutes"
+            }
+            
+            return "\(totalDays)d \(remainingHours)h" // "2d 1h"
         }
         else {
-            return "0D 0H"
+            return "0d 0h"
         }
     }
     
