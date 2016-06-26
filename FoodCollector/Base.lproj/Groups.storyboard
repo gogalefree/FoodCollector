@@ -83,7 +83,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Groupblueicon" translatesAutoresizingMaskIntoConstraints="NO" id="fzR-3P-mvV">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Groupicon" translatesAutoresizingMaskIntoConstraints="NO" id="fzR-3P-mvV">
                                                     <rect key="frame" x="14" y="13" width="28" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="28" id="XfG-pT-umw"/>
@@ -150,7 +150,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsH-43-hMX">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsH-43-hMX">
                                 <rect key="frame" x="-8" y="64" width="391" height="603"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyGroupBgrd" translatesAutoresizingMaskIntoConstraints="NO" id="SlF-Bb-lEf">
@@ -680,8 +680,8 @@
         <image name="AddGroup" width="56" height="56"/>
         <image name="DeleteMember" width="26" height="26"/>
         <image name="EmptyGroupBgrd" width="174" height="269"/>
-        <image name="Groupblueicon" width="21" height="20"/>
         <image name="Groupgrayicon" width="21" height="21"/>
+        <image name="Groupicon" width="23" height="19"/>
         <image name="Leavegroup" width="56" height="56"/>
         <image name="Notusericon" width="28" height="30"/>
         <image name="addMember" width="28" height="29"/>

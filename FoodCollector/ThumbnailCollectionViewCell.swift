@@ -15,7 +15,7 @@ class ThumbnailCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var imageView : UIImageView!
 
-    let defaultImage = UIImage(named:"Big_Logo")
+    let defaultImage = UIImage(named:"Nophoto")
    
     var publication: Publication? {
         didSet {
