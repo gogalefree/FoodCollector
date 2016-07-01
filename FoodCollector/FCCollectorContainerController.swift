@@ -114,6 +114,14 @@ class FCCollectorContainerController: UIViewController, CollectorVCSlideDelegate
         self.mapNavigationControllerLeadingConstraint.constant = self.collectorMapHiddenOrigin.x - kConstraintsTotalPadding
         self.mapNavigationControllerTrailingConstraint.constant = -(self.collectorMapHiddenOrigin.x - kConstraintsTotalPadding)
         
+        // Add shadow to the slided view
+        let parentView = collectorRootVC.parentViewController!
+        parentView.view.layer.shadowColor = UIColor.blackColor().CGColor
+        parentView.view.layer.shadowOpacity = 0.6
+        parentView.view.layer.shadowRadius = 5.0
+        parentView.view.layer.shadowOffset = CGSizeMake(-5, 3)
+
+        
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             
             self.view.layoutIfNeeded()
