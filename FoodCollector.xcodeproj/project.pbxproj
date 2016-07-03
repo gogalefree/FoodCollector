@@ -269,51 +269,27 @@
 		E44FDE1A1C5CB5F9000D5F97 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F0BBFA42B094D8A074F35 /* libPods.a */; };
 		E44FDE1C1C5CB5F9000D5F97 /* PublicationDetsilsPublisherActionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A7D1C22A8D500709B0A /* PublicationDetsilsPublisherActionsHeaderView.xib */; };
 		E44FDE1D1C5CB5F9000D5F97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494DF131A0A980D004A369E /* Main.storyboard */; };
-		E44FDE211C5CB5F9000D5F97 /* Pin-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */; };
 		E44FDE221C5CB5F9000D5F97 /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A411C22A81F00709B0A /* PublicationEditorTVCTextFieldCustomCell.xib */; };
-		E44FDE231C5CB5F9000D5F97 /* Pin-Table-Few.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */; };
-		E44FDE251C5CB5F9000D5F97 /* Pin-Table-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */; };
 		E44FDE261C5CB5F9000D5F97 /* Track-clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D7F1AD320E60031CF8A /* Track-clear.png */; };
 		E44FDE291C5CB5F9000D5F97 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E494DF181A0A980D004A369E /* LaunchScreen.xib */; };
 		E44FDE2A1C5CB5F9000D5F97 /* LocalizationNotes in Resources */ = {isa = PBXBuildFile; fileRef = A183DC6D1C0CC76800E82D6C /* LocalizationNotes */; };
-		E44FDE2B1C5CB5F9000D5F97 /* Pin-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D851AD3210A0031CF8A /* Pin-Whole.png */; };
-		E44FDE2C1C5CB5F9000D5F97 /* Pin-Table-Half@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */; };
-		E44FDE2D1C5CB5F9000D5F97 /* Pin-Table-Few@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */; };
 		E44FDE2F1C5CB5F9000D5F97 /* Track-clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D811AD320E60031CF8A /* Track-clear@3x.png */; };
 		E44FDE301C5CB5F9000D5F97 /* BaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = A108F5C41A94732A00816EFA /* BaseURL.plist */; };
 		E44FDE311C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A4B1C22A83B00709B0A /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib */; };
 		E44FDE321C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A3C1C22A7FB00709B0A /* PublicationEditorTVCImageCustomCell.xib */; };
 		E44FDE341C5CB5F9000D5F97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A153073D1C20BE1A00FE43AA /* InfoPlist.strings */; };
-		E44FDE361C5CB5F9000D5F97 /* Pin-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */; };
 		E44FDE371C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A501C22A84500709B0A /* FCPublishAddressEditorAddressHistoryCustomCell.xib */; };
-		E44FDE381C5CB5F9000D5F97 /* Pin-Table-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */; };
-		E44FDE391C5CB5F9000D5F97 /* Pin-Table-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */; };
 		E44FDE3A1C5CB5F9000D5F97 /* PublicationOptionsMenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A821C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib */; };
 		E44FDE3B1C5CB5F9000D5F97 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494DF161A0A980D004A369E /* Images.xcassets */; };
 		E44FDE3D1C5CB5F9000D5F97 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A15307381C20BE1A00FE43AA /* Localizable.strings */; };
-		E44FDE3E1C5CB5F9000D5F97 /* Pin-Table-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */; };
 		E44FDE3F1C5CB5F9000D5F97 /* PublicationDetsilsCollectorActionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A781C22A8CD00709B0A /* PublicationDetsilsCollectorActionsHeaderView.xib */; };
-		E44FDE401C5CB5F9000D5F97 /* Pin-Table-Few@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */; };
 		E44FDE431C5CB5F9000D5F97 /* FirstBuildInstructions in Resources */ = {isa = PBXBuildFile; fileRef = E469C6F01A2D15E80036038E /* FirstBuildInstructions */; };
-		E44FDE441C5CB5F9000D5F97 /* Pin-Table-Half@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */; };
 		E44FDE451C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A551C22A85400709B0A /* FCPublishAddressEditorMyLocationCustomCell.xib */; };
 		E44FDE461C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E04A461C22A82E00709B0A /* PublicationEditorTVCOnlyLabelCustomCell.xib */; };
 		E44FDE471C5CB5F9000D5F97 /* Track-clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D801AD320E60031CF8A /* Track-clear@2x.png */; };
 		E4545D821AD320E60031CF8A /* Track-clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D7F1AD320E60031CF8A /* Track-clear.png */; };
 		E4545D831AD320E60031CF8A /* Track-clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D801AD320E60031CF8A /* Track-clear@2x.png */; };
 		E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D811AD320E60031CF8A /* Track-clear@3x.png */; };
-		E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D851AD3210A0031CF8A /* Pin-Whole.png */; };
-		E4545D891AD3210A0031CF8A /* Pin-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */; };
-		E4545D8A1AD3210A0031CF8A /* Pin-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */; };
-		E4545D941AD322B20031CF8A /* Pin-Table-Few.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */; };
-		E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */; };
-		E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */; };
-		E4545D971AD322B20031CF8A /* Pin-Table-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */; };
-		E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */; };
-		E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */; };
-		E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */; };
-		E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */; };
-		E4545D9C1AD322B20031CF8A /* Pin-Table-Whole@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */; };
 		E45689951C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45689941C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift */; };
 		E45689961C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45689941C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift */; };
 		E45762621C29C0F7001124B4 /* CollectorMapVCNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45762611C29C0F7001124B4 /* CollectorMapVCNavController.swift */; };
@@ -627,18 +603,6 @@
 		E4545D7F1AD320E60031CF8A /* Track-clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear.png"; sourceTree = "<group>"; };
 		E4545D801AD320E60031CF8A /* Track-clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear@2x.png"; sourceTree = "<group>"; };
 		E4545D811AD320E60031CF8A /* Track-clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track-clear@3x.png"; sourceTree = "<group>"; };
-		E4545D851AD3210A0031CF8A /* Pin-Whole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Whole.png"; sourceTree = "<group>"; };
-		E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Whole@2x.png"; sourceTree = "<group>"; };
-		E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Whole@3x.png"; sourceTree = "<group>"; };
-		E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Few.png"; sourceTree = "<group>"; };
-		E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Few@2x.png"; sourceTree = "<group>"; };
-		E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Few@3x.png"; sourceTree = "<group>"; };
-		E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Half.png"; sourceTree = "<group>"; };
-		E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Half@2x.png"; sourceTree = "<group>"; };
-		E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Half@3x.png"; sourceTree = "<group>"; };
-		E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole.png"; sourceTree = "<group>"; };
-		E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole@2x.png"; sourceTree = "<group>"; };
-		E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pin-Table-Whole@3x.png"; sourceTree = "<group>"; };
 		E45689941C82EA6F0055E8E5 /* CDPublicationRegistrationFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDPublicationRegistrationFetcher.swift; sourceTree = "<group>"; };
 		E45762611C29C0F7001124B4 /* CollectorMapVCNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectorMapVCNavController.swift; sourceTree = "<group>"; };
 		E4584B6D1BE4B900007D45E2 /* ContactCollectorsPickerTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCollectorsPickerTVC.swift; sourceTree = "<group>"; };
@@ -1372,18 +1336,6 @@
 				E411EF991C5CD599003F290A /* GoogleService-Info.plist */,
 				A16619A41A94E53C009D9EEA /* Scripts */,
 				E494DF161A0A980D004A369E /* Images.xcassets */,
-				E4545D8B1AD322B20031CF8A /* Pin-Table-Few.png */,
-				E4545D8C1AD322B20031CF8A /* Pin-Table-Few@2x.png */,
-				E4545D8D1AD322B20031CF8A /* Pin-Table-Few@3x.png */,
-				E4545D8E1AD322B20031CF8A /* Pin-Table-Half.png */,
-				E4545D8F1AD322B20031CF8A /* Pin-Table-Half@2x.png */,
-				E4545D901AD322B20031CF8A /* Pin-Table-Half@3x.png */,
-				E4545D911AD322B20031CF8A /* Pin-Table-Whole.png */,
-				E4545D921AD322B20031CF8A /* Pin-Table-Whole@2x.png */,
-				E4545D931AD322B20031CF8A /* Pin-Table-Whole@3x.png */,
-				E4545D851AD3210A0031CF8A /* Pin-Whole.png */,
-				E4545D861AD3210A0031CF8A /* Pin-Whole@2x.png */,
-				E4545D871AD3210A0031CF8A /* Pin-Whole@3x.png */,
 				E4545D7F1AD320E60031CF8A /* Track-clear.png */,
 				E4545D801AD320E60031CF8A /* Track-clear@2x.png */,
 				E4545D811AD320E60031CF8A /* Track-clear@3x.png */,
@@ -1653,18 +1605,12 @@
 				A10215701CD249BE0057E364 /* Groups.storyboard in Resources */,
 				A10215641CD249910057E364 /* PublicationDetailsTitleTVCell.xib in Resources */,
 				E411EF9A1C5CD599003F290A /* GoogleService-Info.plist in Resources */,
-				E44FDE211C5CB5F9000D5F97 /* Pin-Whole@3x.png in Resources */,
 				E44FDE221C5CB5F9000D5F97 /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */,
 				A10215881CD24A270057E364 /* ActivityLog.storyboard in Resources */,
-				E44FDE231C5CB5F9000D5F97 /* Pin-Table-Few.png in Resources */,
-				E44FDE251C5CB5F9000D5F97 /* Pin-Table-Half.png in Resources */,
 				E44FDE261C5CB5F9000D5F97 /* Track-clear.png in Resources */,
 				E44FDE291C5CB5F9000D5F97 /* LaunchScreen.xib in Resources */,
 				E44FDE2A1C5CB5F9000D5F97 /* LocalizationNotes in Resources */,
-				E44FDE2B1C5CB5F9000D5F97 /* Pin-Whole.png in Resources */,
 				A10215521CD2494D0057E364 /* PublicationDetailsRepotsTVCell.xib in Resources */,
-				E44FDE2C1C5CB5F9000D5F97 /* Pin-Table-Half@3x.png in Resources */,
-				E44FDE2D1C5CB5F9000D5F97 /* Pin-Table-Few@2x.png in Resources */,
 				E44FDE2F1C5CB5F9000D5F97 /* Track-clear@3x.png in Resources */,
 				A15C6EDB1C9BF02F00C6EC49 /* PublicationEditorTVCAudianceCustomCell.xib in Resources */,
 				E44FDE301C5CB5F9000D5F97 /* BaseURL.plist in Resources */,
@@ -1672,11 +1618,8 @@
 				E44FDE321C5CB5F9000D5F97 /* PublicationEditorTVCImageCustomCell.xib in Resources */,
 				E44FDE341C5CB5F9000D5F97 /* InfoPlist.strings in Resources */,
 				A102156A1CD2499B0057E364 /* PublicationDetailsImageTVCell.xib in Resources */,
-				E44FDE361C5CB5F9000D5F97 /* Pin-Whole@2x.png in Resources */,
 				E44FDE371C5CB5F9000D5F97 /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
-				E44FDE381C5CB5F9000D5F97 /* Pin-Table-Whole@3x.png in Resources */,
 				A102157C1CD249FE0057E364 /* Settings.storyboard in Resources */,
-				E44FDE391C5CB5F9000D5F97 /* Pin-Table-Whole.png in Resources */,
 				A102155E1CD249860057E364 /* PublicationDetailsDetailsTVCell.xib in Resources */,
 				A10215821CD24A0C0057E364 /* AboutUsSB.storyboard in Resources */,
 				A10215581CD249790057E364 /* PublicationDetailsMoreInfoTVCell.xib in Resources */,
@@ -1685,12 +1628,9 @@
 				A145E7B21D1D3BEF0007AE49 /* PublicationEditorTVCPriceCustomCell.xib in Resources */,
 				A19A035D1C674F26006F6873 /* Login.storyboard in Resources */,
 				E44FDE3D1C5CB5F9000D5F97 /* Localizable.strings in Resources */,
-				E44FDE3E1C5CB5F9000D5F97 /* Pin-Table-Whole@2x.png in Resources */,
 				E44FDE3F1C5CB5F9000D5F97 /* PublicationDetsilsCollectorActionsHeaderView.xib in Resources */,
-				E44FDE401C5CB5F9000D5F97 /* Pin-Table-Few@3x.png in Resources */,
 				E44FDE431C5CB5F9000D5F97 /* FirstBuildInstructions in Resources */,
 				A10215761CD249DA0057E364 /* PublicationEditorTVCMoreInfoCustomCell.xib in Resources */,
-				E44FDE441C5CB5F9000D5F97 /* Pin-Table-Half@2x.png in Resources */,
 				E44FDE451C5CB5F9000D5F97 /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
 				E44FDE461C5CB5F9000D5F97 /* PublicationEditorTVCOnlyLabelCustomCell.xib in Resources */,
 				E44FDE471C5CB5F9000D5F97 /* Track-clear@2x.png in Resources */,
@@ -1706,29 +1646,20 @@
 				E494DF151A0A980D004A369E /* Main.storyboard in Resources */,
 				A102156F1CD249BE0057E364 /* Groups.storyboard in Resources */,
 				A10215631CD249910057E364 /* PublicationDetailsTitleTVCell.xib in Resources */,
-				E4545D8A1AD3210A0031CF8A /* Pin-Whole@3x.png in Resources */,
 				A1E04A3F1C22A81F00709B0A /* PublicationEditorTVCTextFieldCustomCell.xib in Resources */,
-				E4545D941AD322B20031CF8A /* Pin-Table-Few.png in Resources */,
 				A10215871CD24A270057E364 /* ActivityLog.storyboard in Resources */,
-				E4545D971AD322B20031CF8A /* Pin-Table-Half.png in Resources */,
 				E4545D821AD320E60031CF8A /* Track-clear.png in Resources */,
 				E494DF1A1A0A980D004A369E /* LaunchScreen.xib in Resources */,
 				A183DC6E1C0CC76800E82D6C /* LocalizationNotes in Resources */,
-				E4545D881AD3210A0031CF8A /* Pin-Whole.png in Resources */,
-				E4545D991AD322B20031CF8A /* Pin-Table-Half@3x.png in Resources */,
 				A10215511CD2494D0057E364 /* PublicationDetailsRepotsTVCell.xib in Resources */,
-				E4545D951AD322B20031CF8A /* Pin-Table-Few@2x.png in Resources */,
 				E4545D841AD320E60031CF8A /* Track-clear@3x.png in Resources */,
 				A108F5C51A94732A00816EFA /* BaseURL.plist in Resources */,
 				A15C6EDA1C9BF02F00C6EC49 /* PublicationEditorTVCAudianceCustomCell.xib in Resources */,
 				A1E04A491C22A83B00709B0A /* FCPublishAddressEditorAddressHistoryCustomHeaderView.xib in Resources */,
 				A1E04A3A1C22A7FB00709B0A /* PublicationEditorTVCImageCustomCell.xib in Resources */,
 				A153073B1C20BE1A00FE43AA /* InfoPlist.strings in Resources */,
-				E4545D891AD3210A0031CF8A /* Pin-Whole@2x.png in Resources */,
 				A10215691CD2499B0057E364 /* PublicationDetailsImageTVCell.xib in Resources */,
 				A1E04A4E1C22A84500709B0A /* FCPublishAddressEditorAddressHistoryCustomCell.xib in Resources */,
-				E4545D9C1AD322B20031CF8A /* Pin-Table-Whole@3x.png in Resources */,
-				E4545D9A1AD322B20031CF8A /* Pin-Table-Whole.png in Resources */,
 				A102157B1CD249FE0057E364 /* Settings.storyboard in Resources */,
 				A1E04A801C22A8E400709B0A /* PublicationOptionsMenuItemCell.xib in Resources */,
 				A102155D1CD249860057E364 /* PublicationDetailsDetailsTVCell.xib in Resources */,
@@ -1738,11 +1669,8 @@
 				A19A035C1C674F26006F6873 /* Login.storyboard in Resources */,
 				A145E7B11D1D3BEF0007AE49 /* PublicationEditorTVCPriceCustomCell.xib in Resources */,
 				A15307361C20BE1A00FE43AA /* Localizable.strings in Resources */,
-				E4545D9B1AD322B20031CF8A /* Pin-Table-Whole@2x.png in Resources */,
 				A1E04A761C22A8CD00709B0A /* PublicationDetsilsCollectorActionsHeaderView.xib in Resources */,
-				E4545D961AD322B20031CF8A /* Pin-Table-Few@3x.png in Resources */,
 				E469C6F11A2D15E80036038E /* FirstBuildInstructions in Resources */,
-				E4545D981AD322B20031CF8A /* Pin-Table-Half@2x.png in Resources */,
 				A10215751CD249DA0057E364 /* PublicationEditorTVCMoreInfoCustomCell.xib in Resources */,
 				A1E04A531C22A85400709B0A /* FCPublishAddressEditorMyLocationCustomCell.xib in Resources */,
 				E411EF9B1C5CD606003F290A /* GoogleService-Info.plist in Resources */,

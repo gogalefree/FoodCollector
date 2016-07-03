@@ -10,42 +10,42 @@ import UIKit
 
 class FCIconFactory: NSObject {
     
-    class func smallIconForPublication(publication: FCPublication) -> UIImage {
-        
-        var icon: UIImage
-        
-        switch publication.countOfRegisteredUsers {
-            
-        case 0...1:
-           icon = self.greenImage()
-            
-        case 2...4:
-            icon = self.orangeImage()
-            
-        default:
-            icon = self.redImage()
-        }
-        
-        return icon
-    }
-    
-    class func greenImage() -> UIImage {
-        
-         let icon = UIImage(named: "Pin-Whole")!
-        return icon
-    }
-    
-    class func orangeImage() -> UIImage{
-        
-        let icon = UIImage(named: "Pin-Half")!
-        return icon
-    }
-    
-    class func redImage() -> UIImage {
-        
-        let icon = UIImage(named: "Pin-Few")!
-        return icon
-    }
+//    class func smallIconForPublication(publication: FCPublication) -> UIImage {
+//        
+//        var icon: UIImage
+//        
+//        switch publication.countOfRegisteredUsers {
+//            
+//        case 0...1:
+//           icon = self.greenImage()
+//            
+//        case 2...4:
+//            icon = self.orangeImage()
+//            
+//        default:
+//            icon = self.redImage()
+//        }
+//        
+//        return icon
+//    }
+//    
+//    class func greenImage() -> UIImage {
+//        
+//         let icon = UIImage(named: "Pin-Whole")!
+//        return icon
+//    }
+//    
+//    class func orangeImage() -> UIImage{
+//        
+//        let icon = UIImage(named: "Pin-Half")!
+//        return icon
+//    }
+//    
+//    class func redImage() -> UIImage {
+//        
+//        let icon = UIImage(named: "Pin-Few")!
+//        return icon
+//    }
     
     class func publicationsTableIcon() -> UIImage {
     
